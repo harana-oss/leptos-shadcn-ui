@@ -6,8 +6,8 @@ edition = "2021"
 [dependencies]
 # Leptos framework (using workspace dependencies)
 leptos = { workspace = true, features = ["csr"] }
-leptos_meta = { version = "0.8" }
-leptos_router = { version = "0.8" }
+leptos_meta = { version = "0.9.0-rc0" }
+leptos_router = { version = "0.9.0-rc0" }
 
 # WASM dependencies (using workspace where available)
 console_error_panic_hook = { workspace = true }

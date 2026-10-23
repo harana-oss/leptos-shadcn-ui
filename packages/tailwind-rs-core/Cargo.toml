@@ -26,7 +26,7 @@ indexmap = "2.14"
 once_cell = "1.21"
 
 # Leptos integration (optional)
-leptos = { version = "0.8", optional = true }
+leptos = { version = "0.9.0-rc0", optional = true }
 
 # Macros (optional) - use local path to avoid circular dependency
 tailwind-rs-core-macros = { path = "../tailwind-rs-core-macros", optional = true }
