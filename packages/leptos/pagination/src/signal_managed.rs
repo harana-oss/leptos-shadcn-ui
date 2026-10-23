@@ -84,7 +84,6 @@ pub fn SignalManagedPagination(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _pagination_state_for_disabled = pagination_state.clone();
     view! {
         <div
             class=move || computed_class.get()

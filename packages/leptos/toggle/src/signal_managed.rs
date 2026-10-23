@@ -84,7 +84,6 @@ pub fn SignalManagedToggle(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _toggle_state_for_disabled = toggle_state.clone();
     view! {
         <div
             class=move || computed_class.get()

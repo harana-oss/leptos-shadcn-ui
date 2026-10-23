@@ -23,8 +23,6 @@ pub fn SonnerToast(
     // Auto-dismiss logic with proper cleanup
     if let Some(duration) = data.duration
         && duration.as_millis() > 0 {
-            let set_is_visible = set_is_visible;
-            let on_dismiss = on_dismiss;
             let _id = id.clone();
             let is_mounted_dismiss = is_mounted;
 
@@ -44,7 +42,6 @@ pub fn SonnerToast(
 
     // Progress animation with proper cleanup
     if data.progress.is_some() {
-        let set_progress = set_progress;
         let is_mounted_progress = is_mounted;
         spawn_local(async move {
             let mut current_progress = 0.0;

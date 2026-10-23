@@ -1,5 +1,4 @@
 use leptos::prelude::*;
-use tailwind_fuse::*;
 
 // Select Scroll Up Button
 #[component]

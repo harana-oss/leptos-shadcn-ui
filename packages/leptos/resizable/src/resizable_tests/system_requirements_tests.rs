@@ -3,12 +3,11 @@
 //! This module contains tests for system requirements and basic functionality
 //! for the Resizable component.
 
-use leptos::prelude::*;
-use crate::default::{ResizableHandle, ResizablePanel, ResizablePanelGroup};
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use leptos::prelude::*;
+    use crate::default::{ResizableHandle, ResizablePanel, ResizablePanelGroup};
 
     #[test]
     fn test_resizable_panel_system_requirements() {

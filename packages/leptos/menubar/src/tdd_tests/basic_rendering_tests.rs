@@ -87,7 +87,7 @@ mod tests {
     #[test]
     fn test_menubar_with_callback() {
         // Test menubar with callback
-        let (callback_count, _set_callback_count) = create_signal(0);
+        let (callback_count, _set_callback_count) = signal(0);
         
         let menubar_view = view! {
             <Menubar>

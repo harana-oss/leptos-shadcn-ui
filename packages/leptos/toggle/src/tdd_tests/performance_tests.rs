@@ -3,6 +3,7 @@
 //! This module contains tests for performance, complex content, callbacks, and component integration.
 
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod performance_tests {
     use leptos::prelude::*;
     use leptos_style::Style;

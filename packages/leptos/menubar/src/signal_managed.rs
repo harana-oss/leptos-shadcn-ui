@@ -84,7 +84,6 @@ pub fn SignalManagedMenubar(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _menubar_state_for_disabled = menubar_state.clone();
     view! {
         <div
             class=move || computed_class.get()

@@ -94,7 +94,6 @@ pub fn Switch(
     let switch_size = size.get().unwrap_or_default();
     
     let handle_change = {
-        let on_change = on_change;
         move |_event: MouseEvent| {
             if let Some(callback) = &on_change {
                 let new_value = !checked.get();

@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod advanced_tests {
     use leptos::prelude::*;
     use crate::default::Table;
@@ -27,7 +28,6 @@ mod advanced_tests {
                                     <th>{header_row.2}</th>
                                 }.into_any()
                             } else {
-                                let _: () = view! {};
                                 ().into_any()
                             }
                         }}

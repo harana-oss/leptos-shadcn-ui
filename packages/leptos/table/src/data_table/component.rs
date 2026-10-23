@@ -14,10 +14,12 @@ pub fn DataTable(
     #[prop(into, optional)] on_row_click: Option<Callback<DataRow>>,
     #[prop(into, optional)] on_row_select: Option<Callback<Vec<i32>>>,
     #[prop(into, optional)] on_sort: Option<Callback<SortConfig>>,
-    #[prop(into, optional)] _on_filter: Option<Callback<Vec<FilterConfig>>>,
+    #[prop(into, optional)] on_filter: Option<Callback<Vec<FilterConfig>>>,
     #[prop(into, optional)] on_export: Option<Callback<ExportFormat>>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
+    // Filtering is driven by `state.filters`; there is no filter UI yet to invoke this callback.
+    let _ = on_filter;
     let state = RwSignal::new(DataTableState::default());
     
     // Initialize state with props
@@ -105,7 +107,6 @@ pub fn DataTable(
         let state = state.get();
         let filtered = filtered_data.get();
         let start = (state.pagination.current_page - 1) * state.pagination.page_size;
-        let _end = start + state.pagination.page_size;
         
         filtered.into_iter().skip(start as usize).take(state.pagination.page_size as usize).collect::<Vec<_>>()
     });
@@ -142,7 +143,7 @@ pub fn DataTable(
         }
     };
 
-    let _handle_row_select = move |row_id: i32| {
+    let handle_row_select = move |row_id: i32| {
         let mut selected = state.get().selection.selected_rows.clone();
         if selected.contains(&row_id) {
             selected.retain(|&id| id != row_id);
@@ -195,7 +196,7 @@ pub fn DataTable(
                             <table class="data-table-table">
                                 <thead>
                                     <tr>
-                                        {current.columns.iter().cloned().map(|column| {
+                                        {current.columns.into_iter().map(|column| {
                                             let column_key = column.key.clone();
                                             let sort_key = column.key.clone();
                                             let sortable = column.sortable;
@@ -228,7 +229,10 @@ pub fn DataTable(
                                         view! {
                                             <tr
                                                 class="data-table-row"
-                                                on:click=move |_| handle_row_click(row_clone.clone())
+                                                on:click=move |_| {
+                                                    handle_row_select(row_clone.id);
+                                                    handle_row_click(row_clone.clone());
+                                                }
                                             >
                                                 <td class="data-table-cell">{row.name.clone()}</td>
                                                 <td class="data-table-cell">{row.email.clone()}</td>

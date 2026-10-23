@@ -1,4 +1,3 @@
-use leptos::prelude::*;
 
 /// Sort direction for columns
 #[derive(Debug, Clone, Copy, PartialEq)]

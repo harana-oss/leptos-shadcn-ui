@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod system_requirements_tests {
     use leptos::prelude::*;
     use crate::data_table::{

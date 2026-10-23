@@ -79,7 +79,6 @@ impl ResizableContext {
         let config = RwSignal::new(ResizableConfig::default());
 
         let update_size = {
-            let state = state;
             Callback::new(move |(panel_index, size): (usize, f64)| {
                 state.update(|s| {
                     if panel_index < s.panel_sizes.len() {
@@ -90,7 +89,6 @@ impl ResizableContext {
         };
 
         let toggle_collapse = {
-            let state = state;
             Callback::new(move |panel_index: usize| {
                 state.update(|s| {
                     if s.collapsed_panels.contains(&panel_index) {
@@ -103,14 +101,12 @@ impl ResizableContext {
         };
 
         let start_resize = {
-            let state = state;
             Callback::new(move |_| {
                 state.update(|s| s.is_resizing = true);
             })
         };
 
         let end_resize = {
-            let state = state;
             Callback::new(move |_| {
                 state.update(|s| s.is_resizing = false);
             })

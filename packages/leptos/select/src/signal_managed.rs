@@ -84,7 +84,6 @@ pub fn SignalManagedSelect(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _select_state_for_disabled = select_state.clone();
     view! {
         <div
             class=move || computed_class.get()

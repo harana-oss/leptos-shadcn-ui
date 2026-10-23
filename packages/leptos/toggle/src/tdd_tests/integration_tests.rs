@@ -3,6 +3,7 @@
 //! This module contains tests for integration scenarios, workflows, and edge cases.
 
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod integration_tests {
     use leptos::prelude::*;
     use crate::Toggle;

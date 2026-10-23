@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod basic_rendering_tests {
     use crate::default::{RadioGroup, RadioGroupItem};
     use leptos::prelude::*;
@@ -195,7 +196,6 @@ mod basic_rendering_tests {
                     </RadioGroup>
                 }.into_any()
             } else {
-                let _: () = view! {};
                 ().into_any()
             }}
         };

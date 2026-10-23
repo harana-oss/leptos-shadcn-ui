@@ -3,6 +3,7 @@
 //! This module contains tests for basic rendering functionality and component creation.
 
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod basic_rendering_tests {
     use leptos::prelude::*;
     use leptos_style::Style;

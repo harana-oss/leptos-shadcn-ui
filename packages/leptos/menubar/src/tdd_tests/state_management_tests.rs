@@ -13,7 +13,7 @@ mod tests {
     #[test]
     fn test_menubar_state_management() {
         // Test menubar state management
-        let (is_open, _set_is_open) = create_signal(false);
+        let (is_open, _set_is_open) = signal(false);
         
         let menubar_view = view! {
             <Menubar>
@@ -89,7 +89,7 @@ mod tests {
     #[test]
     fn test_menubar_theme_switching() {
         // Test menubar theme switching
-        let (theme, _set_theme) = create_signal("light");
+        let (theme, _set_theme) = signal("light");
         
         let menubar_view = view! {
             <Menubar>
@@ -129,7 +129,7 @@ mod tests {
     #[test]
     fn test_menubar_advanced_interactions() {
         // Test menubar advanced interactions
-        let (interaction_count, _set_interaction_count) = create_signal(0);
+        let (interaction_count, _set_interaction_count) = signal(0);
         
         let menubar_view = view! {
             <Menubar>
@@ -177,7 +177,7 @@ mod tests {
     #[test]
     fn test_menubar_validation_comprehensive() {
         // Test menubar validation comprehensive
-        let (is_valid, _set_is_valid) = create_signal(true);
+        let (is_valid, _set_is_valid) = signal(true);
         
         let menubar_view = view! {
             <Menubar>
@@ -253,7 +253,7 @@ mod tests {
     #[test]
     fn test_menubar_complete_workflow() {
         // Test menubar complete workflow
-        let (workflow_step, _set_workflow_step) = create_signal(0);
+        let (workflow_step, _set_workflow_step) = signal(0);
         
         let menubar_view = view! {
             <Menubar>
@@ -293,7 +293,7 @@ mod tests {
     #[test]
     fn test_menubar_click_handling() {
         // Test menubar click handling
-        let (click_count, _set_click_count) = create_signal(0);
+        let (click_count, _set_click_count) = signal(0);
         
         let menubar_view = view! {
             <Menubar>
@@ -315,7 +315,7 @@ mod tests {
     #[test]
     fn test_menubar_checked_change_callback() {
         // Test menubar checked change callback
-        let (checked, _set_checked) = create_signal(false);
+        let (checked, _set_checked) = signal(false);
         
         let menubar_view = view! {
             <Menubar>
@@ -355,7 +355,7 @@ mod tests {
     #[test]
     fn test_menubar_callback_execution() {
         // Test menubar callback execution
-        let (callback_executed, _set_callback_executed) = create_signal(false);
+        let (callback_executed, _set_callback_executed) = signal(false);
         
         let menubar_view = view! {
             <Menubar>
@@ -377,8 +377,8 @@ mod tests {
     #[test]
     fn test_menubar_multiple_callbacks() {
         // Test menubar multiple callbacks
-        let (callback1_count, _set_callback1_count) = create_signal(0);
-        let (callback2_count, _set_callback2_count) = create_signal(0);
+        let (callback1_count, _set_callback1_count) = signal(0);
+        let (callback2_count, _set_callback2_count) = signal(0);
         
         let menubar_view = view! {
             <Menubar>
@@ -400,7 +400,7 @@ mod tests {
     #[test]
     fn test_menubar_disabled_state() {
         // Test menubar disabled state
-        let (is_disabled, _set_is_disabled) = create_signal(false);
+        let (is_disabled, _set_is_disabled) = signal(false);
         
         let menubar_view = view! {
             <Menubar>
@@ -422,7 +422,7 @@ mod tests {
     #[test]
     fn test_menubar_enabled_state() {
         // Test menubar enabled state
-        let (is_enabled, _set_is_enabled) = create_signal(true);
+        let (is_enabled, _set_is_enabled) = signal(true);
         
         let menubar_view = view! {
             <Menubar>
@@ -444,7 +444,7 @@ mod tests {
     #[test]
     fn test_menubar_dynamic_content() {
         // Test menubar dynamic content
-        let (content_type, _set_content_type) = create_signal("text");
+        let (content_type, _set_content_type) = signal("text");
         
         let menubar_view = view! {
             <Menubar>
@@ -466,7 +466,7 @@ mod tests {
     #[test]
     fn test_menubar_conditional_rendering() {
         // Test menubar conditional rendering
-        let (show_content, _set_show_content) = create_signal(true);
+        let (show_content, _set_show_content) = signal(true);
         
         let menubar_view = view! {
             <Menubar>
@@ -488,7 +488,7 @@ mod tests {
     #[test]
     fn test_menubar_data_binding() {
         // Test menubar data binding
-        let (bound_data, _set_bound_data) = create_signal("initial data".to_string());
+        let (bound_data, _set_bound_data) = signal("initial data".to_string());
         
         let menubar_view = view! {
             <Menubar>
@@ -510,7 +510,7 @@ mod tests {
     #[test]
     fn test_menubar_event_propagation() {
         // Test menubar event propagation
-        let (event_count, _set_event_count) = create_signal(0);
+        let (event_count, _set_event_count) = signal(0);
         
         let menubar_view = view! {
             <Menubar>
@@ -568,7 +568,7 @@ mod tests {
     #[test]
     fn test_menubar_lifecycle_management() {
         // Test menubar lifecycle management
-        let (lifecycle_stage, _set_lifecycle_stage) = create_signal("initialized".to_string());
+        let (lifecycle_stage, _set_lifecycle_stage) = signal("initialized".to_string());
         
         let menubar_view = view! {
             <Menubar>
@@ -590,8 +590,8 @@ mod tests {
     #[test]
     fn test_menubar_state_synchronization() {
         // Test menubar state synchronization
-        let (local_state, _set_local_state) = create_signal("local".to_string());
-        let (remote_state, _set_remote_state) = create_signal("remote".to_string());
+        let (local_state, _set_local_state) = signal("local".to_string());
+        let (remote_state, _set_remote_state) = signal("remote".to_string());
         
         let menubar_view = view! {
             <Menubar>
@@ -613,9 +613,9 @@ mod tests {
     #[test]
     fn test_menubar_comprehensive_state_management() {
         // Test menubar comprehensive state management
-        let (state1, _set_state1) = create_signal(false);
-        let (state2, _set_state2) = create_signal(false);
-        let (state3, _set_state3) = create_signal(false);
+        let (state1, _set_state1) = signal(false);
+        let (state2, _set_state2) = signal(false);
+        let (state3, _set_state3) = signal(false);
         
         let menubar_view = view! {
             <Menubar>

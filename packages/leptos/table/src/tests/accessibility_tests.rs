@@ -3,6 +3,7 @@
 //! This module contains tests for accessibility features, ARIA attributes, and keyboard navigation.
 
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod accessibility_tests {
     use leptos::prelude::*;
 

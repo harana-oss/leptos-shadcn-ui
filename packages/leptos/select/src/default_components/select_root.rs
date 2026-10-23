@@ -1,5 +1,4 @@
 use leptos::{ev::MouseEvent, prelude::*};
-use tailwind_fuse::*;
 
 // Select Root Provider
 #[component]

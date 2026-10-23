@@ -84,7 +84,6 @@ pub fn SignalManagedSkeleton(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _skeleton_state_for_disabled = skeleton_state.clone();
     view! {
         <div
             class=move || computed_class.get()

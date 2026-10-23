@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod performance_tests {
     use crate::default::{Switch, SwitchSize};
     use leptos::prelude::*;

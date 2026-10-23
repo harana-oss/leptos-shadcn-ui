@@ -28,9 +28,6 @@ pub fn RadioGroup(
     let selected_value = RwSignal::new(value.get_untracked());
     
     let on_item_select = {
-        let selected_value = selected_value;
-        let on_value_change = on_value_change;
-        
         Callback::new(move |value: String| {
             selected_value.set(Some(value.clone()));
             if let Some(callback) = &on_value_change {

@@ -11,6 +11,7 @@ use leptos::prelude::*;
 use crate::*;
 
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod integration_tests {
     use super::*;
 
@@ -97,7 +98,6 @@ mod integration_tests {
                         </div>
                     }.into_any()
                 } else {
-                    let _: () = view! {};
                     ().into_any()
                 }}
             </div>

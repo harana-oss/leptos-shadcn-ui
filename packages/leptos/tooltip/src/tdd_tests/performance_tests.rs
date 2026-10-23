@@ -45,7 +45,7 @@ mod tests {
     #[test]
     fn test_tooltip_callback_handling() {
         // Test tooltip callback handling
-        let (callback_count, _set_callback_count) = create_signal(0);
+        let (callback_count, _set_callback_count) = signal(0);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -65,7 +65,7 @@ mod tests {
     #[test]
     fn test_tooltip_disabled_states() {
         // Test tooltip disabled states
-        let (is_disabled, _set_is_disabled) = create_signal(false);
+        let (is_disabled, _set_is_disabled) = signal(false);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -147,7 +147,7 @@ mod tests {
     #[test]
     fn test_tooltip_update_performance() {
         // Test tooltip update performance
-        let (update_count, _set_update_count) = create_signal(0);
+        let (update_count, _set_update_count) = signal(0);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -679,9 +679,9 @@ mod tests {
     #[test]
     fn test_tooltip_comprehensive_performance() {
         // Test tooltip comprehensive performance
-        let (performance_metric, _set_performance_metric) = create_signal(0.0);
-        let (memory_usage, _set_memory_usage) = create_signal(0);
-        let (cpu_usage, _set_cpu_usage) = create_signal(0.0);
+        let (performance_metric, _set_performance_metric) = signal(0.0);
+        let (memory_usage, _set_memory_usage) = signal(0);
+        let (cpu_usage, _set_cpu_usage) = signal(0.0);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>

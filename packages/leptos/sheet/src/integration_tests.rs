@@ -11,6 +11,7 @@ use leptos::prelude::*;
 use crate::*;
 
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod integration_tests {
     use super::*;
 
@@ -32,7 +33,6 @@ mod integration_tests {
                         {move || if sheet1_open.get() {
                             view! { <div>"Sheet 1 Content"</div> }.into_any()
                         } else {
-                            let _: () = view! {};
                             ().into_any()
                         }}
                     </div>
@@ -46,7 +46,6 @@ mod integration_tests {
                         {move || if sheet2_open.get() {
                             view! { <div>"Sheet 2 Content"</div> }.into_any()
                         } else {
-                            let _: () = view! {};
                             ().into_any()
                         }}
                     </div>
@@ -60,7 +59,6 @@ mod integration_tests {
                         {move || if sheet3_open.get() {
                             view! { <div>"Sheet 3 Content"</div> }.into_any()
                         } else {
-                            let _: () = view! {};
                             ().into_any()
                         }}
                     </div>
@@ -112,7 +110,6 @@ mod integration_tests {
                                     </div>
                                 }.into_any()
                             } else {
-                                let _: () = view! {};
                                 ().into_any()
                             }}
                         </div>
@@ -127,7 +124,6 @@ mod integration_tests {
                         </div>
                     }.into_any()
                 } else {
-                    let _: () = view! {};
                     ().into_any()
                 }}
             </div>
@@ -175,7 +171,6 @@ mod integration_tests {
                                 </div>
                             }.into_any()
                         } else {
-                            let _: () = view! {};
                             ().into_any()
                         }}
                     </div>
@@ -203,7 +198,6 @@ mod integration_tests {
                                 </div>
                             }.into_any()
                         } else {
-                            let _: () = view! {};
                             ().into_any()
                         }}
                     </div>
@@ -244,7 +238,6 @@ mod integration_tests {
                         {move || if sheet1_open.get() {
                             view! { <div class="sheet-body">"Sheet 1 Content"</div> }.into_any()
                         } else {
-                            let _: () = view! {};
                             ().into_any()
                         }}
                     </div>
@@ -261,7 +254,6 @@ mod integration_tests {
                         {move || if sheet2_open.get() {
                             view! { <div class="sheet-body">"Sheet 2 Content"</div> }.into_any()
                         } else {
-                            let _: () = view! {};
                             ().into_any()
                         }}
                     </div>
@@ -299,7 +291,6 @@ mod integration_tests {
                                 </div>
                             }.into_any()
                         } else {
-                            let _: () = view! {};
                             ().into_any()
                         }}
                     </div>
@@ -317,7 +308,6 @@ mod integration_tests {
                                 </div>
                             }.into_any()
                         } else {
-                            let _: () = view! {};
                             ().into_any()
                         }}
                     </div>
@@ -366,7 +356,6 @@ mod integration_tests {
                         {move || if sheet1_open.get() {
                             view! { <div>"Sheet 1 Content"</div> }.into_any()
                         } else {
-                            let _: () = view! {};
                             ().into_any()
                         }}
                     </div>
@@ -385,7 +374,6 @@ mod integration_tests {
                         {move || if sheet2_open.get() {
                             view! { <div>"Sheet 2 Content"</div> }.into_any()
                         } else {
-                            let _: () = view! {};
                             ().into_any()
                         }}
                     </div>
@@ -404,7 +392,6 @@ mod integration_tests {
                         {move || if sheet3_open.get() {
                             view! { <div>"Sheet 3 Content"</div> }.into_any()
                         } else {
-                            let _: () = view! {};
                             ().into_any()
                         }}
                     </div>
@@ -451,7 +438,6 @@ mod integration_tests {
                                 {move || if open.get() {
                                     view! { <div>{format!("Sheet {} Content", i)}</div> }.into_any()
                                 } else {
-                                    let _: () = view! {};
                                     ().into_any()
                                 }}
                             </div>
@@ -479,7 +465,6 @@ mod integration_tests {
                     {move || if sheet_open.get() {
                         view! { <div>"Sheet Content"</div> }.into_any()
                     } else {
-                        let _: () = view! {};
                         ().into_any()
                     }}
                 </div>
@@ -521,7 +506,6 @@ mod integration_tests {
                                             {move || if inner_sheet_open.get() {
                                                 view! { <div>"This is a nested sheet"</div> }.into_any()
                                             } else {
-                                                let _: () = view! {};
                                                 ().into_any()
                                             }}
                                         </div>
@@ -530,7 +514,6 @@ mod integration_tests {
                             </div>
                         }.into_any()
                     } else {
-                        let _: () = view! {};
                         ().into_any()
                     }}
                 </div>
@@ -586,7 +569,6 @@ mod integration_tests {
                         {move || if sheet_open.get() {
                             view! { <div>"Sheet Content"</div> }.into_any()
                         } else {
-                            let _: () = view! {};
                             ().into_any()
                         }}
                     </div>
@@ -624,7 +606,6 @@ mod integration_tests {
                         {move || if default_open.get() {
                             view! { <div>"Default Theme Content"</div> }.into_any()
                         } else {
-                            let _: () = view! {};
                             ().into_any()
                         }}
                     </div>
@@ -638,7 +619,6 @@ mod integration_tests {
                         {move || if newyork_open.get() {
                             view! { <div>"New York Theme Content"</div> }.into_any()
                         } else {
-                            let _: () = view! {};
                             ().into_any()
                         }}
                     </div>

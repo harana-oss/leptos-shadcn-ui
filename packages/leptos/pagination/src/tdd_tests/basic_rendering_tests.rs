@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod basic_rendering_tests {
     #[allow(unused_imports)]
     use super::*;
@@ -132,7 +133,6 @@ mod basic_rendering_tests {
                     <Pagination total_pages=10/>
                 }.into_any()
             } else {
-                let _: () = view! {};
                 ().into_any()
             }}
         };

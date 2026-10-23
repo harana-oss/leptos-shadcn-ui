@@ -120,8 +120,6 @@ pub fn TabsTrigger(
         role: "tab".to_string().into(),
         aria_selected: Signal::derive(move || is_selected.get().to_string()),
         onclick: Some(Callback::new({
-            let ctx = ctx;
-            let value = value;
             move |_: MouseEvent| {
                 let val = value.get().unwrap_or_default();
                 ctx.set_value.run(val);

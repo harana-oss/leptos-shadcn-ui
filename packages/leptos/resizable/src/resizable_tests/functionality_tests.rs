@@ -3,12 +3,11 @@
 //! This module contains tests for resizing functionality, panel management,
 //! and interactive features for the Resizable component.
 
-use leptos::prelude::*;
-use crate::default::{ResizableHandle, ResizablePanel, ResizablePanelGroup};
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use leptos::prelude::*;
+    use crate::default::{ResizableHandle, ResizablePanel, ResizablePanelGroup};
     use crate::default::ResizeDirection;
 
     #[test]

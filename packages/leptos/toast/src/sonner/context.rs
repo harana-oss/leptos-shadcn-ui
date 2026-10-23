@@ -34,8 +34,6 @@ impl SonnerContextValue {
         let max_toasts = RwSignal::new(5);
 
         let add_toast = {
-            let toasts = toasts;
-            let max_toasts = max_toasts;
             Callback::new(move |toast: ToastData| {
                 let mut current_toasts = toasts.get();
                 let max = max_toasts.get();
@@ -61,7 +59,6 @@ impl SonnerContextValue {
         };
 
         let remove_toast = {
-            let toasts = toasts;
             Callback::new(move |id: String| {
                 let mut current_toasts = toasts.get();
                 current_toasts.remove(&id);
@@ -70,7 +67,6 @@ impl SonnerContextValue {
         };
 
         let dismiss_all = {
-            let toasts = toasts;
             Callback::new(move |_| {
                 toasts.set(HashMap::new());
             })

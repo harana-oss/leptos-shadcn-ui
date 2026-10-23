@@ -201,7 +201,7 @@ mod tests {
     #[test]
     fn test_tooltip_dynamic_content() {
         // Test tooltip with dynamic content
-        let (count, _set_count) = create_signal(0);
+        let (count, _set_count) = signal(0);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -221,7 +221,7 @@ mod tests {
     #[test]
     fn test_tooltip_conditional_rendering() {
         // Test tooltip with conditional rendering
-        let (show_tooltip, _set_show_tooltip) = create_signal(true);
+        let (show_tooltip, _set_show_tooltip) = signal(true);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>

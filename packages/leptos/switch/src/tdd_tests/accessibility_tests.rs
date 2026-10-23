@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod accessibility_tests {
     use crate::default::Switch;
     use leptos::prelude::*;

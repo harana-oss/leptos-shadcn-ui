@@ -3,6 +3,7 @@
 //! This module contains tests for performance, callbacks, disabled states, and complex content.
 
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod performance_tests {
     use leptos::prelude::*;
     use crate::default::Table;

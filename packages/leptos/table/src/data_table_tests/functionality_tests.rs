@@ -1,6 +1,6 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod functionality_tests {
-    use leptos::prelude::*;
     use crate::data_table::{
         DataRow, DataColumn, FilterType, ExportFormat,
     };
@@ -13,13 +13,13 @@ mod functionality_tests {
             DataRow { id: 3, name: "Bob".to_string(), age: 35, email: "bob@example.com".to_string() }];
 
         // Test sorting by name (ascending)
-        data.sort_by(|a, b| a.name.cmp(&b.name));
+        data.sort_by_key(|row| row.name.clone());
         assert_eq!(data[0].name, "Alice");
         assert_eq!(data[1].name, "Bob");
         assert_eq!(data[2].name, "Charlie");
 
         // Test sorting by age (descending)
-        data.sort_by(|a, b| b.age.cmp(&a.age));
+        data.sort_by_key(|row| std::cmp::Reverse(row.age));
         assert_eq!(data[0].age, 35);
         assert_eq!(data[1].age, 30);
         assert_eq!(data[2].age, 25);

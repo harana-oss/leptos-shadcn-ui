@@ -3,6 +3,7 @@
 //! This module contains tests for accessibility features, keyboard navigation, and form integration.
 
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod accessibility_tests {
     use leptos::prelude::*;
     use crate::Toggle;

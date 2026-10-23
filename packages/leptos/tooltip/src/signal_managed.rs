@@ -84,7 +84,6 @@ pub fn SignalManagedTooltip(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _tooltip_state_for_disabled = tooltip_state.clone();
     view! {
         <div
             class=move || computed_class.get()

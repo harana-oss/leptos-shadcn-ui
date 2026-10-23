@@ -21,7 +21,7 @@ use shadcn_ui_leptos_radio_group::{RadioGroup, RadioGroupItem};
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
-    let (selected_value, set_selected_value) = create_signal(None::<String>);
+    let (selected_value, set_selected_value) = signal(None::<String>);
     
     let on_value_change = Callback::from(move |value: String| {
         set_selected_value.set(Some(value));

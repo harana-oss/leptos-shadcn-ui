@@ -108,7 +108,6 @@ pub fn Pagination(
                         </PaginationItem>
                     }.into_any()
                 } else {
-                    let _: () = view! {};
                     ().into_any()
                 }}
                 
@@ -145,7 +144,6 @@ pub fn Pagination(
                         </PaginationItem>
                     }.into_any()
                 } else {
-                    let _: () = view! {};
                     ().into_any()
                 }}
             </div>
