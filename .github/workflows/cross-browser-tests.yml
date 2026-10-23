@@ -114,10 +114,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cargo-
 
+      - name: Install wasm-pack
+        uses: taiki-e/install-action@v2
+        with:
+          tool: wasm-pack
+
       - name: Build demo application
         run: |
           cd examples/comprehensive-demo
-          trunk build --public-url /comprehensive-demo
+          wasm-pack build --target web --out-dir pkg --release
 
       - name: Start test server
         run: |
@@ -220,18 +225,23 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps msedge
 
+      - name: Install wasm-pack
+        uses: taiki-e/install-action@v2
+        with:
+          tool: wasm-pack
+
       - name: Build demo application
         run: |
           cd examples/comprehensive-demo
-          trunk build --public-url /comprehensive-demo
+          wasm-pack build --target web --out-dir pkg --release
 
       - name: Start test server
+        shell: pwsh
         run: |
-          cd examples/comprehensive-demo
-          python -m http.server 8001
-        continue-on-error: true
+          Start-Process -FilePath python -ArgumentList '-m','http.server','8001' -WorkingDirectory examples/comprehensive-demo
 
       - name: Wait for server
+        shell: bash
         run: |
           for i in {1..30}; do
             if curl -s http://localhost:8001 > /dev/null; then
@@ -300,6 +310,12 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium webkit
 
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.RUST_VERSION }}
+          targets: wasm32-unknown-unknown
+
       - name: Cache Cargo build
         uses: actions/cache@v3
         with:
@@ -310,10 +326,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cargo-
 
+      - name: Install wasm-pack
+        uses: taiki-e/install-action@v2
+        with:
+          tool: wasm-pack
+
       - name: Build demo application
         run: |
           cd examples/comprehensive-demo
-          trunk build --public-url /comprehensive-demo
+          wasm-pack build --target web --out-dir pkg --release
 
       - name: Start test server
         run: |
