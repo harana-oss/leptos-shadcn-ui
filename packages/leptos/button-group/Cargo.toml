@@ -1,0 +1,20 @@
+[package]
+name = "leptos-shadcn-button-group"
+description = "Leptos port of shadcn/ui button-group"
+homepage = "https://ui.shadcn.com/docs/components/button-group"
+
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+version = "0.9.0"
+
+[dependencies]
+leptos.workspace = true
+
+[features]
+default = []
+new_york = []
+
+[dev-dependencies]
+leptos = { workspace = true, features = ["ssr"] }
