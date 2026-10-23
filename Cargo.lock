@@ -3075,6 +3075,8 @@ name = "leptos-shadcn-input-group"
 version = "0.9.0"
 dependencies = [
  "leptos",
+ "wasm-bindgen",
+ "web-sys",
 ]
 
 [[package]]

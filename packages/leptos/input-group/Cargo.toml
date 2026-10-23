@@ -12,6 +12,10 @@ version = "0.9.0"
 [dependencies]
 leptos.workspace = true
 
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+web-sys = { workspace = true, features = ["Element", "HtmlElement", "EventTarget", "Event", "MouseEvent"] }
+wasm-bindgen.workspace = true
+
 [features]
 default = []
 new_york = []
