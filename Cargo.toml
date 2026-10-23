@@ -30,11 +30,11 @@ members = [
     "packages/leptos-shadcn-ui",  # Re-added for final publishing
     "packages/leptos-shadcn-ui-wasm",  # WASM-optimized version with minimal dependencies
     "performance-audit",  # Performance audit system
-    "demo/leptos_v0_8_test_app",  # Leptos v0.8 compatibility test app
+    "examples/leptos_v0_8_test_app",  # Leptos v0.8 compatibility test app
     "examples/leptos",  # WASM demo application
     "examples/dashboard-demo",  # Dashboard demo application
     "examples/comprehensive-demo",  # Comprehensive demo application
-    "demo/wasm-demo",  # Dedicated WASM demo for leptos-shadcn-ui-wasm
+    "examples/wasm-demo",  # Dedicated WASM demo for leptos-shadcn-ui-wasm
 
     # Basic components (no internal dependencies)
     "packages/leptos/button",
