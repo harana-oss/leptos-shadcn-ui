@@ -1,0 +1,10 @@
+{
+  "packages": [
+    {"name": "leptos", "manifest_path": "/home/u/.cargo/registry/src/index.crates.io-1/leptos-0.8.9/Cargo.toml"},
+    {"name": "leptos-shadcn-card", "manifest_path": "/home/u/.cargo/registry/src/index.crates.io-1/leptos-shadcn-card-0.9.0/Cargo.toml"},
+    {"name": "leptos-shadcn-button", "manifest_path": "/home/u/.cargo/registry/src/index.crates.io-1/leptos-shadcn-button-0.9.0/Cargo.toml"},
+    {"name": "leptos-shadcn-button", "manifest_path": "/home/u/.cargo/registry/src/index.crates.io-1/leptos-shadcn-button-0.9.0/Cargo.toml"},
+    {"name": "leptos-shadcn-tailwind", "manifest_path": "/home/u/.cargo/registry/src/index.crates.io-1/leptos-shadcn-tailwind-0.9.0/Cargo.toml"},
+    {"name": "leptos-shadcn-ui", "manifest_path": "/home/u/.cargo/registry/src/index.crates.io-1/leptos-shadcn-ui-0.9.0/Cargo.toml"}
+  ]
+}
