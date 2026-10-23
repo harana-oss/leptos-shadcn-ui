@@ -25,9 +25,9 @@ mod advanced_tests {
                                     <th>{header_row.0}</th>
                                     <th>{header_row.1}</th>
                                     <th>{header_row.2}</th>
-                                }.into_view()
+                                }.into_any()
                             } else {
-                                view! {}.into_view()
+                                view! {}.into_any()
                             }
                         }}
                     </tr>
@@ -42,7 +42,7 @@ mod advanced_tests {
                                     <td>{row.1}</td>
                                     <td>{row.2}</td>
                                 </tr>
-                            }.into_view()
+                            }.into_any()
                         }).collect::<Vec<_>>()
                     }}
                 </tbody>
@@ -67,8 +67,8 @@ mod advanced_tests {
                         {move || {
                             columns.get().iter().map(|col| {
                                 view! {
-                                    <th>{col}</th>
-                                }.into_view()
+                                    <th>{*col}</th>
+                                }.into_any()
                             }).collect::<Vec<_>>()
                         }}
                     </tr>
@@ -150,7 +150,7 @@ mod advanced_tests {
                                     <td>{row.0}</td>
                                     <td>{row.1}</td>
                                 </tr>
-                            }.into_view()
+                            }.into_any()
                         }).collect::<Vec<_>>()
                     }}
                 </tbody>
@@ -208,7 +208,7 @@ mod advanced_tests {
                                         <td>{row.0}</td>
                                         <td>{row.1}</td>
                                     </tr>
-                                }.into_view()
+                                }.into_any()
                             }).collect::<Vec<_>>()
                     }}
                 </tbody>
@@ -251,7 +251,7 @@ mod advanced_tests {
                                         <td>{row.0}</td>
                                         <td>{row.1}</td>
                                     </tr>
-                                }.into_view()
+                                }.into_any()
                             }).collect::<Vec<_>>()
                     }}
                 </tbody>
@@ -354,7 +354,7 @@ mod advanced_tests {
                                         <td>{row.0}</td>
                                         <td>{row.1}</td>
                                     </tr>
-                                }.into_view()
+                                }.into_any()
                             }).collect::<Vec<_>>()
                     }}
                 </tbody>
@@ -369,8 +369,8 @@ mod advanced_tests {
     #[test]
     fn test_table_editable_cells() {
         let table_data = RwSignal::new(vec![
-            ("Editable Cell 1", "Editable Cell 2"),
-            ("Editable Cell 3", "Editable Cell 4"),
+            ("Editable Cell 1".to_string(), "Editable Cell 2".to_string()),
+            ("Editable Cell 3".to_string(), "Editable Cell 4".to_string()),
         ]);
         
         let _table_view = view! {
@@ -386,7 +386,7 @@ mod advanced_tests {
                                         <td>
                                             <input
                                                 type="text"
-                                                value=row.0
+                                                value=row.0.clone()
                                                 on:input=move |ev| {
                                                     table_data.update(|data| {
                                                         if let Some(row_data) = data.get_mut(row_index) {
@@ -399,7 +399,7 @@ mod advanced_tests {
                                         <td>
                                             <input
                                                 type="text"
-                                                value=row.1
+                                                value=row.1.clone()
                                                 on:input=move |ev| {
                                                     table_data.update(|data| {
                                                         if let Some(row_data) = data.get_mut(row_index) {
@@ -410,7 +410,7 @@ mod advanced_tests {
                                             />
                                         </td>
                                     </tr>
-                                }.into_view()
+                                }.into_any()
                             }).collect::<Vec<_>>()
                     }}
                 </tbody>
@@ -471,7 +471,7 @@ mod advanced_tests {
                                         <td>{row.1}</td>
                                         <td></td>
                                     </tr>
-                                }.into_view()
+                                }.into_any()
                             }).collect::<Vec<_>>()
                     }}
                 </tbody>

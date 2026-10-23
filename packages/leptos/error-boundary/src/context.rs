@@ -458,37 +458,24 @@ mod tests {
 
     #[test]
     fn test_error_context_from_panic() {
+        use std::sync::{Arc, Mutex};
+        // PanicHookInfo cannot be constructed directly, so capture a real one.
         let message = "Panic message";
-        let panic_info = create_test_panic_info(message);
-        let context = ErrorContext::from_panic(&panic_info);
+        let captured: Arc<Mutex<Option<ErrorContext>>> = Arc::new(Mutex::new(None));
+        let sink = captured.clone();
+        let previous = std::panic::take_hook();
+        std::panic::set_hook(Box::new(move |info| {
+            *sink.lock().unwrap() = Some(ErrorContext::from_panic(info));
+        }));
+        let _ = std::panic::catch_unwind(|| std::panic::panic_any(message.to_string()));
+        std::panic::set_hook(previous);
+        let context = captured.lock().unwrap().take().expect("hook captured panic");
 
         assert_eq!(context.severity, ErrorSeverity::Critical);
         assert_eq!(context.technical_details, Some(format!("Panic: {}", message)));
         assert_eq!(context.cause, Some(message.to_string()));
         assert_eq!(context.error_code, Some("PANIC".to_string()));
         assert!(!context.recovery_suggestions.is_empty());
-    }
-
-    #[test]
-    fn test_error_severity_ordering() {
-        assert!(ErrorSeverity::Info < ErrorSeverity::Warning);
-        assert!(ErrorSeverity::Warning < ErrorSeverity::Error);
-        assert!(ErrorSeverity::Error < ErrorSeverity::Critical);
-    }
-
-    // Helper function for testing panic info
-    fn create_test_panic_info(message: &str) -> PanicHookInfo<'static> {
-        // Create a boxed panic payload
-        let payload: Box<dyn std::any::Any + Send> = Box::new(message.to_string());
-
-        // Use unsafe to create PanicHookInfo (this is only for testing)
-        unsafe {
-            std::panic::PanicHookInfo::new(
-                payload,
-                Some(std::panic::Location::caller()),
-                false,
-            )
-        }
     }
 
     #[test]

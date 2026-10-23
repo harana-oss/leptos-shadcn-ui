@@ -252,7 +252,7 @@ impl SignalMemoryManager {
     
     /// Cleanup old groups based on age threshold (in seconds)
     pub fn cleanup_old_groups(&self, max_age_seconds: u64) -> Result<usize, SignalManagementError> {
-        let current_time = js_sys::Date::now();
+        let current_time = crate::memory_management::now_ms();
         let threshold = current_time - (max_age_seconds as f64 * 1000.0);
         let mut cleaned_count = 0;
         

@@ -3,7 +3,7 @@ mod functionality_tests {
     use leptos::prelude::*;
     use crate::data_table::{
         DataTable, DataRow, DataColumn, SortDirection, FilterType, FilterOperator,
-        SelectionMode, ExportFormat, ColumnFilter, RowAction
+        SelectionMode, ExportFormat,
     };
 
     #[test]

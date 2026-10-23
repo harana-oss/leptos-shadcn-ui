@@ -85,7 +85,7 @@ pub struct DataRow {
 }
 
 /// Data column configuration
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct DataColumn {
     pub key: String,
     pub title: String,
