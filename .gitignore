@@ -190,3 +190,4 @@ target/tarpaulin/
 # *.lcov  # Uncomment if you don't want any lcov files in repo
 wr.sh
 .drover
+.claude/worktrees/
