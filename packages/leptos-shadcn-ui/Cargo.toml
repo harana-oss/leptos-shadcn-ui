@@ -48,6 +48,19 @@ leptos-shadcn-pagination = { version = "0.9.0", path = "../leptos/pagination", o
 leptos-shadcn-slider = { version = "0.9.0", path = "../leptos/slider", optional = true }
 leptos-shadcn-toggle = { version = "0.9.0", path = "../leptos/toggle", optional = true }
 leptos-shadcn-carousel = { version = "0.9.0", path = "../leptos/carousel", optional = true }
+leptos-shadcn-button-group = { version = "0.9.0", path = "../leptos/button-group", optional = true }
+leptos-shadcn-kbd = { version = "0.9.0", path = "../leptos/kbd", optional = true }
+leptos-shadcn-spinner = { version = "0.9.0", path = "../leptos/spinner", optional = true }
+leptos-shadcn-empty = { version = "0.9.0", path = "../leptos/empty", optional = true }
+leptos-shadcn-item = { version = "0.9.0", path = "../leptos/item", optional = true }
+leptos-shadcn-typography = { version = "0.9.0", path = "../leptos/typography", optional = true }
+leptos-shadcn-field = { version = "0.9.0", path = "../leptos/field", optional = true }
+leptos-shadcn-input-group = { version = "0.9.0", path = "../leptos/input-group", optional = true }
+leptos-shadcn-native-select = { version = "0.9.0", path = "../leptos/native-select", optional = true }
+leptos-shadcn-toggle-group = { version = "0.9.0", path = "../leptos/toggle-group", optional = true }
+leptos-shadcn-sidebar = { version = "0.9.0", path = "../leptos/sidebar", optional = true }
+leptos-shadcn-sonner = { version = "0.9.0", path = "../leptos/sonner", optional = true }
+leptos-shadcn-chart = { version = "0.9.0", path = "../leptos/chart", optional = true }
 
 # Advanced components (published dependencies for v0.9.0 release)
 leptos-shadcn-form = { version = "0.9.0", path = "../leptos/form", optional = true }
@@ -81,8 +94,8 @@ tailwind_fuse = "0.3"
 gloo-timers = "0.3"
 
 # WASM-compatible dependencies
-getrandom = { version = "0.2", features = ["js"] }
-uuid = { version = "1.0", features = ["v4", "js"] }
+getrandom = { version = "0.4", features = ["wasm_js"] }
+uuid = { version = "1.20", features = ["v4", "js"] }
 
 [features]
 default = ["all-components"]
@@ -94,7 +107,8 @@ all-components = [
     "form", "combobox", "command", "input-otp", "breadcrumb", "navigation-menu", "context-menu",
     "dropdown-menu", "menubar", "hover-card", "aspect-ratio", "collapsible", "scroll-area",
     "sheet", "drawer", "alert-dialog", "avatar", "resizable", "error-boundary", "lazy-loading", "performance-audit",
-    "analytics"
+    "analytics",
+    "button-group", "kbd", "spinner", "empty", "item", "typography", "field", "input-group", "native-select", "toggle-group", "sidebar", "sonner", "chart"
 ]
 
 # Individual component features
@@ -125,6 +139,19 @@ pagination = ["leptos-shadcn-pagination"]
 slider = ["leptos-shadcn-slider"]
 toggle = ["leptos-shadcn-toggle"]
 carousel = ["leptos-shadcn-carousel"]
+button-group = ["leptos-shadcn-button-group"]
+kbd = ["leptos-shadcn-kbd"]
+spinner = ["leptos-shadcn-spinner"]
+empty = ["leptos-shadcn-empty"]
+item = ["leptos-shadcn-item"]
+typography = ["leptos-shadcn-typography"]
+field = ["leptos-shadcn-field"]
+input-group = ["leptos-shadcn-input-group"]
+native-select = ["leptos-shadcn-native-select"]
+toggle-group = ["leptos-shadcn-toggle-group"]
+sidebar = ["leptos-shadcn-sidebar"]
+sonner = ["leptos-shadcn-sonner"]
+chart = ["leptos-shadcn-chart"]
 form = ["leptos-shadcn-form"]
 combobox = ["leptos-shadcn-combobox"]
 command = ["leptos-shadcn-command"]
