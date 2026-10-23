@@ -1,12 +1,17 @@
 #[cfg(test)]
 mod integration_tests {
     use super::*;
+    use crate::*;
+    use leptos::prelude::*;
 
     // ===== INTEGRATION TESTS =====
     // These tests focus on integration scenarios and complex workflows
 
     #[test]
     fn test_context_menu_integration_with_form() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <form>
                 <ContextMenu>
@@ -25,6 +30,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_table() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <table>
                 <tbody>
@@ -49,6 +57,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_list() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let items = vec!["Item 1", "Item 2", "Item 3"];
         let _context_menu_view = view! {
             <ul>
@@ -72,6 +83,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_cards() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <div class="card">
                 <ContextMenu>
@@ -93,6 +107,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_nested_menus() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
@@ -120,6 +137,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_multiple_menus() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <div>
                 <ContextMenu>
@@ -145,6 +165,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_state_management() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let global_state = RwSignal::new("initial".to_string());
         let _context_menu_view = view! {
             <ContextMenu>
@@ -152,11 +175,9 @@ mod integration_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <ContextMenuItem 
-                        on_click=Callback::new(move |_| {
+                    <ContextMenuItem on:click=(move |_| {
                             global_state.set("updated".to_string());
-                        })
-                    >
+                        })>
                         "Update state"
                     </ContextMenuItem>
                 </ContextMenuContent>
@@ -167,6 +188,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_event_handling() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let click_count = RwSignal::new(0);
         let _context_menu_view = view! {
             <ContextMenu>
@@ -174,11 +198,9 @@ mod integration_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <ContextMenuItem 
-                        on_click=Callback::new(move |_| {
+                    <ContextMenuItem on:click=(move |_| {
                             click_count.update(|c| *c += 1);
-                        })
-                    >
+                        })>
                         "Click me"
                     </ContextMenuItem>
                 </ContextMenuContent>
@@ -189,6 +211,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_conditional_rendering() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let show_delete = RwSignal::new(true);
         let _context_menu_view = view! {
             <ContextMenu>
@@ -197,7 +222,7 @@ mod integration_tests {
                 </ContextMenuTrigger>
                 <ContextMenuContent>
                     <ContextMenuItem>"Edit"</ContextMenuItem>
-                    <Show when=show_delete>
+                    <Show when=move || show_delete.get()>
                         <ContextMenuItem>"Delete"</ContextMenuItem>
                     </Show>
                 </ContextMenuContent>
@@ -208,6 +233,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_error_boundaries() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ErrorBoundary fallback=|_| view! { <div>"Error occurred"</div> }>
                 <ContextMenu>
@@ -225,6 +253,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_suspense() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <Suspense fallback=|| view! { <div>"Loading..."</div> }>
                 <ContextMenu>
@@ -242,6 +273,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_router() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
@@ -257,6 +291,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_modals() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let show_modal = RwSignal::new(false);
         let _context_menu_view = view! {
             <div>
@@ -265,16 +302,14 @@ mod integration_tests {
                         "Right-click me"
                     </ContextMenuTrigger>
                     <ContextMenuContent>
-                        <ContextMenuItem 
-                            on_click=Callback::new(move |_| {
+                        <ContextMenuItem on:click=(move |_| {
                                 show_modal.set(true);
-                            })
-                        >
+                            })>
                             "Open modal"
                         </ContextMenuItem>
                     </ContextMenuContent>
                 </ContextMenu>
-                <Show when=show_modal>
+                <Show when=move || show_modal.get()>
                     <div class="modal">
                         "Modal content"
                     </div>
@@ -286,14 +321,17 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_tooltips() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger title="Right-click for options">
+                <ContextMenuTrigger attr:title="Right-click for options">
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <ContextMenuItem title="Edit this item">"Edit"</ContextMenuItem>
-                    <ContextMenuItem title="Delete this item">"Delete"</ContextMenuItem>
+                    <ContextMenuItem attr:title="Edit this item">"Edit"</ContextMenuItem>
+                    <ContextMenuItem attr:title="Delete this item">"Delete"</ContextMenuItem>
                 </ContextMenuContent>
             </ContextMenu>
         };
@@ -302,9 +340,12 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_drag_and_drop() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger draggable=MaybeProp::from(true)>
+                <ContextMenuTrigger attr:draggable=true>
                     "Draggable item"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
@@ -319,6 +360,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_keyboard_shortcuts() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
@@ -336,6 +380,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_icons() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
@@ -358,17 +405,16 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_theming() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let theme = RwSignal::new("dark".to_string());
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger 
-                    class=MaybeProp::from(Signal::derive(move || format!("theme-{}", theme.get())))
-                >
+                <ContextMenuTrigger class=MaybeProp::from(Signal::derive(move || format!("theme-{}", theme.get())))>
                     "Right-click me"
                 </ContextMenuTrigger>
-                <ContextMenuContent 
-                    class=MaybeProp::from(Signal::derive(move || format!("theme-{}", theme.get())))
-                >
+                <ContextMenuContent class=MaybeProp::from(Signal::derive(move || format!("theme-{}", theme.get())))>
                     <ContextMenuItem>"Item 1"</ContextMenuItem>
                 </ContextMenuContent>
             </ContextMenu>
@@ -378,6 +424,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_internationalization() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let locale = RwSignal::new("en".to_string());
         let _context_menu_view = view! {
             <ContextMenu>
@@ -403,19 +452,20 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_responsive_design() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let screen_size = RwSignal::new("desktop".to_string());
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger 
-                    class=MaybeProp::from(Signal::derive(move || {
+                <ContextMenuTrigger class=MaybeProp::from(Signal::derive(move || {
                         match screen_size.get().as_str() {
                             "mobile" => "context-menu-mobile",
                             "tablet" => "context-menu-tablet",
                             "desktop" => "context-menu-desktop",
                             _ => "context-menu-default"
-                        }
-                    }))
-                >
+                        }.to_string()
+                    }))>
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
@@ -428,13 +478,16 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_testing_utilities() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger data_testid=MaybeProp::from("context-menu-trigger")>
+                <ContextMenuTrigger attr:data-testid="context-menu-trigger">
                     "Right-click me"
                 </ContextMenuTrigger>
-                <ContextMenuContent data_testid=MaybeProp::from("context-menu-content")>
-                    <ContextMenuItem data_testid=MaybeProp::from("context-menu-item")>"Item 1"</ContextMenuItem>
+                <ContextMenuContent attr:data-testid="context-menu-content">
+                    <ContextMenuItem attr:data-testid="context-menu-item">"Item 1"</ContextMenuItem>
                 </ContextMenuContent>
             </ContextMenu>
         };
@@ -443,18 +496,19 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_analytics() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <ContextMenuItem 
-                        on_click=Callback::new(|_| {
+                    <ContextMenuItem on:click=(|_| {
                             // Analytics tracking would go here
-                            logging::log!("Context menu item clicked");
-                        })
-                    >
+                            leptos::logging::log!("Context menu item clicked");
+                        })>
                         "Item 1"
                     </ContextMenuItem>
                 </ContextMenuContent>
@@ -465,6 +519,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_performance_monitoring() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let start_time = std::time::Instant::now();
         let _context_menu_view = view! {
             <ContextMenu>
@@ -484,10 +541,13 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_error_reporting() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ErrorBoundary fallback=|error| {
                 // Error reporting would go here
-                logging::error!("Context menu error: {:?}", error);
+                leptos::logging::error!("Context menu error: {:?}", error);
                 view! { <div>"Error occurred"</div> }
             }>
                 <ContextMenu>
@@ -505,6 +565,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_data_binding() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let data = RwSignal::new(vec![
             ("edit", "Edit"),
             ("copy", "Copy"),
@@ -516,9 +579,9 @@ mod integration_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=data key=|(id, _)| id.clone() let:(id, label)>
-                        <ContextMenuItem data_action=MaybeProp::from(id)>
-                            {label}
+                    <For each=move || data.get() key=|(id, _)| *id let:entry>
+                        <ContextMenuItem attr:data-action=entry.0>
+                            {entry.1}
                         </ContextMenuItem>
                     </For>
                 </ContextMenuContent>
@@ -529,6 +592,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_async_operations() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let loading = RwSignal::new(false);
         let _context_menu_view = view! {
             <ContextMenu>
@@ -536,13 +602,10 @@ mod integration_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <ContextMenuItem 
-                        disabled=MaybeProp::from(loading)
-                        on_click=Callback::new(move |_| {
+                    <ContextMenuItem disabled=MaybeProp::from(loading) on:click=(move |_| {
                             loading.set(true);
                             // Async operation would go here
-                        })
-                    >
+                        })>
                         "Async action"
                     </ContextMenuItem>
                 </ContextMenuContent>
@@ -553,6 +616,9 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_permissions() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let can_edit = RwSignal::new(true);
         let can_delete = RwSignal::new(false);
         let _context_menu_view = view! {
@@ -561,10 +627,10 @@ mod integration_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <Show when=can_edit>
+                    <Show when=move || can_edit.get()>
                         <ContextMenuItem>"Edit"</ContextMenuItem>
                     </Show>
-                    <Show when=can_delete>
+                    <Show when=move || can_delete.get()>
                         <ContextMenuItem>"Delete"</ContextMenuItem>
                     </Show>
                 </ContextMenuContent>
@@ -575,21 +641,22 @@ mod integration_tests {
 
     #[test]
     fn test_context_menu_integration_with_complex_state() {
-        let state = RwSignal::new(std::collections::HashMap::new());
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
+        let state = RwSignal::new(std::collections::HashMap::<String, String>::new());
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <ContextMenuItem 
-                        on_click=Callback::new(move |_| {
+                    <ContextMenuItem on:click=(move |_| {
                             state.update(|s| {
                                 s.insert("action".to_string(), "edit".to_string());
                                 s.insert("timestamp".to_string(), "now".to_string());
                             });
-                        })
-                    >
+                        })>
                         "Complex action"
                     </ContextMenuItem>
                 </ContextMenuContent>
