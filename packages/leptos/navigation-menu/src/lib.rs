@@ -4,7 +4,10 @@ pub mod signal_managed;
 pub mod default;
 pub mod new_york;
 
-pub use default::{NavigationMenu};
+pub use default::{
+    NavigationMenu, NavigationMenuContent, NavigationMenuContext, NavigationMenuItem,
+    NavigationMenuItemContext, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger,
+};
 pub use new_york::{NavigationMenu as NavigationMenuNewYork};
 
 mod tests;

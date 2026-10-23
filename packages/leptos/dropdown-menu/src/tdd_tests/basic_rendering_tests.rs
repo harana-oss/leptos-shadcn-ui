@@ -111,7 +111,6 @@ mod basic_rendering_tests {
         };
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_trigger_rendering() {
         let _trigger_view = view! {
@@ -121,7 +120,6 @@ mod basic_rendering_tests {
         };
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_content_rendering() {
         let _content_view = view! {
@@ -131,7 +129,6 @@ mod basic_rendering_tests {
         };
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_item_rendering() {
         let _item_view = view! {
@@ -141,7 +138,6 @@ mod basic_rendering_tests {
         };
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_separator_rendering() {
         let _separator_view = view! {
@@ -149,7 +145,6 @@ mod basic_rendering_tests {
         };
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_label_rendering() {
         let _label_view = view! {
@@ -159,7 +154,6 @@ mod basic_rendering_tests {
         };
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_group_rendering() {
         let _group_view = view! {
@@ -169,7 +163,6 @@ mod basic_rendering_tests {
         };
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_shortcut_rendering() {
         let _shortcut_view = view! {
@@ -179,7 +172,6 @@ mod basic_rendering_tests {
         };
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_complete_structure() {
         let _complete_view = view! {
@@ -209,7 +201,6 @@ mod basic_rendering_tests {
         };
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_nested_structure() {
         let _nested_view = view! {
@@ -236,7 +227,6 @@ mod basic_rendering_tests {
         };
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_with_icons() {
         let _icon_view = view! {
@@ -259,7 +249,6 @@ mod basic_rendering_tests {
         };
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_with_shortcuts() {
         let _shortcut_view = view! {
@@ -291,25 +280,24 @@ mod basic_rendering_tests {
         };
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_accessibility_attributes() {
         let _accessible_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger
-                    aria-label="Open menu"
-                    aria-haspopup="menu"
-                    aria-expanded=Signal::derive(|| false)
+                    attr:aria-label="Open menu"
+                    attr:aria-haspopup="menu"
+                    attr:aria-expanded=Signal::derive(|| false)
                 >
                     "Accessible Menu"
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
-                    role="menu"
-                    aria-orientation="vertical"
+                    attr:role="menu"
+                    attr:aria-orientation="vertical"
                 >
                     <DropdownMenuItem
-                        role="menuitem"
-                        tabindex=MaybeProp::from(0)
+                        attr:role="menuitem"
+                        attr:tabindex=0
                     >
                         "Accessible Item"
                     </DropdownMenuItem>
@@ -318,7 +306,6 @@ mod basic_rendering_tests {
         };
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_keyboard_navigation() {
         let _keyboard_view = view! {
@@ -347,7 +334,6 @@ mod basic_rendering_tests {
         };
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_performance_rendering() {
         // Test that rendering is performant
@@ -378,7 +364,6 @@ mod basic_rendering_tests {
         assert!(duration.as_millis() < 100, "Rendering should be performant");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_memory_usage() {
         // Test that rendering doesn't cause memory issues

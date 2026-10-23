@@ -5,14 +5,12 @@
 
 use leptos::prelude::*;
 use crate::default::NavigationMenu;
-#[cfg(feature = "pending-api-tests")]
 use crate::default::{NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger};
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_management() {
         // Test navigation menu state management
@@ -32,7 +30,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_context_management() {
         // Test navigation menu context management
@@ -51,7 +48,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_animations() {
         // Test navigation menu animations
@@ -70,7 +66,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_content_placeholder() {
         // Test navigation menu content placeholder
@@ -89,7 +84,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_theme_switching() {
         // Test navigation menu theme switching
@@ -109,7 +103,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_responsive_design() {
         // Test navigation menu responsive design
@@ -128,7 +121,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_advanced_interactions() {
         // Test navigation menu advanced interactions
@@ -147,7 +139,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_group_functionality() {
         // Test navigation menu group functionality
@@ -166,7 +157,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_validation_comprehensive() {
         // Test navigation menu validation comprehensive
@@ -185,7 +175,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_accessibility_comprehensive() {
         // Test navigation menu accessibility comprehensive
@@ -204,7 +193,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_performance_comprehensive() {
         // Test navigation menu performance comprehensive
@@ -223,7 +211,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_integration_scenarios() {
         // Test navigation menu integration scenarios
@@ -242,7 +229,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_error_handling() {
         // Test navigation menu error handling
@@ -261,7 +247,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_click_handling() {
         // Test navigation menu click handling
@@ -281,7 +266,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_checked_change_callback() {
         // Test navigation menu checked change callback
@@ -301,7 +285,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_variant_combinations() {
         // Test navigation menu variant combinations
@@ -320,7 +303,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_complete_workflow() {
         // Test navigation menu complete workflow
@@ -339,7 +321,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_initialization() {
         // Test navigation menu state initialization
@@ -358,7 +339,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_updates() {
         // Test navigation menu state updates
@@ -378,7 +358,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_persistence() {
         // Test navigation menu state persistence
@@ -397,7 +376,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_synchronization() {
         // Test navigation menu state synchronization
@@ -416,7 +394,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_validation() {
         // Test navigation menu state validation
@@ -435,7 +412,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_transitions() {
         // Test navigation menu state transitions
@@ -454,7 +430,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_cleanup() {
         // Test navigation menu state cleanup
@@ -473,7 +448,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_recovery() {
         // Test navigation menu state recovery
@@ -492,7 +466,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_optimization() {
         // Test navigation menu state optimization
@@ -511,7 +484,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_monitoring() {
         // Test navigation menu state monitoring
@@ -530,7 +502,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_debugging() {
         // Test navigation menu state debugging
@@ -549,7 +520,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_testing() {
         // Test navigation menu state testing
@@ -568,7 +538,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_documentation() {
         // Test navigation menu state documentation
@@ -587,7 +556,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_examples() {
         // Test navigation menu state examples
@@ -606,7 +574,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_best_practices() {
         // Test navigation menu state best practices
@@ -625,7 +592,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_patterns() {
         // Test navigation menu state patterns
@@ -644,7 +610,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_architecture() {
         // Test navigation menu state architecture
@@ -663,7 +628,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_implementation() {
         // Test navigation menu state implementation
@@ -682,7 +646,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_verification() {
         // Test navigation menu state verification
@@ -701,7 +664,6 @@ mod tests {
         let _ = navigation_menu_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_navigation_menu_state_validation_comprehensive() {
         // Test navigation menu state validation comprehensive

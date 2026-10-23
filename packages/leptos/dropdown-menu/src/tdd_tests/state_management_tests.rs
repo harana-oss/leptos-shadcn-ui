@@ -8,7 +8,6 @@ mod state_management_tests {
     // ===== STATE MANAGEMENT TESTS =====
     // These tests focus on state management and interaction logic
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_open_state() {
         let open_state = RwSignal::new(false);
@@ -34,7 +33,6 @@ mod state_management_tests {
         assert!(open_state.get());
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_value_state() {
         let value_state = RwSignal::new("".to_string());
@@ -63,13 +61,12 @@ mod state_management_tests {
         assert_eq!(value_state.get(), "option1");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_disabled_state() {
         let disabled_state = RwSignal::new(false);
         
         let _dropdown_view = view! {
-            <DropdownMenu disabled=disabled_state.into()>
+            <DropdownMenu disabled=disabled_state>
                 <DropdownMenuTrigger>
                     "Disabled Menu"
                 </DropdownMenuTrigger>
@@ -89,7 +86,6 @@ mod state_management_tests {
         assert!(disabled_state.get());
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_callback_handling() {
         let callback_called = RwSignal::new(false);
@@ -123,7 +119,6 @@ mod state_management_tests {
         assert_eq!(callback_value.get(), "test-value");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_context_management() {
         let context_value = RwSignal::new("context-value".to_string());
@@ -149,7 +144,6 @@ mod state_management_tests {
         assert_eq!(context_value.get(), "new-context-value");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_animation_state() {
         let animation_state = RwSignal::new(false);
@@ -160,7 +154,7 @@ mod state_management_tests {
                     "Animated Menu"
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
-                    class=move || if animation_state.get() { "animate-in" } else { "animate-out" }
+                    class=MaybeProp::derive(move || Some(if animation_state.get() { "animate-in" } else { "animate-out" }.to_string()))
                 >
                     <DropdownMenuItem>
                         "Animated Item"
@@ -177,7 +171,6 @@ mod state_management_tests {
         assert!(animation_state.get());
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_focus_state() {
         let focus_state = RwSignal::new(false);
@@ -209,7 +202,6 @@ mod state_management_tests {
         assert!(!focus_state.get());
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_hover_state() {
         let hover_state = RwSignal::new(false);
@@ -241,7 +233,6 @@ mod state_management_tests {
         assert!(!hover_state.get());
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_selection_state() {
         let selection_state = RwSignal::new("".to_string());
@@ -279,7 +270,6 @@ mod state_management_tests {
         assert_eq!(selection_state.get(), "item2");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_multiple_states() {
         let open_state = RwSignal::new(false);
@@ -290,7 +280,7 @@ mod state_management_tests {
             <DropdownMenu
                 open=open_state.into()
                 value=value_state.into()
-                disabled=disabled_state.into()
+                disabled=disabled_state
             >
                 <DropdownMenuTrigger>
                     "Multi-State Menu"
@@ -321,7 +311,6 @@ mod state_management_tests {
         assert!(disabled_state.get());
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_state_persistence() {
         let persistent_state = RwSignal::new("persistent".to_string());
@@ -347,7 +336,6 @@ mod state_management_tests {
         assert_eq!(persistent_state.get(), "new-persistent");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_state_validation() {
         let valid_state = RwSignal::new(true);
@@ -360,9 +348,9 @@ mod state_management_tests {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <DropdownMenuItem
-                        class=move || if valid_state.get() { "valid" } else { "invalid" }
+                        class=MaybeProp::derive(move || Some(if valid_state.get() { "valid" } else { "invalid" }.to_string()))
                     >
-                        {move || if valid_state.get() { "Valid Item" } else { error_state.get() }}
+                        {move || if valid_state.get() { "Valid Item".to_string() } else { error_state.get() }}
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

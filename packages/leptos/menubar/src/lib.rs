@@ -4,7 +4,9 @@ pub mod signal_managed;
 pub mod default;
 pub mod new_york;
 
-pub use default::{Menubar};
+pub use default::{
+    Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarMenuContext, MenubarTrigger,
+};
 pub use new_york::{Menubar as MenubarNewYork};
 
 mod tests;

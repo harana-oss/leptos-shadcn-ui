@@ -4,7 +4,7 @@
 //! and edge cases for the Menubar component.
 
 use leptos::prelude::*;
-use crate::default::Menubar;
+use crate::default::{Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger};
 
 #[cfg(test)]
 mod tests {

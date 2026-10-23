@@ -8,7 +8,6 @@ mod performance_tests {
     // ===== PERFORMANCE TESTS =====
     // These tests focus on performance, callbacks, disabled states, and complex content
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_rendering_performance() {
         let start = std::time::Instant::now();
@@ -70,7 +69,6 @@ mod performance_tests {
         assert!(duration.as_millis() < 10, "Disabled state changes should be performant");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_complex_content_performance() {
         let start = std::time::Instant::now();
@@ -122,7 +120,6 @@ mod performance_tests {
         assert!(duration.as_millis() < 10, "Complex content should be performant");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_memory_usage() {
         let _memory_view = view! {
@@ -149,7 +146,6 @@ mod performance_tests {
         assert!(size < 1024, "Memory usage should be reasonable");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_large_dataset_performance() {
         let large_dataset = RwSignal::new((0..1000).map(|i| format!("Item {}", i)).collect::<Vec<_>>());
@@ -192,7 +188,6 @@ mod performance_tests {
         assert_eq!(update_count.get(), 1000);
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_nested_performance() {
         let start = std::time::Instant::now();
@@ -282,7 +277,6 @@ mod performance_tests {
         assert_eq!(state_count.get(), 1000);
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_rendering_memory() {
         let _rendering_view = view! {
@@ -329,7 +323,6 @@ mod performance_tests {
         assert_eq!(complex_callback_count.get(), 1000);
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_optimization_performance() {
         let start = std::time::Instant::now();
