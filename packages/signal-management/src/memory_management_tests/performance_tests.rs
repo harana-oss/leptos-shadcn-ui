@@ -23,7 +23,6 @@ mod performance_tests {
     }
 
     #[test]
-    #[ignore = "spec mismatch: test expects behavior the current stub implementation does not provide"]
     fn test_signal_memory_manager_memory_management() {
         // Test SignalMemoryManager memory management
         let manager = SignalMemoryManager::new();
@@ -200,7 +199,6 @@ mod performance_tests {
     }
 
     #[test]
-    #[ignore = "timing/size threshold or spec mismatch with current SignalMemoryManager stub implementation"]
     fn test_signal_memory_manager_large_scale_operations() {
         // Test SignalMemoryManager large scale operations
         let manager = SignalMemoryManager::new();
@@ -263,21 +261,20 @@ mod performance_tests {
     }
 
     #[test]
-    #[ignore = "timing/size threshold or spec mismatch with current SignalMemoryManager stub implementation"]
     fn test_signal_memory_manager_memory_efficiency() {
         // Test SignalMemoryManager memory efficiency
         let manager = SignalMemoryManager::new();
         
         // Create groups and measure memory usage
-        let start = std::time::Instant::now();
-        
         for i in 0..1000 {
             let group_name = format!("group_{}", i);
             let _group = manager.create_group(group_name);
         }
-        
-        let duration = start.elapsed();
-        let memory_per_group = duration.as_nanos() / 1000; // Rough estimate
+
+        // Use the manager's own memory estimate (deterministic) rather than
+        // wall-clock time as a proxy for memory per group
+        manager.update_memory_stats();
+        let memory_per_group = manager.get_memory_stats().estimated_memory_bytes / 1000;
         
         // Test memory efficiency (should be reasonable)
         assert!(memory_per_group < 1000, "Memory per group should be efficient");

@@ -207,7 +207,6 @@ mod performance_tests {
     }
 
     #[test]
-    #[ignore = "timing/size threshold or spec mismatch with current SignalMemoryManager stub implementation"]
     fn test_signal_manager_performance_under_load() {
         // Test performance under load
         let manager = TailwindSignalManager::new();
@@ -221,7 +220,7 @@ mod performance_tests {
             let _tracked = manager.track_signal(signal.clone());
             cleanup.track_signal(signal);
             
-            if i % 1000 == 0 {
+            if (i + 1) % 1000 == 0 {
                 // Test periodic cleanup
                 cleanup.cleanup();
             }

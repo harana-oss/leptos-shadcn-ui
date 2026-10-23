@@ -189,7 +189,6 @@ mod signal_group_tests {
     }
 
     #[test]
-    #[ignore = "spec mismatch: SignalGroup stores entries in a Vec and does not deduplicate"]
     fn test_signal_group_duplicate_signals() {
         // Test SignalGroup with duplicate signals
         let mut group = SignalGroup::new("test_group".to_string());
@@ -203,7 +202,6 @@ mod signal_group_tests {
     }
 
     #[test]
-    #[ignore = "spec mismatch: SignalGroup stores entries in a Vec and does not deduplicate"]
     fn test_signal_group_duplicate_memos() {
         // Test SignalGroup with duplicate memos
         let mut group = SignalGroup::new("test_group".to_string());

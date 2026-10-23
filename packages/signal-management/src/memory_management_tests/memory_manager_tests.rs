@@ -116,7 +116,6 @@ mod memory_manager_tests {
     }
 
     #[test]
-    #[ignore = "spec mismatch: test expects behavior the current stub implementation does not provide"]
     fn test_signal_memory_manager_update_memory_stats() {
         // Test SignalMemoryManager update memory stats
         let manager = SignalMemoryManager::new();
@@ -140,7 +139,6 @@ mod memory_manager_tests {
     }
 
     #[test]
-    #[ignore = "spec mismatch: detect_memory_pressure returns Some(MemoryPressureLevel::None) instead of None when idle"]
     fn test_signal_memory_manager_memory_pressure_detection() {
         // Test SignalMemoryManager memory pressure detection
         let max_memory = 1024; // 1KB
@@ -281,7 +279,6 @@ mod memory_manager_tests {
     }
 
     #[test]
-    #[ignore = "spec mismatch: detect_memory_pressure returns Some(MemoryPressureLevel::None) instead of None when idle"]
     fn test_signal_memory_manager_memory_limits() {
         // Test SignalMemoryManager memory limits
         let max_memory = 1024 * 1024; // 1MB

@@ -5,7 +5,6 @@ mod integration_tests {
     use leptos::prelude::*;
 
     #[test]
-    #[ignore = "spec mismatch: test expects behavior the current stub implementation does not provide"]
     fn test_signal_memory_manager_integration_scenarios() {
         // Test SignalMemoryManager integration scenarios
         let manager = SignalMemoryManager::new();
@@ -48,7 +47,6 @@ mod integration_tests {
     }
 
     #[test]
-    #[ignore = "timing/size threshold or spec mismatch with current SignalMemoryManager stub implementation"]
     fn test_signal_memory_manager_large_scale_operations() {
         // Test SignalMemoryManager large scale operations
         let manager = SignalMemoryManager::new();
@@ -129,7 +127,7 @@ mod integration_tests {
     }
 
     #[test]
-    #[ignore = "spec mismatch: detect_memory_pressure returns Some(MemoryPressureLevel::None) instead of None when idle"]
+    #[ignore = "unreachable setup: 100 groups of 1 signal + 1 memo estimate ~250KB (update_memory_stats overwrites the simulated +1KB each iteration), so the 512KB limit is never exceeded and nothing should be cleaned up"]
     fn test_signal_memory_manager_memory_pressure_integration() {
         // Test SignalMemoryManager memory pressure integration
         let max_memory = 1024 * 1024; // 1MB
@@ -171,7 +169,6 @@ mod integration_tests {
     }
 
     #[test]
-    #[ignore = "spec mismatch: test expects behavior the current stub implementation does not provide"]
     fn test_signal_memory_manager_adaptive_management_integration() {
         // Test SignalMemoryManager adaptive management integration
         let manager = SignalMemoryManager::with_adaptive_management();
@@ -205,7 +202,6 @@ mod integration_tests {
     }
 
     #[test]
-    #[ignore = "spec mismatch: test expects behavior the current stub implementation does not provide"]
     fn test_signal_memory_manager_stats_integration() {
         // Test SignalMemoryManager stats integration
         let manager = SignalMemoryManager::new();
@@ -239,7 +235,6 @@ mod integration_tests {
     }
 
     #[test]
-    #[ignore = "spec mismatch: test expects behavior the current stub implementation does not provide"]
     fn test_signal_memory_manager_group_lifecycle_integration() {
         // Test SignalMemoryManager group lifecycle integration
         let manager = SignalMemoryManager::new();
@@ -283,7 +278,7 @@ mod integration_tests {
     }
 
     #[test]
-    #[ignore = "spec mismatch: detect_memory_pressure returns Some(MemoryPressureLevel::None) instead of None when idle"]
+    #[ignore = "contradicts test_signal_memory_manager_cleanup_operations: that test requires cleanup_low_priority_groups to remove empty groups, this one requires it to keep an empty group"]
     fn test_signal_memory_manager_edge_cases_integration() {
         // Test SignalMemoryManager edge cases integration
         let manager = SignalMemoryManager::new();
@@ -308,7 +303,6 @@ mod integration_tests {
     }
 
     #[test]
-    #[ignore = "timing/size threshold or spec mismatch with current SignalMemoryManager stub implementation"]
     fn test_signal_memory_manager_performance_integration() {
         // Test SignalMemoryManager performance integration
         let manager = SignalMemoryManager::new();

@@ -99,21 +99,25 @@ pub trait AdvancedLeakDetection {
 // Implement advanced memory management for SignalMemoryManager
 impl AdvancedMemoryManagement for SignalMemoryManager {
     fn detect_memory_pressure(&self) -> Option<MemoryPressureLevel> {
-        let stats = self.get_stats();
-        let memory_usage = stats.estimated_memory_bytes as f64;
-        let memory_limit = self.memory_limit as f64;
-        
-        if memory_usage >= memory_limit * 0.9 {
-            Some(MemoryPressureLevel::Critical)
-        } else if memory_usage >= memory_limit * 0.7 {
-            Some(MemoryPressureLevel::High)
-        } else if memory_usage >= memory_limit * 0.5 {
-            Some(MemoryPressureLevel::Medium)
-        } else if memory_usage >= memory_limit * 0.3 {
-            Some(MemoryPressureLevel::Low)
-        } else {
-            Some(MemoryPressureLevel::None)
+        // No pressure while usage is at or below the soft `memory_limit`.
+        // Above it, the level grades how far usage has moved from the soft
+        // limit towards the hard `max_memory_bytes`.
+        let usage = self.stats.with_untracked(|s| s.estimated_memory_bytes);
+        if usage <= self.memory_limit {
+            return None;
         }
+        if usage >= self.max_memory_bytes || self.max_memory_bytes <= self.memory_limit {
+            return Some(MemoryPressureLevel::Critical);
+        }
+        let span = (self.max_memory_bytes - self.memory_limit) as f64;
+        let progress = (usage - self.memory_limit) as f64 / span;
+        Some(if progress >= 2.0 / 3.0 {
+            MemoryPressureLevel::High
+        } else if progress >= 1.0 / 3.0 {
+            MemoryPressureLevel::Medium
+        } else {
+            MemoryPressureLevel::Low
+        })
     }
     
     fn perform_automatic_cleanup(&self) -> bool {
@@ -245,9 +249,12 @@ impl AdvancedLeakDetection for MemoryLeakDetector {
 // Add missing fields to existing structs
 impl SignalMemoryManager {
     /// Cleanup unused groups
+    ///
+    /// Removes empty groups, then evicts the oldest groups until estimated
+    /// usage is back within `memory_limit`.
     fn cleanup_unused_groups(&self) {
-        // Implementation for cleaning up unused groups
-        // This would remove groups that haven't been accessed recently
+        let _ = self.cleanup_empty_groups();
+        self.evict_until_within_limit();
     }
     
     /// Cleanup old groups based on age threshold (in seconds)
@@ -266,7 +273,9 @@ impl SignalMemoryManager {
                 }
             });
         });
-        
+        self.forget_removed_current();
+        self.update_stats();
+
         Ok(cleaned_count)
     }
 }
