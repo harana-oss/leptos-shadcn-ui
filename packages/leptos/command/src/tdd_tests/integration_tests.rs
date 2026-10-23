@@ -1,16 +1,21 @@
 #[cfg(test)]
 mod integration_tests {
     use leptos::prelude::*;
-    use crate::default::*;
+    use crate::*;
 
     #[test]
     fn test_command_form_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...")/>
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -21,12 +26,17 @@ mod integration_tests {
 
     #[test]
     fn test_command_validation_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...") />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -37,12 +47,17 @@ mod integration_tests {
 
     #[test]
     fn test_command_theme_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...") />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -53,12 +68,17 @@ mod integration_tests {
 
     #[test]
     fn test_command_style_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...") />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -69,6 +89,10 @@ mod integration_tests {
 
     #[test]
     fn test_command_accessibility_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput 
@@ -76,7 +100,8 @@ mod integration_tests {
                 />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -87,12 +112,17 @@ mod integration_tests {
 
     #[test]
     fn test_command_performance_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...") />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -103,6 +133,10 @@ mod integration_tests {
 
     #[test]
     fn test_command_signal_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let value_signal = RwSignal::new("".to_string());
         let disabled_signal = RwSignal::new(false);
         
@@ -113,7 +147,8 @@ mod integration_tests {
                 />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -131,6 +166,10 @@ mod integration_tests {
 
     #[test]
     fn test_command_callback_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let callback = Callback::new(move |value: String| {
             // Test callback integration
             assert!(value.len() >= 0);
@@ -141,7 +180,8 @@ mod integration_tests {
                 <CommandInput placeholder=MaybeProp::from("Search...")/>
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -152,12 +192,17 @@ mod integration_tests {
 
     #[test]
     fn test_command_memory_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...") />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -168,12 +213,17 @@ mod integration_tests {
 
     #[test]
     fn test_command_network_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...") />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -184,12 +234,17 @@ mod integration_tests {
 
     #[test]
     fn test_command_battery_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...") />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -200,12 +255,17 @@ mod integration_tests {
 
     #[test]
     fn test_command_thermal_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...") />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -216,12 +276,17 @@ mod integration_tests {
 
     #[test]
     fn test_command_benchmark_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...") />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -232,12 +297,17 @@ mod integration_tests {
 
     #[test]
     fn test_command_load_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...") />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -248,12 +318,17 @@ mod integration_tests {
 
     #[test]
     fn test_command_stress_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...") />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -264,12 +339,17 @@ mod integration_tests {
 
     #[test]
     fn test_command_concurrent_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...") />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -280,12 +360,17 @@ mod integration_tests {
 
     #[test]
     fn test_command_scalability_integration() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...") />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -299,6 +384,10 @@ mod integration_tests {
 
     #[test]
     fn test_multiple_commands_simultaneous_rendering() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Multiple command components can be rendered simultaneously
         let command1_value = RwSignal::new("".to_string());
         let command2_value = RwSignal::new("".to_string());
@@ -310,7 +399,8 @@ mod integration_tests {
                     <CommandInput placeholder=MaybeProp::from("Command 1...") />
                     <CommandList>
                         <CommandEmpty>"No results"</CommandEmpty>
-                        <CommandGroup heading=MaybeProp::from("Group 1")>
+                        <CommandGroup>
+                        <CommandGroupHeading>"Group 1"</CommandGroupHeading>
                             <CommandItem>"Item 1.1"</CommandItem>
                         </CommandGroup>
                     </CommandList>
@@ -320,7 +410,8 @@ mod integration_tests {
                     <CommandInput placeholder=MaybeProp::from("Command 2...") />
                     <CommandList>
                         <CommandEmpty>"No results"</CommandEmpty>
-                        <CommandGroup heading=MaybeProp::from("Group 2")>
+                        <CommandGroup>
+                        <CommandGroupHeading>"Group 2"</CommandGroupHeading>
                             <CommandItem>"Item 2.1"</CommandItem>
                         </CommandGroup>
                     </CommandList>
@@ -330,7 +421,8 @@ mod integration_tests {
                     <CommandInput placeholder=MaybeProp::from("Command 3...") />
                     <CommandList>
                         <CommandEmpty>"No results"</CommandEmpty>
-                        <CommandGroup heading=MaybeProp::from("Group 3")>
+                        <CommandGroup>
+                        <CommandGroupHeading>"Group 3"</CommandGroupHeading>
                             <CommandItem>"Item 3.1"</CommandItem>
                         </CommandGroup>
                     </CommandList>
@@ -352,6 +444,10 @@ mod integration_tests {
 
     #[test]
     fn test_command_css_selector_isolation() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         // Test: CSS classes don't conflict between multiple commands
         let command1_value = RwSignal::new("".to_string());
         let command2_value = RwSignal::new("".to_string());
@@ -363,10 +459,11 @@ mod integration_tests {
                         placeholder=MaybeProp::from("Command 1...")
                         class=MaybeProp::from("custom-input-1")
                     />
-                    <CommandList class="custom-list-1">
+                    <CommandList class=MaybeProp::from("custom-list-1")>
                         <CommandEmpty>"No results"</CommandEmpty>
-                        <CommandGroup heading=MaybeProp::from("Group 1")>
-                            <CommandItem class="custom-item">"Item 1"</CommandItem>
+                        <CommandGroup>
+                        <CommandGroupHeading>"Group 1"</CommandGroupHeading>
+                            <CommandItem class=MaybeProp::from("custom-item")>"Item 1"</CommandItem>
                         </CommandGroup>
                     </CommandList>
                 </Command>
@@ -376,10 +473,11 @@ mod integration_tests {
                         placeholder=MaybeProp::from("Command 2...")
                         class=MaybeProp::from("custom-input-2")
                     />
-                    <CommandList class="custom-list-2">
+                    <CommandList class=MaybeProp::from("custom-list-2")>
                         <CommandEmpty>"No results"</CommandEmpty>
-                        <CommandGroup heading=MaybeProp::from("Group 2")>
-                            <CommandItem class="custom-item">"Item 2"</CommandItem>
+                        <CommandGroup>
+                        <CommandGroupHeading>"Group 2"</CommandGroupHeading>
+                            <CommandItem class=MaybeProp::from("custom-item")>"Item 2"</CommandItem>
                         </CommandGroup>
                     </CommandList>
                 </Command>
@@ -395,6 +493,10 @@ mod integration_tests {
 
     #[test]
     fn test_command_event_propagation_isolation() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Events from one command don't affect other commands
         let command1_value = RwSignal::new("".to_string());
         let command2_value = RwSignal::new("".to_string());
@@ -439,6 +541,10 @@ mod integration_tests {
 
     #[test]
     fn test_command_global_state_isolation() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Each command maintains its own context state
         let command1_value = RwSignal::new("".to_string());
         let command2_value = RwSignal::new("".to_string());
@@ -475,6 +581,10 @@ mod integration_tests {
 
     #[test]
     fn test_command_concurrent_lifecycle_management() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Multiple commands can be operated concurrently
         let command1_value = RwSignal::new("".to_string());
         let command2_value = RwSignal::new("".to_string());
@@ -531,6 +641,10 @@ mod integration_tests {
 
     #[test]
     fn test_command_rapid_state_changes() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Rapid value changes don't cause conflicts
         let command_value = RwSignal::new("".to_string());
 
@@ -552,6 +666,10 @@ mod integration_tests {
 
     #[test]
     fn test_command_memory_management_multiple_instances() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Multiple commands don't cause memory leaks
         let commands: Vec<RwSignal<String>> = (0..10)
             .map(|_| RwSignal::new("".to_string()))
@@ -562,7 +680,7 @@ mod integration_tests {
                 {commands.into_iter().enumerate().map(|(i, value)| {
                     view! {
                         <Command value=MaybeProp::from(value)>
-                            <CommandInput placeholder=MaybeProp::from(&format!("Command {}...", i)) />
+                            <CommandInput placeholder=MaybeProp::from(format!("Command {}...", i)) />
                             <CommandList>
                                 <CommandEmpty>{format!("No results for command {}", i)}</CommandEmpty>
                             </CommandList>
@@ -577,6 +695,10 @@ mod integration_tests {
 
     #[test]
     fn test_command_nested_components() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Command can be nested within other UI structures
         let command_value = RwSignal::new("".to_string());
         let panel_open = RwSignal::new(false);
@@ -594,16 +716,17 @@ mod integration_tests {
                                     <CommandInput placeholder=MaybeProp::from("Search...") />
                                     <CommandList>
                                         <CommandEmpty>"No results"</CommandEmpty>
-                                        <CommandGroup heading=MaybeProp::from("Suggestions")>
+                                        <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                                             <CommandItem>"Item 1"</CommandItem>
                                             <CommandItem>"Item 2"</CommandItem>
                                         </CommandGroup>
                                     </CommandList>
                                 </Command>
                             </div>
-                        }
+                        }.into_any()
                     } else {
-                        view! {}
+                        view! {}.into_any()
                     }}
                 </div>
             </div>
@@ -620,6 +743,10 @@ mod integration_tests {
 
     #[test]
     fn test_command_with_other_interactive_components() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Command works alongside other interactive components
         let command_value = RwSignal::new("".to_string());
         let button_clicks = RwSignal::new(0);
@@ -664,6 +791,10 @@ mod integration_tests {
 
     #[test]
     fn test_command_theme_variants_coexistence() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Default and New York theme variants can coexist
         let default_value = RwSignal::new("".to_string());
         let newyork_value = RwSignal::new("".to_string());

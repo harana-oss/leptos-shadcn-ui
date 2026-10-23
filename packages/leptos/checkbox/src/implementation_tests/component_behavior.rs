@@ -27,7 +27,7 @@ mod component_behavior {
         
         let computed_class = format!("{} {}", base_class, custom_class);
         
-        assert_eq!(computed_class, base_class);
+        assert_eq!(computed_class.trim_end(), base_class);
     }
 
     #[test]
@@ -255,7 +255,7 @@ mod component_behavior {
     }
 
     #[test]
-    fn test_checkbox_computed_class_combination() {
+    fn test_checkbox_computed_class_combination_custom() {
         // Test combination of variant and size classes
         let base_class = CHECKBOX_CLASS;
         let custom_class = "custom-class";

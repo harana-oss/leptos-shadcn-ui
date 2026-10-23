@@ -1,16 +1,21 @@
 #[cfg(test)]
 mod interaction_tests {
     use leptos::prelude::*;
-    use crate::default::*;
+    use crate::*;
 
     #[test]
     fn test_command_keyboard_navigation() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...")/>
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                         <CommandItem>"Calculator"</CommandItem>
@@ -22,12 +27,17 @@ mod interaction_tests {
 
     #[test]
     fn test_command_edge_cases() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("")/>
                 <CommandList>
                     <CommandEmpty>""</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("")>
+                    <CommandGroup>
+                        <CommandGroupHeading>""</CommandGroupHeading>
                         <CommandItem>""</CommandItem>
                     </CommandGroup>
                 </CommandList>
@@ -37,6 +47,10 @@ mod interaction_tests {
 
     #[test]
     fn test_command_performance() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let start = std::time::Instant::now();
         
         for i in 0..100 {
@@ -45,7 +59,8 @@ mod interaction_tests {
                     <CommandInput placeholder=format!("Search {}...", i).into()/>
                     <CommandList>
                         <CommandEmpty>"No results found."</CommandEmpty>
-                        <CommandGroup heading=MaybeProp::from("Suggestions")>
+                        <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                             <CommandItem>format!("Item {}", i)</CommandItem>
                         </CommandGroup>
                     </CommandList>
@@ -59,6 +74,10 @@ mod interaction_tests {
 
     #[test]
     fn test_command_callback_handling() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let callback = Callback::new(move |value: String| {
             // Test callback handling
             assert!(value.len() >= 0);
@@ -69,7 +88,8 @@ mod interaction_tests {
                 <CommandInput placeholder=MaybeProp::from("Search...")/>
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                     </CommandGroup>
                 </CommandList>
@@ -79,6 +99,10 @@ mod interaction_tests {
 
     #[test]
     fn test_command_value_updates() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let value_signal = RwSignal::new("".to_string());
         
         let _command_view = view! {
@@ -86,7 +110,8 @@ mod interaction_tests {
                 <CommandInput placeholder=MaybeProp::from("Search...")/>
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                     </CommandGroup>
                 </CommandList>
@@ -103,12 +128,17 @@ mod interaction_tests {
 
     #[test]
     fn test_command_item_selection() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...")/>
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                         <CommandItem>"Calculator"</CommandItem>
@@ -120,12 +150,17 @@ mod interaction_tests {
 
     #[test]
     fn test_command_input_focus() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...") />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                     </CommandGroup>
                 </CommandList>
@@ -135,12 +170,17 @@ mod interaction_tests {
 
     #[test]
     fn test_command_search_filtering() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...")/>
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                         <CommandItem>"Calculator"</CommandItem>
@@ -152,12 +192,17 @@ mod interaction_tests {
 
     #[test]
     fn test_command_shortcut_handling() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...")/>
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>
                             "Calendar"
                             <CommandShortcut>"⌘K"</CommandShortcut>
@@ -174,12 +219,17 @@ mod interaction_tests {
 
     #[test]
     fn test_command_disabled_interactions() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...") />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem >"Disabled Item"</CommandItem>
                     </CommandGroup>
                 </CommandList>
@@ -189,12 +239,17 @@ mod interaction_tests {
 
     #[test]
     fn test_command_mouse_interactions() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...")/>
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -205,12 +260,17 @@ mod interaction_tests {
 
     #[test]
     fn test_command_touch_interactions() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...")/>
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                         <CommandItem>"Search Emoji"</CommandItem>
                     </CommandGroup>
@@ -221,12 +281,17 @@ mod interaction_tests {
 
     #[test]
     fn test_command_voice_interactions() {
+        // Native tests need an executor for effects and an owner for context.
+        let _ = any_spawner::Executor::init_futures_executor();
+        let _owner = Owner::new();
+        _owner.set();
         let _command_view = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search...") />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
-                    <CommandGroup heading=MaybeProp::from("Suggestions")>
+                    <CommandGroup>
+                        <CommandGroupHeading>"Suggestions"</CommandGroupHeading>
                         <CommandItem>"Calendar"</CommandItem>
                     </CommandGroup>
                 </CommandList>

@@ -12,7 +12,7 @@ pub fn ContextMenuContent(
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: MaybeProp<String>,
-    children: ChildrenFn,
+    #[prop(optional)] children: Option<ChildrenFn>,
 ) -> impl IntoView {
     let open = expect_context::<RwSignal<bool>>();
     let position = expect_context::<RwSignal<(i32, i32)>>();
@@ -36,7 +36,7 @@ pub fn ContextMenuContent(
             role="menu"
             aria-orientation="vertical"
         >
-            {children()}
+            {children.clone().map(|c| c())}
         </div>
         </Show>
     }

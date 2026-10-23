@@ -2384,6 +2384,7 @@ dependencies = [
 name = "leptos-shadcn-command"
 version = "0.9.1"
 dependencies = [
+ "any_spawner",
  "leptos",
  "leptos-shadcn-signal-management 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "leptos-style",

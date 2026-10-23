@@ -5,6 +5,24 @@ use std::collections::HashMap;
 
 use crate::error::SignalManagementError;
 
+/// Current time in milliseconds since the Unix epoch.
+///
+/// Uses `js_sys::Date::now()` on wasm32 and `SystemTime` elsewhere, since
+/// wasm-bindgen imports panic when called on native targets.
+pub(crate) fn now_ms() -> f64 {
+    #[cfg(target_arch = "wasm32")]
+    {
+        js_sys::Date::now()
+    }
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_secs_f64() * 1000.0)
+            .unwrap_or(0.0)
+    }
+}
+
 /// Memory usage statistics for signal management
 #[derive(Debug, Clone, PartialEq)]
 pub struct MemoryStats {
@@ -64,7 +82,7 @@ impl SignalGroup {
             name,
             signals: Vec::new(),
             memos: Vec::new(),
-            created_at: js_sys::Date::now(),
+            created_at: crate::memory_management::now_ms(),
         }
     }
     
@@ -191,9 +209,10 @@ impl SignalMemoryManager {
     ) -> Result<ArcRwSignal<T>, SignalManagementError> {
         let signal_clone = signal.clone();
         self.tracked_groups.update(|groups| {
-            if let Some(group) = groups.get_mut(group_name) {
-                group.add_signal(signal);
-            }
+            groups
+                .entry(group_name.to_string())
+                .or_insert_with(|| SignalGroup::new(group_name.to_string()))
+                .add_signal(signal);
         });
         
         self.update_stats();
@@ -208,9 +227,10 @@ impl SignalMemoryManager {
     ) -> Result<ArcMemo<T>, SignalManagementError> {
         let memo_clone = memo.clone();
         self.tracked_groups.update(|groups| {
-            if let Some(group) = groups.get_mut(group_name) {
-                group.add_memo(memo);
-            }
+            groups
+                .entry(group_name.to_string())
+                .or_insert_with(|| SignalGroup::new(group_name.to_string()))
+                .add_memo(memo);
         });
         
         self.update_stats();
@@ -322,7 +342,7 @@ impl SignalMemoryManager {
     
     /// Get memory usage in KB
     pub fn memory_usage_kb(&self) -> f64 {
-        self.max_memory_bytes as f64 / 1024.0
+        self.stats.with(|s| s.estimated_memory_bytes) as f64 / 1024.0
     }
     
     /// Add a signal to the default group

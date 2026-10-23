@@ -1,12 +1,17 @@
 #[cfg(test)]
 mod accessibility_tests {
     use super::*;
+    use crate::*;
+    use leptos::prelude::*;
 
     // ===== ACCESSIBILITY TESTS =====
     // These tests focus on accessibility features and ARIA attributes
 
     #[test]
     fn test_context_menu_accessibility_basic() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
@@ -22,12 +27,15 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_with_aria_label() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger aria_label=MaybeProp::from("Context menu trigger")>
+                <ContextMenuTrigger attr:aria-label="Context menu trigger">
                     "Right-click me"
                 </ContextMenuTrigger>
-                <ContextMenuContent aria_label=MaybeProp::from("Context menu")>
+                <ContextMenuContent attr:aria-label="Context menu">
                     <ContextMenuItem>"Item 1"</ContextMenuItem>
                 </ContextMenuContent>
             </ContextMenu>
@@ -37,9 +45,12 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_with_aria_describedby() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger aria_describedby=MaybeProp::from("menu-description")>
+                <ContextMenuTrigger attr:aria-describedby="menu-description">
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
@@ -52,10 +63,13 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_with_aria_expanded() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let expanded = RwSignal::new(false);
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger aria_expanded=MaybeProp::from(expanded)>
+                <ContextMenuTrigger attr:aria-expanded=expanded>
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
@@ -68,9 +82,12 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_with_aria_haspopup() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger aria_haspopup=MaybeProp::from("menu")>
+                <ContextMenuTrigger attr:aria-haspopup="menu">
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
@@ -83,9 +100,12 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_with_aria_owns() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger aria_owns=MaybeProp::from("menu-content")>
+                <ContextMenuTrigger attr:aria-owns="menu-content">
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent id=MaybeProp::from("menu-content")>
@@ -98,9 +118,12 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_with_aria_controls() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger aria_controls=MaybeProp::from("menu-content")>
+                <ContextMenuTrigger attr:aria-controls="menu-content">
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent id=MaybeProp::from("menu-content")>
@@ -113,13 +136,16 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_with_aria_activedescendant() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let active_item = RwSignal::new("item-1".to_string());
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
                     "Right-click me"
                 </ContextMenuTrigger>
-                <ContextMenuContent aria_activedescendant=MaybeProp::from(active_item)>
+                <ContextMenuContent attr:aria-activedescendant=active_item>
                     <ContextMenuItem id=MaybeProp::from("item-1")>"Item 1"</ContextMenuItem>
                     <ContextMenuItem id=MaybeProp::from("item-2")>"Item 2"</ContextMenuItem>
                 </ContextMenuContent>
@@ -130,14 +156,17 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_with_keyboard_navigation() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger tabindex=MaybeProp::from(0)>
+                <ContextMenuTrigger attr:tabindex=0>
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <ContextMenuItem tabindex=MaybeProp::from(0)>"Item 1"</ContextMenuItem>
-                    <ContextMenuItem tabindex=MaybeProp::from(0)>"Item 2"</ContextMenuItem>
+                    <ContextMenuItem attr:tabindex=0>"Item 1"</ContextMenuItem>
+                    <ContextMenuItem attr:tabindex=0>"Item 2"</ContextMenuItem>
                 </ContextMenuContent>
             </ContextMenu>
         };
@@ -146,9 +175,12 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_with_focus_management() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger autofocus=MaybeProp::from(true)>
+                <ContextMenuTrigger attr:autofocus=true>
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
@@ -162,20 +194,17 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_with_screen_reader_support() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger 
-                    role=MaybeProp::from("button")
-                    aria_label=MaybeProp::from("Open context menu")
-                >
+                <ContextMenuTrigger attr:role="button" attr:aria-label="Open context menu">
                     "Right-click me"
                 </ContextMenuTrigger>
-                <ContextMenuContent 
-                    role=MaybeProp::from("menu")
-                    aria_label=MaybeProp::from("Context menu options")
-                >
-                    <ContextMenuItem role=MaybeProp::from("menuitem")>"Item 1"</ContextMenuItem>
-                    <ContextMenuItem role=MaybeProp::from("menuitem")>"Item 2"</ContextMenuItem>
+                <ContextMenuContent attr:role="menu" attr:aria-label="Context menu options">
+                    <ContextMenuItem attr:role="menuitem">"Item 1"</ContextMenuItem>
+                    <ContextMenuItem attr:role="menuitem">"Item 2"</ContextMenuItem>
                 </ContextMenuContent>
             </ContextMenu>
         };
@@ -184,6 +213,9 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_with_live_regions() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let status = RwSignal::new("".to_string());
         let _context_menu_view = view! {
             <div>
@@ -192,16 +224,14 @@ mod accessibility_tests {
                         "Right-click me"
                     </ContextMenuTrigger>
                     <ContextMenuContent>
-                        <ContextMenuItem 
-                            on_click=Callback::new(move |_| {
+                        <ContextMenuItem on:click=(move |_| {
                                 status.set("Item 1 selected".to_string());
-                            })
-                        >
+                            })>
                             "Item 1"
                         </ContextMenuItem>
                     </ContextMenuContent>
                 </ContextMenu>
-                <div aria_live=MaybeProp::from("polite") aria_atomic=MaybeProp::from(true)>
+                <div attr:aria-live="polite" attr:aria-atomic=true>
                     {status}
                 </div>
             </div>
@@ -211,6 +241,9 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_with_high_contrast() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger class=MaybeProp::from("high-contrast")>
@@ -226,6 +259,9 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_with_reduced_motion() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger class=MaybeProp::from("reduced-motion")>
@@ -241,19 +277,16 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_with_voice_control() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger 
-                    aria_label=MaybeProp::from("Context menu trigger")
-                    title=MaybeProp::from("Right-click or press Enter to open menu")
-                >
+                <ContextMenuTrigger attr:aria-label="Context menu trigger" attr:title="Right-click or press Enter to open menu">
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <ContextMenuItem 
-                        aria_label=MaybeProp::from("Edit option")
-                        title=MaybeProp::from("Edit this item")
-                    >
+                    <ContextMenuItem attr:aria-label="Edit option" attr:title="Edit this item">
                         "Edit"
                     </ContextMenuItem>
                 </ContextMenuContent>
@@ -264,31 +297,16 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_with_multiple_aria_attributes() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger 
-                    aria_label=MaybeProp::from("Context menu trigger")
-                    aria_describedby=MaybeProp::from("menu-description")
-                    aria_expanded=MaybeProp::from(false)
-                    aria_haspopup=MaybeProp::from("menu")
-                    aria_owns=MaybeProp::from("menu-content")
-                    aria_controls=MaybeProp::from("menu-content")
-                    role=MaybeProp::from("button")
-                    tabindex=MaybeProp::from(0)
-                >
+                <ContextMenuTrigger attr:aria-label="Context menu trigger" attr:aria-describedby="menu-description" attr:aria-expanded=false attr:aria-haspopup="menu" attr:aria-owns="menu-content" attr:aria-controls="menu-content" attr:role="button" attr:tabindex=0>
                     "Right-click me"
                 </ContextMenuTrigger>
-                <ContextMenuContent 
-                    id=MaybeProp::from("menu-content")
-                    role=MaybeProp::from("menu")
-                    aria_label=MaybeProp::from("Context menu options")
-                    aria_orientation=MaybeProp::from("vertical")
-                >
-                    <ContextMenuItem 
-                        role=MaybeProp::from("menuitem")
-                        tabindex=MaybeProp::from(0)
-                        aria_label=MaybeProp::from("First menu item")
-                    >
+                <ContextMenuContent id=MaybeProp::from("menu-content") attr:role="menu" attr:aria-label="Context menu options" attr:aria-orientation="vertical">
+                    <ContextMenuItem attr:role="menuitem" attr:tabindex=0 attr:aria-label="First menu item">
                         "Item 1"
                     </ContextMenuItem>
                 </ContextMenuContent>
@@ -299,25 +317,19 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_performance() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let start = std::time::Instant::now();
         
         for _ in 0..100 {
             let _context_menu_view = view! {
                 <ContextMenu>
-                    <ContextMenuTrigger 
-                        aria_label=MaybeProp::from("Context menu trigger")
-                        aria_expanded=MaybeProp::from(false)
-                        aria_haspopup=MaybeProp::from("menu")
-                        role=MaybeProp::from("button")
-                        tabindex=MaybeProp::from(0)
-                    >
+                    <ContextMenuTrigger attr:aria-label="Context menu trigger" attr:aria-expanded=false attr:aria-haspopup="menu" attr:role="button" attr:tabindex=0>
                         "Right-click me"
                     </ContextMenuTrigger>
-                    <ContextMenuContent 
-                        role=MaybeProp::from("menu")
-                        aria_label=MaybeProp::from("Context menu options")
-                    >
-                        <ContextMenuItem role=MaybeProp::from("menuitem")>"Item 1"</ContextMenuItem>
+                    <ContextMenuContent attr:role="menu" attr:aria-label="Context menu options">
+                        <ContextMenuItem attr:role="menuitem">"Item 1"</ContextMenuItem>
                     </ContextMenuContent>
                 </ContextMenu>
             };
@@ -329,16 +341,16 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_memory_usage() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger 
-                    aria_label=MaybeProp::from("Context menu trigger")
-                    role=MaybeProp::from("button")
-                >
+                <ContextMenuTrigger attr:aria-label="Context menu trigger" attr:role="button">
                     "Right-click me"
                 </ContextMenuTrigger>
-                <ContextMenuContent role=MaybeProp::from("menu")>
-                    <ContextMenuItem role=MaybeProp::from("menuitem")>"Item 1"</ContextMenuItem>
+                <ContextMenuContent attr:role="menu">
+                    <ContextMenuItem attr:role="menuitem">"Item 1"</ContextMenuItem>
                 </ContextMenuContent>
             </ContextMenu>
         };
@@ -349,9 +361,12 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_consistency() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view1 = view! {
             <ContextMenu>
-                <ContextMenuTrigger aria_label=MaybeProp::from("Menu 1")>
+                <ContextMenuTrigger attr:aria-label="Menu 1">
                     "Menu 1"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
@@ -361,7 +376,7 @@ mod accessibility_tests {
         };
         let _context_menu_view2 = view! {
             <ContextMenu>
-                <ContextMenuTrigger aria_label=MaybeProp::from("Menu 2")>
+                <ContextMenuTrigger attr:aria-label="Menu 2">
                     "Menu 2"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
@@ -373,12 +388,12 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_edge_cases() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger 
-                    aria_label=MaybeProp::from("")
-                    role=MaybeProp::from("")
-                >
+                <ContextMenuTrigger attr:aria-label="" attr:role="">
                     ""
                 </ContextMenuTrigger>
                 <ContextMenuContent>
@@ -391,23 +406,16 @@ mod accessibility_tests {
 
     #[test]
     fn test_context_menu_accessibility_none_values() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger 
-                    aria_label=MaybeProp::from(None::<String>)
-                    aria_describedby=MaybeProp::from(None::<String>)
-                    aria_expanded=MaybeProp::from(None::<bool>)
-                    aria_haspopup=MaybeProp::from(None::<String>)
-                    role=MaybeProp::from(None::<String>)
-                    tabindex=MaybeProp::from(None::<i32>)
-                >
+                <ContextMenuTrigger attr:aria-label={None::<String>} attr:aria-describedby={None::<String>} attr:aria-expanded={None::<bool>} attr:aria-haspopup={None::<String>} attr:role={None::<String>} attr:tabindex={None::<i32>}>
                     "Right-click me"
                 </ContextMenuTrigger>
-                <ContextMenuContent 
-                    role=MaybeProp::from(None::<String>)
-                    aria_label=MaybeProp::from(None::<String>)
-                >
-                    <ContextMenuItem role=MaybeProp::from(None::<String>)>"Item 1"</ContextMenuItem>
+                <ContextMenuContent attr:role={None::<String>} attr:aria-label={None::<String>}>
+                    <ContextMenuItem attr:role={None::<String>}>"Item 1"</ContextMenuItem>
                 </ContextMenuContent>
             </ContextMenu>
         };

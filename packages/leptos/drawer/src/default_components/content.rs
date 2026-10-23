@@ -1,4 +1,6 @@
 //! Drawer content components
+//! 
+//! This module contains the DrawerContent component for the main drawer content area.
 
 use leptos::prelude::*;
 use leptos_style::Style;
@@ -10,7 +12,7 @@ pub fn DrawerContent(
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: MaybeProp<String>,
-    children: ChildrenFn,
+    #[prop(optional)] children: Option<ChildrenFn>,
 ) -> impl IntoView {
     let open_state = expect_context::<RwSignal<bool>>();
     let direction = expect_context::<Signal<DrawerDirection>>();
@@ -44,7 +46,7 @@ pub fn DrawerContent(
                 role="dialog"
                 aria-modal="true"
             >
-                {children()}
+                {children.clone().map(|c| c())}
             </div>
         </Show>
     }

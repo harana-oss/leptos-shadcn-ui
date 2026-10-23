@@ -1,6 +1,8 @@
 #[cfg(test)]
 mod basic_rendering_tests {
     use super::*;
+    use crate::*;
+    use leptos::prelude::*;
 
     // ===== BASIC RENDERING TESTS =====
     // These tests focus on basic rendering and component creation
@@ -54,7 +56,7 @@ mod basic_rendering_tests {
         let _combobox_view = view! {
             <Combobox 
                 options=options
-                disabled=MaybeProp::from(true)
+                disabled=true
             />
         };
     }
@@ -82,7 +84,7 @@ mod basic_rendering_tests {
         let _combobox_view = view! {
             <Combobox 
                 options=options
-                style=MaybeProp::from("color: red")
+                style=leptos_style::Style::from("color: red")
             />
         };
     }
@@ -112,9 +114,9 @@ mod basic_rendering_tests {
                 options=options
                 value=MaybeProp::from("option1")
                 placeholder=MaybeProp::from("Select an option")
-                disabled=MaybeProp::from(false)
+                disabled=false
                 class=MaybeProp::from("custom-class")
-                style=MaybeProp::from("color: red")
+                style=leptos_style::Style::from("color: red")
                 id=MaybeProp::from("test-combobox")
             />
         };
@@ -243,7 +245,7 @@ mod basic_rendering_tests {
             ComboboxOption::new("option2", "Option 2"),
         ];
         let _combobox_view = view! {
-            <Combobox options=options/>
+            <Combobox options=options.clone()/>
         };
         
         // Test that memory usage is reasonable
@@ -285,7 +287,7 @@ mod basic_rendering_tests {
             <Combobox options=options.clone() placeholder=MaybeProp::from("Select")/>
         };
         let _combobox_view3 = view! {
-            <Combobox options=options.clone() disabled=MaybeProp::from(true)/>
+            <Combobox options=options.clone() disabled=true/>
         };
         let _combobox_view4 = view! {
             <Combobox options=options.clone() class=MaybeProp::from("custom")/>
@@ -314,9 +316,9 @@ mod basic_rendering_tests {
                 options=options
                 value=MaybeProp::from(None::<String>)
                 placeholder=MaybeProp::from(None::<String>)
-                disabled=MaybeProp::from(None::<bool>)
+                disabled=false
                 class=MaybeProp::from(None::<String>)
-                style=MaybeProp::from(None::<String>)
+                style=leptos_style::Style::from(None::<String>)
                 id=MaybeProp::from(None::<String>)
             />
         };

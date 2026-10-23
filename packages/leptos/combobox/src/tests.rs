@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
     use super::*;
-    use leptos::*;
+    use leptos::prelude::*;
 
     #[test]
     fn test_combobox_component_exists() {

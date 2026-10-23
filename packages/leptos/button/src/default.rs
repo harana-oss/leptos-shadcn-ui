@@ -19,7 +19,7 @@ pub const BUTTON_CLASS: &str = "inline-flex items-center justify-center whitespa
 pub const BUTTON_TOUCH_CLASS: &str = "min-h-[44px] min-w-[44px]";
 
 /// Button variant types
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum ButtonVariant {
     Default,
     Destructive,
@@ -49,7 +49,7 @@ impl From<String> for ButtonVariant {
 }
 
 /// Button size types
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum ButtonSize {
     Default,
     Sm,

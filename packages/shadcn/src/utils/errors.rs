@@ -44,8 +44,8 @@ impl CliRecoverySuggestion {
         }
     }
 
-    pub fn with_explanation(mut self, explanation: String) -> Self {
-        self.explanation = Some(explanation);
+    pub fn with_explanation(mut self, explanation: impl Into<String>) -> Self {
+        self.explanation = Some(explanation.into());
         self
     }
 

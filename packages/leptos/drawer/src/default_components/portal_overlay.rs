@@ -1,4 +1,7 @@
 //! Drawer portal and overlay components
+//! 
+//! This module contains the DrawerPortal and DrawerOverlay components for
+//! rendering the drawer outside the normal DOM hierarchy.
 
 use leptos::prelude::*;
 use leptos_style::Style;
@@ -6,11 +9,11 @@ use web_sys::MouseEvent;
 
 #[component]
 pub fn DrawerPortal(
-    children: ChildrenFn,
+    #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     view! {
         <div class="fixed inset-0 z-50">
-            {children()}
+            {children.map(|c| c())}
         </div>
     }
 }
@@ -20,7 +23,7 @@ pub fn DrawerOverlay(
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: MaybeProp<String>,
-    children: ChildrenFn,
+    #[prop(optional)] children: Option<ChildrenFn>,
 ) -> impl IntoView {
     let open_state = expect_context::<RwSignal<bool>>();
     let on_open_change = expect_context::<Option<Callback<bool>>>();
@@ -51,7 +54,7 @@ pub fn DrawerOverlay(
                 style=move || style.get().unwrap_or_default()
                 on:click=handle_click
             >
-                {children()}
+                {children.clone().map(|c| c())}
             </div>
         </Show>
     }
