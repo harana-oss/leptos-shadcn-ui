@@ -182,12 +182,27 @@ pub fn ChartLegendContent(
     }
 }
 
-fn plot_size() -> (f64, f64) {
-    (CHART_WIDTH - MARGIN_LEFT - MARGIN_RIGHT, CHART_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM)
+/// Resolves optional width/height props, falling back to the defaults and
+/// rejecting non-finite or non-positive values.
+pub fn resolve_size(width: Option<f64>, height: Option<f64>) -> (f64, f64) {
+    let ok = |v: Option<f64>, d: f64| v.filter(|v| v.is_finite() && *v > 0.0).unwrap_or(d);
+    (ok(width, CHART_WIDTH), ok(height, CHART_HEIGHT))
 }
 
-fn axes(data: Vec<ChartRow>, ymax: f64) -> impl IntoView {
-    let (w, h) = plot_size();
+/// SVG `viewBox` attribute for a chart of the given size.
+pub fn view_box(width: f64, height: f64) -> String {
+    format!("0 0 {width} {height}")
+}
+
+/// Inner plot area (excluding axis margins) for a chart of the given size.
+pub fn plot_size(width: f64, height: f64) -> (f64, f64) {
+    (
+        (width - MARGIN_LEFT - MARGIN_RIGHT).max(0.0),
+        (height - MARGIN_TOP - MARGIN_BOTTOM).max(0.0),
+    )
+}
+
+fn axes(data: Vec<ChartRow>, ymax: f64, w: f64, h: f64) -> impl IntoView {
     let band = BandScale::new(data.len(), w, 0.0);
     view! {
         <g class="chart-grid">
@@ -215,25 +230,30 @@ fn tooltip_items(config: &ChartConfig, row: &ChartRow) -> Vec<(String, f64)> {
 pub fn BarChart(
     #[prop(into)] data: Signal<Vec<ChartRow>>,
     #[prop(into, optional)] show_tooltip: MaybeProp<bool>,
+    #[prop(into, optional)] width: MaybeProp<f64>,
+    #[prop(into, optional)] height: MaybeProp<f64>,
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: MaybeProp<String>,
 ) -> impl IntoView {
     let cfg = use_chart().0;
+    let size = Signal::derive(move || resolve_size(width.get(), height.get()));
     let hovered = RwSignal::new(None::<usize>);
-    let (w, h) = plot_size();
     let keys = move || cfg.get().keys().map(String::from).collect::<Vec<_>>();
     view! {
         <svg
             data-slot="chart-bar"
-            viewBox=format!("0 0 {CHART_WIDTH} {CHART_HEIGHT}")
-            class=move || format!("h-full w-full overflow-visible {}", class.get().unwrap_or_default())
+            viewBox=move || { let (sw, sh) = size.get(); view_box(sw, sh) }
+            width="100%"
+            preserveAspectRatio="xMidYMid meet"
+            class=move || format!("h-auto w-full overflow-visible {}", class.get().unwrap_or_default())
             id=move || id.get()
             style=move || style.get()
             on:mouseleave=move |_| hovered.set(None)
         >
             <g transform=format!("translate({MARGIN_LEFT},{MARGIN_TOP})")>
                 {move || {
+                    let (w, h) = { let (sw, sh) = size.get(); plot_size(sw, sh) };
                     let config = cfg.get();
                     let rows = data.get();
                     let m = series_matrix(&config, &rows);
@@ -241,7 +261,7 @@ pub fn BarChart(
                     let keys = keys();
                     let band = BandScale::new(rows.len(), w, 0.0);
                     view! {
-                        {axes(rows.clone(), ymax)}
+                        {axes(rows.clone(), ymax, w, h)}
                         {(0..rows.len()).map(|i| view! {
                             <rect x=band.x(i) y="0" width=band.step height=h fill="currentColor"
                                 fill-opacity=move || if hovered.get() == Some(i) { "0.05" } else { "0" }
@@ -258,7 +278,9 @@ pub fn BarChart(
         <Show when=move || show_tooltip.get().unwrap_or(true) && hovered.get().is_some()>
             {move || hovered.get().and_then(|i| data.get().get(i).cloned()).map(|row| {
                 let n = data.get().len().max(1);
-                let left = (MARGIN_LEFT + BandScale::new(n, w, 0.0).center(hovered.get().unwrap_or(0))) / CHART_WIDTH * 100.0;
+                let (sw, sh) = size.get();
+                let (w, _) = plot_size(sw, sh);
+                let left = (MARGIN_LEFT + BandScale::new(n, w, 0.0).center(hovered.get().unwrap_or(0))) / sw * 100.0;
                 let items = tooltip_items(&cfg.get(), &row);
                 view! {
                     <div class="pointer-events-none absolute top-2" style=format!("left: {left:.2}%")>
@@ -274,29 +296,34 @@ pub fn BarChart(
 pub fn LineChart(
     #[prop(into)] data: Signal<Vec<ChartRow>>,
     #[prop(into, optional)] show_dots: MaybeProp<bool>,
+    #[prop(into, optional)] width: MaybeProp<f64>,
+    #[prop(into, optional)] height: MaybeProp<f64>,
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: MaybeProp<String>,
 ) -> impl IntoView {
     let cfg = use_chart().0;
-    let (w, h) = plot_size();
+    let size = Signal::derive(move || resolve_size(width.get(), height.get()));
     view! {
         <svg
             data-slot="chart-line"
-            viewBox=format!("0 0 {CHART_WIDTH} {CHART_HEIGHT}")
-            class=move || format!("h-full w-full overflow-visible {}", class.get().unwrap_or_default())
+            viewBox=move || { let (sw, sh) = size.get(); view_box(sw, sh) }
+            width="100%"
+            preserveAspectRatio="xMidYMid meet"
+            class=move || format!("h-auto w-full overflow-visible {}", class.get().unwrap_or_default())
             id=move || id.get()
             style=move || style.get()
         >
             <g transform=format!("translate({MARGIN_LEFT},{MARGIN_TOP})")>
                 {move || {
+                    let (w, h) = { let (sw, sh) = size.get(); plot_size(sw, sh) };
                     let config = cfg.get();
                     let rows = data.get();
                     let m = series_matrix(&config, &rows);
                     let ymax = y_max(&m);
                     let dots = show_dots.get().unwrap_or(false);
                     view! {
-                        {axes(rows, ymax)}
+                        {axes(rows, ymax, w, h)}
                         {config.keys().zip(m.iter()).map(|(key, vals)| {
                             let pts = line_points(vals, w, h, ymax);
                             let color = color_var(key);
