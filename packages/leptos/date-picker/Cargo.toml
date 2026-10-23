@@ -17,9 +17,9 @@ leptos-style.workspace = true
 tailwind_fuse.workspace = true
 web-sys.workspace = true
 js-sys.workspace = true
-leptos-shadcn-calendar = "0.3.0"
-leptos-shadcn-popover = "0.3.0"
-leptos-shadcn-button = "0.3.0"
+leptos-shadcn-calendar = { version = "0.9.1", path = "../calendar" }
+leptos-shadcn-popover = { version = "0.9.1", path = "../popover" }
+leptos-shadcn-button = { version = "0.9.1", path = "../button" }
 leptos-shadcn-signal-management = "0.1.0"
 
 [features]
@@ -27,5 +27,7 @@ default = []
 new_york = []
 
 [dev-dependencies]
+ctor = "0.6"
+any_spawner = { version = "0.3", features = ["futures-executor"] }
 shadcn-ui-test-utils = { path = "../../test-utils" }
 wasm-bindgen-test = { workspace = true }

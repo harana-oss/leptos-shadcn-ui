@@ -37,17 +37,21 @@ mod test_helpers_tests {
 
     #[test]
     fn test_helper_functions_exist() {
+    leptos::prelude::Owner::new().with(|| {
         // Test that all helper functions can be called
         assert!(test_switch_rendering());
         assert!(test_switch_accessibility());
         assert!(test_switch_styling());
         assert!(test_switch_interactions());
-    }
+    });
+}
 
     #[test]
     fn test_component_creation() {
+    leptos::prelude::Owner::new().with(|| {
         // Test that components can be created
         let _component = create_test_switch();
         // If we get here without panicking, the test passes
-    }
+    });
+}
 }

@@ -1,12 +1,15 @@
 #[cfg(test)]
 mod state_management_tests {
     use super::*;
+    use crate::*;
+    use leptos::prelude::*;
 
     // ===== STATE MANAGEMENT TESTS =====
     // These tests focus on state management and signal handling
 
     #[test]
     fn test_combobox_state_initialization() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -15,10 +18,12 @@ mod state_management_tests {
             <Combobox options=options/>
         };
         // Test that state is properly initialized
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_initial_value() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -30,10 +35,12 @@ mod state_management_tests {
             />
         };
         // Test that state is properly initialized with initial value
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_signal() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -46,10 +53,12 @@ mod state_management_tests {
             />
         };
         // Test that state works with signals
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_callback() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -62,10 +71,12 @@ mod state_management_tests {
             />
         };
         // Test that state works with callbacks
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_multiple_signals() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -76,14 +87,16 @@ mod state_management_tests {
             <Combobox 
                 options=options
                 value=MaybeProp::from(value_signal)
-                disabled=MaybeProp::from(disabled_signal)
+                disabled=disabled_signal
             />
         };
         // Test that state works with multiple signals
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_computed_values() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -100,10 +113,12 @@ mod state_management_tests {
             />
         };
         // Test that state works with computed values
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_derived_signals() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -120,10 +135,12 @@ mod state_management_tests {
             />
         };
         // Test that state works with derived signals
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_memo() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -140,10 +157,12 @@ mod state_management_tests {
             />
         };
         // Test that state works with memoized values
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_context() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -154,10 +173,12 @@ mod state_management_tests {
             <Combobox options=options/>
         };
         // Test that state works with context
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_provided_context() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -168,10 +189,12 @@ mod state_management_tests {
             <Combobox options=options/>
         };
         // Test that state works with provided context
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_expected_context() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -182,10 +205,12 @@ mod state_management_tests {
             <Combobox options=options/>
         };
         // Test that state works with expected context
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_multiple_contexts() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -198,10 +223,12 @@ mod state_management_tests {
             <Combobox options=options/>
         };
         // Test that state works with multiple contexts
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_nested_contexts() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -214,25 +241,29 @@ mod state_management_tests {
             <Combobox options=options/>
         };
         // Test that state works with nested contexts
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_conditional_rendering() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
         ];
         let show_combobox = RwSignal::new(true);
         let _combobox_view = view! {
-            <Show when=show_combobox>
-                <Combobox options=options/>
+            <Show when=move || show_combobox.get()>
+                <Combobox options=options.clone()/>
             </Show>
         };
         // Test that state works with conditional rendering
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_conditional_props() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -241,26 +272,30 @@ mod state_management_tests {
         let _combobox_view = view! {
             <Combobox 
                 options=options
-                disabled=MaybeProp::from(is_disabled)
+                disabled=is_disabled
             />
         };
         // Test that state works with conditional props
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_dynamic_options() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
         ]);
         let _combobox_view = view! {
-            <Combobox options=options_signal/>
+            <Combobox options=options_signal.get_untracked()/>
         };
         // Test that state works with dynamic options
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_filtered_options() {
+    leptos::prelude::Owner::new().with(|| {
         let all_options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -273,13 +308,15 @@ mod state_management_tests {
                 .collect::<Vec<_>>()
         });
         let _combobox_view = view! {
-            <Combobox options=filtered_options/>
+            <Combobox options=filtered_options.get_untracked()/>
         };
         // Test that state works with filtered options
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_sorted_options() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option3", "Option 3"),
             ComboboxOption::new("option1", "Option 1"),
@@ -291,38 +328,44 @@ mod state_management_tests {
             options
         });
         let _combobox_view = view! {
-            <Combobox options=sorted_options/>
+            <Combobox options=sorted_options.get_untracked()/>
         };
         // Test that state works with sorted options
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_grouped_options() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("group1_option1", "Group 1 - Option 1"),
             ComboboxOption::new("group1_option2", "Group 1 - Option 2"),
             ComboboxOption::new("group2_option1", "Group 2 - Option 1"),
         ]);
         let _combobox_view = view! {
-            <Combobox options=options_signal/>
+            <Combobox options=options_signal.get_untracked()/>
         };
         // Test that state works with grouped options
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_async_options() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
         ]);
         let _combobox_view = view! {
-            <Combobox options=options_signal/>
+            <Combobox options=options_signal.get_untracked()/>
         };
         // Test that state works with async options
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_loading_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -330,28 +373,32 @@ mod state_management_tests {
         let loading_signal = RwSignal::new(false);
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
-                disabled=MaybeProp::from(loading_signal)
+                options=options_signal.get_untracked()
+                disabled=loading_signal
             />
         };
         // Test that state works with loading state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_error_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
         ]);
         let error_signal = RwSignal::new(None::<String>);
         let _combobox_view = view! {
-            <Combobox options=options_signal/>
+            <Combobox options=options_signal.get_untracked()/>
         };
         // Test that state works with error state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_validation() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -362,28 +409,32 @@ mod state_management_tests {
         });
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
         // Test that state works with validation
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_form_integration() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
         ]);
-        let form_data = RwSignal::new(std::collections::HashMap::new());
+        let form_data = RwSignal::new(std::collections::HashMap::<String, String>::new());
         let _combobox_view = view! {
-            <Combobox options=options_signal/>
+            <Combobox options=options_signal.get_untracked()/>
         };
         // Test that state works with form integration
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_persistence() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -391,15 +442,17 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
         // Test that state works with persistence
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_undo_redo() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -408,15 +461,17 @@ mod state_management_tests {
         let history = RwSignal::new(vec!["option1".to_string()]);
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
         // Test that state works with undo/redo
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_batch_updates() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -424,15 +479,17 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
         // Test that state works with batch updates
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_debounced_updates() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -440,15 +497,17 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
         // Test that state works with debounced updates
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_throttled_updates() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -456,15 +515,17 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
         // Test that state works with throttled updates
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_optimistic_updates() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -472,15 +533,17 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
         // Test that state works with optimistic updates
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_rollback() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -488,15 +551,17 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
         // Test that state works with rollback
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_conflict_resolution() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -504,15 +569,17 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
         // Test that state works with conflict resolution
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_synchronization() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -520,15 +587,17 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
         // Test that state works with synchronization
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_replication() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -536,15 +605,17 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
         // Test that state works with replication
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_consistency() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -552,15 +623,17 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
         // Test that state works with consistency
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_atomicity() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -568,15 +641,17 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
         // Test that state works with atomicity
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_isolation() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -584,15 +659,17 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
         // Test that state works with isolation
-    }
+    });
+}
 
     #[test]
     fn test_combobox_state_with_durability() {
+    leptos::prelude::Owner::new().with(|| {
         let options_signal = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -600,10 +677,11 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
         // Test that state works with durability
-    }
+    });
+}
 }

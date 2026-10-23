@@ -1,12 +1,15 @@
 #[cfg(test)]
 mod performance_tests {
     use super::*;
+    use crate::*;
+    use leptos::prelude::*;
 
     // ===== PERFORMANCE TESTS =====
     // These tests focus on performance, callbacks, and optimization
 
     #[test]
     fn test_combobox_performance_basic_rendering() {
+    leptos::prelude::Owner::new().with(|| {
         let start = std::time::Instant::now();
         
         for _ in 0..100 {
@@ -21,10 +24,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 100);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_large_option_list() {
+    leptos::prelude::Owner::new().with(|| {
         let start = std::time::Instant::now();
         
         let options = (1..=1000).map(|i| {
@@ -37,10 +42,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 50);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_memory_usage() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -52,10 +59,12 @@ mod performance_tests {
         // Test that memory usage is reasonable
         let size = std::mem::size_of::<usize>();
         assert!(size < 1024);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_signal_updates() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -76,10 +85,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 10);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_callback_execution() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -98,22 +109,24 @@ mod performance_tests {
         let start = std::time::Instant::now();
         
         for _ in 0..100 {
-            on_change.call("test-value".to_string());
+            on_change.run("test-value".to_string());
         }
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 10);
         assert_eq!(call_count.get(), 100);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_dynamic_options() {
+    leptos::prelude::Owner::new().with(|| {
         let options = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
         ]);
         let _combobox_view = view! {
-            <Combobox options=options/>
+            <Combobox options=options.get_untracked()/>
         };
         
         let start = std::time::Instant::now();
@@ -126,10 +139,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 50);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_filtered_options() {
+    leptos::prelude::Owner::new().with(|| {
         let all_options = (1..=1000).map(|i| {
             ComboboxOption::new(format!("option{}", i), format!("Option {}", i))
         }).collect::<Vec<_>>();
@@ -147,7 +162,7 @@ mod performance_tests {
         });
         
         let _combobox_view = view! {
-            <Combobox options=filtered_options/>
+            <Combobox options=filtered_options.get_untracked()/>
         };
         
         let start = std::time::Instant::now();
@@ -158,10 +173,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 100);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_computed_props() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -186,10 +203,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 20);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_memoized_values() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -214,10 +233,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 15);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_batch_updates() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -228,7 +249,7 @@ mod performance_tests {
             <Combobox 
                 options=options
                 value=MaybeProp::from(value)
-                disabled=MaybeProp::from(disabled)
+                disabled=disabled
             />
         };
         
@@ -243,10 +264,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 20);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_untracked_access() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -267,10 +290,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 5);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_concurrent_updates() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -299,10 +324,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 30);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_deep_nesting() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -341,10 +368,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 50);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_many_props() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -354,34 +383,34 @@ mod performance_tests {
                 options=options
                 value=MaybeProp::from("option1")
                 placeholder=MaybeProp::from("Select an option")
-                disabled=MaybeProp::from(false)
+                disabled=false
                 class=MaybeProp::from("custom-class")
-                style=MaybeProp::from("color: red")
+                style=leptos_style::Style::from("color: red")
                 id=MaybeProp::from("test-combobox")
-                aria_label=MaybeProp::from("Select an option")
-                aria_describedby=MaybeProp::from("combobox-description")
-                aria_expanded=MaybeProp::from(false)
-                aria_autocomplete=MaybeProp::from("list")
-                aria_owns=MaybeProp::from("combobox-list")
-                aria_activedescendant=MaybeProp::from("option1")
-                aria_required=MaybeProp::from(true)
-                aria_invalid=MaybeProp::from(false)
-                aria_disabled=MaybeProp::from(false)
-                aria_readonly=MaybeProp::from(false)
-                aria_multiselectable=MaybeProp::from(false)
-                aria_orientation=MaybeProp::from("vertical")
-                aria_live=MaybeProp::from("polite")
-                aria_atomic=MaybeProp::from(true)
-                aria_relevant=MaybeProp::from("additions removals")
-                aria_busy=MaybeProp::from(false)
-                aria_modal=MaybeProp::from(false)
-                aria_hidden=MaybeProp::from(false)
-                aria_selected=MaybeProp::from(false)
-                aria_checked=MaybeProp::from(false)
-                aria_pressed=MaybeProp::from(false)
-                tabindex=MaybeProp::from(0)
-                autofocus=MaybeProp::from(true)
-                data_testid=MaybeProp::from("test-combobox")
+                attr:aria-label="Select an option"
+                attr:aria-describedby="combobox-description"
+                attr:aria-expanded=false
+                attr:aria-autocomplete="list"
+                attr:aria-owns="combobox-list"
+                attr:aria-activedescendant="option1"
+                attr:aria-required=true
+                attr:aria-invalid=false
+                attr:aria-disabled=false
+                attr:aria-readonly=false
+                attr:aria-multiselectable=false
+                attr:aria-orientation="vertical"
+                attr:aria-live="polite"
+                attr:aria-atomic=true
+                attr:aria-relevant="additions removals"
+                attr:aria-busy=false
+                attr:aria-modal=false
+                attr:aria-hidden=false
+                attr:aria-selected=false
+                attr:aria-checked=false
+                attr:aria-pressed=false
+                attr:tabindex=0
+                attr:autofocus=true
+                attr:data-testid="test-combobox"
             />
         };
         
@@ -397,44 +426,46 @@ mod performance_tests {
                     ]
                     value=MaybeProp::from("option1")
                     placeholder=MaybeProp::from("Select an option")
-                    disabled=MaybeProp::from(false)
+                    disabled=false
                     class=MaybeProp::from("custom-class")
-                    style=MaybeProp::from("color: red")
+                    style=leptos_style::Style::from("color: red")
                     id=MaybeProp::from("test-combobox")
-                    aria_label=MaybeProp::from("Select an option")
-                    aria_describedby=MaybeProp::from("combobox-description")
-                    aria_expanded=MaybeProp::from(false)
-                    aria_autocomplete=MaybeProp::from("list")
-                    aria_owns=MaybeProp::from("combobox-list")
-                    aria_activedescendant=MaybeProp::from("option1")
-                    aria_required=MaybeProp::from(true)
-                    aria_invalid=MaybeProp::from(false)
-                    aria_disabled=MaybeProp::from(false)
-                    aria_readonly=MaybeProp::from(false)
-                    aria_multiselectable=MaybeProp::from(false)
-                    aria_orientation=MaybeProp::from("vertical")
-                    aria_live=MaybeProp::from("polite")
-                    aria_atomic=MaybeProp::from(true)
-                    aria_relevant=MaybeProp::from("additions removals")
-                    aria_busy=MaybeProp::from(false)
-                    aria_modal=MaybeProp::from(false)
-                    aria_hidden=MaybeProp::from(false)
-                    aria_selected=MaybeProp::from(false)
-                    aria_checked=MaybeProp::from(false)
-                    aria_pressed=MaybeProp::from(false)
-                    tabindex=MaybeProp::from(0)
-                    autofocus=MaybeProp::from(true)
-                    data_testid=MaybeProp::from("test-combobox")
+                    attr:aria-label="Select an option"
+                    attr:aria-describedby="combobox-description"
+                    attr:aria-expanded=false
+                    attr:aria-autocomplete="list"
+                    attr:aria-owns="combobox-list"
+                    attr:aria-activedescendant="option1"
+                    attr:aria-required=true
+                    attr:aria-invalid=false
+                    attr:aria-disabled=false
+                    attr:aria-readonly=false
+                    attr:aria-multiselectable=false
+                    attr:aria-orientation="vertical"
+                    attr:aria-live="polite"
+                    attr:aria-atomic=true
+                    attr:aria-relevant="additions removals"
+                    attr:aria-busy=false
+                    attr:aria-modal=false
+                    attr:aria-hidden=false
+                    attr:aria-selected=false
+                    attr:aria-checked=false
+                    attr:aria-pressed=false
+                    attr:tabindex=0
+                    attr:autofocus=true
+                    attr:data-testid="test-combobox"
                 />
             };
         }
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 100);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_stress_test() {
+    leptos::prelude::Owner::new().with(|| {
         let start = std::time::Instant::now();
         
         for i in 0..50 {
@@ -449,7 +480,7 @@ mod performance_tests {
                 <Combobox 
                     options=options
                     value=MaybeProp::from(value)
-                    disabled=MaybeProp::from(disabled)
+                    disabled=disabled
                     class=MaybeProp::from(format!("combobox-{}", i))
                     id=MaybeProp::from(format!("combobox-{}", i))
                 />
@@ -462,11 +493,13 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 500);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_memory_leak_prevention() {
-        let start_memory = std::alloc::System;
+    leptos::prelude::Owner::new().with(|| {
+        // Smoke test: repeatedly create and drop views; real leak detection needs a browser profiler.
         
         for _ in 0..100 {
             let options = vec![
@@ -487,12 +520,12 @@ mod performance_tests {
         
         // Test that no significant memory leaks occur
         // This is a simple test - in practice you'd use more sophisticated memory monitoring
-        let end_memory = std::alloc::System;
-        assert_eq!(start_memory, end_memory);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_signal_cleanup() {
+    leptos::prelude::Owner::new().with(|| {
         let mut signals = Vec::new();
         
         for i in 0..100 {
@@ -513,10 +546,12 @@ mod performance_tests {
         
         // Test that signals can be properly cleaned up
         drop(signals);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_callback_cleanup() {
+    leptos::prelude::Owner::new().with(|| {
         let mut callbacks = Vec::new();
         
         for i in 0..100 {
@@ -525,7 +560,7 @@ mod performance_tests {
                 ComboboxOption::new("option2", "Option 2"),
             ];
             let callback = Callback::new(move |value| {
-                logging::log!("Combobox {} changed to: {}", i, value);
+                leptos::logging::log!("Combobox {} changed to: {}", i, value);
             });
             callbacks.push(callback.clone());
             
@@ -539,10 +574,12 @@ mod performance_tests {
         
         // Test that callbacks can be properly cleaned up
         drop(callbacks);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_edge_case_handling() {
+    leptos::prelude::Owner::new().with(|| {
         let start = std::time::Instant::now();
         
         // Test with various edge cases
@@ -561,5 +598,6 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 200);
-    }
+    });
+}
 }

@@ -34,15 +34,18 @@ mod real_tests {
 
     #[test]
     fn test_combobox_signal_state_management() {
+    leptos::prelude::Owner::new().with(|| {
         let signal = RwSignal::new(true);
         assert!(signal.get(), "combobox signal should have initial value");
         
         signal.set(false);
         assert!(!signal.get(), "combobox signal should update");
-    }
+    });
+}
 
     #[test]
     fn test_combobox_callback_functionality() {
+    leptos::prelude::Owner::new().with(|| {
         let callback_triggered = RwSignal::new(false);
         let callback = Callback::new(move |_| {
             callback_triggered.set(true);
@@ -50,21 +53,26 @@ mod real_tests {
         
         callback.run(());
         assert!(callback_triggered.get(), "combobox callback should be triggered");
-    }
+    });
+}
 
     #[test]
     fn test_combobox_class_handling() {
+    leptos::prelude::Owner::new().with(|| {
         let custom_class = "custom-combobox-class";
         assert!(!custom_class.is_empty(), "combobox should support custom classes");
         assert!(custom_class.contains("combobox"), "Class should contain component name");
-    }
+    });
+}
 
     #[test]
     fn test_combobox_id_handling() {
+    leptos::prelude::Owner::new().with(|| {
         let custom_id = "custom-combobox-id";
         assert!(!custom_id.is_empty(), "combobox should support custom IDs");
         assert!(custom_id.contains("combobox"), "ID should contain component name");
-    }
+    });
+}
 
     #[wasm_bindgen_test]
     fn test_combobox_interaction() {

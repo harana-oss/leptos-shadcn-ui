@@ -198,7 +198,7 @@ mod class_constants {
 
         for class in all_classes {
             assert!(!class.is_empty());
-            assert!(class.len() > 10); // Should have meaningful content
+            assert!(class.len() > 5); // Should have meaningful content (e.g. "p-6 pt-0")
         }
     }
 }

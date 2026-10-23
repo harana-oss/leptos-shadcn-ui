@@ -105,7 +105,7 @@ mod basic_rendering_tests {
             <Label 
                 class="custom-label"
                 id="custom-label-id"
-                for="input-field"
+                {..} for="input-field"
             >
                 "Custom Label"
             </Label>
@@ -155,9 +155,9 @@ mod basic_rendering_tests {
                     <Label>
                         "Conditional Label"
                     </Label>
-                }.into_view()
+                }.into_any()
             } else {
-                view! {}.into_view()
+                view! {}.into_any()
             }}
         };
         
@@ -215,9 +215,9 @@ mod basic_rendering_tests {
         // Test accessibility attributes
         let _accessible_label_view = view! {
             <Label
-                for="accessible-input"
-                aria_label="Accessible label"
-                role="label"
+                {..} for="accessible-input"
+                attr:aria-label="Accessible label"
+                attr:role="label"
             >
                 "Accessible Label"
             </Label>
@@ -238,7 +238,7 @@ mod basic_rendering_tests {
         // Test style properties
         let _styled_label_view = view! {
             <Label
-                style="color: red; font-weight: bold;"
+                style=leptos_style::Style::from("color: red; font-weight: bold;")
             >
                 "Styled Label"
             </Label>

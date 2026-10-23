@@ -123,8 +123,8 @@ mod tdd_refactor_tests {
         let style = Some("color: red".to_string());
         
         assert_eq!(id.unwrap_or_default(), "test-card-id");
-        assert_eq!(class.unwrap_or_default(), "test-card-class");
-        assert_eq!(style.unwrap_or_default(), "color: red");
+        assert_eq!(class.clone().unwrap_or_default(), "test-card-class");
+        assert_eq!(style.clone().unwrap_or_default(), "color: red");
         
         // Test enhanced functionality
         let computed_class = format!("{} {}", CARD_CLASS, class.unwrap_or_default());
@@ -140,8 +140,8 @@ mod tdd_refactor_tests {
         let style: Option<String> = None;
         
         assert_eq!(id.unwrap_or_default(), "");
-        assert_eq!(class.unwrap_or_default(), "");
-        assert_eq!(style.unwrap_or_default(), "");
+        assert_eq!(class.clone().unwrap_or_default(), "");
+        assert_eq!(style.clone().unwrap_or_default(), "");
         
         // Test enhanced functionality
         let computed_class = format!("{} {}", CARD_CLASS, class.unwrap_or_default());
@@ -157,13 +157,13 @@ mod tdd_refactor_tests {
         let style = Some("".to_string());
         
         assert_eq!(id.unwrap_or_default(), "");
-        assert_eq!(class.unwrap_or_default(), "");
-        assert_eq!(style.unwrap_or_default(), "");
+        assert_eq!(class.clone().unwrap_or_default(), "");
+        assert_eq!(style.clone().unwrap_or_default(), "");
         
         // Test enhanced functionality
         let computed_class = format!("{} {}", CARD_CLASS, class.unwrap_or_default());
         assert!(computed_class.contains("rounded-lg"));
-        assert_eq!(computed_class, CARD_CLASS);
+        assert_eq!(computed_class.trim_end(), CARD_CLASS);
     }
 
     #[test]
@@ -174,8 +174,8 @@ mod tdd_refactor_tests {
         let style = Some("  ".to_string());
         
         assert_eq!(id.unwrap_or_default(), "  ");
-        assert_eq!(class.unwrap_or_default(), "  ");
-        assert_eq!(style.unwrap_or_default(), "  ");
+        assert_eq!(class.clone().unwrap_or_default(), "  ");
+        assert_eq!(style.clone().unwrap_or_default(), "  ");
         
         // Test enhanced functionality
         let computed_class = format!("{} {}", CARD_CLASS, class.unwrap_or_default());
@@ -191,8 +191,8 @@ mod tdd_refactor_tests {
         let style = Some("color: red; background: blue; font-size: 16px;".to_string());
         
         assert_eq!(id.unwrap_or_default(), "test-id-with-special-chars!@#$%^&*()");
-        assert_eq!(class.unwrap_or_default(), "test-class-with-special-chars!@#$%^&*()");
-        assert_eq!(style.unwrap_or_default(), "color: red; background: blue; font-size: 16px;");
+        assert_eq!(class.clone().unwrap_or_default(), "test-class-with-special-chars!@#$%^&*()");
+        assert_eq!(style.clone().unwrap_or_default(), "color: red; background: blue; font-size: 16px;");
         
         // Test enhanced functionality
         let computed_class = format!("{} {}", CARD_CLASS, class.unwrap_or_default());
@@ -208,8 +208,8 @@ mod tdd_refactor_tests {
         let style = Some("color: red; content: '🚀';".to_string());
         
         assert_eq!(id.unwrap_or_default(), "test-id-🚀");
-        assert_eq!(class.unwrap_or_default(), "test-class-🎉");
-        assert_eq!(style.unwrap_or_default(), "color: red; content: '🚀';");
+        assert_eq!(class.clone().unwrap_or_default(), "test-class-🎉");
+        assert_eq!(style.clone().unwrap_or_default(), "color: red; content: '🚀';");
         
         // Test enhanced functionality
         let computed_class = format!("{} {}", CARD_CLASS, class.unwrap_or_default());
@@ -226,8 +226,8 @@ mod tdd_refactor_tests {
         let style = Some(long_string.clone());
         
         assert_eq!(id.unwrap_or_default(), long_string);
-        assert_eq!(class.unwrap_or_default(), long_string);
-        assert_eq!(style.unwrap_or_default(), long_string);
+        assert_eq!(class.clone().unwrap_or_default(), long_string);
+        assert_eq!(style.clone().unwrap_or_default(), long_string);
         
         // Test enhanced functionality
         let computed_class = format!("{} {}", CARD_CLASS, class.unwrap_or_default());
@@ -243,8 +243,8 @@ mod tdd_refactor_tests {
         let style = Some("width: 100px; height: 200px;".to_string());
         
         assert_eq!(id.unwrap_or_default(), "test-id-123");
-        assert_eq!(class.unwrap_or_default(), "test-class-456");
-        assert_eq!(style.unwrap_or_default(), "width: 100px; height: 200px;");
+        assert_eq!(class.clone().unwrap_or_default(), "test-class-456");
+        assert_eq!(style.clone().unwrap_or_default(), "width: 100px; height: 200px;");
         
         // Test enhanced functionality
         let computed_class = format!("{} {}", CARD_CLASS, class.unwrap_or_default());
@@ -285,7 +285,7 @@ mod tdd_refactor_tests {
     #[test]
     fn test_card_props_with_callback_refactor_implementation() {
         // Test that card props with callback can be handled with enhanced implementation
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: ()| {}));
         
         assert!(callback.is_some());
         
@@ -338,7 +338,7 @@ mod tdd_refactor_tests {
         let style = Some(Style::new());
         
         assert!(style.is_some());
-        assert_eq!(style.unwrap().to_string(), "");
+        assert_eq!(style.clone().unwrap().to_string(), "");
         
         // Test enhanced functionality
         let style_clone = style.clone();
@@ -366,7 +366,7 @@ mod tdd_refactor_tests {
         assert!(children.is_none());
         
         // Test enhanced functionality
-        let children_clone = children.clone();
+        let children_clone = children.as_ref();
         assert!(children_clone.is_none());
     }
 
@@ -377,11 +377,11 @@ mod tdd_refactor_tests {
         let class = Some("test-class".to_string());
         let style = Some("color: red".to_string());
         let disabled = Some(false);
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: ()| {}));
         
         assert_eq!(id.unwrap_or_default(), "test-id");
-        assert_eq!(class.unwrap_or_default(), "test-class");
-        assert_eq!(style.unwrap_or_default(), "color: red");
+        assert_eq!(class.clone().unwrap_or_default(), "test-class");
+        assert_eq!(style.clone().unwrap_or_default(), "color: red");
         assert_eq!(disabled.unwrap_or_default(), false);
         assert!(callback.is_some());
         
@@ -399,12 +399,12 @@ mod tdd_refactor_tests {
         let class = Some("test-class custom-class".to_string());
         let style = Some("color: red; background: blue; font-size: 16px;".to_string());
         let disabled = Some(false);
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: ()| {}));
         let signal = Some(RwSignal::new("test-value".to_string()));
         
         assert_eq!(id.unwrap_or_default(), "test-id");
-        assert_eq!(class.unwrap_or_default(), "test-class custom-class");
-        assert_eq!(style.unwrap_or_default(), "color: red; background: blue; font-size: 16px;");
+        assert_eq!(class.clone().unwrap_or_default(), "test-class custom-class");
+        assert_eq!(style.clone().unwrap_or_default(), "color: red; background: blue; font-size: 16px;");
         assert_eq!(disabled.unwrap_or_default(), false);
         assert!(callback.is_some());
         assert_eq!(signal.unwrap().get(), "test-value");
@@ -426,7 +426,7 @@ mod tdd_refactor_tests {
             let _class = Some("test-class".to_string());
             let _style = Some("color: red".to_string());
             let _disabled = Some(false);
-            let _callback = Some(Callback::new(|_| {}));
+            let _callback = Some(Callback::new(|_: ()| {}));
         }
         
         let duration = start.elapsed();
@@ -442,7 +442,7 @@ mod tdd_refactor_tests {
         let class = Some("test-class".to_string());
         let style = Some("color: red".to_string());
         let disabled = Some(false);
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: ()| {}));
         
         let total_size = std::mem::size_of_val(&id) + 
                         std::mem::size_of_val(&class) + 
@@ -461,7 +461,7 @@ mod tdd_refactor_tests {
         let class = Some("test-class".to_string());
         let style = Some("color: red".to_string());
         let disabled = Some(false);
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: ()| {}));
         
         // Test that props can be cloned
         let id_clone = id.clone();

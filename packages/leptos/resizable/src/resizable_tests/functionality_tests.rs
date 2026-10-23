@@ -9,12 +9,13 @@ use crate::default::{ResizableHandle, ResizablePanel, ResizablePanelGroup};
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::default::ResizeDirection;
 
     #[test]
     fn test_horizontal_resizing() {
         // Test horizontal resizing
         let resizable_view = view! {
-            <ResizablePanelGroup direction="horizontal">
+            <ResizablePanelGroup direction=ResizeDirection::Horizontal>
                 <ResizablePanel>
                     "Horizontal panel 1"
                 </ResizablePanel>
@@ -33,7 +34,7 @@ mod tests {
     fn test_vertical_resizing() {
         // Test vertical resizing
         let resizable_view = view! {
-            <ResizablePanelGroup direction="vertical">
+            <ResizablePanelGroup direction=ResizeDirection::Vertical>
                 <ResizablePanel>
                     "Vertical panel 1"
                 </ResizablePanel>
@@ -75,7 +76,7 @@ mod tests {
         let resizable_view = view! {
             <ResizablePanelGroup>
                 <ResizablePanel>
-                    <ResizablePanelGroup direction="vertical">
+                    <ResizablePanelGroup direction=ResizeDirection::Vertical>
                         <ResizablePanel>
                             "Nested panel 1"
                         </ResizablePanel>
@@ -177,7 +178,7 @@ mod tests {
         // Test size constraints
         let resizable_view = view! {
             <ResizablePanelGroup>
-                <ResizablePanel min_size=20 max_size=80>
+                <ResizablePanel min_size=20.0 max_size=80.0>
                     "Constrained panel"
                 </ResizablePanel>
                 <ResizableHandle />

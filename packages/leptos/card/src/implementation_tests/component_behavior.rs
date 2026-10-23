@@ -119,7 +119,7 @@ mod component_behavior {
         
         let computed_class = format!("{} {}", base_class, custom_class);
         
-        assert_eq!(computed_class, base_class);
+        assert_eq!(computed_class.trim_end(), base_class);
     }
 
     #[test]

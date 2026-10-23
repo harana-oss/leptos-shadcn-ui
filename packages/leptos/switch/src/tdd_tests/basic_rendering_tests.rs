@@ -8,6 +8,7 @@ mod basic_rendering_tests {
 
     #[test]
     fn test_switch_basic_rendering() {
+    leptos::prelude::Owner::new().with(|| {
         // Test basic switch rendering
         let _switch_view = view! {
             <Switch 
@@ -16,10 +17,12 @@ mod basic_rendering_tests {
         };
         
         // This test will fail initially - we need to implement proper rendering
-    }
+    });
+}
 
     #[test]
     fn test_switch_checked_state() {
+    leptos::prelude::Owner::new().with(|| {
         // Test switch checked state
         let checked_signal = RwSignal::new(true);
         
@@ -34,10 +37,12 @@ mod basic_rendering_tests {
         
         checked_signal.set(false);
         assert!(!checked_signal.get(), "Switch should be unchecked");
-    }
+    });
+}
 
     #[test]
     fn test_switch_unchecked_state() {
+    leptos::prelude::Owner::new().with(|| {
         // Test switch unchecked state
         let unchecked_signal = RwSignal::new(false);
         
@@ -52,10 +57,12 @@ mod basic_rendering_tests {
         
         unchecked_signal.set(true);
         assert!(unchecked_signal.get(), "Switch should be checked");
-    }
+    });
+}
 
     #[test]
     fn test_switch_disabled_state() {
+    leptos::prelude::Owner::new().with(|| {
         // Test switch disabled state
         let disabled_signal = RwSignal::new(true);
         
@@ -71,18 +78,19 @@ mod basic_rendering_tests {
         
         disabled_signal.set(false);
         assert!(!disabled_signal.get(), "Switch should be enabled");
-    }
+    });
+}
 
     #[test]
     fn test_switch_variants() {
+    leptos::prelude::Owner::new().with(|| {
         // Test switch variants
         let variants = vec![
             SwitchVariant::Default,
             SwitchVariant::Destructive,
-            SwitchVariant::Outline,
-            SwitchVariant::Secondary,
-            SwitchVariant::Ghost,
-            SwitchVariant::Link,
+            SwitchVariant::Success,
+            SwitchVariant::Warning,
+            SwitchVariant::Info,
         ];
         
         for variant in variants {
@@ -94,17 +102,19 @@ mod basic_rendering_tests {
             };
             
             // Test that variant is properly set
-            assert!(matches!(variant, SwitchVariant::Default | SwitchVariant::Destructive | SwitchVariant::Outline | SwitchVariant::Secondary | SwitchVariant::Ghost | SwitchVariant::Link));
+            assert!(matches!(variant, SwitchVariant::Default | SwitchVariant::Destructive | SwitchVariant::Success | SwitchVariant::Warning | SwitchVariant::Info));
         }
-    }
+    });
+}
 
     #[test]
     fn test_switch_sizes() {
+    leptos::prelude::Owner::new().with(|| {
         // Test switch sizes
         let sizes = vec![
-            SwitchSize::Small,
-            SwitchSize::Default,
-            SwitchSize::Large,
+            SwitchSize::Sm,
+            SwitchSize::Md,
+            SwitchSize::Lg,
         ];
         
         for size in sizes {
@@ -116,12 +126,14 @@ mod basic_rendering_tests {
             };
             
             // Test that size is properly set
-            assert!(matches!(size, SwitchSize::Small | SwitchSize::Default | SwitchSize::Large));
+            assert!(matches!(size, SwitchSize::Sm | SwitchSize::Md | SwitchSize::Lg));
         }
-    }
+    });
+}
 
     #[test]
     fn test_switch_animation_support() {
+    leptos::prelude::Owner::new().with(|| {
         // Test switch animation support
         let animated_signal = RwSignal::new(true);
         
@@ -137,10 +149,12 @@ mod basic_rendering_tests {
         
         animated_signal.set(false);
         assert!(!animated_signal.get(), "Switch should not support animation");
-    }
+    });
+}
 
     #[test]
     fn test_switch_custom_styling() {
+    leptos::prelude::Owner::new().with(|| {
         // Test switch custom styling
         let custom_class = "custom-switch-class";
         
@@ -153,10 +167,12 @@ mod basic_rendering_tests {
         
         // Test custom styling
         assert_eq!(custom_class, "custom-switch-class");
-    }
+    });
+}
 
     #[test]
     fn test_switch_root_component() {
+    leptos::prelude::Owner::new().with(|| {
         // Test switch root component
         let _root_view = view! {
             <SwitchRoot 
@@ -166,14 +182,19 @@ mod basic_rendering_tests {
         
         // Test root component creation
         // This test verifies the root component can be created
-    }
+    });
+}
 
     #[test]
     fn test_switch_thumb_component() {
         // Test switch thumb component
-        let _thumb_view = view! {
-            <SwitchThumb />
-        };
+        // SwitchThumb reads SwitchContextValue, so it must live inside a SwitchRoot
+        // under a reactive Owner (provide_context is a no-op without one).
+        let _thumb_view = Owner::new().with(|| view! {
+            <SwitchRoot>
+                <SwitchThumb />
+            </SwitchRoot>
+        });
         
         // Test thumb component creation
         // This test verifies the thumb component can be created
@@ -181,6 +202,7 @@ mod basic_rendering_tests {
 
     #[test]
     fn test_switch_label_component() {
+    leptos::prelude::Owner::new().with(|| {
         // Test switch label component
         let _label_view = view! {
             <SwitchLabel>
@@ -190,5 +212,6 @@ mod basic_rendering_tests {
         
         // Test label component creation
         // This test verifies the label component can be created
-    }
+    });
+}
 }

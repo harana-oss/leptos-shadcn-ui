@@ -13,6 +13,7 @@ mod tests {
 
     #[test]
     fn test_date_presets() {
+    leptos::prelude::Owner::new().with(|| {
         let test_result = std::panic::catch_unwind(|| {
             let _date_picker_with_presets = view! {
                 <DatePicker
@@ -24,10 +25,12 @@ mod tests {
             true
         });
         assert!(test_result.is_ok(), "Date presets test failed");
-    }
+    });
+}
 
     #[test]
     fn test_custom_date_formatting() {
+    leptos::prelude::Owner::new().with(|| {
         let test_result = std::panic::catch_unwind(|| {
             let _date_picker_with_formatting = view! {
                 <DatePicker
@@ -39,10 +42,12 @@ mod tests {
             true
         });
         assert!(test_result.is_ok(), "Custom date formatting test failed");
-    }
+    });
+}
 
     #[test]
     fn test_date_validation_and_constraints() {
+    leptos::prelude::Owner::new().with(|| {
         let test_result = std::panic::catch_unwind(|| {
             let _date_picker_with_validation = view! {
                 <DatePicker
@@ -54,10 +59,12 @@ mod tests {
             true
         });
         assert!(test_result.is_ok(), "Date validation and constraints test failed");
-    }
+    });
+}
 
     #[test]
     fn test_keyboard_navigation_and_shortcuts() {
+    leptos::prelude::Owner::new().with(|| {
         let test_result = std::panic::catch_unwind(|| {
             let _date_picker_with_keyboard = view! {
                 <DatePicker
@@ -69,5 +76,6 @@ mod tests {
             true
         });
         assert!(test_result.is_ok(), "Keyboard navigation and shortcuts test failed");
-    }
+    });
+}
 }

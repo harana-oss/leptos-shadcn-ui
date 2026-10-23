@@ -2,7 +2,7 @@
 mod sonner_advanced_tests {
     use leptos::prelude::*;
     use crate::sonner::{
-        SonnerProvider, ToastPosition, ToastTheme, ToastAction, toast
+        SonnerProvider, ToastPosition, ToastTheme, ToastAction, api_toast as toast
     };
     use std::time::Duration;
 
@@ -12,13 +12,13 @@ mod sonner_advanced_tests {
     fn test_sonner_provider_system() {
         let test_result = std::panic::catch_unwind(|| {
             // This should fail until we implement SonnerProvider
-            let _provider = view! {
+            let _provider = Owner::new().with(|| view! {
                 <SonnerProvider>
                     <div>
                         "App content"
                     </div>
                 </SonnerProvider>
-            };
+            });
 
             true
         });
@@ -57,10 +57,14 @@ mod sonner_advanced_tests {
                 .action(ToastAction {
                     label: "Undo".to_string(),
                     action: Callback::new(|_| println!("Undo action")),
+                    primary: true,
+                    icon: None,
                 })
                 .action(ToastAction {
                     label: "Dismiss".to_string(),
                     action: Callback::new(|_| println!("Dismiss action")),
+                    primary: false,
+                    icon: None,
                 });
 
             true
@@ -146,7 +150,7 @@ mod sonner_advanced_tests {
     fn test_sonner_toast_queue() {
         let test_result = std::panic::catch_unwind(|| {
             // This should fail until we implement toast queue
-            let _toast_queue = view! {
+            let _toast_queue = Owner::new().with(|| view! {
                 <SonnerProvider max_toasts=5>
                     <div>
                         {toast::success("First toast").show()}
@@ -154,7 +158,7 @@ mod sonner_advanced_tests {
                         {toast::info("Third toast").show()}
                     </div>
                 </SonnerProvider>
-            };
+            });
 
             true
         });

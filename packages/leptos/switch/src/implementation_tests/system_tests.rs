@@ -10,6 +10,7 @@ mod system_tests {
 
     #[test]
     fn test_switch_sizing_system() {
+    leptos::prelude::Owner::new().with(|| {
         // Test switch sizing system
         let small_size = SwitchSize::Small;
         let default_size = SwitchSize::Default;
@@ -24,10 +25,12 @@ mod system_tests {
         assert_eq!(format!("{:?}", small_size), "Small");
         assert_eq!(format!("{:?}", default_size), "Default");
         assert_eq!(format!("{:?}", large_size), "Large");
-    }
+    });
+}
 
     #[test]
     fn test_switch_thumb_sizing_system() {
+    leptos::prelude::Owner::new().with(|| {
         // Test thumb sizing system
         let small_thumb_size = "h-3 w-3";
         let default_thumb_size = "h-5 w-5";
@@ -40,10 +43,12 @@ mod system_tests {
         assert!(default_thumb_size.contains("w-5"));
         assert!(large_thumb_size.contains("h-7"));
         assert!(large_thumb_size.contains("w-7"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_translation_system() {
+    leptos::prelude::Owner::new().with(|| {
         // Test translation system
         let checked_translation = "data-[state=checked]:translate-x-5";
         let unchecked_translation = "data-[state=unchecked]:translate-x-0";
@@ -55,10 +60,12 @@ mod system_tests {
         assert!(unchecked_translation.contains("translate-x-0"));
         assert!(small_checked_translation.contains("translate-x-3"));
         assert!(large_checked_translation.contains("translate-x-7"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_border_system() {
+    leptos::prelude::Owner::new().with(|| {
         // Test border system
         let border_width = "border-2";
         let border_color = "border-transparent";
@@ -70,10 +77,12 @@ mod system_tests {
         assert!(border_color.contains("border-transparent"));
         assert!(border_radius.contains("rounded-full"));
         assert!(border_style.contains("border-solid"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_ring_system() {
+    leptos::prelude::Owner::new().with(|| {
         // Test ring system
         let ring_width = "focus-visible:ring-2";
         let ring_color = "focus-visible:ring-ring";
@@ -85,10 +94,12 @@ mod system_tests {
         assert!(ring_color.contains("focus-visible:ring-ring"));
         assert!(ring_offset.contains("focus-visible:ring-offset-2"));
         assert!(ring_offset_color.contains("focus-visible:ring-offset-background"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_transition_system() {
+    leptos::prelude::Owner::new().with(|| {
         // Test transition system
         let color_transition = "transition-colors";
         let transform_transition = "transition-transform";
@@ -104,10 +115,12 @@ mod system_tests {
         assert!(duration_300.contains("duration-300"));
         assert!(ease_in_out.contains("ease-in-out"));
         assert!(ease_out.contains("ease-out"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_edge_cases() {
+    leptos::prelude::Owner::new().with(|| {
         // Test edge cases
         let edge_case_1 = RwSignal::new(false);
         let edge_case_2 = RwSignal::new(true);
@@ -129,10 +142,12 @@ mod system_tests {
         // Simulate focus while disabled
         let focus_while_disabled = false; // Should be false when disabled
         assert!(!focus_while_disabled);
-    }
+    });
+}
 
     #[test]
     fn test_switch_performance_characteristics() {
+    leptos::prelude::Owner::new().with(|| {
         // Test performance characteristics
         let performance_state = RwSignal::new(false);
         
@@ -147,10 +162,12 @@ mod system_tests {
         
         // Performance should be under 10ms for 1000 operations
         assert!(duration.as_millis() < 10, "Performance should be under 10ms");
-    }
+    });
+}
 
     #[test]
     fn test_switch_memory_management() {
+    leptos::prelude::Owner::new().with(|| {
         // Test memory management
         let memory_state = RwSignal::new(false);
         
@@ -164,10 +181,12 @@ mod system_tests {
         // Test state change
         memory_state.set(true);
         assert!(memory_state.get());
-    }
+    });
+}
 
     #[test]
     fn test_switch_validation_logic() {
+    leptos::prelude::Owner::new().with(|| {
         // Test validation logic
         let validation_state = RwSignal::new(true);
         let error_message = RwSignal::new("".to_string());
@@ -189,10 +208,12 @@ mod system_tests {
         
         assert!(validation_state.get());
         assert_eq!(error_message.get(), "");
-    }
+    });
+}
 
     #[test]
     fn test_switch_variant_combinations() {
+    leptos::prelude::Owner::new().with(|| {
         // Test variant combinations
         let variants = vec![
             SwitchVariant::Default,
@@ -217,10 +238,12 @@ mod system_tests {
                 assert!(matches!(size, SwitchSize::Small | SwitchSize::Default | SwitchSize::Large));
             }
         }
-    }
+    });
+}
 
     #[test]
     fn test_switch_system_integration() {
+    leptos::prelude::Owner::new().with(|| {
         // Test system integration
         let system_state = RwSignal::new(false);
         let system_size = SwitchSize::Default;
@@ -237,10 +260,12 @@ mod system_tests {
         assert!(system_state.get());
         assert_eq!(system_size, SwitchSize::Default);
         assert_eq!(system_variant, SwitchVariant::Default);
-    }
+    });
+}
 
     #[test]
     fn test_switch_system_consistency() {
+    leptos::prelude::Owner::new().with(|| {
         // Test system consistency
         let consistency_state = RwSignal::new(false);
         let consistency_size = SwitchSize::Default;
@@ -257,5 +282,6 @@ mod system_tests {
         assert!(consistency_state.get());
         assert_eq!(consistency_size, SwitchSize::Default);
         assert_eq!(consistency_variant, SwitchVariant::Default);
-    }
+    });
+}
 }

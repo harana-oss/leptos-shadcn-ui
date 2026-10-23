@@ -16,8 +16,8 @@ leptos-struct-component.workspace = true
 leptos-style.workspace = true
 tailwind_fuse.workspace = true
 web-sys.workspace = true
-uuid = { version = "1.0", features = ["v4"] }
-gloo-timers = { version = "0.3", features = ["futures"] }
+uuid = { version = "1.29", features = ["v4"] }
+gloo-timers = { version = "0.4", features = ["futures"] }
 leptos-shadcn-signal-management = "0.1.0"
 
 [features]

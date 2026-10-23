@@ -14,12 +14,14 @@ leptos.workspace = true
 leptos-style = "0.2"
 web-sys = { version = "0.3", features = ["HtmlInputElement", "HtmlElement", "Element", "Node", "NodeList", "Event", "EventTarget", "MouseEvent", "KeyboardEvent", "FocusEvent"] }
 wasm-bindgen = "0.2"
-tailwind_fuse = "0.1"
-gloo-timers = "0.3"
+tailwind_fuse = "0.3"
+gloo-timers = "0.4"
 leptos-struct-component = "0.2"
 leptos-shadcn-signal-management = "0.1.0"
 
 [dev-dependencies]
+ctor = "0.6"
+any_spawner = { version = "0.3", features = ["futures-executor"] }
 shadcn-ui-test-utils = { path = "../../test-utils" }
 wasm-bindgen-test = { workspace = true }
 
