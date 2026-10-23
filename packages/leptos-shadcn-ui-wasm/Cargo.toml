@@ -17,8 +17,8 @@ crate-type = ["cdylib", "rlib"]
 
 # WASM-optimized dependencies only
 [dependencies]
-leptos = "0.8"
-leptos_meta = "0.8"
+leptos = "0.9.0-rc0"
+leptos_meta = "0.9.0-rc0"
 serde = { version = "1.0", features = ["derive"] }
 serde-wasm-bindgen = "0.6"
 
@@ -27,52 +27,52 @@ getrandom = { version = "0.4", features = ["wasm_js"] }
 uuid = { version = "1.29", features = ["v4", "js"] }
 
 # All available component dependencies (optional)
-leptos-shadcn-accordion = { version = "0.9", optional = true }
-leptos-shadcn-alert = { version = "0.9", optional = true }
-leptos-shadcn-alert-dialog = { version = "0.9", optional = true }
-leptos-shadcn-aspect-ratio = { version = "0.9", optional = true }
-leptos-shadcn-avatar = { version = "0.9", optional = true }
-leptos-shadcn-badge = { version = "0.9", optional = true }
-leptos-shadcn-breadcrumb = { version = "0.9", optional = true }
-leptos-shadcn-button = { version = "0.9", optional = true }
-leptos-shadcn-calendar = { version = "0.9", optional = true }
-leptos-shadcn-card = { version = "0.9", optional = true }
-leptos-shadcn-carousel = { version = "0.9", optional = true }
-leptos-shadcn-checkbox = { version = "0.9", optional = true }
-leptos-shadcn-collapsible = { version = "0.9", optional = true }
-leptos-shadcn-combobox = { version = "0.9", optional = true }
-leptos-shadcn-command = { version = "0.9", optional = true }
-leptos-shadcn-context-menu = { version = "0.9", optional = true }
-leptos-shadcn-date-picker = { version = "0.9", optional = true }
-leptos-shadcn-dialog = { version = "0.9", optional = true }
-leptos-shadcn-drawer = { version = "0.9", optional = true }
-leptos-shadcn-dropdown-menu = { version = "0.9", optional = true }
-leptos-shadcn-error-boundary = { version = "0.9", optional = true }
-leptos-shadcn-form = { version = "0.9", optional = true }
-leptos-shadcn-hover-card = { version = "0.9", optional = true }
-leptos-shadcn-input = { version = "0.9", optional = true }
-leptos-shadcn-input-otp = { version = "0.9", optional = true }
-leptos-shadcn-label = { version = "0.9", optional = true }
-leptos-shadcn-menubar = { version = "0.9", optional = true }
-leptos-shadcn-navigation-menu = { version = "0.9", optional = true }
-leptos-shadcn-pagination = { version = "0.9", optional = true }
-leptos-shadcn-popover = { version = "0.9", optional = true }
-leptos-shadcn-progress = { version = "0.9", optional = true }
-leptos-shadcn-radio-group = { version = "0.9", optional = true }
-leptos-shadcn-resizable = { version = "0.9", optional = true }
-leptos-shadcn-scroll-area = { version = "0.9", optional = true }
-leptos-shadcn-select = { version = "0.9", optional = true }
-leptos-shadcn-separator = { version = "0.9", optional = true }
-leptos-shadcn-sheet = { version = "0.9", optional = true }
-leptos-shadcn-skeleton = { version = "0.9", optional = true }
-leptos-shadcn-slider = { version = "0.9", optional = true }
-leptos-shadcn-switch = { version = "0.9", optional = true }
-leptos-shadcn-table = { version = "0.9", optional = true }
-leptos-shadcn-tabs = { version = "0.9", optional = true }
-leptos-shadcn-textarea = { version = "0.9", optional = true }
-leptos-shadcn-toast = { version = "0.9", optional = true }
-leptos-shadcn-toggle = { version = "0.9", optional = true }
-leptos-shadcn-tooltip = { version = "0.9", optional = true }
+leptos-shadcn-accordion = { workspace = true, optional = true }
+leptos-shadcn-alert = { workspace = true, optional = true }
+leptos-shadcn-alert-dialog = { workspace = true, optional = true }
+leptos-shadcn-aspect-ratio = { workspace = true, optional = true }
+leptos-shadcn-avatar = { workspace = true, optional = true }
+leptos-shadcn-badge = { workspace = true, optional = true }
+leptos-shadcn-breadcrumb = { workspace = true, optional = true }
+leptos-shadcn-button = { workspace = true, optional = true }
+leptos-shadcn-calendar = { workspace = true, optional = true }
+leptos-shadcn-card = { workspace = true, optional = true }
+leptos-shadcn-carousel = { workspace = true, optional = true }
+leptos-shadcn-checkbox = { workspace = true, optional = true }
+leptos-shadcn-collapsible = { workspace = true, optional = true }
+leptos-shadcn-combobox = { workspace = true, optional = true }
+leptos-shadcn-command = { workspace = true, optional = true }
+leptos-shadcn-context-menu = { workspace = true, optional = true }
+leptos-shadcn-date-picker = { workspace = true, optional = true }
+leptos-shadcn-dialog = { workspace = true, optional = true }
+leptos-shadcn-drawer = { workspace = true, optional = true }
+leptos-shadcn-dropdown-menu = { workspace = true, optional = true }
+leptos-shadcn-error-boundary = { workspace = true, optional = true }
+leptos-shadcn-form = { workspace = true, optional = true }
+leptos-shadcn-hover-card = { workspace = true, optional = true }
+leptos-shadcn-input = { workspace = true, optional = true }
+leptos-shadcn-input-otp = { workspace = true, optional = true }
+leptos-shadcn-label = { workspace = true, optional = true }
+leptos-shadcn-menubar = { workspace = true, optional = true }
+leptos-shadcn-navigation-menu = { workspace = true, optional = true }
+leptos-shadcn-pagination = { workspace = true, optional = true }
+leptos-shadcn-popover = { workspace = true, optional = true }
+leptos-shadcn-progress = { workspace = true, optional = true }
+leptos-shadcn-radio-group = { workspace = true, optional = true }
+leptos-shadcn-resizable = { workspace = true, optional = true }
+leptos-shadcn-scroll-area = { workspace = true, optional = true }
+leptos-shadcn-select = { workspace = true, optional = true }
+leptos-shadcn-separator = { workspace = true, optional = true }
+leptos-shadcn-sheet = { workspace = true, optional = true }
+leptos-shadcn-skeleton = { workspace = true, optional = true }
+leptos-shadcn-slider = { workspace = true, optional = true }
+leptos-shadcn-switch = { workspace = true, optional = true }
+leptos-shadcn-table = { workspace = true, optional = true }
+leptos-shadcn-tabs = { workspace = true, optional = true }
+leptos-shadcn-textarea = { workspace = true, optional = true }
+leptos-shadcn-toast = { workspace = true, optional = true }
+leptos-shadcn-toggle = { workspace = true, optional = true }
+leptos-shadcn-tooltip = { workspace = true, optional = true }
 
 # WASM-compatible dependencies
 wasm-bindgen = "0.2"

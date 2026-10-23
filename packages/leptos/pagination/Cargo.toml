@@ -16,8 +16,8 @@ leptos-struct-component.workspace = true
 leptos-style.workspace = true
 tailwind_fuse.workspace = true
 web-sys.workspace = true
-leptos-shadcn-button = "0.9.0"
-leptos-shadcn-signal-management = "0.1.0"
+leptos-shadcn-button = { workspace = true }
+leptos-shadcn-signal-management.workspace = true
 
 [features]
 default = []

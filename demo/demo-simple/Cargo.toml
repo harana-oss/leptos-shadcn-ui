@@ -5,10 +5,10 @@ edition = "2021"
 
 [dependencies]
 # Leptos framework with SSR
-leptos = { version = "0.8", features = ["ssr"] }
-leptos_axum = { version = "0.8", features = ["ssr"] }
-leptos_meta = { version = "0.8", features = ["ssr"] }
-leptos_router = { version = "0.8", features = ["ssr"] }
+leptos = { version = "0.9.0-rc0", features = ["ssr"] }
+leptos_axum = { version = "0.9.0-rc0", features = ["ssr"] }
+leptos_meta = { version = "0.9.0-rc0", features = ["ssr"] }
+leptos_router = { version = "0.9.0-rc0", features = ["ssr"] }
 
 # Server dependencies
 axum = "0.7"
