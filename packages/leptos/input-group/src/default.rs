@@ -139,6 +139,49 @@ pub fn InputGroup(
     }
 }
 
+/// Selector for the enclosing input group root.
+pub const INPUT_GROUP_SELECTOR: &str = "[data-slot=input-group]";
+/// Selector for the control focused when an addon is clicked.
+pub const INPUT_GROUP_CONTROL_SELECTOR: &str = "input, textarea";
+/// Clicks originating inside a matching element do not move focus.
+pub const ADDON_FOCUS_IGNORE_SELECTOR: &str = "button";
+
+/// Whether an addon click should focus the group's control (shadcn skips
+/// clicks that land inside a button).
+pub fn addon_click_should_focus(target_inside_button: bool) -> bool {
+    !target_inside_button
+}
+
+/// Focus the input/textarea of the group containing the clicked addon.
+#[cfg(target_arch = "wasm32")]
+fn focus_group_control(ev: &leptos::ev::MouseEvent) {
+    use wasm_bindgen::JsCast;
+
+    let Some(target) = ev.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else {
+        return;
+    };
+    let inside_button = target
+        .closest(ADDON_FOCUS_IGNORE_SELECTOR)
+        .ok()
+        .flatten()
+        .is_some();
+    if !addon_click_should_focus(inside_button) {
+        return;
+    }
+    let control = target
+        .closest(INPUT_GROUP_SELECTOR)
+        .ok()
+        .flatten()
+        .and_then(|group| group.query_selector(INPUT_GROUP_CONTROL_SELECTOR).ok().flatten())
+        .and_then(|el| el.dyn_into::<web_sys::HtmlElement>().ok());
+    if let Some(control) = control {
+        let _ = control.focus();
+    }
+}
+
+#[cfg(not(target_arch = "wasm32"))]
+fn focus_group_control(_ev: &leptos::ev::MouseEvent) {}
+
 #[component]
 pub fn InputGroupAddon(
     /// `inline-start` (default), `inline-end`, `block-start` or `block-end`.
@@ -158,6 +201,7 @@ pub fn InputGroupAddon(
             class=class
             id=move || id.get()
             style=move || style.get()
+            on:click=move |ev| focus_group_control(&ev)
         >
             {children.map(|c| c())}
         </div>

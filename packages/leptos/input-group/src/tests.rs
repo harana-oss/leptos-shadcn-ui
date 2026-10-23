@@ -62,3 +62,12 @@ fn control_classes_use_theme_tokens() {
     assert!(INPUT_GROUP_TEXTAREA_CLASS.contains("resize-none"));
     assert_eq!(cn(&["a", "", "b"]), "a b");
 }
+
+#[test]
+fn addon_click_focus_rules() {
+    assert!(addon_click_should_focus(false));
+    assert!(!addon_click_should_focus(true));
+    assert_eq!(INPUT_GROUP_SELECTOR, "[data-slot=input-group]");
+    assert_eq!(INPUT_GROUP_CONTROL_SELECTOR, "input, textarea");
+    assert_eq!(ADDON_FOCUS_IGNORE_SELECTOR, "button");
+}
