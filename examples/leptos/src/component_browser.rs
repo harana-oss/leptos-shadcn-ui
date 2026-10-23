@@ -8,7 +8,7 @@ use leptos_shadcn_card::{Card, CardHeader, CardTitle, CardDescription, CardConte
 use leptos_shadcn_input::Input;
 
 /// Component metadata for the browser
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct ComponentMetadata {
     pub id: String,
     pub name: String,
@@ -480,6 +480,7 @@ pub fn ComponentBrowser() -> impl IntoView {
 
     // Get categories for dropdown
     let categories = get_categories(&all_components);
+    let total_components = all_components.len();
 
     // Toggle favorite handler
     let toggle_favorite = move |component_id: String| {
@@ -493,7 +494,7 @@ pub fn ComponentBrowser() -> impl IntoView {
     };
 
     // Compute filtered components
-    let filtered_components = move || {
+    let filtered_components = Memo::new(move |_| {
         let search = search_value.get().to_lowercase();
         let category = selected_category.get();
         let favorites_only = show_favorites_only.get();
@@ -518,7 +519,7 @@ pub fn ComponentBrowser() -> impl IntoView {
             })
             .cloned()
             .collect::<Vec<_>>()
-    };
+    });
 
     view! {
         <div class="min-h-screen bg-background text-foreground">
@@ -559,10 +560,11 @@ pub fn ComponentBrowser() -> impl IntoView {
                                     </option>
                                     {categories.iter().map(|category| {
                                         let cat = category.clone();
-                                        let is_selected = move || selected_category.get().as_ref() == Some(&cat);
+                                        let cat_for_check = cat.clone();
+                                        let is_selected = move || selected_category.get().as_ref() == Some(&cat_for_check);
                                         view! {
                                             <option value=cat.clone() selected=is_selected()>
-                                                {cat}
+                                                {cat.clone()}
                                             </option>
                                         }
                                     }).collect::<Vec<_>>()}
@@ -572,7 +574,7 @@ pub fn ComponentBrowser() -> impl IntoView {
                             // Favorites toggle
                             <div class="flex items-center gap-2">
                                 <Button
-                                    variant=move || if show_favorites_only.get() { ButtonVariant::Default } else { ButtonVariant::Outline }
+                                    variant=Signal::derive(move || if show_favorites_only.get() { ButtonVariant::Default } else { ButtonVariant::Outline })
                                     size=ButtonSize::Default
                                     on_click=move |_| set_show_favorites_only.update(|f| *f = !*f)
                                     class="relative"
@@ -586,9 +588,9 @@ pub fn ComponentBrowser() -> impl IntoView {
                                                 <span class="ml-2 bg-primary-foreground text-primary text-xs px-2 py-0.5 rounded-full">
                                                     {count}
                                                 </span>
-                                            }
+                                            }.into_any()
                                         } else {
-                                            view! { <div></div> }
+                                            view! { <div></div> }.into_any()
                                         }
                                     }}
                                 </Button>
@@ -600,15 +602,15 @@ pub fn ComponentBrowser() -> impl IntoView {
                 // Results count
                 <div class="mb-4 text-sm text-muted-foreground">
                     {move || {
-                        let count = filtered_components().len();
-                        let total = all_components.len();
+                        let count = filtered_components.get().len();
+                        let total = total_components;
                         format!("Showing {} of {} components", count, total)
                     }}
                 </div>
 
                 // Component grid
                 {move || {
-                    let components = filtered_components();
+                    let components = filtered_components.get();
                     if components.is_empty() {
                         view! {
                             <Card class="text-center py-12">
@@ -618,18 +620,19 @@ pub fn ComponentBrowser() -> impl IntoView {
                                     </p>
                                 </CardContent>
                             </Card>
-                        }
+                        }.into_any()
                     } else {
                         view! {
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {components.into_iter().map(|component| {
                                     let component_id = component.id.clone();
                                     let component_name = component.name.clone();
+                                    let aria_label = format!("Toggle favorite for {}", component_name);
 
                                     // Check if this component is a favorite
-                                    let is_favorite = move || {
-                                        let favs = favorites.get();
-                                        favs.contains(&component_id)
+                                    let is_favorite = {
+                                        let component_id = component_id.clone();
+                                        Signal::derive(move || favorites.get().contains(&component_id))
                                     };
 
                                     // Create toggle handler for this specific component
@@ -646,12 +649,12 @@ pub fn ComponentBrowser() -> impl IntoView {
                                                     </div>
                                                     <button
                                                         class="ml-2 text-2xl hover:scale-110 transition-transform focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded"
-                                                        class:text-yellow-500=move || is_favorite()
-                                                        class:text-gray-300=move || !is_favorite()
+                                                        class:text-yellow-500=move || is_favorite.get()
+                                                        class:text-gray-300=move || !is_favorite.get()
                                                         on:click=move |_| toggle_this_favorite(component_id_for_toggle.clone())
-                                                        aria-label=format!("Toggle favorite for {}", component_name)
+                                                        aria-label=aria_label
                                                     >
-                                                        {move || if is_favorite() { "★" } else { "☆" }}
+                                                        {move || if is_favorite.get() { "★" } else { "☆" }}
                                                     </button>
                                                 </div>
                                             </CardHeader>
@@ -667,7 +670,7 @@ pub fn ComponentBrowser() -> impl IntoView {
                                     }
                                 }).collect::<Vec<_>>()}
                             </div>
-                        }
+                        }.into_any()
                     }
                 }}
 
