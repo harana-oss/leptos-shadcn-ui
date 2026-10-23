@@ -11,3 +11,6 @@ version = "0.9.0"
 
 [dependencies]
 leptos.workspace = true
+web-sys = { workspace = true, features = ["Window", "MediaQueryList", "MediaQueryListEvent", "EventTarget"] }
+wasm-bindgen.workspace = true
+send_wrapper = "0.6"

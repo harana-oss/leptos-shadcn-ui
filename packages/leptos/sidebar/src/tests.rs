@@ -67,3 +67,27 @@ fn context_toggle_desktop_and_mobile() {
         assert!(!ctx.open.get_untracked());
     });
 }
+
+#[test]
+fn mobile_breakpoint_logic() {
+    assert_eq!(MOBILE_BREAKPOINT, 768);
+    assert_eq!(mobile_media_query(), "(max-width: 767px)");
+    assert!(is_mobile_width(767.0));
+    assert!(is_mobile_width(767.5));
+    assert!(!is_mobile_width(768.0));
+    assert!(!is_mobile_width(1024.0));
+}
+
+#[test]
+fn override_wins_over_detection() {
+    assert!(resolve_is_mobile(Some(true), false));
+    assert!(!resolve_is_mobile(Some(false), true));
+    assert!(resolve_is_mobile(None, true));
+    assert!(!resolve_is_mobile(None, false));
+}
+
+#[test]
+fn use_is_mobile_defaults_false_off_browser() {
+    let owner = Owner::new();
+    owner.with(|| assert!(!use_is_mobile().get_untracked()));
+}
