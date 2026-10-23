@@ -6,7 +6,7 @@
 use leptos::prelude::*;
 use std::collections::HashMap;
 use crate::sonner::types::{ToastData, ToastPosition, ToastTheme};
-use crate::sonner::toast::SonnerToast;
+use crate::sonner::toast_component::SonnerToast;
 
 /// Sonner context value
 #[derive(Clone)]

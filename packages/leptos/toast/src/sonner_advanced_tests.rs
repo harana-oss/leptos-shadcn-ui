@@ -2,7 +2,7 @@
 mod sonner_advanced_tests {
     use leptos::prelude::*;
     use crate::sonner::{
-        SonnerProvider, ToastPosition, ToastTheme, ToastAction, api_toast as toast
+        SonnerProvider, ToastPosition, ToastTheme, ToastAction, toast
     };
     use std::time::Duration;
 
