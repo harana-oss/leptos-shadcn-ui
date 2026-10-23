@@ -8,7 +8,6 @@ mod integration_tests {
     // ===== INTEGRATION TESTS =====
     // These tests focus on integration scenarios and complex workflows
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_complete_workflow() {
         let open_state = RwSignal::new(false);
@@ -66,7 +65,6 @@ mod integration_tests {
         assert!(!open_state.get());
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_nested_menus() {
         let _nested_view = view! {
@@ -109,7 +107,6 @@ mod integration_tests {
         // This is verified by the component structure
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_with_forms() {
         let form_data = RwSignal::new("".to_string());
@@ -153,7 +150,6 @@ mod integration_tests {
         assert_eq!(form_data.get(), "form-option1");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_with_tables() {
         let table_data = RwSignal::new(vec!["Row 1".to_string(), "Row 2".to_string()]);
@@ -203,7 +199,6 @@ mod integration_tests {
         assert_eq!(table_data.get().len(), 1);
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_with_cards() {
         let card_data = RwSignal::new("Card Content".to_string());
@@ -243,7 +238,6 @@ mod integration_tests {
         assert_eq!(card_data.get(), "Updated Card Content");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_with_navigation() {
         let current_page = RwSignal::new("home".to_string());
@@ -291,7 +285,6 @@ mod integration_tests {
         assert_eq!(current_page.get(), "about");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_with_modals() {
         let modal_open = RwSignal::new(false);
@@ -323,7 +316,7 @@ mod integration_tests {
                     </DropdownMenuContent>
                 </DropdownMenu>
                 
-                {move || if modal_open.get() {
+                {move || (modal_open.get()).then(|| {
                     view! {
                         <div class="modal">
                             <div class="modal-content">
@@ -336,9 +329,7 @@ mod integration_tests {
                             </div>
                         </div>
                     }
-                } else {
-                    view! {}
-                }}
+                })}
             </div>
         };
         
@@ -353,7 +344,6 @@ mod integration_tests {
         assert_eq!(modal_content.get(), "Modal Content 1");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_with_tabs() {
         let active_tab = RwSignal::new("tab1".to_string());
@@ -416,7 +406,6 @@ mod integration_tests {
         assert_eq!(active_tab.get(), "tab3");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_with_accordions() {
         let accordion_open = RwSignal::new(false);
@@ -452,15 +441,13 @@ mod integration_tests {
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
-                {move || if accordion_open.get() {
+                {move || (accordion_open.get()).then(|| {
                     view! {
                         <div class="accordion-content">
                             {accordion_content.get()}
                         </div>
                     }
-                } else {
-                    view! {}
-                }}
+                })}
             </div>
         };
         
@@ -475,7 +462,6 @@ mod integration_tests {
         assert_eq!(accordion_content.get(), "Accordion Content 1");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_with_tooltips() {
         let tooltip_visible = RwSignal::new(false);
@@ -500,15 +486,13 @@ mod integration_tests {
                     </DropdownMenuContent>
                 </DropdownMenu>
                 
-                {move || if tooltip_visible.get() {
+                {move || (tooltip_visible.get()).then(|| {
                     view! {
                         <div class="tooltip">
                             "This is a tooltip"
                         </div>
                     }
-                } else {
-                    view! {}
-                }}
+                })}
             </div>
         };
         
@@ -519,7 +503,6 @@ mod integration_tests {
         assert!(tooltip_visible.get());
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_integration_performance() {
         let start = std::time::Instant::now();
@@ -547,7 +530,6 @@ mod integration_tests {
         assert!(duration.as_millis() < 10, "Integration should be performant");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_integration_memory() {
         let _memory_view = view! {
@@ -571,7 +553,6 @@ mod integration_tests {
     // ===== E2E INTEGRATION TESTS =====
     // Tests for multi-component rendering, z-index conflicts, and global state isolation
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_multiple_dropdown_menus_simultaneous_rendering() {
         // Test: Multiple dropdown menus can be rendered simultaneously without conflicts
@@ -619,7 +600,6 @@ mod integration_tests {
         assert!(!menu3_open.get());
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_css_selector_isolation() {
         // Test: CSS classes don't conflict between multiple dropdown menus
@@ -651,7 +631,6 @@ mod integration_tests {
         assert!(menu2_open.get());
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_event_propagation_isolation() {
         // Test: Events from one menu don't affect other menus
@@ -710,7 +689,6 @@ mod integration_tests {
         assert_eq!(click_count.get(), 5);
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_global_state_isolation() {
         // Test: Each menu maintains its own context state
@@ -747,7 +725,6 @@ mod integration_tests {
         assert_eq!(shared_state.get(), "updated");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_concurrent_lifecycle_management() {
         // Test: Multiple menus can be opened and closed concurrently
@@ -837,7 +814,6 @@ mod integration_tests {
         assert!(!menu3_open.get());
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_rapid_state_changes() {
         // Test: Rapid opening and closing doesn't cause conflicts
@@ -861,7 +837,6 @@ mod integration_tests {
         }
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_memory_management_multiple_instances() {
         // Test: Multiple menus don't cause memory leaks

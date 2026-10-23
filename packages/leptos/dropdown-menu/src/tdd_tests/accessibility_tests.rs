@@ -8,25 +8,24 @@ mod accessibility_tests {
     // ===== ACCESSIBILITY TESTS =====
     // These tests focus on accessibility features and ARIA attributes
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_aria_attributes() {
         let _accessible_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger
-                    aria-label="Open menu"
-                    aria-haspopup="menu"
-                    aria-expanded=Signal::derive(|| false)
+                    attr:aria-label="Open menu"
+                    attr:aria-haspopup="menu"
+                    attr:aria-expanded=Signal::derive(|| false)
                 >
                     "Accessible Menu"
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
-                    role="menu"
-                    aria-orientation="vertical"
+                    attr:role="menu"
+                    attr:aria-orientation="vertical"
                 >
                     <DropdownMenuItem
-                        role="menuitem"
-                        tabindex=MaybeProp::from(0)
+                        attr:role="menuitem"
+                        attr:tabindex=0
                     >
                         "Accessible Item"
                     </DropdownMenuItem>
@@ -38,7 +37,6 @@ mod accessibility_tests {
         // This is verified by the component structure
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_keyboard_navigation() {
         let _keyboard_view = view! {
@@ -70,7 +68,6 @@ mod accessibility_tests {
         // This is verified by the component structure
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_focus_management() {
         let focus_state = RwSignal::new(false);
@@ -103,14 +100,13 @@ mod accessibility_tests {
         assert!(!focus_state.get());
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_screen_reader_support() {
         let _screen_reader_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger
-                    aria-label="Open user menu"
-                    aria-describedby="menu-description"
+                    attr:aria-label="Open user menu"
+                    attr:aria-describedby="menu-description"
                 >
                     "User Menu"
                 </DropdownMenuTrigger>
@@ -121,12 +117,12 @@ mod accessibility_tests {
                         "User account options"
                     </DropdownMenuLabel>
                     <DropdownMenuItem
-                        aria-label="View profile"
+                        attr:aria-label="View profile"
                     >
                         "Profile"
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                        aria-label="Account settings"
+                        attr:aria-label="Account settings"
                     >
                         "Settings"
                     </DropdownMenuItem>
@@ -138,7 +134,6 @@ mod accessibility_tests {
         // This is verified by the component structure
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_high_contrast_support() {
         let _high_contrast_view = view! {
@@ -164,7 +159,6 @@ mod accessibility_tests {
         // This is verified by the component structure
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_reduced_motion_support() {
         let _reduced_motion_view = view! {
@@ -186,7 +180,6 @@ mod accessibility_tests {
         // This is verified by the component structure
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_color_contrast() {
         let _color_contrast_view = view! {
@@ -212,7 +205,6 @@ mod accessibility_tests {
         // This is verified by the component structure
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_touch_target_size() {
         let _touch_target_view = view! {
@@ -236,24 +228,23 @@ mod accessibility_tests {
         // This is verified by the component structure
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_voice_control_support() {
         let _voice_control_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger
-                    aria-label="Open voice control menu"
+                    attr:aria-label="Open voice control menu"
                 >
                     "Voice Control Menu"
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <DropdownMenuItem
-                        aria-label="Voice command: open profile"
+                        attr:aria-label="Voice command: open profile"
                     >
                         "Profile"
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                        aria-label="Voice command: open settings"
+                        attr:aria-label="Voice command: open settings"
                     >
                         "Settings"
                     </DropdownMenuItem>
@@ -265,24 +256,23 @@ mod accessibility_tests {
         // This is verified by the component structure
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_switch_control_support() {
         let _switch_control_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger
-                    tabindex=MaybeProp::from(0)
+                    attr:tabindex=0
                 >
                     "Switch Control Menu"
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <DropdownMenuItem
-                        tabindex=MaybeProp::from(0)
+                        attr:tabindex=0
                     >
                         "Switch Control Item 1"
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                        tabindex=MaybeProp::from(0)
+                        attr:tabindex=0
                     >
                         "Switch Control Item 2"
                     </DropdownMenuItem>
@@ -294,7 +284,6 @@ mod accessibility_tests {
         // This is verified by the component structure
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_alternative_text() {
         let _alt_text_view = view! {
@@ -319,26 +308,25 @@ mod accessibility_tests {
         // This is verified by the component structure
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_language_support() {
         let _language_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger
-                    lang="en"
+                    attr:lang="en"
                 >
                     "Language Menu"
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
-                    lang="en"
+                    attr:lang="en"
                 >
                     <DropdownMenuItem
-                        lang="en"
+                        attr:lang="en"
                     >
                         "English Item"
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                        lang="es"
+                        attr:lang="es"
                     >
                         "Spanish Item"
                     </DropdownMenuItem>
@@ -350,21 +338,20 @@ mod accessibility_tests {
         // This is verified by the component structure
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_rtl_support() {
         let _rtl_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger
-                    dir="rtl"
+                    attr:dir="rtl"
                 >
                     "RTL Menu"
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
-                    dir="rtl"
+                    attr:dir="rtl"
                 >
                     <DropdownMenuItem
-                        dir="rtl"
+                        attr:dir="rtl"
                     >
                         "RTL Item"
                     </DropdownMenuItem>
@@ -376,7 +363,6 @@ mod accessibility_tests {
         // This is verified by the component structure
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_accessibility_performance() {
         let start = std::time::Instant::now();
@@ -384,18 +370,18 @@ mod accessibility_tests {
         let _performance_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger
-                    aria-label="Performance test menu"
+                    attr:aria-label="Performance test menu"
                 >
                     "Performance Menu"
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <DropdownMenuItem
-                        aria-label="Performance item 1"
+                        attr:aria-label="Performance item 1"
                     >
                         "Item 1"
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                        aria-label="Performance item 2"
+                        attr:aria-label="Performance item 2"
                     >
                         "Item 2"
                     </DropdownMenuItem>
@@ -407,19 +393,18 @@ mod accessibility_tests {
         assert!(duration.as_millis() < 10, "Accessibility features should not impact performance");
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_dropdown_menu_accessibility_memory() {
         let _memory_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger
-                    aria-label="Memory test menu"
+                    attr:aria-label="Memory test menu"
                 >
                     "Memory Menu"
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <DropdownMenuItem
-                        aria-label="Memory item"
+                        attr:aria-label="Memory item"
                     >
                         "Memory Item"
                     </DropdownMenuItem>
