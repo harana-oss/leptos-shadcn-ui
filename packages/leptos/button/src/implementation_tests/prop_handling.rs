@@ -284,7 +284,10 @@ mod prop_handling {
             onclick: None,
         };
 
-        assert_eq!(props1, props2);
+        assert_eq!(
+            (&props1.class, &props1.id, &props1.style, props1.disabled, &props1.r#type),
+            (&props2.class, &props2.id, &props2.style, props2.disabled, &props2.r#type)
+        );
     }
 
     #[test]
@@ -308,6 +311,9 @@ mod prop_handling {
             onclick: None,
         };
 
-        assert_ne!(props1, props2);
+        assert_ne!(
+            (&props1.class, &props1.id, &props1.style, props1.disabled, &props1.r#type),
+            (&props2.class, &props2.id, &props2.style, props2.disabled, &props2.r#type)
+        );
     }
 }

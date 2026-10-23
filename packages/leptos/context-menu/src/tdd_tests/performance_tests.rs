@@ -1,12 +1,17 @@
 #[cfg(test)]
 mod performance_tests {
     use super::*;
+    use crate::*;
+    use leptos::prelude::*;
 
     // ===== PERFORMANCE TESTS =====
     // These tests focus on performance, callbacks, and optimization
 
     #[test]
     fn test_context_menu_performance_basic_rendering() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let start = std::time::Instant::now();
         
         for _ in 0..100 {
@@ -29,9 +34,12 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_large_menu() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let start = std::time::Instant::now();
         
-        let items = (1..=100).collect::<Vec<_>>();
+        let items = Vec::from_iter(1..=100);
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
@@ -51,6 +59,9 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_memory_usage() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
@@ -69,9 +80,12 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_signal_updates() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let open = RwSignal::new(false);
         let _context_menu_view = view! {
-            <ContextMenu open=open>
+            <ContextMenu>
                 <ContextMenuTrigger>
                     "Right-click me"
                 </ContextMenuTrigger>
@@ -94,12 +108,15 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_callback_execution() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let call_count = RwSignal::new(0);
         let on_open_change = Callback::new(move |_| {
             call_count.update(|c| *c += 1);
         });
         let _context_menu_view = view! {
-            <ContextMenu on_open_change=on_open_change>
+            <ContextMenu>
                 <ContextMenuTrigger>
                     "Right-click me"
                 </ContextMenuTrigger>
@@ -112,7 +129,7 @@ mod performance_tests {
         let start = std::time::Instant::now();
         
         for _ in 0..100 {
-            on_open_change.call(true);
+            on_open_change.run(true);
         }
         
         let duration = start.elapsed();
@@ -122,6 +139,9 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_dynamic_content() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let items = RwSignal::new(vec!["Item 1", "Item 2"]);
         let _context_menu_view = view! {
             <ContextMenu>
@@ -129,7 +149,7 @@ mod performance_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=items key=|item| item.to_string() let:item>
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
                         <ContextMenuItem>{item}</ContextMenuItem>
                     </For>
                 </ContextMenuContent>
@@ -140,7 +160,7 @@ mod performance_tests {
         
         for i in 0..100 {
             items.update(|items| {
-                items.push(&format!("Item {}", i + 3));
+                items.push(Box::leak(format!("Item {}", i + 3).into_boxed_str()));
             });
         }
         
@@ -150,15 +170,15 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_computed_props() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let open = RwSignal::new(false);
         let computed_class = Signal::derive(move || {
             format!("context-menu-{}", if open.get() { "open" } else { "closed" })
         });
         let _context_menu_view = view! {
-            <ContextMenu 
-                open=open
-                class=MaybeProp::from(computed_class)
-            >
+            <ContextMenu>
                 <ContextMenuTrigger>
                     "Right-click me"
                 </ContextMenuTrigger>
@@ -180,15 +200,15 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_memoized_values() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let open = RwSignal::new(false);
         let memoized_class = Memo::new(move |_| {
             format!("context-menu-{}", if open.get() { "open" } else { "closed" })
         });
         let _context_menu_view = view! {
-            <ContextMenu 
-                open=open
-                class=MaybeProp::from(memoized_class)
-            >
+            <ContextMenu>
                 <ContextMenuTrigger>
                     "Right-click me"
                 </ContextMenuTrigger>
@@ -210,13 +230,13 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_batch_updates() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let open = RwSignal::new(false);
         let disabled = RwSignal::new(false);
         let _context_menu_view = view! {
-            <ContextMenu 
-                open=open
-                disabled=MaybeProp::from(disabled)
-            >
+            <ContextMenu>
                 <ContextMenuTrigger>
                     "Right-click me"
                 </ContextMenuTrigger>
@@ -241,9 +261,12 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_untracked_access() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let open = RwSignal::new(false);
         let _context_menu_view = view! {
-            <ContextMenu open=open>
+            <ContextMenu>
                 <ContextMenuTrigger>
                     "Right-click me"
                 </ContextMenuTrigger>
@@ -265,10 +288,13 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_concurrent_updates() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let open1 = RwSignal::new(false);
         let open2 = RwSignal::new(false);
         let _context_menu_view1 = view! {
-            <ContextMenu open=open1>
+            <ContextMenu>
                 <ContextMenuTrigger>
                     "Menu 1"
                 </ContextMenuTrigger>
@@ -278,7 +304,7 @@ mod performance_tests {
             </ContextMenu>
         };
         let _context_menu_view2 = view! {
-            <ContextMenu open=open2>
+            <ContextMenu>
                 <ContextMenuTrigger>
                     "Menu 2"
                 </ContextMenuTrigger>
@@ -301,6 +327,9 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_deep_nesting() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <div>
                 <div>
@@ -349,41 +378,16 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_many_props() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let _context_menu_view = view! {
             <ContextMenu>
-                <ContextMenuTrigger 
-                    class=MaybeProp::from("custom-trigger")
-                    style=MaybeProp::from("color: red")
-                    id=MaybeProp::from("test-trigger")
-                    aria_label=MaybeProp::from("Context menu trigger")
-                    aria_describedby=MaybeProp::from("trigger-description")
-                    aria_expanded=MaybeProp::from(false)
-                    aria_haspopup=MaybeProp::from("menu")
-                    role=MaybeProp::from("button")
-                    tabindex=MaybeProp::from(0)
-                    title=MaybeProp::from("Right-click for options")
-                    data_testid=MaybeProp::from("context-menu-trigger")
-                >
+                <ContextMenuTrigger class=MaybeProp::from("custom-trigger") attr:style="color: red" attr:id="test-trigger" attr:aria-label="Context menu trigger" attr:aria-describedby="trigger-description" attr:aria-expanded=false attr:aria-haspopup="menu" attr:role="button" attr:tabindex=0 attr:title="Right-click for options" attr:data-testid="context-menu-trigger">
                     "Right-click me"
                 </ContextMenuTrigger>
-                <ContextMenuContent 
-                    class=MaybeProp::from("custom-content")
-                    style=MaybeProp::from("background: blue")
-                    id=MaybeProp::from("test-content")
-                    role=MaybeProp::from("menu")
-                    aria_label=MaybeProp::from("Context menu options")
-                    aria_orientation=MaybeProp::from("vertical")
-                    data_testid=MaybeProp::from("context-menu-content")
-                >
-                    <ContextMenuItem 
-                        class=MaybeProp::from("custom-item")
-                        style=MaybeProp::from("color: white")
-                        id=MaybeProp::from("test-item")
-                        role=MaybeProp::from("menuitem")
-                        tabindex=MaybeProp::from(0)
-                        aria_label=MaybeProp::from("Menu item")
-                        data_testid=MaybeProp::from("context-menu-item")
-                    >
+                <ContextMenuContent class=MaybeProp::from("custom-content") style=MaybeProp::from("background: blue") id=MaybeProp::from("test-content") attr:role="menu" attr:aria-label="Context menu options" attr:aria-orientation="vertical" attr:data-testid="context-menu-content">
+                    <ContextMenuItem class=MaybeProp::from("custom-item") style=MaybeProp::from("color: white") id=MaybeProp::from("test-item") attr:role="menuitem" attr:tabindex=0 attr:aria-label="Menu item" attr:data-testid="context-menu-item">
                         "Item 1"
                     </ContextMenuItem>
                 </ContextMenuContent>
@@ -395,22 +399,11 @@ mod performance_tests {
         for _ in 0..50 {
             let _many_props_view = view! {
                 <ContextMenu>
-                    <ContextMenuTrigger 
-                        class=MaybeProp::from("trigger")
-                        style=MaybeProp::from("color: red")
-                        id=MaybeProp::from("trigger")
-                        aria_label=MaybeProp::from("Trigger")
-                        role=MaybeProp::from("button")
-                        tabindex=MaybeProp::from(0)
-                    >
+                    <ContextMenuTrigger class=MaybeProp::from("trigger") attr:style="color: red" attr:id="trigger" attr:aria-label="Trigger" attr:role="button" attr:tabindex=0>
                         "Trigger"
                     </ContextMenuTrigger>
-                    <ContextMenuContent 
-                        class=MaybeProp::from("content")
-                        role=MaybeProp::from("menu")
-                        aria_label=MaybeProp::from("Menu")
-                    >
-                        <ContextMenuItem role=MaybeProp::from("menuitem")>"Item"</ContextMenuItem>
+                    <ContextMenuContent class=MaybeProp::from("content") attr:role="menu" attr:aria-label="Menu">
+                        <ContextMenuItem attr:role="menuitem">"Item"</ContextMenuItem>
                     </ContextMenuContent>
                 </ContextMenu>
             };
@@ -422,20 +415,18 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_stress_test() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let start = std::time::Instant::now();
         
         for i in 0..50 {
-            let items = (1..=20).collect::<Vec<_>>();
+            let items = Vec::from_iter(1..=20);
             let open = RwSignal::new(false);
             let disabled = RwSignal::new(i % 2 == 0);
             
             let _context_menu_view = view! {
-                <ContextMenu 
-                    open=open
-                    disabled=MaybeProp::from(disabled)
-                    class=MaybeProp::from(format!("context-menu-{}", i))
-                    id=MaybeProp::from(format!("menu-{}", i))
-                >
+                <ContextMenu>
                     <ContextMenuTrigger>
                         {format!("Menu {}", i)}
                     </ContextMenuTrigger>
@@ -461,10 +452,13 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_memory_leak_prevention() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         for _ in 0..100 {
             let open = RwSignal::new(false);
             let _context_menu_view = view! {
-                <ContextMenu open=open>
+                <ContextMenu>
                     <ContextMenuTrigger>
                         "Right-click me"
                     </ContextMenuTrigger>
@@ -484,6 +478,9 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_signal_cleanup() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let mut signals = Vec::new();
         
         for i in 0..100 {
@@ -491,7 +488,7 @@ mod performance_tests {
             signals.push(open);
             
             let _context_menu_view = view! {
-                <ContextMenu open=open>
+                <ContextMenu>
                     <ContextMenuTrigger>
                         {format!("Menu {}", i)}
                     </ContextMenuTrigger>
@@ -508,16 +505,19 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_callback_cleanup() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let mut callbacks = Vec::new();
         
         for i in 0..100 {
-            let callback = Callback::new(move |open| {
-                logging::log!("Menu {} open state changed: {}", i, open);
+            let callback = Callback::new(move |open: bool| {
+                leptos::logging::log!("Menu {} open state changed: {}", i, open);
             });
             callbacks.push(callback.clone());
             
             let _context_menu_view = view! {
-                <ContextMenu on_open_change=callback>
+                <ContextMenu>
                     <ContextMenuTrigger>
                         {format!("Menu {}", i)}
                     </ContextMenuTrigger>
@@ -534,12 +534,15 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_edge_case_handling() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let start = std::time::Instant::now();
         
         // Test with various edge cases
-        let test_cases = vec![
+        let test_cases: Vec<Vec<String>> = vec![
             vec![], // Empty items
-            vec![""], // Empty strings
+            vec!["".to_string()], // Empty strings
             vec!["a".repeat(1000)], // Very long strings
             (1..=1000).map(|i| format!("Item {}", i)).collect(), // Many items
         ];
@@ -565,9 +568,12 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_rapid_state_changes() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let open = RwSignal::new(false);
         let _context_menu_view = view! {
-            <ContextMenu open=open>
+            <ContextMenu>
                 <ContextMenuTrigger>
                     "Right-click me"
                 </ContextMenuTrigger>
@@ -590,6 +596,9 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_large_nested_structure() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let start = std::time::Instant::now();
         
         let _context_menu_view = view! {
@@ -607,7 +616,7 @@ mod performance_tests {
                                     <ContextMenuSub>
                                         <ContextMenuSubTrigger>"Level 3"</ContextMenuSubTrigger>
                                         <ContextMenuSubContent>
-                                            <For each=move || (1..=50).collect::<Vec<_>>() key=|item| *item let:item>
+                                            <For each=move || Vec::from_iter(1..=50) key=|item| *item let:item>
                                                 <ContextMenuItem>{format!("Deep Item {}", item)}</ContextMenuItem>
                                             </For>
                                         </ContextMenuSubContent>
@@ -626,6 +635,9 @@ mod performance_tests {
 
     #[test]
     fn test_context_menu_performance_event_handler_optimization() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         let click_count = RwSignal::new(0);
         let callback = Callback::new(move |_| {
             click_count.update(|c| *c += 1);
@@ -637,8 +649,8 @@ mod performance_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || (1..=100).collect::<Vec<_>>() key=|item| *item let:item>
-                        <ContextMenuItem on_click=callback.clone()>
+                    <For each=move || Vec::from_iter(1..=100) key=|item| *item let:item>
+                        <ContextMenuItem on:click=move |_| callback.run(())>
                             {format!("Item {}", item)}
                         </ContextMenuItem>
                     </For>
@@ -650,7 +662,7 @@ mod performance_tests {
         
         // Simulate multiple clicks
         for _ in 0..100 {
-            callback.call(());
+            callback.run(());
         }
         
         let duration = start.elapsed();

@@ -23,7 +23,7 @@ pub fn DrawerOverlay(
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: MaybeProp<String>,
-    #[prop(optional)] children: Option<Children>,
+    #[prop(optional)] children: Option<ChildrenFn>,
 ) -> impl IntoView {
     let open_state = expect_context::<RwSignal<bool>>();
     let on_open_change = expect_context::<Option<Callback<bool>>>();
@@ -54,7 +54,7 @@ pub fn DrawerOverlay(
                 style=move || style.get().unwrap_or_default()
                 on:click=handle_click
             >
-                {children.map(|c| c())}
+                {children.clone().map(|c| c())}
             </div>
         </Show>
     }

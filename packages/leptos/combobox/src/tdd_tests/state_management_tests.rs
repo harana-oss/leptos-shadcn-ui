@@ -1,6 +1,8 @@
 #[cfg(test)]
 mod state_management_tests {
     use super::*;
+    use crate::*;
+    use leptos::prelude::*;
 
     // ===== STATE MANAGEMENT TESTS =====
     // These tests focus on state management and signal handling
@@ -76,7 +78,7 @@ mod state_management_tests {
             <Combobox 
                 options=options
                 value=MaybeProp::from(value_signal)
-                disabled=MaybeProp::from(disabled_signal)
+                disabled=disabled_signal
             />
         };
         // Test that state works with multiple signals
@@ -224,8 +226,8 @@ mod state_management_tests {
         ];
         let show_combobox = RwSignal::new(true);
         let _combobox_view = view! {
-            <Show when=show_combobox>
-                <Combobox options=options/>
+            <Show when=move || show_combobox.get()>
+                <Combobox options=options.clone()/>
             </Show>
         };
         // Test that state works with conditional rendering
@@ -241,7 +243,7 @@ mod state_management_tests {
         let _combobox_view = view! {
             <Combobox 
                 options=options
-                disabled=MaybeProp::from(is_disabled)
+                disabled=is_disabled
             />
         };
         // Test that state works with conditional props
@@ -254,7 +256,7 @@ mod state_management_tests {
             ComboboxOption::new("option2", "Option 2"),
         ]);
         let _combobox_view = view! {
-            <Combobox options=options_signal/>
+            <Combobox options=options_signal.get_untracked()/>
         };
         // Test that state works with dynamic options
     }
@@ -273,7 +275,7 @@ mod state_management_tests {
                 .collect::<Vec<_>>()
         });
         let _combobox_view = view! {
-            <Combobox options=filtered_options/>
+            <Combobox options=filtered_options.get_untracked()/>
         };
         // Test that state works with filtered options
     }
@@ -291,7 +293,7 @@ mod state_management_tests {
             options
         });
         let _combobox_view = view! {
-            <Combobox options=sorted_options/>
+            <Combobox options=sorted_options.get_untracked()/>
         };
         // Test that state works with sorted options
     }
@@ -304,7 +306,7 @@ mod state_management_tests {
             ComboboxOption::new("group2_option1", "Group 2 - Option 1"),
         ]);
         let _combobox_view = view! {
-            <Combobox options=options_signal/>
+            <Combobox options=options_signal.get_untracked()/>
         };
         // Test that state works with grouped options
     }
@@ -316,7 +318,7 @@ mod state_management_tests {
             ComboboxOption::new("option2", "Option 2"),
         ]);
         let _combobox_view = view! {
-            <Combobox options=options_signal/>
+            <Combobox options=options_signal.get_untracked()/>
         };
         // Test that state works with async options
     }
@@ -330,8 +332,8 @@ mod state_management_tests {
         let loading_signal = RwSignal::new(false);
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
-                disabled=MaybeProp::from(loading_signal)
+                options=options_signal.get_untracked()
+                disabled=loading_signal
             />
         };
         // Test that state works with loading state
@@ -345,7 +347,7 @@ mod state_management_tests {
         ]);
         let error_signal = RwSignal::new(None::<String>);
         let _combobox_view = view! {
-            <Combobox options=options_signal/>
+            <Combobox options=options_signal.get_untracked()/>
         };
         // Test that state works with error state
     }
@@ -362,7 +364,7 @@ mod state_management_tests {
         });
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
@@ -375,9 +377,9 @@ mod state_management_tests {
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
         ]);
-        let form_data = RwSignal::new(std::collections::HashMap::new());
+        let form_data = RwSignal::new(std::collections::HashMap::<String, String>::new());
         let _combobox_view = view! {
-            <Combobox options=options_signal/>
+            <Combobox options=options_signal.get_untracked()/>
         };
         // Test that state works with form integration
     }
@@ -391,7 +393,7 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
@@ -408,7 +410,7 @@ mod state_management_tests {
         let history = RwSignal::new(vec!["option1".to_string()]);
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
@@ -424,7 +426,7 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
@@ -440,7 +442,7 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
@@ -456,7 +458,7 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
@@ -472,7 +474,7 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
@@ -488,7 +490,7 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
@@ -504,7 +506,7 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
@@ -520,7 +522,7 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
@@ -536,7 +538,7 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
@@ -552,7 +554,7 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
@@ -568,7 +570,7 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
@@ -584,7 +586,7 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };
@@ -600,7 +602,7 @@ mod state_management_tests {
         let value_signal = RwSignal::new("option1".to_string());
         let _combobox_view = view! {
             <Combobox 
-                options=options_signal
+                options=options_signal.get_untracked()
                 value=MaybeProp::from(value_signal)
             />
         };

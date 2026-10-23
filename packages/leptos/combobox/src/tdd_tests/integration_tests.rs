@@ -1,6 +1,8 @@
 #[cfg(test)]
 mod integration_tests {
     use super::*;
+    use crate::*;
+    use leptos::prelude::*;
 
     // ===== INTEGRATION TESTS =====
     // These tests focus on integration scenarios and complex workflows
@@ -31,7 +33,7 @@ mod integration_tests {
             <Combobox 
                 options=options
                 value=MaybeProp::from(value)
-                aria_invalid=MaybeProp::from(Signal::derive(move || !is_valid.get()))
+                attr:aria-invalid=Signal::derive(move || !is_valid.get())
             />
         };
         // Test integration with validation
@@ -44,7 +46,7 @@ mod integration_tests {
             ComboboxOption::new("option2", "Option 2"),
         ]);
         let _combobox_view = view! {
-            <Combobox options=options/>
+            <Combobox options=options.get_untracked()/>
         };
         // Test integration with async data loading
     }
@@ -68,7 +70,7 @@ mod integration_tests {
             }
         });
         let _combobox_view = view! {
-            <Combobox options=filtered_options/>
+            <Combobox options=filtered_options.get_untracked()/>
         };
         // Test integration with search functionality
     }
@@ -121,8 +123,8 @@ mod integration_tests {
         ];
         let show_combobox = RwSignal::new(true);
         let _combobox_view = view! {
-            <Show when=show_combobox>
-                <Combobox options=options/>
+            <Show when=move || show_combobox.get()>
+                <Combobox options=options.clone()/>
             </Show>
         };
         // Test integration with conditional rendering
@@ -135,7 +137,7 @@ mod integration_tests {
             ComboboxOption::new("option2", "Option 2"),
         ]);
         let _combobox_view = view! {
-            <Combobox options=options/>
+            <Combobox options=options.get_untracked()/>
         };
         // Test integration with dynamic options
     }
@@ -301,7 +303,7 @@ mod integration_tests {
         let _combobox_view = view! {
             <Combobox 
                 options=options
-                tabindex=MaybeProp::from(0)
+                attr:tabindex=0
             />
         };
         // Test integration with tabindex
@@ -316,7 +318,7 @@ mod integration_tests {
         let _combobox_view = view! {
             <Combobox 
                 options=options
-                autofocus=MaybeProp::from(true)
+                attr:autofocus=true
             />
         };
         // Test integration with autofocus
@@ -328,15 +330,11 @@ mod integration_tests {
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
         ];
-        let on_change = Callback::new(|_| {});
-        let on_focus = Callback::new(|_| {});
-        let on_blur = Callback::new(|_| {});
+        let on_change = Callback::new(|_: String| {});
         let _combobox_view = view! {
             <Combobox 
                 options=options
                 on_change=on_change
-                on_focus=on_focus
-                on_blur=on_blur
             />
         };
         // Test integration with event handling
@@ -436,7 +434,7 @@ mod integration_tests {
                         "es" => "Selecciona una opción",
                         "fr" => "Sélectionnez une option",
                         _ => "Select an option"
-                    }
+                    }.to_string()
                 }))
             />
         };
@@ -459,7 +457,7 @@ mod integration_tests {
                         "tablet" => "combobox-tablet",
                         "desktop" => "combobox-desktop",
                         _ => "combobox-default"
-                    }
+                    }.to_string()
                 }))
             />
         };
@@ -475,7 +473,7 @@ mod integration_tests {
         let _combobox_view = view! {
             <Combobox 
                 options=options
-                data_testid=MaybeProp::from("test-combobox")
+                attr:data-testid="test-combobox"
             />
         };
         // Test integration with testing utilities
@@ -489,7 +487,7 @@ mod integration_tests {
         ];
         let on_change = Callback::new(|value| {
             // Analytics tracking would go here
-            logging::log!("Combobox changed to: {}", value);
+            leptos::logging::log!("Combobox changed to: {}", value);
         });
         let _combobox_view = view! {
             <Combobox 
@@ -525,7 +523,7 @@ mod integration_tests {
         let _combobox_view = view! {
             <ErrorBoundary fallback=|error| {
                 // Error reporting would go here
-                logging::error!("Combobox error: {:?}", error);
+                leptos::logging::error!("Combobox error: {:?}", error);
                 view! { <div>"Error occurred"</div> }
             }>
                 <Combobox options=options/>

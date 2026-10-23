@@ -41,8 +41,8 @@ mod tdd_red_tests {
         let style = Some("color: red".to_string());
         
         assert_eq!(id.unwrap_or_default(), "test-checkbox-id");
-        assert_eq!(class.unwrap_or_default(), "test-checkbox-class");
-        assert_eq!(style.unwrap_or_default(), "color: red");
+        assert_eq!(class.clone().unwrap_or_default(), "test-checkbox-class");
+        assert_eq!(style.clone().unwrap_or_default(), "color: red");
     }
 
     #[test]
@@ -54,8 +54,8 @@ mod tdd_red_tests {
         let style: Option<String> = None;
         
         assert_eq!(id.unwrap_or_default(), "");
-        assert_eq!(class.unwrap_or_default(), "");
-        assert_eq!(style.unwrap_or_default(), "");
+        assert_eq!(class.clone().unwrap_or_default(), "");
+        assert_eq!(style.clone().unwrap_or_default(), "");
     }
 
     #[test]
@@ -67,8 +67,8 @@ mod tdd_red_tests {
         let style = Some("".to_string());
         
         assert_eq!(id.unwrap_or_default(), "");
-        assert_eq!(class.unwrap_or_default(), "");
-        assert_eq!(style.unwrap_or_default(), "");
+        assert_eq!(class.clone().unwrap_or_default(), "");
+        assert_eq!(style.clone().unwrap_or_default(), "");
     }
 
     #[test]
@@ -80,8 +80,8 @@ mod tdd_red_tests {
         let style = Some("  ".to_string());
         
         assert_eq!(id.unwrap_or_default(), "  ");
-        assert_eq!(class.unwrap_or_default(), "  ");
-        assert_eq!(style.unwrap_or_default(), "  ");
+        assert_eq!(class.clone().unwrap_or_default(), "  ");
+        assert_eq!(style.clone().unwrap_or_default(), "  ");
     }
 
     #[test]
@@ -93,8 +93,8 @@ mod tdd_red_tests {
         let style = Some("color: red; background: blue; font-size: 16px;".to_string());
         
         assert_eq!(id.unwrap_or_default(), "test-id-with-special-chars!@#$%^&*()");
-        assert_eq!(class.unwrap_or_default(), "test-class-with-special-chars!@#$%^&*()");
-        assert_eq!(style.unwrap_or_default(), "color: red; background: blue; font-size: 16px;");
+        assert_eq!(class.clone().unwrap_or_default(), "test-class-with-special-chars!@#$%^&*()");
+        assert_eq!(style.clone().unwrap_or_default(), "color: red; background: blue; font-size: 16px;");
     }
 
     #[test]
@@ -106,8 +106,8 @@ mod tdd_red_tests {
         let style = Some("color: red; content: '🚀';".to_string());
         
         assert_eq!(id.unwrap_or_default(), "test-id-🚀");
-        assert_eq!(class.unwrap_or_default(), "test-class-🎉");
-        assert_eq!(style.unwrap_or_default(), "color: red; content: '🚀';");
+        assert_eq!(class.clone().unwrap_or_default(), "test-class-🎉");
+        assert_eq!(style.clone().unwrap_or_default(), "color: red; content: '🚀';");
     }
 
     #[test]
@@ -120,8 +120,8 @@ mod tdd_red_tests {
         let style = Some(long_string.clone());
         
         assert_eq!(id.unwrap_or_default(), long_string);
-        assert_eq!(class.unwrap_or_default(), long_string);
-        assert_eq!(style.unwrap_or_default(), long_string);
+        assert_eq!(class.clone().unwrap_or_default(), long_string);
+        assert_eq!(style.clone().unwrap_or_default(), long_string);
     }
 
     #[test]
@@ -133,8 +133,8 @@ mod tdd_red_tests {
         let style = Some("width: 100px; height: 200px;".to_string());
         
         assert_eq!(id.unwrap_or_default(), "test-id-123");
-        assert_eq!(class.unwrap_or_default(), "test-class-456");
-        assert_eq!(style.unwrap_or_default(), "width: 100px; height: 200px;");
+        assert_eq!(class.clone().unwrap_or_default(), "test-class-456");
+        assert_eq!(style.clone().unwrap_or_default(), "width: 100px; height: 200px;");
     }
 
     #[test]
@@ -163,7 +163,7 @@ mod tdd_red_tests {
     fn test_checkbox_props_with_callback_initial_failing_test() {
         // This test should initially fail as we implement TDD
         // Test that checkbox props with callback can be handled
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: bool| {}));
         
         assert!(callback.is_some());
     }
@@ -203,7 +203,7 @@ mod tdd_red_tests {
         let style = Some(Style::new());
         
         assert!(style.is_some());
-        assert_eq!(style.unwrap().to_string(), "");
+        assert_eq!(style.clone().unwrap().to_string(), "");
     }
 
     #[test]
@@ -232,11 +232,11 @@ mod tdd_red_tests {
         let class = Some("test-class".to_string());
         let style = Some("color: red".to_string());
         let disabled = Some(false);
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: bool| {}));
         
         assert_eq!(id.unwrap_or_default(), "test-id");
-        assert_eq!(class.unwrap_or_default(), "test-class");
-        assert_eq!(style.unwrap_or_default(), "color: red");
+        assert_eq!(class.clone().unwrap_or_default(), "test-class");
+        assert_eq!(style.clone().unwrap_or_default(), "color: red");
         assert_eq!(disabled.unwrap_or_default(), false);
         assert!(callback.is_some());
     }
@@ -249,12 +249,12 @@ mod tdd_red_tests {
         let class = Some("test-class custom-class".to_string());
         let style = Some("color: red; background: blue; font-size: 16px;".to_string());
         let disabled = Some(false);
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: bool| {}));
         let signal = Some(RwSignal::new("test-value".to_string()));
         
         assert_eq!(id.unwrap_or_default(), "test-id");
-        assert_eq!(class.unwrap_or_default(), "test-class custom-class");
-        assert_eq!(style.unwrap_or_default(), "color: red; background: blue; font-size: 16px;");
+        assert_eq!(class.clone().unwrap_or_default(), "test-class custom-class");
+        assert_eq!(style.clone().unwrap_or_default(), "color: red; background: blue; font-size: 16px;");
         assert_eq!(disabled.unwrap_or_default(), false);
         assert!(callback.is_some());
         assert_eq!(signal.unwrap().get(), "test-value");
@@ -271,7 +271,7 @@ mod tdd_red_tests {
             let _class = Some("test-class".to_string());
             let _style = Some("color: red".to_string());
             let _disabled = Some(false);
-            let _callback = Some(Callback::new(|_| {}));
+            let _callback = Some(Callback::new(|_: bool| {}));
         }
         
         let duration = start.elapsed();
@@ -288,7 +288,7 @@ mod tdd_red_tests {
         let class = Some("test-class".to_string());
         let style = Some("color: red".to_string());
         let disabled = Some(false);
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: bool| {}));
         
         let total_size = std::mem::size_of_val(&id) + 
                         std::mem::size_of_val(&class) + 
@@ -308,7 +308,7 @@ mod tdd_red_tests {
         let class = Some("test-class".to_string());
         let style = Some("color: red".to_string());
         let disabled = Some(false);
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: bool| {}));
         
         // Test that props can be cloned
         let id_clone = id.clone();

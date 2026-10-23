@@ -14,7 +14,7 @@ pub fn Drawer(
     #[prop(into, optional)] on_open_change: Option<Callback<bool>>,
     #[prop(into, optional)] direction: Signal<DrawerDirection>,
     #[prop(into, optional)] should_scale_background: Signal<bool>,
-    #[prop(optional)] children: Option<Children>,
+    #[prop(optional)] children: Option<ChildrenFn>,
 ) -> impl IntoView {
     provide_context(open);
     provide_context(on_open_change);
@@ -30,7 +30,7 @@ pub fn Drawer(
             fallback=|| view! { <div></div> }
         >
             <div class="drawer-root">
-                {children.map(|c| c())}
+                {children.clone().map(|c| c())}
             </div>
         </Show>
     }

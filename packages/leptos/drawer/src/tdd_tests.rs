@@ -317,7 +317,7 @@ mod tdd_tests {
             // Callback logic
         });
         let _drawer_view = view! {
-            <Drawer open=open on_open_change=Some(callback)>
+            <Drawer open=open on_open_change=callback>
                 <DrawerTrigger>
                     "Open Drawer"
                 </DrawerTrigger>

@@ -139,7 +139,7 @@ mod prop_handling {
     #[test]
     fn test_checkbox_prop_handling_with_callback() {
         // Test checkbox prop handling with callback
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: bool| {}));
         
         assert!(callback.is_some());
     }
@@ -201,7 +201,7 @@ mod prop_handling {
         let class = Some("test-class".to_string());
         let style = Some("color: red".to_string());
         let disabled = Some(false);
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: bool| {}));
         
         assert_eq!(id.unwrap_or_default(), "test-id");
         assert_eq!(class.unwrap_or_default(), "test-class");
@@ -217,7 +217,7 @@ mod prop_handling {
         let class = Some("test-class custom-class".to_string());
         let style = Some("color: red; background: blue; font-size: 16px;".to_string());
         let disabled = Some(false);
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: bool| {}));
         let signal = Some(RwSignal::new("test-value".to_string()));
         
         assert_eq!(id.unwrap_or_default(), "test-id");
@@ -238,7 +238,7 @@ mod prop_handling {
             let _class = Some("test-class".to_string());
             let _style = Some("color: red".to_string());
             let _disabled = Some(false);
-            let _callback = Some(Callback::new(|_| {}));
+            let _callback = Some(Callback::new(|_: bool| {}));
         }
         
         let duration = start.elapsed();
@@ -254,7 +254,7 @@ mod prop_handling {
         let class = Some("test-class".to_string());
         let style = Some("color: red".to_string());
         let disabled = Some(false);
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: bool| {}));
         
         let total_size = std::mem::size_of_val(&id) + 
                         std::mem::size_of_val(&class) + 
@@ -273,7 +273,7 @@ mod prop_handling {
         let class = Some("test-class".to_string());
         let style = Some("color: red".to_string());
         let disabled = Some(false);
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: bool| {}));
         
         // Test that props can be cloned
         let id_clone = id.clone();

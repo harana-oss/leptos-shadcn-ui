@@ -151,7 +151,7 @@ mod accessibility_tests {
     #[test]
     fn test_new_york_card_accessibility_with_callback() {
         // Test accessibility attributes with callback
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: ()| {}));
         
         assert!(callback.is_some());
     }
@@ -187,7 +187,7 @@ mod accessibility_tests {
         let style = Some(Style::new());
         
         assert!(style.is_some());
-        assert_eq!(style.unwrap().to_string(), "");
+        assert_eq!(style.clone().unwrap().to_string(), "");
     }
 
     #[test]
@@ -214,7 +214,7 @@ mod accessibility_tests {
         let aria_describedby = Some("card-description".to_string());
         let role = Some("region".to_string());
         let disabled = Some(false);
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: ()| {}));
         
         assert_eq!(id.unwrap_or_default(), "test-id");
         assert_eq!(aria_label.unwrap_or_default(), "Test card");
@@ -232,7 +232,7 @@ mod accessibility_tests {
         let aria_describedby = Some("card-description with complex props".to_string());
         let role = Some("region with complex props".to_string());
         let disabled = Some(false);
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: ()| {}));
         let signal = Some(RwSignal::new("test-value".to_string()));
         
         assert_eq!(id.unwrap_or_default(), "test-id");
@@ -255,7 +255,7 @@ mod accessibility_tests {
             let _aria_describedby = Some("card-description".to_string());
             let _role = Some("region".to_string());
             let _disabled = Some(false);
-            let _callback = Some(Callback::new(|_| {}));
+            let _callback = Some(Callback::new(|_: ()| {}));
         }
         
         let duration = start.elapsed();
@@ -272,7 +272,7 @@ mod accessibility_tests {
         let aria_describedby = Some("card-description".to_string());
         let role = Some("region".to_string());
         let disabled = Some(false);
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: ()| {}));
         
         let total_size = std::mem::size_of_val(&id) + 
                         std::mem::size_of_val(&aria_label) + 
@@ -293,7 +293,7 @@ mod accessibility_tests {
         let aria_describedby = Some("card-description".to_string());
         let role = Some("region".to_string());
         let disabled = Some(false);
-        let callback = Some(Callback::new(|_| {}));
+        let callback = Some(Callback::new(|_: ()| {}));
         
         // Test that props can be cloned
         let id_clone = id.clone();

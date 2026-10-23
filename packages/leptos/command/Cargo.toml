@@ -27,3 +27,4 @@ new_york = []
 [dev-dependencies]
 shadcn-ui-test-utils = { path = "../../test-utils" }
 wasm-bindgen-test = { workspace = true }
+any_spawner = { version = "0.3", features = ["futures-executor"] }

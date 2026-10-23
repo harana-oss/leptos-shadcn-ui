@@ -44,13 +44,13 @@ impl CliRecoverySuggestion {
         }
     }
 
-    pub fn with_explanation(mut self, explanation: String) -> Self {
-        self.explanation = Some(explanation);
+    pub fn with_explanation(mut self, explanation: impl Into<String>) -> Self {
+        self.explanation = Some(explanation.into());
         self
     }
 
-    pub fn with_example(mut self, example: String) -> Self {
-        self.example_command = Some(example);
+    pub fn with_example(mut self, example: impl Into<String>) -> Self {
+        self.example_command = Some(example.into());
         self
     }
 }
