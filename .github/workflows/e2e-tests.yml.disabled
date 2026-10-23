@@ -77,7 +77,7 @@ jobs:
       
       - name: Build test application
         run: |
-          cd minimal-wasm-test
+          cd demo/minimal-wasm-test
           wasm-pack build --target web --out-dir pkg
           cd ..
       
@@ -168,7 +168,7 @@ jobs:
       
       - name: Build WASM application
         run: |
-          cd minimal-wasm-test
+          cd demo/minimal-wasm-test
           wasm-pack build --target web --out-dir pkg
           cd ..
       
@@ -180,7 +180,7 @@ jobs:
       
       - name: Run WASM tests
         run: |
-          ./scripts/run-wasm-tests.sh -b "${{ matrix.browser }}" -v
+          ./build/scripts/run-wasm-tests.sh -b "${{ matrix.browser }}" -v
         env:
           CI: true
           WASM_MAX_INIT_TIME: 8000
@@ -224,7 +224,7 @@ jobs:
       
       - name: Build application
         run: |
-          cd minimal-wasm-test
+          cd demo/minimal-wasm-test
           wasm-pack build --target web --out-dir pkg
           cd ..
       

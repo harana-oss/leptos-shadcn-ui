@@ -19,9 +19,9 @@ tracing = "0.1"
 tracing-subscriber = "0.3"
 
 # Local components
-leptos-shadcn-button = { path = "../packages/leptos/button" }
-leptos-shadcn-card = { path = "../packages/leptos/card" }
-leptos-shadcn-input = { path = "../packages/leptos/input" }
+leptos-shadcn-button = { path = "../../packages/leptos/button" }
+leptos-shadcn-card = { path = "../../packages/leptos/card" }
+leptos-shadcn-input = { path = "../../packages/leptos/input" }
 
 # Tailwind-RS
 tailwind-rs-core = "0.4.2"

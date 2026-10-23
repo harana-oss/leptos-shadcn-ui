@@ -119,7 +119,7 @@ jobs:
 
           # Extract coverage metrics
           if [ -f coverage.json ]; then
-            python3 scripts/coverage_reporter.py --format json --output-dir coverage-reports || true
+            python3 build/scripts/coverage_reporter.py --format json --output-dir coverage-reports || true
           fi
 
       - name: Generate coverage badge

@@ -8,7 +8,7 @@ on:
       - 'packages/leptos/radio-group/**'
       - 'packages/test-utils/**'
       - 'tests/radio_group_integration_test.rs'
-      - 'scripts/test_radio_group.sh'
+      - 'build/scripts/test_radio_group.sh'
   pull_request:
     branches: [ main, develop ]
     paths:
@@ -16,7 +16,7 @@ on:
       - 'packages/leptos/radio-group/**'
       - 'packages/test-utils/**'
       - 'tests/radio_group_integration_test.rs'
-      - 'scripts/test_radio_group.sh'
+      - 'build/scripts/test_radio_group.sh'
 
 env:
   RUSTFLAGS: "-D warnings"
@@ -100,7 +100,7 @@ jobs:
           cargo doc -p shadcn-ui-leptos-radio-group --no-deps
           
       - name: Run comprehensive test script
-        run: ./scripts/test_radio_group.sh
+        run: ./build/scripts/test_radio_group.sh
         
       - name: Upload test results
         uses: actions/upload-artifact@v3

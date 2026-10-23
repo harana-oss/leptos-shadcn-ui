@@ -13,7 +13,7 @@ crate-type = ["cdylib"]
 [dependencies]
 # Leptos framework (using workspace dependencies)
 leptos = { workspace = true, features = ["csr"] }
-leptos-shadcn-ui-wasm = { path = "../packages/leptos-shadcn-ui-wasm" }
+leptos-shadcn-ui-wasm = { path = "../../packages/leptos-shadcn-ui-wasm" }
 
 # WASM-specific dependencies (using workspace where available)
 wasm-bindgen = { workspace = true }

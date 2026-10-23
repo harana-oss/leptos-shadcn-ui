@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# 🚀 Publish Batch 2: Navigation Components
-# This script publishes the second batch of 5 packages efficiently
+# 🚀 Publish Batch 8: Utility Package
+# This script publishes the final batch of 1 package efficiently
+# Note: This is the foundation utility package
 
 set -e
 
@@ -13,23 +14,20 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-WORKSPACE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+WORKSPACE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 VERSION="0.1.0"
-DELAY=75  # 75 seconds between packages (conservative for rate limiting)
+DELAY=0  # No delay needed for single package
 
-# Batch 2 packages (Navigation Components)
+# Batch 8 packages (Utility Package)
 PACKAGES=(
-    "breadcrumb"
-    "navigation-menu"
-    "context-menu"
-    "dropdown-menu"
-    "menubar"
+    "utils"
 )
 
-echo -e "${GREEN}🚀 Starting Batch 2: Navigation Components${NC}"
+echo -e "${GREEN}🚀 Starting Batch 8: Utility Package${NC}"
 echo -e "${BLUE}Total packages: ${#PACKAGES[@]}${NC}"
-echo -e "${BLUE}Delay between packages: ${DELAY}s${NC}"
-echo -e "${BLUE}Estimated time: 15-20 minutes${NC}"
+echo -e "${BLUE}Estimated time: 5-10 minutes${NC}"
+echo ""
+echo -e "${YELLOW}🎯 This is the FINAL batch! After this, all 47 packages will be published!${NC}"
 echo ""
 
 # Check if we're in the right directory
@@ -47,14 +45,14 @@ fi
 
 # Confirm before proceeding
 echo ""
-echo -e "${YELLOW}⚠️  This will publish ${#PACKAGES[@]} packages to crates.io${NC}"
-echo -e "${YELLOW}⚠️  Estimated time: $((DELAY * ${#PACKAGES[@]} / 60)) minutes${NC}"
+echo -e "${YELLOW}⚠️  This will publish ${#PACKAGES[@]} package to crates.io${NC}"
+echo -e "${YELLOW}⚠️  This is the FINAL package to complete the entire publishing process!${NC}"
 echo ""
-read -p "Do you want to continue with Batch 2? (y/N): " -n 1 -r
+read -p "Do you want to continue with Batch 8 (FINAL BATCH)? (y/N): " -n 1 -r
 echo ""
 
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    echo -e "${YELLOW}Batch 2 publication cancelled${NC}"
+    echo -e "${YELLOW}Batch 8 publication cancelled${NC}"
     exit 0
 fi
 
@@ -63,7 +61,7 @@ success_count=0
 fail_count=0
 total=${#PACKAGES[@]}
 
-echo -e "\n${GREEN}🎯 Starting Batch 2 publication process...${NC}"
+echo -e "\n${GREEN}🎯 Starting Batch 8 publication process (FINAL BATCH)...${NC}"
 
 for i in "${!PACKAGES[@]}"; do
     package="${PACKAGES[$i]}"
@@ -87,27 +85,29 @@ for i in "${!PACKAGES[@]}"; do
         ((success_count++))
     else
         echo -e "${RED}❌ Failed to publish $package_name${NC}"
+        echo -e "${YELLOW}⚠️  This might be due to rate limiting. Check the error message above.${NC}"
         ((fail_count++))
         continue
     fi
     
     # Wait before next package (except for the last one)
-    if [[ "$package" != "${PACKAGES[-1]}" ]]; then
+    if [[ $i -lt $((total - 1)) ]]; then
         echo -e "${BLUE}⏳ Waiting ${DELAY} seconds before next package...${NC}"
         sleep "$DELAY"
     fi
 done
 
 # Final summary
-echo -e "\n${GREEN}🎉 Batch 2 completed!${NC}"
+echo -e "\n${GREEN}🎉 Batch 8 completed!${NC}"
 echo -e "${GREEN}✅ Successfully published: $success_count packages${NC}"
 if [[ $fail_count -gt 0 ]]; then
     echo -e "${RED}❌ Failed to publish: $fail_count packages${NC}"
 fi
 
 if [[ $fail_count -eq 0 ]]; then
-    echo -e "\n${GREEN}🎯 All Batch 2 packages published successfully!${NC}"
-    echo -e "${BLUE}Ready to proceed with Batch 3: Feedback & Status Components${NC}"
+    echo -e "\n${GREEN}🎉🎉🎉 ALL 47 PACKAGES PUBLISHED SUCCESSFULLY! 🎉🎉🎉${NC}"
+    echo -e "${GREEN}🎯 The Leptos ShadCN UI ecosystem is now complete on crates.io!${NC}"
+    echo -e "${BLUE}🚀 Next step: Publish the main leptos-shadcn-ui package${NC}"
 else
     echo -e "\n${YELLOW}⚠️  Some packages failed. Please check the errors above.${NC}"
 fi
