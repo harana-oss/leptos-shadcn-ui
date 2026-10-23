@@ -14,23 +14,23 @@ cargo install cargo-llvm-cov
 
 ```bash
 # All formats (HTML, JSON, LCov)
-make coverage
+just coverage-all
 
 # HTML only (opens in browser)
-make coverage-html
+just coverage-html
 
 # Terminal summary
-make coverage-terminal
+just coverage-terminal
 
 # JSON for CI/CD
-make coverage-json
+just coverage-json
 ```
 
 ### Component Coverage
 
 ```bash
 # Specific component
-make coverage-component COMPONENT=button
+just coverage-component button
 
 # Multiple components
 ./scripts/generate_coverage_report.sh --package leptos-shadcn-button --package leptos-shadcn-input
@@ -40,7 +40,7 @@ make coverage-component COMPONENT=button
 
 ```bash
 # Check if coverage meets threshold (95%)
-make coverage-verify
+just coverage-verify
 
 # Custom threshold
 ./scripts/generate_coverage_report.sh --fail-under 90
@@ -50,13 +50,13 @@ make coverage-verify
 
 ```bash
 # CI mode (optimized for pipelines)
-make coverage-ci
+just coverage-ci
 
 # Generate badges
-make coverage-badge
+just coverage-badge
 
 # Full report with trends
-make coverage-full
+just coverage-full
 ```
 
 ## File Locations
@@ -106,10 +106,10 @@ Features:
 
 ```bash
 # Install
-make install-git-hooks
+just install-git-hooks
 
 # Manual check
-make coverage-verify
+just coverage-verify
 ```
 
 ## Troubleshooting
@@ -128,9 +128,9 @@ cargo test --workspace -- --list
 
 ```bash
 # Clean and regenerate
-make clean
+just clean
 rm -rf coverage-reports/
-make coverage
+just coverage-all
 ```
 
 ### CI Failures
@@ -172,7 +172,7 @@ python3 scripts/coverage_reporter.py --trend
 ```bash
 ./scripts/generate_coverage_report.sh --help
 python3 scripts/coverage_reporter.py --help
-make help  # Show all make targets
+just  # List all recipes
 ```
 
 ## Environment Variables

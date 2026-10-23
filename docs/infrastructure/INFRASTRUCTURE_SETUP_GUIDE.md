@@ -69,19 +69,19 @@ cargo build --workspace
 
 ```bash
 # Run basic tests to verify setup
-make test
+just test-full
 
 # Check WASM functionality
-make test-wasm
+just test-wasm-browser
 
 # Verify E2E tests
-make test-e2e-enhanced
+just test-e2e-enhanced
 
 # Check performance benchmarks
-make benchmark
+just benchmark
 
 # Verify accessibility tests
-make accessibility-audit
+just accessibility-audit
 ```
 
 ## 🔧 Configuration
@@ -177,69 +177,69 @@ const config: AccessibilityConfig = {
 
 ```bash
 # Run all WASM tests
-make test-wasm
+just test-wasm-browser
 
 # Run on specific browsers
-make test-wasm-browsers BROWSERS=chromium,firefox
+just test-wasm-browsers chromium,firefox
 
 # Run in headed mode for debugging
-make test-wasm-headed
+just test-wasm-headed
 
 # Run in parallel for faster execution
-make test-wasm-parallel
+just test-wasm-parallel
 ```
 
 ### 2. E2E Testing
 
 ```bash
 # Run enhanced E2E tests
-make test-e2e-enhanced
+just test-e2e-enhanced
 
 # Run in CI mode
-make test-e2e-ci
+just test-e2e-ci
 
 # Run in debug mode
-make test-e2e-debug
+just test-e2e-debug
 
 # Run specific test categories
-make test-e2e-performance
-make test-e2e-accessibility
-make test-e2e-wasm
+just test-e2e-performance
+just test-e2e-accessibility
+just test-e2e-wasm
 ```
 
 ### 3. Performance Benchmarking
 
 ```bash
 # Run performance benchmarks
-make benchmark
+just benchmark
 
 # Run for specific components
-make benchmark-components COMPONENTS=button,input
+just benchmark-components button,input
 
 # Run regression tests
-make regression-test
+just regression-test
 
 # Setup performance baseline
-make setup-baseline
+just setup-baseline
 
 # Start automated monitoring
-make performance-monitor
+just performance-monitor
 ```
 
 ### 4. Accessibility Testing
 
 ```bash
 # Run comprehensive accessibility audit
-make accessibility-audit
+just accessibility-audit
 
 # Run with specific WCAG level
-make accessibility-audit-wcag LEVEL=AAA
+just accessibility-audit-wcag AAA
 
 # Run for specific components
-make accessibility-audit-components COMPONENTS=button,input
+just accessibility-audit-components button,input
 
 # Generate HTML report
-make accessibility-audit-html
+just accessibility-audit-html
 ```
 
 ## 🚀 CI/CD Setup
@@ -266,10 +266,10 @@ The project includes a comprehensive GitHub Actions workflow. To set it up:
 
 ```bash
 # Simulate CI environment locally
-CI=true make test-e2e-ci
-CI=true make test-wasm
-CI=true make benchmark
-CI=true make accessibility-audit
+CI=true just test-e2e-ci
+CI=true just test-wasm-browser
+CI=true just benchmark
+CI=true just accessibility-audit
 ```
 
 ## 📊 Monitoring Setup
@@ -278,10 +278,10 @@ CI=true make accessibility-audit
 
 ```bash
 # Start automated performance monitoring
-make performance-monitor
+just performance-monitor
 
 # Start with alerts enabled
-make performance-monitor-alerts
+just performance-monitor-alerts
 
 # Monitor specific components
 ./scripts/run-performance-benchmarks.sh monitor -c button,input -a
@@ -291,10 +291,10 @@ make performance-monitor-alerts
 
 ```bash
 # Run accessibility audit with monitoring
-make accessibility-audit-verbose
+just accessibility-audit-verbose
 
 # Generate comprehensive report
-make accessibility-audit-html
+just accessibility-audit-html
 ```
 
 ## 🔍 Debugging Setup
@@ -303,14 +303,14 @@ make accessibility-audit-html
 
 ```bash
 # Run tests in debug mode
-make test-e2e-debug
+just test-e2e-debug
 
 # Run WASM tests in headed mode
-make test-wasm-headed
+just test-wasm-headed
 
 # Run with verbose output
-make test-wasm-verbose
-make accessibility-audit-verbose
+just test-wasm-verbose
+just accessibility-audit-verbose
 ```
 
 ### Browser DevTools
@@ -349,33 +349,33 @@ cd examples/leptos
 trunk serve --port 8082 &
 
 # Run quick tests
-make test
+just test-full
 
 # Run specific component tests
-make test-wasm-browsers BROWSERS=chromium
-make accessibility-audit-components COMPONENTS=button
+just test-wasm-browsers chromium
+just accessibility-audit-components button
 ```
 
 ### Pre-commit Testing
 
 ```bash
 # Run all tests before commit
-make test
-make test-wasm
-make test-e2e-enhanced
-make benchmark
-make accessibility-audit
+just test-full
+just test-wasm-browser
+just test-e2e-enhanced
+just benchmark
+just accessibility-audit
 ```
 
 ### Release Testing
 
 ```bash
 # Run comprehensive test suite
-make test
-make test-wasm-parallel
-make test-e2e-ci
-make regression-test
-make accessibility-audit-wcag LEVEL=AA
+just test-full
+just test-wasm-parallel
+just test-e2e-ci
+just regression-test
+just accessibility-audit-wcag AA
 ```
 
 ## 📈 Performance Optimization
@@ -384,23 +384,23 @@ make accessibility-audit-wcag LEVEL=AA
 
 ```bash
 # Analyze bundle sizes
-make analyze-bundle
+just analyze-bundle
 
 # Run performance benchmarks
-make benchmark-html
+just benchmark-html
 
 # Check for performance regressions
-make regression-test
+just regression-test
 ```
 
 ### Memory Optimization
 
 ```bash
 # Run memory tests
-make test-wasm-verbose
+just test-wasm-verbose
 
 # Monitor memory usage
-make performance-monitor
+just performance-monitor
 ```
 
 ## ♿ Accessibility Compliance
@@ -409,23 +409,23 @@ make performance-monitor
 
 ```bash
 # Run WCAG AA compliance tests
-make accessibility-audit
+just accessibility-audit
 
 # Run WCAG AAA compliance tests
-make accessibility-audit-wcag LEVEL=AAA
+just accessibility-audit-wcag AAA
 
 # Focus on specific areas
-make accessibility-audit-focus
+just accessibility-audit-focus
 ```
 
 ### Screen Reader Testing
 
 ```bash
 # Run screen reader tests
-make accessibility-audit --no-keyboard-nav --no-color-contrast
+just accessibility-audit --no-keyboard-nav --no-color-contrast
 
 # Test keyboard navigation
-make accessibility-audit --no-screen-reader --no-color-contrast
+just accessibility-audit --no-screen-reader --no-color-contrast
 ```
 
 ## 🔧 Troubleshooting
@@ -466,7 +466,7 @@ pnpm playwright test --project=chromium
 ls -la test-results/performance/
 
 # Update baseline
-make setup-baseline
+just setup-baseline
 
 # Run with verbose output
 make benchmark-verbose
@@ -475,13 +475,13 @@ make benchmark-verbose
 #### 4. Accessibility Test Failures
 ```bash
 # Run with verbose output
-make accessibility-audit-verbose
+just accessibility-audit-verbose
 
 # Check specific components
-make accessibility-audit-components COMPONENTS=button
+just accessibility-audit-components button
 
 # Generate detailed report
-make accessibility-audit-html
+just accessibility-audit-html
 ```
 
 ### Debug Commands

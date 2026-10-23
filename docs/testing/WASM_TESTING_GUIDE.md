@@ -21,19 +21,19 @@ Our enhanced WASM browser testing infrastructure provides comprehensive validati
 
 ```bash
 # Run all WASM tests with default settings
-make test-wasm
+just test-wasm-browser
 
 # Run tests on specific browsers
-make test-wasm-browsers BROWSERS=chromium,firefox
+just test-wasm-browsers chromium,firefox
 
 # Run tests in headed mode (see browser windows)
-make test-wasm-headed
+just test-wasm-headed
 
 # Run tests in parallel for faster execution
-make test-wasm-parallel
+just test-wasm-parallel
 
 # Run tests with verbose output
-make test-wasm-verbose
+just test-wasm-verbose
 ```
 
 ### Advanced Usage
@@ -242,14 +242,14 @@ rustup target list --installed | grep wasm32-unknown-unknown
 rustup target add wasm32-unknown-unknown
 
 # Check browser console for errors
-make test-wasm-headed
+just test-wasm-headed
 ```
 
 #### 2. **Performance Threshold Failures**
 
 ```bash
 # Run with verbose output to see detailed metrics
-make test-wasm-verbose
+just test-wasm-verbose
 
 # Check specific browser performance
 ./scripts/run-wasm-tests.sh -b chromium -v
@@ -307,7 +307,7 @@ jobs:
           pnpm playwright install
           
       - name: Run WASM tests
-        run: make test-wasm
+        run: just test-wasm-browser
         env:
           WASM_MAX_INIT_TIME: 8000  # More lenient in CI
           WASM_ENABLED_BROWSERS: "chromium,firefox"
@@ -325,7 +325,7 @@ jobs:
 ```bash
 # Pre-commit hook for WASM testing
 echo '#!/bin/sh
-make test-wasm-browsers BROWSERS=chromium
+just test-wasm-browsers chromium
 ' > .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
 ```

@@ -47,19 +47,19 @@ pnpm playwright install
 
 ```bash
 # Run all infrastructure tests
-make test
+just test-full
 
 # Run WASM browser tests
-make test-wasm
+just test-wasm-browser
 
 # Run E2E tests
-make test-e2e-enhanced
+just test-e2e-enhanced
 
 # Run performance benchmarks
-make benchmark
+just benchmark
 
 # Run accessibility audit
-make accessibility-audit
+just accessibility-audit
 ```
 
 ## 📊 Infrastructure Status
@@ -88,19 +88,19 @@ Comprehensive WASM testing across all supported browsers with performance monito
 #### Usage
 ```bash
 # Run all WASM tests
-make test-wasm
+just test-wasm-browser
 
 # Run on specific browsers
-make test-wasm-browsers BROWSERS=chromium,firefox
+just test-wasm-browsers chromium,firefox
 
 # Run in headed mode
-make test-wasm-headed
+just test-wasm-headed
 
 # Run in parallel
-make test-wasm-parallel
+just test-wasm-parallel
 
 # Run with verbose output
-make test-wasm-verbose
+just test-wasm-verbose
 ```
 
 #### Configuration
@@ -129,21 +129,21 @@ Enhanced E2E testing with CI/CD integration, automated reporting, and comprehens
 #### Usage
 ```bash
 # Run enhanced E2E tests
-make test-e2e-enhanced
+just test-e2e-enhanced
 
 # Run in CI mode
-make test-e2e-ci
+just test-e2e-ci
 
 # Run in debug mode
-make test-e2e-debug
+just test-e2e-debug
 
 # Run specific test categories
-make test-e2e-performance
-make test-e2e-accessibility
-make test-e2e-wasm
+just test-e2e-performance
+just test-e2e-accessibility
+just test-e2e-wasm
 
 # Generate comprehensive report
-make test-e2e-report
+just test-e2e-report
 ```
 
 #### Configuration
@@ -174,25 +174,25 @@ Comprehensive performance benchmarking with automated regression testing and opt
 #### Usage
 ```bash
 # Run performance benchmarks
-make benchmark
+just benchmark
 
 # Run for specific components
-make benchmark-components COMPONENTS=button,input
+just benchmark-components button,input
 
 # Generate HTML report
-make benchmark-html
+just benchmark-html
 
 # Run regression tests
-make regression-test
+just regression-test
 
 # Update baseline
-make regression-update
+just regression-update
 
 # Start automated monitoring
-make performance-monitor
+just performance-monitor
 
 # Setup performance baseline
-make setup-baseline
+just setup-baseline
 ```
 
 #### Configuration
@@ -222,22 +222,22 @@ Comprehensive accessibility testing with WCAG compliance validation and automate
 #### Usage
 ```bash
 # Run comprehensive accessibility audit
-make accessibility-audit
+just accessibility-audit
 
 # Run with specific WCAG level
-make accessibility-audit-wcag LEVEL=AAA
+just accessibility-audit-wcag AAA
 
 # Run for specific components
-make accessibility-audit-components COMPONENTS=button,input
+just accessibility-audit-components button,input
 
 # Generate HTML report
-make accessibility-audit-html
+just accessibility-audit-html
 
 # Run with verbose output
-make accessibility-audit-verbose
+just accessibility-audit-verbose
 
 # Focus on specific areas
-make accessibility-audit-focus
+just accessibility-audit-focus
 ```
 
 #### Configuration
@@ -300,7 +300,7 @@ The infrastructure includes a comprehensive GitHub Actions workflow (`.github/wo
 ```yaml
 # Example workflow usage
 - name: Run E2E Tests
-  run: make test-e2e-ci
+  run: just test-e2e-ci
   env:
     CI: true
     WASM_MAX_INIT_TIME: 8000
@@ -351,13 +351,13 @@ rustup target list --installed | grep wasm32-unknown-unknown
 rustup target add wasm32-unknown-unknown
 
 # Check browser console for errors
-make test-wasm-headed
+just test-wasm-headed
 ```
 
 #### 2. Performance Threshold Failures
 ```bash
 # Run with verbose output to see detailed metrics
-make test-wasm-verbose
+just test-wasm-verbose
 
 # Check specific browser performance
 ./scripts/run-wasm-tests.sh -b chromium -v
@@ -366,20 +366,20 @@ make test-wasm-verbose
 #### 3. Accessibility Violations
 ```bash
 # Run accessibility audit with verbose output
-make accessibility-audit-verbose
+just accessibility-audit-verbose
 
 # Check specific components
-make accessibility-audit-components COMPONENTS=button,input
+just accessibility-audit-components button,input
 ```
 
 #### 4. E2E Test Failures
 ```bash
 # Run tests in debug mode
-make test-e2e-debug
+just test-e2e-debug
 
 # Check specific test categories
-make test-e2e-performance
-make test-e2e-accessibility
+just test-e2e-performance
+just test-e2e-accessibility
 ```
 
 ### Debug Mode

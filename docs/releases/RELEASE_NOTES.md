@@ -138,7 +138,7 @@ cargo test --package leptos-shadcn-button --lib
 cargo test --workspace
 
 # Run E2E tests
-make test-e2e
+just test-e2e
 ```
 
 ---

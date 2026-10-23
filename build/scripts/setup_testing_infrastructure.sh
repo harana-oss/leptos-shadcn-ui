@@ -375,7 +375,7 @@ echo ""
 echo "📦 Phase 6: Creating Development Makefile"
 echo "----------------------------------------"
 
-if [ ! -f "Makefile" ]; then
+if [ ! -f "Makefile" ] && [ ! -f "justfile" ]; then
     log_info "Creating Makefile for common testing tasks..."
     cat > Makefile << 'EOF'
 # leptos-shadcn-ui Testing Makefile
@@ -684,13 +684,13 @@ echo "✅ Git Hooks:"
 echo "   - Pre-commit quality gates"
 echo ""
 echo "🚀 Quick Start Commands:"
-echo "   make test          - Run all tests"
-echo "   make coverage      - Generate coverage report"
-echo "   make test-e2e      - Run E2E tests"
-echo "   make audit         - Run security audit"
+echo "   just test-full          - Run all tests"
+echo "   just coverage-all      - Generate coverage report"
+echo "   just test-e2e      - Run E2E tests"
+echo "   just audit         - Run security audit"
 echo ""
 echo "📚 Next Steps:"
-echo "   1. Run 'make test' to verify everything works"
+echo "   1. Run 'just test-full' to verify everything works"
 echo "   2. Check out the testing standards in docs/v1.0-roadmap/testing-infrastructure/"
 echo "   3. Start implementing Phase 2 of the v1.0 roadmap"
 echo ""
