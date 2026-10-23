@@ -1,6 +1,6 @@
 # leptos-shadcn-ui
 
-shadcn/ui components for [Leptos](https://leptos.dev) 0.8, styled with Tailwind CSS.
+shadcn/ui components for [Leptos](https://leptos.dev) 0.9, styled with Tailwind CSS.
 
 ## Install
 
