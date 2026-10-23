@@ -35,6 +35,8 @@ pub struct Toast {
     pub description: Option<String>,
     /// Auto-dismiss after this many milliseconds; `None` keeps it open.
     pub duration_ms: Option<u64>,
+    /// Logical-clock time (ms) at which this toast expires; `None` = sticky.
+    pub expires_at_ms: Option<u64>,
 }
 
 /// Ordered toast queue. Toasts are stored oldest-first; `visible()` yields
@@ -44,6 +46,8 @@ pub struct ToastQueue {
     toasts: Vec<Toast>,
     next_id: ToastId,
     max_visible: usize,
+    /// Current logical clock (ms). Advanced only by [`ToastQueue::tick`].
+    now_ms: u64,
 }
 
 impl Default for ToastQueue {
@@ -61,6 +65,7 @@ impl ToastQueue {
             toasts: Vec::new(),
             next_id: 1,
             max_visible,
+            now_ms: 0,
         }
     }
 
@@ -80,6 +85,20 @@ impl ToastQueue {
         description: Option<String>,
         duration_ms: Option<u64>,
     ) -> ToastId {
+        let now = self.now_ms;
+        self.add_at(kind, title, description, duration_ms, now)
+    }
+
+    /// Adds a toast created at logical time `now_ms` (also advances the clock).
+    pub fn add_at(
+        &mut self,
+        kind: ToastKind,
+        title: impl Into<String>,
+        description: Option<String>,
+        duration_ms: Option<u64>,
+        now_ms: u64,
+    ) -> ToastId {
+        self.now_ms = self.now_ms.max(now_ms);
         let id = self.next_id;
         self.next_id += 1;
         self.toasts.push(Toast {
@@ -88,8 +107,36 @@ impl ToastQueue {
             title: title.into(),
             description,
             duration_ms,
+            expires_at_ms: duration_ms.map(|d| self.now_ms.saturating_add(d)),
         });
         id
+    }
+
+    /// Current logical clock (ms).
+    pub fn now_ms(&self) -> u64 {
+        self.now_ms
+    }
+
+    /// Advances the clock to `now_ms` (never backwards) and removes every
+    /// toast whose `expires_at_ms <= now`. Returns the removed ids.
+    /// Pure and target-independent: drive it from any timer or a test clock.
+    pub fn tick(&mut self, now_ms: u64) -> Vec<ToastId> {
+        self.now_ms = self.now_ms.max(now_ms);
+        let now = self.now_ms;
+        let mut expired = Vec::new();
+        self.toasts.retain(|t| match t.expires_at_ms {
+            Some(e) if e <= now => {
+                expired.push(t.id);
+                false
+            }
+            _ => true,
+        });
+        expired
+    }
+
+    /// Earliest pending expiry, if any toast is timed.
+    pub fn next_expiry(&self) -> Option<u64> {
+        self.toasts.iter().filter_map(|t| t.expires_at_ms).min()
     }
 
     /// Removes a toast; returns whether it existed.
