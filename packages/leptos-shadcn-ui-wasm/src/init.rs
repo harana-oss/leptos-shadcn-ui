@@ -371,10 +371,18 @@ impl Default for WasmInitManager {
 
 /// Get current timestamp from JavaScript
 pub fn js_timestamp() -> f64 {
-    web_sys::window()
-        .and_then(|w| w.performance())
-        .map(|p| p.now())
-        .unwrap_or(0.0)
+    #[cfg(target_arch = "wasm32")]
+    {
+        web_sys::window()
+            .and_then(|w| w.performance())
+            .map(|p| p.now())
+            .unwrap_or(0.0)
+    }
+    // No JS clock off wasm (native tests, SSR).
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        0.0
+    }
 }
 
 /// Log a message to the browser console

@@ -85,7 +85,7 @@ impl AnalyticsContext {
     pub fn clear(&self) {
         self.analytics.update(|analytics| {
             analytics.stats.clear();
-            analytics.session_start = js_sys::Date::now() as u64;
+            analytics.session_start = crate::types::now_ms() as u64;
         });
         self.session_events.set(0);
         let _ = self.storage.clear();
