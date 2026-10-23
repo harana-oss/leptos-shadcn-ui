@@ -4,13 +4,12 @@
 //! for the Hover-card component, focusing on fundamental functionality.
 
 use leptos::prelude::*;
-use crate::default::HoverCard;
+use crate::default::{HoverCard, HoverCardContent, HoverCardTrigger};
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_basic_rendering() {
         // Test basic hover card rendering
@@ -25,7 +24,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_with_children() {
         // Test hover card with children
@@ -42,7 +40,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_with_variant() {
         // Test hover card with variant
@@ -57,7 +54,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_with_size() {
         // Test hover card with size
@@ -72,7 +68,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_with_callback() {
         // Test hover card with callback
@@ -91,7 +86,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_disabled() {
         // Test hover card disabled
@@ -106,7 +100,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_with_class() {
         // Test hover card with class
@@ -121,7 +114,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_with_id() {
         // Test hover card with ID
@@ -136,7 +128,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_with_style() {
         // Test hover card with style
@@ -151,7 +142,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_multiple_instances() {
         // Test multiple hover card instances
@@ -172,7 +162,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_variant_default() {
         // Test hover card default variant
@@ -187,7 +176,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_variant_destructive() {
         // Test hover card destructive variant
@@ -202,7 +190,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_variant_outline() {
         // Test hover card outline variant
@@ -217,7 +204,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_variant_secondary() {
         // Test hover card secondary variant
@@ -232,7 +218,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_variant_ghost() {
         // Test hover card ghost variant
@@ -247,7 +232,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_variant_link() {
         // Test hover card link variant
@@ -262,7 +246,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_size_default() {
         // Test hover card default size
@@ -277,7 +260,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_size_sm() {
         // Test hover card small size
@@ -292,7 +274,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_size_lg() {
         // Test hover card large size
@@ -307,7 +288,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_size_icon() {
         // Test hover card icon size
@@ -322,7 +302,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_edge_cases() {
         // Test hover card edge cases
@@ -337,7 +316,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_empty_children() {
         // Test hover card empty children
@@ -352,7 +330,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_long_text() {
         // Test hover card long text
@@ -369,13 +346,12 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_with_label() {
         // Test hover card with label
         let hover_card_view = view! {
             <HoverCard>
-                <HoverCardTrigger aria-label="Custom label">"Label trigger"</HoverCardTrigger>
+                <HoverCardTrigger attr:aria-label="Custom label">"Label trigger"</HoverCardTrigger>
                 <HoverCardContent>"Label content"</HoverCardContent>
             </HoverCard>
         };
@@ -384,7 +360,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_with_form() {
         // Test hover card with form
@@ -401,7 +376,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_group() {
         // Test hover card group
@@ -422,7 +396,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_with_icon() {
         // Test hover card with icon
@@ -441,7 +414,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_with_complex_children() {
         // Test hover card with complex children
@@ -470,7 +442,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_custom_styles() {
         // Test hover card custom styles
@@ -485,7 +456,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_combined_props() {
         // Test hover card combined props
@@ -495,7 +465,7 @@ mod tests {
                     class="custom-trigger"
                     id="combined-trigger"
                     style="color: green;"
-                    aria-label="Combined props trigger"
+                    attr:aria-label="Combined props trigger"
                 >
                     "Combined props trigger"
                 </HoverCardTrigger>

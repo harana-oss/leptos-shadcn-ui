@@ -4,13 +4,12 @@
 //! advanced interactions, and form integration for the Hover-card component.
 
 use leptos::prelude::*;
-use crate::default::HoverCard;
+use crate::default::{HoverCard, HoverCardContent, HoverCardTrigger};
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_accessibility() {
         // Test hover card accessibility
@@ -25,7 +24,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_keyboard_navigation() {
         // Test hover card keyboard navigation
@@ -40,7 +38,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_focus_management() {
         // Test hover card focus management
@@ -55,7 +52,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_form_integration() {
         // Test hover card form integration
@@ -72,15 +68,14 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_aria_attributes() {
         // Test hover card ARIA attributes
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger 
-                    aria-label="Custom label"
-                    aria-describedby="hover-card-content"
+                    attr:aria-label="Custom label"
+                    attr:aria-describedby="hover-card-content"
                     role="button"
                 >
                     "ARIA trigger"
@@ -88,7 +83,7 @@ mod tests {
                 <HoverCardContent 
                     id="hover-card-content"
                     role="tooltip"
-                    aria-live="polite"
+                    attr:aria-live="polite"
                 >
                     "ARIA content"
                 </HoverCardContent>
@@ -99,7 +94,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_screen_reader_support() {
         // Test hover card screen reader support
@@ -114,7 +108,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_high_contrast_support() {
         // Test hover card high contrast support
@@ -129,7 +122,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_reduced_motion_support() {
         // Test hover card reduced motion support
@@ -144,7 +136,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_voice_control_support() {
         // Test hover card voice control support
@@ -159,7 +150,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_switch_control_support() {
         // Test hover card switch control support
@@ -174,7 +164,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_eye_tracking_support() {
         // Test hover card eye tracking support
@@ -189,7 +178,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_motor_impairment_support() {
         // Test hover card motor impairment support
@@ -204,7 +192,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_cognitive_impairment_support() {
         // Test hover card cognitive impairment support
@@ -219,7 +206,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_visual_impairment_support() {
         // Test hover card visual impairment support
@@ -234,7 +220,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_hearing_impairment_support() {
         // Test hover card hearing impairment support
@@ -249,7 +234,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_multilingual_support() {
         // Test hover card multilingual support
@@ -264,7 +248,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_rtl_support() {
         // Test hover card RTL support
@@ -279,7 +262,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_zoom_support() {
         // Test hover card zoom support
@@ -294,7 +276,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_mobile_accessibility() {
         // Test hover card mobile accessibility
@@ -309,7 +290,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_touch_accessibility() {
         // Test hover card touch accessibility
@@ -324,7 +304,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_gesture_accessibility() {
         // Test hover card gesture accessibility
@@ -339,7 +318,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_voice_over_support() {
         // Test hover card VoiceOver support
@@ -354,7 +332,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_nvda_support() {
         // Test hover card NVDA support
@@ -369,7 +346,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_jaws_support() {
         // Test hover card JAWS support
@@ -384,7 +360,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_orca_support() {
         // Test hover card Orca support
@@ -399,7 +374,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_talkback_support() {
         // Test hover card TalkBack support
@@ -414,7 +388,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_switch_access_support() {
         // Test hover card Switch Access support
@@ -429,7 +402,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_voice_control_ios_support() {
         // Test hover card Voice Control iOS support
@@ -444,7 +416,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_voice_control_macos_support() {
         // Test hover card Voice Control macOS support
@@ -459,7 +430,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_dragon_naturally_speaking_support() {
         // Test hover card Dragon NaturallySpeaking support
@@ -474,7 +444,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_windows_speech_recognition_support() {
         // Test hover card Windows Speech Recognition support
@@ -489,7 +458,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_google_voice_access_support() {
         // Test hover card Google Voice Access support
@@ -504,7 +472,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_samsung_voice_assistant_support() {
         // Test hover card Samsung Voice Assistant support
@@ -519,7 +486,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_amazon_alexa_support() {
         // Test hover card Amazon Alexa support
@@ -534,7 +500,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_google_assistant_support() {
         // Test hover card Google Assistant support
@@ -549,7 +514,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_siri_support() {
         // Test hover card Siri support
@@ -564,7 +528,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_cortana_support() {
         // Test hover card Cortana support
@@ -579,7 +542,6 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_bixby_support() {
         // Test hover card Bixby support
@@ -594,14 +556,13 @@ mod tests {
         let _ = hover_card_view.into_view();
     }
 
-    #[cfg(feature = "pending-api-tests")]
     #[test]
     fn test_hover_card_comprehensive_accessibility() {
         // Test hover card comprehensive accessibility
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger 
-                    aria-label="Comprehensive accessibility trigger"
+                    attr:aria-label="Comprehensive accessibility trigger"
                     role="button"
                     tabindex="0"
                     lang="en"
@@ -611,7 +572,7 @@ mod tests {
                 </HoverCardTrigger>
                 <HoverCardContent 
                     role="tooltip"
-                    aria-describedby="hover-card-content"
+                    attr:aria-describedby="hover-card-content"
                     lang="en"
                     dir="ltr"
                 >

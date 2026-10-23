@@ -4,8 +4,11 @@ pub mod signal_managed;
 pub mod default;
 pub mod new_york;
 
-pub use default::{HoverCard};
-pub use new_york::{HoverCard as HoverCardNewYork};
+pub use default::{HoverCard, HoverCardContent, HoverCardContext, HoverCardTrigger};
+pub use new_york::{
+    HoverCard as HoverCardNewYork, HoverCardContent as HoverCardContentNewYork,
+    HoverCardTrigger as HoverCardTriggerNewYork,
+};
 
 mod tests;
 
