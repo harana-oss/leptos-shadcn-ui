@@ -125,6 +125,7 @@ fn context_tick_auto_dismisses_with_mock_clock() {
     let owner = Owner::new();
     owner.with(|| {
         let ctx = ToasterContext::new();
+        let t0 = real_now_ms();
         let quick = ctx.toast(
             ToastKind::Success,
             "quick",
@@ -136,11 +137,30 @@ fn context_tick_auto_dismisses_with_mock_clock() {
             "sticky",
             ToastOptions { description: None, duration_ms: Some(0) },
         );
-        assert!(ctx.tick(99).is_empty());
-        assert_eq!(ctx.tick(100), vec![quick]);
-        assert_eq!(ctx.tick(DEFAULT_DURATION_MS), vec![default]);
+        let t1 = real_now_ms();
+        // expires_at is measured from real now, not from the epoch-0 logical clock.
+        assert!(ctx.tick(t0 + 99).is_empty());
+        assert_eq!(ctx.tick(t1 + 100), vec![quick]);
+        assert_eq!(ctx.tick(t1 + DEFAULT_DURATION_MS), vec![default]);
         let q = ctx.queue.get_untracked();
         assert_eq!(q.len(), 1);
         assert!(q.get(sticky).is_some());
     });
+}
+
+#[test]
+fn late_added_toast_not_closed_early_by_earlier_timer() {
+    // Regression: with a stale logical clock, a toast added at real t=5000
+    // got expires_at measured from the old clock and was closed by an
+    // earlier toast's tick. With real time injected it must survive.
+    let mut q = ToastQueue::default();
+    let first = q.add_at(ToastKind::Info, "first", None, Some(4000), 0);
+    // Idle period: clock not advanced. New toast added at real 3900.
+    let late = q.add_at(ToastKind::Info, "late", None, Some(4000), 3900);
+    assert_eq!(q.get(late).unwrap().expires_at_ms, Some(7900));
+    // First toast's timer fires at real 4000.
+    assert_eq!(q.tick(4000), vec![first]);
+    assert!(q.get(late).is_some());
+    assert!(q.tick(7899).is_empty());
+    assert_eq!(q.tick(7900), vec![late]);
 }

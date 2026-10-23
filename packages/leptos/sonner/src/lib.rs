@@ -76,6 +76,21 @@ type TimerHandle = leptos::leptos_dom::helpers::TimeoutHandle;
 #[cfg(not(target_arch = "wasm32"))]
 type TimerHandle = ();
 
+/// Wall-clock time in ms since the UNIX epoch (target-specific source).
+#[cfg(target_arch = "wasm32")]
+pub fn real_now_ms() -> u64 {
+    js_sys::Date::now() as u64
+}
+
+/// Wall-clock time in ms since the UNIX epoch (target-specific source).
+#[cfg(not(target_arch = "wasm32"))]
+pub fn real_now_ms() -> u64 {
+    std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_millis() as u64)
+        .unwrap_or(0)
+}
+
 /// Toast API handle, shared through context.
 #[derive(Clone, Copy)]
 pub struct ToasterContext {
@@ -107,13 +122,11 @@ impl ToasterContext {
             None => Some(self.default_duration_ms.get_untracked()),
         };
         let mut id = 0;
+        let now = real_now_ms();
         self.queue
-            .update(|q| id = q.add(kind, title, options.description, duration));
-        let expires = self
-            .queue
-            .with_untracked(|q| q.get(id).and_then(|t| t.expires_at_ms));
-        if let Some(at) = expires {
-            self.schedule(id, at, duration.unwrap_or(0));
+            .update(|q| id = q.add_at(kind, title, options.description, duration, now));
+        if let Some(ms) = duration {
+            self.schedule(id, ms);
         }
         id
     }
@@ -173,14 +186,12 @@ impl ToasterContext {
     }
 
     #[cfg(target_arch = "wasm32")]
-    fn schedule(&self, id: ToastId, expires_at: u64, ms: u64) {
-        // The timer fires once at least `ms` real ms have elapsed, so advancing
-        // the logical clock to this toast's expiry never runs ahead of real time.
+    fn schedule(&self, id: ToastId, ms: u64) {
         let this = *self;
         if let Ok(handle) = set_timeout_with_handle(
             move || {
                 this.timers.update_value(|t| t.retain(|(i, _)| *i != id));
-                this.tick(expires_at);
+                this.tick(real_now_ms());
             },
             std::time::Duration::from_millis(ms),
         ) {
@@ -189,7 +200,7 @@ impl ToasterContext {
     }
 
     #[cfg(not(target_arch = "wasm32"))]
-    fn schedule(&self, _id: ToastId, _expires_at: u64, _ms: u64) {}
+    fn schedule(&self, _id: ToastId, _ms: u64) {}
 
     fn clear_timer(&self, id: ToastId) {
         self.timers.update_value(|t| {
