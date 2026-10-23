@@ -9,6 +9,7 @@ mod basic_rendering_tests {
 
     #[test]
     fn test_combobox_basic_rendering() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -17,10 +18,12 @@ mod basic_rendering_tests {
             <Combobox options=options/>
         };
         // GREEN PHASE: Verify actual rendering behavior
-    }
+    });
+}
 
     #[test]
     fn test_combobox_with_value() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -31,10 +34,12 @@ mod basic_rendering_tests {
                 value=MaybeProp::from("option1")
             />
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_with_placeholder() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -45,10 +50,12 @@ mod basic_rendering_tests {
                 placeholder=MaybeProp::from("Select an option")
             />
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_with_disabled() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -59,10 +66,12 @@ mod basic_rendering_tests {
                 disabled=true
             />
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_with_class() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -73,10 +82,12 @@ mod basic_rendering_tests {
                 class=MaybeProp::from("custom-class")
             />
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_with_style() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -87,10 +98,12 @@ mod basic_rendering_tests {
                 style=leptos_style::Style::from("color: red")
             />
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_with_id() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -101,10 +114,12 @@ mod basic_rendering_tests {
                 id=MaybeProp::from("test-combobox")
             />
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_with_multiple_props() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -120,38 +135,46 @@ mod basic_rendering_tests {
                 id=MaybeProp::from("test-combobox")
             />
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_with_empty_options() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![];
         let _combobox_view = view! {
             <Combobox options=options/>
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_with_single_option() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
         ];
         let _combobox_view = view! {
             <Combobox options=options/>
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_with_many_options() {
+    leptos::prelude::Owner::new().with(|| {
         let options = (1..=100).map(|i| {
             ComboboxOption::new(format!("option{}", i), format!("Option {}", i))
         }).collect::<Vec<_>>();
         let _combobox_view = view! {
             <Combobox options=options/>
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_with_unicode_options() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1 🚀"),
             ComboboxOption::new("option2", "Option 2 🎉"),
@@ -159,10 +182,12 @@ mod basic_rendering_tests {
         let _combobox_view = view! {
             <Combobox options=options/>
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_with_special_characters() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1!@#$%^&*()"),
             ComboboxOption::new("option2", "Option 2!@#$%^&*()"),
@@ -170,10 +195,12 @@ mod basic_rendering_tests {
         let _combobox_view = view! {
             <Combobox options=options/>
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_with_long_text() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "This is a very long option text that should be handled properly by the combobox component"),
             ComboboxOption::new("option2", "Another very long option text that should also be handled properly"),
@@ -181,10 +208,12 @@ mod basic_rendering_tests {
         let _combobox_view = view! {
             <Combobox options=options/>
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_with_whitespace() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "  Option 1  "),
             ComboboxOption::new("option2", "  Option 2  "),
@@ -192,10 +221,12 @@ mod basic_rendering_tests {
         let _combobox_view = view! {
             <Combobox options=options/>
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_with_numbers() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 123"),
             ComboboxOption::new("option2", "Option 456"),
@@ -203,10 +234,12 @@ mod basic_rendering_tests {
         let _combobox_view = view! {
             <Combobox options=options/>
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_with_mixed_content() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2 🚀"),
@@ -216,10 +249,12 @@ mod basic_rendering_tests {
         let _combobox_view = view! {
             <Combobox options=options/>
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_rendering_performance() {
+    leptos::prelude::Owner::new().with(|| {
         let start = std::time::Instant::now();
         
         for _ in 0..100 {
@@ -236,10 +271,12 @@ mod basic_rendering_tests {
         
         // Should complete quickly (less than 100ms for 100 iterations)
         assert!(duration.as_millis() < 100);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_rendering_memory_usage() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -251,10 +288,12 @@ mod basic_rendering_tests {
         // Test that memory usage is reasonable
         let size = std::mem::size_of_val(&options);
         assert!(size < 1024); // Should be less than 1KB
-    }
+    });
+}
 
     #[test]
     fn test_combobox_rendering_consistency() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -270,10 +309,12 @@ mod basic_rendering_tests {
         let _combobox_view3 = view! {
             <Combobox options=options.clone()/>
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_rendering_with_different_props() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -292,10 +333,12 @@ mod basic_rendering_tests {
         let _combobox_view4 = view! {
             <Combobox options=options.clone() class=MaybeProp::from("custom")/>
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_rendering_edge_cases() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("", ""),
             ComboboxOption::new("option1", "Option 1"),
@@ -303,10 +346,12 @@ mod basic_rendering_tests {
         let _combobox_view = view! {
             <Combobox options=options/>
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_rendering_with_none_props() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -322,5 +367,6 @@ mod basic_rendering_tests {
                 id=MaybeProp::from(None::<String>)
             />
         };
-    }
+    });
+}
 }

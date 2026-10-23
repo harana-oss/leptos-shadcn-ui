@@ -10,6 +10,7 @@ mod enum_tests {
 
     #[test]
     fn test_switch_variant_enum() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchVariant enum variants
         let default_variant = SwitchVariant::Default;
         let destructive_variant = SwitchVariant::Destructive;
@@ -25,17 +26,21 @@ mod enum_tests {
         assert_eq!(format!("{:?}", secondary_variant), "Secondary");
         assert_eq!(format!("{:?}", ghost_variant), "Ghost");
         assert_eq!(format!("{:?}", link_variant), "Link");
-    }
+    });
+}
 
     #[test]
     fn test_switch_variant_default() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchVariant default value
         let default_variant = SwitchVariant::default();
         assert_eq!(default_variant, SwitchVariant::Default);
-    }
+    });
+}
 
     #[test]
     fn test_switch_variant_from_string() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchVariant from string conversion
         let default_from_str = SwitchVariant::from("default");
         let destructive_from_str = SwitchVariant::from("destructive");
@@ -44,10 +49,12 @@ mod enum_tests {
         assert_eq!(default_from_str, SwitchVariant::Default);
         assert_eq!(destructive_from_str, SwitchVariant::Destructive);
         assert_eq!(outline_from_str, SwitchVariant::Outline);
-    }
+    });
+}
 
     #[test]
     fn test_switch_size_enum() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchSize enum variants
         let small_size = SwitchSize::Small;
         let default_size = SwitchSize::Default;
@@ -57,17 +64,21 @@ mod enum_tests {
         assert_eq!(format!("{:?}", small_size), "Small");
         assert_eq!(format!("{:?}", default_size), "Default");
         assert_eq!(format!("{:?}", large_size), "Large");
-    }
+    });
+}
 
     #[test]
     fn test_switch_size_default() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchSize default value
         let default_size = SwitchSize::default();
         assert_eq!(default_size, SwitchSize::Default);
-    }
+    });
+}
 
     #[test]
     fn test_switch_size_from_string() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchSize from string conversion
         let small_from_str = SwitchSize::from("small");
         let default_from_str = SwitchSize::from("default");
@@ -76,10 +87,12 @@ mod enum_tests {
         assert_eq!(small_from_str, SwitchSize::Small);
         assert_eq!(default_from_str, SwitchSize::Default);
         assert_eq!(large_from_str, SwitchSize::Large);
-    }
+    });
+}
 
     #[test]
     fn test_switch_context_value() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchContextValue structure
         let context_value = SwitchContextValue {
             checked: RwSignal::new(false),
@@ -91,10 +104,12 @@ mod enum_tests {
         assert!(!context_value.checked.get());
         assert!(!context_value.disabled.get());
         assert!(context_value.on_checked_change.is_none());
-    }
+    });
+}
 
     #[test]
     fn test_switch_variant_equality() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchVariant equality
         let variant1 = SwitchVariant::Default;
         let variant2 = SwitchVariant::Default;
@@ -102,10 +117,12 @@ mod enum_tests {
         
         assert_eq!(variant1, variant2);
         assert_ne!(variant1, variant3);
-    }
+    });
+}
 
     #[test]
     fn test_switch_size_equality() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchSize equality
         let size1 = SwitchSize::Default;
         let size2 = SwitchSize::Default;
@@ -113,46 +130,56 @@ mod enum_tests {
         
         assert_eq!(size1, size2);
         assert_ne!(size1, size3);
-    }
+    });
+}
 
     #[test]
     fn test_switch_variant_clone() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchVariant cloning
         let original = SwitchVariant::Destructive;
         let cloned = original.clone();
         
         assert_eq!(original, cloned);
-    }
+    });
+}
 
     #[test]
     fn test_switch_size_clone() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchSize cloning
         let original = SwitchSize::Large;
         let cloned = original.clone();
         
         assert_eq!(original, cloned);
-    }
+    });
+}
 
     #[test]
     fn test_switch_variant_debug() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchVariant debug formatting
         let variant = SwitchVariant::Outline;
         let debug_str = format!("{:?}", variant);
         
         assert!(debug_str.contains("Outline"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_size_debug() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchSize debug formatting
         let size = SwitchSize::Small;
         let debug_str = format!("{:?}", size);
         
         assert!(debug_str.contains("Small"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_variant_from_str() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchVariant from string parsing
         let variant = SwitchVariant::from("secondary");
         assert_eq!(variant, SwitchVariant::Secondary);
@@ -162,10 +189,12 @@ mod enum_tests {
         
         let variant = SwitchVariant::from("link");
         assert_eq!(variant, SwitchVariant::Link);
-    }
+    });
+}
 
     #[test]
     fn test_switch_size_from_str() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchSize from string parsing
         let size = SwitchSize::from("small");
         assert_eq!(size, SwitchSize::Small);
@@ -175,10 +204,12 @@ mod enum_tests {
         
         let size = SwitchSize::from("large");
         assert_eq!(size, SwitchSize::Large);
-    }
+    });
+}
 
     #[test]
     fn test_switch_variant_combinations() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchVariant combinations
         let variants = vec![
             SwitchVariant::Default,
@@ -195,10 +226,12 @@ mod enum_tests {
                 assert_ne!(variants[i], variants[j]);
             }
         }
-    }
+    });
+}
 
     #[test]
     fn test_switch_size_combinations() {
+    leptos::prelude::Owner::new().with(|| {
         // Test SwitchSize combinations
         let sizes = vec![
             SwitchSize::Small,
@@ -212,5 +245,6 @@ mod enum_tests {
                 assert_ne!(sizes[i], sizes[j]);
             }
         }
-    }
+    });
+}
 }

@@ -15,6 +15,7 @@ mod tests {
     /// This test will fail with current implementation but pass after adding advanced features
     #[test]
     fn test_advanced_date_picker_integration_requirements() {
+    leptos::prelude::Owner::new().with(|| {
         let test_result = std::panic::catch_unwind(|| {
             // Advanced date picker requirements that should work:
             // 1. Date range selection with start/end dates
@@ -38,10 +39,12 @@ mod tests {
             true
         });
         assert!(test_result.is_ok(), "Advanced date picker integration test failed");
-    }
+    });
+}
 
     #[test]
     fn test_date_range_selection() {
+    leptos::prelude::Owner::new().with(|| {
         let test_result = std::panic::catch_unwind(|| {
             let _date_range_picker = view! {
                 <DatePickerWithRange
@@ -54,10 +57,12 @@ mod tests {
             true
         });
         assert!(test_result.is_ok(), "Date range selection test failed");
-    }
+    });
+}
 
     #[test]
     fn test_multiple_date_selection() {
+    leptos::prelude::Owner::new().with(|| {
         let test_result = std::panic::catch_unwind(|| {
             let _multiple_date_picker = view! {
                 <DatePicker
@@ -69,5 +74,6 @@ mod tests {
             true
         });
         assert!(test_result.is_ok(), "Multiple date selection test failed");
-    }
+    });
+}
 }

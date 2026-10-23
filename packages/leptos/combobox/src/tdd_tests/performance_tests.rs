@@ -9,6 +9,7 @@ mod performance_tests {
 
     #[test]
     fn test_combobox_performance_basic_rendering() {
+    leptos::prelude::Owner::new().with(|| {
         let start = std::time::Instant::now();
         
         for _ in 0..100 {
@@ -23,10 +24,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 100);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_large_option_list() {
+    leptos::prelude::Owner::new().with(|| {
         let start = std::time::Instant::now();
         
         let options = (1..=1000).map(|i| {
@@ -39,10 +42,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 50);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_memory_usage() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -54,10 +59,12 @@ mod performance_tests {
         // Test that memory usage is reasonable
         let size = std::mem::size_of::<usize>();
         assert!(size < 1024);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_signal_updates() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -78,10 +85,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 10);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_callback_execution() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -106,10 +115,12 @@ mod performance_tests {
         let duration = start.elapsed();
         assert!(duration.as_millis() < 10);
         assert_eq!(call_count.get(), 100);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_dynamic_options() {
+    leptos::prelude::Owner::new().with(|| {
         let options = RwSignal::new(vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -128,10 +139,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 50);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_filtered_options() {
+    leptos::prelude::Owner::new().with(|| {
         let all_options = (1..=1000).map(|i| {
             ComboboxOption::new(format!("option{}", i), format!("Option {}", i))
         }).collect::<Vec<_>>();
@@ -160,10 +173,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 100);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_computed_props() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -188,10 +203,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 20);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_memoized_values() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -216,10 +233,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 15);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_batch_updates() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -245,10 +264,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 20);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_untracked_access() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -269,10 +290,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 5);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_concurrent_updates() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -301,10 +324,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 30);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_deep_nesting() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -343,10 +368,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 50);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_many_props() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -433,10 +460,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 100);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_stress_test() {
+    leptos::prelude::Owner::new().with(|| {
         let start = std::time::Instant::now();
         
         for i in 0..50 {
@@ -464,10 +493,12 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 500);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_memory_leak_prevention() {
+    leptos::prelude::Owner::new().with(|| {
         // Smoke test: repeatedly create and drop views; real leak detection needs a browser profiler.
         
         for _ in 0..100 {
@@ -489,10 +520,12 @@ mod performance_tests {
         
         // Test that no significant memory leaks occur
         // This is a simple test - in practice you'd use more sophisticated memory monitoring
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_signal_cleanup() {
+    leptos::prelude::Owner::new().with(|| {
         let mut signals = Vec::new();
         
         for i in 0..100 {
@@ -513,10 +546,12 @@ mod performance_tests {
         
         // Test that signals can be properly cleaned up
         drop(signals);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_callback_cleanup() {
+    leptos::prelude::Owner::new().with(|| {
         let mut callbacks = Vec::new();
         
         for i in 0..100 {
@@ -539,10 +574,12 @@ mod performance_tests {
         
         // Test that callbacks can be properly cleaned up
         drop(callbacks);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_performance_edge_case_handling() {
+    leptos::prelude::Owner::new().with(|| {
         let start = std::time::Instant::now();
         
         // Test with various edge cases
@@ -561,5 +598,6 @@ mod performance_tests {
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 200);
-    }
+    });
+}
 }

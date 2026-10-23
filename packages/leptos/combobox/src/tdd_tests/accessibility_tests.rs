@@ -9,6 +9,7 @@ mod accessibility_tests {
 
     #[test]
     fn test_combobox_accessibility_basic() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -17,10 +18,12 @@ mod accessibility_tests {
             <Combobox options=options/>
         };
         // Test basic accessibility features
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_label() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -32,10 +35,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA label
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_describedby() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -47,10 +52,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA describedby
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_expanded() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -62,10 +69,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA expanded
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_autocomplete() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -77,10 +86,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA autocomplete
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_owns() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -92,10 +103,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA owns
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_activedescendant() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -107,10 +120,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA activedescendant
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_required() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -122,10 +137,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA required
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_invalid() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -137,10 +154,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA invalid
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_disabled() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -152,10 +171,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA disabled
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_readonly() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -167,10 +188,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA readonly
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_multiselectable() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -182,10 +205,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA multiselectable
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_orientation() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -197,10 +222,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA orientation
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_live() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -212,10 +239,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA live
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_atomic() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -227,10 +256,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA atomic
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_relevant() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -242,10 +273,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA relevant
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_busy() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -257,10 +290,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA busy
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_modal() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -272,10 +307,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA modal
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_hidden() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -287,10 +324,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA hidden
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_selected() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -302,10 +341,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA selected
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_checked() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -317,10 +358,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA checked
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_pressed() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -332,10 +375,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA pressed
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_expanded_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -348,10 +393,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA expanded state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_selected_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -364,10 +411,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA selected state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_checked_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -380,10 +429,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA checked state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_pressed_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -396,10 +447,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA pressed state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_busy_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -412,10 +465,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA busy state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_modal_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -428,10 +483,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA modal state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_hidden_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -444,10 +501,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA hidden state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_required_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -460,10 +519,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA required state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_invalid_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -476,10 +537,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA invalid state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_disabled_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -492,10 +555,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA disabled state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_readonly_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -508,10 +573,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA readonly state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_multiselectable_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -524,10 +591,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA multiselectable state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_orientation_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -540,10 +609,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA orientation state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_live_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -556,10 +627,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA live state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_atomic_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -572,10 +645,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA atomic state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_relevant_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -588,10 +663,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA relevant state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_autocomplete_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -604,10 +681,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA autocomplete state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_owns_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -620,10 +699,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA owns state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_activedescendant_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -636,10 +717,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA activedescendant state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_describedby_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -652,10 +735,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA describedby state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_label_state() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -668,10 +753,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with ARIA label state
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_multiple_aria_attributes() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -703,10 +790,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with multiple ARIA attributes
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_dynamic_aria_attributes() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -723,10 +812,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with dynamic ARIA attributes
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_computed_aria_attributes() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -743,10 +834,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with computed ARIA attributes
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_conditional_aria_attributes() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -761,10 +854,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with conditional ARIA attributes
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_attributes_performance() {
+    leptos::prelude::Owner::new().with(|| {
         let start = std::time::Instant::now();
         
         for _ in 0..100 {
@@ -804,10 +899,12 @@ mod accessibility_tests {
         
         // Should complete quickly (less than 100ms for 100 iterations)
         assert!(duration.as_millis() < 100);
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_attributes_memory_usage() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -842,10 +939,12 @@ mod accessibility_tests {
         // Test that memory usage is reasonable
         let size = std::mem::size_of_val(&options);
         assert!(size < 1024); // Should be less than 1KB
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_attributes_consistency() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -873,10 +972,12 @@ mod accessibility_tests {
                 attr:aria-expanded=false
             />
         };
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_attributes_edge_cases() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -908,10 +1009,12 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with empty ARIA attributes
-    }
+    });
+}
 
     #[test]
     fn test_combobox_accessibility_with_aria_attributes_none_values() {
+    leptos::prelude::Owner::new().with(|| {
         let options = vec![
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
@@ -943,5 +1046,6 @@ mod accessibility_tests {
             />
         };
         // Test accessibility with None ARIA attributes
-    }
+    });
+}
 }

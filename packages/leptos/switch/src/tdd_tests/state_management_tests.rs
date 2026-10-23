@@ -35,6 +35,7 @@ mod state_management_tests {
 
     #[test]
     fn test_switch_theme_switching() {
+    leptos::prelude::Owner::new().with(|| {
         // Test switch theme switching
         let theme_signal = RwSignal::new("light".to_string());
         
@@ -51,10 +52,12 @@ mod state_management_tests {
         // Test theme change
         theme_signal.set("dark".to_string());
         assert_eq!(theme_signal.get(), "dark");
-    }
+    });
+}
 
     #[test]
     fn test_switch_state_management() {
+    leptos::prelude::Owner::new().with(|| {
         // Test switch state management
         let state_checked = RwSignal::new(false);
         let state_disabled = RwSignal::new(false);
@@ -82,7 +85,8 @@ mod state_management_tests {
         assert!(state_checked.get(), "State should be checked");
         assert!(state_disabled.get(), "State should be disabled");
         assert!(state_focused.get(), "State should be focused");
-    }
+    });
+}
 
     #[test]
     fn test_switch_group_functionality() {
@@ -116,6 +120,7 @@ mod state_management_tests {
 
     #[test]
     fn test_switch_validation_comprehensive() {
+    leptos::prelude::Owner::new().with(|| {
         // Test comprehensive validation
         let validation_checked = RwSignal::new(false);
         let validation_required = RwSignal::new(true);
@@ -147,10 +152,12 @@ mod state_management_tests {
         
         assert!(validation_checked.get(), "Validation should be checked");
         assert_eq!(validation_error.get(), "");
-    }
+    });
+}
 
     #[test]
     fn test_switch_click_handling() {
+    leptos::prelude::Owner::new().with(|| {
         // Test click handling
         let click_handled = RwSignal::new(false);
         let click_count = RwSignal::new(0);
@@ -175,10 +182,12 @@ mod state_management_tests {
         
         assert!(click_handled.get(), "Click should be handled");
         assert_eq!(click_count.get(), 1);
-    }
+    });
+}
 
     #[test]
     fn test_switch_checked_change_callback() {
+    leptos::prelude::Owner::new().with(|| {
         // Test checked change callback
         let callback_called = RwSignal::new(false);
         let callback_value = RwSignal::new(false);
@@ -203,10 +212,12 @@ mod state_management_tests {
         
         assert!(callback_called.get(), "Callback should be called");
         assert!(callback_value.get(), "Callback value should be true");
-    }
+    });
+}
 
     #[test]
     fn test_switch_variant_combinations() {
+    leptos::prelude::Owner::new().with(|| {
         // Test variant combinations
         let variant_signal = RwSignal::new(SwitchVariant::Default);
         let size_signal = RwSignal::new(SwitchSize::Md);
@@ -229,10 +240,12 @@ mod state_management_tests {
         
         assert_eq!(variant_signal.get(), SwitchVariant::Destructive);
         assert_eq!(size_signal.get(), SwitchSize::Lg);
-    }
+    });
+}
 
     #[test]
     fn test_switch_complete_workflow() {
+    leptos::prelude::Owner::new().with(|| {
         // Test complete workflow
         let workflow_checked = RwSignal::new(false);
         let workflow_disabled = RwSignal::new(false);
@@ -262,5 +275,6 @@ mod state_management_tests {
         assert!(workflow_focused.get(), "Workflow should be focused");
         assert!(workflow_clicked.get(), "Workflow should be clicked");
         assert!(workflow_checked.get(), "Workflow should be checked");
-    }
+    });
+}
 }

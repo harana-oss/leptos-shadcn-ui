@@ -10,6 +10,7 @@ mod component_behavior {
 
     #[test]
     fn test_switch_state_management() {
+    leptos::prelude::Owner::new().with(|| {
         // Test switch state management
         let checked_state = RwSignal::new(false);
         let disabled_state = RwSignal::new(false);
@@ -24,10 +25,12 @@ mod component_behavior {
         
         assert!(checked_state.get());
         assert!(disabled_state.get());
-    }
+    });
+}
 
     #[test]
     fn test_switch_disabled_state_management() {
+    leptos::prelude::Owner::new().with(|| {
         // Test disabled state management
         let disabled_state = RwSignal::new(false);
         
@@ -41,10 +44,12 @@ mod component_behavior {
         // Test re-enabling
         disabled_state.set(false);
         assert!(!disabled_state.get());
-    }
+    });
+}
 
     #[test]
     fn test_switch_animated_state_management() {
+    leptos::prelude::Owner::new().with(|| {
         // Test animated state management
         let animated_state = RwSignal::new(false);
         let animation_duration = RwSignal::new(200);
@@ -59,10 +64,12 @@ mod component_behavior {
         
         assert!(animated_state.get());
         assert_eq!(animation_duration.get(), 300);
-    }
+    });
+}
 
     #[test]
     fn test_switch_callback_handling() {
+    leptos::prelude::Owner::new().with(|| {
         // Test callback handling
         let callback_called = RwSignal::new(false);
         let callback_value = RwSignal::new(false);
@@ -81,10 +88,12 @@ mod component_behavior {
         
         assert!(callback_called.get());
         assert!(callback_value.get());
-    }
+    });
+}
 
     #[test]
     fn test_switch_event_handling_logic() {
+    leptos::prelude::Owner::new().with(|| {
         // Test event handling logic
         let click_handled = RwSignal::new(false);
         let keydown_handled = RwSignal::new(false);
@@ -103,10 +112,12 @@ mod component_behavior {
         assert!(click_handled.get());
         assert!(keydown_handled.get());
         assert!(focus_handled.get());
-    }
+    });
+}
 
     #[test]
     fn test_switch_checked_states() {
+    leptos::prelude::Owner::new().with(|| {
         // Test checked states
         let checked_state = RwSignal::new(false);
         
@@ -120,10 +131,12 @@ mod component_behavior {
         // Test toggling back to unchecked
         checked_state.set(false);
         assert!(!checked_state.get());
-    }
+    });
+}
 
     #[test]
     fn test_switch_disabled_states() {
+    leptos::prelude::Owner::new().with(|| {
         // Test disabled states
         let disabled_state = RwSignal::new(false);
         
@@ -137,10 +150,12 @@ mod component_behavior {
         // Test re-enabling
         disabled_state.set(false);
         assert!(!disabled_state.get());
-    }
+    });
+}
 
     #[test]
     fn test_switch_focus_management() {
+    leptos::prelude::Owner::new().with(|| {
         // Test focus management
         let focused_state = RwSignal::new(false);
         let focus_visible_state = RwSignal::new(false);
@@ -155,10 +170,12 @@ mod component_behavior {
         
         assert!(focused_state.get());
         assert!(focus_visible_state.get());
-    }
+    });
+}
 
     #[test]
     fn test_switch_validation_states() {
+    leptos::prelude::Owner::new().with(|| {
         // Test validation states
         let valid_state = RwSignal::new(true);
         let error_state = RwSignal::new(false);
@@ -175,10 +192,12 @@ mod component_behavior {
         
         assert!(!valid_state.get());
         assert!(error_state.get());
-    }
+    });
+}
 
     #[test]
     fn test_switch_form_integration() {
+    leptos::prelude::Owner::new().with(|| {
         // Test form integration
         let form_value = RwSignal::new(false);
         let form_disabled = RwSignal::new(false);
@@ -197,10 +216,12 @@ mod component_behavior {
         assert!(form_value.get());
         assert!(form_disabled.get());
         assert!(form_required.get());
-    }
+    });
+}
 
     #[test]
     fn test_switch_state_combinations() {
+    leptos::prelude::Owner::new().with(|| {
         // Test state combinations
         let checked = RwSignal::new(true);
         let disabled = RwSignal::new(false);
@@ -219,10 +240,12 @@ mod component_behavior {
         assert!(!checked.get());
         assert!(disabled.get());
         assert!(!focused.get());
-    }
+    });
+}
 
     #[test]
     fn test_switch_callback_combinations() {
+    leptos::prelude::Owner::new().with(|| {
         // Test callback combinations
         let on_checked_change_called = RwSignal::new(false);
         let on_focus_called = RwSignal::new(false);
@@ -241,10 +264,12 @@ mod component_behavior {
         assert!(on_checked_change_called.get());
         assert!(on_focus_called.get());
         assert!(on_blur_called.get());
-    }
+    });
+}
 
     #[test]
     fn test_switch_component_consistency() {
+    leptos::prelude::Owner::new().with(|| {
         // Test component consistency
         let switch_state = RwSignal::new(false);
         let thumb_state = RwSignal::new(false);
@@ -261,10 +286,12 @@ mod component_behavior {
         
         assert_eq!(switch_state.get(), thumb_state.get());
         assert_eq!(thumb_state.get(), label_state.get());
-    }
+    });
+}
 
     #[test]
     fn test_switch_integration_scenarios() {
+    leptos::prelude::Owner::new().with(|| {
         // Test integration scenarios
         let scenario1_checked = RwSignal::new(true);
         let scenario1_disabled = RwSignal::new(false);
@@ -278,5 +305,6 @@ mod component_behavior {
         // Test scenario 2: unchecked and disabled
         assert!(!scenario2_checked.get());
         assert!(scenario2_disabled.get());
-    }
+    });
+}
 }

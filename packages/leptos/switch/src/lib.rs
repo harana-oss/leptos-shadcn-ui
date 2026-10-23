@@ -22,3 +22,10 @@ pub mod implementation_tests;
 
 // Signal-managed exports
 pub use signal_managed::*;
+
+// Leptos effects spawn on the async executor; native tests need one.
+#[cfg(test)]
+#[ctor::ctor]
+unsafe fn init_test_executor() {
+    let _ = any_spawner::Executor::init_futures_executor();
+}

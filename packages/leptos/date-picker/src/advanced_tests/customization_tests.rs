@@ -13,6 +13,7 @@ mod tests {
 
     #[test]
     fn test_date_picker_with_custom_actions() {
+    leptos::prelude::Owner::new().with(|| {
         let test_result = std::panic::catch_unwind(|| {
             let _date_picker_with_actions = view! {
                 <DatePicker
@@ -24,10 +25,12 @@ mod tests {
             true
         });
         assert!(test_result.is_ok(), "Date picker with custom actions test failed");
-    }
+    });
+}
 
     #[test]
     fn test_date_picker_accessibility_features() {
+    leptos::prelude::Owner::new().with(|| {
         let test_result = std::panic::catch_unwind(|| {
             let _accessible_date_picker = view! {
                 <DatePicker
@@ -39,10 +42,12 @@ mod tests {
             true
         });
         assert!(test_result.is_ok(), "Date picker accessibility features test failed");
-    }
+    });
+}
 
     #[test]
     fn test_date_picker_with_custom_styling() {
+    leptos::prelude::Owner::new().with(|| {
         let test_result = std::panic::catch_unwind(|| {
             let _styled_date_picker = view! {
                 <DatePicker
@@ -54,5 +59,6 @@ mod tests {
             true
         });
         assert!(test_result.is_ok(), "Date picker with custom styling test failed");
-    }
+    });
+}
 }

@@ -131,12 +131,12 @@ wasm-bindgen-test = "0.3"
 console_error_panic_hook = "0.1"
 anyhow = "1.0"
 handlebars = "6.3.2"
-regex = "1.10"
+regex = "1.13"
 clap = { version = "4.5.46", features = ["derive"] }
-tokio = { version = "1.47.1", default-features = false, features = ["rt", "macros"] }
+tokio = { version = "1.47.5", default-features = false, features = ["rt", "macros"] }
 env_logger = "0.11"
 log = "0.4"
-console_log = "1.0"
+console_log = "1.1"
 chrono = { version = "0.4", features = ["serde"] }
 shadcn-ui-test-utils = { path = "packages/test-utils" }
 leptos-shadcn-signal-management = { path = "packages/signal-management" }
