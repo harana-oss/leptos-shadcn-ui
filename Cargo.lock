@@ -2168,6 +2168,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "leptos-shadcn-button-group"
+version = "0.9.0"
+dependencies = [
+ "leptos",
+]
+
+[[package]]
 name = "leptos-shadcn-calendar"
 version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2658,6 +2665,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "leptos-shadcn-empty"
+version = "0.9.0"
+dependencies = [
+ "leptos",
+]
+
+[[package]]
 name = "leptos-shadcn-error-boundary"
 version = "0.9.0"
 dependencies = [
@@ -2821,6 +2835,20 @@ dependencies = [
  "wasm-bindgen",
  "wasm-bindgen-test",
  "web-sys",
+]
+
+[[package]]
+name = "leptos-shadcn-item"
+version = "0.9.0"
+dependencies = [
+ "leptos",
+]
+
+[[package]]
+name = "leptos-shadcn-kbd"
+version = "0.9.0"
+dependencies = [
+ "leptos",
 ]
 
 [[package]]
@@ -3352,6 +3380,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "leptos-shadcn-spinner"
+version = "0.9.0"
+dependencies = [
+ "leptos",
+]
+
+[[package]]
 name = "leptos-shadcn-switch"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3578,6 +3613,13 @@ dependencies = [
  "tailwind_fuse 0.3.2",
  "wasm-bindgen-test",
  "web-sys",
+]
+
+[[package]]
+name = "leptos-shadcn-typography"
+version = "0.9.0"
+dependencies = [
+ "leptos",
 ]
 
 [[package]]
