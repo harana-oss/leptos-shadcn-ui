@@ -245,3 +245,20 @@ mod sonner_tests {
         assert!(test_result.is_ok(), "Toast queue management test failed");
     }
 }
+
+#[cfg(test)]
+mod toast_path_tests {
+    /// `leptos_shadcn_toast::toast` must resolve to the imperative API, not the component module.
+    #[test]
+    fn test_toast_path_resolves_to_api_functions() {
+        let _success: fn(&str) -> crate::ToastBuilder = crate::toast::success;
+        let _error: fn(&str) -> crate::ToastBuilder = crate::toast::error;
+        let _info: fn(&str) -> crate::ToastBuilder = crate::toast::info;
+        let _warning: fn(&str) -> crate::ToastBuilder = crate::toast::warning;
+        let _loading: fn(&str) -> crate::ToastBuilder = crate::toast::loading;
+        let _custom: fn(&str) -> crate::ToastBuilder = crate::toast::custom;
+        let _dismiss: fn(String) = crate::toast::dismiss;
+        // Component still re-exported at crate root
+        let _component = crate::SonnerToast;
+    }
+}
