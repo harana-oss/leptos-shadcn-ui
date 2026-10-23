@@ -65,35 +65,35 @@ Our E2E testing infrastructure provides:
 
 ```bash
 # Install dependencies
-make install-deps
+just install-deps
 
 # Install Playwright
-make install-playwright
+just install-playwright
 ```
 
 ### Running Tests
 
 ```bash
 # Run all E2E tests
-make test-e2e
+just test-e2e
 
 # Run tests with UI (interactive)
-make test-e2e-ui
+just test-e2e-ui
 
 # Run tests in debug mode
-make test-e2e-debug
+just test-e2e-debug
 
 # Run specific test file
-make test-e2e-specific FILE=tests/e2e/accessibility.spec.ts
+just test-e2e-specific tests/e2e/accessibility.spec.ts
 
 # Run tests in specific browser
-make test-e2e-browser BROWSER=chromium
+just test-e2e-browser chromium
 
 # Run tests in parallel
-make test-e2e-parallel
+just test-e2e-parallel
 
 # Generate test report
-make test-e2e-report
+just test-e2e-report
 ```
 
 ### Development Workflow
@@ -103,10 +103,10 @@ make test-e2e-report
 cd book-examples/leptos && trunk serve
 
 # In another terminal, run tests
-make test-e2e
+just test-e2e
 
 # Generate new test code interactively
-make test-e2e-codegen
+just test-e2e-codegen
 ```
 
 ## 🧪 Test Configuration
@@ -237,8 +237,8 @@ page.locator('button:first')     // ❌ Fragile
 # Example GitHub Actions workflow
 - name: Run E2E Tests
   run: |
-    make install-playwright
-    make test-e2e
+    just install-playwright
+    just test-e2e
   env:
     CI: true
 ```
@@ -257,7 +257,7 @@ page.locator('button:first')     // ❌ Fragile
 
 ```bash
 # Run tests in debug mode
-make test-e2e-debug
+just test-e2e-debug
 
 # Run specific test in debug
 pnpm playwright test --debug accessibility.spec.ts

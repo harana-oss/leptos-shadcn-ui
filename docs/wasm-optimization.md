@@ -80,7 +80,7 @@ This provides approximately 9% additional size reduction.
 ### Quick Build
 
 ```bash
-make build-wasm-optimized
+just build-wasm-optimized
 ```
 
 This runs the optimization script which:
@@ -177,4 +177,4 @@ Use the optimized profile only for production builds.
 - `Cargo.toml` - Workspace optimization profiles
 - `packages/leptos-shadcn-ui-wasm/Cargo.toml` - WASM package configuration
 - `scripts/build-wasm-optimized.sh` - Automated build script
-- `Makefile` - Build targets (`make build-wasm-optimized`)
+- `justfile` - Build recipes (`just build-wasm-optimized`)

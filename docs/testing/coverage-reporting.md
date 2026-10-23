@@ -42,14 +42,14 @@ Generate all coverage report formats:
 python3 scripts/coverage_reporter.py
 
 # Using make
-make coverage
+just coverage-all
 ```
 
 ### View HTML Report
 
 ```bash
 # Generate and open HTML report
-make coverage-html
+just coverage-html
 
 # Or using the script
 ./scripts/generate_coverage_report.sh --format html --open
@@ -112,28 +112,28 @@ Options:
 
 ```bash
 # Generate all coverage reports
-make coverage
+just coverage-all
 
 # Generate HTML report and open
-make coverage-html
+just coverage-html
 
 # Generate JSON report
-make coverage-json
+just coverage-json
 
 # Generate LCov report
-make coverage-lcov
+just coverage-lcov
 
 # Generate terminal report
-make coverage-terminal
+just coverage-terminal
 
 # Generate coverage for specific component
-make coverage-component COMPONENT=button
+just coverage-component button
 
 # Verify coverage meets thresholds
-make coverage-verify
+just coverage-verify
 
 # Generate all reports including badges and trends
-make coverage-full
+just coverage-full
 ```
 
 ## Configuration
@@ -180,7 +180,7 @@ export CARGO_INCREMENTAL=0
 Interactive HTML report with source-level coverage highlighting:
 
 ```bash
-make coverage-html
+just coverage-html
 # Output: coverage-reports/html/index.html
 ```
 
@@ -195,7 +195,7 @@ Features:
 Machine-readable JSON for CI/CD integration:
 
 ```bash
-make coverage-json
+just coverage-json
 # Output: coverage-reports/coverage.json
 ```
 
@@ -219,7 +219,7 @@ Structure:
 Standard LCov format for integration with coverage services:
 
 ```bash
-make coverage-lcov
+just coverage-lcov
 # Output: coverage-reports/coverage.lcov
 ```
 
@@ -228,7 +228,7 @@ make coverage-lcov
 Quick terminal summary:
 
 ```bash
-make coverage-terminal
+just coverage-terminal
 ```
 
 Output:
@@ -331,7 +331,7 @@ If reports are empty:
 
 1. **Clean previous data**
    ```bash
-   make clean
+   just clean
    rm -rf target/coverage
    ```
 
@@ -359,17 +359,17 @@ If CI fails on coverage:
 
 1. **Run locally first**: Check coverage before pushing
    ```bash
-   make coverage-verify
+   just coverage-verify
    ```
 
 2. **Review HTML reports**: Use HTML reports to identify gaps
    ```bash
-   make coverage-html
+   just coverage-html
    ```
 
 3. **Monitor trends**: Track coverage over time
    ```bash
-   make coverage-trend
+   just coverage-trend
    ```
 
 4. **Set realistic thresholds**: Balance quality with development speed

@@ -88,11 +88,11 @@ Supporting crates: `analytics`, `error-boundary`, `lazy-loading`, `registry`, `u
 ## Development
 
 ```sh
-cargo build --workspace                    # or: make build
-cargo test --workspace --lib               # or: make test-rust
+cargo build --workspace                    # or: just build
+cargo test --workspace --lib               # or: just test-rust
 cargo test -p leptos-shadcn-button         # single component
-cargo clippy --workspace -- -D warnings    # or: make lint
-cargo fmt --all                            # or: make fmt
-cargo check --workspace                    # or: make check
-make test-e2e                              # Playwright E2E tests
+cargo clippy --workspace -- -D warnings    # or: just lint
+cargo fmt --all                            # or: just fmt
+cargo check --workspace                    # or: just check
+just test-e2e                              # Playwright E2E tests
 ```

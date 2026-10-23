@@ -1,14 +1,14 @@
 # AGENTS.md - Development Guide for leptos-shadcn-ui
 
 ## Build/Test Commands
-- **Build**: `cargo build --workspace` (or `make build`)
-- **Test workspace**: `cargo test --workspace --lib` (or `make test-rust`)
+- **Build**: `cargo build --workspace` (or `just build`)
+- **Test workspace**: `cargo test --workspace --lib` (or `just test-rust`)
 - **Test single component**: `cargo test -p leptos-shadcn-<component>` (e.g., `cargo test -p leptos-shadcn-button`)
 - **Test with verbose**: `RUST_LOG=debug cargo test --workspace --lib -- --nocapture`
-- **E2E tests**: `make test-e2e` or `pnpm playwright test`
-- **Lint**: `cargo clippy --workspace -- -D warnings` (or `make lint`)
-- **Format**: `cargo fmt --all` (or `make fmt`)
-- **Check**: `cargo check --workspace` (or `make check`)
+- **E2E tests**: `just test-e2e` or `pnpm playwright test`
+- **Lint**: `cargo clippy --workspace -- -D warnings` (or `just lint`)
+- **Format**: `cargo fmt --all` (or `just fmt`)
+- **Check**: `cargo check --workspace` (or `just check`)
 
 ## Architecture
 - **Workspace**: Monorepo with packages in `packages/leptos/` for components

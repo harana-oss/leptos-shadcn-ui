@@ -326,7 +326,7 @@ generate_html_report() {
         <h2>Detailed Test Results</h2>
         <p>For detailed test results, check the Playwright HTML report in the test-results directory.</p>
         <p>To run specific accessibility tests, use:</p>
-        <pre>make test-e2e-accessibility</pre>
+        <pre>just test-e2e-accessibility</pre>
     </div>
 </body>
 </html>
@@ -446,7 +446,7 @@ To run accessibility tests manually:
 
 \`\`\`bash
 # Run all accessibility tests
-make test-e2e-accessibility
+just test-e2e-accessibility
 
 # Run specific accessibility test file
 pnpm playwright test tests/e2e/accessibility-enhanced.spec.ts
