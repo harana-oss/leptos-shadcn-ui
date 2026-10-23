@@ -759,8 +759,8 @@ mod tests {
         let config = MonitoringConfig::default();
         let monitor = AutomatedMonitor::new(config);
 
-        // Test that monitor is created successfully
-        assert!(*monitor.is_monitoring.read().await);
+        // A freshly created monitor is idle until start_monitoring is called
+        assert!(!*monitor.is_monitoring.read().await);
     }
 
     #[tokio::test]

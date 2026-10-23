@@ -21,7 +21,7 @@ impl ComponentUsageEvent {
     pub fn new(component_name: impl Into<String>) -> Self {
         Self {
             component_name: component_name.into(),
-            timestamp: js_sys::Date::now() as u64,
+            timestamp: crate::types::now_ms() as u64,
             variant: None,
             props: None,
             session_id: Self::generate_session_id(),
@@ -43,7 +43,7 @@ impl ComponentUsageEvent {
     /// Generate a session ID
     fn generate_session_id() -> String {
         // Use a combination of timestamp and random for session ID
-        let timestamp = js_sys::Date::now();
+        let timestamp = crate::types::now_ms();
         format!("session-{}", timestamp as u32)
     }
 }
@@ -71,8 +71,8 @@ impl ComponentStats {
             component_name: name.clone(),
             mount_count: 0,
             variant_counts: HashMap::new(),
-            first_seen: js_sys::Date::now() as u64,
-            last_seen: js_sys::Date::now() as u64,
+            first_seen: crate::types::now_ms() as u64,
+            last_seen: crate::types::now_ms() as u64,
         }
     }
 
@@ -163,7 +163,7 @@ impl StoredAnalytics {
     pub fn new() -> Self {
         Self {
             stats: HashMap::new(),
-            session_start: js_sys::Date::now() as u64,
+            session_start: crate::types::now_ms() as u64,
         }
     }
 }
@@ -180,4 +180,20 @@ pub struct ComponentUsageEntry {
     pub component_name: String,
     pub count: u64,
     pub percentage: f32,
+}
+
+/// Milliseconds since the Unix epoch. Uses the JS clock on wasm and the
+/// system clock elsewhere, so analytics types also work during SSR.
+pub fn now_ms() -> f64 {
+    #[cfg(target_arch = "wasm32")]
+    {
+        js_sys::Date::now()
+    }
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_millis() as f64)
+            .unwrap_or(0.0)
+    }
 }

@@ -36,6 +36,12 @@ pub async fn parse_component_file(file_path: &Path) -> Result<Option<ComponentMe
                     tests.push(extract_test_metadata(func));
                 }
             }
+            Item::Mod(ref module) => {
+                // Tests usually live in an inline `mod tests`.
+                if let Some((_, items)) = &module.content {
+                    collect_test_functions(items, &mut tests);
+                }
+            }
             Item::Struct(ref struct_item) => {
                 // Check if this is a props struct
                 if struct_item.ident.to_string().ends_with("Props") {
@@ -105,6 +111,21 @@ fn extract_doc_comment(attrs: &[Attribute]) -> Option<String> {
         None
     } else {
         Some(doc_lines.join("\n"))
+    }
+}
+
+/// Collects test functions from `items`, descending into inline modules.
+fn collect_test_functions(items: &[Item], tests: &mut Vec<TestMetadata>) {
+    for item in items {
+        match item {
+            Item::Fn(func) if is_test_function(func) => tests.push(extract_test_metadata(func)),
+            Item::Mod(module) => {
+                if let Some((_, inner)) = &module.content {
+                    collect_test_functions(inner, tests);
+                }
+            }
+            _ => {}
+        }
     }
 }
 
