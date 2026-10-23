@@ -11,8 +11,14 @@ mod advanced_memory_tests {
     #[test]
     fn test_memory_pressure_detection() {
         let manager = SignalMemoryManager::with_memory_limit(1024); // 1KB limit
-        
-        // This should fail initially - we need to implement memory pressure detection
+
+        // No pressure while idle
+        assert!(manager.detect_memory_pressure().is_none());
+
+        // Exceed the 1KB limit (each group/signal adds estimated usage)
+        manager.create_group("group".to_string()).unwrap();
+        manager.add_signal(ArcRwSignal::new(1)).unwrap();
+
         let pressure_detected = manager.detect_memory_pressure();
         assert!(pressure_detected.is_some());
     }

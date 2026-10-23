@@ -223,7 +223,6 @@ mod memory_tests {
     }
 
     #[test]
-    #[ignore = "timing/size threshold or spec mismatch with current SignalMemoryManager stub implementation"]
     fn test_signal_memory_manager_performance() {
         // Test memory manager performance
         let mut manager = SignalMemoryManager::new();
