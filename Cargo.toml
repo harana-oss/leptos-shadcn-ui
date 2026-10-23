@@ -1,7 +1,7 @@
 # Leptos ShadCN UI Components
-# 
+#
 # 🚨 MANDATORY: This project requires Leptos v0.8+ and is NOT compatible with earlier versions.
-# 
+#
 # This project provides ShadCN UI components for Leptos v0.8+.
 # It is not compatible with earlier versions of Leptos due to breaking changes
 # in the v0.8 release.
@@ -15,6 +15,7 @@ members = [
     "packages/registry",
     "packages/cli",
     "packages/test-utils",
+    "packages/tailwind",  # Tailwind @source discovery for build scripts
     "packages/component-generator",
     "packages/signal-management",  # Signal lifecycle management for Leptos 0.8.8+
     "packages/contract-testing",  # TDD contract testing framework
@@ -33,7 +34,7 @@ members = [
     "examples/dashboard-demo",  # Dashboard demo application
     "examples/comprehensive-demo",  # Comprehensive demo application
     "wasm-demo",  # Dedicated WASM demo for leptos-shadcn-ui-wasm
-    
+
     # Basic components (no internal dependencies)
     "packages/leptos/button",
     "packages/leptos/input",
@@ -52,12 +53,22 @@ members = [
     "packages/leptos/tooltip",
     "packages/leptos/alert",
     "packages/leptos/badge",
+    "packages/leptos/button-group",
+    "packages/leptos/kbd",
+    "packages/leptos/spinner",
+    "packages/leptos/empty",
+    "packages/leptos/item",
+    "packages/leptos/typography",
     "packages/leptos/skeleton",
     "packages/leptos/progress",
     "packages/leptos/toast",
     "packages/leptos/table",
     "packages/leptos/slider",
     "packages/leptos/toggle",
+    "packages/leptos/field",
+    "packages/leptos/input-group",
+    "packages/leptos/native-select",
+    "packages/leptos/toggle-group",
     "packages/leptos/carousel",
     "packages/leptos/form",
     "packages/leptos/combobox",
@@ -73,11 +84,14 @@ members = [
     "packages/leptos/collapsible",
     "packages/leptos/scroll-area",
     "packages/leptos/sheet",
+    "packages/leptos/sidebar",
+    "packages/leptos/sonner",
+    "packages/leptos/chart",
     "packages/leptos/drawer",
     "packages/leptos/alert-dialog",
     "packages/leptos/avatar",
     "packages/leptos/resizable",
-    
+
     # Components with internal dependencies (publishing in sequence)
     "packages/leptos/calendar",      # Depends on published components
     "packages/leptos/date-picker",   # Depends on calendar, popover, button
@@ -103,7 +117,7 @@ version = "0.9.0"
 [workspace.dependencies]
 leptos = "0.8.9"
 leptos_router = "0.8.9"
-getrandom = { version = "0.2", features = ["js"] }
+getrandom = { version = "0.4", features = ["wasm_js"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 leptos-node-ref = "0.2.0"
@@ -117,12 +131,12 @@ wasm-bindgen-test = "0.3"
 console_error_panic_hook = "0.1"
 anyhow = "1.0"
 handlebars = "6.3.2"
-regex = "1.10"
+regex = "1.13"
 clap = { version = "4.5.46", features = ["derive"] }
-tokio = { version = "1.47.1", features = ["full"] }
+tokio = { version = "1.47.5", default-features = false, features = ["rt", "macros"] }
 env_logger = "0.11"
 log = "0.4"
-console_log = "1.0"
+console_log = "1.1"
 chrono = { version = "0.4", features = ["serde"] }
 shadcn-ui-test-utils = { path = "packages/test-utils" }
 leptos-shadcn-signal-management = { path = "packages/signal-management" }
@@ -243,4 +257,3 @@ debug = false
 debug-assertions = false
 overflow-checks = false
 incremental = false
-

@@ -40,5 +40,5 @@ console_error_panic_hook = { workspace = true }
 console_log = { workspace = true }
 
 [dependencies.uuid]
-version = "1.18.1"
+version = "1.29.0"
 features = ["js"]
