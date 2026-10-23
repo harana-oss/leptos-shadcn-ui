@@ -12,7 +12,7 @@ leptos_router = { version = "0.8" }
 # WASM dependencies (using workspace where available)
 console_error_panic_hook = { workspace = true }
 wasm-bindgen = { workspace = true }
-web-sys = { workspace = true }
+web-sys = { workspace = true, features = ["Storage", "Window"] }
 js-sys = { workspace = true }
 getrandom = { workspace = true }
 uuid = { version = "1.0", features = ["v4", "js"] }
