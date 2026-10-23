@@ -79,10 +79,9 @@ mod basic_rendering_tests {
         let variants = vec![
             SwitchVariant::Default,
             SwitchVariant::Destructive,
-            SwitchVariant::Outline,
-            SwitchVariant::Secondary,
-            SwitchVariant::Ghost,
-            SwitchVariant::Link,
+            SwitchVariant::Success,
+            SwitchVariant::Warning,
+            SwitchVariant::Info,
         ];
         
         for variant in variants {
@@ -94,7 +93,7 @@ mod basic_rendering_tests {
             };
             
             // Test that variant is properly set
-            assert!(matches!(variant, SwitchVariant::Default | SwitchVariant::Destructive | SwitchVariant::Outline | SwitchVariant::Secondary | SwitchVariant::Ghost | SwitchVariant::Link));
+            assert!(matches!(variant, SwitchVariant::Default | SwitchVariant::Destructive | SwitchVariant::Success | SwitchVariant::Warning | SwitchVariant::Info));
         }
     }
 
@@ -102,9 +101,9 @@ mod basic_rendering_tests {
     fn test_switch_sizes() {
         // Test switch sizes
         let sizes = vec![
-            SwitchSize::Small,
-            SwitchSize::Default,
-            SwitchSize::Large,
+            SwitchSize::Sm,
+            SwitchSize::Md,
+            SwitchSize::Lg,
         ];
         
         for size in sizes {
@@ -116,7 +115,7 @@ mod basic_rendering_tests {
             };
             
             // Test that size is properly set
-            assert!(matches!(size, SwitchSize::Small | SwitchSize::Default | SwitchSize::Large));
+            assert!(matches!(size, SwitchSize::Sm | SwitchSize::Md | SwitchSize::Lg));
         }
     }
 
@@ -171,9 +170,13 @@ mod basic_rendering_tests {
     #[test]
     fn test_switch_thumb_component() {
         // Test switch thumb component
-        let _thumb_view = view! {
-            <SwitchThumb />
-        };
+        // SwitchThumb reads SwitchContextValue, so it must live inside a SwitchRoot
+        // under a reactive Owner (provide_context is a no-op without one).
+        let _thumb_view = Owner::new().with(|| view! {
+            <SwitchRoot>
+                <SwitchThumb />
+            </SwitchRoot>
+        });
         
         // Test thumb component creation
         // This test verifies the thumb component can be created

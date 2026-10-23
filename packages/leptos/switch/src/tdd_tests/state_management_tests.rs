@@ -12,14 +12,14 @@ mod state_management_tests {
         let context_checked = RwSignal::new(false);
         let context_disabled = RwSignal::new(false);
         
-        let _context_switch_view = view! {
+        let _context_switch_view = Owner::new().with(|| view! {
             <SwitchRoot 
                 checked=context_checked
                 disabled=context_disabled
             >
                 <SwitchThumb />
             </SwitchRoot>
-        };
+        });
         
         // Test context management
         assert!(!context_checked.get(), "Context should start unchecked");
@@ -41,7 +41,7 @@ mod state_management_tests {
         let _theme_switch_view = view! {
             <Switch 
                 checked=RwSignal::new(false)
-                class=move || format!("theme-{}", theme_signal.get())
+                class=Signal::derive(move || format!("theme-{}", theme_signal.get()))
             />
         };
         
@@ -64,8 +64,8 @@ mod state_management_tests {
             <Switch 
                 checked=state_checked
                 disabled=state_disabled
-                on_focus=move |_| state_focused.set(true)
-                on_blur=move |_| state_focused.set(false)
+                on:focus=move |_| state_focused.set(true)
+                on:blur=move |_| state_focused.set(false)
             />
         };
         
@@ -90,7 +90,7 @@ mod state_management_tests {
         let group_checked = RwSignal::new(false);
         let group_disabled = RwSignal::new(false);
         
-        let _group_switch_view = view! {
+        let _group_switch_view = Owner::new().with(|| view! {
             <SwitchRoot 
                 checked=group_checked
                 disabled=group_disabled
@@ -100,7 +100,7 @@ mod state_management_tests {
                     "Group Switch"
                 </SwitchLabel>
             </SwitchRoot>
-        };
+        });
         
         // Test group functionality
         assert!(!group_checked.get(), "Group should start unchecked");
@@ -124,8 +124,8 @@ mod state_management_tests {
         let _validation_switch_view = view! {
             <Switch 
                 checked=validation_checked
-                required=validation_required
-                aria_invalid=move || !validation_checked.get() && validation_required.get()
+                attr:required=move || validation_required.get()
+                attr:aria-invalid=move || !validation_checked.get() && validation_required.get()
             />
         };
         
@@ -158,7 +158,7 @@ mod state_management_tests {
         let _click_switch_view = view! {
             <Switch 
                 checked=RwSignal::new(false)
-                on_click=move |_| {
+                on:click=move |_| {
                     click_handled.set(true);
                     click_count.update(|count| *count += 1);
                 }
@@ -186,7 +186,7 @@ mod state_management_tests {
         let _callback_switch_view = view! {
             <Switch 
                 checked=RwSignal::new(false)
-                on_checked_change=move |value| {
+                on_change=move |value| {
                     callback_called.set(true);
                     callback_value.set(value);
                 }
@@ -209,7 +209,7 @@ mod state_management_tests {
     fn test_switch_variant_combinations() {
         // Test variant combinations
         let variant_signal = RwSignal::new(SwitchVariant::Default);
-        let size_signal = RwSignal::new(SwitchSize::Default);
+        let size_signal = RwSignal::new(SwitchSize::Md);
         
         let _variant_switch_view = view! {
             <Switch 
@@ -221,14 +221,14 @@ mod state_management_tests {
         
         // Test variant combinations
         assert_eq!(variant_signal.get(), SwitchVariant::Default);
-        assert_eq!(size_signal.get(), SwitchSize::Default);
+        assert_eq!(size_signal.get(), SwitchSize::Md);
         
         // Test variant change
         variant_signal.set(SwitchVariant::Destructive);
-        size_signal.set(SwitchSize::Large);
+        size_signal.set(SwitchSize::Lg);
         
         assert_eq!(variant_signal.get(), SwitchVariant::Destructive);
-        assert_eq!(size_signal.get(), SwitchSize::Large);
+        assert_eq!(size_signal.get(), SwitchSize::Lg);
     }
 
     #[test]
@@ -243,8 +243,8 @@ mod state_management_tests {
             <Switch 
                 checked=workflow_checked
                 disabled=workflow_disabled
-                on_focus=move |_| workflow_focused.set(true)
-                on_click=move |_| workflow_clicked.set(true)
+                on:focus=move |_| workflow_focused.set(true)
+                on:click=move |_| workflow_clicked.set(true)
             />
         };
         

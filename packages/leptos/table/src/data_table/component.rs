@@ -1,6 +1,4 @@
 use leptos::prelude::*;
-use leptos_style::Style;
-use std::collections::HashMap;
 use super::types::*;
 
 /// Main DataTable component
@@ -18,21 +16,21 @@ pub fn DataTable(
     #[prop(into, optional)] on_sort: Option<Callback<SortConfig>>,
     #[prop(into, optional)] on_filter: Option<Callback<Vec<FilterConfig>>>,
     #[prop(into, optional)] on_export: Option<Callback<ExportFormat>>,
-    children: Children,
+    #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let state = RwSignal::new(DataTableState::default());
     
     // Initialize state with props
-    if let Some(data) = data {
+    if let Some(data) = data.get_untracked() {
         state.update(|s| s.data = data);
     }
-    if let Some(columns) = columns {
+    if let Some(columns) = columns.get_untracked() {
         state.update(|s| s.columns = columns);
     }
-    if let Some(loading) = loading {
+    if let Some(loading) = loading.get_untracked() {
         state.update(|s| s.loading = loading);
     }
-    if let Some(error) = error {
+    if let Some(error) = error.get_untracked() {
         state.update(|s| s.error = error);
     }
 
@@ -161,9 +159,9 @@ pub fn DataTable(
 
     view! {
         <div
-            class=move || format!("data-table {}", class.as_ref().unwrap_or(&String::new()))
-            id=id
-            style=style
+            class=move || format!("data-table {}", class.get().unwrap_or_default())
+            id=move || id.get()
+            style=move || style.get()
         >
             // Table header
             <div class="data-table-header">
@@ -187,28 +185,30 @@ pub fn DataTable(
             // Table content
             <div class="data-table-content">
                 {move || {
-                    let state = state.get();
-                    if state.loading {
-                        view! { <div class="data-table-loading">"Loading..."</div> }.into_view()
-                    } else if let Some(error) = &state.error {
-                        view! { <div class="data-table-error">{error}</div> }.into_view()
+                    let current = state.get();
+                    if current.loading {
+                        view! { <div class="data-table-loading">"Loading..."</div> }.into_any()
+                    } else if let Some(error) = current.error.clone() {
+                        view! { <div class="data-table-error">{error}</div> }.into_any()
                     } else {
                         view! {
                             <table class="data-table-table">
                                 <thead>
                                     <tr>
-                                        {state.columns.iter().map(|column| {
+                                        {current.columns.iter().cloned().map(|column| {
                                             let column_key = column.key.clone();
+                                            let sort_key = column.key.clone();
+                                            let sortable = column.sortable;
                                             view! {
                                                 <th
-                                                    class=move || format!("data-table-header-cell {}", if column.sortable { "sortable" } else { "" })
-                                                    on:click=move |_| if column.sortable { handle_sort(column_key.clone()) }
+                                                    class=format!("data-table-header-cell {}", if sortable { "sortable" } else { "" })
+                                                    on:click=move |_| if sortable { handle_sort(column_key.clone()) }
                                                 >
                                                     {column.title.clone()}
                                                     {move || {
-                                                        let state = state.get();
-                                                        if state.sort_config.column_key == column.key {
-                                                            match state.sort_config.direction {
+                                                        let st = state.get();
+                                                        if st.sort_config.column_key == sort_key {
+                                                            match st.sort_config.direction {
                                                                 SortDirection::Ascending => " ↑",
                                                                 SortDirection::Descending => " ↓",
                                                                 _ => "",
@@ -218,14 +218,13 @@ pub fn DataTable(
                                                         }
                                                     }}
                                                 </th>
-                                            }.into_view()
+                                            }
                                         }).collect::<Vec<_>>()}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {paginated_data.get().iter().map(|row| {
+                                    {paginated_data.get().into_iter().map(|row| {
                                         let row_clone = row.clone();
-                                        let row_id = row.id;
                                         view! {
                                             <tr
                                                 class="data-table-row"
@@ -235,11 +234,11 @@ pub fn DataTable(
                                                 <td class="data-table-cell">{row.email.clone()}</td>
                                                 <td class="data-table-cell">{row.age}</td>
                                             </tr>
-                                        }.into_view()
+                                        }
                                     }).collect::<Vec<_>>()}
                                 </tbody>
                             </table>
-                        }.into_view()
+                        }.into_any()
                     }
                 }}
             </div>
@@ -282,7 +281,7 @@ pub fn DataTable(
                 </div>
             </div>
 
-            {children()}
+            {children.map(|c| c())}
         </div>
     }
 }

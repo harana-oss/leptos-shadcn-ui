@@ -12,8 +12,8 @@ mod accessibility_tests {
         let _accessible_switch_view = view! {
             <Switch 
                 checked=RwSignal::new(false)
-                aria_label="Toggle switch"
-                role="switch"
+                attr:aria-label="Toggle switch"
+                attr:role="switch"
             />
         };
         
@@ -31,10 +31,10 @@ mod accessibility_tests {
             <Switch 
                 checked=checked_signal
                 disabled=disabled_signal
-                aria_label="Comprehensive switch"
-                aria_describedby="switch-description"
-                role="switch"
-                tabindex=0
+                attr:aria-label="Comprehensive switch"
+                attr:aria-describedby="switch-description"
+                attr:role="switch"
+                attr:tabindex=0
             />
         };
         
@@ -58,8 +58,8 @@ mod accessibility_tests {
         let _keyboard_switch_view = view! {
             <Switch 
                 checked=RwSignal::new(false)
-                on_focus=move |_| focused_signal.set(true)
-                on_blur=move |_| focused_signal.set(false)
+                on:focus=move |_| focused_signal.set(true)
+                on:blur=move |_| focused_signal.set(false)
             />
         };
         
@@ -81,9 +81,9 @@ mod accessibility_tests {
         let _screen_reader_switch_view = view! {
             <Switch 
                 checked=RwSignal::new(false)
-                aria_label="Screen reader switch"
-                aria_live="polite"
-                aria_checked="false"
+                attr:aria-label="Screen reader switch"
+                attr:aria-live="polite"
+                attr:aria-checked="false"
             />
         };
         
@@ -99,9 +99,9 @@ mod accessibility_tests {
         let _aria_switch_view = view! {
             <Switch 
                 checked=checked_signal
-                aria_checked="true"
-                aria_disabled="false"
-                aria_required="true"
+                attr:aria-checked="true"
+                attr:aria-disabled="false"
+                attr:aria-required="true"
             />
         };
         
@@ -121,7 +121,7 @@ mod accessibility_tests {
         let _focus_switch_view = view! {
             <Switch 
                 checked=RwSignal::new(false)
-                on_focus_visible=move |_| focus_visible_signal.set(true)
+                on:focus=move |_| focus_visible_signal.set(true)
             />
         };
         
@@ -140,7 +140,7 @@ mod accessibility_tests {
             <Switch 
                 checked=RwSignal::new(false)
                 class="high-contrast"
-                aria_label="High contrast switch"
+                attr:aria-label="High contrast switch"
             />
         };
         
@@ -155,7 +155,7 @@ mod accessibility_tests {
             <Switch 
                 checked=RwSignal::new(false)
                 class="reduce-motion"
-                aria_label="Reduced motion switch"
+                attr:aria-label="Reduced motion switch"
             />
         };
         
@@ -169,8 +169,8 @@ mod accessibility_tests {
         let _voice_control_switch_view = view! {
             <Switch 
                 checked=RwSignal::new(false)
-                aria_label="Voice control switch"
-                role="switch"
+                attr:aria-label="Voice control switch"
+                attr:role="switch"
             />
         };
         
@@ -184,9 +184,9 @@ mod accessibility_tests {
         let _switch_control_view = view! {
             <Switch 
                 checked=RwSignal::new(false)
-                aria_label="Switch control"
-                role="switch"
-                aria_checked="false"
+                attr:aria-label="Switch control"
+                attr:role="switch"
+                attr:aria-checked="false"
             />
         };
         

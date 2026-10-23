@@ -94,9 +94,9 @@ mod basic_rendering_tests {
                                 <th>"Conditional Header"</th>
                             </tr>
                         </thead>
-                    }.into_view()
+                    }.into_any()
                 } else {
-                    view! {}.into_view()
+                    view! {}.into_any()
                 }}
                 <tbody>
                     <tr>
@@ -184,9 +184,9 @@ mod basic_rendering_tests {
     fn test_table_accessibility_attributes() {
         let _table_view = view! {
             <Table
-                role="table"
-                aria-label="Accessible table"
-                tabindex="0"
+                attr:role="table"
+                attr:aria-label="Accessible table"
+                attr:tabindex="0"
             >
                 "Accessible table content"
             </Table>
@@ -197,9 +197,9 @@ mod basic_rendering_tests {
     fn test_table_custom_attributes() {
         let _table_view = view! {
             <Table
-                data-testid="custom-table"
-                data-role="data-table"
-                data-version="1.0"
+                attr:data-testid="custom-table"
+                attr:data-role="data-table"
+                attr:data-version="1.0"
             >
                 "Table with custom attributes"
             </Table>
@@ -210,7 +210,7 @@ mod basic_rendering_tests {
     fn test_table_style_properties() {
         let _table_view = view! {
             <Table
-                style="border: 1px solid #ccc; width: 100%;"
+                style=Signal::stored(leptos_style::Style::from("border: 1px solid #ccc; width: 100%;"))
             >
                 "Styled table"
             </Table>
