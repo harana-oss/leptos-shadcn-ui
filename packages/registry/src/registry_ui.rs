@@ -32,16 +32,12 @@ fn create_ui_component_with_metadata(
     css_vars: Option<HashMap<Mode, HashMap<String, String>>>,
     tailwind_plugins: Option<Vec<&str>>,
 ) -> RegistryEntry {
-    let tailwind = if let Some(plugins) = tailwind_plugins {
-        Some(RegistryItemTailwind {
+    let tailwind = tailwind_plugins.map(|plugins| RegistryItemTailwind {
             config: RegistryItemTailwindConfig {
                 content: None,
                 plugins: Some(plugins.into_iter().map(|s| s.into()).collect()),
             },
-        })
-    } else {
-        None
-    };
+        });
 
     RegistryEntry {
         name: name.into(),

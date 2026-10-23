@@ -29,7 +29,7 @@ mod tests {
     #[test]
     fn test_tooltip_complete_workflow() {
         // Test tooltip complete workflow
-        let (workflow_step, set_workflow_step) = create_signal(0);
+        let (workflow_step, _set_workflow_step) = create_signal(0);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -81,7 +81,7 @@ mod tests {
     #[test]
     fn test_tooltip_click_handling() {
         // Test tooltip click handling
-        let (click_count, set_click_count) = create_signal(0);
+        let (click_count, _set_click_count) = create_signal(0);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -101,7 +101,7 @@ mod tests {
     #[test]
     fn test_tooltip_checked_change_callback() {
         // Test tooltip checked change callback
-        let (checked, set_checked) = create_signal(false);
+        let (checked, _set_checked) = create_signal(false);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -153,7 +153,7 @@ mod tests {
     #[test]
     fn test_tooltip_validation_states() {
         // Test tooltip validation states
-        let (is_valid, set_is_valid) = create_signal(true);
+        let (is_valid, _set_is_valid) = create_signal(true);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -189,7 +189,7 @@ mod tests {
     #[test]
     fn test_tooltip_disabled_states() {
         // Test tooltip disabled states
-        let (is_disabled, set_is_disabled) = create_signal(false);
+        let (is_disabled, _set_is_disabled) = create_signal(false);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -337,8 +337,8 @@ mod tests {
     #[test]
     fn test_tooltip_state_combinations() {
         // Test tooltip state combinations
-        let (state1, set_state1) = create_signal(false);
-        let (state2, set_state2) = create_signal(false);
+        let (state1, _set_state1) = create_signal(false);
+        let (state2, _set_state2) = create_signal(false);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -374,7 +374,7 @@ mod tests {
     #[test]
     fn test_tooltip_callback_combinations() {
         // Test tooltip callback combinations
-        let (callback_count, set_callback_count) = create_signal(0);
+        let (callback_count, _set_callback_count) = create_signal(0);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -426,8 +426,8 @@ mod tests {
     #[test]
     fn test_tooltip_complex_workflow() {
         // Test tooltip complex workflow
-        let (step, set_step) = create_signal(0);
-        let (data, set_data) = create_signal("initial".to_string());
+        let (step, _set_step) = create_signal(0);
+        let (data, _set_data) = create_signal("initial".to_string());
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -447,8 +447,8 @@ mod tests {
     #[test]
     fn test_tooltip_multi_step_process() {
         // Test tooltip multi-step process
-        let (current_step, set_current_step) = create_signal(0);
-        let steps = vec!["Step 1", "Step 2", "Step 3", "Step 4", "Step 5"];
+        let (current_step, _set_current_step) = create_signal(0);
+        let steps = ["Step 1", "Step 2", "Step 3", "Step 4", "Step 5"];
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -475,8 +475,8 @@ mod tests {
     #[test]
     fn test_tooltip_error_recovery() {
         // Test tooltip error recovery
-        let (has_error, set_has_error) = create_signal(false);
-        let (retry_count, set_retry_count) = create_signal(0);
+        let (has_error, _set_has_error) = create_signal(false);
+        let (retry_count, _set_retry_count) = create_signal(0);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -502,7 +502,7 @@ mod tests {
     #[test]
     fn test_tooltip_data_persistence() {
         // Test tooltip data persistence
-        let (persistent_data, set_persistent_data) = create_signal("persistent".to_string());
+        let (persistent_data, _set_persistent_data) = create_signal("persistent".to_string());
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -522,8 +522,8 @@ mod tests {
     #[test]
     fn test_tooltip_concurrent_operations() {
         // Test tooltip concurrent operations
-        let (operation_count, set_operation_count) = create_signal(0);
-        let (active_operations, set_active_operations) = create_signal(0);
+        let (operation_count, _set_operation_count) = create_signal(0);
+        let (active_operations, _set_active_operations) = create_signal(0);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -543,8 +543,8 @@ mod tests {
     #[test]
     fn test_tooltip_resource_management() {
         // Test tooltip resource management
-        let (resource_count, set_resource_count) = create_signal(0);
-        let (allocated_resources, set_allocated_resources) = create_signal(0);
+        let (resource_count, _set_resource_count) = create_signal(0);
+        let (allocated_resources, _set_allocated_resources) = create_signal(0);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -564,7 +564,7 @@ mod tests {
     #[test]
     fn test_tooltip_lifecycle_management() {
         // Test tooltip lifecycle management
-        let (lifecycle_stage, set_lifecycle_stage) = create_signal("initialized".to_string());
+        let (lifecycle_stage, _set_lifecycle_stage) = create_signal("initialized".to_string());
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -584,8 +584,8 @@ mod tests {
     #[test]
     fn test_tooltip_state_synchronization() {
         // Test tooltip state synchronization
-        let (local_state, set_local_state) = create_signal("local".to_string());
-        let (remote_state, set_remote_state) = create_signal("remote".to_string());
+        let (local_state, _set_local_state) = create_signal("local".to_string());
+        let (remote_state, _set_remote_state) = create_signal("remote".to_string());
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -605,8 +605,8 @@ mod tests {
     #[test]
     fn test_tooltip_event_coordination() {
         // Test tooltip event coordination
-        let (event_count, set_event_count) = create_signal(0);
-        let (last_event, set_last_event) = create_signal("none".to_string());
+        let (event_count, _set_event_count) = create_signal(0);
+        let (last_event, _set_last_event) = create_signal("none".to_string());
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -626,9 +626,9 @@ mod tests {
     #[test]
     fn test_tooltip_comprehensive_integration() {
         // Test tooltip comprehensive integration
-        let (integration_state, set_integration_state) = create_signal("initialized".to_string());
-        let (integration_data, set_integration_data) = create_signal("data".to_string());
-        let (integration_count, set_integration_count) = create_signal(0);
+        let (integration_state, _set_integration_state) = create_signal("initialized".to_string());
+        let (integration_data, _set_integration_data) = create_signal("data".to_string());
+        let (integration_count, _set_integration_count) = create_signal(0);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>

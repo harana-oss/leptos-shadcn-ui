@@ -115,11 +115,10 @@ impl AccessibilityTester {
                     missing_attributes.push("aria-label or text content".to_string());
                 }
             },
-            "input" => {
-                if !element.has_attribute("aria-label") && !element.has_attribute("aria-labelledby") {
+            "input"
+                if !element.has_attribute("aria-label") && !element.has_attribute("aria-labelledby") => {
                     missing_attributes.push("aria-label or aria-labelledby".to_string());
-                }
-            },
+                },
             _ => {}
         }
         
@@ -193,11 +192,36 @@ macro_rules! dom_test {
     };
 }
 
+/// Integration with existing TDD framework
+impl crate::TestResult {
+    /// Create a DOM test result
+    pub fn dom_test(passed: bool, component: &str, test_type: &str, details: Option<String>) -> Self {
+        let message = if passed {
+            format!("✅ DOM test passed: {} {}", component, test_type)
+        } else {
+            format!("❌ DOM test failed: {} {}", component, test_type)
+        };
+        
+        let mut result = if passed {
+            Self::success(message)
+        } else {
+            Self::failure(message)
+        };
+        
+        if let Some(details) = details {
+            result = result.with_detail("details", details);
+        }
+        
+        result.with_detail("test_type", "dom")
+              .with_detail("component", component)
+    }
+}
+
 /// Example usage and integration tests
 #[cfg(test)]
 mod tests {
     use super::*;
-    use leptos::prelude::*;
+    
     
     // Example DOM test for Button component
     // Note: This would require the actual Button component to be imported
@@ -241,30 +265,5 @@ mod tests {
         
         assert!(render_time > 0.0, "Should measure some render time");
         assert!(render_time < 1000.0, "Render time should be reasonable (< 1 second)");
-    }
-}
-
-/// Integration with existing TDD framework
-impl crate::TestResult {
-    /// Create a DOM test result
-    pub fn dom_test(passed: bool, component: &str, test_type: &str, details: Option<String>) -> Self {
-        let message = if passed {
-            format!("✅ DOM test passed: {} {}", component, test_type)
-        } else {
-            format!("❌ DOM test failed: {} {}", component, test_type)
-        };
-        
-        let mut result = if passed {
-            Self::success(message)
-        } else {
-            Self::failure(message)
-        };
-        
-        if let Some(details) = details {
-            result = result.with_detail("details", details);
-        }
-        
-        result.with_detail("test_type", "dom")
-              .with_detail("component", component)
     }
 }

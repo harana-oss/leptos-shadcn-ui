@@ -270,7 +270,7 @@ impl TestSuiteResult {
         let mut report = String::new();
         report.push_str(&format!("=== Test Suite Report: {} ===\n\n", self.component_name));
         
-        report.push_str(&"📊 Test Summary:\n".to_string());
+        report.push_str("📊 Test Summary:\n");
         report.push_str(&format!("  - Total Tests: {}\n", self.total_tests));
         report.push_str(&format!("  - Passed: {}\n", self.passed_tests));
         report.push_str(&format!("  - Failed: {}\n", self.failed_tests));

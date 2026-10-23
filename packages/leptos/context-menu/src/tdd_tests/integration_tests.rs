@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod integration_tests {
-    use super::*;
+    
     use crate::*;
     use leptos::prelude::*;
 
@@ -175,9 +175,9 @@ mod integration_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <ContextMenuItem on:click=(move |_| {
+                    <ContextMenuItem on:click=move |_| {
                             global_state.set("updated".to_string());
-                        })>
+                        }>
                         "Update state"
                     </ContextMenuItem>
                 </ContextMenuContent>
@@ -198,9 +198,9 @@ mod integration_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <ContextMenuItem on:click=(move |_| {
+                    <ContextMenuItem on:click=move |_| {
                             click_count.update(|c| *c += 1);
-                        })>
+                        }>
                         "Click me"
                     </ContextMenuItem>
                 </ContextMenuContent>
@@ -302,9 +302,9 @@ mod integration_tests {
                         "Right-click me"
                     </ContextMenuTrigger>
                     <ContextMenuContent>
-                        <ContextMenuItem on:click=(move |_| {
+                        <ContextMenuItem on:click=move |_| {
                                 show_modal.set(true);
-                            })>
+                            }>
                             "Open modal"
                         </ContextMenuItem>
                     </ContextMenuContent>
@@ -505,10 +505,10 @@ mod integration_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <ContextMenuItem on:click=(|_| {
+                    <ContextMenuItem on:click=|_| {
                             // Analytics tracking would go here
                             leptos::logging::log!("Context menu item clicked");
-                        })>
+                        }>
                         "Item 1"
                     </ContextMenuItem>
                 </ContextMenuContent>
@@ -602,10 +602,10 @@ mod integration_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <ContextMenuItem disabled=MaybeProp::from(loading) on:click=(move |_| {
+                    <ContextMenuItem disabled=MaybeProp::from(loading) on:click=move |_| {
                             loading.set(true);
                             // Async operation would go here
-                        })>
+                        }>
                         "Async action"
                     </ContextMenuItem>
                 </ContextMenuContent>
@@ -651,12 +651,12 @@ mod integration_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <ContextMenuItem on:click=(move |_| {
+                    <ContextMenuItem on:click=move |_| {
                             state.update(|s| {
                                 s.insert("action".to_string(), "edit".to_string());
                                 s.insert("timestamp".to_string(), "now".to_string());
                             });
-                        })>
+                        }>
                         "Complex action"
                     </ContextMenuItem>
                 </ContextMenuContent>

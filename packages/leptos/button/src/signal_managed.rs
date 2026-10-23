@@ -106,7 +106,7 @@ pub fn SignalManagedButton(
     // Create event handler with proper signal management
     let handle_click = {
         let button_state = button_state.clone();
-        let on_click = on_click.clone();
+        let on_click = on_click;
         move |_event: leptos::ev::MouseEvent| {
             if !button_state.get().disabled && !button_state.get().loading {
                 // Update state atomically
@@ -246,7 +246,7 @@ pub fn EnhancedButton(
     // Create event handler with performance monitoring
     let handle_click = {
         let button_state = button_state.clone();
-        let on_click = on_click.clone();
+        let on_click = on_click;
         move |_event: leptos::ev::MouseEvent| {
             if !button_state.get().disabled && !button_state.get().loading {
                 // Update state atomically
@@ -379,7 +379,7 @@ mod tests {
     #[test]
     fn test_memory_management_integration() {
         let memory_manager = SignalMemoryManager::new();
-        let button_state = ArcRwSignal::new(SignalManagedButtonState::default());
+        let _button_state = ArcRwSignal::new(SignalManagedButtonState::default());
         
         // Test memory pressure detection
         let pressure = memory_manager.detect_memory_pressure();

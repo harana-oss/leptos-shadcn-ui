@@ -4,7 +4,6 @@
 //! and ContextMenuRadioItem components for interactive menu items.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 use web_sys::MouseEvent;
 
 #[component]

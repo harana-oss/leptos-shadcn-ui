@@ -13,7 +13,7 @@ mod tests {
     #[test]
     fn test_tooltip_state_management() {
         // Test tooltip state management
-        let (is_open, set_is_open) = create_signal(false);
+        let (is_open, _set_is_open) = create_signal(false);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -49,7 +49,7 @@ mod tests {
     #[test]
     fn test_tooltip_theme_switching() {
         // Test tooltip theme switching
-        let (theme, set_theme) = create_signal("light");
+        let (theme, _set_theme) = create_signal("light");
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -85,7 +85,7 @@ mod tests {
     #[test]
     fn test_tooltip_advanced_interactions() {
         // Test tooltip advanced interactions
-        let (interaction_count, set_interaction_count) = create_signal(0);
+        let (interaction_count, _set_interaction_count) = create_signal(0);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -125,7 +125,7 @@ mod tests {
     #[test]
     fn test_tooltip_validation_comprehensive() {
         // Test tooltip validation comprehensive
-        let (is_valid, set_is_valid) = create_signal(true);
+        let (is_valid, _set_is_valid) = create_signal(true);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -209,7 +209,7 @@ mod tests {
     #[test]
     fn test_tooltip_click_handling() {
         // Test tooltip click handling
-        let (click_count, set_click_count) = create_signal(0);
+        let (click_count, _set_click_count) = create_signal(0);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -229,7 +229,7 @@ mod tests {
     #[test]
     fn test_tooltip_checked_change_callback() {
         // Test tooltip checked change callback
-        let (checked, set_checked) = create_signal(false);
+        let (checked, _set_checked) = create_signal(false);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
@@ -265,7 +265,7 @@ mod tests {
     #[test]
     fn test_tooltip_complete_workflow() {
         // Test tooltip complete workflow
-        let (workflow_step, set_workflow_step) = create_signal(0);
+        let (workflow_step, _set_workflow_step) = create_signal(0);
         
         let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>

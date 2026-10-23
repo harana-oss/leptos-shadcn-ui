@@ -8,8 +8,10 @@ use crate::error::SignalManagementError;
 
 /// Theme configuration for components
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Default)]
 pub enum Theme {
     /// Default theme
+    #[default]
     Default,
     /// Dark theme
     Dark,
@@ -19,16 +21,13 @@ pub enum Theme {
     Custom(HashMap<String, String>),
 }
 
-impl Default for Theme {
-    fn default() -> Self {
-        Self::Default
-    }
-}
 
 /// Component variant configuration
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Default)]
 pub enum Variant {
     /// Primary variant
+    #[default]
     Primary,
     /// Secondary variant
     Secondary,
@@ -42,31 +41,24 @@ pub enum Variant {
     Link,
 }
 
-impl Default for Variant {
-    fn default() -> Self {
-        Self::Primary
-    }
-}
 
 /// Component size configuration
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Default)]
 pub enum Size {
     /// Small size
     Small,
     /// Medium size
+    #[default]
     Medium,
     /// Large size
     Large,
 }
 
-impl Default for Size {
-    fn default() -> Self {
-        Self::Medium
-    }
-}
 
 /// Responsive configuration for components
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Default)]
 pub struct ResponsiveConfig {
     /// Small breakpoint classes
     pub sm: Option<String>,
@@ -78,16 +70,6 @@ pub struct ResponsiveConfig {
     pub xl: Option<String>,
 }
 
-impl Default for ResponsiveConfig {
-    fn default() -> Self {
-        Self {
-            sm: None,
-            md: None,
-            lg: None,
-            xl: None,
-        }
-    }
-}
 
 /// Manages signal lifecycle for tailwind-rs components
 /// 

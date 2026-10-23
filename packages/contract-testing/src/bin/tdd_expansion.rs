@@ -76,7 +76,7 @@ async fn main() -> Result<()> {
             
             // Save report to file
             let report_path = "tdd_implementation_report.md";
-            std::fs::write(&report_path, &report)?;
+            std::fs::write(report_path, &report)?;
             
             println!("📄 Report saved to: {}", report_path);
             println!("\n{}", report);

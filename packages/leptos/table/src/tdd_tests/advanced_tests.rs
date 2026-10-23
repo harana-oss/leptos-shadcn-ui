@@ -27,7 +27,8 @@ mod advanced_tests {
                                     <th>{header_row.2}</th>
                                 }.into_any()
                             } else {
-                                view! {}.into_any()
+                                let _: () = view! {};
+                                ().into_any()
                             }
                         }}
                     </tr>
@@ -139,9 +140,9 @@ mod advanced_tests {
                         let mut data = table_data.get();
                         if sort_column.get() == "name" {
                             if sort_direction.get() == "asc" {
-                                data.sort_by(|a, b| a.0.cmp(&b.0));
+                                data.sort_by(|a, b| a.0.cmp(b.0));
                             } else {
-                                data.sort_by(|a, b| b.0.cmp(&a.0));
+                                data.sort_by(|a, b| b.0.cmp(a.0));
                             }
                         }
                         data.iter().map(|row| {
@@ -239,7 +240,7 @@ mod advanced_tests {
                         let page = current_page.get();
                         let size = page_size.get();
                         let start = (page - 1) * size;
-                        let end = start + size;
+                        let _end = start + size;
                         
                         table_data.get()
                             .iter()

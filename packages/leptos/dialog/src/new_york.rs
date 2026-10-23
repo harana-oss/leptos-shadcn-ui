@@ -1,6 +1,6 @@
 use leptos::{ev::MouseEvent, prelude::*};
 use leptos_node_ref::AnyNodeRef;
-use leptos_struct_component::{StructComponent, struct_component};
+use leptos_struct_component::StructComponent;
 use leptos_style::Style;
 
 // Dialog Root Provider
@@ -70,7 +70,7 @@ pub fn DialogTrigger(
     let ctx = expect_context::<DialogContextValue>();
     
     let trigger_class = Signal::derive(move || {
-        format!("{}", class.get().unwrap_or_default())
+        class.get().unwrap_or_default().to_string()
     });
 
     let handle_click = Callback::new(move |_: MouseEvent| {
@@ -204,7 +204,7 @@ pub fn DialogClose(
     let ctx = expect_context::<DialogContextValue>();
     
     let close_class = Signal::derive(move || {
-        format!("{}", class.get().unwrap_or_default())
+        class.get().unwrap_or_default().to_string()
     });
 
     view! {

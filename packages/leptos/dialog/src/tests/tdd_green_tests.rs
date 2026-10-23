@@ -64,7 +64,7 @@ mod tdd_green_tests {
     fn test_dialog_keyboard_navigation_comprehensive() {
         // Test comprehensive keyboard navigation
         let open = RwSignal::new(true);
-        let focusable_elements = vec!["trigger", "content", "close-button"];
+        let focusable_elements = ["trigger", "content", "close-button"];
         let current_focus_index = RwSignal::new(0);
         
         // Test tab navigation

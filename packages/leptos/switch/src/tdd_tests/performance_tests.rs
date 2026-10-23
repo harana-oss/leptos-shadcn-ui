@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod performance_tests {
-    use crate::default::{Switch, SwitchRoot, SwitchThumb, SwitchLabel, SwitchVariant, SwitchSize};
+    use crate::default::{Switch, SwitchSize};
     use leptos::prelude::*;
 
     // ===== PERFORMANCE TESTS =====

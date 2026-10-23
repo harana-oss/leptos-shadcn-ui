@@ -4,7 +4,7 @@
 //! and custom styling functionality.
 
 use leptos::prelude::*;
-use crate::default::{DatePicker, DatePickerWithRange};
+use crate::default::DatePicker;
 use leptos_shadcn_calendar::CalendarDate;
 
 #[cfg(test)]

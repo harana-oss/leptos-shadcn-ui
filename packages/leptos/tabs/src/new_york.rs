@@ -1,7 +1,6 @@
 use leptos::{ev::MouseEvent, prelude::*};
 use leptos_struct_component::StructComponent;
 use leptos_node_ref::AnyNodeRef;
-use leptos_struct_component::struct_component;
 use leptos_style::Style;
 
 // Tabs Root Provider
@@ -36,7 +35,7 @@ pub fn Tabs(
     });
 
     let tabs_class = Signal::derive(move || {
-        format!("{}", class.get().unwrap_or_default())
+        class.get().unwrap_or_default().to_string()
     });
 
     view! {
@@ -118,10 +117,10 @@ pub fn TabsTrigger(
         disabled: Signal::derive(|| false),
         r#type: "button".to_string().into(),
         role: "tab".to_string().into(),
-        aria_selected: Signal::derive(move || is_selected.get().to_string()).into(),
+        aria_selected: Signal::derive(move || is_selected.get().to_string()),
         onclick: Some(Callback::new({
-            let ctx = ctx.clone();
-            let value = value.clone();
+            let ctx = ctx;
+            let value = value;
             move |_: MouseEvent| {
                 let val = value.get().unwrap_or_default();
                 ctx.set_value.run(val);

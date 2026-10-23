@@ -189,7 +189,7 @@ impl TddExpansionManager {
             let path = entry.path();
             
             if path.is_file() {
-                if let Some(content) = std::fs::read_to_string(&path).ok() {
+                if let Ok(content) = std::fs::read_to_string(&path) {
                     if content.contains("contract") && content.contains("test") {
                         return Ok(true);
                     }
@@ -215,7 +215,7 @@ impl TddExpansionManager {
                 let path = entry.path();
                 
                 if path.is_file() {
-                    if let Some(content) = std::fs::read_to_string(&path).ok() {
+                    if let Ok(content) = std::fs::read_to_string(&path) {
                         if content.contains("benchmark") || content.contains("performance") {
                             return Ok(true);
                         }
@@ -239,7 +239,7 @@ impl TddExpansionManager {
             let path = entry.path();
             
             if path.is_file() {
-                if let Some(content) = std::fs::read_to_string(&path).ok() {
+                if let Ok(content) = std::fs::read_to_string(&path) {
                     if content.contains("///") && content.contains("```") {
                         return Ok(true);
                     }
@@ -289,23 +289,23 @@ impl TddExpansionManager {
         println!("🧪 Generating TDD implementation for {}", package_name);
 
         // Create test directory structure
-        self.create_test_structure(&config)?;
+        self.create_test_structure(config)?;
 
         // Generate test files
-        self.generate_test_files(&config)?;
+        self.generate_test_files(config)?;
 
         // Generate contract tests
         if config.dependency_contracts {
-            self.generate_contract_tests(&config)?;
+            self.generate_contract_tests(config)?;
         }
 
         // Generate performance tests
-        if let Some(_) = &config.performance_contracts {
-            self.generate_performance_tests(&config)?;
+        if config.performance_contracts.is_some() {
+            self.generate_performance_tests(config)?;
         }
 
         // Update Cargo.toml with test dependencies
-        self.update_cargo_toml(&config)?;
+        self.update_cargo_toml(config)?;
 
         println!("✅ TDD implementation generated for {}", package_name);
         Ok(())
@@ -460,20 +460,18 @@ criterion_main!(benches);
             return Ok(()); // Already has dev-dependencies
         }
         
-        let test_deps = format!(
-            r#"
+        let test_deps = r#"
 
 [dev-dependencies]
 anyhow = "1.0"
-tokio = {{ version = "1.0", features = ["full"] }}
-criterion = {{ version = "0.5", features = ["html_reports"] }}
-leptos-shadcn-contract-testing = {{ path = "../../contract-testing" }}
+tokio = { version = "1.0", features = ["full"] }
+criterion = { version = "0.5", features = ["html_reports"] }
+leptos-shadcn-contract-testing = { path = "../../contract-testing" }
 
 [[bench]]
 name = "performance_benchmark"
 harness = false
-"#
-        );
+"#.to_string();
         
         let new_content = format!("{}{}", content, test_deps);
         std::fs::write(&cargo_toml_path, new_content)?;
@@ -540,24 +538,22 @@ fn test_backward_compatibility() -> Result<()> {{
 
     /// Generate test module template
     fn generate_test_module_template(&self, _config: &PackageTddConfig) -> String {
-        format!(
-            r#"
+        r#"
 #[cfg(test)]
-mod tests {{
+mod tests {
     use super::*;
 
     #[test]
-    fn test_basic_functionality() {{
+    fn test_basic_functionality() {
         // TODO: Implement unit tests
-    }}
+    }
 
     #[test]
-    fn test_edge_cases() {{
+    fn test_edge_cases() {
         // TODO: Implement edge case tests
-    }}
-}}
-"#
-        )
+    }
+}
+"#.to_string()
     }
 
     /// Generate TDD implementation report
@@ -593,7 +589,7 @@ mod tests {{
                 }
             }
             
-            report.push_str("\n");
+            report.push('\n');
         }
         
         Ok(report)
@@ -637,7 +633,7 @@ mod tests {{
     pub fn apply_tdd_to_workspace(&self) -> Result<()> {
         println!("🧪 Applying TDD principles to workspace packages...");
         
-        for (package_name, _) in &self.package_configs {
+        for package_name in self.package_configs.keys() {
             self.generate_tdd_implementation(package_name)?;
         }
         

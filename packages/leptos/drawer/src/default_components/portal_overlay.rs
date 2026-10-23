@@ -4,7 +4,6 @@
 //! rendering the drawer outside the normal DOM hierarchy.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 use web_sys::MouseEvent;
 
 #[component]

@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed tooltip state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedTooltipState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedTooltipState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedTooltipState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed tooltip component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedTooltip(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let tooltip_state_for_disabled = tooltip_state.clone();
+    let _tooltip_state_for_disabled = tooltip_state.clone();
     view! {
         <div
             class=move || computed_class.get()

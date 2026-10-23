@@ -3,7 +3,6 @@
 //! This module contains the DrawerTrigger component and related trigger functionality.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 
 #[component]
 pub fn DrawerTrigger(

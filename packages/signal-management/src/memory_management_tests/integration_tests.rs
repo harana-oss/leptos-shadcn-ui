@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod integration_tests {
     use crate::*;
-    use crate::memory_management::*;
+    
     use leptos::prelude::*;
 
     #[test]
@@ -117,7 +117,7 @@ mod integration_tests {
         
         // Test low priority cleanup
         manager.tracked_groups.update(|groups| {
-            for (_, group) in groups.iter_mut() {
+            for group in groups.values_mut() {
                 group.clear(); // Make all groups low priority
             }
         });

@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed drawer state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedDrawerState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedDrawerState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedDrawerState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed drawer component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedDrawer(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let drawer_state_for_disabled = drawer_state.clone();
+    let _drawer_state_for_disabled = drawer_state.clone();
     view! {
         <div
             class=move || computed_class.get()

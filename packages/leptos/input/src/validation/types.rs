@@ -44,22 +44,19 @@ impl ValidationRule {
 
 /// Severity level for validation errors
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Default)]
 pub enum ValidationSeverity {
     /// Informational notice
     Info,
     /// Warning that doesn't prevent submission
     Warning,
     /// Error that must be fixed
+    #[default]
     Error,
     /// Critical error that blocks the entire form
     Critical,
 }
 
-impl Default for ValidationSeverity {
-    fn default() -> Self {
-        Self::Error
-    }
-}
 
 /// Source location for the validation error
 #[derive(Clone, Debug, Default)]

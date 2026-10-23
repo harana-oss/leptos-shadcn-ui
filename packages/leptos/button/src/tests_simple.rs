@@ -90,14 +90,12 @@ mod button_tests {
     #[test]
     fn all_button_variants_exist() {
         // Ensure all expected variants can be created
-        let variants = vec![
-            ButtonVariant::Default,
+        let variants = [ButtonVariant::Default,
             ButtonVariant::Destructive, 
             ButtonVariant::Outline,
             ButtonVariant::Secondary,
             ButtonVariant::Ghost,
-            ButtonVariant::Link,
-        ];
+            ButtonVariant::Link];
         
         assert_eq!(variants.len(), 6, "Should have exactly 6 button variants");
         
@@ -115,12 +113,10 @@ mod button_tests {
     #[test]  
     fn all_button_sizes_exist() {
         // Ensure all expected sizes can be created
-        let sizes = vec![
-            ButtonSize::Default,
+        let sizes = [ButtonSize::Default,
             ButtonSize::Sm,
             ButtonSize::Lg,
-            ButtonSize::Icon,
-        ];
+            ButtonSize::Icon];
         
         assert_eq!(sizes.len(), 4, "Should have exactly 4 button sizes");
         
@@ -182,7 +178,7 @@ mod button_tests {
     #[test]
     fn button_renders_with_keyboard_support() {
         // Test button with keyboard support
-        let (clicked, set_clicked) = signal(false);
+        let (_clicked, set_clicked) = signal(false);
         let on_click = Callback::new(move |_| {
             set_clicked.set(true);
         });
@@ -203,7 +199,7 @@ mod button_tests {
         // Test button with all enhanced features
         let (loading, _set_loading) = signal(false);
         let (disabled, _set_disabled) = signal(false);
-        let (clicked, set_clicked) = signal(false);
+        let (_clicked, set_clicked) = signal(false);
         let on_click = Callback::new(move |_| {
             set_clicked.set(true);
         });

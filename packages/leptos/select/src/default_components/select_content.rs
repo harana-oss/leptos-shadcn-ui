@@ -1,7 +1,4 @@
 use leptos::{ev::MouseEvent, prelude::*};
-use leptos_node_ref::AnyNodeRef;
-use leptos_struct_component::{StructComponent, struct_component};
-use leptos_style::Style;
 use tailwind_fuse::*;
 
 // Select Content
@@ -20,7 +17,7 @@ pub fn SelectContent(
         class.get().unwrap_or_default()
     );
 
-    let handle_click_outside = move |_e: MouseEvent| {
+    let _handle_click_outside = move |_e: MouseEvent| {
         set_open.run(false);
     };
 

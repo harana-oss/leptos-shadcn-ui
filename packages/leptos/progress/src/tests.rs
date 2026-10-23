@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
     use crate::default::{ProgressVariant, PROGRESS_CLASS, PROGRESS_INDICATOR_CLASS};
-    use leptos::prelude::*;
+    
 
     #[test]
     fn test_progress_variant_enum_creation() {

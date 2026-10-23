@@ -98,7 +98,7 @@ mod basic_rendering_tests {
         };
         
         // Test multiple items
-        let items = vec!["option1", "option2", "option3", "option4"];
+        let items = ["option1", "option2", "option3", "option4"];
         assert_eq!(items.len(), 4);
     }
 
@@ -195,7 +195,8 @@ mod basic_rendering_tests {
                     </RadioGroup>
                 }.into_any()
             } else {
-                view! {}.into_any()
+                let _: () = view! {};
+                ().into_any()
             }}
         };
         

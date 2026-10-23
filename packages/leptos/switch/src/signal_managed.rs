@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed switch state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedSwitchState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedSwitchState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedSwitchState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed switch component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedSwitch(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let switch_state_for_disabled = switch_state.clone();
+    let _switch_state_for_disabled = switch_state.clone();
     view! {
         <div
             class=move || computed_class.get()

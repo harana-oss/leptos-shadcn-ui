@@ -32,11 +32,7 @@ mod tdd_red_tests {
         
         // Test that empty required field triggers validation error
         let is_valid = Signal::derive(move || {
-            if is_required.get() && value.get().trim().is_empty() {
-                false
-            } else {
-                true
-            }
+            !(is_required.get() && value.get().trim().is_empty())
         });
         
         assert!(!is_valid.get(), "Required field should be invalid when empty");

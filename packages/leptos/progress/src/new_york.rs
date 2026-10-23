@@ -5,7 +5,9 @@ const PROGRESS_CLASS: &str = "relative w-full overflow-hidden rounded-full bg-se
 const PROGRESS_INDICATOR_CLASS: &str = "h-full w-full flex-1 bg-primary transition-all";
 
 #[derive(Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum ProgressVariant {
+    #[default]
     Default,
     Success,
     Warning,
@@ -13,11 +15,6 @@ pub enum ProgressVariant {
     Info,
 }
 
-impl Default for ProgressVariant {
-    fn default() -> Self {
-        ProgressVariant::Default
-    }
-}
 
 impl From<String> for ProgressVariant {
     fn from(s: String) -> Self {
@@ -195,7 +192,7 @@ pub fn ProgressIndicator(
         <div
             class=indicator_class
             id=move || id.get().unwrap_or_default()
-            style={move || format!("width: {}%; {}", progress_percentage.get(), style.get().to_string())}
+            style={move || format!("width: {}%; {}", progress_percentage.get(), style.get())}
         />
     }
 }

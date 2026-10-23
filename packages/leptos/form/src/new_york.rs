@@ -17,15 +17,14 @@ pub fn Form(
     let handle_submit = move |event: SubmitEvent| {
         event.prevent_default();
         
-        if let Some(target) = event.target() {
-            if let Ok(form) = target.dyn_into::<HtmlFormElement>() {
+        if let Some(target) = event.target()
+            && let Ok(form) = target.dyn_into::<HtmlFormElement>() {
                 let form_data = FormData::from_form(&form);
                 
                 if let Some(callback) = on_submit.as_ref() {
                     callback.run(form_data);
                 }
             }
-        }
     };
     
     let computed_class = Signal::derive(move || {

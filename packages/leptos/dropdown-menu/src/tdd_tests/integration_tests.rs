@@ -15,8 +15,8 @@ mod integration_tests {
         
         let _workflow_view = view! {
             <DropdownMenu
-                open=open_state.into()
-                value=selected_value.into()
+                open=open_state
+                value=selected_value
             >
                 <DropdownMenuTrigger>
                     "Complete Workflow"
@@ -562,7 +562,7 @@ mod integration_tests {
 
         let _view = view! {
             <div>
-                <DropdownMenu open=menu1_open.into()>
+                <DropdownMenu open=menu1_open>
                     <DropdownMenuTrigger>"Menu 1"</DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuItem>"Item 1.1"</DropdownMenuItem>
@@ -570,7 +570,7 @@ mod integration_tests {
                     </DropdownMenuContent>
                 </DropdownMenu>
 
-                <DropdownMenu open=menu2_open.into()>
+                <DropdownMenu open=menu2_open>
                     <DropdownMenuTrigger>"Menu 2"</DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuItem>"Item 2.1"</DropdownMenuItem>
@@ -578,7 +578,7 @@ mod integration_tests {
                     </DropdownMenuContent>
                 </DropdownMenu>
 
-                <DropdownMenu open=menu3_open.into()>
+                <DropdownMenu open=menu3_open>
                     <DropdownMenuTrigger>"Menu 3"</DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuItem>"Item 3.1"</DropdownMenuItem>
@@ -608,14 +608,14 @@ mod integration_tests {
 
         let _view = view! {
             <div>
-                <DropdownMenu open=menu1_open.into()>
+                <DropdownMenu open=menu1_open>
                     <DropdownMenuTrigger class="custom-trigger-1">"Menu 1"</DropdownMenuTrigger>
                     <DropdownMenuContent class="custom-content-1">
                         <DropdownMenuItem class="custom-item">"Item 1"</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
 
-                <DropdownMenu open=menu2_open.into()>
+                <DropdownMenu open=menu2_open>
                     <DropdownMenuTrigger class="custom-trigger-2">"Menu 2"</DropdownMenuTrigger>
                     <DropdownMenuContent class="custom-content-2">
                         <DropdownMenuItem class="custom-item">"Item 2"</DropdownMenuItem>
@@ -640,7 +640,7 @@ mod integration_tests {
 
         let _view = view! {
             <div>
-                <DropdownMenu open=menu1_open.into()>
+                <DropdownMenu open=menu1_open>
                     <DropdownMenuTrigger
                         on_click=Some(Callback::new(move |_| {
                             click_count.update(|n| *n += 1);
@@ -659,7 +659,7 @@ mod integration_tests {
                     </DropdownMenuContent>
                 </DropdownMenu>
 
-                <DropdownMenu open=menu2_open.into()>
+                <DropdownMenu open=menu2_open>
                     <DropdownMenuTrigger
                         on_click=Some(Callback::new(move |_| {
                             click_count.update(|n| *n += 1);
@@ -698,14 +698,14 @@ mod integration_tests {
 
         let _view = view! {
             <div>
-                <DropdownMenu open=menu1_open.into()>
+                <DropdownMenu open=menu1_open>
                     <DropdownMenuTrigger>"Menu 1"</DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuItem>{move || shared_state.get()}</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
 
-                <DropdownMenu open=menu2_open.into()>
+                <DropdownMenu open=menu2_open>
                     <DropdownMenuTrigger>"Menu 2"</DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuItem>{move || shared_state.get()}</DropdownMenuItem>
@@ -736,7 +736,7 @@ mod integration_tests {
 
         let _view = view! {
             <div>
-                <DropdownMenu open=menu1_open.into()>
+                <DropdownMenu open=menu1_open>
                     <DropdownMenuTrigger
                         on_click=Some(Callback::new(move |_| {
                             lifecycle_tracker.update(|v| v.push("menu1_opened".to_string()));
@@ -755,7 +755,7 @@ mod integration_tests {
                     </DropdownMenuContent>
                 </DropdownMenu>
 
-                <DropdownMenu open=menu2_open.into()>
+                <DropdownMenu open=menu2_open>
                     <DropdownMenuTrigger
                         on_click=Some(Callback::new(move |_| {
                             lifecycle_tracker.update(|v| v.push("menu2_opened".to_string()));
@@ -774,7 +774,7 @@ mod integration_tests {
                     </DropdownMenuContent>
                 </DropdownMenu>
 
-                <DropdownMenu open=menu3_open.into()>
+                <DropdownMenu open=menu3_open>
                     <DropdownMenuTrigger
                         on_click=Some(Callback::new(move |_| {
                             lifecycle_tracker.update(|v| v.push("menu3_opened".to_string()));
@@ -820,7 +820,7 @@ mod integration_tests {
         let menu_open = RwSignal::new(false);
 
         let _view = view! {
-            <DropdownMenu open=menu_open.into()>
+            <DropdownMenu open=menu_open>
                 <DropdownMenuTrigger>"Toggle Menu"</DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <DropdownMenuItem>"Item 1"</DropdownMenuItem>
@@ -848,7 +848,7 @@ mod integration_tests {
             <div>
                 {menus.into_iter().enumerate().map(|(i, open)| {
                     view! {
-                        <DropdownMenu open=open.into()>
+                        <DropdownMenu open=open>
                             <DropdownMenuTrigger>{format!("Menu {}", i)}</DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <DropdownMenuItem>{format!("Item {}", i)}</DropdownMenuItem>

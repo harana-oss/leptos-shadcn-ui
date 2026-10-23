@@ -83,6 +83,12 @@ impl Default for AlertThresholds {
     }
 }
 
+impl Default for PerformanceMonitor {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl PerformanceMonitor {
     pub fn new() -> Self {
         Self {
@@ -128,7 +134,7 @@ impl PerformanceMonitor {
 
         for (component, contract) in &self.contracts {
             // Check bundle size
-            if let Err(_) = tester.test_bundle_size(contract.max_bundle_size_kb) {
+            if tester.test_bundle_size(contract.max_bundle_size_kb).is_err() {
                 violations.push(PerformanceAlert {
                     component: component.clone(),
                     violation_type: ViolationType::BundleSize,
@@ -140,7 +146,7 @@ impl PerformanceMonitor {
             }
 
             // Check render time
-            if let Err(_) = tester.test_render_performance(contract.max_render_time_ms) {
+            if tester.test_render_performance(contract.max_render_time_ms).is_err() {
                 violations.push(PerformanceAlert {
                     component: component.clone(),
                     violation_type: ViolationType::RenderTime,
@@ -154,7 +160,7 @@ impl PerformanceMonitor {
 
         // Check dependency contracts
         let dep_tester = DependencyContractTester::new(".");
-        if let Err(e) = dep_tester.run_validation_tests() {
+        if let Err(_e) = dep_tester.run_validation_tests() {
             violations.push(PerformanceAlert {
                 component: "workspace".to_string(),
                 violation_type: ViolationType::DependencyConflict,

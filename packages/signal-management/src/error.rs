@@ -8,22 +8,19 @@ use thiserror::Error;
 
 /// Error severity level for signal management errors
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Default)]
 pub enum ErrorSeverity {
     /// Informational message
     Info,
     /// Warning that might cause issues
     Warning,
     /// Error that prevents operation
+    #[default]
     Error,
     /// Critical error that needs immediate attention
     Critical,
 }
 
-impl Default for ErrorSeverity {
-    fn default() -> Self {
-        Self::Error
-    }
-}
 
 /// Source location where the error occurred
 #[derive(Clone, Debug, Default, PartialEq)]
@@ -512,7 +509,7 @@ impl SignalManagementError {
 
     /// Wrap this error with additional context
     #[track_caller]
-    pub fn with_context(mut self, additional_message: String) -> Self {
+    pub fn with_context(self, additional_message: String) -> Self {
         let mut new_context = SignalErrorContext::new(additional_message)
             .with_cause(self.to_string())
             .with_severity(self.severity());

@@ -202,8 +202,8 @@ mod integration_tests {
         form_data.fields.insert("password".to_string(), "secret123".to_string());
         
         // Simulate validation
-        let is_email_valid = form_data.fields.get("email").map_or(false, |email| email.contains("@"));
-        let is_password_valid = form_data.fields.get("password").map_or(false, |password| password.len() >= 8);
+        let is_email_valid = form_data.fields.get("email").is_some_and(|email| email.contains("@"));
+        let is_password_valid = form_data.fields.get("password").is_some_and(|password| password.len() >= 8);
         
         assert!(is_email_valid);
         assert!(is_password_valid);
@@ -212,8 +212,8 @@ mod integration_tests {
         form_data.fields.insert("invalid_email".to_string(), "invalid-email".to_string());
         form_data.fields.insert("short_password".to_string(), "123".to_string());
         
-        let is_invalid_email_valid = form_data.fields.get("invalid_email").map_or(false, |email| email.contains("@"));
-        let is_short_password_valid = form_data.fields.get("short_password").map_or(false, |password| password.len() >= 8);
+        let is_invalid_email_valid = form_data.fields.get("invalid_email").is_some_and(|email| email.contains("@"));
+        let is_short_password_valid = form_data.fields.get("short_password").is_some_and(|password| password.len() >= 8);
         
         assert!(!is_invalid_email_valid);
         assert!(!is_short_password_valid);

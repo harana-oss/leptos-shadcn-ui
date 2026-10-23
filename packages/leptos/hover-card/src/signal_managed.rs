@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed hover-card state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedHovercardState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedHovercardState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedHovercardState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed hover-card component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedHovercard(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let hover_card_state_for_disabled = hover_card_state.clone();
+    let _hover_card_state_for_disabled = hover_card_state.clone();
     view! {
         <div
             class=move || computed_class.get()

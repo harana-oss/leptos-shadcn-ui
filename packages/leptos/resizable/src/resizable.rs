@@ -2,16 +2,13 @@ use leptos::prelude::*;
 
 /// Resize direction for panels
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum ResizeDirection {
+    #[default]
     Horizontal,
     Vertical,
 }
 
-impl Default for ResizeDirection {
-    fn default() -> Self {
-        ResizeDirection::Horizontal
-    }
-}
 
 /// Resizable state management
 #[derive(Debug, Clone)]
@@ -70,13 +67,19 @@ pub struct ResizableContext {
     pub end_resize: Callback<()>,
 }
 
+impl Default for ResizableContext {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl ResizableContext {
     pub fn new() -> Self {
         let state = RwSignal::new(ResizableState::default());
         let config = RwSignal::new(ResizableConfig::default());
 
         let update_size = {
-            let state = state.clone();
+            let state = state;
             Callback::new(move |(panel_index, size): (usize, f64)| {
                 state.update(|s| {
                     if panel_index < s.panel_sizes.len() {
@@ -87,7 +90,7 @@ impl ResizableContext {
         };
 
         let toggle_collapse = {
-            let state = state.clone();
+            let state = state;
             Callback::new(move |panel_index: usize| {
                 state.update(|s| {
                     if s.collapsed_panels.contains(&panel_index) {
@@ -100,14 +103,14 @@ impl ResizableContext {
         };
 
         let start_resize = {
-            let state = state.clone();
+            let state = state;
             Callback::new(move |_| {
                 state.update(|s| s.is_resizing = true);
             })
         };
 
         let end_resize = {
-            let state = state.clone();
+            let state = state;
             Callback::new(move |_| {
                 state.update(|s| s.is_resizing = false);
             })
@@ -147,10 +150,7 @@ pub mod utils {
             return new_sizes;
         }
 
-        let old_size = new_sizes[panel_index];
-        let size_diff = new_size - old_size;
-        
-        // Find the next panel to adjust
+        // Find the neighbouring panel that gives or takes the space
         let next_panel_index = if panel_index + 1 < new_sizes.len() {
             panel_index + 1
         } else if panel_index > 0 {
@@ -159,21 +159,25 @@ pub mod utils {
             return new_sizes;
         };
 
-        // Clamp the new size to min/max constraints
-        let clamped_size = new_size.clamp(
-            min_sizes.get(panel_index).copied().unwrap_or(0.0),
-            max_sizes.get(panel_index).copied().unwrap_or(100.0),
-        );
+        let limits = |i: usize| {
+            (
+                min_sizes.get(i).copied().unwrap_or(0.0),
+                max_sizes.get(i).copied().unwrap_or(100.0),
+            )
+        };
+        let (min_a, max_a) = limits(panel_index);
+        let (min_b, max_b) = limits(next_panel_index);
+        let (size_a, size_b) = (new_sizes[panel_index], new_sizes[next_panel_index]);
 
-        let actual_size_diff = clamped_size - old_size;
-        new_sizes[panel_index] = clamped_size;
-        new_sizes[next_panel_index] -= actual_size_diff;
-
-        // Clamp the next panel size as well
-        new_sizes[next_panel_index] = new_sizes[next_panel_index].clamp(
-            min_sizes.get(next_panel_index).copied().unwrap_or(0.0),
-            max_sizes.get(next_panel_index).copied().unwrap_or(100.0),
-        );
+        // Clamp the change so both panels stay within their limits and the total is preserved
+        let low = (min_a - size_a).max(size_b - max_b);
+        let high = (max_a - size_a).min(size_b - min_b);
+        if low > high || !new_size.is_finite() {
+            return new_sizes;
+        }
+        let diff = (new_size - size_a).clamp(low, high);
+        new_sizes[panel_index] += diff;
+        new_sizes[next_panel_index] -= diff;
 
         new_sizes
     }
@@ -181,7 +185,7 @@ pub mod utils {
     /// Check if a panel can be resized
     pub fn can_resize(
         panel_index: usize,
-        direction: ResizeDirection,
+        _direction: ResizeDirection,
         is_collapsed: bool,
     ) -> bool {
         !is_collapsed && panel_index > 0
@@ -189,7 +193,7 @@ pub mod utils {
 
     /// Get the resize handle position
     pub fn get_handle_position(
-        panel_index: usize,
+        _panel_index: usize,
         direction: ResizeDirection,
     ) -> String {
         match direction {

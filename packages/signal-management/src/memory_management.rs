@@ -26,6 +26,7 @@ pub(crate) fn now_ms() -> f64 {
 
 /// Memory usage statistics for signal management
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct MemoryStats {
     /// Number of active signals
     pub active_signals: usize,
@@ -37,16 +38,6 @@ pub struct MemoryStats {
     pub tracked_groups: usize,
 }
 
-impl Default for MemoryStats {
-    fn default() -> Self {
-        Self {
-            active_signals: 0,
-            active_memos: 0,
-            estimated_memory_bytes: 0,
-            tracked_groups: 0,
-        }
-    }
-}
 
 /// Name of the group used by `add_signal` / `add_memo` when no group is active
 pub const DEFAULT_GROUP_NAME: &str = "default";
@@ -291,7 +282,7 @@ impl SignalMemoryManager {
     fn forget_current_if(&self, removed: impl Fn(&str) -> bool) {
         let clear = self
             .current_group
-            .with_untracked(|c| c.as_deref().map(|n| removed(n)).unwrap_or(false));
+            .with_untracked(|c| c.as_deref().map(removed).unwrap_or(false));
         if clear {
             self.current_group.set(None);
         }

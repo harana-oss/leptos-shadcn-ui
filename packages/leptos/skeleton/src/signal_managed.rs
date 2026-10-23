@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed skeleton state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedSkeletonState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedSkeletonState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedSkeletonState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed skeleton component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedSkeleton(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let skeleton_state_for_disabled = skeleton_state.clone();
+    let _skeleton_state_for_disabled = skeleton_state.clone();
     view! {
         <div
             class=move || computed_class.get()

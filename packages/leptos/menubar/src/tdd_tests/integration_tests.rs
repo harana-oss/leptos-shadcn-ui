@@ -4,7 +4,7 @@
 //! and edge cases for the Menubar component.
 
 use leptos::prelude::*;
-use crate::default::{Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger};
+use crate::default::Menubar;
 
 #[cfg(test)]
 mod tests {
@@ -118,10 +118,10 @@ mod tests {
     #[test]
     fn test_menubar_dynamic_content() {
         // Test menubar with dynamic content
-        let (count, set_count) = signal(0);
+        let (_count, _set_count) = signal(0);
         let menubar_view = view! {
             <Menubar>
-                "Dynamic menu {count}"
+                format!("Dynamic menu {count}")
             </Menubar>
         };
         
@@ -132,7 +132,7 @@ mod tests {
     #[test]
     fn test_menubar_conditional_rendering() {
         // Test menubar with conditional rendering
-        let (show_menu, set_show_menu) = signal(true);
+        let (show_menu, _set_show_menu) = signal(true);
         let menubar_view = view! {
             <div>
                 {move || if show_menu.get() {
@@ -152,7 +152,7 @@ mod tests {
     #[test]
     fn test_menubar_event_handling() {
         // Test menubar event handling
-        let (clicked, set_clicked) = signal(false);
+        let (_clicked, _set_clicked) = signal(false);
         let menubar_view = view! {
             <Menubar>
                 "Event menu"
@@ -166,7 +166,7 @@ mod tests {
     #[test]
     fn test_menubar_state_management() {
         // Test menubar state management
-        let (is_open, set_is_open) = signal(false);
+        let (_is_open, _set_is_open) = signal(false);
         let menubar_view = view! {
             <Menubar>
                 "State menu"
@@ -193,7 +193,7 @@ mod tests {
     #[test]
     fn test_menubar_theme_switching() {
         // Test menubar theme switching
-        let (is_dark, set_is_dark) = signal(false);
+        let (_is_dark, _set_is_dark) = signal(false);
         let menubar_view = view! {
             <Menubar>
                 "Theme menu"
@@ -246,7 +246,7 @@ mod tests {
     #[test]
     fn test_menubar_click_handling() {
         // Test menubar click handling
-        let (click_count, set_click_count) = signal(0);
+        let (_click_count, _set_click_count) = signal(0);
         let menubar_view = view! {
             <Menubar>
                 "Click menu"

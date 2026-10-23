@@ -8,7 +8,9 @@ const SLIDER_RANGE_CLASS: &str = "absolute h-full bg-primary";
 const SLIDER_THUMB_CLASS: &str = "block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
 
 #[derive(Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum SliderVariant {
+    #[default]
     Default,
     Success,
     Warning,
@@ -16,11 +18,6 @@ pub enum SliderVariant {
     Info,
 }
 
-impl Default for SliderVariant {
-    fn default() -> Self {
-        SliderVariant::Default
-    }
-}
 
 impl From<String> for SliderVariant {
     fn from(s: String) -> Self {
@@ -47,17 +44,14 @@ impl SliderVariant {
 }
 
 #[derive(Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum SliderSize {
     Sm,
+    #[default]
     Md,
     Lg,
 }
 
-impl Default for SliderSize {
-    fn default() -> Self {
-        SliderSize::Md
-    }
-}
 
 impl From<String> for SliderSize {
     fn from(s: String) -> Self {
@@ -109,7 +103,7 @@ pub fn Slider(
     let slider_size = size.get().unwrap_or_default();
     
     let handle_change = {
-        let on_change = on_change.clone();
+        let on_change = on_change;
         move |event: Event| {
             if let Some(callback) = &on_change {
                 let target = event.target().unwrap();

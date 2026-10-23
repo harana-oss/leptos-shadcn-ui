@@ -152,7 +152,7 @@ mod tests {
     #[test]
     fn test_resizable_state_management() {
         // Test resizable state management
-        let (panel_size, set_panel_size) = create_signal(50.0);
+        let (panel_size, _set_panel_size) = signal(50.0);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -169,7 +169,7 @@ mod tests {
     #[test]
     fn test_resizable_event_handling() {
         // Test resizable event handling
-        let (event_count, set_event_count) = create_signal(0);
+        let (event_count, _set_event_count) = signal(0);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -501,8 +501,8 @@ mod tests {
     #[test]
     fn test_resizable_comprehensive_system_requirements() {
         // Test resizable comprehensive system requirements
-        let (system_ready, set_system_ready) = create_signal(false);
-        let (requirements_met, set_requirements_met) = create_signal(false);
+        let (system_ready, _set_system_ready) = signal(false);
+        let (requirements_met, _set_requirements_met) = signal(false);
         
         let resizable_view = view! {
             <ResizablePanelGroup>

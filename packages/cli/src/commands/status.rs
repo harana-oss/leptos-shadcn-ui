@@ -52,7 +52,7 @@ pub async fn get_status(detailed: bool) -> anyhow::Result<String> {
             status.push_str(&format!("  - Next: Continue with {} components\n", total_components - completed_components));
         } else {
             status.push_str("  - Status: Getting Started\n");
-            status.push_str(&format!("  - Next: Focus on core components\n"));
+            status.push_str("  - Next: Focus on core components\n");
         }
         
         status.push_str("\n💡 Use --detailed for more information\n");

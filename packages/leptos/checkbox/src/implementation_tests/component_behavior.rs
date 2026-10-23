@@ -1,8 +1,8 @@
 #[cfg(test)]
 mod component_behavior {
     use crate::default::CHECKBOX_CLASS;
-    use leptos::prelude::*;
-    use leptos_style::Style;
+    
+    
 
     // ===== COMPONENT BEHAVIOR TESTS =====
     // These tests focus on component behavior and computed class generation

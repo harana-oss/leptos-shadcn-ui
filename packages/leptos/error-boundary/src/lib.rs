@@ -292,7 +292,8 @@ pub fn RichErrorBoundary(
     if has_error.get() {
         if let Some(context) = error_context.get() {
             if let Some(fallback_callback) = &fallback {
-                fallback_callback.run(context).into_any()
+                let _: () = fallback_callback.run(context);
+                ().into_any()
             } else {
                 view! { <RichErrorFallback error_context=context /> }.into_any()
             }

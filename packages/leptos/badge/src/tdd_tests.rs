@@ -15,7 +15,7 @@ mod tdd_tests {
 
     #[test]
     fn test_badge_variants() {
-        let variants = [BadgeVariant::Default, BadgeVariant::Secondary, BadgeVariant::Destructive, BadgeVariant::Outline];
+        let _variants = [BadgeVariant::Default, BadgeVariant::Secondary, BadgeVariant::Destructive, BadgeVariant::Outline];
         let _badge_view = view! {
             <Badge variant=BadgeVariant::Default>"Default variant"</Badge>
         };

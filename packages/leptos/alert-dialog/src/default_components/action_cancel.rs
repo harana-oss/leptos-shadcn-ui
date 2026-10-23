@@ -4,7 +4,6 @@
 //! components for dialog actions.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 use web_sys::MouseEvent;
 
 #[component]

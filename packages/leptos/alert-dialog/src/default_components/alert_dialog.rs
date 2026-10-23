@@ -1,8 +1,6 @@
 //! Main AlertDialog component
 
 use leptos::prelude::*;
-use web_sys::KeyboardEvent;
-use wasm_bindgen::JsCast;
 
 #[component]
 pub fn AlertDialog(

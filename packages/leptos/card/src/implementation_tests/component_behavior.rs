@@ -4,8 +4,8 @@ mod component_behavior {
         CARD_CLASS, CARD_HEADER_CLASS, CARD_TITLE_CLASS, CARD_DESCRIPTION_CLASS,
         CARD_CONTENT_CLASS, CARD_FOOTER_CLASS
     };
-    use leptos::prelude::*;
-    use leptos_style::Style;
+    
+    
 
     // ===== COMPONENT BEHAVIOR TESTS =====
     // These tests focus on component behavior and computed class generation

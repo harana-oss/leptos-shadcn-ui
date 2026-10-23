@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed alert-dialog state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedAlertDialogState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedAlertDialogState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedAlertDialogState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed alert-dialog component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedAlertDialog(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let alert_dialog_state_for_disabled = alert_dialog_state.clone();
+    let _alert_dialog_state_for_disabled = alert_dialog_state.clone();
     view! {
         <div
             class=move || computed_class.get()

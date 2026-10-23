@@ -73,14 +73,13 @@ pub fn CommandItem(
     ));
     
     let handle_click = move |_| {
-        if !is_disabled {
-            if let Some(value) = value.get() {
+        if !is_disabled
+            && let Some(value) = value.get() {
                 context.selected_value.set(value.clone());
                 if let Some(callback) = &context.on_value_change {
                     callback.run(value);
                 }
             }
-        }
     };
     
     view! {

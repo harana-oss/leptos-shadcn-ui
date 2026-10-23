@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod prop_handling_tests {
     use leptos::prelude::*;
-    use leptos_style::Style;
+    
     use std::collections::HashMap;
 
     // Mock types for testing
@@ -90,7 +90,7 @@ mod prop_handling_tests {
 
         // Test callback absence
         let no_callback: Option<Callback<FormData>> = None;
-        if let None = no_callback {
+        if no_callback.is_none() {
         }
     }
 

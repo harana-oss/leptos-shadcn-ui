@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod memory_manager_tests {
     use crate::*;
-    use crate::memory_management::*;
+    
     use leptos::prelude::*;
 
     #[test]
@@ -27,7 +27,7 @@ mod memory_manager_tests {
         // Test custom limits
         assert_eq!(manager.max_memory_bytes, max_memory);
         assert_eq!(manager.memory_limit, memory_limit);
-        assert_eq!(manager.adaptive_management, false);
+        assert!(!manager.adaptive_management);
     }
 
     #[test]
@@ -263,9 +263,9 @@ mod memory_manager_tests {
         // Test SignalMemoryManager with multiple groups
         let manager = SignalMemoryManager::new();
         
-        let group1 = manager.create_group("group1".to_string());
-        let group2 = manager.create_group("group2".to_string());
-        let group3 = manager.create_group("group3".to_string());
+        let _group1 = manager.create_group("group1".to_string());
+        let _group2 = manager.create_group("group2".to_string());
+        let _group3 = manager.create_group("group3".to_string());
         
         assert_eq!(manager.tracked_groups.get().len(), 3);
         assert!(manager.tracked_groups.get().contains_key("group1"));

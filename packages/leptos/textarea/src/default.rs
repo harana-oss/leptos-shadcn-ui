@@ -10,13 +10,13 @@ pub fn Textarea(
     #[prop(into, optional)] on_change: Option<Callback<String>>,
     #[prop(into, optional)] placeholder: MaybeProp<String>,
     #[prop(into, optional)] disabled: Signal<bool>,
-    #[prop(into, optional)] input_type: MaybeProp<String>,
+    #[prop(into, optional)] _input_type: MaybeProp<String>,
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: Signal<Style>,
 ) -> impl IntoView {
     let handle_input = {
-        let on_change = on_change.clone();
+        let on_change = on_change;
         move |event: Event| {
             if let Some(callback) = &on_change {
                 let target = event.target().unwrap();

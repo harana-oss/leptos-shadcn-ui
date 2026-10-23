@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod performance_tests {
     use crate::*;
-    use crate::memory_management::*;
+    
     use leptos::prelude::*;
 
     #[test]

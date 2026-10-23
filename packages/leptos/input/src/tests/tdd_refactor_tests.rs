@@ -16,7 +16,7 @@ mod tdd_refactor_tests {
         let result = email_validator.validate("invalid-email");
         
         assert!(!result.is_valid);
-        assert!(result.errors.len() >= 1); // At least one error (email format)
+        assert!(!result.errors.is_empty()); // At least one error (email format)
         assert!(result.errors.iter().any(|e| e.message.contains("valid email")));
         
         // Test valid email
@@ -31,7 +31,7 @@ mod tdd_refactor_tests {
         // Test weak password
         let weak_result = password_validator.validate("weak");
         assert!(!weak_result.is_valid);
-        assert!(weak_result.errors.len() >= 1); // At least one validation error
+        assert!(!weak_result.errors.is_empty()); // At least one validation error
         
         // Test strong password
         let strong_result = password_validator.validate("StrongPass123");
@@ -74,7 +74,7 @@ mod tdd_refactor_tests {
         // Test custom validation failure
         let result = validator.validate("wrong_start");
         assert!(!result.is_valid);
-        assert!(result.errors.len() >= 1);
+        assert!(!result.errors.is_empty());
         
         // Test custom validation success
         let valid_result = validator.validate("prefix_valid");

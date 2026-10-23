@@ -3,25 +3,9 @@ use leptos_meta::*;
 use leptos_router::components::Router;
 
 // Import all the ShadCN components we'll need
-use leptos_shadcn_button::*;
 use leptos_shadcn_card::*;
-use leptos_shadcn_input::*;
 use leptos_shadcn_badge::*;
 use leptos_shadcn_avatar::*;
-use leptos_shadcn_dropdown_menu::*;
-use leptos_shadcn_separator::*;
-use leptos_shadcn_progress::*;
-use leptos_shadcn_tabs::*;
-use leptos_shadcn_dialog::*;
-use leptos_shadcn_sheet::*;
-use leptos_shadcn_scroll_area::*;
-use leptos_shadcn_collapsible::*;
-use leptos_shadcn_command::*;
-use leptos_shadcn_popover::*;
-use leptos_shadcn_select::*;
-use leptos_shadcn_switch::*;
-use leptos_shadcn_toast::*;
-use leptos_shadcn_tooltip::*;
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -61,12 +45,12 @@ pub fn DashboardLayout() -> impl IntoView {
 
                 // Sidebar - fixed mobile, relative desktop
                 <div class=move || {
-                    let base_classes = if sidebar_open.get() {
+                    
+                    if sidebar_open.get() {
                         "fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border transition-transform duration-300 md:relative md:translate-x-0"
                     } else {
                         "fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border transition-transform duration-300 -translate-x-full md:relative md:translate-x-0"
-                    };
-                    base_classes
+                    }
                 }>
                     <Sidebar close_sidebar=move || sidebar_open.set(false) />
                 </div>

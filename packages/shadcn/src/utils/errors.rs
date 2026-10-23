@@ -7,22 +7,19 @@ use std::collections::HashMap;
 
 /// Error severity level for CLI errors
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Default)]
 pub enum CliErrorSeverity {
     /// Informational message
     Info,
     /// Warning that doesn't prevent operation
     Warning,
     /// Error that prevents operation
+    #[default]
     Error,
     /// Critical error that requires immediate attention
     Critical,
 }
 
-impl Default for CliErrorSeverity {
-    fn default() -> Self {
-        Self::Error
-    }
-}
 
 /// Recovery suggestion for CLI errors
 #[derive(Clone, Debug)]

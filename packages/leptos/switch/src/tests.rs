@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::*;
+    
+    
 
     #[test]
     fn test_switch_component_exists() {

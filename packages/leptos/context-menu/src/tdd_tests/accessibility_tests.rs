@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod accessibility_tests {
-    use super::*;
+    
     use crate::*;
     use leptos::prelude::*;
 
@@ -224,9 +224,9 @@ mod accessibility_tests {
                         "Right-click me"
                     </ContextMenuTrigger>
                     <ContextMenuContent>
-                        <ContextMenuItem on:click=(move |_| {
+                        <ContextMenuItem on:click=move |_| {
                                 status.set("Item 1 selected".to_string());
-                            })>
+                            }>
                             "Item 1"
                         </ContextMenuItem>
                     </ContextMenuContent>

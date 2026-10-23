@@ -4,7 +4,7 @@
 //! advanced interactions, and form integration for the Menubar component.
 
 use leptos::prelude::*;
-use crate::default::{Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger};
+use crate::default::Menubar;
 
 #[cfg(test)]
 mod tests {

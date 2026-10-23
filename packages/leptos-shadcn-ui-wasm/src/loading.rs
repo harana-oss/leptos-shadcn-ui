@@ -195,7 +195,7 @@ pub fn WasmInlineLoader(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    
 
     #[test]
     fn test_wasm_spinner_size_classes() {

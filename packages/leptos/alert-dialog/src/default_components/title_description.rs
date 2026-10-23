@@ -4,7 +4,6 @@
 //! components for providing accessible labels and descriptions for the alert dialog.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 
 #[component]
 pub fn AlertDialogTitle(

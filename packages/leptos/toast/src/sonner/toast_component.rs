@@ -21,12 +21,12 @@ pub fn SonnerToast(
     let (is_mounted, set_is_mounted) = signal(true);
 
     // Auto-dismiss logic with proper cleanup
-    if let Some(duration) = data.duration {
-        if duration.as_millis() > 0 {
-            let set_is_visible = set_is_visible.clone();
-            let on_dismiss = on_dismiss.clone();
+    if let Some(duration) = data.duration
+        && duration.as_millis() > 0 {
+            let set_is_visible = set_is_visible;
+            let on_dismiss = on_dismiss;
             let _id = id.clone();
-            let is_mounted_dismiss = is_mounted.clone();
+            let is_mounted_dismiss = is_mounted;
 
             spawn_local(async move {
                 gloo_timers::future::TimeoutFuture::new(duration.as_millis() as u32).await;
@@ -41,12 +41,11 @@ pub fn SonnerToast(
                 }
             });
         }
-    }
 
     // Progress animation with proper cleanup
     if data.progress.is_some() {
-        let set_progress = set_progress.clone();
-        let is_mounted_progress = is_mounted.clone();
+        let set_progress = set_progress;
+        let is_mounted_progress = is_mounted;
         spawn_local(async move {
             let mut current_progress = 0.0;
             let target_progress = data.progress.unwrap_or(0.0);
@@ -122,7 +121,7 @@ pub fn SonnerToast(
                 </button>
             </div>
             
-            {if let Some(_) = data.progress {
+            {if data.progress.is_some() {
                 view! {
                     <div class="w-full bg-gray-200 rounded-full h-1 mt-2">
                         <div 

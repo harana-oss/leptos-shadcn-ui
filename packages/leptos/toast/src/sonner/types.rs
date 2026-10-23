@@ -10,8 +10,10 @@ use std::collections::HashMap;
 
 /// Toast position variants
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum ToastPosition {
     TopLeft,
+    #[default]
     TopRight,
     BottomLeft,
     BottomRight,
@@ -19,11 +21,6 @@ pub enum ToastPosition {
     BottomCenter,
 }
 
-impl Default for ToastPosition {
-    fn default() -> Self {
-        ToastPosition::TopRight
-    }
-}
 
 impl From<String> for ToastPosition {
     fn from(s: String) -> Self {
@@ -41,17 +38,14 @@ impl From<String> for ToastPosition {
 
 /// Toast theme variants
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum ToastTheme {
     Light,
     Dark,
+    #[default]
     Auto,
 }
 
-impl Default for ToastTheme {
-    fn default() -> Self {
-        ToastTheme::Auto
-    }
-}
 
 impl From<String> for ToastTheme {
     fn from(s: String) -> Self {
@@ -66,7 +60,9 @@ impl From<String> for ToastTheme {
 
 /// Toast variant types
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum ToastVariant {
+    #[default]
     Default,
     Success,
     Error,
@@ -75,11 +71,6 @@ pub enum ToastVariant {
     Loading,
 }
 
-impl Default for ToastVariant {
-    fn default() -> Self {
-        ToastVariant::Default
-    }
-}
 
 /// Toast action definition
 #[derive(Debug, Clone)]

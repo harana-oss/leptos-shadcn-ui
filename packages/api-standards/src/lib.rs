@@ -195,7 +195,7 @@ pub trait ApiCompliant {
 
         let mut test_results = HashMap::new();
         let mut issues = Vec::new();
-        let mut suggestions = Vec::new();
+        let suggestions = Vec::new();
 
         // Run all compliance tests
         let tests = vec![

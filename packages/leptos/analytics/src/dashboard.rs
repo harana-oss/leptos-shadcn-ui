@@ -14,7 +14,9 @@ pub fn AnalyticsDashboard(
 ) -> impl IntoView {
     let analytics = use_analytics();
 
-    let content = if analytics.is_some() {
+    
+
+    if analytics.is_some() {
         let most_used = use_most_used_components(limit);
         let summary = use_analytics_summary();
         let (enabled, toggle_tracking) = use_analytics_toggle();
@@ -22,7 +24,7 @@ pub fn AnalyticsDashboard(
         view! {
             <div class="analytics-dashboard">
                 <h2>"Component Usage Analytics"</h2>
-                <button onclick=move || toggle_tracking()>
+                <button onclick=toggle_tracking>
                     {move || if enabled.get() { "Tracking On" } else { "Tracking Off" }}
                 </button>
                 <div>
@@ -61,9 +63,7 @@ pub fn AnalyticsDashboard(
         view! {
             <div class="analytics-error">"AnalyticsDashboard must be used inside an AnalyticsProvider"</div>
         }.into_any()
-    };
-
-    content
+    }
 }
 
 /// Simple analytics badge showing component count
@@ -71,7 +71,7 @@ pub fn AnalyticsDashboard(
 pub fn AnalyticsBadge(
     /// Position of the badge
     #[prop(default = "bottom-right".to_string())]
-    position: String,
+    _position: String,
 ) -> impl IntoView {
     let analytics = use_analytics();
 

@@ -68,7 +68,7 @@ pub async fn generate(args: GenerateArgs) -> Result<()> {
     // Create component configuration
     let config = ComponentConfig {
         name: args.name.clone(),
-        framework: framework.clone(),
+        framework,
         theme_variants,
         props,
         dependencies: vec![

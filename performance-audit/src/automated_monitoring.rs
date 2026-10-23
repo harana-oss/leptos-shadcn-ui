@@ -320,7 +320,7 @@ impl AutomatedMonitor {
         }
 
         // Calculate performance scores
-        for (_, metrics) in component_metrics.iter_mut() {
+        for metrics in component_metrics.values_mut() {
             metrics.performance_score = self.calculate_performance_score(metrics);
         }
 
@@ -640,31 +640,31 @@ impl AutomatedMonitor {
 
     async fn simulate_render_time(&self, _component: &str) -> f64 {
         // Simulate render time with some variation
-        use rand::Rng;
+        
         let mut rng = rand::rng();
         rng.random_range(10.0..50.0)
     }
 
     async fn simulate_memory_usage(&self, _component: &str) -> u64 {
-        use rand::Rng;
+        
         let mut rng = rand::rng();
         rng.random_range(1024..10240) // 1KB to 10KB
     }
 
     async fn simulate_bundle_size(&self, _component: &str) -> u64 {
-        use rand::Rng;
+        
         let mut rng = rand::rng();
         rng.random_range(1024..5120) // 1KB to 5KB
     }
 
     async fn simulate_error_count(&self, _component: &str) -> u32 {
-        use rand::Rng;
+        
         let mut rng = rand::rng();
         rng.random_range(0..5)
     }
 
     async fn simulate_success_rate(&self, _component: &str) -> f64 {
-        use rand::Rng;
+        
         let mut rng = rand::rng();
         rng.random_range(0.95..1.0)
     }

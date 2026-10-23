@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod accessibility_tests {
-    use crate::default::{Switch, SwitchRoot, SwitchThumb, SwitchLabel, SwitchVariant, SwitchSize};
+    use crate::default::Switch;
     use leptos::prelude::*;
 
     // ===== ACCESSIBILITY TESTS =====

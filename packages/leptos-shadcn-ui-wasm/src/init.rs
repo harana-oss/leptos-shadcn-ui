@@ -106,6 +106,7 @@ impl From<JsValue> for WasmError {
 
 /// Configuration for WASM initialization
 #[derive(Clone)]
+#[derive(Default)]
 pub struct WasmInitConfig {
     /// Enable verbose logging during initialization
     pub verbose: bool,
@@ -121,18 +122,6 @@ pub struct WasmInitConfig {
     pub on_progress: Option<WasmProgressCallback>,
 }
 
-impl Default for WasmInitConfig {
-    fn default() -> Self {
-        Self {
-            verbose: false,
-            panic_message: None,
-            on_start: None,
-            on_ready: None,
-            on_error: None,
-            on_progress: None,
-        }
-    }
-}
 
 /// Callback type for WASM initialization events
 pub type WasmCallback = Arc<dyn Fn() + Send + Sync + 'static>;

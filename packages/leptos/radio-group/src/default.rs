@@ -28,8 +28,8 @@ pub fn RadioGroup(
     let selected_value = RwSignal::new(value.get_untracked());
     
     let on_item_select = {
-        let selected_value = selected_value.clone();
-        let on_value_change = on_value_change.clone();
+        let selected_value = selected_value;
+        let on_value_change = on_value_change;
         
         Callback::new(move |value: String| {
             selected_value.set(Some(value.clone()));
@@ -102,7 +102,7 @@ pub fn RadioGroupItem(
     
     let handle_click = {
         let value = value.clone();
-        let on_select = context.on_item_select.clone();
+        let on_select = context.on_item_select;
         
         move |_: MouseEvent| {
             if !is_disabled.get() {

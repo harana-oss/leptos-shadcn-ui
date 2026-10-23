@@ -7,7 +7,7 @@
 mod tests {
     use leptos::prelude::*;
     use crate::default::Input;
-    use super::*;
+    
 
     /// Test that verifies Leptos v0.8 attribute system compatibility
     /// This test will fail with current implementation but pass after fixing attr: syntax
@@ -16,11 +16,11 @@ mod tests {
         // Create a test harness that simulates Leptos v0.8 environment
         let test_result = std::panic::catch_unwind(|| {
             // This should work with proper attr: syntax in Leptos v0.8
-            let (value, set_value) = signal("test".to_string());
-            let (disabled, set_disabled) = signal(false);
-            let (class, set_class) = signal("custom-class".to_string());
-            let (id, set_id) = signal("test-input".to_string());
-            let (style, set_style) = signal(leptos_style::Style::new());
+            let (value, _set_value) = signal("test".to_string());
+            let (disabled, _set_disabled) = signal(false);
+            let (class, _set_class) = signal("custom-class".to_string());
+            let (id, _set_id) = signal("test-input".to_string());
+            let (style, _set_style) = signal(leptos_style::Style::new());
 
             // Test that the component can be rendered with Leptos v0.8 attribute system
             let _view = view! {
@@ -87,7 +87,7 @@ mod tests {
 
             // Verify the signals were updated correctly
             assert_eq!(value.get(), "updated");
-            assert_eq!(disabled.get(), true);
+            assert!(disabled.get());
             assert_eq!(class.get(), "updated-class");
 
             // Test rendering with updated signals

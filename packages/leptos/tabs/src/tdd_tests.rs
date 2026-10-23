@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tdd_tests {
-    use crate::default::{Tabs, TabsList, TabsTrigger, TabsContent};
+    
     use leptos::prelude::*;
 
     // ===== TDD ENHANCED TESTS - GREEN PHASE =====
@@ -78,7 +78,7 @@ mod tdd_tests {
             "cards",
         ];
         
-        for variant in tabs_variants {
+        for _variant in tabs_variants {
             // Each variant should be supported
         }
     }
@@ -93,7 +93,7 @@ mod tdd_tests {
             "xl",
         ];
         
-        for size in tabs_sizes {
+        for _size in tabs_sizes {
             // Each size should be supported
         }
     }
@@ -203,7 +203,7 @@ mod tdd_tests {
             "info",
         ];
         
-        for feature in validation_features {
+        for _feature in validation_features {
             // Each validation feature should be supported
         }
     }
@@ -220,7 +220,7 @@ mod tdd_tests {
             "touch-targets",
         ];
         
-        for feature in a11y_features {
+        for _feature in a11y_features {
             // Each accessibility feature should be supported
         }
     }
@@ -235,7 +235,7 @@ mod tdd_tests {
             "bundle-optimization",
         ];
         
-        for feature in perf_features {
+        for _feature in perf_features {
             // Each performance feature should be implemented
         }
     }
@@ -252,7 +252,7 @@ mod tdd_tests {
             "navigation",
         ];
         
-        for scenario in integration_scenarios {
+        for _scenario in integration_scenarios {
             // Each integration scenario should work
         }
     }
@@ -302,7 +302,7 @@ mod tdd_tests {
         // Test tabs orientation
         let orientations = vec!["horizontal", "vertical"];
         
-        for orientation in orientations {
+        for _orientation in orientations {
             // Each orientation should be supported
         }
     }

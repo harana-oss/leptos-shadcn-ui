@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed breadcrumb state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedBreadcrumbState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedBreadcrumbState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedBreadcrumbState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed breadcrumb component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedBreadcrumb(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let breadcrumb_state_for_disabled = breadcrumb_state.clone();
+    let _breadcrumb_state_for_disabled = breadcrumb_state.clone();
     view! {
         <div
             class=move || computed_class.get()

@@ -52,7 +52,7 @@ mod tests {
     #[test]
     fn test_collapsible_panels() {
         // Test collapsible panels
-        let (is_collapsed, set_is_collapsed) = create_signal(false);
+        let (is_collapsed, _set_is_collapsed) = signal(false);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -195,7 +195,7 @@ mod tests {
     #[test]
     fn test_resize_events() {
         // Test resize events
-        let (resize_count, set_resize_count) = create_signal(0);
+        let (resize_count, _set_resize_count) = signal(0);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -216,7 +216,7 @@ mod tests {
     #[test]
     fn test_panel_sizing() {
         // Test panel sizing
-        let (panel_size, set_panel_size) = create_signal(50.0);
+        let (panel_size, _set_panel_size) = signal(50.0);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -260,7 +260,7 @@ mod tests {
     #[test]
     fn test_panel_visibility() {
         // Test panel visibility
-        let (is_visible, set_is_visible) = create_signal(true);
+        let (is_visible, _set_is_visible) = signal(true);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -281,7 +281,7 @@ mod tests {
     #[test]
     fn test_panel_focus() {
         // Test panel focus
-        let (focused_panel, set_focused_panel) = create_signal(0);
+        let (focused_panel, _set_focused_panel) = signal(0);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -302,7 +302,7 @@ mod tests {
     #[test]
     fn test_panel_selection() {
         // Test panel selection
-        let (selected_panel, set_selected_panel) = create_signal(0);
+        let (selected_panel, _set_selected_panel) = signal(0);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -323,7 +323,7 @@ mod tests {
     #[test]
     fn test_panel_state_management() {
         // Test panel state management
-        let (panel_state, set_panel_state) = create_signal("initialized".to_string());
+        let (panel_state, _set_panel_state) = signal("initialized".to_string());
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -344,7 +344,7 @@ mod tests {
     #[test]
     fn test_panel_data_binding() {
         // Test panel data binding
-        let (panel_data, set_panel_data) = create_signal("data".to_string());
+        let (panel_data, _set_panel_data) = signal("data".to_string());
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -365,7 +365,7 @@ mod tests {
     #[test]
     fn test_panel_validation() {
         // Test panel validation
-        let (is_valid, set_is_valid) = create_signal(true);
+        let (is_valid, _set_is_valid) = signal(true);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -386,7 +386,7 @@ mod tests {
     #[test]
     fn test_panel_error_handling() {
         // Test panel error handling
-        let (has_error, set_has_error) = create_signal(false);
+        let (has_error, _set_has_error) = signal(false);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -407,7 +407,7 @@ mod tests {
     #[test]
     fn test_panel_loading_states() {
         // Test panel loading states
-        let (is_loading, set_is_loading) = create_signal(false);
+        let (is_loading, _set_is_loading) = signal(false);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -428,7 +428,7 @@ mod tests {
     #[test]
     fn test_panel_async_operations() {
         // Test panel async operations
-        let (operation_status, set_operation_status) = create_signal("idle".to_string());
+        let (operation_status, _set_operation_status) = signal("idle".to_string());
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -449,7 +449,7 @@ mod tests {
     #[test]
     fn test_panel_caching() {
         // Test panel caching
-        let (cache_status, set_cache_status) = create_signal("empty".to_string());
+        let (cache_status, _set_cache_status) = signal("empty".to_string());
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -470,7 +470,7 @@ mod tests {
     #[test]
     fn test_panel_persistence() {
         // Test panel persistence
-        let (persistent_data, set_persistent_data) = create_signal("persistent".to_string());
+        let (persistent_data, _set_persistent_data) = signal("persistent".to_string());
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -491,7 +491,7 @@ mod tests {
     #[test]
     fn test_panel_synchronization() {
         // Test panel synchronization
-        let (sync_status, set_sync_status) = create_signal("synced".to_string());
+        let (sync_status, _set_sync_status) = signal("synced".to_string());
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -512,7 +512,7 @@ mod tests {
     #[test]
     fn test_panel_coordination() {
         // Test panel coordination
-        let (coordination_level, set_coordination_level) = create_signal(0);
+        let (coordination_level, _set_coordination_level) = signal(0);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -533,7 +533,7 @@ mod tests {
     #[test]
     fn test_panel_communication() {
         // Test panel communication
-        let (message_count, set_message_count) = create_signal(0);
+        let (message_count, _set_message_count) = signal(0);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -554,7 +554,7 @@ mod tests {
     #[test]
     fn test_panel_integration() {
         // Test panel integration
-        let (integration_status, set_integration_status) = create_signal("connected".to_string());
+        let (integration_status, _set_integration_status) = signal("connected".to_string());
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -575,7 +575,7 @@ mod tests {
     #[test]
     fn test_panel_compatibility() {
         // Test panel compatibility
-        let (compatibility_level, set_compatibility_level) = create_signal(100);
+        let (compatibility_level, _set_compatibility_level) = signal(100);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -596,7 +596,7 @@ mod tests {
     #[test]
     fn test_panel_interoperability() {
         // Test panel interoperability
-        let (interop_status, set_interop_status) = create_signal("enabled".to_string());
+        let (interop_status, _set_interop_status) = signal("enabled".to_string());
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -617,7 +617,7 @@ mod tests {
     #[test]
     fn test_panel_scalability() {
         // Test panel scalability
-        let (scale_factor, set_scale_factor) = create_signal(1.0);
+        let (scale_factor, _set_scale_factor) = signal(1.0);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -638,7 +638,7 @@ mod tests {
     #[test]
     fn test_panel_extensibility() {
         // Test panel extensibility
-        let (extension_count, set_extension_count) = create_signal(0);
+        let (extension_count, _set_extension_count) = signal(0);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -659,7 +659,7 @@ mod tests {
     #[test]
     fn test_panel_modularity() {
         // Test panel modularity
-        let (module_count, set_module_count) = create_signal(1);
+        let (module_count, _set_module_count) = signal(1);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -680,7 +680,7 @@ mod tests {
     #[test]
     fn test_panel_composability() {
         // Test panel composability
-        let (component_count, set_component_count) = create_signal(1);
+        let (component_count, _set_component_count) = signal(1);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -701,7 +701,7 @@ mod tests {
     #[test]
     fn test_panel_reusability() {
         // Test panel reusability
-        let (reuse_count, set_reuse_count) = create_signal(0);
+        let (reuse_count, _set_reuse_count) = signal(0);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -722,7 +722,7 @@ mod tests {
     #[test]
     fn test_panel_maintainability() {
         // Test panel maintainability
-        let (maintenance_score, set_maintenance_score) = create_signal(100);
+        let (maintenance_score, _set_maintenance_score) = signal(100);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -743,7 +743,7 @@ mod tests {
     #[test]
     fn test_panel_testability() {
         // Test panel testability
-        let (test_coverage, set_test_coverage) = create_signal(100);
+        let (test_coverage, _set_test_coverage) = signal(100);
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -764,7 +764,7 @@ mod tests {
     #[test]
     fn test_panel_debuggability() {
         // Test panel debuggability
-        let (debug_level, set_debug_level) = create_signal("info".to_string());
+        let (debug_level, _set_debug_level) = signal("info".to_string());
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -785,7 +785,7 @@ mod tests {
     #[test]
     fn test_panel_monitoring() {
         // Test panel monitoring
-        let (monitoring_status, set_monitoring_status) = create_signal("active".to_string());
+        let (monitoring_status, _set_monitoring_status) = signal("active".to_string());
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -806,7 +806,7 @@ mod tests {
     #[test]
     fn test_panel_analytics() {
         // Test panel analytics
-        let (analytics_data, set_analytics_data) = create_signal("collected".to_string());
+        let (analytics_data, _set_analytics_data) = signal("collected".to_string());
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -827,7 +827,7 @@ mod tests {
     #[test]
     fn test_panel_reporting() {
         // Test panel reporting
-        let (report_status, set_report_status) = create_signal("generated".to_string());
+        let (report_status, _set_report_status) = signal("generated".to_string());
         
         let resizable_view = view! {
             <ResizablePanelGroup>
@@ -848,9 +848,9 @@ mod tests {
     #[test]
     fn test_panel_comprehensive_functionality() {
         // Test panel comprehensive functionality
-        let (functionality_score, set_functionality_score) = create_signal(100);
-        let (feature_count, set_feature_count) = create_signal(10);
-        let (integration_level, set_integration_level) = create_signal("high".to_string());
+        let (functionality_score, _set_functionality_score) = signal(100);
+        let (feature_count, _set_feature_count) = signal(10);
+        let (integration_level, _set_integration_level) = signal("high".to_string());
         
         let resizable_view = view! {
             <ResizablePanelGroup>

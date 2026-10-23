@@ -4,7 +4,6 @@
 //! components for organizing alert dialog content.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 
 #[component]
 pub fn AlertDialogHeader(

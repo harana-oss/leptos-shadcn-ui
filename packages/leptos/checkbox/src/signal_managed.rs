@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed checkbox state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedCheckboxState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedCheckboxState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedCheckboxState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed checkbox component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedCheckbox(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let checkbox_state_for_disabled = checkbox_state.clone();
+    let _checkbox_state_for_disabled = checkbox_state.clone();
     view! {
         <div
             class=move || computed_class.get()

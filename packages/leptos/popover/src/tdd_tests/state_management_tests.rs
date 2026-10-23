@@ -1,9 +1,9 @@
 #[cfg(test)]
 mod state_management_tests {
     use leptos::prelude::*;
-    use leptos_style::Style;
+    
     use crate::default::Popover;
-    use std::sync::{Arc, Mutex};
+    
 
     // ===== STATE MANAGEMENT TESTS =====
     // These tests focus on state management and interaction logic

@@ -28,7 +28,7 @@ mod memory_tests {
     #[test]
     fn test_signal_memory_manager_add_signal() {
         // Test adding signals to memory manager
-        let mut manager = SignalMemoryManager::new();
+        let manager = SignalMemoryManager::new();
         
         // Test initial state
         assert_eq!(manager.total_signals(), 0);
@@ -51,7 +51,7 @@ mod memory_tests {
     #[test]
     fn test_signal_memory_manager_add_memo() {
         // Test adding memos to memory manager
-        let mut manager = SignalMemoryManager::new();
+        let manager = SignalMemoryManager::new();
         
         // Test initial state
         assert_eq!(manager.total_memos(), 0);
@@ -77,7 +77,7 @@ mod memory_tests {
     #[test]
     fn test_signal_memory_manager_add_signal_to_group() {
         // Test adding signals to groups
-        let mut manager = SignalMemoryManager::new();
+        let manager = SignalMemoryManager::new();
         
         // Add signals to different groups
         let signal1 = ArcRwSignal::new("group1_signal1".to_string());
@@ -100,7 +100,7 @@ mod memory_tests {
     #[test]
     fn test_signal_memory_manager_add_memo_to_group() {
         // Test adding memos to groups
-        let mut manager = SignalMemoryManager::new();
+        let manager = SignalMemoryManager::new();
         
         // Add memos to different groups
         let signal1 = ArcRwSignal::new(10);
@@ -127,7 +127,7 @@ mod memory_tests {
     #[test]
     fn test_signal_memory_manager_memory_limits() {
         // Test memory limits
-        let mut manager = SignalMemoryManager::new();
+        let manager = SignalMemoryManager::new();
         
         // Test initial memory usage
         assert_eq!(manager.memory_usage_kb(), 0.0);
@@ -148,7 +148,7 @@ mod memory_tests {
     #[test]
     fn test_signal_memory_manager_cleanup_group() {
         // Test cleaning up specific groups
-        let mut manager = SignalMemoryManager::new();
+        let manager = SignalMemoryManager::new();
         
         // Add signals to different groups
         let signal1 = ArcRwSignal::new("group1_signal1".to_string());
@@ -175,7 +175,7 @@ mod memory_tests {
     #[test]
     fn test_signal_memory_manager_cleanup_all() {
         // Test cleaning up all signals and memos
-        let mut manager = SignalMemoryManager::new();
+        let manager = SignalMemoryManager::new();
         
         // Add signals and memos
         let signal1 = ArcRwSignal::new("value1".to_string());
@@ -201,7 +201,7 @@ mod memory_tests {
     #[test]
     fn test_signal_memory_manager_clone_behavior() {
         // Test memory manager cloning behavior
-        let mut manager1 = SignalMemoryManager::new();
+        let manager1 = SignalMemoryManager::new();
         let signal = ArcRwSignal::new("test".to_string());
         manager1.add_signal(signal);
         
@@ -225,7 +225,7 @@ mod memory_tests {
     #[test]
     fn test_signal_memory_manager_performance() {
         // Test memory manager performance
-        let mut manager = SignalMemoryManager::new();
+        let manager = SignalMemoryManager::new();
         
         // Test adding many signals
         let start = std::time::Instant::now();
@@ -247,7 +247,7 @@ mod memory_tests {
     #[test]
     fn test_signal_memory_manager_memory_tracking() {
         // Test memory tracking accuracy
-        let mut manager = SignalMemoryManager::new();
+        let manager = SignalMemoryManager::new();
         
         // Test initial memory usage
         let initial_memory = manager.memory_usage_kb();

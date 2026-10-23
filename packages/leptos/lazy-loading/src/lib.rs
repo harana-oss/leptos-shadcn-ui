@@ -3,8 +3,6 @@
 use leptos::prelude::*;
 use leptos::html::ElementChild;
 use leptos::task::spawn_local;
-use leptos::web_sys;
-use leptos::ev::SubmitEvent;
 use leptos_shadcn_error_boundary::{ErrorContext, ErrorSeverity};
 use std::collections::HashMap;
 use std::sync::Arc;
@@ -81,7 +79,7 @@ pub fn LazyComponent(
     Effect::new(move |_| {
         let name = name.clone();
         let loader = loader.clone();
-        let is_mounted = is_mounted.clone();
+        let is_mounted = is_mounted;
 
         spawn_local(async move {
             set_loading.set(true);
@@ -150,8 +148,8 @@ pub fn use_lazy_component(name: &str) -> (ReadSignal<bool>, ReadSignal<Option<Re
         .expect("LazyComponentLoader not found in context");
 
     let name = name.to_string();
-    let is_mounted_for_load = is_mounted.clone();
-    let load = move || {
+    let is_mounted_for_load = is_mounted;
+    let _load = move || {
         set_loading.set(true);
         spawn_local(async move {
             let result = loader.load_component(&name);

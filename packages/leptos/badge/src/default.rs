@@ -5,18 +5,15 @@ pub const BADGE_CLASS: &str = "inline-flex items-center rounded-full border px-2
 
 /// Badge variant types
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub enum BadgeVariant {
+    #[default]
     Default,
     Secondary,
     Destructive,
     Outline,
 }
 
-impl Default for BadgeVariant {
-    fn default() -> Self {
-        BadgeVariant::Default
-    }
-}
 
 impl From<BadgeVariant> for String {
     fn from(variant: BadgeVariant) -> Self {

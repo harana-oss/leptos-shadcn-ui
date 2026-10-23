@@ -26,7 +26,7 @@ mod performance_tests {
     #[test]
     fn test_signal_manager_memory_management() {
         // Test signal manager memory management
-        let manager = TailwindSignalManager::new();
+        let _manager = TailwindSignalManager::new();
         
         // Test signal creation and tracking
         let signal = ArcRwSignal::new("test".to_string());

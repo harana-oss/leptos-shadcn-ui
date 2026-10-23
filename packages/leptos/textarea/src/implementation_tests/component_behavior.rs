@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod component_behavior {
     use leptos::prelude::*;
-    use leptos_style::Style;
+    
 
     // ===== COMPONENT BEHAVIOR TESTS =====
     // These tests focus on component behavior, state management, and interactions

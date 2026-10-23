@@ -89,8 +89,10 @@ impl ComponentStats {
 
 /// Analytics storage configuration
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Default)]
 pub enum StorageMode {
     /// Store data in memory only (lost on page refresh)
+    #[default]
     MemoryOnly,
     /// Store data in localStorage (persists across sessions)
     LocalStorage,
@@ -98,11 +100,6 @@ pub enum StorageMode {
     Hybrid,
 }
 
-impl Default for StorageMode {
-    fn default() -> Self {
-        Self::MemoryOnly
-    }
-}
 
 /// Analytics configuration options
 #[derive(Debug, Clone, PartialEq)]

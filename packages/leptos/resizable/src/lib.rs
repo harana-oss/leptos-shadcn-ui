@@ -4,6 +4,7 @@ pub mod signal_managed;
 pub mod default;
 pub mod new_york;
 pub mod resizable;
+mod shared;
 
 pub use default::{ResizablePanelGroup, ResizablePanel, ResizableHandle};
 pub use new_york::{ResizablePanelGroup as ResizablePanelGroupNewYork, ResizablePanel as ResizablePanelNewYork, ResizableHandle as ResizableHandleNewYork};

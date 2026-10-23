@@ -8,7 +8,6 @@ use leptos_shadcn_performance_audit::{
     benchmarks::{BenchmarkRunner, BenchmarkConfig, BenchmarkSuiteResults},
     regression_testing::{RegressionTester, RegressionTestConfig, RegressionThresholds},
     automated_monitoring::{AutomatedMonitor, MonitoringConfig, AlertChannel},
-    PerformanceAuditError,
 };
 use std::time::Duration;
 use tokio::time::sleep;
@@ -226,7 +225,7 @@ async fn run_regression_tests(
     baseline: PathBuf,
     output: PathBuf,
     update_baseline: bool,
-    commit: Option<String>,
+    _commit: Option<String>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     println!("📊 Running performance regression tests...");
     

@@ -5,7 +5,9 @@ const BUTTON_CLASS: &str = "inline-flex items-center justify-center whitespace-n
 
 /// Button variant types
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Default)]
 pub enum ButtonVariant {
+    #[default]
     Default,
     Destructive,
     Outline,
@@ -14,11 +16,6 @@ pub enum ButtonVariant {
     Link,
 }
 
-impl Default for ButtonVariant {
-    fn default() -> Self {
-        ButtonVariant::Default
-    }
-}
 
 impl From<String> for ButtonVariant {
     fn from(s: String) -> Self {
@@ -35,18 +32,15 @@ impl From<String> for ButtonVariant {
 
 /// Button size types
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Default)]
 pub enum ButtonSize {
+    #[default]
     Default,
     Sm,
     Lg,
     Icon,
 }
 
-impl Default for ButtonSize {
-    fn default() -> Self {
-        ButtonSize::Default
-    }
-}
 
 impl From<String> for ButtonSize {
     fn from(s: String) -> Self {
@@ -83,7 +77,7 @@ pub fn Button(
     #[prop(optional)] children: Option<Children>,
     ) -> impl IntoView {
     let handle_click = {
-        let on_click = on_click.clone();
+        let on_click = on_click;
         move |_| {
             if let Some(callback) = &on_click {
                 callback.run(());

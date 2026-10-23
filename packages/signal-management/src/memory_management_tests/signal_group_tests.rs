@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod signal_group_tests {
     use crate::*;
-    use crate::memory_management::*;
+    
     use leptos::prelude::*;
 
     #[test]
@@ -218,7 +218,7 @@ mod signal_group_tests {
     fn test_signal_group_remove_nonexistent_signal() {
         // Test SignalGroup remove nonexistent signal
         let mut group = SignalGroup::new("test_group".to_string());
-        let signal = ArcRwSignal::new("test_value".to_string());
+        let _signal = ArcRwSignal::new("test_value".to_string());
         
         // Try to remove signal that was never added
         group.remove_signal(0);
@@ -231,7 +231,7 @@ mod signal_group_tests {
     fn test_signal_group_remove_nonexistent_memo() {
         // Test SignalGroup remove nonexistent memo
         let mut group = SignalGroup::new("test_group".to_string());
-        let memo = ArcMemo::new(move |_| 42);
+        let _memo = ArcMemo::new(move |_| 42);
         
         // Try to remove memo that was never added
         group.remove_memo(0);

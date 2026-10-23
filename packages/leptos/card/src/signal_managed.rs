@@ -13,6 +13,7 @@ pub const CARD_FOOTER_CLASS: &str = "flex items-center p-6 pt-0";
 
 /// Signal-managed card state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedCardState {
     pub is_hovered: bool,
     pub is_focused: bool,
@@ -21,17 +22,6 @@ pub struct SignalManagedCardState {
     pub hover_duration: u64,
 }
 
-impl Default for SignalManagedCardState {
-    fn default() -> Self {
-        Self {
-            is_hovered: false,
-            is_focused: false,
-            is_selected: false,
-            click_count: 0,
-            hover_duration: 0,
-        }
-    }
-}
 
 /// Signal-managed Card component
 #[component]

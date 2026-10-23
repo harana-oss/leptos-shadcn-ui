@@ -655,6 +655,6 @@ mod tests {
         tester.test_component_lifecycle("input");
 
         let average_score = tester.get_average_safety_score();
-        assert!(average_score >= 0.0 && average_score <= 100.0);
+        assert!((0.0..=100.0).contains(&average_score));
     }
 }

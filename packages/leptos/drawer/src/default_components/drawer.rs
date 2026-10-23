@@ -4,8 +4,6 @@
 //! keyboard events for the drawer system.
 
 use leptos::prelude::*;
-use web_sys::KeyboardEvent;
-use wasm_bindgen::JsCast;
 use super::types::DrawerDirection;
 
 #[component]

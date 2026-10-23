@@ -5,8 +5,8 @@ mod integration_tests {
         CARD_TITLE_CLASS as CARD_TITLE_CLASS_NY, CARD_DESCRIPTION_CLASS as CARD_DESCRIPTION_CLASS_NY,
         CARD_CONTENT_CLASS as CARD_CONTENT_CLASS_NY, CARD_FOOTER_CLASS as CARD_FOOTER_CLASS_NY
     };
-    use leptos::prelude::*;
-    use leptos_style::Style;
+    
+    
 
     // ===== NEW YORK INTEGRATION TESTS =====
     // These tests focus on integration scenarios and complex usage patterns

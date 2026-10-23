@@ -6,22 +6,19 @@ use std::collections::HashMap;
 
 /// Severity level for form errors
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Default)]
 pub enum FormErrorSeverity {
     /// Informational notice
     Info,
     /// Warning that doesn't prevent submission
     Warning,
     /// Error that must be fixed before submission
+    #[default]
     Error,
     /// Critical error that blocks the entire form
     Critical,
 }
 
-impl Default for FormErrorSeverity {
-    fn default() -> Self {
-        Self::Error
-    }
-}
 
 /// Source location for form errors
 #[derive(Clone, Debug)]
@@ -432,15 +429,14 @@ pub fn Form(
     let handle_submit = move |event: SubmitEvent| {
         event.prevent_default();
         
-        if let Some(target) = event.target() {
-            if let Ok(form) = target.dyn_into::<HtmlFormElement>() {
+        if let Some(target) = event.target()
+            && let Ok(form) = target.dyn_into::<HtmlFormElement>() {
                 let form_data = FormData::from_form(&form);
                 
                 if let Some(callback) = on_submit.as_ref() {
                     callback.run(form_data);
                 }
             }
-        }
     };
     
     let computed_class = Signal::derive(move || {
@@ -642,6 +638,12 @@ pub struct FormData {
     pub fields: std::collections::HashMap<String, String>,
 }
 
+impl Default for FormData {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl FormData {
     pub fn new() -> Self {
         Self {
@@ -655,8 +657,8 @@ impl FormData {
         // Get all form elements
         let elements = form.elements();
         for i in 0..elements.length() {
-            if let Some(element) = elements.get_with_index(i) {
-                if let Ok(input) = element.dyn_into::<HtmlInputElement>() {
+            if let Some(element) = elements.get_with_index(i)
+                && let Ok(input) = element.dyn_into::<HtmlInputElement>() {
                     let name = input.name();
                     let value = input.value();
                     
@@ -664,7 +666,6 @@ impl FormData {
                         form_data.fields.insert(name, value);
                     }
                 }
-            }
         }
         
         form_data

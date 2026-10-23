@@ -2,16 +2,13 @@ use leptos::prelude::*;
 use web_sys::MouseEvent;
 
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub enum CarouselOrientation {
+    #[default]
     Horizontal,
     Vertical,
 }
 
-impl Default for CarouselOrientation {
-    fn default() -> Self {
-        CarouselOrientation::Horizontal
-    }
-}
 
 #[derive(Debug, Clone)]
 pub struct CarouselApi {
@@ -62,7 +59,7 @@ pub fn Carousel(
     };
     
     // Provide default orientation if none is provided
-    let orientation_signal = orientation.get().unwrap_or_else(|| Signal::derive(|| CarouselOrientation::default()));
+    let orientation_signal = orientation.get().unwrap_or_else(|| Signal::derive(CarouselOrientation::default));
     provide_context(orientation_signal);
     provide_context(api);
     provide_context(selected_index);
@@ -139,8 +136,8 @@ pub fn CarouselItem(
 #[component]
 pub fn CarouselPrevious(
     #[prop(into, optional)] class: MaybeProp<String>,
-    #[prop(into, optional)] variant: MaybeProp<String>,
-    #[prop(into, optional)] size: MaybeProp<String>,
+    #[prop(into, optional)] _variant: MaybeProp<String>,
+    #[prop(into, optional)] _size: MaybeProp<String>,
     #[prop(into, optional)] on_click: Option<Callback<()>>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
@@ -194,8 +191,8 @@ pub fn CarouselPrevious(
 #[component]
 pub fn CarouselNext(
     #[prop(into, optional)] class: MaybeProp<String>,
-    #[prop(into, optional)] variant: MaybeProp<String>,
-    #[prop(into, optional)] size: MaybeProp<String>,
+    #[prop(into, optional)] _variant: MaybeProp<String>,
+    #[prop(into, optional)] _size: MaybeProp<String>,
     #[prop(into, optional)] on_click: Option<Callback<()>>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {

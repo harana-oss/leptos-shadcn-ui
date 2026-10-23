@@ -4,7 +4,6 @@
 //! keyboard shortcuts in context menu items.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 
 #[component]
 pub fn ContextMenuShortcut(

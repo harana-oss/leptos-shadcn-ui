@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed textarea state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedTextareaState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedTextareaState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedTextareaState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed textarea component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedTextarea(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let textarea_state_for_disabled = textarea_state.clone();
+    let _textarea_state_for_disabled = textarea_state.clone();
     view! {
         <div
             class=move || computed_class.get()

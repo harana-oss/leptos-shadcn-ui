@@ -6,8 +6,8 @@
 mod accessibility_tests {
     use leptos::prelude::*;
     use crate::default::{
-        Form, FormField, FormItem, FormLabel, FormControl, 
-        FormMessage, FormDescription, FormValidation, FormError, FormData
+        Form, FormField, FormLabel, FormControl, 
+        FormMessage, FormDescription, FormData
     };
 
     #[test]
@@ -81,8 +81,8 @@ mod accessibility_tests {
     #[test]
     fn test_form_submission_with_validation() {
         // Test form submission with validation
-        let (submitted, set_submitted) = signal(false);
-        let form_data = FormData::new();
+        let (_submitted, set_submitted) = signal(false);
+        let _form_data = FormData::new();
         
         let on_submit = Callback::new(move |_data: FormData| {
             set_submitted.set(true);

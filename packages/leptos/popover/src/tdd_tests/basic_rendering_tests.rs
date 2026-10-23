@@ -1,9 +1,9 @@
 #[cfg(test)]
 mod basic_rendering_tests {
     use leptos::prelude::*;
-    use leptos_style::Style;
+    
     use crate::default::Popover;
-    use std::sync::{Arc, Mutex};
+    
 
     // ===== BASIC RENDERING TESTS =====
     // These tests focus on basic rendering and component creation

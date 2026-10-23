@@ -42,12 +42,11 @@ pub async fn parse_component_file(file_path: &Path) -> Result<Option<ComponentMe
                     collect_test_functions(items, &mut tests);
                 }
             }
-            Item::Struct(ref struct_item) => {
+            Item::Struct(ref struct_item)
                 // Check if this is a props struct
-                if struct_item.ident.to_string().ends_with("Props") {
+                if struct_item.ident.to_string().ends_with("Props") => {
                     props.extend(extract_props_from_struct(struct_item));
                 }
-            }
             _ => {}
         }
     }

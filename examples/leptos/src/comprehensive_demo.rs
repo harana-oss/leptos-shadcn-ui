@@ -2,7 +2,6 @@ use leptos::prelude::*;
 use leptos_shadcn_button::{Button, ButtonVariant, ButtonSize};
 use leptos_shadcn_card::{Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter};
 use leptos_shadcn_input::Input;
-use tailwind_rs_core::*;
 
 #[component]
 pub fn ComprehensiveDemo() -> impl IntoView {
@@ -36,11 +35,11 @@ pub fn ComprehensiveDemo() -> impl IntoView {
         }
     };
 
-    let card_classes = move || {
+    let _card_classes = move || {
         "rounded-lg border bg-card text-card-foreground shadow-sm".to_string()
     };
 
-    let button_classes = move || {
+    let _button_classes = move || {
         "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50".to_string()
     };
 

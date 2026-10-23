@@ -16,7 +16,7 @@ pub fn Input(
     #[prop(into, optional)] style: Signal<Style>,
 ) -> impl IntoView {
     let handle_input = {
-        let on_change = on_change.clone();
+        let on_change = on_change;
         move |event: Event| {
             if let Some(callback) = &on_change {
                 let target = event.target().unwrap();

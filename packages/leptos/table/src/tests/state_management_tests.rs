@@ -176,7 +176,7 @@ mod state_management_tests {
     #[test]
     fn test_table_state_cleanup() {
         // Test table state cleanup
-        let table_state = RwSignal::new("initial");
+        let _table_state = RwSignal::new("initial");
         let cleanup_called = RwSignal::new(false);
         
         // Simulate cleanup

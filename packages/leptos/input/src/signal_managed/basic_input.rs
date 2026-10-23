@@ -75,7 +75,7 @@ pub fn SignalManagedInput(
     // Create event handler with proper signal management
     let handle_input = {
         let input_state = input_state.clone();
-        let on_change = on_change.clone();
+        let on_change = on_change;
         move |event: Event| {
             if let Some(callback) = &on_change {
                 let target = event.target().unwrap();
@@ -160,7 +160,8 @@ pub fn SignalManagedInput(
                     </div>
                 }.into_any()
             } else {
-                view! {}.into_any()
+                let _: () = view! {};
+                ().into_any()
             }}
             
             // Performance monitoring (only in development)

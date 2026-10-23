@@ -4,7 +4,6 @@
 //! and ContextMenuSubContent components for nested context menus.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 use web_sys::MouseEvent;
 
 #[component]
@@ -72,7 +71,7 @@ pub fn ContextMenuSubContent(
     #[prop(into, optional)] style: MaybeProp<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let open = expect_context::<RwSignal<bool>>();
+    let _open = expect_context::<RwSignal<bool>>();
 
     let handle_click = move |e: MouseEvent| {
         e.stop_propagation();

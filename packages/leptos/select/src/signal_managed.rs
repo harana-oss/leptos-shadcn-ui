@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed select state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedSelectState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedSelectState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedSelectState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed select component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedSelect(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let select_state_for_disabled = select_state.clone();
+    let _select_state_for_disabled = select_state.clone();
     view! {
         <div
             class=move || computed_class.get()

@@ -1,7 +1,6 @@
 use leptos::prelude::*;
 use leptos_meta::*;
 use wasm_bindgen::prelude::*;
-use web_sys;
 
 // For production: use leptos-shadcn-ui-wasm for proper WASM initialization
 #[cfg(feature = "wasm")]

@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod state_management_tests {
-    use super::*;
+    
     use crate::*;
     use leptos::prelude::*;
 
@@ -388,7 +388,7 @@ mod state_management_tests {
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
         ]);
-        let error_signal = RwSignal::new(None::<String>);
+        let _error_signal = RwSignal::new(None::<String>);
         let _combobox_view = view! {
             <Combobox options=options_signal.get_untracked()/>
         };
@@ -404,7 +404,7 @@ mod state_management_tests {
             ComboboxOption::new("option2", "Option 2"),
         ]);
         let value_signal = RwSignal::new("option1".to_string());
-        let is_valid = Signal::derive(move || {
+        let _is_valid = Signal::derive(move || {
             !value_signal.get().is_empty()
         });
         let _combobox_view = view! {
@@ -424,7 +424,7 @@ mod state_management_tests {
             ComboboxOption::new("option1", "Option 1"),
             ComboboxOption::new("option2", "Option 2"),
         ]);
-        let form_data = RwSignal::new(std::collections::HashMap::<String, String>::new());
+        let _form_data = RwSignal::new(std::collections::HashMap::<String, String>::new());
         let _combobox_view = view! {
             <Combobox options=options_signal.get_untracked()/>
         };
@@ -458,7 +458,7 @@ mod state_management_tests {
             ComboboxOption::new("option2", "Option 2"),
         ]);
         let value_signal = RwSignal::new("option1".to_string());
-        let history = RwSignal::new(vec!["option1".to_string()]);
+        let _history = RwSignal::new(vec!["option1".to_string()]);
         let _combobox_view = view! {
             <Combobox 
                 options=options_signal.get_untracked()

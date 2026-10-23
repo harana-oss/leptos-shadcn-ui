@@ -63,13 +63,11 @@ mod input_tests {
     #[test]
     fn validation_rule_enum_variants() {
         // Test that all ValidationRule variants can be created
-        let rules = vec![
-            ValidationRule::Required,
+        let rules = [ValidationRule::Required,
             ValidationRule::MinLength(5),
             ValidationRule::MaxLength(100),
             ValidationRule::Email,
-            ValidationRule::Pattern("\\d+".to_string()),
-        ];
+            ValidationRule::Pattern("\\d+".to_string())];
         
         assert_eq!(rules.len(), 5, "Should have all validation rule variants");
         

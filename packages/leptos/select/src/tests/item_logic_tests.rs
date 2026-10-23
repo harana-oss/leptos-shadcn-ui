@@ -1,13 +1,13 @@
 #[cfg(test)]
 mod item_logic_tests {
     use leptos::prelude::*;
-    use leptos_style::Style;
+    
 
     #[test]
     fn test_select_item_selection_logic() {
         // Test item selection state
         let selected_item = RwSignal::new(None::<String>);
-        let available_items = vec!["item1", "item2", "item3"];
+        let available_items = ["item1", "item2", "item3"];
         
         // Test initial state
         assert!(selected_item.get().is_none(), "No item should be selected initially");
@@ -30,7 +30,7 @@ mod item_logic_tests {
     fn test_select_item_disabled_logic() {
         // Test disabled item handling
         let disabled_items = RwSignal::new(vec!["disabled_item1".to_string(), "disabled_item2".to_string()]);
-        let all_items = vec!["item1", "item2", "disabled_item1", "disabled_item2", "item3"];
+        let all_items = ["item1", "item2", "disabled_item1", "disabled_item2", "item3"];
         
         // Test disabled item identification
         let disabled = disabled_items.get();

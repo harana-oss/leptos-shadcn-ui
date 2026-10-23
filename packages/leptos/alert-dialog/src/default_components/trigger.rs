@@ -4,7 +4,6 @@
 //! the alert dialog.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 use web_sys::MouseEvent;
 
 #[component]

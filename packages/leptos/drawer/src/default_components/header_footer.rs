@@ -4,7 +4,6 @@
 //! organizing drawer content.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 
 #[component]
 pub fn DrawerHeader(

@@ -108,7 +108,8 @@ pub fn Pagination(
                         </PaginationItem>
                     }.into_any()
                 } else {
-                    view! {}.into_any()
+                    let _: () = view! {};
+                    ().into_any()
                 }}
                 
                 // Page numbers
@@ -144,7 +145,8 @@ pub fn Pagination(
                         </PaginationItem>
                     }.into_any()
                 } else {
-                    view! {}.into_any()
+                    let _: () = view! {};
+                    ().into_any()
                 }}
             </div>
         </nav>
@@ -208,11 +210,10 @@ pub fn PaginationLink(
             class={merged_class}
             disabled={is_disabled}
             on:click=move |_| {
-                if !is_disabled {
-                    if let Some(on_click) = on_click {
+                if !is_disabled
+                    && let Some(on_click) = on_click {
                         on_click.run(());
                     }
-                }
             }
             aria-current={if is_active_val { "page" } else { "false" }}
         >
@@ -241,11 +242,10 @@ pub fn PaginationPrevious(
             class={merged_class}
             disabled={is_disabled}
             on:click=move |_| {
-                if !is_disabled {
-                    if let Some(on_click) = on_click {
+                if !is_disabled
+                    && let Some(on_click) = on_click {
                         on_click.run(());
                     }
-                }
             }
             aria-label="Go to previous page"
         >
@@ -281,11 +281,10 @@ pub fn PaginationNext(
             class={merged_class}
             disabled={is_disabled}
             on:click=move |_| {
-                if !is_disabled {
-                    if let Some(on_click) = on_click {
+                if !is_disabled
+                    && let Some(on_click) = on_click {
                         on_click.run(());
                     }
-                }
             }
             aria-label="Go to next page"
         >

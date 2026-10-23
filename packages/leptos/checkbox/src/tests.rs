@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::default::{Checkbox, CHECKBOX_CLASS};
+    use crate::default::CHECKBOX_CLASS;
     use leptos::prelude::*;
     use std::sync::{Arc, Mutex};
 
@@ -113,7 +113,7 @@ mod tests {
         let checked_states = vec![true, false];
         for state in checked_states {
             // In real implementation, this would test actual DOM structure
-            assert!(state == true || state == false);
+            assert!(state || !state);
         }
     }
 
@@ -137,8 +137,8 @@ mod tests {
         let initial_state = false;
         let toggled_state = !initial_state;
         
-        assert_eq!(initial_state, false);
-        assert_eq!(toggled_state, true);
+        assert!(!initial_state);
+        assert!(toggled_state);
         
         // Test multiple toggles
         let mut current_state = false;

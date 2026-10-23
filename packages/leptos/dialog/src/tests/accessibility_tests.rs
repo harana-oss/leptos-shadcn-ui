@@ -39,7 +39,7 @@ mod accessibility_tests {
         assert!(!open.get(), "Dialog should close when escape key is pressed");
         
         // Test tab navigation
-        let focusable_elements = vec!["trigger", "content", "close-button"];
+        let focusable_elements = ["trigger", "content", "close-button"];
         let current_focus_index = RwSignal::new(0);
         
         current_focus_index.update(|index| *index = (*index + 1) % focusable_elements.len());

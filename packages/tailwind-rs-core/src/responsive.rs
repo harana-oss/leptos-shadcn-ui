@@ -335,7 +335,7 @@ pub mod utils {
 
     /// Check if the screen is in tablet range.
     pub fn is_tablet(screen_width: u32) -> bool {
-        screen_width >= 768 && screen_width < 1024
+        (768..1024).contains(&screen_width)
     }
 
     /// Check if the screen is in desktop range.

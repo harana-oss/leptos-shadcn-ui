@@ -46,6 +46,7 @@ impl Default for StylingProps {
 
 /// Accessibility props for interactive components
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Default)]
 pub struct AccessibilityProps {
     pub aria_label: Option<String>,
     pub aria_describedby: Option<String>,
@@ -54,17 +55,6 @@ pub struct AccessibilityProps {
     pub tabindex: Option<i32>,
 }
 
-impl Default for AccessibilityProps {
-    fn default() -> Self {
-        Self {
-            aria_label: None,
-            aria_describedby: None,
-            aria_labelledby: None,
-            role: None,
-            tabindex: None,
-        }
-    }
-}
 
 /// Form-specific props
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

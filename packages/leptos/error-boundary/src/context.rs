@@ -12,22 +12,19 @@ use std::panic::PanicHookInfo;
 
 /// Severity level of an error
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Default)]
 pub enum ErrorSeverity {
     /// Informational message, not an error
     Info,
     /// Warning that something might be wrong
     Warning,
     /// Error that prevents normal operation
+    #[default]
     Error,
     /// Critical error that requires immediate attention
     Critical,
 }
 
-impl Default for ErrorSeverity {
-    fn default() -> Self {
-        Self::Error
-    }
-}
 
 impl std::fmt::Display for ErrorSeverity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

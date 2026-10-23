@@ -6,6 +6,7 @@ use serde::{Deserialize, Serialize};
 /// A type-safe Tailwind class container that provides compile-time validation
 /// and runtime optimization.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Default)]
 pub struct TailwindClasses {
     /// Base classes that are always applied
     pub base: String,
@@ -109,17 +110,6 @@ impl TailwindClasses {
     }
 }
 
-impl Default for TailwindClasses {
-    fn default() -> Self {
-        Self {
-            base: String::new(),
-            variants: HashMap::new(),
-            responsive: HashMap::new(),
-            states: HashMap::new(),
-            custom: Vec::new(),
-        }
-    }
-}
 
 impl From<String> for TailwindClasses {
     fn from(classes: String) -> Self {

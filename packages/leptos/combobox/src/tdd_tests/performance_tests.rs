@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod performance_tests {
-    use super::*;
+    
     use crate::*;
     use leptos::prelude::*;
 
@@ -562,7 +562,7 @@ mod performance_tests {
             let callback = Callback::new(move |value| {
                 leptos::logging::log!("Combobox {} changed to: {}", i, value);
             });
-            callbacks.push(callback.clone());
+            callbacks.push(callback);
             
             let _combobox_view = view! {
                 <Combobox 

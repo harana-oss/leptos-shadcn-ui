@@ -7,18 +7,15 @@ pub const ALERT_DESCRIPTION_CLASS: &str = "text-sm [&_p]:leading-relaxed";
 
 /// Alert variant types
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub enum AlertVariant {
+    #[default]
     Default,
     Destructive,
     Success,
     Warning,
 }
 
-impl Default for AlertVariant {
-    fn default() -> Self {
-        AlertVariant::Default
-    }
-}
 
 impl From<AlertVariant> for String {
     fn from(variant: AlertVariant) -> Self {

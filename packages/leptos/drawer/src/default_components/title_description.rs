@@ -4,7 +4,6 @@
 //! providing accessible labels and descriptions for the drawer.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 
 #[component]
 pub fn DrawerTitle(

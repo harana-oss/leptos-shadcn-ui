@@ -4,7 +4,9 @@ use leptos_style::Style;
 const SKELETON_CLASS: &str = "animate-pulse rounded-md bg-muted";
 
 #[derive(Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum SkeletonVariant {
+    #[default]
     Default,
     Text,
     Avatar,
@@ -13,11 +15,6 @@ pub enum SkeletonVariant {
     Image,
 }
 
-impl Default for SkeletonVariant {
-    fn default() -> Self {
-        SkeletonVariant::Default
-    }
-}
 
 impl From<String> for SkeletonVariant {
     fn from(s: String) -> Self {
@@ -46,18 +43,15 @@ impl SkeletonVariant {
 }
 
 #[derive(Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum SkeletonSize {
     Sm,
+    #[default]
     Md,
     Lg,
     Xl,
 }
 
-impl Default for SkeletonSize {
-    fn default() -> Self {
-        SkeletonSize::Md
-    }
-}
 
 impl From<String> for SkeletonSize {
     fn from(s: String) -> Self {
@@ -110,16 +104,14 @@ pub fn Skeleton(
 
     let computed_style = Signal::derive(move || {
         let mut style_str = style.get().to_string();
-        if let Some(w) = width.get() {
-            if !w.is_empty() {
+        if let Some(w) = width.get()
+            && !w.is_empty() {
                 style_str = format!("{} width: {};", style_str, w);
             }
-        }
-        if let Some(h) = height.get() {
-            if !h.is_empty() {
+        if let Some(h) = height.get()
+            && !h.is_empty() {
                 style_str = format!("{} height: {};", style_str, h);
             }
-        }
         style_str
     });
 

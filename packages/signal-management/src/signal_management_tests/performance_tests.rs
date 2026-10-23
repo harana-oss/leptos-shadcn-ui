@@ -54,8 +54,8 @@ mod performance_tests {
         // Test integration scenarios
         let manager = TailwindSignalManager::new();
         let mut cleanup = SignalCleanup::new();
-        let mut memory_manager = SignalMemoryManager::new();
-        let mut batched_updater = BatchedSignalUpdater::new();
+        let memory_manager = SignalMemoryManager::new();
+        let batched_updater = BatchedSignalUpdater::new();
         
         // Test signal creation and tracking
         let signal = ArcRwSignal::new("test_value".to_string());
@@ -124,7 +124,7 @@ mod performance_tests {
         // Test large scale operations
         let manager = TailwindSignalManager::new();
         let mut cleanup = SignalCleanup::new();
-        let mut memory_manager = SignalMemoryManager::new();
+        let memory_manager = SignalMemoryManager::new();
         
         // Test creating many signals
         let start = std::time::Instant::now();
@@ -194,7 +194,7 @@ mod performance_tests {
     #[test]
     fn test_signal_management_batched_updates_performance() {
         // Test batched updates performance
-        let mut batched_updater = BatchedSignalUpdater::new();
+        let batched_updater = BatchedSignalUpdater::new();
         
         // Test queuing many updates
         let start = std::time::Instant::now();
@@ -227,7 +227,7 @@ mod performance_tests {
     #[test]
     fn test_signal_management_memory_usage() {
         // Test memory usage tracking
-        let mut memory_manager = SignalMemoryManager::new();
+        let memory_manager = SignalMemoryManager::new();
         
         // Test initial memory usage
         let initial_memory = memory_manager.memory_usage_kb();
@@ -254,7 +254,7 @@ mod performance_tests {
         // Test concurrent-like operations
         let manager = TailwindSignalManager::new();
         let mut cleanup = SignalCleanup::new();
-        let mut batched_updater = BatchedSignalUpdater::new();
+        let batched_updater = BatchedSignalUpdater::new();
         
         let start = std::time::Instant::now();
         

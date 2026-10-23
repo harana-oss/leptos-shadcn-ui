@@ -130,14 +130,12 @@ mod theme_tests {
     #[test]
     fn test_variant_all_variants() {
         // Test all variant types
-        let variants = vec![
-            Variant::Primary,
+        let variants = [Variant::Primary,
             Variant::Secondary,
             Variant::Destructive,
             Variant::Outline,
             Variant::Ghost,
-            Variant::Link,
-        ];
+            Variant::Link];
         
         // Test that all variants are unique
         for (i, variant1) in variants.iter().enumerate() {
@@ -154,11 +152,9 @@ mod theme_tests {
     #[test]
     fn test_size_all_sizes() {
         // Test all size types
-        let sizes = vec![
-            Size::Small,
+        let sizes = [Size::Small,
             Size::Medium,
-            Size::Large,
-        ];
+            Size::Large];
         
         // Test that all sizes are unique
         for (i, size1) in sizes.iter().enumerate() {

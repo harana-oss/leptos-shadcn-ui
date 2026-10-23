@@ -3,7 +3,6 @@
 //! This module contains nested drawer components for complex drawer hierarchies.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 use super::types::DrawerDirection;
 
 #[component]

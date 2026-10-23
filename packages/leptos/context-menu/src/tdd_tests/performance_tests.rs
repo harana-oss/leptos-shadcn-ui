@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod performance_tests {
-    use super::*;
+    
     use crate::*;
     use leptos::prelude::*;
 
@@ -174,7 +174,7 @@ mod performance_tests {
         let _owner = Owner::new();
         _owner.set();
         let open = RwSignal::new(false);
-        let computed_class = Signal::derive(move || {
+        let _computed_class = Signal::derive(move || {
             format!("context-menu-{}", if open.get() { "open" } else { "closed" })
         });
         let _context_menu_view = view! {
@@ -204,7 +204,7 @@ mod performance_tests {
         let _owner = Owner::new();
         _owner.set();
         let open = RwSignal::new(false);
-        let memoized_class = Memo::new(move |_| {
+        let _memoized_class = Memo::new(move |_| {
             format!("context-menu-{}", if open.get() { "open" } else { "closed" })
         });
         let _context_menu_view = view! {
@@ -456,7 +456,7 @@ mod performance_tests {
         let _owner = Owner::new();
         _owner.set();
         for _ in 0..100 {
-            let open = RwSignal::new(false);
+            let _open = RwSignal::new(false);
             let _context_menu_view = view! {
                 <ContextMenu>
                     <ContextMenuTrigger>
@@ -514,7 +514,7 @@ mod performance_tests {
             let callback = Callback::new(move |open: bool| {
                 leptos::logging::log!("Menu {} open state changed: {}", i, open);
             });
-            callbacks.push(callback.clone());
+            callbacks.push(callback);
             
             let _context_menu_view = view! {
                 <ContextMenu>

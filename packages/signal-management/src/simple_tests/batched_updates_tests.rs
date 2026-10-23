@@ -26,7 +26,7 @@ mod batched_updates_tests {
     #[test]
     fn test_batched_signal_updater_queue_update() {
         // Test queuing updates
-        let mut updater = BatchedSignalUpdater::new();
+        let updater = BatchedSignalUpdater::new();
         
         // Test initial queue size
         assert_eq!(updater.queue_size(), 0);
@@ -52,7 +52,7 @@ mod batched_updates_tests {
     #[test]
     fn test_batched_signal_updater_start_batching() {
         // Test starting batching
-        let mut updater = BatchedSignalUpdater::new();
+        let updater = BatchedSignalUpdater::new();
         
         // Test initial state
         assert!(!updater.is_batching());
@@ -65,7 +65,7 @@ mod batched_updates_tests {
     #[test]
     fn test_batched_signal_updater_end_batching() {
         // Test ending batching
-        let mut updater = BatchedSignalUpdater::new();
+        let updater = BatchedSignalUpdater::new();
         
         // Start batching
         updater.start_batching();
@@ -79,7 +79,7 @@ mod batched_updates_tests {
     #[test]
     fn test_batched_signal_updater_flush_updates() {
         // Test flushing updates
-        let mut updater = BatchedSignalUpdater::new();
+        let updater = BatchedSignalUpdater::new();
         
         // Queue updates
         let signal1 = ArcRwSignal::new("initial1".to_string());
@@ -115,7 +115,7 @@ mod batched_updates_tests {
     #[test]
     fn test_batched_signal_updater_clear_queue() {
         // Test clearing queue
-        let mut updater = BatchedSignalUpdater::new();
+        let updater = BatchedSignalUpdater::new();
         
         // Queue updates
         let signal1 = ArcRwSignal::new("initial1".to_string());
@@ -148,7 +148,7 @@ mod batched_updates_tests {
     #[ignore = "contradicts batched_updates_tests::test_batched_signal_updater_max_batch_size_exceeded, which requires queue_update to keep the queue full and return Err at max batch size"]
     fn test_batched_signal_updater_automatic_flush() {
         // Test automatic flush when batch size is reached
-        let mut updater = BatchedSignalUpdater::with_batch_size(3);
+        let updater = BatchedSignalUpdater::with_batch_size(3);
         
         // Queue updates up to batch size
         let signal1 = ArcRwSignal::new("initial1".to_string());
@@ -182,7 +182,7 @@ mod batched_updates_tests {
     #[test]
     fn test_batched_signal_updater_multiple_signals() {
         // Test multiple signals in batch
-        let mut updater = BatchedSignalUpdater::new();
+        let updater = BatchedSignalUpdater::new();
         
         // Queue updates for multiple signals
         let signal1 = ArcRwSignal::new("initial1".to_string());
@@ -217,7 +217,7 @@ mod batched_updates_tests {
     #[test]
     fn test_batched_signal_updater_same_signal_multiple_updates() {
         // Test same signal with multiple updates
-        let mut updater = BatchedSignalUpdater::new();
+        let updater = BatchedSignalUpdater::new();
         
         // Queue multiple updates for same signal
         let signal = ArcRwSignal::new("initial".to_string());
@@ -248,7 +248,7 @@ mod batched_updates_tests {
     #[test]
     fn test_batched_signal_updater_clone_behavior() {
         // Test updater cloning behavior
-        let mut updater1 = BatchedSignalUpdater::new();
+        let updater1 = BatchedSignalUpdater::new();
         let signal = ArcRwSignal::new("test".to_string());
         let signal_clone = signal.clone();
         updater1.queue_update(move || {
@@ -274,7 +274,7 @@ mod batched_updates_tests {
     #[test]
     fn test_batched_signal_updater_performance() {
         // Test updater performance
-        let mut updater = BatchedSignalUpdater::new();
+        let updater = BatchedSignalUpdater::new();
         
         // Test queuing many updates
         let start = std::time::Instant::now();
@@ -310,7 +310,7 @@ mod batched_updates_tests {
     #[test]
     fn test_batched_signal_updater_memory_management() {
         // Test memory management
-        let mut updater = BatchedSignalUpdater::new();
+        let updater = BatchedSignalUpdater::new();
         
         // Queue many updates
         for i in 0..1000 {

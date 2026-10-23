@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod integration_tests {
-    use super::*;
+    
     use crate::*;
     use leptos::prelude::*;
 
@@ -264,7 +264,7 @@ mod integration_tests {
             ComboboxOption::new("option2", "Option 2"),
         ];
         let value = RwSignal::new("option1".to_string());
-        let history = RwSignal::new(vec!["option1".to_string()]);
+        let _history = RwSignal::new(vec!["option1".to_string()]);
         let _combobox_view = view! {
             <Combobox 
                 options=options

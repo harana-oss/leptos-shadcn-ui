@@ -4,7 +4,6 @@
 //! right-click events and positioning.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 use web_sys::MouseEvent;
 use crate::default_components::context_menu::ContextMenuId;
 

@@ -26,7 +26,7 @@ pub fn DatePicker(
         }
     });
     
-    let handle_select = move |date: CalendarDate| {
+    let _handle_select = move |date: CalendarDate| {
         selected_date.set(Some(date.clone()));
         is_open.set(false);
         if let Some(on_select) = on_select {
@@ -80,7 +80,7 @@ pub fn DatePicker(
                             on_select=Callback::new(move |date: CalendarDate| {
                                 selected_date.set(Some(date.clone()));
                                 is_open.set(false);
-                                if let Some(cb) = on_select.clone() {
+                                if let Some(cb) = on_select {
                                     cb.run(date);
                                 }
                             })
@@ -88,7 +88,8 @@ pub fn DatePicker(
                         />
                     </div>
                 }.into_any()
-            } else { view! {}.into_any() }}
+            } else { let _: () = view! {};
+            ().into_any() }}
         </div>
     }
 }
@@ -213,7 +214,8 @@ pub fn DatePickerWithRange(
                         />
                     </div>
                 }.into_any()
-            } else { view! {}.into_any() }}
+            } else { let _: () = view! {};
+            ().into_any() }}
         </div>
     }
 }

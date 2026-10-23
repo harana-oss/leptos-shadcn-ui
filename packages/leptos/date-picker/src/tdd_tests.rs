@@ -3,7 +3,7 @@ mod tdd_tests {
     use leptos::prelude::*;
     use crate::default::DatePicker;
     use leptos_shadcn_calendar::CalendarDate;
-    use std::sync::{Arc, Mutex};
+    
 
     // ===== TDD ENHANCED TESTS - GREEN PHASE =====
     // These tests now implement real functionality and verify actual behavior

@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed input-otp state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedInputOtpState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedInputOtpState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedInputOtpState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed input-otp component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedInputOtp(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let input_otp_state_for_disabled = input_otp_state.clone();
+    let _input_otp_state_for_disabled = input_otp_state.clone();
     view! {
         <div
             class=move || computed_class.get()

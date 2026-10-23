@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod rendering {
     use crate::default::{ButtonVariant, ButtonSize, BUTTON_CLASS};
-    use leptos::prelude::*;
+    
 
     // ===== RENDERING TESTS =====
     // These tests focus on rendering logic, CSS class generation, and visual output

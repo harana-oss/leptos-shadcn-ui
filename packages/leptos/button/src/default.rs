@@ -20,7 +20,9 @@ pub const BUTTON_TOUCH_CLASS: &str = "min-h-[44px] min-w-[44px]";
 
 /// Button variant types
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Default)]
 pub enum ButtonVariant {
+    #[default]
     Default,
     Destructive,
     Outline,
@@ -29,11 +31,6 @@ pub enum ButtonVariant {
     Link,
 }
 
-impl Default for ButtonVariant {
-    fn default() -> Self {
-        ButtonVariant::Default
-    }
-}
 
 impl From<String> for ButtonVariant {
     fn from(s: String) -> Self {
@@ -50,18 +47,15 @@ impl From<String> for ButtonVariant {
 
 /// Button size types
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Default)]
 pub enum ButtonSize {
+    #[default]
     Default,
     Sm,
     Lg,
     Icon,
 }
 
-impl Default for ButtonSize {
-    fn default() -> Self {
-        ButtonSize::Default
-    }
-}
 
 impl From<String> for ButtonSize {
     fn from(s: String) -> Self {
@@ -103,7 +97,7 @@ pub fn Button(
     #[prop(into, optional)] touch_friendly: Signal<bool>,
     ) -> impl IntoView {
     let handle_click = {
-        let on_click = on_click.clone();
+        let on_click = on_click;
         move |_: MouseEvent| {
             if let Some(callback) = &on_click {
                 callback.run(());
@@ -112,7 +106,7 @@ pub fn Button(
     };
 
     let handle_keydown = {
-        let on_click = on_click.clone();
+        let on_click = on_click;
         move |event: KeyboardEvent| {
             if event.key() == "Enter" || event.key() == " " {
                 event.prevent_default();
@@ -187,7 +181,8 @@ pub fn Button(
                             <span class="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" aria-hidden="true"></span>
                         }.into_any()
                     } else {
-                        view! {}.into_any()
+                        let _: () = view! {};
+                        ().into_any()
                     }}
                     {children.map(|c| c())}
                 </button>

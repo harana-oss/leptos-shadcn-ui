@@ -14,7 +14,7 @@ pub fn DataTable(
     #[prop(into, optional)] on_row_click: Option<Callback<DataRow>>,
     #[prop(into, optional)] on_row_select: Option<Callback<Vec<i32>>>,
     #[prop(into, optional)] on_sort: Option<Callback<SortConfig>>,
-    #[prop(into, optional)] on_filter: Option<Callback<Vec<FilterConfig>>>,
+    #[prop(into, optional)] _on_filter: Option<Callback<Vec<FilterConfig>>>,
     #[prop(into, optional)] on_export: Option<Callback<ExportFormat>>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
@@ -42,7 +42,7 @@ pub fn DataTable(
         // Apply filters
         for filter in &state.filters {
             if filter.active {
-                filtered = filtered.into_iter().filter(|row| {
+                filtered.retain(|row| {
                     match filter.column_key.as_str() {
                         "name" => match filter.operator {
                             FilterOperator::Contains => row.name.contains(&filter.value),
@@ -70,7 +70,7 @@ pub fn DataTable(
                         },
                         _ => true,
                     }
-                }).collect();
+                });
             }
         }
         
@@ -105,7 +105,7 @@ pub fn DataTable(
         let state = state.get();
         let filtered = filtered_data.get();
         let start = (state.pagination.current_page - 1) * state.pagination.page_size;
-        let end = start + state.pagination.page_size;
+        let _end = start + state.pagination.page_size;
         
         filtered.into_iter().skip(start as usize).take(state.pagination.page_size as usize).collect::<Vec<_>>()
     });
@@ -142,7 +142,7 @@ pub fn DataTable(
         }
     };
 
-    let handle_row_select = move |row_id: i32| {
+    let _handle_row_select = move |row_id: i32| {
         let mut selected = state.get().selection.selected_rows.clone();
         if selected.contains(&row_id) {
             selected.retain(|&id| id != row_id);

@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed radio-group state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedRadiogroupState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedRadiogroupState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedRadiogroupState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed radio-group component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedRadiogroup(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let radio_group_state_for_disabled = radio_group_state.clone();
+    let _radio_group_state_for_disabled = radio_group_state.clone();
     view! {
         <div
             class=move || computed_class.get()

@@ -5,7 +5,9 @@ const SWITCH_CLASS: &str = "peer inline-flex h-6 w-11 shrink-0 cursor-pointer it
 const SWITCH_THUMB_CLASS: &str = "pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0";
 
 #[derive(Clone, Copy, PartialEq, Debug)]
+#[derive(Default)]
 pub enum SwitchVariant {
+    #[default]
     Default,
     Success,
     Warning,
@@ -13,11 +15,6 @@ pub enum SwitchVariant {
     Info,
 }
 
-impl Default for SwitchVariant {
-    fn default() -> Self {
-        SwitchVariant::Default
-    }
-}
 
 impl From<String> for SwitchVariant {
     fn from(s: String) -> Self {
@@ -44,17 +41,14 @@ impl SwitchVariant {
 }
 
 #[derive(Clone, Copy, PartialEq, Debug)]
+#[derive(Default)]
 pub enum SwitchSize {
     Sm,
+    #[default]
     Md,
     Lg,
 }
 
-impl Default for SwitchSize {
-    fn default() -> Self {
-        SwitchSize::Md
-    }
-}
 
 impl From<String> for SwitchSize {
     fn from(s: String) -> Self {
@@ -100,7 +94,7 @@ pub fn Switch(
     let switch_size = size.get().unwrap_or_default();
     
     let handle_change = {
-        let on_change = on_change.clone();
+        let on_change = on_change;
         move |_event: MouseEvent| {
             if let Some(callback) = &on_change {
                 let new_value = !checked.get();

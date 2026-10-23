@@ -23,7 +23,7 @@ pub fn NavigationMenu(
     provide_context(ctx);
 
     let handle_click = {
-        let on_click = on_click.clone();
+        let on_click = on_click;
         move |_| {
             if let Some(callback) = &on_click {
                 callback.run(());

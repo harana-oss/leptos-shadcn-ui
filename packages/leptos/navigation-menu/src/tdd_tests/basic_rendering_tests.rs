@@ -88,7 +88,7 @@ mod tests {
     #[test]
     fn test_navigation_menu_with_callback() {
         // Test navigation menu with callback
-        let (callback_executed, set_callback_executed) = signal(false);
+        let (_callback_executed, _set_callback_executed) = signal(false);
         let navigation_menu_view = view! {
             <NavigationMenu>
                 <NavigationMenuList>
@@ -458,7 +458,7 @@ mod tests {
     #[test]
     fn test_navigation_menu_dynamic_content() {
         // Test navigation menu dynamic content
-        let (content, set_content) = signal("Dynamic content");
+        let (content, _set_content) = signal("Dynamic content");
         let navigation_menu_view = view! {
             <NavigationMenu>
                 <NavigationMenuList>
@@ -479,7 +479,7 @@ mod tests {
     #[test]
     fn test_navigation_menu_conditional_rendering() {
         // Test navigation menu conditional rendering
-        let (show_content, set_show_content) = signal(true);
+        let (show_content, _set_show_content) = signal(true);
         let navigation_menu_view = view! {
             <NavigationMenu>
                 <NavigationMenuList>

@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed toggle state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedToggleState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedToggleState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedToggleState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed toggle component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedToggle(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let toggle_state_for_disabled = toggle_state.clone();
+    let _toggle_state_for_disabled = toggle_state.clone();
     view! {
         <div
             class=move || computed_class.get()

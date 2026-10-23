@@ -201,27 +201,27 @@ impl ViewportSignal {
         let (viewport, set_viewport) = signal(initial_viewport);
 
         let breakpoint = Memo::new({
-            let viewport = viewport.clone();
+            let viewport = viewport;
             move |_| viewport.get().breakpoint()
         });
 
         let is_mobile = Memo::new({
-            let viewport = viewport.clone();
+            let viewport = viewport;
             move |_| viewport.get().is_mobile()
         });
 
         let is_tablet = Memo::new({
-            let viewport = viewport.clone();
+            let viewport = viewport;
             move |_| viewport.get().is_tablet()
         });
 
         let is_desktop = Memo::new({
-            let viewport = viewport.clone();
+            let viewport = viewport;
             move |_| viewport.get().is_desktop()
         });
 
         let orientation = Memo::new({
-            let viewport = viewport.clone();
+            let viewport = viewport;
             move |_| viewport.get().orientation
         });
 
@@ -342,8 +342,8 @@ pub mod helpers {
         breakpoint: &str,
     ) -> TailwindClasses {
         TailwindClasses::new(base_classes)
-            .custom(&theme_classes(theme_name))
-            .custom(&color_classes(color))
-            .responsive(breakpoint, &responsive_classes(breakpoint))
+            .custom(theme_classes(theme_name))
+            .custom(color_classes(color))
+            .responsive(breakpoint, responsive_classes(breakpoint))
     }
 }

@@ -152,7 +152,7 @@ mod validation_tests {
         for (state, is_valid) in validation_states {
             // Each validation state should be handled
             assert!(!state.is_empty());
-            assert!(is_valid == true || is_valid == false);
+            assert!(is_valid || !is_valid);
         }
     }
 

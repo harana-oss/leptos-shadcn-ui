@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed badge state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedBadgeState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedBadgeState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedBadgeState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed badge component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedBadge(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let badge_state_for_disabled = badge_state.clone();
+    let _badge_state_for_disabled = badge_state.clone();
     view! {
         <div
             class=move || computed_class.get()

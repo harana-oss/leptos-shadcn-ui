@@ -23,7 +23,7 @@ pub fn AspectRatio(
     let computed_style = format!(
         "position: relative; width: 100%; padding-bottom: {}%; {}",
         padding_bottom,
-        style.to_string()
+        style
     );
     
     view! {

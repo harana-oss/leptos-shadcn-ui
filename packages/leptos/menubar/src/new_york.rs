@@ -15,7 +15,7 @@ pub fn Menubar(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let handle_click = {
-        let on_click = on_click.clone();
+        let on_click = on_click;
         move |_| {
             if let Some(callback) = &on_click {
                 callback.run(());

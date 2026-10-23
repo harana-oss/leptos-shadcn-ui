@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed pagination state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedPaginationState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedPaginationState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedPaginationState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed pagination component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedPagination(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let pagination_state_for_disabled = pagination_state.clone();
+    let _pagination_state_for_disabled = pagination_state.clone();
     view! {
         <div
             class=move || computed_class.get()

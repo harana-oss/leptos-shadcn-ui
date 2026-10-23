@@ -13,6 +13,12 @@ pub struct WasmPerformanceTester {
     render_time_limit_ms: u64,
 }
 
+impl Default for WasmPerformanceTester {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl WasmPerformanceTester {
     pub fn new() -> Self {
         Self {

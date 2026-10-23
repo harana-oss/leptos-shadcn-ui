@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed dropdown-menu state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedDropdownmenuState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedDropdownmenuState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedDropdownmenuState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed dropdown-menu component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedDropdownmenu(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let dropdown_menu_state_for_disabled = dropdown_menu_state.clone();
+    let _dropdown_menu_state_for_disabled = dropdown_menu_state.clone();
     view! {
         <div
             class=move || computed_class.get()

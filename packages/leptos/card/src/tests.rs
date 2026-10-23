@@ -67,7 +67,7 @@ mod tests {
         assert!(has_content);
         
         // Test content structure
-        let content_types = vec!["text", "html", "children"];
+        let content_types = ["text", "html", "children"];
         assert!(!content_types.is_empty());
     }
 
@@ -243,7 +243,7 @@ mod tests {
     // Interactive Card Tests
     #[test]
     fn test_interactive_card_behavior() {
-        let (clicked, set_clicked) = signal(false);
+        let (_clicked, set_clicked) = signal(false);
         
         let on_click = Callback::new(move |_| {
             set_clicked.set(true);

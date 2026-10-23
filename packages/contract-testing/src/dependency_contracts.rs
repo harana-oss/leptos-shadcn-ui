@@ -46,10 +46,8 @@ impl DependencyContractTester {
     /// Test that no published dependencies conflict with workspace
     pub fn test_no_published_version_conflicts(&self) -> Result<(), ContractError> {
         // This test should fail initially, demonstrating the TDD red-green-refactor cycle
-        let problematic_deps = vec![
-            "leptos-shadcn-button = { version = \"0.6.0\"",
-            "leptos-shadcn-input = { version = \"0.6.1\"",
-        ];
+        let problematic_deps = ["leptos-shadcn-button = { version = \"0.6.0\"",
+            "leptos-shadcn-input = { version = \"0.6.1\""];
 
         if !problematic_deps.is_empty() {
             return Err(ContractError::ValidationError {

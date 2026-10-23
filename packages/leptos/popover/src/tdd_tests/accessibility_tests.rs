@@ -1,9 +1,9 @@
 #[cfg(test)]
 mod accessibility_tests {
     use leptos::prelude::*;
-    use leptos_style::Style;
+    
     use crate::default::Popover;
-    use std::sync::{Arc, Mutex};
+    
 
     // ===== ACCESSIBILITY TESTS =====
     // These tests focus on accessibility features and ARIA attributes

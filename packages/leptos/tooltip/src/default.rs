@@ -1,6 +1,6 @@
 use leptos::{ev::MouseEvent, prelude::*};
 use leptos_node_ref::AnyNodeRef;
-use leptos_struct_component::{StructComponent, struct_component};
+use leptos_struct_component::StructComponent;
 use leptos_style::Style;
 use tailwind_fuse::*;
 
@@ -19,7 +19,9 @@ pub enum TooltipVariant {
 }
 
 #[derive(Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum TooltipSide {
+    #[default]
     Top,
     Right,
     Bottom,
@@ -43,11 +45,6 @@ impl std::fmt::Display for TooltipSide {
     }
 }
 
-impl Default for TooltipSide {
-    fn default() -> Self {
-        TooltipSide::Top
-    }
-}
 
 #[derive(Clone, StructComponent)]
 #[struct_component(tag = "div")]

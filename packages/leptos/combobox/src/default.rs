@@ -75,15 +75,14 @@ pub fn Combobox(
     
     // Handle input change
     let handle_input_change = move |event: Event| {
-        if let Some(target) = event.target() {
-            if let Ok(input) = target.dyn_into::<HtmlInputElement>() {
+        if let Some(target) = event.target()
+            && let Ok(input) = target.dyn_into::<HtmlInputElement>() {
                 let value = input.value();
                 set_value.run(value.clone());
                 set_input_value.set(value);
                 set_is_open.set(true);
                 set_selected_index.set(0);
             }
-        }
     };
     
     // Handle key navigation
@@ -136,7 +135,7 @@ pub fn Combobox(
     // Handle focus/blur with proper cleanup
     // Use a guard flag to prevent timeout from executing after component unmount
     let (is_mounted, set_is_mounted) = signal(true);
-    let set_is_open_for_timeout = set_is_open.clone();
+    let set_is_open_for_timeout = set_is_open;
 
     let handle_focus = move |_: FocusEvent| {
         set_is_open.set(true);
@@ -144,8 +143,8 @@ pub fn Combobox(
 
     let handle_blur = move |_: FocusEvent| {
         // Delay closing to allow for option clicks
-        let is_mounted = is_mounted.clone();
-        let set_is_open = set_is_open_for_timeout.clone();
+        let is_mounted = is_mounted;
+        let set_is_open = set_is_open_for_timeout;
         set_timeout(
             move || {
                 // Only execute if component is still mounted

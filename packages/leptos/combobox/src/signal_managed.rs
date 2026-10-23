@@ -6,6 +6,7 @@ use leptos_shadcn_signal_management::*;
 
 /// Signal-managed combobox state
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub struct SignalManagedComboboxState {
     pub is_active: bool,
     pub is_hovered: bool,
@@ -13,16 +14,6 @@ pub struct SignalManagedComboboxState {
     pub click_count: u32,
 }
 
-impl Default for SignalManagedComboboxState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
-}
 
 /// Signal-managed combobox component
 #[component]
@@ -93,7 +84,7 @@ pub fn SignalManagedCombobox(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let combobox_state_for_disabled = combobox_state.clone();
+    let _combobox_state_for_disabled = combobox_state.clone();
     view! {
         <div
             class=move || computed_class.get()

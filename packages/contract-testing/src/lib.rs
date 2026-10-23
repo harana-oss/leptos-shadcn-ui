@@ -67,6 +67,12 @@ pub trait ContractTestable {
     fn run_compatibility_tests(&self, other: &dyn ContractTestable) -> Result<(), ContractError>;
 }
 
+impl Default for ContractTester {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl ContractTester {
     pub fn new() -> Self {
         Self {

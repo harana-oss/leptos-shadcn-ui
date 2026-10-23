@@ -135,13 +135,11 @@ mod error_tests {
     #[test]
     fn test_signal_management_error_all_types() {
         // Test all error types
-        let error_types = vec![
-            SignalManagementError::SignalError("signal error".to_string(), None),
+        let error_types = [SignalManagementError::SignalError("signal error".to_string(), None),
             SignalManagementError::MemoError("memo error".to_string(), None),
             SignalManagementError::CleanupError("cleanup error".to_string(), None),
             SignalManagementError::MemoryError("memory error".to_string(), None),
-            SignalManagementError::BatchError("batch error".to_string(), None),
-        ];
+            SignalManagementError::BatchError("batch error".to_string(), None)];
         
         // Test that all error types are unique
         for (i, error1) in error_types.iter().enumerate() {

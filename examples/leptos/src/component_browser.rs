@@ -467,7 +467,7 @@ pub fn ComponentBrowser() -> impl IntoView {
     let (favorites, set_favorites) = signal(initial_favorites);
 
     // Save favorites to localStorage whenever they change
-    let favorites_for_effect = favorites.clone();
+    let favorites_for_effect = favorites;
     create_effect(move |_| {
         let favs = favorites_for_effect.get();
         save_favorites(&favs);
@@ -510,7 +510,7 @@ pub fn ComponentBrowser() -> impl IntoView {
                     || component.category.to_lowercase().contains(&search);
 
                 // Category filter
-                let matches_category = category.as_ref().map_or(true, |cat| cat == &component.category);
+                let matches_category = category.as_ref().is_none_or(|cat| cat == &component.category);
 
                 // Favorites filter
                 let matches_favorites = !favorites_only || current_favorites.contains(&component.id);
@@ -636,7 +636,7 @@ pub fn ComponentBrowser() -> impl IntoView {
                                     };
 
                                     // Create toggle handler for this specific component
-                                    let toggle_this_favorite = toggle_favorite.clone();
+                                    let toggle_this_favorite = toggle_favorite;
                                     let component_id_for_toggle = component_id.clone();
 
                                     view! {
