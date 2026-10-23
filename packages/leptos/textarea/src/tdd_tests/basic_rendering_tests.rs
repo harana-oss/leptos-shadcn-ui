@@ -110,8 +110,8 @@ mod basic_rendering_tests {
                 id="custom-textarea-id"
                 placeholder="Custom textarea"
                 value=""
-                rows=5
-                cols=50
+                attr:rows=5
+                attr:cols=50
             />
         };
         
@@ -164,9 +164,9 @@ mod basic_rendering_tests {
                         placeholder="Conditional textarea"
                         value=""
                     />
-                }.into_view()
+                }.into_any()
             } else {
-                view! {}.into_view()
+                view! {}.into_any()
             }}
         };
         
@@ -198,11 +198,11 @@ mod basic_rendering_tests {
             <Textarea 
                 placeholder="Accessible textarea"
                 value=""
-                aria_label="Message input"
-                aria_required="true"
-                aria_describedby="textarea-description"
-                role="textbox"
-                tabindex="0"
+                attr:aria-label="Message input"
+                attr:aria-required="true"
+                attr:aria-describedby="textarea-description"
+                attr:role="textbox"
+                attr:tabindex="0"
             />
         };
         

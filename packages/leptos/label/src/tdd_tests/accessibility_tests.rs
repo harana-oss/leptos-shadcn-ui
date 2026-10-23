@@ -11,9 +11,9 @@ mod accessibility_tests {
         // Test label accessibility features
         let _accessible_label_view = view! {
             <Label
-                for="input-field"
-                aria_label="Form field label"
-                role="label"
+                {..} for="input-field"
+                attr:aria-label="Form field label"
+                attr:role="label"
             >
                 "Accessible Label"
             </Label>
@@ -34,9 +34,9 @@ mod accessibility_tests {
         // Test label form association
         let _form_label_view = view! {
             <Label
-                for="username-input"
-                aria_required="true"
-                aria_describedby="username-help"
+                {..} for="username-input"
+                attr:aria-required="true"
+                attr:aria-describedby="username-help"
             >
                 "Username"
             </Label>
@@ -57,8 +57,8 @@ mod accessibility_tests {
         // Test required indicator
         let _required_label_view = view! {
             <Label
-                for="required-field"
-                aria_required="true"
+                {..} for="required-field"
+                attr:aria-required="true"
             >
                 <span aria-hidden="true">"*"</span>
                 "Required Field"
@@ -84,8 +84,8 @@ mod accessibility_tests {
         // Test optional indicator
         let _optional_label_view = view! {
             <Label
-                for="optional-field"
-                aria_required="false"
+                {..} for="optional-field"
+                attr:aria-required="false"
             >
                 "Optional Field"
                 <span aria-hidden="true">" (optional)"</span>
@@ -111,9 +111,9 @@ mod accessibility_tests {
         // Test error state
         let _error_label_view = view! {
             <Label
-                for="error-field"
-                aria_invalid="true"
-                aria_describedby="error-message"
+                {..} for="error-field"
+                attr:aria-invalid="true"
+                attr:aria-describedby="error-message"
                 class="error-label"
             >
                 "Field with Error"
@@ -137,8 +137,8 @@ mod accessibility_tests {
         // Test success state
         let _success_label_view = view! {
             <Label
-                for="success-field"
-                aria_invalid="false"
+                {..} for="success-field"
+                attr:aria-invalid="false"
                 class="success-label"
             >
                 "Valid Field"
@@ -160,8 +160,8 @@ mod accessibility_tests {
         // Test help text
         let _help_label_view = view! {
             <Label
-                for="help-field"
-                aria_describedby="help-text"
+                {..} for="help-field"
+                attr:aria-describedby="help-text"
             >
                 "Field with Help"
             </Label>
@@ -180,9 +180,9 @@ mod accessibility_tests {
         // Test screen reader support
         let _screen_reader_label_view = view! {
             <Label
-                for="sr-field"
-                aria_label="Screen reader accessible label"
-                aria_live="polite"
+                {..} for="sr-field"
+                attr:aria-label="Screen reader accessible label"
+                attr:aria-live="polite"
             >
                 "Screen Reader Label"
             </Label>
@@ -203,9 +203,9 @@ mod accessibility_tests {
         // Test keyboard navigation
         let _keyboard_label_view = view! {
             <Label
-                for="keyboard-field"
-                tabindex="0"
-                on_keydown=move |_| {}
+                {..} for="keyboard-field"
+                attr:tabindex="0"
+                on:keydown=move |_| {}
             >
                 "Keyboard Accessible Label"
             </Label>
@@ -224,9 +224,9 @@ mod accessibility_tests {
         // Test focus management
         let _focus_label_view = view! {
             <Label
-                for="focus-field"
-                on_focus=move |_| {}
-                on_blur=move |_| {}
+                {..} for="focus-field"
+                on:focus=move |_| {}
+                on:blur=move |_| {}
             >
                 "Focusable Label"
             </Label>
@@ -243,16 +243,16 @@ mod accessibility_tests {
         // Test ARIA attributes
         let _aria_label_view = view! {
             <Label
-                for="aria-field"
-                aria_label="ARIA label"
-                aria_labelledby="aria-labelledby"
-                aria_describedby="aria-describedby"
-                aria_required="true"
-                aria_invalid="false"
-                aria_expanded="false"
-                aria_selected="false"
-                aria_disabled="false"
-                aria_readonly="false"
+                {..} for="aria-field"
+                attr:aria-label="ARIA label"
+                attr:aria-labelledby="aria-labelledby"
+                attr:aria-describedby="aria-describedby"
+                attr:aria-required="true"
+                attr:aria-invalid="false"
+                attr:aria-expanded="false"
+                attr:aria-selected="false"
+                attr:aria-disabled="false"
+                attr:aria-readonly="false"
             >
                 "ARIA Label"
             </Label>
@@ -287,9 +287,9 @@ mod accessibility_tests {
         // Test high contrast support
         let _high_contrast_label_view = view! {
             <Label
-                for="hc-field"
+                {..} for="hc-field"
                 class="high-contrast"
-                aria_label="High contrast label"
+                attr:aria-label="High contrast label"
             >
                 "High Contrast Label"
             </Label>
@@ -310,9 +310,9 @@ mod accessibility_tests {
         // Test reduced motion support
         let _reduced_motion_label_view = view! {
             <Label
-                for="rm-field"
+                {..} for="rm-field"
                 class="reduce-motion"
-                aria_label="Reduced motion label"
+                attr:aria-label="Reduced motion label"
             >
                 "Reduced Motion Label"
             </Label>

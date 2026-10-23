@@ -8,16 +8,24 @@ pub use default::{
     Switch, SwitchRoot, SwitchThumb, SwitchLabel, SwitchVariant, SwitchSize
 };
 pub use new_york::{
-    Switch as SwitchNewYork, SwitchRoot as SwitchRootNewYork, 
+    Switch as SwitchNewYork, SwitchRoot as SwitchRootNewYork,
     SwitchThumb as SwitchThumbNewYork, SwitchLabel as SwitchLabelNewYork,
     SwitchVariant as SwitchVariantNewYork, SwitchSize as SwitchSizeNewYork
 };
 
 mod tests;
 
+#[cfg(test)]
 mod tdd_tests;
 
 pub mod implementation_tests;
 
 // Signal-managed exports
 pub use signal_managed::*;
+
+// Leptos effects spawn on the async executor; native tests need one.
+#[cfg(test)]
+#[ctor::ctor]
+unsafe fn init_test_executor() {
+    let _ = any_spawner::Executor::init_futures_executor();
+}

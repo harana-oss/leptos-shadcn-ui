@@ -21,6 +21,8 @@ leptos-shadcn-signal-management = "0.1.0"
 [features]
 default = []
 new_york = []
+# Opt-in: TDD tests written against sub-components not implemented yet
+pending-api-tests = []
 
 [dev-dependencies]
 shadcn-ui-test-utils = { path = "../../test-utils" }

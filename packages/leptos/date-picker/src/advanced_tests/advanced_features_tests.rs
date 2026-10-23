@@ -13,6 +13,7 @@ mod tests {
 
     #[test]
     fn test_time_picker_integration() {
+    leptos::prelude::Owner::new().with(|| {
         let test_result = std::panic::catch_unwind(|| {
             let _date_picker_with_time = view! {
                 <DatePicker
@@ -24,10 +25,12 @@ mod tests {
             true
         });
         assert!(test_result.is_ok(), "Time picker integration test failed");
-    }
+    });
+}
 
     #[test]
     fn test_calendar_view_modes() {
+    leptos::prelude::Owner::new().with(|| {
         let test_result = std::panic::catch_unwind(|| {
             let _date_picker_with_view_modes = view! {
                 <DatePicker
@@ -39,10 +42,12 @@ mod tests {
             true
         });
         assert!(test_result.is_ok(), "Calendar view modes test failed");
-    }
+    });
+}
 
     #[test]
     fn test_timezone_support() {
+    leptos::prelude::Owner::new().with(|| {
         let test_result = std::panic::catch_unwind(|| {
             let _date_picker_with_timezone = view! {
                 <DatePicker
@@ -54,10 +59,12 @@ mod tests {
             true
         });
         assert!(test_result.is_ok(), "Timezone support test failed");
-    }
+    });
+}
 
     #[test]
     fn test_inline_calendar_display() {
+    leptos::prelude::Owner::new().with(|| {
         let test_result = std::panic::catch_unwind(|| {
             let _inline_date_picker = view! {
                 <DatePicker
@@ -69,5 +76,6 @@ mod tests {
             true
         });
         assert!(test_result.is_ok(), "Inline calendar display test failed");
-    }
+    });
+}
 }

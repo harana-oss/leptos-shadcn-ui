@@ -8,6 +8,8 @@ mod basic_rendering_tests {
 
     #[test]
     fn test_radio_group_basic_rendering() {
+        let owner = Owner::new();
+        owner.set();
         // Test basic radio group rendering
         // For now, just test that the components exist and can be imported
         // The actual rendering test will be in the GREEN phase
@@ -15,6 +17,8 @@ mod basic_rendering_tests {
 
     #[test]
     fn test_radio_group_with_initial_value() {
+        let owner = Owner::new();
+        owner.set();
         // Test radio group with initial value
         // For now, just test that the components exist and can be imported
         // The actual rendering test will be in the GREEN phase
@@ -22,6 +26,8 @@ mod basic_rendering_tests {
 
     #[test]
     fn test_radio_group_custom_styling() {
+        let owner = Owner::new();
+        owner.set();
         // Test custom styling
         let custom_class = "custom-radio-group";
         let _radio_group_view = view! {
@@ -37,6 +43,8 @@ mod basic_rendering_tests {
 
     #[test]
     fn test_radio_group_variants() {
+        let owner = Owner::new();
+        owner.set();
         // Test radio group variants
         let variants = vec!["default", "destructive", "outline", "secondary", "ghost", "link"];
         
@@ -57,6 +65,8 @@ mod basic_rendering_tests {
 
     #[test]
     fn test_radio_group_sizes() {
+        let owner = Owner::new();
+        owner.set();
         // Test radio group sizes
         let sizes = vec!["small", "default", "large"];
         
@@ -75,6 +85,8 @@ mod basic_rendering_tests {
 
     #[test]
     fn test_radio_group_multiple_items() {
+        let owner = Owner::new();
+        owner.set();
         // Test radio group with multiple items
         let _multi_item_radio_group_view = view! {
             <RadioGroup>
@@ -92,9 +104,13 @@ mod basic_rendering_tests {
 
     #[test]
     fn test_radio_group_item_basic_rendering() {
+        let owner = Owner::new();
+        owner.set();
         // Test basic radio group item rendering
         let _radio_item_view = view! {
+            <RadioGroup>
             <RadioGroupItem value="test-value" />
+            </RadioGroup>
         };
         
         // Test item creation
@@ -104,11 +120,15 @@ mod basic_rendering_tests {
 
     #[test]
     fn test_radio_group_item_with_label() {
+        let owner = Owner::new();
+        owner.set();
         // Test radio group item with label
         let _labeled_radio_item_view = view! {
+            <RadioGroup>
             <RadioGroupItem value="labeled-value">
                 "Label Text"
             </RadioGroupItem>
+            </RadioGroup>
         };
         
         // Test labeled item
@@ -118,13 +138,17 @@ mod basic_rendering_tests {
 
     #[test]
     fn test_radio_group_item_custom_properties() {
+        let owner = Owner::new();
+        owner.set();
         // Test radio group item with custom properties
         let _custom_radio_item_view = view! {
+            <RadioGroup>
             <RadioGroupItem 
                 value="custom-value"
                 class="custom-radio-item"
                 id="custom-radio-id"
             />
+            </RadioGroup>
         };
         
         // Test custom properties
@@ -139,6 +163,8 @@ mod basic_rendering_tests {
 
     #[test]
     fn test_radio_group_nested_structure() {
+        let owner = Owner::new();
+        owner.set();
         // Test nested radio group structure
         let _nested_radio_group_view = view! {
             <RadioGroup>
@@ -156,6 +182,8 @@ mod basic_rendering_tests {
 
     #[test]
     fn test_radio_group_conditional_rendering() {
+        let owner = Owner::new();
+        owner.set();
         // Test conditional rendering
         let show_radio_group = true;
         let _conditional_radio_group_view = view! {
@@ -165,9 +193,9 @@ mod basic_rendering_tests {
                         <RadioGroupItem value="conditional-option1" />
                         <RadioGroupItem value="conditional-option2" />
                     </RadioGroup>
-                }.into_view()
+                }.into_any()
             } else {
-                view! {}.into_view()
+                view! {}.into_any()
             }}
         };
         
@@ -177,11 +205,14 @@ mod basic_rendering_tests {
 
     #[test]
     fn test_radio_group_dynamic_content() {
+        let owner = Owner::new();
+        owner.set();
         // Test dynamic content
         let dynamic_options = vec!["dynamic1", "dynamic2", "dynamic3"];
+        let options_for_view = dynamic_options.clone();
         let _dynamic_radio_group_view = view! {
             <RadioGroup>
-                {dynamic_options.iter().map(|option| {
+                {options_for_view.clone().into_iter().map(|option| {
                     view! {
                         <RadioGroupItem value=option.to_string() />
                     }.into_view()
@@ -198,20 +229,22 @@ mod basic_rendering_tests {
 
     #[test]
     fn test_radio_group_accessibility_attributes() {
+        let owner = Owner::new();
+        owner.set();
         // Test accessibility attributes
         let _accessible_radio_group_view = view! {
             <RadioGroup
-                role="radiogroup"
-                aria-label="Accessible radio group"
-                aria-required="true"
+                attr:role="radiogroup"
+                attr:aria-label="Accessible radio group"
+                attr:aria-required="true"
             >
                 <RadioGroupItem 
                     value="accessible-option1"
-                    aria-label="First option"
+                    attr:aria-label="First option"
                 />
                 <RadioGroupItem 
                     value="accessible-option2"
-                    aria-label="Second option"
+                    attr:aria-label="Second option"
                 />
             </RadioGroup>
         };

@@ -14,6 +14,7 @@ pub mod default_components;
 
 mod tests;
 
+#[cfg(test)]
 mod tdd_tests;
 
 // Signal-managed module and exports

@@ -8,6 +8,7 @@ mod performance_tests {
 
     #[test]
     fn test_switch_memory_management() {
+    leptos::prelude::Owner::new().with(|| {
         // Test memory management
         let memory_checked = RwSignal::new(false);
         let memory_disabled = RwSignal::new(false);
@@ -29,13 +30,15 @@ mod performance_tests {
         
         assert!(memory_checked.get(), "Memory should maintain state");
         assert!(memory_disabled.get(), "Memory should maintain state");
-    }
+    });
+}
 
     #[test]
     fn test_switch_responsive_design() {
+    leptos::prelude::Owner::new().with(|| {
         // Test responsive design
         let responsive_checked = RwSignal::new(false);
-        let responsive_size = RwSignal::new(SwitchSize::Default);
+        let responsive_size = RwSignal::new(SwitchSize::Md);
         
         let _responsive_switch_view = view! {
             <Switch 
@@ -47,23 +50,25 @@ mod performance_tests {
         
         // Test responsive design
         assert!(!responsive_checked.get(), "Responsive should start unchecked");
-        assert_eq!(responsive_size.get(), SwitchSize::Default);
+        assert_eq!(responsive_size.get(), SwitchSize::Md);
         
         // Test responsive changes
-        responsive_size.set(SwitchSize::Large);
+        responsive_size.set(SwitchSize::Lg);
         
-        assert_eq!(responsive_size.get(), SwitchSize::Large);
-    }
+        assert_eq!(responsive_size.get(), SwitchSize::Lg);
+    });
+}
 
     #[test]
     fn test_switch_custom_properties() {
+    leptos::prelude::Owner::new().with(|| {
         // Test custom properties
         let custom_prop = RwSignal::new("custom-value".to_string());
         
         let _custom_switch_view = view! {
             <Switch 
                 checked=RwSignal::new(false)
-                class=move || format!("custom-{}", custom_prop.get())
+                class=Signal::derive(move || format!("custom-{}", custom_prop.get()))
             />
         };
         
@@ -73,10 +78,12 @@ mod performance_tests {
         // Test custom property change
         custom_prop.set("new-value".to_string());
         assert_eq!(custom_prop.get(), "new-value");
-    }
+    });
+}
 
     #[test]
     fn test_switch_advanced_interactions() {
+    leptos::prelude::Owner::new().with(|| {
         // Test advanced interactions
         let interaction_checked = RwSignal::new(false);
         let interaction_disabled = RwSignal::new(false);
@@ -87,10 +94,10 @@ mod performance_tests {
             <Switch 
                 checked=interaction_checked
                 disabled=interaction_disabled
-                on_focus=move |_| interaction_focused.set(true)
-                on_blur=move |_| interaction_focused.set(false)
-                on_mouse_enter=move |_| interaction_hovered.set(true)
-                on_mouse_leave=move |_| interaction_hovered.set(false)
+                on:focus=move |_| interaction_focused.set(true)
+                on:blur=move |_| interaction_focused.set(false)
+                on:mouseenter=move |_| interaction_hovered.set(true)
+                on:mouseleave=move |_| interaction_hovered.set(false)
             />
         };
         
@@ -110,10 +117,12 @@ mod performance_tests {
         assert!(interaction_disabled.get(), "Interaction should be disabled");
         assert!(interaction_focused.get(), "Interaction should be focused");
         assert!(interaction_hovered.get(), "Interaction should be hovered");
-    }
+    });
+}
 
     #[test]
     fn test_switch_performance_comprehensive() {
+    leptos::prelude::Owner::new().with(|| {
         // Test comprehensive performance
         let performance_checked = RwSignal::new(false);
         let performance_disabled = RwSignal::new(false);
@@ -125,7 +134,7 @@ mod performance_tests {
             <Switch 
                 checked=performance_checked
                 disabled=performance_disabled
-                on_focus=move |_| performance_focused.set(true)
+                on:focus=move |_| performance_focused.set(true)
             />
         };
         
@@ -144,10 +153,12 @@ mod performance_tests {
         let state_time = state_start.elapsed();
         
         assert!(state_time.as_millis() < 50, "State changes should be fast");
-    }
+    });
+}
 
     #[test]
     fn test_switch_integration_scenarios() {
+    leptos::prelude::Owner::new().with(|| {
         // Test integration scenarios
         let integration_checked = RwSignal::new(false);
         let integration_disabled = RwSignal::new(false);
@@ -157,8 +168,8 @@ mod performance_tests {
             <Switch 
                 checked=integration_checked
                 disabled=integration_disabled
-                required=integration_required
-                aria_invalid=move || !integration_checked.get() && integration_required.get()
+                attr:required=move || integration_required.get()
+                attr:aria-invalid=move || !integration_checked.get() && integration_required.get()
             />
         };
         
@@ -176,10 +187,12 @@ mod performance_tests {
         integration_disabled.set(true);
         assert!(!integration_checked.get(), "Integration should be unchecked");
         assert!(integration_disabled.get(), "Integration should be disabled");
-    }
+    });
+}
 
     #[test]
     fn test_switch_error_handling() {
+    leptos::prelude::Owner::new().with(|| {
         // Test error handling
         let error_checked = RwSignal::new(false);
         let error_disabled = RwSignal::new(false);
@@ -189,7 +202,7 @@ mod performance_tests {
             <Switch 
                 checked=error_checked
                 disabled=error_disabled
-                aria_invalid=move || !error_checked.get()
+                attr:aria-invalid=move || !error_checked.get()
             />
         };
         
@@ -211,10 +224,12 @@ mod performance_tests {
         
         assert!(error_checked.get(), "Error should be resolved");
         assert_eq!(error_message.get(), "");
-    }
+    });
+}
 
     #[test]
     fn test_switch_form_integration() {
+    leptos::prelude::Owner::new().with(|| {
         // Test form integration
         let form_checked = RwSignal::new(false);
         let form_disabled = RwSignal::new(false);
@@ -225,8 +240,8 @@ mod performance_tests {
             <Switch 
                 checked=form_checked
                 disabled=form_disabled
-                required=form_required
-                aria_invalid=move || !form_checked.get() && form_required.get()
+                attr:required=move || form_required.get()
+                attr:aria-invalid=move || !form_checked.get() && form_required.get()
             />
         };
         
@@ -242,5 +257,6 @@ mod performance_tests {
         
         assert!(form_checked.get(), "Form should be checked");
         assert!(form_valid.get(), "Form should be valid");
-    }
+    });
+}
 }

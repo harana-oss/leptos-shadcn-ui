@@ -1,6 +1,9 @@
 #[cfg(test)]
 mod state_management_tests {
+    #[allow(unused_imports)]
     use super::*;
+    use crate::*;
+    use leptos::prelude::*;
 
     // ===== STATE MANAGEMENT TESTS =====
     // These tests focus on state management and interactions
@@ -13,7 +16,7 @@ mod state_management_tests {
         let _state_pagination_view = view! {
             <Pagination 
                 current_page=MaybeProp::from(current_page)
-                total_pages=total_pages
+                total_pages=total_pages.get_untracked()
             />
         };
         
@@ -66,9 +69,9 @@ mod state_management_tests {
         let _event_pagination_view = view! {
             <Pagination 
                 total_pages=10
-                on_click=move |_| click_handled.set(true)
-                on_focus=move |_| focus_handled.set(true)
-                on_blur=move |_| blur_handled.set(true)
+                on:click=move |_| click_handled.set(true)
+                on:focus=move |_| focus_handled.set(true)
+                on:blur=move |_| blur_handled.set(true)
             />
         };
         
@@ -97,8 +100,8 @@ mod state_management_tests {
         let _form_pagination_view = view! {
             <Pagination 
                 current_page=MaybeProp::from(form_page)
-                total_pages=form_total
-                disabled=MaybeProp::from(form_disabled)
+                total_pages=form_total.get_untracked()
+                attr:disabled=form_disabled
             />
         };
         
@@ -130,13 +133,13 @@ mod state_management_tests {
         let _validation_pagination_view = view! {
             <Pagination 
                 total_pages=10
-                aria_invalid=MaybeProp::from(move || error_state.get())
-                class=MaybeProp::from(move || {
+                attr:aria-invalid=move || error_state.get()
+                class=MaybeProp::from(Signal::derive(move || String::from({
                     if error_state.get() { "error-pagination" }
                     else if warning_state.get() { "warning-pagination" }
                     else if valid_state.get() { "valid-pagination" }
                     else { "default-pagination" }
-                })
+                })))
             />
         };
         
@@ -166,9 +169,9 @@ mod state_management_tests {
         let _focus_pagination_view = view! {
             <Pagination 
                 total_pages=10
-                on_focus=move |_| focused_state.set(true)
-                on_blur=move |_| focused_state.set(false)
-                on_focus_visible=move |_| focus_visible_state.set(true)
+                on:focus=move |_| focused_state.set(true)
+                on:blur=move |_| focused_state.set(false)
+                on:focusin=move |_| focus_visible_state.set(true)
             />
         };
         
@@ -192,13 +195,13 @@ mod state_management_tests {
         let _disabled_pagination_view = view! {
             <Pagination 
                 total_pages=10
-                disabled=MaybeProp::from(disabled_state)
-                readonly=MaybeProp::from(readonly_state)
-                class=MaybeProp::from(move || {
+                attr:disabled=disabled_state
+                attr:readonly=readonly_state
+                class=MaybeProp::from(Signal::derive(move || String::from({
                     if disabled_state.get() { "disabled-pagination" }
                     else if readonly_state.get() { "readonly-pagination" }
                     else { "enabled-pagination" }
-                })
+                })))
             />
         };
         
@@ -231,8 +234,8 @@ mod state_management_tests {
         let _page_pagination_view = view! {
             <Pagination 
                 current_page=MaybeProp::from(current_page)
-                total_pages=total_pages
-                page_size=MaybeProp::from(page_size)
+                total_pages=total_pages.get_untracked()
+                attr:page-size=page_size
             />
         };
         
@@ -258,7 +261,7 @@ mod state_management_tests {
         let _size_pagination_view = view! {
             <Pagination 
                 total_pages=10
-                class=MaybeProp::from(move || format!("pagination-{}", size_signal.get()))
+                class=MaybeProp::from(Signal::derive(move || format!("pagination-{}", size_signal.get())))
             />
         };
         
@@ -280,7 +283,7 @@ mod state_management_tests {
         let _variant_pagination_view = view! {
             <Pagination 
                 total_pages=10
-                class=MaybeProp::from(move || format!("pagination-{}", variant_signal.get()))
+                class=MaybeProp::from(Signal::derive(move || format!("pagination-{}", variant_signal.get())))
             />
         };
         
@@ -305,8 +308,8 @@ mod state_management_tests {
         let _validation_pagination_view = view! {
             <Pagination 
                 current_page=MaybeProp::from(current_page)
-                total_pages=total_pages
-                aria_invalid=MaybeProp::from(move || {
+                total_pages=total_pages.get_untracked()
+                attr:aria-invalid=MaybeProp::from(move || {
                     let page = current_page.get();
                     let total = total_pages.get();
                     page < min_page.get() || page > max_page.get() || page > total
@@ -351,9 +354,9 @@ mod state_management_tests {
         let _consistency_pagination_view = view! {
             <Pagination 
                 current_page=MaybeProp::from(current_page)
-                total_pages=total_pages
-                disabled=MaybeProp::from(disabled)
-                readonly=MaybeProp::from(readonly)
+                total_pages=total_pages.get_untracked()
+                attr:disabled=disabled
+                attr:readonly=readonly
             />
         };
         

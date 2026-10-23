@@ -10,6 +10,7 @@ pub mod new_york;
 
 mod tests;
 
+#[cfg(test)]
 mod tdd_tests;
 
 // Re-export the components for easy access
@@ -20,3 +21,10 @@ pub use new_york as tooltip;
 
 // Signal-managed exports
 pub use signal_managed::*;
+
+// Leptos effects spawn on the async executor; native tests need one.
+#[cfg(test)]
+#[ctor::ctor]
+unsafe fn init_test_executor() {
+    let _ = any_spawner::Executor::init_futures_executor();
+}

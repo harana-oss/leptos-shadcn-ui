@@ -17,6 +17,9 @@ mod integration_tests {
     // ===== TEST 1: Simultaneous Rendering Without Z-Index Conflicts =====
     #[test]
     fn test_multiple_dialogs_simultaneous_rendering() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Multiple dialog components can be rendered simultaneously
         let dialog1_open = RwSignal::new(false);
         let dialog2_open = RwSignal::new(false);
@@ -71,6 +74,9 @@ mod integration_tests {
     // ===== TEST 2: Z-Index Hierarchy with Multiple Components =====
     #[test]
     fn test_z_index_hierarchy_with_overlapping_components() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Dialog maintains z-50 even when other components are present
         let dialog_open = RwSignal::new(false);
         let overlay_content = RwSignal::new(false);
@@ -94,15 +100,11 @@ mod integration_tests {
                 </div>
 
                 // Additional overlay
-                {move || if overlay_content.get() {
-                    view! {
-                        <div class="fixed inset-0 z-40 bg-black/50">
-                            "Additional Overlay"
-                        </div>
-                    }
-                } else {
-                    view! {}
-                }}
+                {move || overlay_content.get().then(|| view! {
+                    <div class="fixed inset-0 z-40 bg-black/50">
+                        "Additional Overlay"
+                    </div>
+                })}
             </div>
         };
 
@@ -119,6 +121,9 @@ mod integration_tests {
     // ===== TEST 3: Event Propagation Isolation =====
     #[test]
     fn test_event_propagation_isolation() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Events from one dialog don't affect other dialogs
         let dialog1_open = RwSignal::new(false);
         let dialog2_open = RwSignal::new(false);
@@ -180,6 +185,9 @@ mod integration_tests {
     // ===== TEST 4: CSS Selector Isolation =====
     #[test]
     fn test_css_selector_isolation() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         // Test: CSS classes don't conflict between multiple dialogs
         let dialog1_open = RwSignal::new(false);
         let dialog2_open = RwSignal::new(false);
@@ -218,6 +226,9 @@ mod integration_tests {
     // ===== TEST 5: Global State Isolation =====
     #[test]
     fn test_global_state_isolation() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Each dialog maintains its own context state
         let dialog1_open = RwSignal::new(false);
         let dialog2_open = RwSignal::new(false);
@@ -268,6 +279,9 @@ mod integration_tests {
     // ===== TEST 6: Concurrent Lifecycle Management =====
     #[test]
     fn test_concurrent_lifecycle_management() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Multiple dialogs can be opened and closed concurrently
         let dialog1_open = RwSignal::new(false);
         let dialog2_open = RwSignal::new(false);
@@ -361,6 +375,9 @@ mod integration_tests {
     // ===== TEST 7: Memory Management with Multiple Dialogs =====
     #[test]
     fn test_memory_management_multiple_dialogs() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Multiple dialogs don't cause memory leaks
         let dialogs: Vec<RwSignal<bool>> = (0..10)
             .map(|_| RwSignal::new(false))
@@ -389,6 +406,9 @@ mod integration_tests {
     // ===== TEST 8: Rapid State Changes =====
     #[test]
     fn test_rapid_state_changes() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Rapid opening and closing doesn't cause conflicts
         let dialog_open = RwSignal::new(false);
 
@@ -414,6 +434,9 @@ mod integration_tests {
     // ===== TEST 9: Nested Dialogs =====
     #[test]
     fn test_nested_dialogs() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Dialogs can be nested within each other
         let outer_dialog_open = RwSignal::new(false);
         let inner_dialog_open = RwSignal::new(false);
@@ -461,6 +484,9 @@ mod integration_tests {
     // ===== TEST 10: Dialog with Other Interactive Components =====
     #[test]
     fn test_dialog_alongside_other_components() {
+        // Components use context; an owner must be active on native.
+        let _owner = Owner::new();
+        _owner.set();
         // Test: Dialog works alongside other interactive components
         let dialog_open = RwSignal::new(false);
         let button_clicks = RwSignal::new(0);

@@ -10,6 +10,7 @@ mod class_constants {
 
     #[test]
     fn test_switch_class_constants() {
+    leptos::prelude::Owner::new().with(|| {
         // Test that switch classes are properly defined
         let switch_class = "peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input";
         let thumb_class = "pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0";
@@ -48,10 +49,12 @@ mod class_constants {
         assert!(thumb_class.contains("transition-transform"));
         assert!(thumb_class.contains("data-[state=checked]:translate-x-5"));
         assert!(thumb_class.contains("data-[state=unchecked]:translate-x-0"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_computed_class_generation() {
+    leptos::prelude::Owner::new().with(|| {
         // Test computed class generation for different states
         let checked_class = "data-[state=checked]:bg-primary";
         let unchecked_class = "data-[state=unchecked]:bg-input";
@@ -63,10 +66,12 @@ mod class_constants {
         assert!(unchecked_class.contains("data-[state=unchecked]"));
         assert!(disabled_class.contains("disabled:"));
         assert!(focus_class.contains("focus-visible:"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_thumb_computed_class_generation() {
+    leptos::prelude::Owner::new().with(|| {
         // Test thumb computed class generation
         let checked_thumb_class = "data-[state=checked]:translate-x-5";
         let unchecked_thumb_class = "data-[state=unchecked]:translate-x-0";
@@ -76,10 +81,12 @@ mod class_constants {
         assert!(checked_thumb_class.contains("translate-x-5"));
         assert!(unchecked_thumb_class.contains("data-[state=unchecked]"));
         assert!(unchecked_thumb_class.contains("translate-x-0"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_variant_checked_class() {
+    leptos::prelude::Owner::new().with(|| {
         // Test variant-specific checked class generation
         let default_checked = "data-[state=checked]:bg-primary";
         let destructive_checked = "data-[state=checked]:bg-destructive";
@@ -89,10 +96,12 @@ mod class_constants {
         assert!(default_checked.contains("bg-primary"));
         assert!(destructive_checked.contains("bg-destructive"));
         assert!(outline_checked.contains("bg-outline"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_size_switch_class() {
+    leptos::prelude::Owner::new().with(|| {
         // Test size-specific switch class generation
         let small_class = "h-4 w-7";
         let default_class = "h-6 w-11";
@@ -105,10 +114,12 @@ mod class_constants {
         assert!(default_class.contains("w-11"));
         assert!(large_class.contains("h-8"));
         assert!(large_class.contains("w-14"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_size_thumb_class() {
+    leptos::prelude::Owner::new().with(|| {
         // Test size-specific thumb class generation
         let small_thumb = "h-3 w-3";
         let default_thumb = "h-5 w-5";
@@ -121,10 +132,12 @@ mod class_constants {
         assert!(default_thumb.contains("w-5"));
         assert!(large_thumb.contains("h-7"));
         assert!(large_thumb.contains("w-7"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_animation_class_logic() {
+    leptos::prelude::Owner::new().with(|| {
         // Test animation class logic
         let transition_class = "transition-colors";
         let transform_class = "transition-transform";
@@ -136,10 +149,12 @@ mod class_constants {
         assert!(transform_class.contains("transition-transform"));
         assert!(duration_class.contains("duration-200"));
         assert!(ease_class.contains("ease-in-out"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_state_attr_generation() {
+    leptos::prelude::Owner::new().with(|| {
         // Test state attribute generation
         let checked_attr = "data-state=\"checked\"";
         let unchecked_attr = "data-state=\"unchecked\"";
@@ -153,10 +168,12 @@ mod class_constants {
         assert!(unchecked_attr.contains("unchecked"));
         assert!(disabled_attr.contains("disabled"));
         assert!(aria_checked_attr.contains("aria-checked"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_border_system() {
+    leptos::prelude::Owner::new().with(|| {
         // Test border system classes
         let border_class = "border-2 border-transparent";
         let border_radius_class = "rounded-full";
@@ -167,10 +184,12 @@ mod class_constants {
         assert!(border_class.contains("border-transparent"));
         assert!(border_radius_class.contains("rounded-full"));
         assert!(border_color_class.contains("border-border"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_ring_system() {
+    leptos::prelude::Owner::new().with(|| {
         // Test ring system classes
         let ring_class = "focus-visible:ring-2 focus-visible:ring-ring";
         let ring_offset_class = "focus-visible:ring-offset-2 focus-visible:ring-offset-background";
@@ -182,10 +201,12 @@ mod class_constants {
         assert!(ring_offset_class.contains("focus-visible:ring-offset-2"));
         assert!(ring_offset_class.contains("focus-visible:ring-offset-background"));
         assert!(ring_color_class.contains("focus-visible:ring-primary"));
-    }
+    });
+}
 
     #[test]
     fn test_switch_transition_system() {
+    leptos::prelude::Owner::new().with(|| {
         // Test transition system classes
         let color_transition = "transition-colors";
         let transform_transition = "transition-transform";
@@ -203,5 +224,6 @@ mod class_constants {
         assert!(duration_300.contains("duration-300"));
         assert!(ease_in_out.contains("ease-in-out"));
         assert!(ease_out.contains("ease-out"));
-    }
+    });
+}
 }

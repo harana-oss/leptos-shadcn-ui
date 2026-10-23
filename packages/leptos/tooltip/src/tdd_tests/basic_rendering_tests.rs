@@ -13,14 +13,14 @@ mod tests {
     #[test]
     fn test_tooltip_basic_rendering() {
         // Test basic tooltip rendering
-        let tooltip_view = view! {
+        let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger>"Hover me"</TooltipTrigger>
                     <TooltipContent>"Tooltip content"</TooltipContent>
                 </Tooltip>
             </TooltipProvider>
-        };
+        });
         
         // Verify component creation doesn't panic
         let _ = tooltip_view.into_view();
@@ -29,14 +29,14 @@ mod tests {
     #[test]
     fn test_tooltip_with_custom_content() {
         // Test tooltip with custom content
-        let tooltip_view = view! {
+        let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger>"Custom trigger"</TooltipTrigger>
                     <TooltipContent>"Custom tooltip content"</TooltipContent>
                 </Tooltip>
             </TooltipProvider>
-        };
+        });
         
         // Verify component creation doesn't panic
         let _ = tooltip_view.into_view();
@@ -45,7 +45,7 @@ mod tests {
     #[test]
     fn test_tooltip_with_html_content() {
         // Test tooltip with HTML content
-        let tooltip_view = view! {
+        let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger>"HTML trigger"</TooltipTrigger>
@@ -54,7 +54,7 @@ mod tests {
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>
-        };
+        });
         
         // Verify component creation doesn't panic
         let _ = tooltip_view.into_view();
@@ -63,14 +63,14 @@ mod tests {
     #[test]
     fn test_tooltip_custom_styling() {
         // Test tooltip with custom styling
-        let tooltip_view = view! {
+        let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger class="custom-trigger">"Styled trigger"</TooltipTrigger>
                     <TooltipContent class="custom-content">"Styled content"</TooltipContent>
                 </Tooltip>
             </TooltipProvider>
-        };
+        });
         
         // Verify component creation doesn't panic
         let _ = tooltip_view.into_view();
@@ -79,14 +79,14 @@ mod tests {
     #[test]
     fn test_tooltip_variants() {
         // Test different tooltip variants
-        let tooltip_view = view! {
+        let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger>"Default variant"</TooltipTrigger>
                     <TooltipContent>"Default tooltip"</TooltipContent>
                 </Tooltip>
             </TooltipProvider>
-        };
+        });
         
         // Verify component creation doesn't panic
         let _ = tooltip_view.into_view();
@@ -95,14 +95,14 @@ mod tests {
     #[test]
     fn test_tooltip_sizes() {
         // Test different tooltip sizes
-        let tooltip_view = view! {
+        let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger>"Size test"</TooltipTrigger>
                     <TooltipContent>"Size tooltip"</TooltipContent>
                 </Tooltip>
             </TooltipProvider>
-        };
+        });
         
         // Verify component creation doesn't panic
         let _ = tooltip_view.into_view();
@@ -111,14 +111,14 @@ mod tests {
     #[test]
     fn test_tooltip_with_id() {
         // Test tooltip with custom ID
-        let tooltip_view = view! {
+        let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger id="custom-trigger">"ID trigger"</TooltipTrigger>
                     <TooltipContent id="custom-content">"ID content"</TooltipContent>
                 </Tooltip>
             </TooltipProvider>
-        };
+        });
         
         // Verify component creation doesn't panic
         let _ = tooltip_view.into_view();
@@ -127,14 +127,14 @@ mod tests {
     #[test]
     fn test_tooltip_with_style() {
         // Test tooltip with custom style
-        let tooltip_view = view! {
+        let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
                 <Tooltip>
-                    <TooltipTrigger style="color: red;">"Styled trigger"</TooltipTrigger>
-                    <TooltipContent style="background: blue;">"Styled content"</TooltipContent>
+                    <TooltipTrigger style=Signal::stored(leptos_style::Style::from("color: red;"))>"Styled trigger"</TooltipTrigger>
+                    <TooltipContent style=Signal::stored(leptos_style::Style::from("background: blue;"))>"Styled content"</TooltipContent>
                 </Tooltip>
             </TooltipProvider>
-        };
+        });
         
         // Verify component creation doesn't panic
         let _ = tooltip_view.into_view();
@@ -143,7 +143,7 @@ mod tests {
     #[test]
     fn test_tooltip_multiple_instances() {
         // Test multiple tooltip instances
-        let tooltip_view = view! {
+        let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger>"First tooltip"</TooltipTrigger>
@@ -154,7 +154,7 @@ mod tests {
                     <TooltipContent>"Second content"</TooltipContent>
                 </Tooltip>
             </TooltipProvider>
-        };
+        });
         
         // Verify component creation doesn't panic
         let _ = tooltip_view.into_view();
@@ -163,14 +163,14 @@ mod tests {
     #[test]
     fn test_tooltip_edge_cases() {
         // Test edge cases
-        let tooltip_view = view! {
+        let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger>""</TooltipTrigger>
                     <TooltipContent>""</TooltipContent>
                 </Tooltip>
             </TooltipProvider>
-        };
+        });
         
         // Verify component creation doesn't panic
         let _ = tooltip_view.into_view();
@@ -179,7 +179,7 @@ mod tests {
     #[test]
     fn test_tooltip_children_content() {
         // Test tooltip with children content
-        let tooltip_view = view! {
+        let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger>
@@ -192,7 +192,7 @@ mod tests {
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>
-        };
+        });
         
         // Verify component creation doesn't panic
         let _ = tooltip_view.into_view();
@@ -203,7 +203,7 @@ mod tests {
         // Test tooltip with dynamic content
         let (count, set_count) = create_signal(0);
         
-        let tooltip_view = view! {
+        let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger>"Dynamic trigger"</TooltipTrigger>
@@ -212,7 +212,7 @@ mod tests {
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>
-        };
+        });
         
         // Verify component creation doesn't panic
         let _ = tooltip_view.into_view();
@@ -223,7 +223,7 @@ mod tests {
         // Test tooltip with conditional rendering
         let (show_tooltip, set_show_tooltip) = create_signal(true);
         
-        let tooltip_view = view! {
+        let tooltip_view = Owner::new().with(|| view! {
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger>"Conditional trigger"</TooltipTrigger>
@@ -232,7 +232,7 @@ mod tests {
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>
-        };
+        });
         
         // Verify component creation doesn't panic
         let _ = tooltip_view.into_view();

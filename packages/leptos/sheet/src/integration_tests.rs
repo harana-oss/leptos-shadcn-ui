@@ -30,9 +30,9 @@ mod integration_tests {
                             "Toggle Sheet 1"
                         </button>
                         {move || if sheet1_open.get() {
-                            view! { <div>"Sheet 1 Content"</div> }
+                            view! { <div>"Sheet 1 Content"</div> }.into_any()
                         } else {
-                            view! {}
+                            view! {}.into_any()
                         }}
                     </div>
                 </Sheet>
@@ -43,9 +43,9 @@ mod integration_tests {
                             "Toggle Sheet 2"
                         </button>
                         {move || if sheet2_open.get() {
-                            view! { <div>"Sheet 2 Content"</div> }
+                            view! { <div>"Sheet 2 Content"</div> }.into_any()
                         } else {
-                            view! {}
+                            view! {}.into_any()
                         }}
                     </div>
                 </Sheet>
@@ -56,9 +56,9 @@ mod integration_tests {
                             "Toggle Sheet 3"
                         </button>
                         {move || if sheet3_open.get() {
-                            view! { <div>"Sheet 3 Content"</div> }
+                            view! { <div>"Sheet 3 Content"</div> }.into_any()
                         } else {
-                            view! {}
+                            view! {}.into_any()
                         }}
                     </div>
                 </Sheet>
@@ -107,9 +107,9 @@ mod integration_tests {
                                     <div class="fixed inset-0 z-50 bg-background">
                                         "Sheet should appear above other content"
                                     </div>
-                                }
+                                }.into_any()
                             } else {
-                                view! {}
+                                view! {}.into_any()
                             }}
                         </div>
                     </Sheet>
@@ -121,9 +121,9 @@ mod integration_tests {
                         <div class="fixed inset-0 z-40 bg-black/50">
                             "Additional Overlay"
                         </div>
-                    }
+                    }.into_any()
                 } else {
-                    view! {}
+                    view! {}.into_any()
                 }}
             </div>
         };
@@ -168,9 +168,9 @@ mod integration_tests {
                                 >
                                     "Sheet 1 Content - Click to close"
                                 </div>
-                            }
+                            }.into_any()
                         } else {
-                            view! {}
+                            view! {}.into_any()
                         }}
                     </div>
                 </Sheet>
@@ -195,9 +195,9 @@ mod integration_tests {
                                 >
                                     "Sheet 2 Content - Click to close"
                                 </div>
-                            }
+                            }.into_any()
                         } else {
-                            view! {}
+                            view! {}.into_any()
                         }}
                     </div>
                 </Sheet>
@@ -235,9 +235,9 @@ mod integration_tests {
                             "Sheet 1"
                         </button>
                         {move || if sheet1_open.get() {
-                            view! { <div class="sheet-body">"Sheet 1 Content"</div> }
+                            view! { <div class="sheet-body">"Sheet 1 Content"</div> }.into_any()
                         } else {
-                            view! {}
+                            view! {}.into_any()
                         }}
                     </div>
                 </Sheet>
@@ -251,9 +251,9 @@ mod integration_tests {
                             "Sheet 2"
                         </button>
                         {move || if sheet2_open.get() {
-                            view! { <div class="sheet-body">"Sheet 2 Content"</div> }
+                            view! { <div class="sheet-body">"Sheet 2 Content"</div> }.into_any()
                         } else {
-                            view! {}
+                            view! {}.into_any()
                         }}
                     </div>
                 </Sheet>
@@ -288,9 +288,9 @@ mod integration_tests {
                                 <div>
                                     {shared_state.get()}
                                 </div>
-                            }
+                            }.into_any()
                         } else {
-                            view! {}
+                            view! {}.into_any()
                         }}
                     </div>
                 </Sheet>
@@ -305,9 +305,9 @@ mod integration_tests {
                                 <div>
                                     {shared_state.get()}
                                 </div>
-                            }
+                            }.into_any()
                         } else {
-                            view! {}
+                            view! {}.into_any()
                         }}
                     </div>
                 </Sheet>
@@ -353,9 +353,9 @@ mod integration_tests {
                             "Sheet 1"
                         </button>
                         {move || if sheet1_open.get() {
-                            view! { <div>"Sheet 1 Content"</div> }
+                            view! { <div>"Sheet 1 Content"</div> }.into_any()
                         } else {
-                            view! {}
+                            view! {}.into_any()
                         }}
                     </div>
                 </Sheet>
@@ -371,9 +371,9 @@ mod integration_tests {
                             "Sheet 2"
                         </button>
                         {move || if sheet2_open.get() {
-                            view! { <div>"Sheet 2 Content"</div> }
+                            view! { <div>"Sheet 2 Content"</div> }.into_any()
                         } else {
-                            view! {}
+                            view! {}.into_any()
                         }}
                     </div>
                 </Sheet>
@@ -389,9 +389,9 @@ mod integration_tests {
                             "Sheet 3"
                         </button>
                         {move || if sheet3_open.get() {
-                            view! { <div>"Sheet 3 Content"</div> }
+                            view! { <div>"Sheet 3 Content"</div> }.into_any()
                         } else {
-                            view! {}
+                            view! {}.into_any()
                         }}
                     </div>
                 </Sheet>
@@ -435,9 +435,9 @@ mod integration_tests {
                                     {format!("Sheet {}", i)}
                                 </button>
                                 {move || if open.get() {
-                                    view! { <div>{format!("Sheet {} Content", i)}</div> }
+                                    view! { <div>{format!("Sheet {} Content", i)}</div> }.into_any()
                                 } else {
-                                    view! {}
+                                    view! {}.into_any()
                                 }}
                             </div>
                         </Sheet>
@@ -462,9 +462,9 @@ mod integration_tests {
                         "Toggle Sheet"
                     </button>
                     {move || if sheet_open.get() {
-                        view! { <div>"Sheet Content"</div> }
+                        view! { <div>"Sheet Content"</div> }.into_any()
                     } else {
-                        view! {}
+                        view! {}.into_any()
                     }}
                 </div>
             </Sheet>
@@ -503,17 +503,17 @@ mod integration_tests {
                                                 "Inner Sheet"
                                             </button>
                                             {move || if inner_sheet_open.get() {
-                                                view! { <div>"This is a nested sheet"</div> }
+                                                view! { <div>"This is a nested sheet"</div> }.into_any()
                                             } else {
-                                                view! {}
+                                                view! {}.into_any()
                                             }}
                                         </div>
                                     </Sheet>
                                 </div>
                             </div>
-                        }
+                        }.into_any()
                     } else {
-                        view! {}
+                        view! {}.into_any()
                     }}
                 </div>
             </Sheet>
@@ -566,9 +566,9 @@ mod integration_tests {
                             "Toggle Sheet"
                         </button>
                         {move || if sheet_open.get() {
-                            view! { <div>"Sheet Content"</div> }
+                            view! { <div>"Sheet Content"</div> }.into_any()
                         } else {
-                            view! {}
+                            view! {}.into_any()
                         }}
                     </div>
                 </Sheet>
@@ -603,9 +603,9 @@ mod integration_tests {
                             "Default Sheet"
                         </button>
                         {move || if default_open.get() {
-                            view! { <div>"Default Theme Content"</div> }
+                            view! { <div>"Default Theme Content"</div> }.into_any()
                         } else {
-                            view! {}
+                            view! {}.into_any()
                         }}
                     </div>
                 </Sheet>
@@ -616,9 +616,9 @@ mod integration_tests {
                             "New York Sheet"
                         </button>
                         {move || if newyork_open.get() {
-                            view! { <div>"New York Theme Content"</div> }
+                            view! { <div>"New York Theme Content"</div> }.into_any()
                         } else {
-                            view! {}
+                            view! {}.into_any()
                         }}
                     </div>
                 </Sheet>

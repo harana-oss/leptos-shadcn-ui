@@ -59,9 +59,7 @@ mod tests {
         let style = Style::new();
         assert!(style.to_string().is_empty());
         
-        let custom_style = Style::new()
-            .set("color", "red")
-            .set("font-size", "16px");
+        let custom_style = Style::from([("color", "red"), ("font-size", "16px")]);
         
         let style_string = custom_style.to_string();
         assert!(style_string.contains("color: red"));
