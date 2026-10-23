@@ -83,8 +83,8 @@ mod state_management_tests {
             <Textarea 
                 value=form_value
                 disabled=form_disabled
-                required=form_required
-                name=form_name
+                attr:required=form_required
+                attr:name=form_name
                 placeholder="Form textarea"
             />
         };
@@ -120,8 +120,8 @@ mod state_management_tests {
             <Textarea 
                 placeholder="Validation textarea"
                 value=""
-                aria_invalid=move || error_state.get()
-                aria_required="true"
+                attr:aria-invalid=move || error_state.get()
+                attr:aria-required="true"
             />
         };
         
@@ -153,8 +153,8 @@ mod state_management_tests {
             <Textarea 
                 placeholder="Focus textarea"
                 value=""
-                on_focus=move |_| focused_state.set(true)
-                on_blur=move |_| focused_state.set(false)
+                on:focus=move |_| focused_state.set(true)
+                on:blur=move |_| focused_state.set(false)
             />
         };
         
@@ -181,9 +181,9 @@ mod state_management_tests {
             <Textarea 
                 placeholder="Event textarea"
                 value=""
-                on_input=move |_| input_handled.set(true)
-                on_change=move |_| change_handled.set(true)
-                on_keydown=move |_| keydown_handled.set(true)
+                on:input=move |_| input_handled.set(true)
+                on:change=move |_| change_handled.set(true)
+                on:keydown=move |_| keydown_handled.set(true)
             />
         };
         
@@ -236,8 +236,8 @@ mod state_management_tests {
             <Textarea 
                 placeholder="Size textarea"
                 value=""
-                rows=rows_signal
-                cols=cols_signal
+                attr:rows=rows_signal
+                attr:cols=cols_signal
             />
         };
         
@@ -264,7 +264,7 @@ mod state_management_tests {
         let _validation_textarea_view = view! {
             <Textarea 
                 value=value
-                required=required
+                attr:required=required
                 placeholder="Validation textarea"
             />
         };
@@ -308,8 +308,8 @@ mod state_management_tests {
             <Textarea 
                 value=value
                 disabled=disabled
-                required=required
-                readonly=readonly
+                attr:required=required
+                attr:readonly=readonly
                 placeholder="Consistency textarea"
             />
         };
@@ -348,11 +348,11 @@ mod state_management_tests {
             <Textarea 
                 placeholder="Accessibility textarea"
                 value=""
-                aria_label="Message input"
-                aria_required="true"
-                aria_describedby="textarea-description"
-                role="textbox"
-                tabindex="0"
+                attr:aria-label="Message input"
+                attr:aria-required="true"
+                attr:aria-describedby="textarea-description"
+                attr:role="textbox"
+                attr:tabindex="0"
             />
         };
         

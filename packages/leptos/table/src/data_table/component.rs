@@ -1,8 +1,7 @@
 use leptos::prelude::*;
-use leptos_style::Style;
-use std::collections::HashMap;
 use super::types::*;
 
+/// Main DataTable component
 #[component]
 pub fn DataTable(
     #[prop(into, optional)] class: MaybeProp<String>,
@@ -17,19 +16,31 @@ pub fn DataTable(
     #[prop(into, optional)] on_sort: Option<Callback<SortConfig>>,
     #[prop(into, optional)] on_filter: Option<Callback<Vec<FilterConfig>>>,
     #[prop(into, optional)] on_export: Option<Callback<ExportFormat>>,
-    children: Children,
+    #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let state = RwSignal::new(DataTableState::default());
+    
+    // Initialize state with props
+    if let Some(data) = data.get_untracked() {
+        state.update(|s| s.data = data);
+    }
+    if let Some(columns) = columns.get_untracked() {
+        state.update(|s| s.columns = columns);
+    }
+    if let Some(loading) = loading.get_untracked() {
+        state.update(|s| s.loading = loading);
+    }
+    if let Some(error) = error.get_untracked() {
+        state.update(|s| s.error = error);
+    }
 
-    if let Some(data) = data.get() { state.update(|s| s.data = data.clone()); }
-    if let Some(cols) = columns.get() { state.update(|s| s.columns = cols.clone()); }
-    if let Some(ld) = loading.get() { state.update(|s| s.loading = ld); }
-    if let Some(err) = error.get() { state.update(|s| s.error = err.clone()); }
-
+    // Computed values
     let filtered_data = Signal::derive(move || {
-        let state_snapshot = state.get();
-        let mut filtered = state_snapshot.data.clone();
-        for filter in &state_snapshot.filters {
+        let state = state.get();
+        let mut filtered = state.data.clone();
+        
+        // Apply filters
+        for filter in &state.filters {
             if filter.active {
                 filtered = filtered.into_iter().filter(|row| {
                     match filter.column_key.as_str() {
@@ -53,27 +64,31 @@ pub fn DataTable(
                                     FilterOperator::LessThan => row.age < age,
                                     _ => true,
                                 }
-                            } else { true }
+                            } else {
+                                true
+                            }
                         },
                         _ => true,
                     }
                 }).collect();
             }
         }
-        if state_snapshot.sort_config.active {
+        
+        // Apply sorting
+        if state.sort_config.active {
             filtered.sort_by(|a, b| {
-                match state_snapshot.sort_config.column_key.as_str() {
-                    "name" => match state_snapshot.sort_config.direction {
+                match state.sort_config.column_key.as_str() {
+                    "name" => match state.sort_config.direction {
                         SortDirection::Ascending => a.name.cmp(&b.name),
                         SortDirection::Descending => b.name.cmp(&a.name),
                         _ => std::cmp::Ordering::Equal,
                     },
-                    "email" => match state_snapshot.sort_config.direction {
+                    "email" => match state.sort_config.direction {
                         SortDirection::Ascending => a.email.cmp(&b.email),
                         SortDirection::Descending => b.email.cmp(&a.email),
                         _ => std::cmp::Ordering::Equal,
                     },
-                    "age" => match state_snapshot.sort_config.direction {
+                    "age" => match state.sort_config.direction {
                         SortDirection::Ascending => a.age.cmp(&b.age),
                         SortDirection::Descending => b.age.cmp(&a.age),
                         _ => std::cmp::Ordering::Equal,
@@ -82,17 +97,20 @@ pub fn DataTable(
                 }
             });
         }
+        
         filtered
     });
 
     let paginated_data = Signal::derive(move || {
-        let state_snapshot = state.get();
+        let state = state.get();
         let filtered = filtered_data.get();
-        let start = (state_snapshot.pagination.current_page - 1) * state_snapshot.pagination.page_size;
-        let end = start + state_snapshot.pagination.page_size;
-        filtered.into_iter().skip(start as usize).take(state_snapshot.pagination.page_size as usize).collect::<Vec<_>>()
+        let start = (state.pagination.current_page - 1) * state.pagination.page_size;
+        let end = start + state.pagination.page_size;
+        
+        filtered.into_iter().skip(start as usize).take(state.pagination.page_size as usize).collect::<Vec<_>>()
     });
 
+    // Event handlers
     let handle_sort = move |column_key: String| {
         let current_sort = state.get().sort_config.clone();
         let new_direction = if current_sort.column_key == column_key {
@@ -101,80 +119,122 @@ pub fn DataTable(
                 SortDirection::Ascending => SortDirection::Descending,
                 SortDirection::Descending => SortDirection::None,
             }
-        } else { SortDirection::Ascending };
-        let new_sort = SortConfig { column_key: column_key.clone(), direction: new_direction, active: new_direction != SortDirection::None };
+        } else {
+            SortDirection::Ascending
+        };
+        
+        let new_sort = SortConfig {
+            column_key: column_key.clone(),
+            direction: new_direction,
+            active: new_direction != SortDirection::None,
+        };
+        
         state.update(|s| s.sort_config = new_sort.clone());
-        if let Some(cb) = &on_sort { cb.run(new_sort); }
+        
+        if let Some(callback) = &on_sort {
+            callback.run(new_sort);
+        }
     };
 
     let handle_row_click = move |row: DataRow| {
-        if let Some(cb) = &on_row_click { cb.run(row); }
+        if let Some(callback) = &on_row_click {
+            callback.run(row);
+        }
     };
 
     let handle_row_select = move |row_id: i32| {
         let mut selected = state.get().selection.selected_rows.clone();
-        if selected.contains(&row_id) { selected.retain(|&id| id != row_id); } else { selected.push(row_id); }
+        if selected.contains(&row_id) {
+            selected.retain(|&id| id != row_id);
+        } else {
+            selected.push(row_id);
+        }
+        
         state.update(|s| s.selection.selected_rows = selected.clone());
-        if let Some(cb) = &on_row_select { cb.run(selected); }
+        
+        if let Some(callback) = &on_row_select {
+            callback.run(selected);
+        }
     };
 
-    let style_signal = move || style.get().unwrap_or_default();
-
     view! {
-        <div class=move || format!("data-table {}", class.get().unwrap_or_default()) id=id style=style_signal>
+        <div
+            class=move || format!("data-table {}", class.get().unwrap_or_default())
+            id=move || id.get()
+            style=move || style.get()
+        >
+            // Table header
             <div class="data-table-header">
-                <div class="data-table-title">"Data Table"</div>
+                <div class="data-table-title">
+                    "Data Table"
+                </div>
                 <div class="data-table-actions">
-                    <button class="data-table-export-btn"
-                        on:click=move |_| { if let Some(cb) = &on_export { cb.run(ExportFormat::Csv); } }>
+                    <button
+                        class="data-table-export-btn"
+                        on:click=move |_| {
+                            if let Some(callback) = &on_export {
+                                callback.run(ExportFormat::Csv);
+                            }
+                        }
+                    >
                         "Export CSV"
                     </button>
                 </div>
             </div>
+
+            // Table content
             <div class="data-table-content">
                 {move || {
-                    let ss = state.get();
-                    if ss.loading {
+                    let current = state.get();
+                    if current.loading {
                         view! { <div class="data-table-loading">"Loading..."</div> }.into_any()
-                    } else if let Some(err) = &ss.error {
-                        view! { <div class="data-table-error">{err.clone()}</div> }.into_any()
+                    } else if let Some(error) = current.error.clone() {
+                        view! { <div class="data-table-error">{error}</div> }.into_any()
                     } else {
-                        let cols = ss.columns.clone(); // owned copy
                         view! {
                             <table class="data-table-table">
                                 <thead>
                                     <tr>
-                                        {cols.into_iter().map(|col| {
-                                            let key = col.key.clone();
+                                        {current.columns.iter().cloned().map(|column| {
+                                            let column_key = column.key.clone();
+                                            let sort_key = column.key.clone();
+                                            let sortable = column.sortable;
                                             view! {
-                                                <th class=move || format!("data-table-header-cell {}", if col.sortable { "sortable" } else { "" })
-                                                    on:click=move |_| if col.sortable { handle_sort(key.clone()) }>
-                                                    {col.title.clone()}
+                                                <th
+                                                    class=format!("data-table-header-cell {}", if sortable { "sortable" } else { "" })
+                                                    on:click=move |_| if sortable { handle_sort(column_key.clone()) }
+                                                >
+                                                    {column.title.clone()}
                                                     {move || {
-                                                        let ss = state.get();
-                                                        if ss.sort_config.column_key == col.key {
-                                                            match ss.sort_config.direction {
+                                                        let st = state.get();
+                                                        if st.sort_config.column_key == sort_key {
+                                                            match st.sort_config.direction {
                                                                 SortDirection::Ascending => " ↑",
                                                                 SortDirection::Descending => " ↓",
                                                                 _ => "",
                                                             }
-                                                        } else { "" }
+                                                        } else {
+                                                            ""
+                                                        }
                                                     }}
                                                 </th>
-                                            }.into_view()
+                                            }
                                         }).collect::<Vec<_>>()}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {paginated_data.get().iter().map(|row| {
-                                        let rc = row.clone();
+                                    {paginated_data.get().into_iter().map(|row| {
+                                        let row_clone = row.clone();
                                         view! {
-                                            <tr class="data-table-row" on:click=move |_| handle_row_click(rc.clone())>
+                                            <tr
+                                                class="data-table-row"
+                                                on:click=move |_| handle_row_click(row_clone.clone())
+                                            >
                                                 <td class="data-table-cell">{row.name.clone()}</td>
                                                 <td class="data-table-cell">{row.email.clone()}</td>
                                                 <td class="data-table-cell">{row.age}</td>
                                             </tr>
-                                        }.into_view()
+                                        }
                                     }).collect::<Vec<_>>()}
                                 </tbody>
                             </table>
@@ -182,27 +242,46 @@ pub fn DataTable(
                     }
                 }}
             </div>
+
+            // Table footer with pagination
             <div class="data-table-footer">
                 <div class="data-table-pagination">
-                    <button class="data-table-pagination-btn"
+                    <button
+                        class="data-table-pagination-btn"
                         disabled=move || state.get().pagination.current_page <= 1
-                        on:click=move |_| state.update(|s| { if s.pagination.current_page > 1 { s.pagination.current_page -= 1; } })>
+                        on:click=move |_| {
+                            state.update(|s| {
+                                if s.pagination.current_page > 1 {
+                                    s.pagination.current_page -= 1;
+                                }
+                            });
+                        }
+                    >
                         "Previous"
                     </button>
                     <span class="data-table-pagination-info">
                         {move || {
-                            let ss = state.get();
-                            format!("Page {} of {}", ss.pagination.current_page, ss.pagination.total_pages)
+                            let state = state.get();
+                            format!("Page {} of {}", state.pagination.current_page, state.pagination.total_pages)
                         }}
                     </span>
-                    <button class="data-table-pagination-btn"
+                    <button
+                        class="data-table-pagination-btn"
                         disabled=move || state.get().pagination.current_page >= state.get().pagination.total_pages
-                        on:click=move |_| state.update(|s| { if s.pagination.current_page < s.pagination.total_pages { s.pagination.current_page += 1; } })>
+                        on:click=move |_| {
+                            state.update(|s| {
+                                if s.pagination.current_page < s.pagination.total_pages {
+                                    s.pagination.current_page += 1;
+                                }
+                            });
+                        }
+                    >
                         "Next"
                     </button>
                 </div>
             </div>
-            {children()}
+
+            {children.map(|c| c())}
         </div>
     }
 }

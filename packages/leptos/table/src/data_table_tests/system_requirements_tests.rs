@@ -3,7 +3,7 @@ mod system_requirements_tests {
     use leptos::prelude::*;
     use crate::data_table::{
         DataTable, DataRow, DataColumn, SortDirection, FilterType, FilterOperator,
-        SelectionMode, ExportFormat, ColumnFilter, RowAction
+        SelectionMode, ExportFormat,
     };
 
     /// Test that verifies advanced data table system requirements
@@ -31,14 +31,10 @@ mod system_requirements_tests {
                         DataRow { id: 2, name: "Jane Smith".to_string(), age: 25, email: "jane@example.com".to_string() },
                     ]
                     columns=vec![
-                        DataColumn { key: "name".to_string(), title: "Name".to_string(), sortable: true, filterable: true, ..Default::default() },
-                        DataColumn { key: "age".to_string(), title: "Age".to_string(), sortable: true, filterable: true, ..Default::default() },
-                        DataColumn { key: "email".to_string(), title: "Email".to_string(), sortable: false, filterable: true, ..Default::default() },
+                        DataColumn { sortable: true, filterable: true, ..DataColumn::new("name".to_string(), "Name".to_string()) },
+                        DataColumn { sortable: true, filterable: true, ..DataColumn::new("age".to_string(), "Age".to_string()) },
+                        DataColumn { sortable: false, filterable: true, ..DataColumn::new("email".to_string(), "Email".to_string()) },
                     ]
-                    sortable=true
-                    filterable=true
-                    pagination=true
-                    selectable=true
                 />
             };
 
@@ -59,9 +55,9 @@ mod system_requirements_tests {
         ];
 
         let test_columns = vec![
-            DataColumn { key: "name".to_string(), title: "Name".to_string(), sortable: true, filterable: true, ..Default::default() },
-            DataColumn { key: "age".to_string(), title: "Age".to_string(), sortable: true, filterable: true, ..Default::default() },
-            DataColumn { key: "email".to_string(), title: "Email".to_string(), sortable: false, filterable: true, ..Default::default() },
+            DataColumn { sortable: true, filterable: true, ..DataColumn::new("name".to_string(), "Name".to_string()) },
+            DataColumn { sortable: true, filterable: true, ..DataColumn::new("age".to_string(), "Age".to_string()) },
+            DataColumn { sortable: false, filterable: true, ..DataColumn::new("email".to_string(), "Email".to_string()) },
         ];
 
         // Test data structure

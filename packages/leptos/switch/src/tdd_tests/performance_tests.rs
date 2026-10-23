@@ -35,7 +35,7 @@ mod performance_tests {
     fn test_switch_responsive_design() {
         // Test responsive design
         let responsive_checked = RwSignal::new(false);
-        let responsive_size = RwSignal::new(SwitchSize::Default);
+        let responsive_size = RwSignal::new(SwitchSize::Md);
         
         let _responsive_switch_view = view! {
             <Switch 
@@ -47,12 +47,12 @@ mod performance_tests {
         
         // Test responsive design
         assert!(!responsive_checked.get(), "Responsive should start unchecked");
-        assert_eq!(responsive_size.get(), SwitchSize::Default);
+        assert_eq!(responsive_size.get(), SwitchSize::Md);
         
         // Test responsive changes
-        responsive_size.set(SwitchSize::Large);
+        responsive_size.set(SwitchSize::Lg);
         
-        assert_eq!(responsive_size.get(), SwitchSize::Large);
+        assert_eq!(responsive_size.get(), SwitchSize::Lg);
     }
 
     #[test]
@@ -63,7 +63,7 @@ mod performance_tests {
         let _custom_switch_view = view! {
             <Switch 
                 checked=RwSignal::new(false)
-                class=move || format!("custom-{}", custom_prop.get())
+                class=Signal::derive(move || format!("custom-{}", custom_prop.get()))
             />
         };
         
@@ -87,10 +87,10 @@ mod performance_tests {
             <Switch 
                 checked=interaction_checked
                 disabled=interaction_disabled
-                on_focus=move |_| interaction_focused.set(true)
-                on_blur=move |_| interaction_focused.set(false)
-                on_mouse_enter=move |_| interaction_hovered.set(true)
-                on_mouse_leave=move |_| interaction_hovered.set(false)
+                on:focus=move |_| interaction_focused.set(true)
+                on:blur=move |_| interaction_focused.set(false)
+                on:mouseenter=move |_| interaction_hovered.set(true)
+                on:mouseleave=move |_| interaction_hovered.set(false)
             />
         };
         
@@ -125,7 +125,7 @@ mod performance_tests {
             <Switch 
                 checked=performance_checked
                 disabled=performance_disabled
-                on_focus=move |_| performance_focused.set(true)
+                on:focus=move |_| performance_focused.set(true)
             />
         };
         
@@ -157,8 +157,8 @@ mod performance_tests {
             <Switch 
                 checked=integration_checked
                 disabled=integration_disabled
-                required=integration_required
-                aria_invalid=move || !integration_checked.get() && integration_required.get()
+                attr:required=move || integration_required.get()
+                attr:aria-invalid=move || !integration_checked.get() && integration_required.get()
             />
         };
         
@@ -189,7 +189,7 @@ mod performance_tests {
             <Switch 
                 checked=error_checked
                 disabled=error_disabled
-                aria_invalid=move || !error_checked.get()
+                attr:aria-invalid=move || !error_checked.get()
             />
         };
         
@@ -225,8 +225,8 @@ mod performance_tests {
             <Switch 
                 checked=form_checked
                 disabled=form_disabled
-                required=form_required
-                aria_invalid=move || !form_checked.get() && form_required.get()
+                attr:required=move || form_required.get()
+                attr:aria-invalid=move || !form_checked.get() && form_required.get()
             />
         };
         
