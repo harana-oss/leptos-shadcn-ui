@@ -13,7 +13,7 @@ pub mod shortcut;
 pub mod submenu;
 
 // Re-export all components for easy access
-pub use context_menu::ContextMenu;
+pub use context_menu::{ContextMenu, ContextMenuId};
 pub use trigger::ContextMenuTrigger;
 pub use content::ContextMenuContent;
 pub use items::ContextMenuItem;
