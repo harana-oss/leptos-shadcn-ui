@@ -1,5 +1,5 @@
 //! Signal-managed Input component types and constants
-//! 
+//!
 //! This module contains the core types and constants for the signal-managed Input component.
 
 use crate::validation::ValidationResult;

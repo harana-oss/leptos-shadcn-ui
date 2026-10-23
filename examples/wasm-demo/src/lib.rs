@@ -5,7 +5,7 @@
 
 use leptos::prelude::*;
 use leptos_shadcn_ui_wasm::prelude::*;
-use leptos_shadcn_ui_wasm::{wasm_utils, bundle_utils};
+use leptos_shadcn_ui_wasm::{bundle_utils, wasm_utils};
 use wasm_bindgen::prelude::*;
 
 /// Initialize the WASM demo
@@ -13,11 +13,11 @@ use wasm_bindgen::prelude::*;
 pub fn main() {
     // Initialize WASM-specific features
     wasm_utils::init_wasm();
-    
+
     // Log bundle information
     let bundle_info = bundle_utils::get_bundle_info();
     wasm_utils::log(&format!("🚀 {}", bundle_info));
-    
+
     // Mount the demo app
     mount_to_body(|| view! { <DemoApp /> })
 }
@@ -58,19 +58,19 @@ fn DemoApp() -> impl IntoView {
                         <div class="space-y-2">
                             <Label>"Button Component"</Label>
                             <div class="flex gap-2">
-                                <Button 
+                                <Button
                                     on:click=move |_| set_count.update(|c| *c += 1)
                                     class="bg-blue-600 hover:bg-blue-700"
                                 >
                                     "Count: " {count}
                                 </Button>
-                                <Button 
+                                <Button
                                     on:click=move |_| set_count.set(0)
                                     class="border border-slate-300 bg-white hover:bg-slate-50"
                                 >
                                     "Reset"
                                 </Button>
-                                <Button 
+                                <Button
                                     on:click=move |_| set_show_alert.set(true)
                                     class="bg-red-600 hover:bg-red-700"
                                 >
@@ -131,7 +131,7 @@ fn DemoApp() -> impl IntoView {
                                     </p>
                                 </CardContent>
                             </Card>
-                            
+
                             <Card>
                                 <CardHeader>
                                     <CardTitle class="text-lg">"Feature 2"</CardTitle>
@@ -163,14 +163,14 @@ fn DemoApp() -> impl IntoView {
                                 </div>
                                 <div class="text-sm text-slate-600">"Load Time"</div>
                             </div>
-                            
+
                             <div class="text-center p-4 bg-slate-50 rounded-lg">
                                 <div class="text-2xl font-bold text-blue-600">
                                     {move || bundle_utils::get_enabled_features().len()}
                                 </div>
                                 <div class="text-sm text-slate-600">"Components"</div>
                             </div>
-                            
+
                             <div class="text-center p-4 bg-slate-50 rounded-lg">
                                 <div class="text-2xl font-bold text-purple-600">
                                     {count}
@@ -189,7 +189,7 @@ fn DemoApp() -> impl IntoView {
                             "This alert is rendered using the WASM-optimized components!"
                         </AlertDescription>
                         <div class="mt-4">
-                            <Button 
+                            <Button
                                 on:click=move |_| set_show_alert.set(false)
                                 class="bg-blue-600 hover:bg-blue-700"
                             >
@@ -207,14 +207,14 @@ fn DemoApp() -> impl IntoView {
 mod tests {
     use super::*;
     use wasm_bindgen_test::*;
-    
+
     wasm_bindgen_test_configure!(run_in_browser);
-    
+
     #[wasm_bindgen_test]
     fn test_demo_app_renders() {
         let _app = view! { <DemoApp /> };
     }
-    
+
     #[wasm_bindgen_test]
     fn test_bundle_info() {
         let info = bundle_utils::get_bundle_info();

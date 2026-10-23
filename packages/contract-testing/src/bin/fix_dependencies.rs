@@ -1,7 +1,7 @@
 //! TDD-driven dependency fixer executable
 //! This binary applies the dependency fixes identified by our contract tests
 
-use leptos_shadcn_contract_testing::{DependencyFixer, ContractError};
+use leptos_shadcn_contract_testing::{ContractError, DependencyFixer};
 use std::env;
 
 #[tokio::main]

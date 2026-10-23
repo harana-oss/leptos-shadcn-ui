@@ -3,9 +3,9 @@
 //! Comprehensive performance regression testing system for leptos-shadcn-ui components.
 //! Provides automated benchmarking, regression detection, and performance reporting.
 
+use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 use std::time::Duration;
-use serde::{Deserialize, Serialize};
 
 // pub mod benchmarks;  // TODO: Implement
 // pub mod regression;  // TODO: Implement
@@ -60,9 +60,9 @@ pub struct PerformanceThresholds {
 impl Default for PerformanceThresholds {
     fn default() -> Self {
         Self {
-            max_render_time_ms: 16.0, // 60 FPS target
-            max_memory_usage_mb: 1.0,  // 1MB per component
-            max_bundle_size_kb: 10.0,  // 10KB per component
+            max_render_time_ms: 16.0,    // 60 FPS target
+            max_memory_usage_mb: 1.0,    // 1MB per component
+            max_bundle_size_kb: 10.0,    // 10KB per component
             max_regression_percent: 5.0, // 5% regression threshold
             min_iterations: 100,
         }
@@ -101,16 +101,13 @@ impl StatisticalData {
         sorted.sort_by(|a, b| a.partial_cmp(b).unwrap());
 
         let mean = sorted.iter().sum::<f64>() / sorted.len() as f64;
-        let median = if sorted.len() % 2 == 0 {
+        let median = if sorted.len().is_multiple_of(2) {
             (sorted[sorted.len() / 2 - 1] + sorted[sorted.len() / 2]) / 2.0
         } else {
             sorted[sorted.len() / 2]
         };
 
-        let variance = sorted
-            .iter()
-            .map(|x| (x - mean).powi(2))
-            .sum::<f64>() / sorted.len() as f64;
+        let variance = sorted.iter().map(|x| (x - mean).powi(2)).sum::<f64>() / sorted.len() as f64;
         let std_dev = variance.sqrt();
 
         let p95_idx = ((sorted.len() as f64 * 0.95) as usize).min(sorted.len() - 1);
@@ -188,11 +185,11 @@ impl PerformanceTestSuite {
     /// Create a new performance test suite
     pub fn new(config: PerfTestConfig) -> Result<Self, PerfTestError> {
         let system_info = system_info::gather_system_info()?;
-        
+
         // Create output directories
         std::fs::create_dir_all(&config.output_dir)?;
         std::fs::create_dir_all(&config.baseline_dir)?;
-        
+
         Ok(Self {
             config,
             system_info,
@@ -202,7 +199,7 @@ impl PerformanceTestSuite {
     /// Run complete performance test suite
     pub async fn run_complete_suite(&self) -> Result<PerformanceReport, PerfTestError> {
         log::info!("Starting complete performance test suite");
-        
+
         let mut measurements = Vec::new();
         let mut regressions = Vec::new();
 
@@ -213,7 +210,7 @@ impl PerformanceTestSuite {
         for component in &components {
             // Run performance benchmarks
             let component_measurements = self.benchmark_component(component).await?;
-            
+
             // Check for regressions if enabled
             if self.config.enable_regression_detection {
                 for measurement in &component_measurements {
@@ -224,7 +221,7 @@ impl PerformanceTestSuite {
                     }
                 }
             }
-            
+
             measurements.extend(component_measurements);
         }
 
@@ -240,7 +237,7 @@ impl PerformanceTestSuite {
 
         // Save report to disk
         self.save_report(&report).await?;
-        
+
         log::info!("Performance test suite completed successfully");
         Ok(report)
     }
@@ -248,10 +245,10 @@ impl PerformanceTestSuite {
     /// Discover all components in the source directory
     async fn discover_components(&self) -> Result<Vec<String>, PerfTestError> {
         let mut components = Vec::new();
-        
+
         for entry in walkdir::WalkDir::new(&self.config.components_dir) {
             let entry = entry.map_err(|e| PerfTestError::FileSystem(std::io::Error::other(e)))?;
-            
+
             if entry.file_type().is_dir() {
                 let dir_name = entry.file_name().to_string_lossy();
                 if !dir_name.starts_with('.') && entry.path() != self.config.components_dir {
@@ -259,22 +256,32 @@ impl PerformanceTestSuite {
                 }
             }
         }
-        
+
         Ok(components)
     }
 
     /// Benchmark a specific component
-    async fn benchmark_component(&self, component: &str) -> Result<Vec<PerformanceMeasurement>, PerfTestError> {
+    async fn benchmark_component(
+        &self,
+        component: &str,
+    ) -> Result<Vec<PerformanceMeasurement>, PerfTestError> {
         log::info!("Benchmarking component: {}", component);
-        
+
         // This would be replaced with actual component rendering and measurement
         // For now, we'll simulate measurements
         let mut measurements = Vec::new();
-        
-        let test_cases = vec!["basic_render", "with_props", "with_events", "complex_children"];
-        
+
+        let test_cases = vec![
+            "basic_render",
+            "with_props",
+            "with_events",
+            "complex_children",
+        ];
+
         for test_case in test_cases {
-            let render_times = self.measure_render_performance(component, test_case).await?;
+            let render_times = self
+                .measure_render_performance(component, test_case)
+                .await?;
             let memory_usage = if self.config.enable_memory_profiling {
                 Some(self.measure_memory_usage(component, test_case).await?)
             } else {
@@ -297,19 +304,23 @@ impl PerformanceTestSuite {
                 iterations: self.config.test_iterations,
             });
         }
-        
+
         Ok(measurements)
     }
 
     /// Measure render performance for a component
-    async fn measure_render_performance(&self, _component: &str, _test_case: &str) -> Result<Vec<f64>, PerfTestError> {
+    async fn measure_render_performance(
+        &self,
+        _component: &str,
+        _test_case: &str,
+    ) -> Result<Vec<f64>, PerfTestError> {
         let mut measurements = Vec::new();
-        
+
         // Warmup iterations
         for _ in 0..self.config.warmup_iterations {
             let _ = self.simulate_render().await;
         }
-        
+
         // Actual measurements
         for _ in 0..self.config.test_iterations {
             let start = web_time::Instant::now();
@@ -317,7 +328,7 @@ impl PerformanceTestSuite {
             let duration = start.elapsed().as_secs_f64() * 1000.0; // Convert to milliseconds
             measurements.push(duration);
         }
-        
+
         Ok(measurements)
     }
 
@@ -327,14 +338,18 @@ impl PerformanceTestSuite {
         // 1. Create a component instance
         // 2. Render it to a virtual DOM or string
         // 3. Measure the time taken
-        
+
         // For now, simulate some work with a small delay
         tokio::time::sleep(Duration::from_micros(10)).await;
         Ok(())
     }
 
     /// Measure memory usage for a component
-    async fn measure_memory_usage(&self, _component: &str, _test_case: &str) -> Result<f64, PerfTestError> {
+    async fn measure_memory_usage(
+        &self,
+        _component: &str,
+        _test_case: &str,
+    ) -> Result<f64, PerfTestError> {
         // Placeholder: In a real implementation, this would measure actual memory usage
         Ok(0.5) // 0.5 MB placeholder
     }
@@ -346,26 +361,33 @@ impl PerformanceTestSuite {
     }
 
     /// Check for performance regression
-    async fn check_regression(&self, measurement: &PerformanceMeasurement) -> Result<RegressionResult, PerfTestError> {
+    async fn check_regression(
+        &self,
+        measurement: &PerformanceMeasurement,
+    ) -> Result<RegressionResult, PerfTestError> {
         let baseline = self.load_baseline(measurement).await?;
-        
+
         let regression_percent = if baseline.render_time_ms.mean > 0.0 {
-            ((measurement.render_time_ms.mean - baseline.render_time_ms.mean) / baseline.render_time_ms.mean) * 100.0
+            ((measurement.render_time_ms.mean - baseline.render_time_ms.mean)
+                / baseline.render_time_ms.mean)
+                * 100.0
         } else {
             0.0
         };
-        
+
         let has_regression = regression_percent > self.config.thresholds.max_regression_percent;
         let severity = RegressionSeverity::from_percent(regression_percent);
-        
+
         let recommendation = match severity {
             RegressionSeverity::None => "No action needed".to_string(),
             RegressionSeverity::Minor => "Consider optimization if trend continues".to_string(),
             RegressionSeverity::Moderate => "Investigate performance degradation".to_string(),
             RegressionSeverity::Major => "Immediate performance review required".to_string(),
-            RegressionSeverity::Critical => "Critical performance regression - block deployment".to_string(),
+            RegressionSeverity::Critical => {
+                "Critical performance regression - block deployment".to_string()
+            }
         };
-        
+
         Ok(RegressionResult {
             component_name: measurement.component_name.clone(),
             test_name: measurement.test_name.clone(),
@@ -379,13 +401,15 @@ impl PerformanceTestSuite {
     }
 
     /// Load baseline performance data
-    async fn load_baseline(&self, measurement: &PerformanceMeasurement) -> Result<PerformanceMeasurement, PerfTestError> {
+    async fn load_baseline(
+        &self,
+        measurement: &PerformanceMeasurement,
+    ) -> Result<PerformanceMeasurement, PerfTestError> {
         let baseline_file = self.config.baseline_dir.join(format!(
             "{}_{}_baseline.json",
-            measurement.component_name,
-            measurement.test_name
+            measurement.component_name, measurement.test_name
         ));
-        
+
         if baseline_file.exists() {
             let content = tokio::fs::read_to_string(&baseline_file).await?;
             let baseline: PerformanceMeasurement = serde_json::from_str(&content)?;
@@ -398,34 +422,45 @@ impl PerformanceTestSuite {
     }
 
     /// Save baseline performance data
-    async fn save_baseline(&self, measurement: &PerformanceMeasurement) -> Result<(), PerfTestError> {
+    async fn save_baseline(
+        &self,
+        measurement: &PerformanceMeasurement,
+    ) -> Result<(), PerfTestError> {
         let baseline_file = self.config.baseline_dir.join(format!(
             "{}_{}_baseline.json",
-            measurement.component_name,
-            measurement.test_name
+            measurement.component_name, measurement.test_name
         ));
-        
+
         let content = serde_json::to_string_pretty(measurement)?;
         tokio::fs::write(&baseline_file, content).await?;
         Ok(())
     }
 
     /// Generate performance summary
-    fn generate_summary(&self, measurements: &[PerformanceMeasurement], regressions: &[RegressionResult]) -> PerformanceSummary {
-        let total_components = measurements.iter()
+    fn generate_summary(
+        &self,
+        measurements: &[PerformanceMeasurement],
+        regressions: &[RegressionResult],
+    ) -> PerformanceSummary {
+        let total_components = measurements
+            .iter()
             .map(|m| m.component_name.clone())
             .collect::<std::collections::HashSet<_>>()
             .len();
 
-        let avg_render_time = measurements.iter()
+        let avg_render_time = measurements
+            .iter()
             .map(|m| m.render_time_ms.mean)
-            .sum::<f64>() / measurements.len() as f64;
+            .sum::<f64>()
+            / measurements.len() as f64;
 
-        let components_exceeding_threshold = measurements.iter()
+        let components_exceeding_threshold = measurements
+            .iter()
             .filter(|m| m.render_time_ms.mean > self.config.thresholds.max_render_time_ms)
             .count();
 
-        let critical_regressions = regressions.iter()
+        let critical_regressions = regressions
+            .iter()
             .filter(|r| r.severity == RegressionSeverity::Critical)
             .count();
 
@@ -452,14 +487,17 @@ impl PerformanceTestSuite {
             "performance_report_{}.json",
             report.timestamp.format("%Y%m%d_%H%M%S")
         ));
-        
+
         let content = serde_json::to_string_pretty(report)?;
         tokio::fs::write(&report_file, &content).await?;
-        
+
         // Also save as latest report
-        let latest_file = self.config.output_dir.join("latest_performance_report.json");
+        let latest_file = self
+            .config
+            .output_dir
+            .join("latest_performance_report.json");
         tokio::fs::write(&latest_file, &content).await?;
-        
+
         Ok(())
     }
 }
@@ -500,16 +538,16 @@ pub enum HealthStatus {
 pub enum PerfTestError {
     #[error("File system error: {0}")]
     FileSystem(#[from] std::io::Error),
-    
+
     #[error("Serialization error: {0}")]
     Serialization(#[from] serde_json::Error),
-    
+
     #[error("System info error: {0}")]
     SystemInfo(String),
-    
+
     #[error("Benchmark error: {0}")]
     Benchmark(String),
-    
+
     #[error("Walk directory error: {0}")]
     WalkDir(#[from] walkdir::Error),
 }
@@ -523,7 +561,7 @@ mod tests {
     fn test_statistical_data_calculation() {
         let measurements = vec![10.0, 12.0, 8.0, 15.0, 11.0, 9.0, 13.0, 14.0, 10.0, 11.0];
         let stats = StatisticalData::from_measurements(&measurements);
-        
+
         assert!((stats.mean - 11.3).abs() < 0.1);
         assert!((stats.median - 11.0).abs() < 0.1);
         assert!(stats.min == 8.0);
@@ -532,11 +570,26 @@ mod tests {
 
     #[test]
     fn test_regression_severity() {
-        assert_eq!(RegressionSeverity::from_percent(0.0), RegressionSeverity::None);
-        assert_eq!(RegressionSeverity::from_percent(3.0), RegressionSeverity::Minor);
-        assert_eq!(RegressionSeverity::from_percent(10.0), RegressionSeverity::Moderate);
-        assert_eq!(RegressionSeverity::from_percent(20.0), RegressionSeverity::Major);
-        assert_eq!(RegressionSeverity::from_percent(40.0), RegressionSeverity::Critical);
+        assert_eq!(
+            RegressionSeverity::from_percent(0.0),
+            RegressionSeverity::None
+        );
+        assert_eq!(
+            RegressionSeverity::from_percent(3.0),
+            RegressionSeverity::Minor
+        );
+        assert_eq!(
+            RegressionSeverity::from_percent(10.0),
+            RegressionSeverity::Moderate
+        );
+        assert_eq!(
+            RegressionSeverity::from_percent(20.0),
+            RegressionSeverity::Major
+        );
+        assert_eq!(
+            RegressionSeverity::from_percent(40.0),
+            RegressionSeverity::Critical
+        );
     }
 
     #[tokio::test]
@@ -555,7 +608,7 @@ mod tests {
     #[test]
     fn test_performance_thresholds_default() {
         let thresholds = PerformanceThresholds::default();
-        
+
         assert_eq!(thresholds.max_render_time_ms, 16.0);
         assert_eq!(thresholds.max_memory_usage_mb, 1.0);
         assert_eq!(thresholds.max_bundle_size_kb, 10.0);
@@ -584,7 +637,7 @@ mod tests {
 
         let json = serde_json::to_string(&measurement).unwrap();
         let deserialized: PerformanceMeasurement = serde_json::from_str(&json).unwrap();
-        
+
         assert_eq!(measurement.component_name, deserialized.component_name);
         assert_eq!(measurement.test_name, deserialized.test_name);
     }

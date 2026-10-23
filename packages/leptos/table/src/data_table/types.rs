@@ -1,24 +1,16 @@
-use leptos::prelude::*;
-use leptos_style::Style;
-use std::collections::HashMap;
-
 /// Sort direction for columns
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum SortDirection {
     Ascending,
     Descending,
+    #[default]
     None,
 }
 
-impl Default for SortDirection {
-    fn default() -> Self {
-        SortDirection::None
-    }
-}
-
 /// Filter type for columns
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum FilterType {
+    #[default]
     Text,
     Number,
     Date,
@@ -26,17 +18,12 @@ pub enum FilterType {
     Boolean,
 }
 
-impl Default for FilterType {
-    fn default() -> Self {
-        FilterType::Text
-    }
-}
-
 /// Filter operator for column filters
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum FilterOperator {
     Equals,
     NotEquals,
+    #[default]
     Contains,
     NotContains,
     StartsWith,
@@ -47,24 +34,13 @@ pub enum FilterOperator {
     LessThanOrEqual,
 }
 
-impl Default for FilterOperator {
-    fn default() -> Self {
-        FilterOperator::Contains
-    }
-}
-
 /// Selection mode for rows
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum SelectionMode {
+    #[default]
     None,
     Single,
     Multiple,
-}
-
-impl Default for SelectionMode {
-    fn default() -> Self {
-        SelectionMode::None
-    }
 }
 
 /// Export format for data
@@ -199,7 +175,7 @@ impl Default for SelectionConfig {
 }
 
 /// Data table state
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct DataTableState {
     pub data: Vec<DataRow>,
     pub columns: Vec<DataColumn>,
@@ -209,19 +185,4 @@ pub struct DataTableState {
     pub selection: SelectionConfig,
     pub loading: bool,
     pub error: Option<String>,
-}
-
-impl Default for DataTableState {
-    fn default() -> Self {
-        Self {
-            data: Vec::new(),
-            columns: Vec::new(),
-            filters: Vec::new(),
-            sort_config: SortConfig::default(),
-            pagination: PaginationConfig::default(),
-            selection: SelectionConfig::default(),
-            loading: false,
-            error: None,
-        }
-    }
 }

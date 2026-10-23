@@ -47,13 +47,17 @@ pub fn DropdownMenu(
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: Signal<Style>,
     /// Optional externally controlled open state.
-    #[prop(optional)] open: Option<RwSignal<bool>>,
+    #[prop(optional)]
+    open: Option<RwSignal<bool>>,
     /// Optional externally controlled selected value.
-    #[prop(optional)] value: Option<RwSignal<String>>,
+    #[prop(optional)]
+    value: Option<RwSignal<String>>,
     /// Called with an item's `value` when it is selected.
-    #[prop(into, optional)] on_select: MaybeProp<Callback<String>>,
+    #[prop(into, optional)]
+    on_select: MaybeProp<Callback<String>>,
     /// Called whenever the open state changes.
-    #[prop(into, optional)] on_open_change: MaybeProp<Callback<bool>>,
+    #[prop(into, optional)]
+    on_open_change: MaybeProp<Callback<bool>>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let open = open.unwrap_or_else(|| RwSignal::new(false));
@@ -67,7 +71,12 @@ pub fn DropdownMenu(
             current
         });
     }
-    let ctx = DropdownMenuContext { open, value, disabled, on_select };
+    let ctx = DropdownMenuContext {
+        open,
+        value,
+        disabled,
+        on_select,
+    };
     provide_context(ctx);
 
     let handle_click = move |_| {
@@ -80,7 +89,9 @@ pub fn DropdownMenu(
         let variant_class = match variant.get().unwrap_or_default().as_str() {
             "default" => "bg-primary text-primary-foreground hover:bg-primary/90",
             "destructive" => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-            "outline" => "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+            "outline" => {
+                "border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+            }
             "secondary" => "bg-secondary text-secondary-foreground hover:bg-secondary/80",
             "ghost" => "hover:bg-accent hover:text-accent-foreground",
             "link" => "text-primary underline-offset-4 hover:underline",
@@ -95,7 +106,13 @@ pub fn DropdownMenu(
             _ => "h-10 px-4 py-2",
         };
 
-        format!("relative {} {} {} {}", DROPDOWN_MENU_CLASS, variant_class, size_class, class.get().unwrap_or_default())
+        format!(
+            "relative {} {} {} {}",
+            DROPDOWN_MENU_CLASS,
+            variant_class,
+            size_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {
@@ -127,13 +144,18 @@ pub fn DropdownMenuTrigger(
     #[prop(into, optional)] on_mouseenter: MaybeProp<Callback<()>>,
     #[prop(into, optional)] on_mouseleave: MaybeProp<Callback<()>>,
     /// Extra click handler; runs before the menu is toggled.
-    #[prop(into, optional)] on_click: MaybeProp<Callback<()>>,
+    #[prop(into, optional)]
+    on_click: MaybeProp<Callback<()>>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let ctx = DropdownMenuContext::current();
     let is_disabled = move || disabled.get() || ctx.disabled.get();
     let computed_class = Signal::derive(move || {
-        format!("{} {}", DROPDOWN_MENU_TRIGGER_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            DROPDOWN_MENU_TRIGGER_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     view! {
         <button
@@ -190,7 +212,11 @@ pub fn DropdownMenuContent(
 ) -> impl IntoView {
     let ctx = DropdownMenuContext::current();
     let computed_class = Signal::derive(move || {
-        format!("{} {}", DROPDOWN_MENU_CONTENT_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            DROPDOWN_MENU_CONTENT_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     let children = StoredValue::new(children);
     view! {
@@ -226,7 +252,11 @@ pub fn DropdownMenuItem(
 ) -> impl IntoView {
     let ctx = DropdownMenuContext::current();
     let computed_class = Signal::derive(move || {
-        format!("{} {}", DROPDOWN_MENU_ITEM_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            DROPDOWN_MENU_ITEM_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     let select = move || {
         if disabled.get_untracked() {
@@ -288,7 +318,11 @@ pub fn DropdownMenuLabel(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let computed_class = Signal::derive(move || {
-        format!("{} {}", DROPDOWN_MENU_LABEL_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            DROPDOWN_MENU_LABEL_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     view! { <div class=computed_class id=move || id.get()>{children.map(|c| c())}</div> }
 }
@@ -297,7 +331,11 @@ pub fn DropdownMenuLabel(
 #[component]
 pub fn DropdownMenuSeparator(#[prop(into, optional)] class: MaybeProp<String>) -> impl IntoView {
     let computed_class = Signal::derive(move || {
-        format!("{} {}", DROPDOWN_MENU_SEPARATOR_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            DROPDOWN_MENU_SEPARATOR_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     view! { <div role="separator" aria-orientation="horizontal" class=computed_class></div> }
 }
@@ -318,7 +356,11 @@ pub fn DropdownMenuShortcut(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let computed_class = Signal::derive(move || {
-        format!("{} {}", DROPDOWN_MENU_SHORTCUT_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            DROPDOWN_MENU_SHORTCUT_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     view! { <span class=computed_class>{children.map(|c| c())}</span> }
 }

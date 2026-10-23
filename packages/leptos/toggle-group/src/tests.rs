@@ -23,7 +23,12 @@ fn single_toggle_off_clears() {
 #[test]
 fn single_sequence() {
     let mut v = Vec::new();
-    for (item, expect) in [("a", vec!["a"]), ("b", vec!["b"]), ("b", vec![]), ("c", vec!["c"])] {
+    for (item, expect) in [
+        ("a", vec!["a"]),
+        ("b", vec!["b"]),
+        ("b", vec![]),
+        ("c", vec!["c"]),
+    ] {
         v = toggle_value(Single, &v, item);
         assert_eq!(v, s(&expect));
     }
@@ -60,7 +65,10 @@ fn toggle_does_not_mutate_input() {
 fn normalize() {
     assert_eq!(normalize_value(Single, &s(&["a", "b"])), s(&["a"]));
     assert!(normalize_value(Single, &[]).is_empty());
-    assert_eq!(normalize_value(Multiple, &s(&["a", "b", "a"])), s(&["a", "b"]));
+    assert_eq!(
+        normalize_value(Multiple, &s(&["a", "b", "a"])),
+        s(&["a", "b"])
+    );
 }
 
 #[test]
@@ -78,7 +86,10 @@ fn enum_parsing() {
     assert_eq!(ToggleGroupType::parse("multiple"), Multiple);
     assert_eq!(ToggleGroupType::parse("single"), Single);
     assert_eq!(ToggleGroupType::parse(""), Single);
-    assert_eq!(ToggleGroupVariant::parse("outline"), ToggleGroupVariant::Outline);
+    assert_eq!(
+        ToggleGroupVariant::parse("outline"),
+        ToggleGroupVariant::Outline
+    );
     assert_eq!(ToggleGroupVariant::parse("x"), ToggleGroupVariant::Default);
     assert_eq!(ToggleGroupSize::parse("sm"), ToggleGroupSize::Sm);
     assert_eq!(ToggleGroupSize::parse("lg"), ToggleGroupSize::Lg);
@@ -86,15 +97,25 @@ fn enum_parsing() {
     for t in [Single, Multiple] {
         assert_eq!(ToggleGroupType::parse(t.as_str()), t);
     }
-    for sz in [ToggleGroupSize::Default, ToggleGroupSize::Sm, ToggleGroupSize::Lg] {
+    for sz in [
+        ToggleGroupSize::Default,
+        ToggleGroupSize::Sm,
+        ToggleGroupSize::Lg,
+    ] {
         assert_eq!(ToggleGroupSize::parse(sz.as_str()), sz);
     }
 }
 
 #[test]
 fn variant_size_class_mapping() {
-    assert_eq!(ToggleGroupVariant::Default.class(), TOGGLE_VARIANT_DEFAULT_CLASS);
-    assert_eq!(ToggleGroupVariant::Outline.class(), TOGGLE_VARIANT_OUTLINE_CLASS);
+    assert_eq!(
+        ToggleGroupVariant::Default.class(),
+        TOGGLE_VARIANT_DEFAULT_CLASS
+    );
+    assert_eq!(
+        ToggleGroupVariant::Outline.class(),
+        TOGGLE_VARIANT_OUTLINE_CLASS
+    );
     assert_eq!(ToggleGroupSize::Default.class(), "h-9 px-2 min-w-9");
     assert_eq!(ToggleGroupSize::Sm.class(), "h-8 px-1.5 min-w-8");
     assert_eq!(ToggleGroupSize::Lg.class(), "h-10 px-2.5 min-w-10");

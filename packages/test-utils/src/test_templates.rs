@@ -14,7 +14,7 @@ impl TestCodeGenerator {
         let test_builder = test_helpers::basic_component_test(component_name);
         let _test_suite = ComponentTestSuite::new(&format!("{}_test_suite", component_name))
             .add_test(test_builder);
-        
+
         format!(
             r#"#[cfg(test)]
 mod tests {{
@@ -312,11 +312,16 @@ mod tests {{
     }
 
     /// Generate comprehensive test suite for any component type
-    pub fn generate_comprehensive_tests(component_name: &str, component_type: ComponentType) -> String {
+    pub fn generate_comprehensive_tests(
+        component_name: &str,
+        component_type: ComponentType,
+    ) -> String {
         match component_type {
             ComponentType::Basic => Self::generate_basic_component_tests(component_name),
             ComponentType::Form => Self::generate_form_component_tests(component_name),
-            ComponentType::Interactive => Self::generate_interactive_component_tests(component_name),
+            ComponentType::Interactive => {
+                Self::generate_interactive_component_tests(component_name)
+            }
             ComponentType::Layout => Self::generate_layout_component_tests(component_name),
             ComponentType::Display => Self::generate_display_component_tests(component_name),
         }
@@ -468,31 +473,24 @@ impl ComponentType {
     pub fn from_name(name: &str) -> Self {
         match name {
             // Form components
-            "button" | "checkbox" | "radio-group" | "select" | "combobox" | 
-            "form" | "input" | "label" | "textarea" | "slider" | "switch" | "toggle" => {
-                ComponentType::Form
-            }
+            "button" | "checkbox" | "radio-group" | "select" | "combobox" | "form" | "input"
+            | "label" | "textarea" | "slider" | "switch" | "toggle" => ComponentType::Form,
             // Interactive components
-            "dialog" | "alert-dialog" | "sheet" | "drawer" | "dropdown-menu" |
-            "popover" | "tooltip" | "toast" | "carousel" | "date-picker" |
-            "hover-card" | "input-otp" => {
+            "dialog" | "alert-dialog" | "sheet" | "drawer" | "dropdown-menu" | "popover"
+            | "tooltip" | "toast" | "carousel" | "date-picker" | "hover-card" | "input-otp" => {
                 ComponentType::Interactive
             }
             // Layout components
-            "accordion" | "collapsible" | "resizable" | "scroll-area" |
-            "separator" | "sidebar" | "aspect-ratio" => {
-                ComponentType::Layout
-            }
+            "accordion" | "collapsible" | "resizable" | "scroll-area" | "separator" | "sidebar"
+            | "aspect-ratio" => ComponentType::Layout,
             // Display components
-            "alert" | "avatar" | "badge" | "card" | "calendar" |
-            "progress" | "skeleton" | "table" | "typography" => {
-                ComponentType::Display
-            }
+            "alert" | "avatar" | "badge" | "card" | "calendar" | "progress" | "skeleton"
+            | "table" | "typography" => ComponentType::Display,
             // Default to basic for navigation and other components
             _ => ComponentType::Basic,
         }
     }
-    
+
     /// Get description for component type
     pub fn description(&self) -> &'static str {
         match self {

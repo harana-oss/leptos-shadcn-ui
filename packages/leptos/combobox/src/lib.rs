@@ -1,10 +1,10 @@
 //! Leptos port of shadcn/ui Combobox component
-//! 
+//!
 //! Provides an autocomplete input component with a list of suggestions.
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
+pub mod signal_managed;
 
 // Re-export common types
 pub use default::{Combobox, ComboboxOption};

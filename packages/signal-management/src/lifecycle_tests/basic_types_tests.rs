@@ -9,18 +9,18 @@ mod basic_types_tests {
         let default_theme = Theme::Default;
         let dark_theme = Theme::Dark;
         let light_theme = Theme::Light;
-        
+
         // Test custom theme
         let mut custom_props = HashMap::new();
         custom_props.insert("primary".to_string(), "#3b82f6".to_string());
         custom_props.insert("secondary".to_string(), "#64748b".to_string());
         let custom_theme = Theme::Custom(custom_props);
-        
+
         // Test theme equality
         assert_eq!(default_theme, Theme::Default);
         assert_eq!(dark_theme, Theme::Dark);
         assert_eq!(light_theme, Theme::Light);
-        
+
         // Test custom theme properties
         if let Theme::Custom(props) = custom_theme {
             assert_eq!(props.get("primary"), Some(&"#3b82f6".to_string()));
@@ -44,7 +44,7 @@ mod basic_types_tests {
         let outline_variant = Variant::Outline;
         let ghost_variant = Variant::Ghost;
         let link_variant = Variant::Link;
-        
+
         // Test variant equality
         assert_eq!(primary_variant, Variant::Primary);
         assert_eq!(secondary_variant, Variant::Secondary);
@@ -67,7 +67,7 @@ mod basic_types_tests {
         let small_size = Size::Small;
         let medium_size = Size::Medium;
         let large_size = Size::Large;
-        
+
         // Test size equality
         assert_eq!(small_size, Size::Small);
         assert_eq!(medium_size, Size::Medium);
@@ -90,7 +90,7 @@ mod basic_types_tests {
             lg: Some("lg:text-lg".to_string()),
             xl: Some("xl:text-xl".to_string()),
         };
-        
+
         // Test responsive config properties
         assert_eq!(responsive_config.sm, Some("sm:text-sm".to_string()));
         assert_eq!(responsive_config.md, Some("md:text-base".to_string()));
@@ -115,9 +115,9 @@ mod basic_types_tests {
         custom_props.insert("primary".to_string(), "#3b82f6".to_string());
         custom_props.insert("secondary".to_string(), "#64748b".to_string());
         custom_props.insert("accent".to_string(), "#f59e0b".to_string());
-        
+
         let custom_theme = Theme::Custom(custom_props.clone());
-        
+
         // Test custom theme access
         if let Theme::Custom(props) = custom_theme {
             assert_eq!(props.len(), 3);
@@ -136,7 +136,7 @@ mod basic_types_tests {
             lg: Some("lg:text-lg".to_string()),
             xl: None,
         };
-        
+
         // Test partial config properties
         assert_eq!(partial_config.sm, Some("sm:text-sm".to_string()));
         assert_eq!(partial_config.md, None);
@@ -150,12 +150,12 @@ mod basic_types_tests {
         let theme = Theme::Dark;
         let variant = Variant::Secondary;
         let size = Size::Large;
-        
+
         // Test debug formatting
         let theme_debug = format!("{:?}", theme);
         let variant_debug = format!("{:?}", variant);
         let size_debug = format!("{:?}", size);
-        
+
         assert!(theme_debug.contains("Dark"));
         assert!(variant_debug.contains("Secondary"));
         assert!(size_debug.contains("Large"));
@@ -167,13 +167,15 @@ mod basic_types_tests {
         let mut custom_props = HashMap::new();
         custom_props.insert("primary".to_string(), "#3b82f6".to_string());
         let original_theme = Theme::Custom(custom_props);
-        
+
         // Test cloning
         let cloned_theme = original_theme.clone();
         assert_eq!(original_theme, cloned_theme);
-        
+
         // Test that cloned theme has same properties
-        if let (Theme::Custom(original_props), Theme::Custom(cloned_props)) = (&original_theme, &cloned_theme) {
+        if let (Theme::Custom(original_props), Theme::Custom(cloned_props)) =
+            (&original_theme, &cloned_theme)
+        {
             assert_eq!(original_props, cloned_props);
         }
     }
@@ -183,7 +185,7 @@ mod basic_types_tests {
         // Test variant cloning behavior
         let original_variant = Variant::Primary;
         let cloned_variant = original_variant.clone();
-        
+
         assert_eq!(original_variant, cloned_variant);
     }
 
@@ -192,7 +194,7 @@ mod basic_types_tests {
         // Test size cloning behavior
         let original_size = Size::Large;
         let cloned_size = original_size.clone();
-        
+
         assert_eq!(original_size, cloned_size);
     }
 
@@ -205,7 +207,7 @@ mod basic_types_tests {
             lg: Some("lg:text-lg".to_string()),
             xl: Some("xl:text-xl".to_string()),
         };
-        
+
         let cloned_config = original_config.clone();
         assert_eq!(original_config, cloned_config);
     }
@@ -216,7 +218,7 @@ mod basic_types_tests {
         let theme1 = Theme::Default;
         let theme2 = Theme::Default;
         let theme3 = Theme::Dark;
-        
+
         assert_eq!(theme1, theme2);
         assert_ne!(theme1, theme3);
     }
@@ -227,7 +229,7 @@ mod basic_types_tests {
         let variant1 = Variant::Primary;
         let variant2 = Variant::Primary;
         let variant3 = Variant::Secondary;
-        
+
         assert_eq!(variant1, variant2);
         assert_ne!(variant1, variant3);
     }
@@ -238,7 +240,7 @@ mod basic_types_tests {
         let size1 = Size::Medium;
         let size2 = Size::Medium;
         let size3 = Size::Large;
-        
+
         assert_eq!(size1, size2);
         assert_ne!(size1, size3);
     }
@@ -252,21 +254,21 @@ mod basic_types_tests {
             lg: None,
             xl: None,
         };
-        
+
         let config2 = ResponsiveConfig {
             sm: Some("sm:text-sm".to_string()),
             md: Some("md:text-base".to_string()),
             lg: None,
             xl: None,
         };
-        
+
         let config3 = ResponsiveConfig {
             sm: Some("sm:text-lg".to_string()),
             md: Some("md:text-base".to_string()),
             lg: None,
             xl: None,
         };
-        
+
         assert_eq!(config1, config2);
         assert_ne!(config1, config3);
     }

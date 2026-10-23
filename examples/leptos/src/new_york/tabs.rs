@@ -4,7 +4,7 @@ use crate::new_york::components::ui::tabs::{Tabs, TabsContent, TabsList, TabsTri
 
 #[component]
 pub fn TabsExample() -> impl IntoView {
-    let (value, set_value) = create_signal("account".to_string());
+    let (value, set_value) = signal("account".to_string());
 
     let handle_value_change = Callback::new(move |new_value: String| {
         set_value.set(new_value);

@@ -14,7 +14,8 @@ pub fn NavigationMenu(
     #[prop(into, optional)] style: Signal<Style>,
     /// Optional externally controlled value of the currently open item
     /// (empty string when no item is open).
-    #[prop(optional)] value: Option<RwSignal<String>>,
+    #[prop(optional)]
+    value: Option<RwSignal<String>>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let ctx = NavigationMenuContext {
@@ -23,7 +24,6 @@ pub fn NavigationMenu(
     provide_context(ctx);
 
     let handle_click = {
-        let on_click = on_click.clone();
         move |_| {
             if let Some(callback) = &on_click {
                 callback.run(());
@@ -35,13 +35,15 @@ pub fn NavigationMenu(
         let variant_class = match variant.get().unwrap_or_default().as_str() {
             "default" => "bg-primary text-primary-foreground hover:bg-primary/90",
             "destructive" => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-            "outline" => "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+            "outline" => {
+                "border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+            }
             "secondary" => "bg-secondary text-secondary-foreground hover:bg-secondary/80",
             "ghost" => "hover:bg-accent hover:text-accent-foreground",
             "link" => "text-primary underline-offset-4 hover:underline",
             _ => "bg-primary text-primary-foreground hover:bg-primary/90",
         };
-        
+
         let size_class = match size.get().unwrap_or_default().as_str() {
             "default" => "h-10 px-4 py-2",
             "sm" => "h-9 rounded-md px-3",
@@ -49,8 +51,14 @@ pub fn NavigationMenu(
             "icon" => "h-10 w-10",
             _ => "h-10 px-4 py-2",
         };
-        
-        format!("{} {} {} {}", NAVIGATION_MENU_CLASS, variant_class, size_class, class.get().unwrap_or_default())
+
+        format!(
+            "{} {} {} {}",
+            NAVIGATION_MENU_CLASS,
+            variant_class,
+            size_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {
@@ -70,7 +78,8 @@ pub fn NavigationMenu(
     }
 }
 
-const NAVIGATION_MENU_LIST_CLASS: &str = "group flex flex-1 list-none items-center justify-center space-x-1";
+const NAVIGATION_MENU_LIST_CLASS: &str =
+    "group flex flex-1 list-none items-center justify-center space-x-1";
 const NAVIGATION_MENU_TRIGGER_CLASS: &str = "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-accent/50";
 const NAVIGATION_MENU_CONTENT_CLASS: &str = "left-0 top-0 w-full md:absolute md:w-auto";
 const NAVIGATION_MENU_LINK_CLASS: &str = "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground";
@@ -88,8 +97,9 @@ pub struct NavigationMenuItemContext {
 }
 
 fn nav_ctx() -> NavigationMenuContext {
-    use_context::<NavigationMenuContext>()
-        .unwrap_or_else(|| NavigationMenuContext { active: RwSignal::new(String::new()) })
+    use_context::<NavigationMenuContext>().unwrap_or_else(|| NavigationMenuContext {
+        active: RwSignal::new(String::new()),
+    })
 }
 
 fn item_is_open(ctx: NavigationMenuContext, item: Option<NavigationMenuItemContext>) -> bool {
@@ -109,7 +119,11 @@ pub fn NavigationMenuList(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let computed_class = Signal::derive(move || {
-        format!("{} {}", NAVIGATION_MENU_LIST_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            NAVIGATION_MENU_LIST_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     view! { <ul class=computed_class>{children.map(|c| c())}</ul> }
 }
@@ -118,7 +132,8 @@ pub fn NavigationMenuList(
 #[component]
 pub fn NavigationMenuItem(
     /// Unique value for this item; auto-generated when omitted.
-    #[prop(into, optional)] value: MaybeProp<String>,
+    #[prop(into, optional)]
+    value: MaybeProp<String>,
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
@@ -127,7 +142,9 @@ pub fn NavigationMenuItem(
     let value = value
         .get_untracked()
         .unwrap_or_else(|| format!("nav-item-{}", NEXT_ID.fetch_add(1, Ordering::Relaxed)));
-    provide_context(NavigationMenuItemContext { value: StoredValue::new(value) });
+    provide_context(NavigationMenuItemContext {
+        value: StoredValue::new(value),
+    });
     view! { <li class=move || class.get()>{children.map(|c| c())}</li> }
 }
 
@@ -147,7 +164,11 @@ pub fn NavigationMenuTrigger(
     let is_open_for_state = is_open.clone();
     let is_open_for_aria = is_open.clone();
     let computed_class = Signal::derive(move || {
-        format!("{} {}", NAVIGATION_MENU_TRIGGER_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            NAVIGATION_MENU_TRIGGER_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     view! {
         <button
@@ -187,7 +208,11 @@ pub fn NavigationMenuContent(
     let ctx = nav_ctx();
     let item = use_context::<NavigationMenuItemContext>();
     let computed_class = Signal::derive(move || {
-        format!("{} {}", NAVIGATION_MENU_CONTENT_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            NAVIGATION_MENU_CONTENT_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     let children = StoredValue::new(children);
     view! {
@@ -215,7 +240,11 @@ pub fn NavigationMenuLink(
 ) -> impl IntoView {
     let ctx = nav_ctx();
     let computed_class = Signal::derive(move || {
-        format!("{} {}", NAVIGATION_MENU_LINK_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            NAVIGATION_MENU_LINK_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     view! {
         <a

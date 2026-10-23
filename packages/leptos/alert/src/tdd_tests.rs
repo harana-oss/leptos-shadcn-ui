@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tdd_tests {
-    use leptos::prelude::*;
     use crate::default::{Alert, AlertVariant};
+    use leptos::prelude::*;
 
     // ===== TDD ENHANCED TESTS - GREEN PHASE =====
     // These tests now implement real functionality and verify actual behavior
@@ -61,7 +61,10 @@ mod tdd_tests {
         let _alert_view = view! {
             <Alert class=custom_class>"Custom styled alert"</Alert>
         };
-        assert_eq!(custom_class, "custom-alert-class", "Custom styling should be supported");
+        assert_eq!(
+            custom_class, "custom-alert-class",
+            "Custom styling should be supported"
+        );
     }
 
     #[test]
@@ -70,7 +73,10 @@ mod tdd_tests {
         let _alert_view = view! {
             <Alert id=custom_id>"Alert with ID"</Alert>
         };
-        assert_eq!(custom_id, "custom-alert-id", "Custom ID should be supported");
+        assert_eq!(
+            custom_id, "custom-alert-id",
+            "Custom ID should be supported"
+        );
     }
 
     #[test]
@@ -182,7 +188,7 @@ mod tdd_tests {
     #[test]
     fn test_alert_integration_scenarios() {
         let _alert_view = view! {
-            <Alert 
+            <Alert
                 variant=AlertVariant::Warning
                 class="integration-alert"
                 id="integration-test"
@@ -195,8 +201,8 @@ mod tdd_tests {
     #[test]
     fn test_alert_complete_workflow() {
         let _alert_view = view! {
-            <Alert 
-                variant=AlertVariant::Success 
+            <Alert
+                variant=AlertVariant::Success
                 class="workflow-alert"
                 id="workflow-test"
             >
@@ -208,8 +214,8 @@ mod tdd_tests {
     #[test]
     fn test_alert_advanced_interactions() {
         let _alert_view = view! {
-            <Alert 
-                variant=AlertVariant::Default 
+            <Alert
+                variant=AlertVariant::Default
                 class="advanced-interactions"
                 id="advanced-alert"
             >
@@ -221,7 +227,7 @@ mod tdd_tests {
     #[test]
     fn test_alert_accessibility_comprehensive() {
         let _alert_view = view! {
-            <Alert 
+            <Alert
                 id="comprehensive-accessible-alert"
                 class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
@@ -233,7 +239,7 @@ mod tdd_tests {
     #[test]
     fn test_alert_custom_properties() {
         let _alert_view = view! {
-            <Alert 
+            <Alert
                 class="custom-properties-alert"
                 id="custom-props-test"
             >
@@ -245,7 +251,7 @@ mod tdd_tests {
     #[test]
     fn test_alert_form_integration() {
         let _alert_view = view! {
-            <Alert 
+            <Alert
                 variant=AlertVariant::Destructive
                 class="form-integration-alert"
                 id="form-alert"

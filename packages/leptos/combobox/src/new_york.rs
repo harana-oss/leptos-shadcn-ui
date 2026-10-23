@@ -1,8 +1,8 @@
+use crate::default::ComboboxOption;
 use leptos::prelude::*;
 use leptos_style::Style;
-use web_sys::{HtmlInputElement, Event, KeyboardEvent, FocusEvent};
 use wasm_bindgen::JsCast;
-use crate::default::ComboboxOption;
+use web_sys::{Event, FocusEvent, HtmlInputElement, KeyboardEvent};
 
 /// New York theme Combobox component
 #[component]
@@ -24,15 +24,25 @@ pub fn Combobox(
     let (input_value, set_input_value) = signal(String::new());
     let (selected_index, set_selected_index) = signal(0);
     let (filtered_options, set_filtered_options) = signal(options.clone());
-    
+
     // Use external open state if provided, otherwise use internal
-    let open_state = if open.get() { open } else { Signal::derive(move || is_open.get()) };
-    let _set_open = on_open_change.unwrap_or_else(|| Callback::new(move |value| set_is_open.set(value)));
-    
+    let open_state = if open.get() {
+        open
+    } else {
+        Signal::derive(move || is_open.get())
+    };
+    let _set_open =
+        on_open_change.unwrap_or_else(|| Callback::new(move |value| set_is_open.set(value)));
+
     // Use external value if provided, otherwise use internal
-    let current_value = if let Some(val) = value.get() { Signal::derive(move || val.clone()) } else { Signal::derive(move || input_value.get()) };
-    let set_value = on_change.unwrap_or_else(|| Callback::new(move |value| set_input_value.set(value)));
-    
+    let current_value = if let Some(val) = value.get() {
+        Signal::derive(move || val.clone())
+    } else {
+        Signal::derive(move || input_value.get())
+    };
+    let set_value =
+        on_change.unwrap_or_else(|| Callback::new(move |value| set_input_value.set(value)));
+
     // Filter options based on input value
     Effect::new(move |_| {
         let input = current_value.get();
@@ -42,33 +52,33 @@ pub fn Combobox(
             options
                 .iter()
                 .filter(|option| {
-                    option.label.to_lowercase().contains(&input.to_lowercase()) ||
-                    option.value.to_lowercase().contains(&input.to_lowercase())
+                    option.label.to_lowercase().contains(&input.to_lowercase())
+                        || option.value.to_lowercase().contains(&input.to_lowercase())
                 })
                 .cloned()
                 .collect()
         };
         set_filtered_options.set(filtered);
     });
-    
+
     // Handle input change
     let handle_input_change = move |event: Event| {
-        if let Some(target) = event.target() {
-            if let Ok(input) = target.dyn_into::<HtmlInputElement>() {
-                let value = input.value();
-                set_value.run(value.clone());
-                set_input_value.set(value);
-                set_is_open.set(true);
-                set_selected_index.set(0);
-            }
+        if let Some(target) = event.target()
+            && let Ok(input) = target.dyn_into::<HtmlInputElement>()
+        {
+            let value = input.value();
+            set_value.run(value.clone());
+            set_input_value.set(value);
+            set_is_open.set(true);
+            set_selected_index.set(0);
         }
     };
-    
+
     // Handle key navigation
     let handle_keydown = move |event: KeyboardEvent| {
         let options = filtered_options.get();
         let current_index = selected_index.get();
-        
+
         match event.key().as_str() {
             "ArrowDown" => {
                 event.prevent_default();
@@ -103,18 +113,18 @@ pub fn Combobox(
             _ => {}
         }
     };
-    
+
     // Handle option selection
     let handle_option_click = move |option: ComboboxOption| {
         set_value.run(option.value.clone());
         set_input_value.set(option.value.clone());
         set_is_open.set(false);
     };
-    
+
     // Handle focus/blur with proper cleanup
     // Use a guard flag to prevent timeout from executing after component unmount
     let (is_mounted, set_is_mounted) = signal(true);
-    let set_is_open_for_timeout = set_is_open.clone();
+    let set_is_open_for_timeout = set_is_open;
 
     let handle_focus = move |_: FocusEvent| {
         set_is_open.set(true);
@@ -122,16 +132,16 @@ pub fn Combobox(
 
     let handle_blur = move |_: FocusEvent| {
         // Delay closing to allow for option clicks
-        let is_mounted = is_mounted.clone();
-        let set_is_open = set_is_open_for_timeout.clone();
-        set_timeout(
+        let is_mounted = is_mounted;
+        let set_is_open = set_is_open_for_timeout;
+        let _ = set_timeout(
             move || {
                 // Only execute if component is still mounted
                 if is_mounted.get() {
                     set_is_open.set(false);
                 }
             },
-            std::time::Duration::from_millis(150)
+            std::time::Duration::from_millis(150),
         );
     };
 
@@ -139,7 +149,7 @@ pub fn Combobox(
     on_cleanup(move || {
         set_is_mounted.set(false);
     });
-    
+
     // Compute classes (New York theme styling)
     let computed_class = Signal::derive(move || {
         let base_class = "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50";
@@ -149,7 +159,7 @@ pub fn Combobox(
             base_class.to_string()
         }
     });
-    
+
     view! {
         <div class="relative w-full">
             <input
@@ -165,7 +175,7 @@ pub fn Combobox(
                 on:focus=handle_focus
                 on:blur=handle_blur
             />
-            
+
             <button
                 r#type="button"
                 class="absolute right-3 top-1/2 -translate-y-1/2"
@@ -186,7 +196,7 @@ pub fn Combobox(
                     />
                 </svg>
             </button>
-            
+
             <div class=move || {
                 if open_state.get() && !filtered_options.get().is_empty() {
                     "absolute top-full left-0 right-0 z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-popover text-popover-foreground shadow-md"
@@ -200,7 +210,7 @@ pub fn Combobox(
                             let is_selected = move || index == selected_index.get();
                             let is_disabled = option.disabled;
                             let option_clone = option.clone();
-                            
+
                             view! {
                                 <div
                                     class=move || {

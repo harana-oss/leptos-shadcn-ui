@@ -1,11 +1,11 @@
 //! Leptos port of shadcn/ui toggle
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
+pub mod signal_managed;
 
-pub use default::{Toggle};
-pub use new_york::{Toggle as ToggleNewYork};
+pub use default::Toggle;
+pub use new_york::Toggle as ToggleNewYork;
 
 mod tests;
 

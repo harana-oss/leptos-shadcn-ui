@@ -55,15 +55,15 @@
 //!
 //! Each module is thoroughly tested using TDD principles to ensure reliability and maintainability.
 
-pub mod bundle_analysis;
-pub mod performance_monitoring;
-pub mod optimization_roadmap;
-pub mod benchmarks;
-#[cfg(not(target_arch = "wasm32"))]
-pub mod memory_safety;
-pub mod regression_testing;
 #[cfg(not(target_arch = "wasm32"))]
 pub mod automated_monitoring;
+pub mod benchmarks;
+pub mod bundle_analysis;
+#[cfg(not(target_arch = "wasm32"))]
+pub mod memory_safety;
+pub mod optimization_roadmap;
+pub mod performance_monitoring;
+pub mod regression_testing;
 
 use thiserror::Error;
 
@@ -102,9 +102,9 @@ pub struct PerformanceConfig {
 impl Default for PerformanceConfig {
     fn default() -> Self {
         Self {
-            max_component_size_kb: 5.0,  // Target: < 5KB per component
-            max_render_time_ms: 16.0,    // Target: < 16ms (60fps)
-            max_memory_usage_mb: 1.0,    // Target: < 1MB total
+            max_component_size_kb: 5.0, // Target: < 5KB per component
+            max_render_time_ms: 16.0,   // Target: < 16ms (60fps)
+            max_memory_usage_mb: 1.0,   // Target: < 1MB total
             monitoring_enabled: true,
         }
     }
@@ -142,17 +142,19 @@ impl PerformanceResults {
 }
 
 /// Run comprehensive performance audit
-pub async fn run_performance_audit(_config: PerformanceConfig) -> Result<PerformanceResults, PerformanceAuditError> {
+pub async fn run_performance_audit(
+    _config: PerformanceConfig,
+) -> Result<PerformanceResults, PerformanceAuditError> {
     // Create mock bundle analysis results
     let mut bundle_results = bundle_analysis::BundleAnalysisResults::default();
 
     // Add some sample components with various sizes
     let components = vec![
-        ("button", 2048),    // 2KB - good
-        ("input", 4096),     // 4KB - good
-        ("table", 8192),     // 8KB - oversized
-        ("calendar", 3072),  // 3KB - good
-        ("dialog", 6144),    // 6KB - oversized
+        ("button", 2048),   // 2KB - good
+        ("input", 4096),    // 4KB - good
+        ("table", 8192),    // 8KB - oversized
+        ("calendar", 3072), // 3KB - good
+        ("dialog", 6144),   // 6KB - oversized
     ];
 
     for (name, size_bytes) in components {
@@ -165,15 +167,16 @@ pub async fn run_performance_audit(_config: PerformanceConfig) -> Result<Perform
 
     // Add sample performance metrics
     let performance_data = vec![
-        ("button", 8, 512 * 1024),      // 8ms, 512KB - good
-        ("input", 12, 768 * 1024),      // 12ms, 768KB - good
-        ("table", 32, 2 * 1024 * 1024), // 32ms, 2MB - poor
-        ("calendar", 10, 640 * 1024),   // 10ms, 640KB - good
+        ("button", 8, 512 * 1024),                      // 8ms, 512KB - good
+        ("input", 12, 768 * 1024),                      // 12ms, 768KB - good
+        ("table", 32, 2 * 1024 * 1024),                 // 32ms, 2MB - poor
+        ("calendar", 10, 640 * 1024),                   // 10ms, 640KB - good
         ("dialog", 24, (1.5 * 1024.0 * 1024.0) as u64), // 24ms, 1.5MB - poor
     ];
 
     for (name, render_time_ms, memory_bytes) in performance_data {
-        let mut metrics = performance_monitoring::ComponentPerformanceMetrics::new(name.to_string());
+        let mut metrics =
+            performance_monitoring::ComponentPerformanceMetrics::new(name.to_string());
         metrics.update_render_time(std::time::Duration::from_millis(render_time_ms));
         metrics.update_memory_usage(memory_bytes);
         performance_results.add_component_metrics(metrics);
@@ -252,13 +255,19 @@ mod tests {
         for (score, expected_grade) in test_cases {
             let results = PerformanceResults {
                 bundle_analysis: bundle_analysis::BundleAnalysisResults::default(),
-                performance_monitoring: performance_monitoring::PerformanceMonitoringResults::default(),
+                performance_monitoring:
+                    performance_monitoring::PerformanceMonitoringResults::default(),
                 optimization_roadmap: optimization_roadmap::OptimizationRoadmap::default(),
                 overall_score: score,
             };
 
-            assert_eq!(results.get_grade(), expected_grade,
-                "Score {} should get grade {}", score, expected_grade);
+            assert_eq!(
+                results.get_grade(),
+                expected_grade,
+                "Score {} should get grade {}",
+                score,
+                expected_grade
+            );
         }
     }
 }

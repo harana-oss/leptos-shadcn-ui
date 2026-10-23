@@ -1,29 +1,14 @@
 use leptos::prelude::*;
 use leptos_meta::*;
 use wasm_bindgen::prelude::*;
-use web_sys;
-
-// For production: use leptos-shadcn-ui-wasm for proper WASM initialization
-#[cfg(feature = "wasm")]
-use leptos_shadcn_ui_wasm::init::{init_wasm_with_config, WasmInitConfig};
 
 // Import all the refactored components
-use leptos_shadcn_button::{Button, ButtonVariant, ButtonSize};
+use leptos_shadcn_button::{Button, ButtonSize, ButtonVariant};
 use leptos_shadcn_card::*;
 use leptos_shadcn_input::*;
 
 #[wasm_bindgen(start)]
 pub fn main() {
-    // Initialize WASM with proper state management
-    #[cfg(feature = "wasm")]
-    {
-        let config = WasmInitConfig {
-            verbose: true,
-            ..Default::default()
-        };
-        let _ = init_wasm_with_config(config);
-    }
-
     mount_to_body(|| view! { <App /> })
 }
 
@@ -86,7 +71,7 @@ pub fn App() -> impl IntoView {
         <Meta charset="utf-8"/>
         <Meta name="viewport" content="width=device-width, initial-scale=1"/>
         <Meta name="description" content="Professional dashboard built with Leptos and ShadCN UI components"/>
-        
+
         <div class=Signal::derive(move || {
             if is_dark.get() {
                 "min-h-screen bg-background text-foreground dark".to_string()
@@ -134,7 +119,7 @@ pub fn App() -> impl IntoView {
                                     "Settings"
                                 </a>
                             </nav>
-                            
+
                             <div class="p-4 border-t border-border">
                                 <div class="flex items-center gap-3">
                                     <div class="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
@@ -159,11 +144,11 @@ pub fn App() -> impl IntoView {
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-4">
                                 <Button variant=ButtonVariant::Ghost on:click=toggle_sidebar class="p-2 hover:bg-accent transition-colors">
-                                    <span class="text-lg">{move || if sidebar_open.get() { "☰" } else { "☰" }}</span>
+                                    <span class="text-lg">"☰"</span>
                                 </Button>
                                 <h1 class="text-2xl font-semibold">"Dashboard"</h1>
                             </div>
-                            
+
                             <div class="flex items-center gap-4">
                                 <Button variant=ButtonVariant::Ghost on:click=toggle_theme class="flex items-center gap-2">
                                     {move || if is_dark.get() { "🌞" } else { "🌙" }}
@@ -276,7 +261,7 @@ pub fn App() -> impl IntoView {
                         </CardHeader>
                         <CardContent>
                             <div class="space-y-4">
-                                <Input 
+                                <Input
                                     placeholder="Type something..."
                                     prop:value=input_value
                                     on:input=move |ev| {
@@ -301,12 +286,12 @@ pub fn App() -> impl IntoView {
                                         <div class="space-y-4">
                                             // Using ShadCN components
                                             <Button class="mb-4">"ShadCN Button"</Button>
-                                            
+
                                             // Using tailwind-rs-wasm for dynamic styling
                                             <div class="bg-blue-600 text-white px-4 py-2 rounded">
                                                 "Dynamic styling with Tailwind CSS"
                                             </div>
-                                            
+
                                             // Combining both approaches
                                             <Card class="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer" on:click=move |_| {
                                                 web_sys::console::log_1(&"Best of both worlds clicked!".into());

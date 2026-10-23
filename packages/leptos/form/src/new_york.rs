@@ -1,8 +1,8 @@
+use crate::default::{FormData, FormValidation};
 use leptos::prelude::*;
 use leptos_style::Style;
-use web_sys::{HtmlFormElement, SubmitEvent};
 use wasm_bindgen::JsCast;
-use crate::default::{FormData, FormValidation};
+use web_sys::{HtmlFormElement, SubmitEvent};
 
 /// New York theme Form component
 #[component]
@@ -13,21 +13,21 @@ pub fn Form(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let (_validation, _set_validation) = signal(FormValidation::new());
-    
+
     let handle_submit = move |event: SubmitEvent| {
         event.prevent_default();
-        
-        if let Some(target) = event.target() {
-            if let Ok(form) = target.dyn_into::<HtmlFormElement>() {
-                let form_data = FormData::from_form(&form);
-                
-                if let Some(callback) = on_submit.as_ref() {
-                    callback.run(form_data);
-                }
+
+        if let Some(target) = event.target()
+            && let Ok(form) = target.dyn_into::<HtmlFormElement>()
+        {
+            let form_data = FormData::from_form(&form);
+
+            if let Some(callback) = on_submit.as_ref() {
+                callback.run(form_data);
             }
         }
     };
-    
+
     let computed_class = Signal::derive(move || {
         let base_class = "space-y-6";
         if let Some(class) = class.get() {
@@ -36,7 +36,7 @@ pub fn Form(
             base_class.to_string()
         }
     });
-    
+
     view! {
         <form
             class=computed_class
@@ -64,7 +64,7 @@ pub fn FormField(
             base_class.to_string()
         }
     });
-    
+
     view! {
         <div
             class=computed_class
@@ -91,7 +91,7 @@ pub fn FormItem(
             base_class.to_string()
         }
     });
-    
+
     view! {
         <div
             class=computed_class
@@ -118,7 +118,7 @@ pub fn FormLabel(
             base_class.to_string()
         }
     });
-    
+
     view! {
         <label
             for=for_field
@@ -145,7 +145,7 @@ pub fn FormControl(
             base_class.to_string()
         }
     });
-    
+
     view! {
         <div
             class=computed_class
@@ -171,7 +171,7 @@ pub fn FormMessage(
             base_class.to_string()
         }
     });
-    
+
     view! {
         <p
             class=move || {
@@ -203,7 +203,7 @@ pub fn FormDescription(
             base_class.to_string()
         }
     });
-    
+
     view! {
         <p
             class=computed_class

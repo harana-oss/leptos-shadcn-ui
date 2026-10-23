@@ -1,10 +1,10 @@
 //! Performance tests for the Menubar component
-//! 
+//!
 //! This module contains tests for performance, callbacks, disabled states,
 //! custom styles, and complex content for the Menubar component.
 
+use crate::default::Menubar;
 use leptos::prelude::*;
-use crate::default::{Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger};
 
 #[cfg(test)]
 mod tests {
@@ -18,7 +18,7 @@ mod tests {
                 "Performance menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -26,13 +26,13 @@ mod tests {
     #[test]
     fn test_menubar_callback_execution() {
         // Test menubar callback execution
-        let (callback_executed, set_callback_executed) = signal(false);
+        let (_callback_executed, _set_callback_executed) = signal(false);
         let menubar_view = view! {
             <Menubar>
                 "Callback menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -40,15 +40,15 @@ mod tests {
     #[test]
     fn test_menubar_multiple_callbacks() {
         // Test menubar multiple callbacks
-        let (callback1_executed, set_callback1_executed) = signal(false);
-        let (callback2_executed, set_callback2_executed) = signal(false);
+        let (_callback1_executed, _set_callback1_executed) = signal(false);
+        let (_callback2_executed, _set_callback2_executed) = signal(false);
         let menubar_view = view! {
             <div>
                 <Menubar>"Multiple callbacks menu 1"</Menubar>
                 <Menubar>"Multiple callbacks menu 2"</Menubar>
             </div>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -61,7 +61,7 @@ mod tests {
                 "Disabled menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -74,7 +74,7 @@ mod tests {
                 "Enabled menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -87,7 +87,7 @@ mod tests {
                 "Custom style menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -100,7 +100,7 @@ mod tests {
                 "Combined props menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -118,7 +118,7 @@ mod tests {
                 </div>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -135,7 +135,7 @@ mod tests {
                 </div>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -143,13 +143,13 @@ mod tests {
     #[test]
     fn test_menubar_dynamic_content() {
         // Test menubar dynamic content
-        let (content, set_content) = signal("Dynamic content");
+        let (content, _set_content) = signal("Dynamic content");
         let menubar_view = view! {
             <Menubar>
                 {move || content.get()}
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -157,7 +157,7 @@ mod tests {
     #[test]
     fn test_menubar_conditional_content() {
         // Test menubar conditional content
-        let (show_content, set_show_content) = signal(true);
+        let (show_content, _set_show_content) = signal(true);
         let menubar_view = view! {
             <Menubar>
                 {move || if show_content.get() {
@@ -167,7 +167,7 @@ mod tests {
                 }}
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -185,7 +185,7 @@ mod tests {
                 }).collect::<Vec<_>>()}
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -193,7 +193,7 @@ mod tests {
     #[test]
     fn test_menubar_signal_content() {
         // Test menubar signal content
-        let (items, set_items) = signal(vec!["Signal item 1", "Signal item 2"]);
+        let (items, _set_items) = signal(vec!["Signal item 1", "Signal item 2"]);
         let menubar_view = view! {
             <Menubar>
                 {move || items.get().into_iter().map(|item| {
@@ -203,7 +203,7 @@ mod tests {
                 }).collect::<Vec<_>>()}
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -216,7 +216,7 @@ mod tests {
                 "Performance characteristics menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -229,7 +229,7 @@ mod tests {
                 "Memory management menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -242,7 +242,7 @@ mod tests {
                 "Rendering performance menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -250,13 +250,13 @@ mod tests {
     #[test]
     fn test_menubar_update_performance() {
         // Test menubar update performance
-        let (count, set_count) = signal(0);
+        let (_count, _set_count) = signal(0);
         let menubar_view = view! {
             <Menubar>
-                "Update performance menu {count}"
+                format!("Update performance menu {count}")
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -264,13 +264,13 @@ mod tests {
     #[test]
     fn test_menubar_event_performance() {
         // Test menubar event performance
-        let (event_count, set_event_count) = signal(0);
+        let (_event_count, _set_event_count) = signal(0);
         let menubar_view = view! {
             <Menubar>
                 "Event performance menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -278,13 +278,13 @@ mod tests {
     #[test]
     fn test_menubar_signal_performance() {
         // Test menubar signal performance
-        let (signal_value, set_signal_value) = signal("Signal value");
+        let (signal_value, _set_signal_value) = signal("Signal value");
         let menubar_view = view! {
             <Menubar>
                 {move || signal_value.get()}
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -297,7 +297,7 @@ mod tests {
                 "Component performance menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -307,14 +307,14 @@ mod tests {
         // Test menubar large content
         let menubar_view = view! {
             <Menubar>
-                {(0..100).map(|i| {
+                {(0..100).map(|_i| {
                     view! {
-                        <span>"Large content item {i}"</span>
+                        <span>format!("Large content item {i}")</span>
                     }
                 }).collect::<Vec<_>>()}
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -337,7 +337,7 @@ mod tests {
                 </div>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -351,7 +351,7 @@ mod tests {
                 <Menubar>"Instance 2 menu"</Menubar>
             </div>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -359,15 +359,15 @@ mod tests {
     #[test]
     fn test_menubar_complex_interactions() {
         // Test menubar complex interactions
-        let (state1, set_state1) = signal(false);
-        let (state2, set_state2) = signal(false);
+        let (_state1, _set_state1) = signal(false);
+        let (_state2, _set_state2) = signal(false);
         let menubar_view = view! {
             <div>
                 <Menubar>"Complex interaction 1"</Menubar>
                 <Menubar>"Complex interaction 2"</Menubar>
             </div>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -380,7 +380,7 @@ mod tests {
                 "Performance optimization menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -393,7 +393,7 @@ mod tests {
                 "Memory optimization menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -406,7 +406,7 @@ mod tests {
                 "Rendering optimization menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -414,13 +414,13 @@ mod tests {
     #[test]
     fn test_menubar_update_optimization() {
         // Test menubar update optimization
-        let (optimized_value, set_optimized_value) = signal("Optimized value");
+        let (optimized_value, _set_optimized_value) = signal("Optimized value");
         let menubar_view = view! {
             <Menubar>
                 {move || optimized_value.get()}
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -428,13 +428,13 @@ mod tests {
     #[test]
     fn test_menubar_event_optimization() {
         // Test menubar event optimization
-        let (optimized_count, set_optimized_count) = signal(0);
+        let (_optimized_count, _set_optimized_count) = signal(0);
         let menubar_view = view! {
             <Menubar>
                 "Event optimization menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -442,13 +442,13 @@ mod tests {
     #[test]
     fn test_menubar_signal_optimization() {
         // Test menubar signal optimization
-        let (optimized_signal, set_optimized_signal) = signal("Optimized signal");
+        let (optimized_signal, _set_optimized_signal) = signal("Optimized signal");
         let menubar_view = view! {
             <Menubar>
                 {move || optimized_signal.get()}
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -461,7 +461,7 @@ mod tests {
                 "Component optimization menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }

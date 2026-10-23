@@ -1,10 +1,9 @@
 //! AlertDialog action and cancel components
-//! 
+//!
 //! This module contains the AlertDialogAction and AlertDialogCancel
 //! components for dialog actions.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 use web_sys::MouseEvent;
 
 #[component]

@@ -1,17 +1,21 @@
 //! Leptos port of shadcn/ui input
+#![allow(clippy::result_large_err)]
+#![allow(clippy::type_complexity)]
 
 pub mod default;
 pub mod new_york;
-pub mod validation;
 pub mod signal_managed;
+pub mod validation;
 
-pub use default::{Input};
-pub use new_york::{Input as InputNewYork};
-pub use validation::{
-    ValidationRule, ValidationError, ValidationResult, 
-    InputValidator, ValidationContext, validation_builders
+pub use default::Input;
+pub use new_york::Input as InputNewYork;
+pub use signal_managed::{
+    EnhancedInput, INPUT_CLASS, INPUT_ERROR_CLASS, SignalManagedInput, SignalManagedInputState,
 };
-pub use signal_managed::{SignalManagedInput, EnhancedInput, SignalManagedInputState, INPUT_CLASS, INPUT_ERROR_CLASS};
+pub use validation::{
+    InputValidator, ValidationContext, ValidationError, ValidationResult, ValidationRule,
+    validation_builders,
+};
 
 mod tests_real;
 

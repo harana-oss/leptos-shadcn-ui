@@ -19,7 +19,10 @@ impl DependencyContractTester {
 
     /// Test that main package uses workspace paths instead of published versions
     pub fn test_main_package_uses_workspace_paths(&self) -> Result<(), ContractError> {
-        let main_cargo_path = format!("{}/packages/leptos-shadcn-ui/Cargo.toml", self.workspace_root);
+        let main_cargo_path = format!(
+            "{}/packages/leptos-shadcn-ui/Cargo.toml",
+            self.workspace_root
+        );
 
         if !Path::new(&main_cargo_path).exists() {
             return Err(ContractError::ValidationError {
@@ -39,18 +42,22 @@ impl DependencyContractTester {
 
         // TODO: Implement version consistency checking
         // For now, we'll pass to demonstrate TDD approach
-        println!("✅ Version consistency check passed for version {}", expected_version);
+        println!(
+            "✅ Version consistency check passed for version {}",
+            expected_version
+        );
         Ok(())
     }
 
     /// Test that no published dependencies conflict with workspace
     pub fn test_no_published_version_conflicts(&self) -> Result<(), ContractError> {
         // This test should fail initially, demonstrating the TDD red-green-refactor cycle
-        let problematic_deps = vec![
+        let problematic_deps = [
             "leptos-shadcn-button = { version = \"0.6.0\"",
             "leptos-shadcn-input = { version = \"0.6.1\"",
         ];
 
+        #[allow(clippy::const_is_empty)]
         if !problematic_deps.is_empty() {
             return Err(ContractError::ValidationError {
                 message: format!(
@@ -103,7 +110,10 @@ mod tests {
         let tester = DependencyContractTester::new("/fake/path");
         // This should fail initially - demonstrating TDD red phase
         let result = tester.test_main_package_uses_workspace_paths();
-        assert!(result.is_err(), "Test should fail until dependencies are fixed");
+        assert!(
+            result.is_err(),
+            "Test should fail until dependencies are fixed"
+        );
     }
 
     #[tokio::test]

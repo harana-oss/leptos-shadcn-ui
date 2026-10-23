@@ -1,17 +1,15 @@
 //! Leptos port of shadcn/ui collapsible
+#![allow(clippy::redundant_closure)]
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
+pub mod signal_managed;
 
-pub use default::{
-    Collapsible, CollapsibleTrigger, CollapsibleContent,
-};
+pub use default::{Collapsible, CollapsibleContent, CollapsibleTrigger};
 
 pub use new_york::{
-    Collapsible as CollapsibleNewYork,
+    Collapsible as CollapsibleNewYork, CollapsibleContent as CollapsibleContentNewYork,
     CollapsibleTrigger as CollapsibleTriggerNewYork,
-    CollapsibleContent as CollapsibleContentNewYork,
 };
 
 mod tests;

@@ -1,25 +1,21 @@
+use leptos::wasm_bindgen::JsCast;
 use leptos::{ev::Event, prelude::*};
 use leptos_style::Style;
-use leptos::wasm_bindgen::JsCast;
 
 const SLIDER_CLASS: &str = "relative flex w-full touch-none select-none items-center";
-const SLIDER_TRACK_CLASS: &str = "relative h-2 w-full grow overflow-hidden rounded-full bg-secondary";
+const SLIDER_TRACK_CLASS: &str =
+    "relative h-2 w-full grow overflow-hidden rounded-full bg-secondary";
 const SLIDER_RANGE_CLASS: &str = "absolute h-full bg-primary";
 const SLIDER_THUMB_CLASS: &str = "block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Default)]
 pub enum SliderVariant {
+    #[default]
     Default,
     Success,
     Warning,
     Destructive,
     Info,
-}
-
-impl Default for SliderVariant {
-    fn default() -> Self {
-        SliderVariant::Default
-    }
 }
 
 impl From<String> for SliderVariant {
@@ -46,17 +42,12 @@ impl SliderVariant {
     }
 }
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Default)]
 pub enum SliderSize {
     Sm,
+    #[default]
     Md,
     Lg,
-}
-
-impl Default for SliderSize {
-    fn default() -> Self {
-        SliderSize::Md
-    }
 }
 
 impl From<String> for SliderSize {
@@ -77,7 +68,7 @@ impl SliderSize {
             SliderSize::Lg => "h-3",
         }
     }
-    
+
     fn thumb_class(&self) -> &'static str {
         match self {
             SliderSize::Sm => "h-3 w-3",
@@ -107,9 +98,8 @@ pub fn Slider(
     let step_value = step.get().unwrap_or(1.0);
     let slider_variant = variant.get().unwrap_or_default();
     let slider_size = size.get().unwrap_or_default();
-    
+
     let handle_change = {
-        let on_change = on_change.clone();
         move |event: Event| {
             if let Some(callback) = &on_change {
                 let target = event.target().unwrap();
@@ -124,24 +114,31 @@ pub fn Slider(
     let progress_percentage = Signal::derive(move || {
         let val = value.get();
         let range = max_value - min_value;
-        if range <= 0.0 { 0.0 } else { ((val - min_value) / range * 100.0).clamp(0.0, 100.0) }
+        if range <= 0.0 {
+            0.0
+        } else {
+            ((val - min_value) / range * 100.0).clamp(0.0, 100.0)
+        }
     });
 
     let track_class = slider_size.track_class();
     let thumb_class = slider_size.thumb_class();
     let variant_class = slider_variant.range_class();
-    
+
     let computed_class = Signal::derive(move || {
-        format!("{} {} {}", SLIDER_CLASS, track_class, class.get().unwrap_or_default())
+        format!(
+            "{} {} {}",
+            SLIDER_CLASS,
+            track_class,
+            class.get().unwrap_or_default()
+        )
     });
 
-    let computed_range_class = Signal::derive(move || {
-        format!("{} {} {}", SLIDER_RANGE_CLASS, variant_class, track_class)
-    });
+    let computed_range_class =
+        Signal::derive(move || format!("{} {} {}", SLIDER_RANGE_CLASS, variant_class, track_class));
 
-    let computed_thumb_class = Signal::derive(move || {
-        format!("{} {} {}", SLIDER_THUMB_CLASS, thumb_class, track_class)
-    });
+    let computed_thumb_class =
+        Signal::derive(move || format!("{} {} {}", SLIDER_THUMB_CLASS, thumb_class, track_class));
 
     view! {
         <div class="w-full space-y-2">
@@ -206,12 +203,14 @@ pub fn RangeSlider(
     let _step_value = step.get().unwrap_or(1.0);
     let slider_variant = variant.get().unwrap_or_default();
     let slider_size = size.get().unwrap_or_default();
-    
+
     let (_min_val, _max_val) = values.get();
     let range_percentage = Signal::derive(move || {
         let (min_v, max_v) = values.get();
         let range = max_value - min_value;
-        if range <= 0.0 { (0.0, 0.0) } else {
+        if range <= 0.0 {
+            (0.0, 0.0)
+        } else {
             let min_percent = ((min_v - min_value) / range * 100.0).clamp(0.0, 100.0);
             let max_percent = ((max_v - min_value) / range * 100.0).clamp(0.0, 100.0);
             (min_percent, max_percent)
@@ -221,18 +220,21 @@ pub fn RangeSlider(
     let track_class = slider_size.track_class();
     let thumb_class = slider_size.thumb_class();
     let variant_class = slider_variant.range_class();
-    
+
     let computed_class = Signal::derive(move || {
-        format!("{} {} {}", SLIDER_CLASS, track_class, class.get().unwrap_or_default())
+        format!(
+            "{} {} {}",
+            SLIDER_CLASS,
+            track_class,
+            class.get().unwrap_or_default()
+        )
     });
 
-    let computed_range_class = Signal::derive(move || {
-        format!("{} {} {}", SLIDER_RANGE_CLASS, variant_class, track_class)
-    });
+    let computed_range_class =
+        Signal::derive(move || format!("{} {} {}", SLIDER_RANGE_CLASS, variant_class, track_class));
 
-    let computed_thumb_class = Signal::derive(move || {
-        format!("{} {} {}", SLIDER_THUMB_CLASS, thumb_class, track_class)
-    });
+    let computed_thumb_class =
+        Signal::derive(move || format!("{} {} {}", SLIDER_THUMB_CLASS, thumb_class, track_class));
 
     view! {
         <div class="w-full space-y-2">

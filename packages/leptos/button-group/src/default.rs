@@ -43,7 +43,10 @@ impl ButtonGroupOrientation {
 
 /// Full class for a button group with the given orientation.
 pub fn button_group_class(orientation: ButtonGroupOrientation, extra: Option<String>) -> String {
-    cn(&format!("{} {}", BUTTON_GROUP_CLASS, orientation.class()), extra)
+    cn(
+        &format!("{} {}", BUTTON_GROUP_CLASS, orientation.class()),
+        extra,
+    )
 }
 
 /// Groups related buttons together (data-slot="button-group").
@@ -78,7 +81,11 @@ pub fn ButtonGroupSeparator(
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: MaybeProp<String>,
 ) -> impl IntoView {
-    let o = move || orientation.get().unwrap_or(ButtonGroupOrientation::Vertical);
+    let o = move || {
+        orientation
+            .get()
+            .unwrap_or(ButtonGroupOrientation::Vertical)
+    };
     view! {
         <div
             role="separator"

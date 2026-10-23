@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod basic_rendering_tests {
-    use leptos::prelude::*;
     use crate::default::Table;
+    use leptos::prelude::*;
 
     // ===== BASIC RENDERING TESTS =====
     // These tests focus on basic rendering and component creation
@@ -114,13 +114,13 @@ mod basic_rendering_tests {
                 "First table"
             </Table>
         };
-        
+
         let _table2 = view! {
             <Table class="table-2">
                 "Second table"
             </Table>
         };
-        
+
         let _table3 = view! {
             <Table class="table-3">
                 "Third table"
@@ -136,7 +136,7 @@ mod basic_rendering_tests {
                 {move || table_state.get()}
             </Table>
         };
-        
+
         // Test state change
         table_state.set("updated state");
         assert_eq!(table_state.get(), "updated state");
@@ -150,7 +150,7 @@ mod basic_rendering_tests {
                 {move || content_signal.get()}
             </Table>
         };
-        
+
         // Test reactive content
         content_signal.set("Updated content");
         assert_eq!(content_signal.get(), "Updated content");

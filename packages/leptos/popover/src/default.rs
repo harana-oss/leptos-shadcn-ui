@@ -39,21 +39,22 @@ fn use_popover_context() -> PopoverContext {
 fn next_content_id() -> String {
     use std::sync::atomic::{AtomicUsize, Ordering};
     static COUNTER: AtomicUsize = AtomicUsize::new(0);
-    format!("popover-content-{}", COUNTER.fetch_add(1, Ordering::Relaxed))
+    format!(
+        "popover-content-{}",
+        COUNTER.fetch_add(1, Ordering::Relaxed)
+    )
 }
 
 fn data_state(open: bool) -> &'static str {
-    if open {
-        "open"
-    } else {
-        "closed"
-    }
+    if open { "open" } else { "closed" }
 }
 
 fn trigger_variant_class(variant: Option<String>) -> &'static str {
     match variant.unwrap_or_default().as_str() {
         "destructive" => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        "outline" => "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        "outline" => {
+            "border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+        }
         "secondary" => "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         "ghost" => "hover:bg-accent hover:text-accent-foreground",
         "link" => "text-primary underline-offset-4 hover:underline",
@@ -101,8 +102,9 @@ pub fn Popover(
         Effect::watch(move || open.get(), move |o, _, _| cb.run(*o), false);
     }
 
-    let computed_class =
-        Signal::derive(move || format!("{} {}", POPOVER_ROOT_CLASS, class.get().unwrap_or_default()));
+    let computed_class = Signal::derive(move || {
+        format!("{} {}", POPOVER_ROOT_CLASS, class.get().unwrap_or_default())
+    });
 
     view! {
         <div
@@ -174,8 +176,13 @@ pub fn PopoverContent(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let ctx = use_popover_context();
-    let computed_class =
-        Signal::derive(move || format!("{} {}", POPOVER_CONTENT_CLASS, class.get().unwrap_or_default()));
+    let computed_class = Signal::derive(move || {
+        format!(
+            "{} {}",
+            POPOVER_CONTENT_CLASS,
+            class.get().unwrap_or_default()
+        )
+    });
 
     view! {
         <div

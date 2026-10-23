@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod advanced_tests {
-    use leptos::prelude::*;
     use crate::default::Table;
+    use leptos::prelude::*;
 
     // ===== ADVANCED TESTS =====
     // These tests focus on advanced functionality and edge cases
@@ -13,7 +13,7 @@ mod advanced_tests {
             ("John Doe", "30", "john@example.com"),
             ("Jane Smith", "25", "jane@example.com"),
         ]);
-        
+
         let _table_view = view! {
             <Table>
                 <thead>
@@ -48,12 +48,12 @@ mod advanced_tests {
                 </tbody>
             </Table>
         };
-        
+
         // Test state update
         table_data.update(|data| {
             data.push(("Bob Johnson", "35", "bob@example.com"));
         });
-        
+
         assert_eq!(table_data.get().len(), 4);
     }
 
@@ -75,12 +75,12 @@ mod advanced_tests {
                 </thead>
             </Table>
         };
-        
+
         // Test column update
         columns.update(|cols| {
             cols.push("Phone");
         });
-        
+
         assert_eq!(columns.get().len(), 4);
     }
 
@@ -88,12 +88,8 @@ mod advanced_tests {
     fn test_table_sorting_functionality() {
         let sort_column = RwSignal::new("name");
         let sort_direction = RwSignal::new("asc");
-        let table_data = RwSignal::new(vec![
-            ("Charlie", "30"),
-            ("Alice", "25"),
-            ("Bob", "35"),
-        ]);
-        
+        let table_data = RwSignal::new(vec![("Charlie", "30"), ("Alice", "25"), ("Bob", "35")]);
+
         let _table_view = view! {
             <Table>
                 <thead>
@@ -156,7 +152,7 @@ mod advanced_tests {
                 </tbody>
             </Table>
         };
-        
+
         // Test sorting
         sort_column.set("name");
         sort_direction.set("asc");
@@ -172,7 +168,7 @@ mod advanced_tests {
             ("Jane Smith", "25"),
             ("Bob Johnson", "35"),
         ]);
-        
+
         let _table_view = view! {
             <Table>
                 <thead>
@@ -214,7 +210,7 @@ mod advanced_tests {
                 </tbody>
             </Table>
         };
-        
+
         // Test filtering
         filter_value.set("john".to_string());
         assert_eq!(filter_value.get(), "john");
@@ -231,7 +227,7 @@ mod advanced_tests {
             ("Row 4", "Data 4"),
             ("Row 5", "Data 5"),
         ]);
-        
+
         let _table_view = view! {
             <Table>
                 <tbody>
@@ -239,8 +235,8 @@ mod advanced_tests {
                         let page = current_page.get();
                         let size = page_size.get();
                         let start = (page - 1) * size;
-                        let end = start + size;
-                        
+                        let _end = start + size;
+
                         table_data.get()
                             .iter()
                             .skip(start as usize)
@@ -299,7 +295,7 @@ mod advanced_tests {
                 </tfoot>
             </Table>
         };
-        
+
         // Test pagination
         current_page.set(2);
         assert_eq!(current_page.get(), 2);
@@ -313,7 +309,7 @@ mod advanced_tests {
             ("Row 2", "Data 2"),
             ("Row 3", "Data 3"),
         ]);
-        
+
         let _table_view = view! {
             <Table>
                 <tbody>
@@ -360,7 +356,7 @@ mod advanced_tests {
                 </tbody>
             </Table>
         };
-        
+
         // Test row selection
         selected_rows.update(|selected| selected.push(0));
         assert!(selected_rows.get().contains(&0));
@@ -372,7 +368,7 @@ mod advanced_tests {
             ("Editable Cell 1".to_string(), "Editable Cell 2".to_string()),
             ("Editable Cell 3".to_string(), "Editable Cell 4".to_string()),
         ]);
-        
+
         let _table_view = view! {
             <Table>
                 <tbody>
@@ -416,14 +412,14 @@ mod advanced_tests {
                 </tbody>
             </Table>
         };
-        
+
         // Test cell editing
         table_data.update(|data| {
             if let Some(row) = data.get_mut(0) {
                 row.0 = "Updated Cell 1".to_string();
             }
         });
-        
+
         assert_eq!(table_data.get()[0].0, "Updated Cell 1");
     }
 
@@ -434,7 +430,7 @@ mod advanced_tests {
             ("John Doe", "30"),
             ("Jane Smith", "25"),
         ]);
-        
+
         let _table_view = view! {
             <Table>
                 <thead>
@@ -477,7 +473,7 @@ mod advanced_tests {
                 </tbody>
             </Table>
         };
-        
+
         // Test export data
         let data = table_data.get();
         assert_eq!(data.len(), 3);

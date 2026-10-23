@@ -1,12 +1,12 @@
 //! Sonner context and provider
-//! 
+//!
 //! This module contains the SonnerContextValue and SonnerProvider
 //! for managing toast state and providing context to child components.
 
+use crate::sonner::toast_component::SonnerToast;
+use crate::sonner::types::{ToastData, ToastPosition, ToastTheme};
 use leptos::prelude::*;
 use std::collections::HashMap;
-use crate::sonner::types::{ToastData, ToastPosition, ToastTheme};
-use crate::sonner::toast_component::SonnerToast;
 
 /// Sonner context value
 #[derive(Clone)]
@@ -20,6 +20,12 @@ pub struct SonnerContextValue {
     pub max_toasts: RwSignal<usize>,
 }
 
+impl Default for SonnerContextValue {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl SonnerContextValue {
     pub fn new() -> Self {
         let toasts = RwSignal::new(HashMap::<String, ToastData>::new());
@@ -28,34 +34,32 @@ impl SonnerContextValue {
         let max_toasts = RwSignal::new(5);
 
         let add_toast = {
-            let toasts = toasts.clone();
-            let max_toasts = max_toasts.clone();
             Callback::new(move |toast: ToastData| {
                 let mut current_toasts = toasts.get();
                 let max = max_toasts.get();
-                
+
                 // Remove oldest toasts if we exceed the limit
                 if current_toasts.len() >= max {
                     let mut sorted_toasts: Vec<_> = current_toasts.iter().collect();
                     sorted_toasts.sort_by_key(|(_, data)| data.created_at);
-                    
-                    let to_remove: Vec<String> = sorted_toasts.iter()
+
+                    let to_remove: Vec<String> = sorted_toasts
+                        .iter()
                         .take(current_toasts.len() - max + 1)
                         .map(|(id, _)| (*id).clone())
                         .collect();
-                    
+
                     for id in to_remove {
                         current_toasts.remove(&id);
                     }
                 }
-                
+
                 current_toasts.insert(toast.id.clone(), toast);
                 toasts.set(current_toasts);
             })
         };
 
         let remove_toast = {
-            let toasts = toasts.clone();
             Callback::new(move |id: String| {
                 let mut current_toasts = toasts.get();
                 current_toasts.remove(&id);
@@ -64,7 +68,6 @@ impl SonnerContextValue {
         };
 
         let dismiss_all = {
-            let toasts = toasts.clone();
             Callback::new(move |_| {
                 toasts.set(HashMap::new());
             })
@@ -91,7 +94,7 @@ pub fn SonnerProvider(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let context = SonnerContextValue::new();
-    
+
     // Set initial values
     if let Some(pos) = position.get() {
         context.position.set(pos);
@@ -121,23 +124,19 @@ pub fn SonnerViewport() -> impl IntoView {
     let position = context.position;
     let theme = context.theme;
 
-    let position_class = Signal::derive(move || {
-        match position.get() {
-            ToastPosition::TopLeft => "fixed top-4 left-4 z-[100]",
-            ToastPosition::TopRight => "fixed top-4 right-4 z-[100]",
-            ToastPosition::BottomLeft => "fixed bottom-4 left-4 z-[100]",
-            ToastPosition::BottomRight => "fixed bottom-4 right-4 z-[100]",
-            ToastPosition::TopCenter => "fixed top-4 left-1/2 transform -translate-x-1/2 z-[100]",
-            ToastPosition::BottomCenter => "fixed bottom-4 left-1/2 transform -translate-x-1/2 z-[100]",
-        }
+    let position_class = Signal::derive(move || match position.get() {
+        ToastPosition::TopLeft => "fixed top-4 left-4 z-[100]",
+        ToastPosition::TopRight => "fixed top-4 right-4 z-[100]",
+        ToastPosition::BottomLeft => "fixed bottom-4 left-4 z-[100]",
+        ToastPosition::BottomRight => "fixed bottom-4 right-4 z-[100]",
+        ToastPosition::TopCenter => "fixed top-4 left-1/2 transform -translate-x-1/2 z-[100]",
+        ToastPosition::BottomCenter => "fixed bottom-4 left-1/2 transform -translate-x-1/2 z-[100]",
     });
 
-    let theme_class = Signal::derive(move || {
-        match theme.get() {
-            ToastTheme::Light => "light-theme",
-            ToastTheme::Dark => "dark-theme",
-            ToastTheme::Auto => "auto-theme",
-        }
+    let theme_class = Signal::derive(move || match theme.get() {
+        ToastTheme::Light => "light-theme",
+        ToastTheme::Dark => "dark-theme",
+        ToastTheme::Auto => "auto-theme",
     });
 
     view! {

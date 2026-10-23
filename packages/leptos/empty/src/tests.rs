@@ -22,8 +22,16 @@ fn renders_html() {
         <Empty><EmptyHeader><EmptyMedia variant=EmptyMediaVariant::Icon>"i"</EmptyMedia>
         <EmptyTitle>"No data"</EmptyTitle><EmptyDescription>"d"</EmptyDescription></EmptyHeader>
         <EmptyContent>"c"</EmptyContent></Empty>
-    }.to_html();
-    for s in ["empty", "empty-header", "empty-icon", "empty-title", "empty-description", "empty-content"] {
+    }
+    .to_html();
+    for s in [
+        "empty",
+        "empty-header",
+        "empty-icon",
+        "empty-title",
+        "empty-description",
+        "empty-content",
+    ] {
         assert!(html.contains(&format!("data-slot=\"{s}\"")), "{s}");
     }
     assert!(html.contains(r#"data-variant="icon""#));

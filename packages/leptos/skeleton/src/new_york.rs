@@ -3,20 +3,15 @@ use leptos_style::Style;
 
 const SKELETON_CLASS: &str = "animate-pulse rounded-md bg-muted";
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Default)]
 pub enum SkeletonVariant {
+    #[default]
     Default,
     Text,
     Avatar,
     Button,
     Card,
     Image,
-}
-
-impl Default for SkeletonVariant {
-    fn default() -> Self {
-        SkeletonVariant::Default
-    }
 }
 
 impl From<String> for SkeletonVariant {
@@ -45,18 +40,13 @@ impl SkeletonVariant {
     }
 }
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Default)]
 pub enum SkeletonSize {
     Sm,
+    #[default]
     Md,
     Lg,
     Xl,
-}
-
-impl Default for SkeletonSize {
-    fn default() -> Self {
-        SkeletonSize::Md
-    }
 }
 
 impl From<String> for SkeletonSize {
@@ -94,31 +84,37 @@ pub fn Skeleton(
 ) -> impl IntoView {
     let skeleton_variant = variant.get().unwrap_or_default();
     let skeleton_size = size.get().unwrap_or_default();
-    
+
     let base_class = skeleton_variant.base_class();
     let size_class = skeleton_size.height_class();
     let animation_class = if animated.get() { "animate-pulse" } else { "" };
-    
+
     let computed_class = Signal::derive(move || {
         let variant_class = if skeleton_variant == SkeletonVariant::Default {
             size_class
         } else {
             base_class
         };
-        format!("{} {} {} {}", SKELETON_CLASS, variant_class, animation_class, class.get().unwrap_or_default())
+        format!(
+            "{} {} {} {}",
+            SKELETON_CLASS,
+            variant_class,
+            animation_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     let computed_style = Signal::derive(move || {
         let mut style_str = style.get().to_string();
-        if let Some(w) = width.get() {
-            if !w.is_empty() {
-                style_str = format!("{} width: {};", style_str, w);
-            }
+        if let Some(w) = width.get()
+            && !w.is_empty()
+        {
+            style_str = format!("{} width: {};", style_str, w);
         }
-        if let Some(h) = height.get() {
-            if !h.is_empty() {
-                style_str = format!("{} height: {};", style_str, h);
-            }
+        if let Some(h) = height.get()
+            && !h.is_empty()
+        {
+            style_str = format!("{} height: {};", style_str, h);
         }
         style_str
     });
@@ -146,9 +142,15 @@ pub fn SkeletonText(
     let skeleton_size = size.get().unwrap_or_default();
     let size_class = skeleton_size.height_class();
     let animation_class = if animated.get() { "animate-pulse" } else { "" };
-    
+
     let computed_class = Signal::derive(move || {
-        format!("{} {} {} {}", SKELETON_CLASS, size_class, animation_class, class.get().unwrap_or_default())
+        format!(
+            "{} {} {} {}",
+            SKELETON_CLASS,
+            size_class,
+            animation_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {
@@ -179,9 +181,15 @@ pub fn SkeletonAvatar(
         _ => "h-12 w-12",
     };
     let animation_class = if animated.get() { "animate-pulse" } else { "" };
-    
+
     let computed_class = Signal::derive(move || {
-        format!("{} {} rounded-full {} {}", SKELETON_CLASS, size_class, animation_class, class.get().unwrap_or_default())
+        format!(
+            "{} {} rounded-full {} {}",
+            SKELETON_CLASS,
+            size_class,
+            animation_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {
@@ -202,9 +210,14 @@ pub fn SkeletonCard(
     #[prop(into, optional)] style: Signal<Style>,
 ) -> impl IntoView {
     let animation_class = if animated.get() { "animate-pulse" } else { "" };
-    
+
     let computed_class = Signal::derive(move || {
-        format!("{} h-32 w-full rounded-lg {} {}", SKELETON_CLASS, animation_class, class.get().unwrap_or_default())
+        format!(
+            "{} h-32 w-full rounded-lg {} {}",
+            SKELETON_CLASS,
+            animation_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {

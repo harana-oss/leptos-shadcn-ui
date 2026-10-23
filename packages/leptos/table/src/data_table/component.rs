@@ -1,5 +1,5 @@
-use leptos::prelude::*;
 use super::types::*;
+use leptos::prelude::*;
 
 /// Main DataTable component
 #[component]
@@ -14,12 +14,12 @@ pub fn DataTable(
     #[prop(into, optional)] on_row_click: Option<Callback<DataRow>>,
     #[prop(into, optional)] on_row_select: Option<Callback<Vec<i32>>>,
     #[prop(into, optional)] on_sort: Option<Callback<SortConfig>>,
-    #[prop(into, optional)] on_filter: Option<Callback<Vec<FilterConfig>>>,
+    #[prop(into, optional)] _on_filter: Option<Callback<Vec<FilterConfig>>>,
     #[prop(into, optional)] on_export: Option<Callback<ExportFormat>>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let state = RwSignal::new(DataTableState::default());
-    
+
     // Initialize state with props
     if let Some(data) = data.get_untracked() {
         state.update(|s| s.data = data);
@@ -38,66 +38,62 @@ pub fn DataTable(
     let filtered_data = Signal::derive(move || {
         let state = state.get();
         let mut filtered = state.data.clone();
-        
+
         // Apply filters
         for filter in &state.filters {
             if filter.active {
-                filtered = filtered.into_iter().filter(|row| {
-                    match filter.column_key.as_str() {
-                        "name" => match filter.operator {
-                            FilterOperator::Contains => row.name.contains(&filter.value),
-                            FilterOperator::Equals => row.name == filter.value,
-                            FilterOperator::StartsWith => row.name.starts_with(&filter.value),
-                            FilterOperator::EndsWith => row.name.ends_with(&filter.value),
-                            _ => true,
-                        },
-                        "email" => match filter.operator {
-                            FilterOperator::Contains => row.email.contains(&filter.value),
-                            FilterOperator::Equals => row.email == filter.value,
-                            _ => true,
-                        },
-                        "age" => {
-                            if let Ok(age) = filter.value.parse::<i32>() {
-                                match filter.operator {
-                                    FilterOperator::Equals => row.age == age,
-                                    FilterOperator::GreaterThan => row.age > age,
-                                    FilterOperator::LessThan => row.age < age,
-                                    _ => true,
-                                }
-                            } else {
-                                true
-                            }
-                        },
+                filtered.retain(|row| match filter.column_key.as_str() {
+                    "name" => match filter.operator {
+                        FilterOperator::Contains => row.name.contains(&filter.value),
+                        FilterOperator::Equals => row.name == filter.value,
+                        FilterOperator::StartsWith => row.name.starts_with(&filter.value),
+                        FilterOperator::EndsWith => row.name.ends_with(&filter.value),
                         _ => true,
+                    },
+                    "email" => match filter.operator {
+                        FilterOperator::Contains => row.email.contains(&filter.value),
+                        FilterOperator::Equals => row.email == filter.value,
+                        _ => true,
+                    },
+                    "age" => {
+                        if let Ok(age) = filter.value.parse::<i32>() {
+                            match filter.operator {
+                                FilterOperator::Equals => row.age == age,
+                                FilterOperator::GreaterThan => row.age > age,
+                                FilterOperator::LessThan => row.age < age,
+                                _ => true,
+                            }
+                        } else {
+                            true
+                        }
                     }
-                }).collect();
+                    _ => true,
+                });
             }
         }
-        
+
         // Apply sorting
         if state.sort_config.active {
-            filtered.sort_by(|a, b| {
-                match state.sort_config.column_key.as_str() {
-                    "name" => match state.sort_config.direction {
-                        SortDirection::Ascending => a.name.cmp(&b.name),
-                        SortDirection::Descending => b.name.cmp(&a.name),
-                        _ => std::cmp::Ordering::Equal,
-                    },
-                    "email" => match state.sort_config.direction {
-                        SortDirection::Ascending => a.email.cmp(&b.email),
-                        SortDirection::Descending => b.email.cmp(&a.email),
-                        _ => std::cmp::Ordering::Equal,
-                    },
-                    "age" => match state.sort_config.direction {
-                        SortDirection::Ascending => a.age.cmp(&b.age),
-                        SortDirection::Descending => b.age.cmp(&a.age),
-                        _ => std::cmp::Ordering::Equal,
-                    },
+            filtered.sort_by(|a, b| match state.sort_config.column_key.as_str() {
+                "name" => match state.sort_config.direction {
+                    SortDirection::Ascending => a.name.cmp(&b.name),
+                    SortDirection::Descending => b.name.cmp(&a.name),
                     _ => std::cmp::Ordering::Equal,
-                }
+                },
+                "email" => match state.sort_config.direction {
+                    SortDirection::Ascending => a.email.cmp(&b.email),
+                    SortDirection::Descending => b.email.cmp(&a.email),
+                    _ => std::cmp::Ordering::Equal,
+                },
+                "age" => match state.sort_config.direction {
+                    SortDirection::Ascending => a.age.cmp(&b.age),
+                    SortDirection::Descending => b.age.cmp(&a.age),
+                    _ => std::cmp::Ordering::Equal,
+                },
+                _ => std::cmp::Ordering::Equal,
             });
         }
-        
+
         filtered
     });
 
@@ -105,9 +101,13 @@ pub fn DataTable(
         let state = state.get();
         let filtered = filtered_data.get();
         let start = (state.pagination.current_page - 1) * state.pagination.page_size;
-        let end = start + state.pagination.page_size;
-        
-        filtered.into_iter().skip(start as usize).take(state.pagination.page_size as usize).collect::<Vec<_>>()
+        let _end = start + state.pagination.page_size;
+
+        filtered
+            .into_iter()
+            .skip(start as usize)
+            .take(state.pagination.page_size as usize)
+            .collect::<Vec<_>>()
     });
 
     // Event handlers
@@ -122,15 +122,15 @@ pub fn DataTable(
         } else {
             SortDirection::Ascending
         };
-        
+
         let new_sort = SortConfig {
             column_key: column_key.clone(),
             direction: new_direction,
             active: new_direction != SortDirection::None,
         };
-        
+
         state.update(|s| s.sort_config = new_sort.clone());
-        
+
         if let Some(callback) = &on_sort {
             callback.run(new_sort);
         }
@@ -142,16 +142,16 @@ pub fn DataTable(
         }
     };
 
-    let handle_row_select = move |row_id: i32| {
+    let _handle_row_select = move |row_id: i32| {
         let mut selected = state.get().selection.selected_rows.clone();
         if selected.contains(&row_id) {
             selected.retain(|&id| id != row_id);
         } else {
             selected.push(row_id);
         }
-        
+
         state.update(|s| s.selection.selected_rows = selected.clone());
-        
+
         if let Some(callback) = &on_row_select {
             callback.run(selected);
         }
@@ -195,7 +195,7 @@ pub fn DataTable(
                             <table class="data-table-table">
                                 <thead>
                                     <tr>
-                                        {current.columns.iter().cloned().map(|column| {
+                                        {current.columns.iter().map(|column| {
                                             let column_key = column.key.clone();
                                             let sort_key = column.key.clone();
                                             let sortable = column.sortable;

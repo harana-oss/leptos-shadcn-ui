@@ -6,7 +6,7 @@ use crate::default::components::ui::select::{
 
 #[component]
 pub fn SelectExample() -> impl IntoView {
-    let (value, set_value) = create_signal(String::new());
+    let (value, set_value) = signal(String::new());
 
     let handle_value_change = Callback::new(move |new_value: String| {
         set_value.set(new_value);

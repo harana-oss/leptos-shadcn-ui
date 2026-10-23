@@ -13,24 +13,26 @@ pub fn CommandInput(
     #[prop(optional)] style: MaybeProp<String>,
 ) -> impl IntoView {
     let context = expect_context::<crate::default_components::command_root::CommandContext>();
-    
-    let merged_class = tw_merge!(&format!("{} {}", 
+
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
         COMMAND_INPUT_CLASS,
         class.get().unwrap_or_default()
     ));
-    
-    let input_class = tw_merge!(&format!("{} {}", 
+
+    let input_class = tw_merge!(&format!(
+        "{} {}",
         COMMAND_INPUT_WRAPPER_CLASS,
         class.get().unwrap_or_default()
     ));
-    
+
     let handle_input = move |ev: leptos::ev::Event| {
         if let Ok(input_ev) = ev.dyn_into::<leptos::ev::InputEvent>() {
             let value = event_target_value(&input_ev);
             context.search.set(value);
         }
     };
-    
+
     view! {
         <div class={merged_class}>
             <input

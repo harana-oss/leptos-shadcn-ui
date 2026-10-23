@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod sonner_tests {
-    use leptos::prelude::*;
     use crate::default::Toast;
+    use leptos::prelude::*;
 
     /// Test that verifies Sonner toast notification system requirements
     /// This test will fail with current implementation but pass after adding Sonner features
@@ -36,7 +36,10 @@ mod sonner_tests {
         });
 
         // This test should pass once we implement Sonner features
-        assert!(test_result.is_ok(), "Sonner toast system requirements test failed");
+        assert!(
+            test_result.is_ok(),
+            "Sonner toast system requirements test failed"
+        );
     }
 
     /// Test that verifies toast positioning system
@@ -45,8 +48,12 @@ mod sonner_tests {
         let test_result = std::panic::catch_unwind(|| {
             // Test different toast positions
             let positions = vec![
-                "top-left", "top-right", "bottom-left", "bottom-right", 
-                "top-center", "bottom-center"
+                "top-left",
+                "top-right",
+                "bottom-left",
+                "bottom-right",
+                "top-center",
+                "bottom-center",
             ];
 
             for position in positions {
@@ -181,7 +188,7 @@ mod sonner_tests {
                     class="accessible-toast"
                     id="accessible-toast"
                 >
-                    <div 
+                    <div
                         class="toast-content"
                         role="alert"
                         aria-live="polite"

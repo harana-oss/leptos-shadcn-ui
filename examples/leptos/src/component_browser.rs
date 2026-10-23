@@ -1,10 +1,12 @@
 //! Component browser with favorites filtering
 //! Provides an interactive interface to browse, search, and filter components by favorites
 
-use leptos::*;
+#![allow(dead_code)]
+
 use leptos::prelude::*;
-use leptos_shadcn_button::{Button, ButtonVariant, ButtonSize};
-use leptos_shadcn_card::{Card, CardHeader, CardTitle, CardDescription, CardContent};
+use leptos::*;
+use leptos_shadcn_button::{Button, ButtonSize, ButtonVariant};
+use leptos_shadcn_card::{Card, CardContent, CardDescription, CardHeader, CardTitle};
 use leptos_shadcn_input::Input;
 
 /// Component metadata for the browser
@@ -36,9 +38,15 @@ impl ComponentStatus {
 
     pub fn badge_class(&self) -> &'static str {
         match self {
-            ComponentStatus::Complete => "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-            ComponentStatus::Partial => "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-            ComponentStatus::Planned => "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200",
+            ComponentStatus::Complete => {
+                "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+            }
+            ComponentStatus::Partial => {
+                "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
+            }
+            ComponentStatus::Planned => {
+                "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200"
+            }
         }
     }
 }
@@ -467,8 +475,8 @@ pub fn ComponentBrowser() -> impl IntoView {
     let (favorites, set_favorites) = signal(initial_favorites);
 
     // Save favorites to localStorage whenever they change
-    let favorites_for_effect = favorites.clone();
-    create_effect(move |_| {
+    let favorites_for_effect = favorites;
+    Effect::new(move |_| {
         let favs = favorites_for_effect.get();
         save_favorites(&favs);
     });
@@ -510,10 +518,13 @@ pub fn ComponentBrowser() -> impl IntoView {
                     || component.category.to_lowercase().contains(&search);
 
                 // Category filter
-                let matches_category = category.as_ref().map_or(true, |cat| cat == &component.category);
+                let matches_category = category
+                    .as_ref()
+                    .is_none_or(|cat| cat == &component.category);
 
                 // Favorites filter
-                let matches_favorites = !favorites_only || current_favorites.contains(&component.id);
+                let matches_favorites =
+                    !favorites_only || current_favorites.contains(&component.id);
 
                 matches_search && matches_category && matches_favorites
             })
@@ -636,7 +647,7 @@ pub fn ComponentBrowser() -> impl IntoView {
                                     };
 
                                     // Create toggle handler for this specific component
-                                    let toggle_this_favorite = toggle_favorite.clone();
+                                    let toggle_this_favorite = toggle_favorite;
                                     let component_id_for_toggle = component_id.clone();
 
                                     view! {

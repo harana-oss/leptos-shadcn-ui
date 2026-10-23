@@ -1,10 +1,9 @@
 //! Drawer header and footer components
-//! 
+//!
 //! This module contains the DrawerHeader and DrawerFooter components for
 //! organizing drawer content.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 
 #[component]
 pub fn DrawerHeader(

@@ -1,11 +1,11 @@
 //! Component Migration Types Module
-//! 
+//!
 //! This module provides the supporting types for component migrations.
 
 use serde::{Deserialize, Serialize};
 
 // Button component types
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct ButtonState {
     pub variant: ButtonVariant,
     pub size: ButtonSize,
@@ -13,8 +13,9 @@ pub struct ButtonState {
     pub loading: bool,
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub enum ButtonVariant {
+    #[default]
     Default,
     Destructive,
     Outline,
@@ -23,28 +24,17 @@ pub enum ButtonVariant {
     Link,
 }
 
-impl Default for ButtonVariant {
-    fn default() -> Self {
-        Self::Default
-    }
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub enum ButtonSize {
+    #[default]
     Default,
     Sm,
     Lg,
     Icon,
 }
 
-impl Default for ButtonSize {
-    fn default() -> Self {
-        Self::Default
-    }
-}
-
 // Input component types
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct InputState {
     pub value: String,
     pub placeholder: String,
@@ -53,7 +43,7 @@ pub struct InputState {
     pub focused: bool,
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct ValidationState {
     pub is_valid: bool,
     pub has_error: bool,
@@ -61,7 +51,7 @@ pub struct ValidationState {
 }
 
 // Card component types
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct CardState {
     pub title: String,
     pub description: String,
@@ -70,7 +60,7 @@ pub struct CardState {
 }
 
 // Form component types
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct FormState {
     pub fields: std::collections::HashMap<String, String>,
     pub is_submitting: bool,
@@ -78,7 +68,7 @@ pub struct FormState {
     pub errors: Vec<String>,
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct FormValidation {
     pub can_submit: bool,
     pub has_errors: bool,
@@ -96,16 +86,11 @@ pub struct TableState {
     pub page_size: usize,
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub enum SortDirection {
+    #[default]
     Asc,
     Desc,
-}
-
-impl Default for SortDirection {
-    fn default() -> Self {
-        Self::Asc
-    }
 }
 
 // Dialog component types
@@ -118,7 +103,7 @@ pub struct DialogState {
 }
 
 // Navigation component types
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct NavigationState {
     pub items: Vec<String>,
     pub active_item: Option<String>,
@@ -135,18 +120,13 @@ pub struct ToastState {
     pub is_visible: bool,
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub enum ToastVariant {
+    #[default]
     Info,
     Success,
     Warning,
     Error,
-}
-
-impl Default for ToastVariant {
-    fn default() -> Self {
-        Self::Info
-    }
 }
 
 // Calendar component types
@@ -158,17 +138,12 @@ pub struct CalendarState {
     pub view_mode: CalendarView,
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub enum CalendarView {
+    #[default]
     Month,
     Week,
     Day,
-}
-
-impl Default for CalendarView {
-    fn default() -> Self {
-        Self::Month
-    }
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -179,70 +154,6 @@ pub struct CalendarData {
 }
 
 // Default implementations for all state types
-impl Default for ButtonState {
-    fn default() -> Self {
-        Self {
-            variant: ButtonVariant::default(),
-            size: ButtonSize::default(),
-            disabled: false,
-            loading: false,
-        }
-    }
-}
-
-impl Default for InputState {
-    fn default() -> Self {
-        Self {
-            value: String::new(),
-            placeholder: String::new(),
-            disabled: false,
-            error: None,
-            focused: false,
-        }
-    }
-}
-
-impl Default for ValidationState {
-    fn default() -> Self {
-        Self {
-            is_valid: false,
-            has_error: false,
-            error_message: None,
-        }
-    }
-}
-
-impl Default for CardState {
-    fn default() -> Self {
-        Self {
-            title: String::new(),
-            description: String::new(),
-            expanded: false,
-            loading: false,
-        }
-    }
-}
-
-impl Default for FormState {
-    fn default() -> Self {
-        Self {
-            fields: std::collections::HashMap::new(),
-            is_submitting: false,
-            is_valid: false,
-            errors: Vec::new(),
-        }
-    }
-}
-
-impl Default for FormValidation {
-    fn default() -> Self {
-        Self {
-            can_submit: false,
-            has_errors: false,
-            error_count: 0,
-        }
-    }
-}
 
 impl Default for TableState {
     fn default() -> Self {
@@ -264,17 +175,6 @@ impl Default for DialogState {
             title: String::new(),
             content: String::new(),
             can_close: true,
-        }
-    }
-}
-
-impl Default for NavigationState {
-    fn default() -> Self {
-        Self {
-            items: Vec::new(),
-            active_item: None,
-            collapsed: false,
-            mobile_open: false,
         }
     }
 }

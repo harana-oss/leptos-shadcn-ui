@@ -3,19 +3,24 @@
 use leptos::prelude::*;
 
 pub const FIELD_SET_CLASS: &str = "flex flex-col gap-6 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3";
-pub const FIELD_LEGEND_CLASS: &str = "mb-3 font-medium data-[variant=legend]:text-base data-[variant=label]:text-sm";
+pub const FIELD_LEGEND_CLASS: &str =
+    "mb-3 font-medium data-[variant=legend]:text-base data-[variant=label]:text-sm";
 pub const FIELD_GROUP_CLASS: &str = "group/field-group @container/field-group flex w-full flex-col gap-7 data-[slot=checkbox-group]:gap-3 [&>[data-slot=field-group]]:gap-4";
 pub const FIELD_CLASS: &str = "group/field flex w-full gap-3 data-[invalid=true]:text-destructive";
 pub const FIELD_VERTICAL_CLASS: &str = "flex-col [&>*]:w-full [&>.sr-only]:w-auto";
 pub const FIELD_HORIZONTAL_CLASS: &str = "flex-row items-center [&>[data-slot=field-label]]:flex-auto has-[>[data-slot=field-content]]:items-start has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px";
 pub const FIELD_RESPONSIVE_CLASS: &str = "flex-col [&>*]:w-full [&>.sr-only]:w-auto @md/field-group:flex-row @md/field-group:items-center @md/field-group:[&>*]:w-auto @md/field-group:[&>[data-slot=field-label]]:flex-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px";
-pub const FIELD_CONTENT_CLASS: &str = "group/field-content flex flex-1 flex-col gap-1.5 leading-snug";
+pub const FIELD_CONTENT_CLASS: &str =
+    "group/field-content flex flex-1 flex-col gap-1.5 leading-snug";
 pub const FIELD_LABEL_CLASS: &str = "flex items-center gap-2 text-sm font-medium select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed peer-disabled:opacity-50 group/field-label peer/field-label w-fit leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border [&>*]:data-[slot=field]:p-4 has-data-[state=checked]:bg-primary/5 has-data-[state=checked]:border-primary dark:has-data-[state=checked]:bg-primary/10";
 pub const FIELD_TITLE_CLASS: &str = "flex w-fit items-center gap-2 text-sm leading-snug font-medium group-data-[disabled=true]/field:opacity-50";
 pub const FIELD_DESCRIPTION_CLASS: &str = "text-muted-foreground text-sm leading-normal font-normal group-has-[[data-orientation=horizontal]]/field:text-balance last:mt-0 nth-last-2:-mt-1 [[data-variant=legend]+&]:-mt-1.5 [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4";
-pub const FIELD_SEPARATOR_CLASS: &str = "relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2";
-pub const FIELD_SEPARATOR_LINE_CLASS: &str = "bg-border absolute inset-0 top-1/2 h-px w-full shrink-0";
-pub const FIELD_SEPARATOR_CONTENT_CLASS: &str = "bg-background text-muted-foreground relative mx-auto block w-fit px-2";
+pub const FIELD_SEPARATOR_CLASS: &str =
+    "relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2";
+pub const FIELD_SEPARATOR_LINE_CLASS: &str =
+    "bg-border absolute inset-0 top-1/2 h-px w-full shrink-0";
+pub const FIELD_SEPARATOR_CONTENT_CLASS: &str =
+    "bg-background text-muted-foreground relative mx-auto block w-fit px-2";
 pub const FIELD_ERROR_CLASS: &str = "text-destructive text-sm font-normal";
 pub const FIELD_ERROR_LIST_CLASS: &str = "ml-4 flex list-disc flex-col gap-1";
 
@@ -121,7 +126,8 @@ pub fn FieldSet(
 #[component]
 pub fn FieldLegend(
     /// `legend` (default) or `label`.
-    #[prop(into, optional)] variant: MaybeProp<String>,
+    #[prop(into, optional)]
+    variant: MaybeProp<String>,
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: MaybeProp<String>,
@@ -154,7 +160,8 @@ pub fn FieldGroup(
 #[component]
 pub fn Field(
     /// `vertical` (default), `horizontal` or `responsive`.
-    #[prop(into, optional)] orientation: MaybeProp<String>,
+    #[prop(into, optional)]
+    orientation: MaybeProp<String>,
     #[prop(into, optional)] invalid: Signal<bool>,
     #[prop(into, optional)] disabled: Signal<bool>,
     #[prop(into, optional)] class: MaybeProp<String>,
@@ -198,7 +205,8 @@ pub fn FieldContent(
 #[component]
 pub fn FieldLabel(
     /// Id of the control this label is for.
-    #[prop(into, optional)] html_for: MaybeProp<String>,
+    #[prop(into, optional)]
+    html_for: MaybeProp<String>,
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: MaybeProp<String>,
@@ -270,7 +278,8 @@ pub fn FieldSeparator(
 #[component]
 pub fn FieldError(
     /// Error messages; duplicates and blanks are dropped. Ignored when children are given.
-    #[prop(into, optional)] errors: Signal<Vec<String>>,
+    #[prop(into, optional)]
+    errors: Signal<Vec<String>>,
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: MaybeProp<String>,

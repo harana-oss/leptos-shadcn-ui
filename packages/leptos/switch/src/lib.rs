@@ -1,16 +1,14 @@
 //! Leptos port of shadcn/ui switch
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
+pub mod signal_managed;
 
-pub use default::{
-    Switch, SwitchRoot, SwitchThumb, SwitchLabel, SwitchVariant, SwitchSize
-};
+pub use default::{Switch, SwitchLabel, SwitchRoot, SwitchSize, SwitchThumb, SwitchVariant};
 pub use new_york::{
-    Switch as SwitchNewYork, SwitchRoot as SwitchRootNewYork,
-    SwitchThumb as SwitchThumbNewYork, SwitchLabel as SwitchLabelNewYork,
-    SwitchVariant as SwitchVariantNewYork, SwitchSize as SwitchSizeNewYork
+    Switch as SwitchNewYork, SwitchLabel as SwitchLabelNewYork, SwitchRoot as SwitchRootNewYork,
+    SwitchSize as SwitchSizeNewYork, SwitchThumb as SwitchThumbNewYork,
+    SwitchVariant as SwitchVariantNewYork,
 };
 
 mod tests;

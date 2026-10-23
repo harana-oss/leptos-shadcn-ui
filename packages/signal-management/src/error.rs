@@ -7,22 +7,17 @@ use std::collections::HashMap;
 use thiserror::Error;
 
 /// Error severity level for signal management errors
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Default)]
 pub enum ErrorSeverity {
     /// Informational message
     Info,
     /// Warning that might cause issues
     Warning,
     /// Error that prevents operation
+    #[default]
     Error,
     /// Critical error that needs immediate attention
     Critical,
-}
-
-impl Default for ErrorSeverity {
-    fn default() -> Self {
-        Self::Error
-    }
 }
 
 /// Source location where the error occurred
@@ -58,7 +53,12 @@ impl ErrorSource {
         module: Option<String>,
         function: Option<String>,
     ) -> Self {
-        Self { file, line, module, function }
+        Self {
+            file,
+            line,
+            module,
+            function,
+        }
     }
 
     /// Set the module path
@@ -225,8 +225,8 @@ impl SignalErrorContext {
         if let Some(cause) = &self.cause {
             output.push_str(&format!("Cause: {}\n", cause));
         }
-        if self.source.file.is_some() {
-            output.push_str(&format!("Source: {}\n", self.source.file.as_ref().unwrap()));
+        if let Some(file) = &self.source.file {
+            output.push_str(&format!("Source: {}\n", file));
             if let Some(line) = self.source.line {
                 output.push_str(&format!("  Line: {}\n", line));
             }
@@ -335,7 +335,9 @@ impl SignalManagementError {
             .with_severity(ErrorSeverity::Error)
             .with_suggestion(
                 RecoverySuggestion::new("Check signal state before updating".to_string())
-                    .with_explanation("The signal may have been disposed or is in an invalid state.".to_string())
+                    .with_explanation(
+                        "The signal may have been disposed or is in an invalid state.".to_string(),
+                    ),
             );
         Self::UpdateFailed {
             reason: reason_str,
@@ -351,8 +353,9 @@ impl SignalManagementError {
             .with_error_code("SIG_MEMORY_FAILED".to_string())
             .with_severity(ErrorSeverity::Critical)
             .with_suggestion(
-                RecoverySuggestion::new("Check available memory".to_string())
-                    .with_explanation("The system may be running low on memory resources.".to_string())
+                RecoverySuggestion::new("Check available memory".to_string()).with_explanation(
+                    "The system may be running low on memory resources.".to_string(),
+                ),
             );
         Self::MemoryManagementFailed {
             reason: reason_str,
@@ -368,8 +371,9 @@ impl SignalManagementError {
             .with_error_code("SIG_BATCH_FAILED".to_string())
             .with_severity(ErrorSeverity::Error)
             .with_suggestion(
-                RecoverySuggestion::new("Retry the batch operation".to_string())
-                    .with_explanation("The batch may have been interrupted by another operation.".to_string())
+                RecoverySuggestion::new("Retry the batch operation".to_string()).with_explanation(
+                    "The batch may have been interrupted by another operation.".to_string(),
+                ),
             );
         Self::BatchedUpdateFailed {
             reason: reason_str,
@@ -381,14 +385,18 @@ impl SignalManagementError {
     #[track_caller]
     pub fn group_not_found(group_name: impl Into<String>) -> Self {
         let group_name_str = group_name.into();
-        let context = SignalErrorContext::new(format!("Group '{}' not found", group_name_str.clone()))
-            .with_error_code("SIG_GROUP_NOT_FOUND".to_string())
-            .with_severity(ErrorSeverity::Warning)
-            .with_metadata("group_name".to_string(), group_name_str.clone())
-            .with_suggestion(
-                RecoverySuggestion::new(format!("Create the '{}' group first", group_name_str))
-                    .with_explanation("The group must be created before signals can be added to it.".to_string())
-            );
+        let context =
+            SignalErrorContext::new(format!("Group '{}' not found", group_name_str.clone()))
+                .with_error_code("SIG_GROUP_NOT_FOUND".to_string())
+                .with_severity(ErrorSeverity::Warning)
+                .with_metadata("group_name".to_string(), group_name_str.clone())
+                .with_suggestion(
+                    RecoverySuggestion::new(format!("Create the '{}' group first", group_name_str))
+                        .with_explanation(
+                            "The group must be created before signals can be added to it."
+                                .to_string(),
+                        ),
+                );
         Self::GroupNotFound {
             group_name: group_name_str,
             context: Some(context),
@@ -399,14 +407,16 @@ impl SignalManagementError {
     #[track_caller]
     pub fn signal_disposed() -> Self {
         let context = SignalErrorContext::new(
-            "Signal has been disposed and is no longer valid".to_string()
+            "Signal has been disposed and is no longer valid".to_string(),
         )
-            .with_error_code("SIG_DISPOSED".to_string())
-            .with_severity(ErrorSeverity::Warning)
-            .with_suggestion(
-                RecoverySuggestion::new("Create a new signal".to_string())
-                    .with_explanation("Once disposed, a signal cannot be recovered. Create a new signal instance.".to_string())
-            );
+        .with_error_code("SIG_DISPOSED".to_string())
+        .with_severity(ErrorSeverity::Warning)
+        .with_suggestion(
+            RecoverySuggestion::new("Create a new signal".to_string()).with_explanation(
+                "Once disposed, a signal cannot be recovered. Create a new signal instance."
+                    .to_string(),
+            ),
+        );
         Self::SignalDisposed {
             context: Some(context),
         }
@@ -431,7 +441,7 @@ impl SignalManagementError {
             .with_severity(ErrorSeverity::Error)
             .with_suggestion(
                 RecoverySuggestion::new("Check memo dependencies".to_string())
-                    .with_explanation("Memo dependencies may be invalid or disposed.".to_string())
+                    .with_explanation("Memo dependencies may be invalid or disposed.".to_string()),
             );
         Self::MemoError(reason_str, Some(context))
     }
@@ -512,7 +522,7 @@ impl SignalManagementError {
 
     /// Wrap this error with additional context
     #[track_caller]
-    pub fn with_context(mut self, additional_message: String) -> Self {
+    pub fn with_context(self, additional_message: String) -> Self {
         let mut new_context = SignalErrorContext::new(additional_message)
             .with_cause(self.to_string())
             .with_severity(self.severity());
@@ -528,36 +538,30 @@ impl SignalManagementError {
 
         // Update the error variant with new context
         match self {
-            Self::SignalDisposed { .. } => {
-                Self::SignalDisposed { context: Some(new_context) }
-            }
-            Self::UpdateFailed { reason, .. } => {
-                Self::UpdateFailed { reason, context: Some(new_context) }
-            }
-            Self::MemoryManagementFailed { reason, .. } => {
-                Self::MemoryManagementFailed { reason, context: Some(new_context) }
-            }
-            Self::BatchedUpdateFailed { reason, .. } => {
-                Self::BatchedUpdateFailed { reason, context: Some(new_context) }
-            }
-            Self::GroupNotFound { group_name, .. } => {
-                Self::GroupNotFound { group_name, context: Some(new_context) }
-            }
-            Self::SignalError(msg, _) => {
-                Self::SignalError(msg, Some(new_context))
-            }
-            Self::MemoError(msg, _) => {
-                Self::MemoError(msg, Some(new_context))
-            }
-            Self::CleanupError(msg, _) => {
-                Self::CleanupError(msg, Some(new_context))
-            }
-            Self::MemoryError(msg, _) => {
-                Self::MemoryError(msg, Some(new_context))
-            }
-            Self::BatchError(msg, _) => {
-                Self::BatchError(msg, Some(new_context))
-            }
+            Self::SignalDisposed { .. } => Self::SignalDisposed {
+                context: Some(new_context),
+            },
+            Self::UpdateFailed { reason, .. } => Self::UpdateFailed {
+                reason,
+                context: Some(new_context),
+            },
+            Self::MemoryManagementFailed { reason, .. } => Self::MemoryManagementFailed {
+                reason,
+                context: Some(new_context),
+            },
+            Self::BatchedUpdateFailed { reason, .. } => Self::BatchedUpdateFailed {
+                reason,
+                context: Some(new_context),
+            },
+            Self::GroupNotFound { group_name, .. } => Self::GroupNotFound {
+                group_name,
+                context: Some(new_context),
+            },
+            Self::SignalError(msg, _) => Self::SignalError(msg, Some(new_context)),
+            Self::MemoError(msg, _) => Self::MemoError(msg, Some(new_context)),
+            Self::CleanupError(msg, _) => Self::CleanupError(msg, Some(new_context)),
+            Self::MemoryError(msg, _) => Self::MemoryError(msg, Some(new_context)),
+            Self::BatchError(msg, _) => Self::BatchError(msg, Some(new_context)),
         }
     }
 

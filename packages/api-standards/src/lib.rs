@@ -31,7 +31,7 @@ impl StandardVariant {
     pub fn to_css_class(&self) -> &'static str {
         match self {
             StandardVariant::Default => "default",
-            StandardVariant::Primary => "primary", 
+            StandardVariant::Primary => "primary",
             StandardVariant::Secondary => "secondary",
             StandardVariant::Success => "success",
             StandardVariant::Warning => "warning",
@@ -103,15 +103,28 @@ pub struct ApiComplianceReport {
 }
 
 /// API compliance issues
-#[derive(Debug, Clone)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub enum ApiIssue {
     MissingCoreProps(Vec<String>),
-    InvalidPropType { prop: String, expected: String, actual: String },
-    AccessibilityViolation { rule: String, description: String },
+    InvalidPropType {
+        prop: String,
+        expected: String,
+        actual: String,
+    },
+    AccessibilityViolation {
+        rule: String,
+        description: String,
+    },
     EventHandlerMissing(String),
-    CssClassNonCompliant { expected_pattern: String, actual: String },
-    PerformanceViolation { metric: String, threshold: f64, actual: f64 },
+    CssClassNonCompliant {
+        expected_pattern: String,
+        actual: String,
+    },
+    PerformanceViolation {
+        metric: String,
+        threshold: f64,
+        actual: f64,
+    },
 }
 
 /// API improvement suggestions
@@ -166,25 +179,25 @@ impl TestResult {
 /// Component API compliance trait
 pub trait ApiCompliant {
     type Props;
-    
+
     /// Test basic component rendering
     fn test_basic_rendering(&self) -> TestResult;
-    
+
     /// Test prop handling compliance
     fn test_prop_handling(&self) -> TestResult;
-    
+
     /// Test accessibility compliance
     fn test_accessibility_compliance(&self) -> TestResult;
-    
+
     /// Test event handling compliance
     fn test_event_handling(&self) -> TestResult;
-    
+
     /// Test CSS class generation compliance
     fn test_css_compliance(&self) -> TestResult;
-    
+
     /// Test performance characteristics
     fn test_performance_compliance(&self) -> TestResult;
-    
+
     /// Generate comprehensive compliance report
     fn generate_compliance_report(&self) -> ApiComplianceReport {
         let component_name = std::any::type_name::<Self>()
@@ -195,7 +208,7 @@ pub trait ApiCompliant {
 
         let mut test_results = HashMap::new();
         let mut issues = Vec::new();
-        let mut suggestions = Vec::new();
+        let suggestions = Vec::new();
 
         // Run all compliance tests
         let tests = vec![
@@ -241,15 +254,19 @@ pub mod utils {
     pub fn generate_component_id(component_name: &str) -> String {
         use std::collections::hash_map::DefaultHasher;
         use std::hash::{Hash, Hasher};
-        
+
         let mut hasher = DefaultHasher::new();
         component_name.hash(&mut hasher);
         let timestamp = std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
             .unwrap()
             .as_nanos();
-        
-        format!("{}-{:x}", component_name.to_lowercase(), hasher.finish() ^ (timestamp as u64))
+
+        format!(
+            "{}-{:x}",
+            component_name.to_lowercase(),
+            hasher.finish() ^ (timestamp as u64)
+        )
     }
 
     /// Generate CSS classes following component standards
@@ -261,8 +278,16 @@ pub mod utils {
     ) -> String {
         let mut classes = vec![
             format!("shadcn-{}", component_name.to_lowercase()),
-            format!("shadcn-{}--{}", component_name.to_lowercase(), variant.to_css_class()),
-            format!("shadcn-{}--{}", component_name.to_lowercase(), size.to_css_class()),
+            format!(
+                "shadcn-{}--{}",
+                component_name.to_lowercase(),
+                variant.to_css_class()
+            ),
+            format!(
+                "shadcn-{}--{}",
+                component_name.to_lowercase(),
+                size.to_css_class()
+            ),
         ];
 
         if let Some(custom) = custom_class {
@@ -275,7 +300,7 @@ pub mod utils {
     /// Validate CSS class naming convention
     pub fn validate_css_class_name(class_name: &str) -> Result<(), String> {
         let regex = regex::Regex::new(r"^[a-z][a-z0-9-]*[a-z0-9]$").unwrap();
-        
+
         if !regex.is_match(class_name) {
             return Err(format!(
                 "CSS class '{}' does not follow naming convention. Should match pattern: ^[a-z][a-z0-9-]*[a-z0-9]$",
@@ -294,23 +319,24 @@ pub mod utils {
     }
 
     /// Calculate API compliance score
-    pub fn calculate_compliance_score(
-        issues: &[ApiIssue], 
-        suggestions: &[ApiSuggestion]
-    ) -> f64 {
-        let critical_issues = issues.iter().filter(|issue| {
-            matches!(issue, 
-                ApiIssue::AccessibilityViolation { .. } |
-                ApiIssue::MissingCoreProps(_) |
-                ApiIssue::PerformanceViolation { .. }
-            )
-        }).count();
+    pub fn calculate_compliance_score(issues: &[ApiIssue], suggestions: &[ApiSuggestion]) -> f64 {
+        let critical_issues = issues
+            .iter()
+            .filter(|issue| {
+                matches!(
+                    issue,
+                    ApiIssue::AccessibilityViolation { .. }
+                        | ApiIssue::MissingCoreProps(_)
+                        | ApiIssue::PerformanceViolation { .. }
+                )
+            })
+            .count();
 
         let minor_issues = issues.len() - critical_issues;
         let suggestion_bonus = (suggestions.len() as f64 * 0.05).min(0.2);
 
         let base_score = 1.0 - (critical_issues as f64 * 0.25) - (minor_issues as f64 * 0.1);
-        (base_score + suggestion_bonus).max(0.0).min(1.0)
+        (base_score + suggestion_bonus).clamp(0.0, 1.0)
     }
 }
 
@@ -338,17 +364,20 @@ mod tests {
             "Button",
             &StandardVariant::Primary,
             &StandardSize::Lg,
-            Some("custom-class")
+            Some("custom-class"),
         );
-        
-        assert_eq!(classes, "shadcn-button shadcn-button--primary shadcn-button--lg custom-class");
+
+        assert_eq!(
+            classes,
+            "shadcn-button shadcn-button--primary shadcn-button--lg custom-class"
+        );
     }
 
     #[test]
     fn test_css_class_name_validation() {
         assert!(utils::validate_css_class_name("valid-class-name").is_ok());
         assert!(utils::validate_css_class_name("shadcn-button--primary").is_ok());
-        
+
         assert!(utils::validate_css_class_name("Invalid-Class").is_err());
         assert!(utils::validate_css_class_name("invalid--modifier").is_err());
         assert!(utils::validate_css_class_name("123invalid").is_err());
@@ -357,18 +386,18 @@ mod tests {
     #[test]
     fn test_compliance_score_calculation() {
         let issues = vec![
-            ApiIssue::AccessibilityViolation { 
-                rule: "ARIA".to_string(), 
-                description: "Missing label".to_string() 
+            ApiIssue::AccessibilityViolation {
+                rule: "ARIA".to_string(),
+                description: "Missing label".to_string(),
             },
             ApiIssue::MissingCoreProps(vec!["id".to_string()]),
         ];
-        let suggestions = vec![
-            ApiSuggestion::ImproveAccessibility("Add aria-label".to_string()),
-        ];
+        let suggestions = vec![ApiSuggestion::ImproveAccessibility(
+            "Add aria-label".to_string(),
+        )];
 
         let score = utils::calculate_compliance_score(&issues, &suggestions);
-        
+
         // Should be 1.0 - (2 critical * 0.25) + (1 suggestion * 0.05) = 0.55
         assert!((score - 0.55).abs() < 0.01);
     }
@@ -377,7 +406,7 @@ mod tests {
     fn test_generate_component_id() {
         let id1 = utils::generate_component_id("Button");
         let id2 = utils::generate_component_id("Button");
-        
+
         assert!(id1.starts_with("button-"));
         assert!(id2.starts_with("button-"));
         assert_ne!(id1, id2); // Should be unique
@@ -388,7 +417,7 @@ mod tests {
         let result = TestResult::passed("Test completed successfully")
             .with_timing(150)
             .with_detail("render_time", serde_json::json!(12));
-        
+
         assert!(result.passed);
         assert_eq!(result.execution_time_ms, 150);
         assert_eq!(result.message, "Test completed successfully");

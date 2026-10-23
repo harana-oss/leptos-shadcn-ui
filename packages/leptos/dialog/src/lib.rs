@@ -1,16 +1,18 @@
 //! Leptos port of shadcn/ui dialog
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
+pub mod signal_managed;
 
 pub use default::{
-    Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose
+    Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
+    DialogTrigger,
 };
 pub use new_york::{
-    Dialog as DialogNewYork, DialogTrigger as DialogTriggerNewYork, DialogContent as DialogContentNewYork, 
-    DialogHeader as DialogHeaderNewYork, DialogTitle as DialogTitleNewYork, DialogDescription as DialogDescriptionNewYork, 
-    DialogFooter as DialogFooterNewYork, DialogClose as DialogCloseNewYork
+    Dialog as DialogNewYork, DialogClose as DialogCloseNewYork,
+    DialogContent as DialogContentNewYork, DialogDescription as DialogDescriptionNewYork,
+    DialogFooter as DialogFooterNewYork, DialogHeader as DialogHeaderNewYork,
+    DialogTitle as DialogTitleNewYork, DialogTrigger as DialogTriggerNewYork,
 };
 
 mod tests;

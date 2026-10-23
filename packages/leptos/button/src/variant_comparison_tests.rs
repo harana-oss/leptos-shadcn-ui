@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod variant_comparison_tests {
-    use crate::default::{ButtonVariant as DefaultButtonVariant, ButtonSize as DefaultButtonSize};
-    use crate::new_york::{ButtonVariant as NewYorkButtonVariant, ButtonSize as NewYorkButtonSize};
+    use crate::default::{ButtonSize as DefaultButtonSize, ButtonVariant as DefaultButtonVariant};
+    use crate::new_york::{ButtonSize as NewYorkButtonSize, ButtonVariant as NewYorkButtonVariant};
 
     // ===== VARIANT COMPARISON TESTS =====
     // These tests compare styling differences between default and New York themes
@@ -28,7 +28,11 @@ mod variant_comparison_tests {
         ];
 
         // Both themes should have the same number of variants
-        assert_eq!(default_variants.len(), new_york_variants.len(), "Both themes should have the same number of variants");
+        assert_eq!(
+            default_variants.len(),
+            new_york_variants.len(),
+            "Both themes should have the same number of variants"
+        );
     }
 
     #[test]
@@ -49,14 +53,25 @@ mod variant_comparison_tests {
         ];
 
         // Both themes should have the same number of sizes
-        assert_eq!(default_sizes.len(), new_york_sizes.len(), "Both themes should have the same number of sizes");
+        assert_eq!(
+            default_sizes.len(),
+            new_york_sizes.len(),
+            "Both themes should have the same number of sizes"
+        );
     }
 
     #[test]
     fn test_button_variant_string_conversion_equivalence() {
         // Test that both themes handle string conversions the same way
         let test_strings = vec![
-            "default", "destructive", "outline", "secondary", "ghost", "link", "invalid", ""
+            "default",
+            "destructive",
+            "outline",
+            "secondary",
+            "ghost",
+            "link",
+            "invalid",
+            "",
         ];
 
         for test_string in test_strings {
@@ -65,13 +80,16 @@ mod variant_comparison_tests {
 
             // Both themes should handle string conversion consistently
             match (default_result, new_york_result) {
-                (DefaultButtonVariant::Default, NewYorkButtonVariant::Default) => {},
-                (DefaultButtonVariant::Destructive, NewYorkButtonVariant::Destructive) => {},
-                (DefaultButtonVariant::Outline, NewYorkButtonVariant::Outline) => {},
-                (DefaultButtonVariant::Secondary, NewYorkButtonVariant::Secondary) => {},
-                (DefaultButtonVariant::Ghost, NewYorkButtonVariant::Ghost) => {},
-                (DefaultButtonVariant::Link, NewYorkButtonVariant::Link) => {},
-                _ => panic!("String conversion should be consistent between themes for '{}'", test_string),
+                (DefaultButtonVariant::Default, NewYorkButtonVariant::Default) => {}
+                (DefaultButtonVariant::Destructive, NewYorkButtonVariant::Destructive) => {}
+                (DefaultButtonVariant::Outline, NewYorkButtonVariant::Outline) => {}
+                (DefaultButtonVariant::Secondary, NewYorkButtonVariant::Secondary) => {}
+                (DefaultButtonVariant::Ghost, NewYorkButtonVariant::Ghost) => {}
+                (DefaultButtonVariant::Link, NewYorkButtonVariant::Link) => {}
+                _ => panic!(
+                    "String conversion should be consistent between themes for '{}'",
+                    test_string
+                ),
             }
         }
     }
@@ -79,9 +97,7 @@ mod variant_comparison_tests {
     #[test]
     fn test_button_size_string_conversion_equivalence() {
         // Test that both themes handle size string conversions the same way
-        let test_strings = vec![
-            "default", "sm", "lg", "icon", "invalid", ""
-        ];
+        let test_strings = vec!["default", "sm", "lg", "icon", "invalid", ""];
 
         for test_string in test_strings {
             let default_result = DefaultButtonSize::from(test_string.to_string());
@@ -89,11 +105,14 @@ mod variant_comparison_tests {
 
             // Both themes should handle string conversion consistently
             match (default_result, new_york_result) {
-                (DefaultButtonSize::Default, NewYorkButtonSize::Default) => {},
-                (DefaultButtonSize::Sm, NewYorkButtonSize::Sm) => {},
-                (DefaultButtonSize::Lg, NewYorkButtonSize::Lg) => {},
-                (DefaultButtonSize::Icon, NewYorkButtonSize::Icon) => {},
-                _ => panic!("Size string conversion should be consistent between themes for '{}'", test_string),
+                (DefaultButtonSize::Default, NewYorkButtonSize::Default) => {}
+                (DefaultButtonSize::Sm, NewYorkButtonSize::Sm) => {}
+                (DefaultButtonSize::Lg, NewYorkButtonSize::Lg) => {}
+                (DefaultButtonSize::Icon, NewYorkButtonSize::Icon) => {}
+                _ => panic!(
+                    "Size string conversion should be consistent between themes for '{}'",
+                    test_string
+                ),
             }
         }
     }
@@ -217,9 +236,15 @@ mod variant_comparison_tests {
         // Comprehensive comparison of all button variants
         let variant_pairs = vec![
             (DefaultButtonVariant::Default, NewYorkButtonVariant::Default),
-            (DefaultButtonVariant::Destructive, NewYorkButtonVariant::Destructive),
+            (
+                DefaultButtonVariant::Destructive,
+                NewYorkButtonVariant::Destructive,
+            ),
             (DefaultButtonVariant::Outline, NewYorkButtonVariant::Outline),
-            (DefaultButtonVariant::Secondary, NewYorkButtonVariant::Secondary),
+            (
+                DefaultButtonVariant::Secondary,
+                NewYorkButtonVariant::Secondary,
+            ),
             (DefaultButtonVariant::Ghost, NewYorkButtonVariant::Ghost),
             (DefaultButtonVariant::Link, NewYorkButtonVariant::Link),
         ];
@@ -244,7 +269,10 @@ mod variant_comparison_tests {
                 NewYorkButtonVariant::Link => "link",
             };
 
-            assert_eq!(default_string, new_york_string, "Variant strings should match");
+            assert_eq!(
+                default_string, new_york_string,
+                "Variant strings should match"
+            );
 
             // Test conversion back from string
             let default_from_string = DefaultButtonVariant::from(default_string.to_string());
@@ -252,12 +280,12 @@ mod variant_comparison_tests {
 
             // Both should convert back to the same variant
             match (default_from_string, new_york_from_string) {
-                (DefaultButtonVariant::Default, NewYorkButtonVariant::Default) => {},
-                (DefaultButtonVariant::Destructive, NewYorkButtonVariant::Destructive) => {},
-                (DefaultButtonVariant::Outline, NewYorkButtonVariant::Outline) => {},
-                (DefaultButtonVariant::Secondary, NewYorkButtonVariant::Secondary) => {},
-                (DefaultButtonVariant::Ghost, NewYorkButtonVariant::Ghost) => {},
-                (DefaultButtonVariant::Link, NewYorkButtonVariant::Link) => {},
+                (DefaultButtonVariant::Default, NewYorkButtonVariant::Default) => {}
+                (DefaultButtonVariant::Destructive, NewYorkButtonVariant::Destructive) => {}
+                (DefaultButtonVariant::Outline, NewYorkButtonVariant::Outline) => {}
+                (DefaultButtonVariant::Secondary, NewYorkButtonVariant::Secondary) => {}
+                (DefaultButtonVariant::Ghost, NewYorkButtonVariant::Ghost) => {}
+                (DefaultButtonVariant::Link, NewYorkButtonVariant::Link) => {}
                 _ => panic!("String conversion should be consistent"),
             }
         }
@@ -297,10 +325,10 @@ mod variant_comparison_tests {
 
             // Both should convert back to the same size
             match (default_from_string, new_york_from_string) {
-                (DefaultButtonSize::Default, NewYorkButtonSize::Default) => {},
-                (DefaultButtonSize::Sm, NewYorkButtonSize::Sm) => {},
-                (DefaultButtonSize::Lg, NewYorkButtonSize::Lg) => {},
-                (DefaultButtonSize::Icon, NewYorkButtonSize::Icon) => {},
+                (DefaultButtonSize::Default, NewYorkButtonSize::Default) => {}
+                (DefaultButtonSize::Sm, NewYorkButtonSize::Sm) => {}
+                (DefaultButtonSize::Lg, NewYorkButtonSize::Lg) => {}
+                (DefaultButtonSize::Icon, NewYorkButtonSize::Icon) => {}
                 _ => panic!("Size string conversion should be consistent"),
             }
         }
@@ -352,7 +380,13 @@ mod variant_comparison_tests {
     fn test_button_theme_behavior_consistency() {
         // Test that both themes behave consistently for edge cases
         let edge_cases = vec![
-            "", "invalid", "INVALID", "Default", "DEFAULT", "destructive", "DESTRUCTIVE"
+            "",
+            "invalid",
+            "INVALID",
+            "Default",
+            "DEFAULT",
+            "destructive",
+            "DESTRUCTIVE",
         ];
 
         for edge_case in edge_cases {
@@ -361,12 +395,12 @@ mod variant_comparison_tests {
 
             // Both themes should handle edge cases consistently
             match (default_variant, new_york_variant) {
-                (DefaultButtonVariant::Default, NewYorkButtonVariant::Default) => {},
-                (DefaultButtonVariant::Destructive, NewYorkButtonVariant::Destructive) => {},
-                (DefaultButtonVariant::Outline, NewYorkButtonVariant::Outline) => {},
-                (DefaultButtonVariant::Secondary, NewYorkButtonVariant::Secondary) => {},
-                (DefaultButtonVariant::Ghost, NewYorkButtonVariant::Ghost) => {},
-                (DefaultButtonVariant::Link, NewYorkButtonVariant::Link) => {},
+                (DefaultButtonVariant::Default, NewYorkButtonVariant::Default) => {}
+                (DefaultButtonVariant::Destructive, NewYorkButtonVariant::Destructive) => {}
+                (DefaultButtonVariant::Outline, NewYorkButtonVariant::Outline) => {}
+                (DefaultButtonVariant::Secondary, NewYorkButtonVariant::Secondary) => {}
+                (DefaultButtonVariant::Ghost, NewYorkButtonVariant::Ghost) => {}
+                (DefaultButtonVariant::Link, NewYorkButtonVariant::Link) => {}
                 _ => panic!("Edge case '{}' should be handled consistently", edge_case),
             }
         }

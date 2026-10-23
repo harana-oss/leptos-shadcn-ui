@@ -1,10 +1,10 @@
 //! Accessibility tests for the Menubar component
-//! 
+//!
 //! This module contains tests for accessibility features, keyboard navigation,
 //! advanced interactions, and form integration for the Menubar component.
 
+use crate::default::Menubar;
 use leptos::prelude::*;
-use crate::default::{Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger};
 
 #[cfg(test)]
 mod tests {
@@ -18,7 +18,7 @@ mod tests {
                 "Accessibility menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -31,7 +31,7 @@ mod tests {
                 "Keyboard navigation menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -44,7 +44,7 @@ mod tests {
                 "Focus management menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -59,7 +59,7 @@ mod tests {
                 </Menubar>
             </form>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -72,7 +72,7 @@ mod tests {
                 "ARIA menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -85,7 +85,7 @@ mod tests {
                 "Screen reader menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -98,7 +98,7 @@ mod tests {
                 "High contrast menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -111,7 +111,7 @@ mod tests {
                 "Reduced motion menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -124,7 +124,7 @@ mod tests {
                 "Voice control menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -137,7 +137,7 @@ mod tests {
                 "Switch control menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -150,7 +150,7 @@ mod tests {
                 "Comprehensive menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }

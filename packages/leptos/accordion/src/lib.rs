@@ -1,21 +1,19 @@
 //! Leptos port of shadcn/ui accordion
+#![allow(clippy::redundant_closure)]
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
+pub mod signal_managed;
 
 pub use default::{
-    Accordion, AccordionItem, AccordionTrigger, AccordionContent,
-    AccordionType, AccordionOrientation,
+    Accordion, AccordionContent, AccordionItem, AccordionOrientation, AccordionTrigger,
+    AccordionType,
 };
 
 pub use new_york::{
-    Accordion as AccordionNewYork,
-    AccordionItem as AccordionItemNewYork,
-    AccordionTrigger as AccordionTriggerNewYork,
-    AccordionContent as AccordionContentNewYork,
-    AccordionType as AccordionTypeNewYork,
-    AccordionOrientation as AccordionOrientationNewYork,
+    Accordion as AccordionNewYork, AccordionContent as AccordionContentNewYork,
+    AccordionItem as AccordionItemNewYork, AccordionOrientation as AccordionOrientationNewYork,
+    AccordionTrigger as AccordionTriggerNewYork, AccordionType as AccordionTypeNewYork,
 };
 
 mod tests;

@@ -1,11 +1,11 @@
 //! Integration Tests for Toggle Component
-//! 
+//!
 //! This module contains tests for integration scenarios, workflows, and edge cases.
 
 #[cfg(test)]
 mod integration_tests {
-    use leptos::prelude::*;
     use crate::Toggle;
+    use leptos::prelude::*;
 
     #[test]
     fn test_toggle_integration_scenarios() {

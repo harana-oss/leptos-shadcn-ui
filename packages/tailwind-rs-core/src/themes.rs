@@ -1,8 +1,8 @@
 //! Theme system for Tailwind CSS.
 
+use crate::colors::Color;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use crate::colors::Color;
 
 /// A theme variant that defines the visual style of a component.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -157,52 +157,62 @@ impl Theme {
     pub fn get_variant_classes(&self, variant: &Variant) -> String {
         match variant {
             Variant::Default => "bg-gray-100 text-gray-900 hover:bg-gray-200".to_string(),
-            Variant::Primary => format!("{} {} hover:{}", 
-                self.primary.background(600), 
-                self.primary.text(900), 
+            Variant::Primary => format!(
+                "{} {} hover:{}",
+                self.primary.background(600),
+                self.primary.text(900),
                 self.primary.hover(700)
             ),
-            Variant::Secondary => format!("{} {} hover:{}", 
-                self.secondary.background(200), 
-                self.secondary.text(900), 
+            Variant::Secondary => format!(
+                "{} {} hover:{}",
+                self.secondary.background(200),
+                self.secondary.text(900),
                 self.secondary.hover(300)
             ),
-            Variant::Success => format!("{} {} hover:{}", 
-                self.success.background(600), 
-                self.success.text(900), 
+            Variant::Success => format!(
+                "{} {} hover:{}",
+                self.success.background(600),
+                self.success.text(900),
                 self.success.hover(700)
             ),
-            Variant::Warning => format!("{} {} hover:{}", 
-                self.warning.background(600), 
-                self.warning.text(900), 
+            Variant::Warning => format!(
+                "{} {} hover:{}",
+                self.warning.background(600),
+                self.warning.text(900),
                 self.warning.hover(700)
             ),
-            Variant::Error => format!("{} {} hover:{}", 
-                self.error.background(600), 
-                self.error.text(900), 
+            Variant::Error => format!(
+                "{} {} hover:{}",
+                self.error.background(600),
+                self.error.text(900),
                 self.error.hover(700)
             ),
-            Variant::Info => format!("{} {} hover:{}", 
-                self.info.background(600), 
-                self.info.text(900), 
+            Variant::Info => format!(
+                "{} {} hover:{}",
+                self.info.background(600),
+                self.info.text(900),
                 self.info.hover(700)
             ),
-            Variant::Outline => format!("{} {} hover:{}", 
-                self.primary.outline(600), 
-                self.primary.text(600), 
+            Variant::Outline => format!(
+                "{} {} hover:{}",
+                self.primary.outline(600),
+                self.primary.text(600),
                 self.primary.background(50)
             ),
-            Variant::Ghost => format!("{} hover:{}", 
-                self.primary.ghost(100), 
+            Variant::Ghost => format!(
+                "{} hover:{}",
+                self.primary.ghost(100),
                 self.primary.background(100)
             ),
-            Variant::Link => format!("{} hover:{}", 
-                self.primary.link(600), 
+            Variant::Link => format!(
+                "{} hover:{}",
+                self.primary.link(600),
                 self.primary.text(700)
             ),
-            Variant::Destructive => format!("{} {} hover:{}", 
-                self.error.background(600), 
-                self.error.text(900), 
+            Variant::Destructive => format!(
+                "{} {} hover:{}",
+                self.error.background(600),
+                self.error.text(900),
                 self.error.hover(700)
             ),
         }
@@ -221,8 +231,9 @@ impl Theme {
 
     /// Get classes for a specific variant and size combination.
     pub fn get_classes(&self, variant: &Variant, size: &Size) -> String {
-        format!("{} {}", 
-            self.get_variant_classes(variant), 
+        format!(
+            "{} {}",
+            self.get_variant_classes(variant),
             self.get_size_classes(size)
         )
     }
@@ -235,6 +246,7 @@ impl Default for Theme {
 }
 
 /// Predefined themes for common use cases.
+#[allow(clippy::module_inception)]
 pub mod themes {
     use super::*;
 
@@ -384,7 +396,7 @@ mod tests {
     fn test_theme_variant_classes() {
         let theme = Theme::new();
         let primary_classes = theme.get_variant_classes(&Variant::Primary);
-        
+
         assert!(primary_classes.contains("bg-blue-600"));
         assert!(primary_classes.contains("text-blue-900"));
         assert!(primary_classes.contains("hover:bg-blue-700"));
@@ -394,7 +406,7 @@ mod tests {
     fn test_theme_size_classes() {
         let theme = Theme::new();
         let md_classes = theme.get_size_classes(&Size::Md);
-        
+
         assert_eq!(md_classes, "px-4 py-2 text-base");
     }
 
@@ -402,7 +414,7 @@ mod tests {
     fn test_theme_combined_classes() {
         let theme = Theme::new();
         let classes = theme.get_classes(&Variant::Primary, &Size::Md);
-        
+
         assert!(classes.contains("bg-blue-600"));
         assert!(classes.contains("px-4 py-2"));
     }
@@ -410,13 +422,13 @@ mod tests {
     #[test]
     fn test_theme_manager() {
         let mut manager = ThemeManager::new();
-        
+
         assert!(manager.available_themes().contains(&"default".to_string()));
         assert!(manager.available_themes().contains(&"dark".to_string()));
-        
+
         let result = manager.switch_theme("dark");
         assert!(result.is_ok());
-        
+
         let result = manager.switch_theme("nonexistent");
         assert!(result.is_err());
     }
@@ -426,7 +438,7 @@ mod tests {
         let default_theme = themes::default();
         let dark_theme = themes::dark();
         let light_theme = themes::light();
-        
+
         assert_eq!(default_theme.primary, Color::Blue);
         assert_eq!(dark_theme.primary, Color::Blue);
         assert_eq!(light_theme.primary, Color::Blue);

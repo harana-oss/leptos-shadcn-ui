@@ -1,12 +1,11 @@
 //! ContextMenu trigger component
-//! 
+//!
 //! This module contains the ContextMenuTrigger component for handling
 //! right-click events and positioning.
 
-use leptos::prelude::*;
-use leptos_style::Style;
-use web_sys::MouseEvent;
 use crate::default_components::context_menu::ContextMenuId;
+use leptos::prelude::*;
+use web_sys::MouseEvent;
 
 #[component]
 pub fn ContextMenuTrigger(

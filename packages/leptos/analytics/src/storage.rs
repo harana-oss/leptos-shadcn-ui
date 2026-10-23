@@ -1,4 +1,4 @@
-use crate::types::{StoredAnalytics, StorageMode};
+use crate::types::{StorageMode, StoredAnalytics};
 use gloo_storage::{LocalStorage, Storage};
 
 /// Storage handler for analytics data
@@ -21,9 +21,7 @@ impl AnalyticsStorage {
     pub fn load(&self) -> Option<StoredAnalytics> {
         match self.storage_mode {
             StorageMode::MemoryOnly => None,
-            StorageMode::LocalStorage | StorageMode::Hybrid => {
-                self.load_from_local_storage()
-            }
+            StorageMode::LocalStorage | StorageMode::Hybrid => self.load_from_local_storage(),
         }
     }
 
@@ -41,9 +39,7 @@ impl AnalyticsStorage {
     pub fn clear(&self) -> Result<(), StorageError> {
         match self.storage_mode {
             StorageMode::MemoryOnly => Ok(()),
-            StorageMode::LocalStorage | StorageMode::Hybrid => {
-                self.clear_local_storage()
-            }
+            StorageMode::LocalStorage | StorageMode::Hybrid => self.clear_local_storage(),
         }
     }
 

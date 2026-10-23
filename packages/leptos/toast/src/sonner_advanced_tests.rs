@@ -1,9 +1,7 @@
 #[cfg(test)]
 mod sonner_advanced_tests {
+    use crate::sonner::{SonnerProvider, ToastAction, ToastPosition, ToastTheme, toast};
     use leptos::prelude::*;
-    use crate::sonner::{
-        SonnerProvider, ToastPosition, ToastTheme, ToastAction, toast
-    };
     use std::time::Duration;
 
     /// Test that verifies Sonner toast provider/context system
@@ -12,19 +10,24 @@ mod sonner_advanced_tests {
     fn test_sonner_provider_system() {
         let test_result = std::panic::catch_unwind(|| {
             // This should fail until we implement SonnerProvider
-            let _provider = Owner::new().with(|| view! {
-                <SonnerProvider>
-                    <div>
-                        "App content"
-                    </div>
-                </SonnerProvider>
+            let _provider = Owner::new().with(|| {
+                view! {
+                    <SonnerProvider>
+                        <div>
+                            "App content"
+                        </div>
+                    </SonnerProvider>
+                }
             });
 
             true
         });
 
         // This test should fail until we implement SonnerProvider
-        assert!(test_result.is_ok(), "Sonner provider system test failed - need to implement SonnerProvider");
+        assert!(
+            test_result.is_ok(),
+            "Sonner provider system test failed - need to implement SonnerProvider"
+        );
     }
 
     /// Test that verifies Sonner toast API functions
@@ -44,7 +47,10 @@ mod sonner_advanced_tests {
         });
 
         // This test should fail until we implement toast API
-        assert!(test_result.is_ok(), "Sonner toast API test failed - need to implement toast functions");
+        assert!(
+            test_result.is_ok(),
+            "Sonner toast API test failed - need to implement toast functions"
+        );
     }
 
     /// Test that verifies Sonner toast with actions
@@ -71,7 +77,10 @@ mod sonner_advanced_tests {
         });
 
         // This test should fail until we implement toast actions
-        assert!(test_result.is_ok(), "Sonner toast with actions test failed - need to implement toast actions");
+        assert!(
+            test_result.is_ok(),
+            "Sonner toast with actions test failed - need to implement toast actions"
+        );
     }
 
     /// Test that verifies Sonner toast positioning
@@ -81,15 +90,21 @@ mod sonner_advanced_tests {
         let test_result = std::panic::catch_unwind(|| {
             // This should fail until we implement toast positioning
             let _toast_top_left = toast::success("Top left toast").position(ToastPosition::TopLeft);
-            let _toast_top_right = toast::error("Top right toast").position(ToastPosition::TopRight);
-            let _toast_bottom_left = toast::info("Bottom left toast").position(ToastPosition::BottomLeft);
-            let _toast_bottom_right = toast::warning("Bottom right toast").position(ToastPosition::BottomRight);
+            let _toast_top_right =
+                toast::error("Top right toast").position(ToastPosition::TopRight);
+            let _toast_bottom_left =
+                toast::info("Bottom left toast").position(ToastPosition::BottomLeft);
+            let _toast_bottom_right =
+                toast::warning("Bottom right toast").position(ToastPosition::BottomRight);
 
             true
         });
 
         // This test should fail until we implement toast positioning
-        assert!(test_result.is_ok(), "Sonner toast positioning test failed - need to implement positioning");
+        assert!(
+            test_result.is_ok(),
+            "Sonner toast positioning test failed - need to implement positioning"
+        );
     }
 
     /// Test that verifies Sonner toast duration control
@@ -101,13 +116,17 @@ mod sonner_advanced_tests {
             let _toast_short = toast::success("Short toast").duration(Duration::from_millis(1000));
             let _toast_medium = toast::info("Medium toast").duration(Duration::from_millis(3000));
             let _toast_long = toast::warning("Long toast").duration(Duration::from_millis(10000));
-            let _toast_persistent = toast::error("Persistent toast").duration(Duration::from_millis(0)); // 0 = no auto-dismiss
+            let _toast_persistent =
+                toast::error("Persistent toast").duration(Duration::from_millis(0)); // 0 = no auto-dismiss
 
             true
         });
 
         // This test should fail until we implement toast duration
-        assert!(test_result.is_ok(), "Sonner toast duration test failed - need to implement duration control");
+        assert!(
+            test_result.is_ok(),
+            "Sonner toast duration test failed - need to implement duration control"
+        );
     }
 
     /// Test that verifies Sonner toast progress
@@ -124,7 +143,10 @@ mod sonner_advanced_tests {
         });
 
         // This test should fail until we implement toast progress
-        assert!(test_result.is_ok(), "Sonner toast progress test failed - need to implement progress indicator");
+        assert!(
+            test_result.is_ok(),
+            "Sonner toast progress test failed - need to implement progress indicator"
+        );
     }
 
     /// Test that verifies Sonner toast themes
@@ -141,7 +163,10 @@ mod sonner_advanced_tests {
         });
 
         // This test should fail until we implement toast themes
-        assert!(test_result.is_ok(), "Sonner toast themes test failed - need to implement theme support");
+        assert!(
+            test_result.is_ok(),
+            "Sonner toast themes test failed - need to implement theme support"
+        );
     }
 
     /// Test that verifies Sonner toast queue management
@@ -150,21 +175,26 @@ mod sonner_advanced_tests {
     fn test_sonner_toast_queue() {
         let test_result = std::panic::catch_unwind(|| {
             // This should fail until we implement toast queue
-            let _toast_queue = Owner::new().with(|| view! {
-                <SonnerProvider max_toasts=5>
-                    <div>
-                        {toast::success("First toast").show()}
-                        {toast::error("Second toast").show()}
-                        {toast::info("Third toast").show()}
-                    </div>
-                </SonnerProvider>
+            let _toast_queue = Owner::new().with(|| {
+                view! {
+                    <SonnerProvider max_toasts=5>
+                        <div>
+                            {toast::success("First toast").show()}
+                            {toast::error("Second toast").show()}
+                            {toast::info("Third toast").show()}
+                        </div>
+                    </SonnerProvider>
+                }
             });
 
             true
         });
 
         // This test should fail until we implement toast queue
-        assert!(test_result.is_ok(), "Sonner toast queue test failed - need to implement queue management");
+        assert!(
+            test_result.is_ok(),
+            "Sonner toast queue test failed - need to implement queue management"
+        );
     }
 
     /// Test that verifies Sonner toast dismiss functionality
@@ -173,7 +203,9 @@ mod sonner_advanced_tests {
     fn test_sonner_toast_dismiss() {
         let test_result = std::panic::catch_unwind(|| {
             // This should fail until we implement toast dismiss
-            let toast_id = toast::success("Dismissible toast").id("test-toast".to_string()).show();
+            let toast_id = toast::success("Dismissible toast")
+                .id("test-toast".to_string())
+                .show();
             toast::dismiss(toast_id);
             toast::dismiss_all();
 
@@ -181,6 +213,9 @@ mod sonner_advanced_tests {
         });
 
         // This test should fail until we implement toast dismiss
-        assert!(test_result.is_ok(), "Sonner toast dismiss test failed - need to implement dismiss functionality");
+        assert!(
+            test_result.is_ok(),
+            "Sonner toast dismiss test failed - need to implement dismiss functionality"
+        );
     }
 }

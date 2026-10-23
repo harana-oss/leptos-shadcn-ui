@@ -1,6 +1,6 @@
 use crate::storage::AnalyticsStorage;
 use crate::types::{
-    AnalyticsConfig, ComponentStats, ComponentUsageEvent, StoredAnalytics, StorageMode,
+    AnalyticsConfig, ComponentStats, ComponentUsageEvent, StorageMode, StoredAnalytics,
 };
 use leptos::prelude::*;
 
@@ -70,7 +70,7 @@ impl AnalyticsContext {
         let mut stats: Vec<_> = self
             .analytics
             .with(|analytics| analytics.stats.values().cloned().collect());
-        stats.sort_by(|a, b| b.mount_count.cmp(&a.mount_count));
+        stats.sort_by_key(|b| std::cmp::Reverse(b.mount_count));
         stats
     }
 
@@ -129,7 +129,8 @@ impl AnalyticsContext {
 #[component]
 pub fn AnalyticsProvider(
     /// Configuration for analytics
-    #[prop(optional)] config: Option<AnalyticsConfig>,
+    #[prop(optional)]
+    config: Option<AnalyticsConfig>,
     /// Children components
     children: Children,
 ) -> impl IntoView {

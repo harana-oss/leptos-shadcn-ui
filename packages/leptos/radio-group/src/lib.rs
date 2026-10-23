@@ -4,9 +4,9 @@
 //!
 //! See [the Rust shadcn/ui book](https://shadcn-ui.rustforweb.org/components/radio-group.html) for more documenation.
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
+pub mod signal_managed;
 
 // Re-export the components for easy access
 pub use default::{RadioGroup, RadioGroupItem};

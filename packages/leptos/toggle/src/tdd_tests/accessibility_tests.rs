@@ -1,11 +1,11 @@
 //! Accessibility Tests for Toggle Component
-//! 
+//!
 //! This module contains tests for accessibility features, keyboard navigation, and form integration.
 
 #[cfg(test)]
 mod accessibility_tests {
-    use leptos::prelude::*;
     use crate::Toggle;
+    use leptos::prelude::*;
 
     #[test]
     fn test_toggle_accessibility() {

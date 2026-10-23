@@ -4,9 +4,9 @@
 //!
 //! See [the Rust shadcn/ui book](https://shadcn-ui.rustforweb.org/components/tooltip.html) for more documentation.
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
+pub mod signal_managed;
 
 mod tests;
 

@@ -1,6 +1,5 @@
-use leptos::prelude::*;
-use leptos_style::Style;
 use crate::*;
+use leptos::prelude::*;
 
 #[cfg(test)]
 mod tdd_tests {
@@ -299,14 +298,13 @@ mod tdd_tests {
                 </DrawerContent>
             </Drawer>
         };
-        
+
         // Test state change
         open.set(true);
         assert!(open.get(), "Drawer should be open after state change");
-        
+
         open.set(false);
         assert!(!open.get(), "Drawer should be closed after state change");
-        
     }
 
     // Callback Tests
@@ -596,7 +594,7 @@ mod tdd_tests {
         let should_scale = RwSignal::new(true);
         let callback = Callback::new(move |_new_open: bool| {});
         let _drawer_view = view! {
-            <Drawer 
+            <Drawer
                 open=open
                 direction=direction
                 should_scale_background=should_scale

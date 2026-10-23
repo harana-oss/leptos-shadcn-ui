@@ -1,5 +1,5 @@
-use leptos::prelude::*;
 use crate::*;
+use leptos::prelude::*;
 
 #[cfg(test)]
 mod tdd_tests {
@@ -472,7 +472,7 @@ mod tdd_tests {
     fn test_carousel_combined_props() {
         let orientation = RwSignal::new(CarouselOrientation::Vertical);
         let _carousel_view = view! {
-            <Carousel 
+            <Carousel
                 orientation=MaybeProp::from(<RwSignal<CarouselOrientation> as Into<Signal<CarouselOrientation>>>::into(orientation))
                 class=MaybeProp::from("combined-props-carousel")
             >

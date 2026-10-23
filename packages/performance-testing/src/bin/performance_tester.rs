@@ -2,9 +2,9 @@ use std::env;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     env_logger::init();
-    
+
     let args: Vec<String> = env::args().collect();
-    
+
     if args.len() < 2 {
         eprintln!("Usage: {} <command>", args[0]);
         eprintln!("Commands:");
@@ -13,7 +13,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         eprintln!("  report - Generate performance report");
         return Ok(());
     }
-    
+
     match args[1].as_str() {
         "benchmark" => {
             println!("Running performance benchmarks...");
@@ -32,6 +32,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             return Ok(());
         }
     }
-    
+
     Ok(())
 }

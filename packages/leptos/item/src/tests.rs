@@ -42,7 +42,18 @@ fn renders_html() {
             <ItemSeparator/>
         </ItemGroup>
     }.to_html();
-    for s in ["item-group", "item", "item-header", "item-media", "item-content", "item-title", "item-description", "item-actions", "item-footer", "item-separator"] {
+    for s in [
+        "item-group",
+        "item",
+        "item-header",
+        "item-media",
+        "item-content",
+        "item-title",
+        "item-description",
+        "item-actions",
+        "item-footer",
+        "item-separator",
+    ] {
         assert!(html.contains(&format!("data-slot=\"{s}\"")), "{s}");
     }
     assert!(html.contains(r#"data-variant="outline""#));

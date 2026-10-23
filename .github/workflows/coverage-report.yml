@@ -94,7 +94,10 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          cargo llvm-cov --workspace --html --lcov --json --output-path coverage.json
+          cargo llvm-cov --workspace --no-report
+          cargo llvm-cov report --html
+          cargo llvm-cov report --lcov --output-path target/llvm-cov/lcov.info
+          cargo llvm-cov report --json --output-path coverage.json
         env:
           LLVM_PROFILE_FILE: ${{ github.workspace }}/target/coverage/%p-%m.profraw
 

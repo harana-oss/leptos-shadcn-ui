@@ -1,8 +1,8 @@
 // Test helper functions for error-boundary component
 
 use super::*;
-use leptos::prelude::{view, IntoAny, IntoView};
 use crate::ErrorBoundary;
+use leptos::prelude::{IntoAny, IntoView, view};
 
 /// Helper function to create a test instance with default props
 pub fn create_test_error_boundary() -> impl IntoView {

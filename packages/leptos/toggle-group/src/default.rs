@@ -2,10 +2,12 @@
 
 use leptos::prelude::*;
 
-pub const TOGGLE_GROUP_CLASS: &str = "group/toggle-group flex w-fit items-center rounded-md data-[variant=outline]:shadow-xs";
+pub const TOGGLE_GROUP_CLASS: &str =
+    "group/toggle-group flex w-fit items-center rounded-md data-[variant=outline]:shadow-xs";
 pub const TOGGLE_BASE_CLASS: &str = "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium hover:bg-muted hover:text-muted-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none transition-[color,box-shadow] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive whitespace-nowrap";
 pub const TOGGLE_VARIANT_DEFAULT_CLASS: &str = "bg-transparent";
-pub const TOGGLE_VARIANT_OUTLINE_CLASS: &str = "border border-input bg-transparent shadow-xs hover:bg-accent hover:text-accent-foreground";
+pub const TOGGLE_VARIANT_OUTLINE_CLASS: &str =
+    "border border-input bg-transparent shadow-xs hover:bg-accent hover:text-accent-foreground";
 pub const TOGGLE_SIZE_DEFAULT_CLASS: &str = "h-9 px-2 min-w-9";
 pub const TOGGLE_SIZE_SM_CLASS: &str = "h-8 px-1.5 min-w-8";
 pub const TOGGLE_SIZE_LG_CLASS: &str = "h-10 px-2.5 min-w-10";
@@ -158,19 +160,25 @@ pub fn is_pressed(current: &[String], item: &str) -> bool {
 }
 
 pub fn data_state(pressed: bool) -> &'static str {
-    if pressed {
-        "on"
-    } else {
-        "off"
-    }
+    if pressed { "on" } else { "off" }
 }
 
 pub fn toggle_group_class(extra: &str) -> String {
     cn(&[TOGGLE_GROUP_CLASS, extra])
 }
 
-pub fn toggle_group_item_class(variant: ToggleGroupVariant, size: ToggleGroupSize, extra: &str) -> String {
-    cn(&[TOGGLE_BASE_CLASS, variant.class(), size.class(), TOGGLE_GROUP_ITEM_CLASS, extra])
+pub fn toggle_group_item_class(
+    variant: ToggleGroupVariant,
+    size: ToggleGroupSize,
+    extra: &str,
+) -> String {
+    cn(&[
+        TOGGLE_BASE_CLASS,
+        variant.class(),
+        size.class(),
+        TOGGLE_GROUP_ITEM_CLASS,
+        extra,
+    ])
 }
 
 /// Context shared from [`ToggleGroup`] to its items.
@@ -197,15 +205,20 @@ impl ToggleGroupContext {
 #[component]
 pub fn ToggleGroup(
     /// `single` (default) or `multiple`.
-    #[prop(into, optional)] r#type: MaybeProp<String>,
+    #[prop(into, optional)]
+    r#type: MaybeProp<String>,
     /// `default` or `outline`.
-    #[prop(into, optional)] variant: MaybeProp<String>,
+    #[prop(into, optional)]
+    variant: MaybeProp<String>,
     /// `default`, `sm` or `lg`.
-    #[prop(into, optional)] size: MaybeProp<String>,
+    #[prop(into, optional)]
+    size: MaybeProp<String>,
     /// Selected values (controlled when provided). Single mode uses at most one entry.
-    #[prop(optional)] value: Option<RwSignal<Vec<String>>>,
+    #[prop(optional)]
+    value: Option<RwSignal<Vec<String>>>,
     /// Initial selection when `value` is not provided.
-    #[prop(into, optional)] default_value: Vec<String>,
+    #[prop(into, optional)]
+    default_value: Vec<String>,
     #[prop(into, optional)] on_value_change: Option<Callback<Vec<String>>>,
     #[prop(into, optional)] disabled: Signal<bool>,
     #[prop(into, optional)] aria_label: MaybeProp<String>,
@@ -215,11 +228,11 @@ pub fn ToggleGroup(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let kind = Signal::derive(move || ToggleGroupType::parse(&r#type.get().unwrap_or_default()));
-    let variant = Signal::derive(move || ToggleGroupVariant::parse(&variant.get().unwrap_or_default()));
+    let variant =
+        Signal::derive(move || ToggleGroupVariant::parse(&variant.get().unwrap_or_default()));
     let size = Signal::derive(move || ToggleGroupSize::parse(&size.get().unwrap_or_default()));
-    let value = value.unwrap_or_else(|| {
-        RwSignal::new(normalize_value(kind.get_untracked(), &default_value))
-    });
+    let value = value
+        .unwrap_or_else(|| RwSignal::new(normalize_value(kind.get_untracked(), &default_value)));
     provide_context(ToggleGroupContext {
         kind,
         variant,
@@ -250,9 +263,11 @@ pub fn ToggleGroup(
 pub fn ToggleGroupItem(
     #[prop(into)] value: String,
     /// Overrides the group variant.
-    #[prop(into, optional)] variant: MaybeProp<String>,
+    #[prop(into, optional)]
+    variant: MaybeProp<String>,
     /// Overrides the group size.
-    #[prop(into, optional)] size: MaybeProp<String>,
+    #[prop(into, optional)]
+    size: MaybeProp<String>,
     #[prop(into, optional)] disabled: Signal<bool>,
     #[prop(into, optional)] aria_label: MaybeProp<String>,
     #[prop(into, optional)] class: MaybeProp<String>,
@@ -275,10 +290,15 @@ pub fn ToggleGroupItem(
             .map(|v| ToggleGroupVariant::parse(&v))
             .unwrap_or_else(|| ctx.variant.get())
     };
-    let size = move || size.get().map(|s| ToggleGroupSize::parse(&s)).unwrap_or_else(|| ctx.size.get());
+    let size = move || {
+        size.get()
+            .map(|s| ToggleGroupSize::parse(&s))
+            .unwrap_or_else(|| ctx.size.get())
+    };
     let pressed = move || item.with_value(|v| is_pressed(&ctx.value.get(), v));
     let is_disabled = move || disabled.get() || ctx.disabled.get();
-    let class = move || toggle_group_item_class(variant(), size(), &class.get().unwrap_or_default());
+    let class =
+        move || toggle_group_item_class(variant(), size(), &class.get().unwrap_or_default());
     view! {
         <button
             type="button"

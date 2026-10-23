@@ -3,25 +3,9 @@ use leptos_meta::*;
 use leptos_router::components::Router;
 
 // Import all the ShadCN components we'll need
-use leptos_shadcn_button::*;
-use leptos_shadcn_card::*;
-use leptos_shadcn_input::*;
-use leptos_shadcn_badge::*;
 use leptos_shadcn_avatar::*;
-use leptos_shadcn_dropdown_menu::*;
-use leptos_shadcn_separator::*;
-use leptos_shadcn_progress::*;
-use leptos_shadcn_tabs::*;
-use leptos_shadcn_dialog::*;
-use leptos_shadcn_sheet::*;
-use leptos_shadcn_scroll_area::*;
-use leptos_shadcn_collapsible::*;
-use leptos_shadcn_command::*;
-use leptos_shadcn_popover::*;
-use leptos_shadcn_select::*;
-use leptos_shadcn_switch::*;
-use leptos_shadcn_toast::*;
-use leptos_shadcn_tooltip::*;
+use leptos_shadcn_badge::*;
+use leptos_shadcn_card::*;
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -33,7 +17,7 @@ pub fn App() -> impl IntoView {
         <Meta charset="utf-8" />
         <Meta name="viewport" content="width=device-width, initial-scale=1" />
         <Link rel="stylesheet" href="https://cdn.tailwindcss.com" />
-        
+
         <Router>
             <DashboardLayout />
         </Router>
@@ -61,12 +45,12 @@ pub fn DashboardLayout() -> impl IntoView {
 
                 // Sidebar - fixed mobile, relative desktop
                 <div class=move || {
-                    let base_classes = if sidebar_open.get() {
+
+                    if sidebar_open.get() {
                         "fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border transition-transform duration-300 md:relative md:translate-x-0"
                     } else {
                         "fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border transition-transform duration-300 -translate-x-full md:relative md:translate-x-0"
-                    };
-                    base_classes
+                    }
                 }>
                     <Sidebar close_sidebar=move || sidebar_open.set(false) />
                 </div>
@@ -145,10 +129,7 @@ pub fn NavItem(
 }
 
 #[component]
-pub fn Header(
-    sidebar_open: RwSignal<bool>,
-    theme: RwSignal<String>,
-) -> impl IntoView {
+pub fn Header(sidebar_open: RwSignal<bool>, theme: RwSignal<String>) -> impl IntoView {
     view! {
         <header class="sticky top-0 z-30 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div class="flex h-16 items-center justify-between px-4 sm:px-6">
@@ -214,36 +195,36 @@ pub fn DashboardContent() -> impl IntoView {
 
             // Stats cards - responsive grid
             <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                <StatCard 
-                    title="Total Revenue" 
-                    value="$1,250.00" 
-                    change="+12.5%" 
+                <StatCard
+                    title="Total Revenue"
+                    value="$1,250.00"
+                    change="+12.5%"
                     change_type="positive"
                     description="Trending up this month"
                 />
-                <StatCard 
-                    title="New Customers" 
-                    value="1,234" 
-                    change="-20%" 
+                <StatCard
+                    title="New Customers"
+                    value="1,234"
+                    change="-20%"
                     change_type="negative"
                     description="Down 20% this period"
                 />
-                <StatCard 
-                    title="Active Accounts" 
-                    value="45,678" 
-                    change="+12.5%" 
+                <StatCard
+                    title="Active Accounts"
+                    value="45,678"
+                    change="+12.5%"
                     change_type="positive"
                     description="Strong user retention"
                 />
-                <StatCard 
-                    title="Growth Rate" 
-                    value="4.5%" 
-                    change="+4.5%" 
+                <StatCard
+                    title="Growth Rate"
+                    value="4.5%"
+                    change="+4.5%"
                     change_type="positive"
                     description="Steady performance increase"
                 />
             </div>
-            
+
             // Charts and tables section
             <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
                 <div class="col-span-4">
@@ -262,7 +243,7 @@ pub fn DashboardContent() -> impl IntoView {
                         </CardContent>
                     </Card>
                 </div>
-                
+
                 <div class="col-span-3">
                     <Card>
                         <CardHeader>
@@ -270,22 +251,22 @@ pub fn DashboardContent() -> impl IntoView {
                         </CardHeader>
                         <CardContent>
                             <div class="space-y-4">
-                                <ActivityItem 
-                                    user="Eddie Lake" 
-                                    action="completed" 
-                                    item="Cover page" 
+                                <ActivityItem
+                                    user="Eddie Lake"
+                                    action="completed"
+                                    item="Cover page"
                                     time="2 hours ago"
                                 />
-                                <ActivityItem 
-                                    user="Jamik Tashpulatov" 
-                                    action="updated" 
-                                    item="Technical approach" 
+                                <ActivityItem
+                                    user="Jamik Tashpulatov"
+                                    action="updated"
+                                    item="Technical approach"
                                     time="4 hours ago"
                                 />
-                                <ActivityItem 
-                                    user="Sarah Wilson" 
-                                    action="created" 
-                                    item="New project" 
+                                <ActivityItem
+                                    user="Sarah Wilson"
+                                    action="created"
+                                    item="New project"
                                     time="6 hours ago"
                                 />
                             </div>
@@ -293,7 +274,7 @@ pub fn DashboardContent() -> impl IntoView {
                     </Card>
                 </div>
             </div>
-            
+
             // Data table - horizontally scrollable on mobile
             <Card>
                 <CardHeader class="px-4 sm:px-6">
@@ -406,7 +387,7 @@ pub fn ActivityItem(
 ) -> impl IntoView {
     let user_initials = user.chars().take(2).collect::<String>();
     let user_display = user.clone();
-    
+
     view! {
         <div class="flex items-center space-x-4">
             <Avatar class="h-8 w-8">

@@ -12,7 +12,7 @@ fn main() {
         .variant("primary", "bg-blue-600 text-white")
         .responsive("sm", "text-sm")
         .state("hover", "hover:bg-blue-700");
-    
+
     println!("   Classes: {}", basic_classes.to_string());
 
     // 2. Color system usage
@@ -30,7 +30,7 @@ fn main() {
         .md("text-base")
         .lg("text-lg")
         .xl("text-xl");
-    
+
     println!("   Responsive classes: {}", responsive.to_string());
 
     // 4. Theme system
@@ -38,10 +38,10 @@ fn main() {
     let theme = Theme::new()
         .with_primary(Color::Blue)
         .with_secondary(Color::Gray);
-    
+
     let primary_classes = theme.get_classes(&Variant::Primary, &Size::Md);
     let secondary_classes = theme.get_classes(&Variant::Secondary, &Size::Md);
-    
+
     println!("   Primary classes: {}", primary_classes);
     println!("   Secondary classes: {}", secondary_classes);
 
@@ -50,7 +50,7 @@ fn main() {
     let validator = ClassValidator::new();
     let valid_class = validator.validate_class("bg-blue-600");
     let invalid_class = validator.validate_class("invalid-class");
-    
+
     println!("   'bg-blue-600' is: {:?}", valid_class);
     println!("   'invalid-class' is: {:?}", invalid_class);
 
@@ -66,7 +66,7 @@ fn main() {
     let text_sizing = patterns::text_sizing();
     let spacing = patterns::spacing();
     let grid = patterns::grid();
-    
+
     println!("   Text sizing: {}", text_sizing.to_string());
     println!("   Spacing: {}", spacing.to_string());
     println!("   Grid: {}", grid.to_string());

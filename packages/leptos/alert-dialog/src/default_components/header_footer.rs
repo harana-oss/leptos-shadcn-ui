@@ -1,10 +1,9 @@
 //! AlertDialog header and footer components
-//! 
+//!
 //! This module contains the AlertDialogHeader and AlertDialogFooter
 //! components for organizing alert dialog content.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 
 #[component]
 pub fn AlertDialogHeader(

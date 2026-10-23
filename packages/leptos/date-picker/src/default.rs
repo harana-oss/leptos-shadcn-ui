@@ -1,7 +1,7 @@
 use leptos::prelude::*;
-use tailwind_fuse::tw_merge;
-use leptos_shadcn_calendar::{Calendar as CalendarComponent, CalendarDate};
 use leptos_shadcn_button::{Button, ButtonVariant};
+use leptos_shadcn_calendar::{Calendar as CalendarComponent, CalendarDate};
+use tailwind_fuse::tw_merge;
 
 const DATE_PICKER_CLASS: &str = "w-full";
 const DATE_PICKER_TRIGGER_CLASS: &str = "w-full justify-start text-left font-normal";
@@ -18,42 +18,54 @@ pub fn DatePicker(
     let is_open = RwSignal::new(false);
     let selected_date = RwSignal::new(selected.get());
     let disabled_dates = RwSignal::new(disabled.get().unwrap_or_default());
-    
+
     // Update selected date when prop changes
     Effect::new(move |_| {
         if let Some(new_selected) = selected.get() {
             selected_date.set(Some(new_selected));
         }
     });
-    
-    let handle_select = move |date: CalendarDate| {
+
+    let _handle_select = move |date: CalendarDate| {
         selected_date.set(Some(date.clone()));
         is_open.set(false);
         if let Some(on_select) = on_select {
             on_select.run(date);
         }
     };
-    
+
     let format_date = |date: &CalendarDate| -> String {
         let months = [
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
         ];
-        format!("{} {}, {}", 
-            months[(date.month - 1) as usize], 
-            date.day, 
+        format!(
+            "{} {}, {}",
+            months[(date.month - 1) as usize],
+            date.day,
             date.year
         )
     };
-    
-    let merged_class = tw_merge!(&format!("{} {}", 
+
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
         DATE_PICKER_CLASS,
         class.get().unwrap_or_default()
     ));
-    
+
     view! {
         <div class={merged_class}>
-            <Button 
+            <Button
                 variant=ButtonVariant::Outline
                 class={tw_merge!(&DATE_PICKER_TRIGGER_CLASS)}
                 on:click=move |_| is_open.set(!is_open.get())
@@ -80,7 +92,7 @@ pub fn DatePicker(
                             on_select=Callback::new(move |date: CalendarDate| {
                                 selected_date.set(Some(date.clone()));
                                 is_open.set(false);
-                                if let Some(cb) = on_select.clone() {
+                                if let Some(cb) = on_select {
                                     cb.run(date);
                                 }
                             })
@@ -88,7 +100,7 @@ pub fn DatePicker(
                         />
                     </div>
                 }.into_any()
-            } else { view! {}.into_any() }}
+            } else { ().into_any() }}
         </div>
     }
 }
@@ -107,20 +119,20 @@ pub fn DatePickerWithRange(
     let range_end = RwSignal::new(to.get());
     let selecting_end = RwSignal::new(false);
     let disabled_dates = RwSignal::new(disabled.get().unwrap_or_default());
-    
+
     // Update range when props change
     Effect::new(move |_| {
         if let Some(new_from) = from.get() {
             range_start.set(Some(new_from));
         }
     });
-    
+
     Effect::new(move |_| {
         if let Some(new_to) = to.get() {
             range_end.set(Some(new_to));
         }
     });
-    
+
     let handle_select = move |date: CalendarDate| {
         if !selecting_end.get() {
             // First selection - set start date
@@ -132,7 +144,8 @@ pub fn DatePickerWithRange(
             let start = range_start.get();
             if let Some(ref start_date) = start {
                 // Ensure end is after start using tuple comparison
-                if (date.year, date.month, date.day) >= (start_date.year, start_date.month, start_date.day)
+                if (date.year, date.month, date.day)
+                    >= (start_date.year, start_date.month, start_date.day)
                 {
                     range_end.set(Some(date.clone()));
                 } else {
@@ -144,43 +157,61 @@ pub fn DatePickerWithRange(
             selecting_end.set(false);
             is_open.set(false);
         }
-        
+
         if let Some(on_select) = on_select {
             on_select.run((range_start.get(), range_end.get()));
         }
     };
-    
+
     let format_date = |date: &CalendarDate| -> String {
         let months = [
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
         ];
-        format!("{} {}, {}", months[(date.month - 1) as usize], date.day, date.year)
+        format!(
+            "{} {}, {}",
+            months[(date.month - 1) as usize],
+            date.day,
+            date.year
+        )
     };
 
     let format_date_range = move || -> String {
         let start = range_start.get();
         let end = range_end.get();
-        
+
         match (start, end) {
             (Some(start_date), Some(end_date)) => {
                 format!("{} - {}", format_date(&start_date), format_date(&end_date))
-            },
+            }
             (Some(start_date), None) => {
                 format!("{} - ", format_date(&start_date))
-            },
-            _ => placeholder.get().unwrap_or_else(|| "Pick a date range".to_string())
+            }
+            _ => placeholder
+                .get()
+                .unwrap_or_else(|| "Pick a date range".to_string()),
         }
     };
-    
-    let merged_class = tw_merge!(&format!("{} {}", 
+
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
         DATE_PICKER_CLASS,
         class.get().unwrap_or_default()
     ));
-    
+
     view! {
         <div class={merged_class}>
-            <Button 
+            <Button
                 variant=ButtonVariant::Outline
                 class={tw_merge!(&DATE_PICKER_TRIGGER_CLASS)}
                 on:click=move |_| is_open.set(!is_open.get())
@@ -192,10 +223,10 @@ pub fn DatePickerWithRange(
                     <line x1="3" y1="10" x2="21" y2="10"></line>
                 </svg>
                 <span class={
-                    move || if range_start.get().is_none() { 
-                        DATE_PICKER_PLACEHOLDER_CLASS 
-                    } else { 
-                        "" 
+                    move || if range_start.get().is_none() {
+                        DATE_PICKER_PLACEHOLDER_CLASS
+                    } else {
+                        ""
                     }
                 }>
                     {format_date_range}
@@ -213,7 +244,7 @@ pub fn DatePickerWithRange(
                         />
                     </div>
                 }.into_any()
-            } else { view! {}.into_any() }}
+            } else { ().into_any() }}
         </div>
     }
 }

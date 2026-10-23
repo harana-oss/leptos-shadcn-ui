@@ -36,7 +36,10 @@ pub struct GenerateArgs {
 }
 
 pub async fn generate(args: GenerateArgs) -> Result<()> {
-    println!("🔧 Generating {} component for {}...", args.name, args.framework);
+    println!(
+        "🔧 Generating {} component for {}...",
+        args.name, args.framework
+    );
 
     // Parse framework
     let framework = match args.framework.to_lowercase().as_str() {
@@ -68,13 +71,10 @@ pub async fn generate(args: GenerateArgs) -> Result<()> {
     // Create component configuration
     let config = ComponentConfig {
         name: args.name.clone(),
-        framework: framework.clone(),
+        framework,
         theme_variants,
         props,
-        dependencies: vec![
-            "tailwind_fuse".to_string(),
-            "leptos".to_string(),
-        ],
+        dependencies: vec!["tailwind_fuse".to_string(), "leptos".to_string()],
     };
 
     // Determine output directory
@@ -88,10 +88,16 @@ pub async fn generate(args: GenerateArgs) -> Result<()> {
 
     // Generate the component files
     let generator = ComponentGenerator::new()?;
-    shadcn_ui_component_generator::generator::Generator::generate_component_files(&config, &output_dir)?;
+    shadcn_ui_component_generator::generator::Generator::generate_component_files(
+        &config,
+        &output_dir,
+    )?;
 
     println!("✅ Successfully generated {} component!", args.name);
-    println!("📁 Files created in: {}", output_dir.join(&args.name).display());
+    println!(
+        "📁 Files created in: {}",
+        output_dir.join(&args.name).display()
+    );
     println!("📝 Next steps:");
     println!("   1. Add the component to your workspace members in Cargo.toml");
     println!("   2. Customize the component implementation");

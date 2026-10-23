@@ -1,12 +1,12 @@
 //! Basic Rendering Tests for Toggle Component
-//! 
+//!
 //! This module contains tests for basic rendering functionality and component creation.
 
 #[cfg(test)]
 mod basic_rendering_tests {
+    use crate::Toggle;
     use leptos::prelude::*;
     use leptos_style::Style;
-    use crate::Toggle;
 
     #[test]
     fn test_toggle_basic_rendering() {

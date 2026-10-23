@@ -1,14 +1,14 @@
 //! Performance Regression Testing Module
-//! 
+//!
 //! This module provides automated performance regression testing for leptos-shadcn-ui components,
 //! including baseline comparison, trend analysis, and automated optimization recommendations.
 
+use crate::benchmarks::{BenchmarkResult, BenchmarkSuiteResults};
+use crate::PerformanceAuditError;
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::path::Path;
 use std::time::{SystemTime, UNIX_EPOCH};
-use serde::{Deserialize, Serialize};
-use crate::benchmarks::{BenchmarkResult, BenchmarkSuiteResults};
-use crate::PerformanceAuditError;
 
 /// Performance regression test result
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -177,20 +177,24 @@ impl RegressionTester {
     /// Load performance baseline
     pub async fn load_baseline(&mut self) -> Result<(), PerformanceAuditError> {
         let baseline_path = Path::new(&self.config.baseline_path);
-        
+
         if !baseline_path.exists() {
-            return Err(PerformanceAuditError::ConfigurationError(
-                format!("Baseline file not found: {}", self.config.baseline_path)
-            ));
+            return Err(PerformanceAuditError::ConfigurationError(format!(
+                "Baseline file not found: {}",
+                self.config.baseline_path
+            )));
         }
 
-        let baseline_content = std::fs::read_to_string(baseline_path)
-            .map_err(PerformanceAuditError::IoError)?;
-        
-        let baseline: PerformanceBaseline = serde_json::from_str(&baseline_content)
-            .map_err(|e| PerformanceAuditError::ConfigurationError(
-                format!("Failed to parse baseline: {}", e)
-            ))?;
+        let baseline_content =
+            std::fs::read_to_string(baseline_path).map_err(PerformanceAuditError::IoError)?;
+
+        let baseline: PerformanceBaseline =
+            serde_json::from_str(&baseline_content).map_err(|e| {
+                PerformanceAuditError::ConfigurationError(format!(
+                    "Failed to parse baseline: {}",
+                    e
+                ))
+            })?;
 
         self.baseline = Some(baseline);
         Ok(())
@@ -201,20 +205,19 @@ impl RegressionTester {
         &self,
         current_results: &BenchmarkSuiteResults,
     ) -> Result<Vec<RegressionTestResult>, PerformanceAuditError> {
-        let baseline = self.baseline.as_ref()
-            .ok_or_else(|| PerformanceAuditError::ConfigurationError(
-                "Baseline not loaded".to_string()
-            ))?;
+        let baseline = self.baseline.as_ref().ok_or_else(|| {
+            PerformanceAuditError::ConfigurationError("Baseline not loaded".to_string())
+        })?;
 
         let mut regression_results = Vec::new();
 
         for (test_name, current_result) in &current_results.benchmark_results {
-            if let Some(baseline_metrics) = baseline.component_baselines.get(&current_result.component_name) {
-                let regression_result = self.analyze_regression(
-                    test_name,
-                    current_result,
-                    baseline_metrics,
-                )?;
+            if let Some(baseline_metrics) = baseline
+                .component_baselines
+                .get(&current_result.component_name)
+            {
+                let regression_result =
+                    self.analyze_regression(test_name, current_result, baseline_metrics)?;
                 regression_results.push(regression_result);
             }
         }
@@ -240,7 +243,7 @@ impl RegressionTester {
         let change = self.calculate_performance_change(baseline_metrics, &current_metrics);
         let severity = self.determine_regression_severity(&change);
         let regression_detected = severity != RegressionSeverity::None;
-        
+
         let recommendations = if self.config.generate_recommendations {
             self.generate_recommendations(&change, &severity)
         } else {
@@ -256,8 +259,10 @@ impl RegressionTester {
             regression_detected,
             severity,
             recommendations,
-            timestamp: SystemTime::now().duration_since(UNIX_EPOCH)
-                .unwrap_or_default().as_secs(),
+            timestamp: SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .unwrap_or_default()
+                .as_secs(),
         })
     }
 
@@ -268,21 +273,24 @@ impl RegressionTester {
         current: &PerformanceMetrics,
     ) -> PerformanceChange {
         let time_change_percent = if baseline.average_time_ms > 0.0 {
-            ((current.average_time_ms - baseline.average_time_ms) / baseline.average_time_ms) * 100.0
+            ((current.average_time_ms - baseline.average_time_ms) / baseline.average_time_ms)
+                * 100.0
         } else {
             0.0
         };
 
         let memory_change_percent = if baseline.memory_usage_bytes > 0 {
-            ((current.memory_usage_bytes as f64 - baseline.memory_usage_bytes as f64) 
-             / baseline.memory_usage_bytes as f64) * 100.0
+            ((current.memory_usage_bytes as f64 - baseline.memory_usage_bytes as f64)
+                / baseline.memory_usage_bytes as f64)
+                * 100.0
         } else {
             0.0
         };
 
         let bundle_size_change_percent = if baseline.bundle_size_bytes > 0 {
-            ((current.bundle_size_bytes as f64 - baseline.bundle_size_bytes as f64) 
-             / baseline.bundle_size_bytes as f64) * 100.0
+            ((current.bundle_size_bytes as f64 - baseline.bundle_size_bytes as f64)
+                / baseline.bundle_size_bytes as f64)
+                * 100.0
         } else {
             0.0
         };
@@ -329,7 +337,7 @@ impl RegressionTester {
                 "Performance regression detected: {:.1}% slower execution time",
                 change.time_change_percent
             ));
-            
+
             if change.time_change_percent > 20.0 {
                 recommendations.push("Consider optimizing component rendering logic".to_string());
                 recommendations.push("Review component lifecycle and state management".to_string());
@@ -341,7 +349,7 @@ impl RegressionTester {
                 "Memory usage increased by {:.1}%",
                 change.memory_change_percent
             ));
-            
+
             if change.memory_change_percent > 20.0 {
                 recommendations.push("Check for memory leaks in component cleanup".to_string());
                 recommendations.push("Review component state and signal management".to_string());
@@ -353,7 +361,7 @@ impl RegressionTester {
                 "Bundle size increased by {:.1}%",
                 change.bundle_size_change_percent
             ));
-            
+
             if change.bundle_size_change_percent > 10.0 {
                 recommendations.push("Consider code splitting and lazy loading".to_string());
                 recommendations.push("Review dependencies and remove unused code".to_string());
@@ -364,22 +372,23 @@ impl RegressionTester {
             RegressionSeverity::Critical => {
                 recommendations.push("CRITICAL: Immediate attention required".to_string());
                 recommendations.push("Consider reverting recent changes".to_string());
-            },
+            }
             RegressionSeverity::Major => {
                 recommendations.push("MAJOR: High priority optimization needed".to_string());
                 recommendations.push("Schedule performance review meeting".to_string());
-            },
+            }
             RegressionSeverity::Moderate => {
                 recommendations.push("MODERATE: Performance optimization recommended".to_string());
-            },
+            }
             RegressionSeverity::Minor => {
                 recommendations.push("MINOR: Monitor performance trends".to_string());
-            },
+            }
             RegressionSeverity::None => {
                 if change.is_improvement {
-                    recommendations.push("Performance improvement detected - good work!".to_string());
+                    recommendations
+                        .push("Performance improvement detected - good work!".to_string());
                 }
-            },
+            }
         }
 
         recommendations
@@ -391,20 +400,17 @@ impl RegressionTester {
         results: &[RegressionTestResult],
     ) -> Result<(), PerformanceAuditError> {
         let results_path = Path::new(&self.config.results_path);
-        
+
         // Ensure directory exists
         if let Some(parent) = results_path.parent() {
-            std::fs::create_dir_all(parent)
-                .map_err(PerformanceAuditError::IoError)?;
+            std::fs::create_dir_all(parent).map_err(PerformanceAuditError::IoError)?;
         }
 
-        let results_json = serde_json::to_string_pretty(results)
-            .map_err(|e| PerformanceAuditError::ConfigurationError(
-                format!("Failed to serialize results: {}", e)
-            ))?;
+        let results_json = serde_json::to_string_pretty(results).map_err(|e| {
+            PerformanceAuditError::ConfigurationError(format!("Failed to serialize results: {}", e))
+        })?;
 
-        std::fs::write(results_path, results_json)
-            .map_err(PerformanceAuditError::IoError)?;
+        std::fs::write(results_path, results_json).map_err(PerformanceAuditError::IoError)?;
 
         Ok(())
     }
@@ -431,7 +437,7 @@ impl RegressionTester {
             };
 
             component_baselines.insert(result.component_name.clone(), metrics.clone());
-            
+
             total_time += metrics.average_time_ms;
             total_memory += metrics.memory_usage_bytes;
             total_score += metrics.performance_score;
@@ -459,16 +465,20 @@ impl RegressionTester {
         let baseline = PerformanceBaseline {
             component_baselines,
             overall_baseline,
-            timestamp: SystemTime::now().duration_since(UNIX_EPOCH)
-                .unwrap_or_default().as_secs(),
+            timestamp: SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .unwrap_or_default()
+                .as_secs(),
             commit_hash: commit_hash.to_string(),
             environment: self.get_environment_info(),
         };
 
-        let baseline_json = serde_json::to_string_pretty(&baseline)
-            .map_err(|e| PerformanceAuditError::ConfigurationError(
-                format!("Failed to serialize baseline: {}", e)
-            ))?;
+        let baseline_json = serde_json::to_string_pretty(&baseline).map_err(|e| {
+            PerformanceAuditError::ConfigurationError(format!(
+                "Failed to serialize baseline: {}",
+                e
+            ))
+        })?;
 
         std::fs::write(&self.config.baseline_path, baseline_json)
             .map_err(PerformanceAuditError::IoError)?;
@@ -491,38 +501,56 @@ impl RegressionTester {
     /// Generate regression test report
     pub fn generate_report(&self, results: &[RegressionTestResult]) -> String {
         let mut report = String::new();
-        
+
         report.push_str("# Performance Regression Test Report\n\n");
-        report.push_str(&format!("**Generated**: {}\n\n", 
-            chrono::Utc::now().format("%Y-%m-%d %H:%M:%S UTC")));
+        report.push_str(&format!(
+            "**Generated**: {}\n\n",
+            chrono::Utc::now().format("%Y-%m-%d %H:%M:%S UTC")
+        ));
 
         // Summary
         let total_tests = results.len();
         let regressions = results.iter().filter(|r| r.regression_detected).count();
-        let critical_regressions = results.iter()
-            .filter(|r| r.severity == RegressionSeverity::Critical).count();
-        let major_regressions = results.iter()
-            .filter(|r| r.severity == RegressionSeverity::Major).count();
+        let critical_regressions = results
+            .iter()
+            .filter(|r| r.severity == RegressionSeverity::Critical)
+            .count();
+        let major_regressions = results
+            .iter()
+            .filter(|r| r.severity == RegressionSeverity::Major)
+            .count();
 
         report.push_str("## Summary\n\n");
         report.push_str(&format!("- **Total Tests**: {}\n", total_tests));
         report.push_str(&format!("- **Regressions Detected**: {}\n", regressions));
-        report.push_str(&format!("- **Critical Regressions**: {}\n", critical_regressions));
+        report.push_str(&format!(
+            "- **Critical Regressions**: {}\n",
+            critical_regressions
+        ));
         report.push_str(&format!("- **Major Regressions**: {}\n", major_regressions));
         report.push('\n');
 
         // Detailed results
         if !results.is_empty() {
             report.push_str("## Detailed Results\n\n");
-            
+
             for result in results {
                 report.push_str(&format!("### {}\n", result.component_name));
                 report.push_str(&format!("- **Test**: {}\n", result.test_name));
                 report.push_str(&format!("- **Severity**: {:?}\n", result.severity));
-                report.push_str(&format!("- **Time Change**: {:.1}%\n", result.change.time_change_percent));
-                report.push_str(&format!("- **Memory Change**: {:.1}%\n", result.change.memory_change_percent));
-                report.push_str(&format!("- **Score Change**: {:.1}\n", result.change.score_change));
-                
+                report.push_str(&format!(
+                    "- **Time Change**: {:.1}%\n",
+                    result.change.time_change_percent
+                ));
+                report.push_str(&format!(
+                    "- **Memory Change**: {:.1}%\n",
+                    result.change.memory_change_percent
+                ));
+                report.push_str(&format!(
+                    "- **Score Change**: {:.1}\n",
+                    result.change.score_change
+                ));
+
                 if !result.recommendations.is_empty() {
                     report.push_str("\n**Recommendations**:\n");
                     for rec in &result.recommendations {
@@ -540,7 +568,6 @@ impl RegressionTester {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::time::Duration;
 
     #[test]
     fn test_regression_severity_determination() {
@@ -592,7 +619,7 @@ mod tests {
         };
 
         let change = tester.calculate_performance_change(&baseline, &current);
-        
+
         assert!((change.time_change_percent - 10.0).abs() < 0.1);
         assert!((change.memory_change_percent - 10.0).abs() < 0.1);
         assert!((change.bundle_size_change_percent - 5.0).abs() < 0.1);

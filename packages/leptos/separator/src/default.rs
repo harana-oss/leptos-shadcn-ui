@@ -1,7 +1,8 @@
 use leptos::prelude::*;
 use leptos_style::Style;
 
-pub const SEPARATOR_CLASS: &str = "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70";
+pub const SEPARATOR_CLASS: &str =
+    "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70";
 
 #[component]
 pub fn Separator(
@@ -10,9 +11,8 @@ pub fn Separator(
     #[prop(into, optional)] style: Signal<Style>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let computed_class = Signal::derive(move || {
-        format!("{} {}", SEPARATOR_CLASS, class.get().unwrap_or_default())
-    });
+    let computed_class =
+        Signal::derive(move || format!("{} {}", SEPARATOR_CLASS, class.get().unwrap_or_default()));
 
     view! {
         <div

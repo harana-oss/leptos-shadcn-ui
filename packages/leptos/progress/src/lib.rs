@@ -1,16 +1,14 @@
 //! Leptos port of shadcn/ui progress
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
+pub mod signal_managed;
 
-pub use default::{
-    Progress, ProgressRoot, ProgressIndicator, ProgressLabel, ProgressVariant
-};
+pub use default::{Progress, ProgressIndicator, ProgressLabel, ProgressRoot, ProgressVariant};
 pub use new_york::{
-    Progress as ProgressNewYork, ProgressRoot as ProgressRootNewYork,
-    ProgressIndicator as ProgressIndicatorNewYork, ProgressLabel as ProgressLabelNewYork,
-    ProgressVariant as ProgressVariantNewYork
+    Progress as ProgressNewYork, ProgressIndicator as ProgressIndicatorNewYork,
+    ProgressLabel as ProgressLabelNewYork, ProgressRoot as ProgressRootNewYork,
+    ProgressVariant as ProgressVariantNewYork,
 };
 
 mod tests;

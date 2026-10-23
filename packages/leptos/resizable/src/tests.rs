@@ -1,9 +1,7 @@
 #[cfg(test)]
 mod tests {
+    use crate::default::{ResizableHandle, ResizablePanel, ResizablePanelGroup, ResizeDirection};
     use leptos::prelude::*;
-    use crate::default::{
-        ResizablePanelGroup, ResizablePanel, ResizableHandle, ResizeDirection
-    };
 
     #[test]
     fn test_resizable_panel_group_creation() {
@@ -23,7 +21,10 @@ mod tests {
             true
         });
 
-        assert!(test_result.is_ok(), "ResizablePanelGroup creation test failed");
+        assert!(
+            test_result.is_ok(),
+            "ResizablePanelGroup creation test failed"
+        );
     }
 
     #[test]

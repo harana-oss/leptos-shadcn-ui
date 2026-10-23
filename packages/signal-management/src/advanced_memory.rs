@@ -1,13 +1,13 @@
 //! Advanced memory management and performance optimization utilities
 //! Following TDD principles and ADR-001: Test-Driven Development
 
+use crate::batched_updates::BatchedSignalUpdater;
+use crate::error::SignalManagementError;
+use crate::lifecycle::TailwindSignalManager;
+use crate::memory_management::{MemoryLeakDetector, SignalMemoryManager};
 use leptos::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use crate::memory_management::{SignalMemoryManager, MemoryLeakDetector};
-use crate::error::SignalManagementError;
-use crate::lifecycle::TailwindSignalManager;
-use crate::batched_updates::BatchedSignalUpdater;
 
 /// Performance metrics for signal management
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -58,22 +58,22 @@ pub enum MemoryPressureLevel {
 pub trait AdvancedMemoryManagement {
     /// Detect current memory pressure level
     fn detect_memory_pressure(&self) -> Option<MemoryPressureLevel>;
-    
+
     /// Perform automatic cleanup when memory pressure is detected
     fn perform_automatic_cleanup(&self) -> bool;
-    
+
     /// Predict memory usage for given number of signals and memos
     fn predict_memory_usage(&self, signal_count: usize, memo_count: usize) -> usize;
-    
+
     /// Collect performance metrics
     fn collect_performance_metrics(&self) -> HashMap<String, PerformanceMetrics>;
-    
+
     /// Deduplicate signals based on their values
     fn deduplicate_signals<T>(&self, signals: Vec<ArcRwSignal<T>>) -> Vec<ArcRwSignal<T>>;
-    
+
     /// Analyze memory fragmentation
     fn analyze_memory_fragmentation(&self) -> f64;
-    
+
     /// Enable adaptive memory management
     fn enable_adaptive_management(&mut self) -> bool;
 }
@@ -119,7 +119,7 @@ impl AdvancedMemoryManagement for SignalMemoryManager {
             MemoryPressureLevel::Low
         })
     }
-    
+
     fn perform_automatic_cleanup(&self) -> bool {
         if let Some(pressure) = self.detect_memory_pressure() {
             match pressure {
@@ -130,7 +130,7 @@ impl AdvancedMemoryManagement for SignalMemoryManager {
                 }
                 MemoryPressureLevel::Medium => {
                     // Perform moderate cleanup
-                    self.cleanup_old_groups(3600); // Cleanup groups older than 1 hour
+                    let _ = self.cleanup_old_groups(3600); // Cleanup groups older than 1 hour
                     true
                 }
                 _ => false,
@@ -139,38 +139,38 @@ impl AdvancedMemoryManagement for SignalMemoryManager {
             false
         }
     }
-    
+
     fn predict_memory_usage(&self, signal_count: usize, memo_count: usize) -> usize {
         // Estimate memory usage based on typical signal and memo sizes
         let signal_size = 64; // bytes per signal
         let memo_size = 128; // bytes per memo
         let overhead = 32; // bytes overhead
-        
+
         (signal_count * signal_size) + (memo_count * memo_size) + overhead
     }
-    
+
     fn collect_performance_metrics(&self) -> HashMap<String, PerformanceMetrics> {
         let mut metrics = HashMap::new();
-        
+
         let stats = self.get_stats();
         let performance = PerformanceMetrics {
             avg_signal_creation_time: 10, // microseconds
-            avg_memo_creation_time: 15, // microseconds
+            avg_memo_creation_time: 15,   // microseconds
             memory_allocation_rate: stats.estimated_memory_bytes as f64,
             cleanup_efficiency: 0.95,
             batch_efficiency: 0.88,
             fragmentation_level: self.analyze_memory_fragmentation(),
         };
-        
+
         metrics.insert("signal_management".to_string(), performance);
         metrics
     }
-    
+
     fn deduplicate_signals<T>(&self, signals: Vec<ArcRwSignal<T>>) -> Vec<ArcRwSignal<T>> {
         // Simple deduplication based on signal identity
         let mut unique_signals = Vec::new();
         let mut seen = std::collections::HashSet::new();
-        
+
         for signal in signals {
             // Use signal pointer address as unique identifier
             let signal_ptr = std::ptr::addr_of!(signal) as usize;
@@ -178,24 +178,25 @@ impl AdvancedMemoryManagement for SignalMemoryManager {
                 unique_signals.push(signal);
             }
         }
-        
+
         unique_signals
     }
-    
+
     fn analyze_memory_fragmentation(&self) -> f64 {
         let stats = self.get_stats();
-        
+
         // Simple fragmentation calculation based on group distribution
         if stats.tracked_groups == 0 {
             return 0.0;
         }
-        
-        let avg_group_size = (stats.active_signals + stats.active_memos) as f64 / stats.tracked_groups as f64;
+
+        let avg_group_size =
+            (stats.active_signals + stats.active_memos) as f64 / stats.tracked_groups as f64;
         let fragmentation = 1.0 - (avg_group_size / 10.0).min(1.0);
-        
-        fragmentation.max(0.0).min(1.0)
+
+        fragmentation.clamp(0.0, 1.0)
     }
-    
+
     fn enable_adaptive_management(&mut self) -> bool {
         // Enable adaptive memory management features
         self.adaptive_management = true;
@@ -211,7 +212,7 @@ impl AdvancedLifecycleManagement for TailwindSignalManager {
         // - Lazy initialization of signals
         // - Automatic cleanup of unused signals
         // - Memory pooling for frequently created/destroyed signals
-        
+
         // For now, return true to indicate optimization is applied
         true
     }
@@ -223,7 +224,7 @@ impl AdvancedBatchProcessing for BatchedSignalUpdater {
         // Auto-tune batch size based on current performance
         let current_size = self.max_batch_size();
         let queue_size = self.queue_size();
-        
+
         // Adjust batch size based on queue size
         if queue_size > current_size * 2 {
             // Increase batch size if queue is backing up
@@ -232,7 +233,7 @@ impl AdvancedBatchProcessing for BatchedSignalUpdater {
             // Decrease batch size if queue is small
             self.max_batch_size = (current_size as f64 * 0.8) as usize;
         }
-        
+
         self.max_batch_size
     }
 }
@@ -256,13 +257,13 @@ impl SignalMemoryManager {
         let _ = self.cleanup_empty_groups();
         self.evict_until_within_limit();
     }
-    
+
     /// Cleanup old groups based on age threshold (in seconds)
     pub fn cleanup_old_groups(&self, max_age_seconds: u64) -> Result<usize, SignalManagementError> {
         let current_time = crate::memory_management::now_ms();
         let threshold = current_time - (max_age_seconds as f64 * 1000.0);
         let mut cleaned_count = 0;
-        
+
         self.tracked_groups.update(|groups| {
             groups.retain(|_, group| {
                 if group.created_at < threshold {
@@ -281,10 +282,3 @@ impl SignalMemoryManager {
 }
 
 // Remove duplicate queue_size method - it's already implemented in batched_updates.rs
-
-impl MemoryLeakDetector {
-    /// Check if leak prevention is enabled
-    fn leak_prevention_enabled(&self) -> bool {
-        self.leak_prevention_enabled
-    }
-}

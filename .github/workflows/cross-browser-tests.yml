@@ -152,7 +152,7 @@ jobs:
 
       - name: Upload ${{ matrix.display-name }} test results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cross-browser-results-${{ matrix.browser }}
           path: |
@@ -162,7 +162,7 @@ jobs:
 
       - name: Upload ${{ matrix.display-name }} screenshots
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cross-browser-screenshots-${{ matrix.browser }}
           path: test-results/cross-browser/
@@ -255,7 +255,7 @@ jobs:
 
       - name: Upload Edge test results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cross-browser-results-edge
           path: |
@@ -344,7 +344,7 @@ jobs:
 
       - name: Upload ${{ matrix.display-name }} test results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cross-browser-results-${{ matrix.mobile-browser }}
           path: |
@@ -367,7 +367,7 @@ jobs:
 
     steps:
       - name: Download all test results
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: test-results/all
 

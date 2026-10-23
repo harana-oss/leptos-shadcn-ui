@@ -4,19 +4,19 @@ use quote::quote;
 use syn::{parse_macro_input, Expr, Token};
 
 /// Macro for creating type-safe Tailwind classes with compile-time validation.
-/// 
+///
 /// # Examples
-/// 
+///
 /// ```rust
 /// use tailwind_rs_core_macros::classes;
-/// 
+///
 /// // Basic usage
 /// let classes = classes! {
 ///     base: "px-4 py-2 rounded-md font-medium",
 ///     variant: "bg-blue-600 text-white hover:bg-blue-700",
 ///     responsive: "sm:text-sm md:text-base lg:text-lg",
 /// };
-/// 
+///
 /// // Dynamic styling
 /// let color = Color::Blue;
 /// let classes = classes! {
@@ -28,13 +28,13 @@ use syn::{parse_macro_input, Expr, Token};
 #[proc_macro]
 pub fn classes(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as ClassesInput);
-    
+
     let mut base_classes = String::new();
     let mut variant_classes = Vec::new();
     let mut responsive_classes = Vec::new();
     let mut state_classes = Vec::new();
     let mut custom_classes = Vec::new();
-    
+
     for field in input.fields {
         match field.name.as_str() {
             "base" => {
@@ -82,28 +82,29 @@ pub fn classes(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
             }
         }
     }
-    
+
     // Generate the final class string
     let mut all_classes = vec![base_classes];
     all_classes.extend(variant_classes);
     all_classes.extend(responsive_classes);
     all_classes.extend(state_classes);
     all_classes.extend(custom_classes);
-    
+
     let final_classes = all_classes.join(" ");
-    
+
     quote! {
         #final_classes
-    }.into()
+    }
+    .into()
 }
 
 /// Macro for creating responsive Tailwind classes.
-/// 
+///
 /// # Examples
-/// 
+///
 /// ```rust
 /// use tailwind_rs_core_macros::responsive;
-/// 
+///
 /// let responsive_classes = responsive! {
 ///     sm: "text-sm",
 ///     md: "text-base",
@@ -114,9 +115,9 @@ pub fn classes(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 #[proc_macro]
 pub fn responsive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as ResponsiveInput);
-    
+
     let mut classes = Vec::new();
-    
+
     for field in input.fields {
         let breakpoint = field.name.as_str();
         if let Expr::Lit(lit) = &field.value {
@@ -126,21 +127,22 @@ pub fn responsive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
             }
         }
     }
-    
+
     let final_classes = classes.join(" ");
-    
+
     quote! {
         #final_classes
-    }.into()
+    }
+    .into()
 }
 
 /// Macro for creating theme-based Tailwind classes.
-/// 
+///
 /// # Examples
-/// 
+///
 /// ```rust
 /// use tailwind_rs_core_macros::theme;
-/// 
+///
 /// let theme_classes = theme! {
 ///     variant: "primary",
 ///     size: "md",
@@ -150,11 +152,11 @@ pub fn responsive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 #[proc_macro]
 pub fn theme(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as ThemeInput);
-    
+
     let mut variant_classes = String::new();
     let mut size_classes = String::new();
     let mut additional_classes = String::new();
-    
+
     for field in input.fields {
         match field.name.as_str() {
             "variant" => {
@@ -162,12 +164,15 @@ pub fn theme(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
                     if let syn::Lit::Str(s) = &lit.lit {
                         variant_classes = match s.value().as_str() {
                             "primary" => "bg-blue-600 text-white hover:bg-blue-700".to_string(),
-                            "secondary" => "bg-gray-200 text-gray-900 hover:bg-gray-300".to_string(),
+                            "secondary" => {
+                                "bg-gray-200 text-gray-900 hover:bg-gray-300".to_string()
+                            }
                             "success" => "bg-green-600 text-white hover:bg-green-700".to_string(),
                             "warning" => "bg-yellow-600 text-white hover:bg-yellow-700".to_string(),
                             "error" => "bg-red-600 text-white hover:bg-red-700".to_string(),
                             "info" => "bg-sky-600 text-white hover:bg-sky-700".to_string(),
-                            "outline" => "border-2 border-blue-600 text-blue-600 hover:bg-blue-50".to_string(),
+                            "outline" => "border-2 border-blue-600 text-blue-600 hover:bg-blue-50"
+                                .to_string(),
                             "ghost" => "bg-transparent hover:bg-blue-100".to_string(),
                             "link" => "text-blue-600 underline hover:text-blue-700".to_string(),
                             "destructive" => "bg-red-600 text-white hover:bg-red-700".to_string(),
@@ -200,24 +205,25 @@ pub fn theme(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
             _ => {}
         }
     }
-    
+
     let mut all_classes = vec![variant_classes, size_classes, additional_classes];
     all_classes.retain(|s| !s.is_empty());
-    
+
     let final_classes = all_classes.join(" ");
-    
+
     quote! {
         #final_classes
-    }.into()
+    }
+    .into()
 }
 
 /// Macro for creating color-based Tailwind classes.
-/// 
+///
 /// # Examples
-/// 
+///
 /// ```rust
 /// use tailwind_rs_core_macros::color;
-/// 
+///
 /// let color_classes = color! {
 ///     color: "blue",
 ///     shade: 600,
@@ -227,11 +233,11 @@ pub fn theme(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 #[proc_macro]
 pub fn color(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as ColorInput);
-    
+
     let mut color_name = String::new();
     let mut shade = 600u16;
     let mut variants = Vec::new();
-    
+
     for field in input.fields {
         match field.name.as_str() {
             "color" => {
@@ -262,9 +268,9 @@ pub fn color(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
             _ => {}
         }
     }
-    
+
     let mut classes = Vec::new();
-    
+
     for variant in variants {
         let class = match variant.as_str() {
             "background" | "bg" => format!("bg-{}-{}", color_name, shade),
@@ -277,12 +283,13 @@ pub fn color(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
         };
         classes.push(class);
     }
-    
+
     let final_classes = classes.join(" ");
-    
+
     quote! {
         #final_classes
-    }.into()
+    }
+    .into()
 }
 
 /// Input structure for the classes macro.
@@ -314,22 +321,22 @@ struct ClassField {
 impl syn::parse::Parse for ClassesInput {
     fn parse(input: syn::parse::ParseStream) -> syn::Result<Self> {
         let mut fields = Vec::new();
-        
+
         while !input.is_empty() {
             let name: syn::Ident = input.parse()?;
             input.parse::<Token![:]>()?;
             let value: Expr = input.parse()?;
-            
+
             fields.push(ClassField {
                 name: name.to_string(),
                 value,
             });
-            
+
             if input.peek(Token![,]) {
                 input.parse::<Token![,]>()?;
             }
         }
-        
+
         Ok(ClassesInput { fields })
     }
 }
@@ -337,22 +344,22 @@ impl syn::parse::Parse for ClassesInput {
 impl syn::parse::Parse for ResponsiveInput {
     fn parse(input: syn::parse::ParseStream) -> syn::Result<Self> {
         let mut fields = Vec::new();
-        
+
         while !input.is_empty() {
             let name: syn::Ident = input.parse()?;
             input.parse::<Token![:]>()?;
             let value: Expr = input.parse()?;
-            
+
             fields.push(ClassField {
                 name: name.to_string(),
                 value,
             });
-            
+
             if input.peek(Token![,]) {
                 input.parse::<Token![,]>()?;
             }
         }
-        
+
         Ok(ResponsiveInput { fields })
     }
 }
@@ -360,22 +367,22 @@ impl syn::parse::Parse for ResponsiveInput {
 impl syn::parse::Parse for ThemeInput {
     fn parse(input: syn::parse::ParseStream) -> syn::Result<Self> {
         let mut fields = Vec::new();
-        
+
         while !input.is_empty() {
             let name: syn::Ident = input.parse()?;
             input.parse::<Token![:]>()?;
             let value: Expr = input.parse()?;
-            
+
             fields.push(ClassField {
                 name: name.to_string(),
                 value,
             });
-            
+
             if input.peek(Token![,]) {
                 input.parse::<Token![,]>()?;
             }
         }
-        
+
         Ok(ThemeInput { fields })
     }
 }
@@ -383,22 +390,22 @@ impl syn::parse::Parse for ThemeInput {
 impl syn::parse::Parse for ColorInput {
     fn parse(input: syn::parse::ParseStream) -> syn::Result<Self> {
         let mut fields = Vec::new();
-        
+
         while !input.is_empty() {
             let name: syn::Ident = input.parse()?;
             input.parse::<Token![:]>()?;
             let value: Expr = input.parse()?;
-            
+
             fields.push(ClassField {
                 name: name.to_string(),
                 value,
             });
-            
+
             if input.peek(Token![,]) {
                 input.parse::<Token![,]>()?;
             }
         }
-        
+
         Ok(ColorInput { fields })
     }
 }

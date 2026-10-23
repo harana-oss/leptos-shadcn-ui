@@ -1,11 +1,13 @@
 //! Performance tests for the Navigation-menu component
-//! 
+//!
 //! This module contains tests for performance, callbacks, disabled states,
 //! custom styles, and complex content for the Navigation-menu component.
 
-use leptos::prelude::*;
 use crate::default::NavigationMenu;
-use crate::default::{NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger};
+use crate::default::{
+    NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger,
+};
+use leptos::prelude::*;
 
 #[cfg(test)]
 mod tests {
@@ -24,7 +26,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -32,7 +34,7 @@ mod tests {
     #[test]
     fn test_navigation_menu_callback_execution() {
         // Test navigation menu callback execution
-        let (callback_executed, set_callback_executed) = signal(false);
+        let (_callback_executed, set_callback_executed) = signal(false);
         let navigation_menu_view = view! {
             <NavigationMenu>
                 <NavigationMenuList>
@@ -45,7 +47,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -53,8 +55,8 @@ mod tests {
     #[test]
     fn test_navigation_menu_multiple_callbacks() {
         // Test navigation menu multiple callbacks
-        let (callback1_executed, set_callback1_executed) = signal(false);
-        let (callback2_executed, set_callback2_executed) = signal(false);
+        let (_callback1_executed, set_callback1_executed) = signal(false);
+        let (_callback2_executed, set_callback2_executed) = signal(false);
         let navigation_menu_view = view! {
             <NavigationMenu>
                 <NavigationMenuList>
@@ -68,7 +70,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -86,7 +88,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -104,7 +106,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -116,12 +118,12 @@ mod tests {
             <NavigationMenu>
                 <NavigationMenuList>
                     <NavigationMenuItem>
-                        <NavigationMenuTrigger 
+                        <NavigationMenuTrigger
                             style="background-color: red; color: white;"
                         >
                             "Custom style menu"
                         </NavigationMenuTrigger>
-                        <NavigationMenuContent 
+                        <NavigationMenuContent
                             style="background-color: blue; color: white;"
                         >
                             "Custom style content"
@@ -130,7 +132,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -142,7 +144,7 @@ mod tests {
             <NavigationMenu>
                 <NavigationMenuList>
                     <NavigationMenuItem>
-                        <NavigationMenuTrigger 
+                        <NavigationMenuTrigger
                             class="custom-class"
                             id="custom-id"
                             style="background-color: red;"
@@ -150,7 +152,7 @@ mod tests {
                         >
                             "Combined props menu"
                         </NavigationMenuTrigger>
-                        <NavigationMenuContent 
+                        <NavigationMenuContent
                             class="custom-content-class"
                             id="custom-content-id"
                             style="background-color: blue;"
@@ -161,7 +163,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -186,7 +188,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -210,7 +212,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -218,7 +220,7 @@ mod tests {
     #[test]
     fn test_navigation_menu_dynamic_content() {
         // Test navigation menu dynamic content
-        let (content, set_content) = signal("Dynamic content");
+        let (content, _set_content) = signal("Dynamic content");
         let navigation_menu_view = view! {
             <NavigationMenu>
                 <NavigationMenuList>
@@ -231,7 +233,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -239,7 +241,7 @@ mod tests {
     #[test]
     fn test_navigation_menu_conditional_content() {
         // Test navigation menu conditional content
-        let (show_content, set_show_content) = signal(true);
+        let (show_content, _set_show_content) = signal(true);
         let navigation_menu_view = view! {
             <NavigationMenu>
                 <NavigationMenuList>
@@ -258,7 +260,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -283,7 +285,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -291,7 +293,7 @@ mod tests {
     #[test]
     fn test_navigation_menu_signal_content() {
         // Test navigation menu signal content
-        let (items, set_items) = signal(vec!["Signal item 1", "Signal item 2"]);
+        let (items, _set_items) = signal(vec!["Signal item 1", "Signal item 2"]);
         let navigation_menu_view = view! {
             <NavigationMenu>
                 <NavigationMenuList>
@@ -308,7 +310,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -326,7 +328,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -344,7 +346,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -362,7 +364,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -370,7 +372,7 @@ mod tests {
     #[test]
     fn test_navigation_menu_update_performance() {
         // Test navigation menu update performance
-        let (count, set_count) = signal(0);
+        let (count, _set_count) = signal(0);
         let navigation_menu_view = view! {
             <NavigationMenu>
                 <NavigationMenuList>
@@ -383,7 +385,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -391,7 +393,7 @@ mod tests {
     #[test]
     fn test_navigation_menu_event_performance() {
         // Test navigation menu event performance
-        let (event_count, set_event_count) = signal(0);
+        let (_event_count, set_event_count) = signal(0);
         let navigation_menu_view = view! {
             <NavigationMenu>
                 <NavigationMenuList>
@@ -404,7 +406,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -412,7 +414,7 @@ mod tests {
     #[test]
     fn test_navigation_menu_signal_performance() {
         // Test navigation menu signal performance
-        let (signal_value, set_signal_value) = signal("Signal value");
+        let (signal_value, _set_signal_value) = signal("Signal value");
         let navigation_menu_view = view! {
             <NavigationMenu>
                 <NavigationMenuList>
@@ -425,7 +427,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -443,7 +445,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -457,9 +459,9 @@ mod tests {
                     <NavigationMenuItem>
                         <NavigationMenuTrigger>"Large content menu"</NavigationMenuTrigger>
                         <NavigationMenuContent>
-                            {(0..100).map(|i| {
+                            {(0..100).map(|_i| {
                                 view! {
-                                    <div>"Large content item {i}"</div>
+                                    <div>format!("Large content item {i}")</div>
                                 }
                             }).collect::<Vec<_>>()}
                         </NavigationMenuContent>
@@ -467,7 +469,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -497,7 +499,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -525,7 +527,7 @@ mod tests {
                 </NavigationMenu>
             </div>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -548,7 +550,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -566,7 +568,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -584,7 +586,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -602,7 +604,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -610,7 +612,7 @@ mod tests {
     #[test]
     fn test_navigation_menu_update_optimization() {
         // Test navigation menu update optimization
-        let (optimized_value, set_optimized_value) = signal("Optimized value");
+        let (optimized_value, _set_optimized_value) = signal("Optimized value");
         let navigation_menu_view = view! {
             <NavigationMenu>
                 <NavigationMenuList>
@@ -623,7 +625,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -631,7 +633,7 @@ mod tests {
     #[test]
     fn test_navigation_menu_event_optimization() {
         // Test navigation menu event optimization
-        let (optimized_count, set_optimized_count) = signal(0);
+        let (_optimized_count, set_optimized_count) = signal(0);
         let navigation_menu_view = view! {
             <NavigationMenu>
                 <NavigationMenuList>
@@ -644,7 +646,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -652,7 +654,7 @@ mod tests {
     #[test]
     fn test_navigation_menu_signal_optimization() {
         // Test navigation menu signal optimization
-        let (optimized_signal, set_optimized_signal) = signal("Optimized signal");
+        let (optimized_signal, _set_optimized_signal) = signal("Optimized signal");
         let navigation_menu_view = view! {
             <NavigationMenu>
                 <NavigationMenuList>
@@ -665,7 +667,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -683,7 +685,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }

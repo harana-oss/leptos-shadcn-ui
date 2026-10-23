@@ -3,16 +3,16 @@
 //! This package provides shared testing infrastructure for validating component
 //! implementations for the Leptos framework, with support for future framework expansion.
 
-pub mod component_tester;
-pub mod theme_validator;
-pub mod quality_checker;
-pub mod visual_regression;
-pub mod leptos_testing;
-pub mod test_templates;
 pub mod automated_testing;
+pub mod component_tester;
 pub mod dom_testing;
+pub mod leptos_testing;
 pub mod property_testing;
+pub mod quality_checker;
 pub mod snapshot_testing;
+pub mod test_templates;
+pub mod theme_validator;
+pub mod visual_regression;
 
 use std::collections::HashMap;
 
@@ -57,7 +57,7 @@ impl TestResult {
             details: HashMap::new(),
         }
     }
-    
+
     pub fn failure(message: impl Into<String>) -> Self {
         Self {
             passed: false,
@@ -65,7 +65,7 @@ impl TestResult {
             details: HashMap::new(),
         }
     }
-    
+
     pub fn with_detail(mut self, key: impl Into<String>, value: impl Into<String>) -> Self {
         self.details.insert(key.into(), value.into());
         self
@@ -81,7 +81,7 @@ impl QualityResult {
             recommendations: vec![],
         }
     }
-    
+
     pub fn with_issues(component_name: impl Into<String>, issues: Vec<String>) -> Self {
         let score = if issues.is_empty() {
             1.0
@@ -89,7 +89,7 @@ impl QualityResult {
             // Simple scoring: reduce by 0.1 per issue, minimum 0.0
             (1.0 - (issues.len() as f64 * 0.1)).max(0.0)
         };
-        
+
         Self {
             component_name: component_name.into(),
             quality_score: score,
@@ -97,12 +97,12 @@ impl QualityResult {
             recommendations: vec![],
         }
     }
-    
+
     pub fn with_quality_score(mut self, quality_score: f64) -> Self {
         self.quality_score = quality_score;
         self
     }
-    
+
     pub fn with_recommendations(mut self, recommendations: Vec<String>) -> Self {
         self.recommendations = recommendations;
         self

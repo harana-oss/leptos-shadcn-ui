@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod component_tests {
-    use leptos::prelude::*;
     use crate::*;
+    use leptos::prelude::*;
 
     #[test]
     fn test_command_input_basic() {

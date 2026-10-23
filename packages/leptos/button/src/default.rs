@@ -1,5 +1,5 @@
+use leptos::ev::{KeyboardEvent, MouseEvent};
 use leptos::prelude::*;
-use leptos::ev::{MouseEvent, KeyboardEvent};
 use leptos_style::Style;
 
 /// Responsive button size that adapts to viewport
@@ -19,20 +19,15 @@ pub const BUTTON_CLASS: &str = "inline-flex items-center justify-center whitespa
 pub const BUTTON_TOUCH_CLASS: &str = "min-h-[44px] min-w-[44px]";
 
 /// Button variant types
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Default)]
 pub enum ButtonVariant {
+    #[default]
     Default,
     Destructive,
     Outline,
     Secondary,
     Ghost,
     Link,
-}
-
-impl Default for ButtonVariant {
-    fn default() -> Self {
-        ButtonVariant::Default
-    }
 }
 
 impl From<String> for ButtonVariant {
@@ -49,18 +44,13 @@ impl From<String> for ButtonVariant {
 }
 
 /// Button size types
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Default)]
 pub enum ButtonSize {
+    #[default]
     Default,
     Sm,
     Lg,
     Icon,
-}
-
-impl Default for ButtonSize {
-    fn default() -> Self {
-        ButtonSize::Default
-    }
 }
 
 impl From<String> for ButtonSize {
@@ -101,9 +91,8 @@ pub fn Button(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, optional)] responsive_size: MaybeProp<ButtonResponsiveSize>,
     #[prop(into, optional)] touch_friendly: Signal<bool>,
-    ) -> impl IntoView {
+) -> impl IntoView {
     let handle_click = {
-        let on_click = on_click.clone();
         move |_: MouseEvent| {
             if let Some(callback) = &on_click {
                 callback.run(());
@@ -112,7 +101,6 @@ pub fn Button(
     };
 
     let handle_keydown = {
-        let on_click = on_click.clone();
         move |event: KeyboardEvent| {
             if event.key() == "Enter" || event.key() == " " {
                 event.prevent_default();
@@ -126,9 +114,15 @@ pub fn Button(
     let computed_class = Signal::derive(move || {
         let variant_class = match variant.get().unwrap_or_default() {
             ButtonVariant::Default => "bg-primary text-primary-foreground hover:bg-primary/90",
-            ButtonVariant::Destructive => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-            ButtonVariant::Outline => "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-            ButtonVariant::Secondary => "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+            ButtonVariant::Destructive => {
+                "bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            }
+            ButtonVariant::Outline => {
+                "border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+            }
+            ButtonVariant::Secondary => {
+                "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+            }
             ButtonVariant::Ghost => "hover:bg-accent hover:text-accent-foreground",
             ButtonVariant::Link => "text-primary underline-offset-4 hover:underline",
         };
@@ -149,28 +143,44 @@ pub fn Button(
             }
         };
 
-        let loading_class = if loading.get() { " opacity-50 cursor-not-allowed" } else { "" };
-        let touch_class = if touch_friendly.get() { format!(" {}", BUTTON_TOUCH_CLASS) } else { String::new() };
-        format!("{}{} {} {}{} {}", BUTTON_CLASS, loading_class, variant_class, size_class, touch_class, class.get().unwrap_or_default())
+        let loading_class = if loading.get() {
+            " opacity-50 cursor-not-allowed"
+        } else {
+            ""
+        };
+        let touch_class = if touch_friendly.get() {
+            format!(" {}", BUTTON_TOUCH_CLASS)
+        } else {
+            String::new()
+        };
+        format!(
+            "{}{} {} {}{} {}",
+            BUTTON_CLASS,
+            loading_class,
+            variant_class,
+            size_class,
+            touch_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     // Implement as_child functionality using conditional rendering
-            if let Some(as_child) = as_child {
-            let child_props = ButtonChildProps {
-                class: computed_class.get(),
-                id: id.get().unwrap_or_default(),
-                style: style.get().to_string(),
-                disabled: disabled.get(),
-                r#type: "button".to_string(),
-                onclick: Some(Callback::new(move |_| {
-                    if let Some(callback) = &on_click {
-                        callback.run(());
-                    }
-                })),
-            };
-            as_child.run(child_props).into_any()
-        } else {
-            view! {
+    if let Some(as_child) = as_child {
+        let child_props = ButtonChildProps {
+            class: computed_class.get(),
+            id: id.get().unwrap_or_default(),
+            style: style.get().to_string(),
+            disabled: disabled.get(),
+            r#type: "button".to_string(),
+            onclick: Some(Callback::new(move |_| {
+                if let Some(callback) = &on_click {
+                    callback.run(());
+                }
+            })),
+        };
+        as_child.run(child_props).into_any()
+    } else {
+        view! {
                 <button
                     class=move || computed_class.get()
                     id=move || id.get().unwrap_or_default()
@@ -187,10 +197,10 @@ pub fn Button(
                             <span class="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" aria-hidden="true"></span>
                         }.into_any()
                     } else {
-                        view! {}.into_any()
+                        ().into_any()
                     }}
                     {children.map(|c| c())}
                 </button>
             }.into_any()
-        }
+    }
 }

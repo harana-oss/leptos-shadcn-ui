@@ -1,10 +1,10 @@
 //! State management tests for the Menubar component
-//! 
+//!
 //! This module contains tests for state management, context management, animations,
 //! and content placeholders for the Menubar component.
 
-use leptos::prelude::*;
 use crate::default::{Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger};
+use leptos::prelude::*;
 
 #[cfg(test)]
 mod tests {
@@ -13,8 +13,8 @@ mod tests {
     #[test]
     fn test_menubar_state_management() {
         // Test menubar state management
-        let (is_open, set_is_open) = create_signal(false);
-        
+        let (is_open, _set_is_open) = signal(false);
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -27,7 +27,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -45,7 +45,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -63,7 +63,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -81,7 +81,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -89,8 +89,8 @@ mod tests {
     #[test]
     fn test_menubar_theme_switching() {
         // Test menubar theme switching
-        let (theme, set_theme) = create_signal("light");
-        
+        let (theme, _set_theme) = signal("light");
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -103,7 +103,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -121,7 +121,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -129,8 +129,8 @@ mod tests {
     #[test]
     fn test_menubar_advanced_interactions() {
         // Test menubar advanced interactions
-        let (interaction_count, set_interaction_count) = create_signal(0);
-        
+        let (interaction_count, _set_interaction_count) = signal(0);
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -143,7 +143,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -169,7 +169,7 @@ mod tests {
                 </Menubar>
             </div>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -177,8 +177,8 @@ mod tests {
     #[test]
     fn test_menubar_validation_comprehensive() {
         // Test menubar validation comprehensive
-        let (is_valid, set_is_valid) = create_signal(true);
-        
+        let (is_valid, _set_is_valid) = signal(true);
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -191,7 +191,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -209,7 +209,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -227,7 +227,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -245,7 +245,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -253,8 +253,8 @@ mod tests {
     #[test]
     fn test_menubar_complete_workflow() {
         // Test menubar complete workflow
-        let (workflow_step, set_workflow_step) = create_signal(0);
-        
+        let (workflow_step, _set_workflow_step) = signal(0);
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -267,7 +267,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -285,7 +285,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -293,8 +293,8 @@ mod tests {
     #[test]
     fn test_menubar_click_handling() {
         // Test menubar click handling
-        let (click_count, set_click_count) = create_signal(0);
-        
+        let (click_count, _set_click_count) = signal(0);
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -307,7 +307,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -315,8 +315,8 @@ mod tests {
     #[test]
     fn test_menubar_checked_change_callback() {
         // Test menubar checked change callback
-        let (checked, set_checked) = create_signal(false);
-        
+        let (checked, _set_checked) = signal(false);
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -329,7 +329,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -347,7 +347,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -355,8 +355,8 @@ mod tests {
     #[test]
     fn test_menubar_callback_execution() {
         // Test menubar callback execution
-        let (callback_executed, set_callback_executed) = create_signal(false);
-        
+        let (callback_executed, _set_callback_executed) = signal(false);
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -369,7 +369,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -377,9 +377,9 @@ mod tests {
     #[test]
     fn test_menubar_multiple_callbacks() {
         // Test menubar multiple callbacks
-        let (callback1_count, set_callback1_count) = create_signal(0);
-        let (callback2_count, set_callback2_count) = create_signal(0);
-        
+        let (callback1_count, _set_callback1_count) = signal(0);
+        let (callback2_count, _set_callback2_count) = signal(0);
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -392,7 +392,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -400,8 +400,8 @@ mod tests {
     #[test]
     fn test_menubar_disabled_state() {
         // Test menubar disabled state
-        let (is_disabled, set_is_disabled) = create_signal(false);
-        
+        let (is_disabled, _set_is_disabled) = signal(false);
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -414,7 +414,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -422,8 +422,8 @@ mod tests {
     #[test]
     fn test_menubar_enabled_state() {
         // Test menubar enabled state
-        let (is_enabled, set_is_enabled) = create_signal(true);
-        
+        let (is_enabled, _set_is_enabled) = signal(true);
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -436,7 +436,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -444,8 +444,8 @@ mod tests {
     #[test]
     fn test_menubar_dynamic_content() {
         // Test menubar dynamic content
-        let (content_type, set_content_type) = create_signal("text");
-        
+        let (content_type, _set_content_type) = signal("text");
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -458,7 +458,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -466,8 +466,8 @@ mod tests {
     #[test]
     fn test_menubar_conditional_rendering() {
         // Test menubar conditional rendering
-        let (show_content, set_show_content) = create_signal(true);
-        
+        let (show_content, _set_show_content) = signal(true);
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -480,7 +480,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -488,8 +488,8 @@ mod tests {
     #[test]
     fn test_menubar_data_binding() {
         // Test menubar data binding
-        let (bound_data, set_bound_data) = create_signal("initial data".to_string());
-        
+        let (bound_data, _set_bound_data) = signal("initial data".to_string());
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -502,7 +502,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -510,8 +510,8 @@ mod tests {
     #[test]
     fn test_menubar_event_propagation() {
         // Test menubar event propagation
-        let (event_count, set_event_count) = create_signal(0);
-        
+        let (event_count, _set_event_count) = signal(0);
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -524,7 +524,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -542,7 +542,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -560,7 +560,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -568,8 +568,8 @@ mod tests {
     #[test]
     fn test_menubar_lifecycle_management() {
         // Test menubar lifecycle management
-        let (lifecycle_stage, set_lifecycle_stage) = create_signal("initialized".to_string());
-        
+        let (lifecycle_stage, _set_lifecycle_stage) = signal("initialized".to_string());
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -582,7 +582,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -590,9 +590,9 @@ mod tests {
     #[test]
     fn test_menubar_state_synchronization() {
         // Test menubar state synchronization
-        let (local_state, set_local_state) = create_signal("local".to_string());
-        let (remote_state, set_remote_state) = create_signal("remote".to_string());
-        
+        let (local_state, _set_local_state) = signal("local".to_string());
+        let (remote_state, _set_remote_state) = signal("remote".to_string());
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -605,7 +605,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -613,26 +613,26 @@ mod tests {
     #[test]
     fn test_menubar_comprehensive_state_management() {
         // Test menubar comprehensive state management
-        let (state1, set_state1) = create_signal(false);
-        let (state2, set_state2) = create_signal(false);
-        let (state3, set_state3) = create_signal(false);
-        
+        let (state1, _set_state1) = signal(false);
+        let (state2, _set_state2) = signal(false);
+        let (state3, _set_state3) = signal(false);
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
                     <MenubarTrigger>"Comprehensive state menu"</MenubarTrigger>
                     <MenubarContent>
                         <MenubarItem>
-                            {move || format!("State1: {}, State2: {}, State3: {}", 
-                                state1.get(), 
-                                state2.get(), 
+                            {move || format!("State1: {}, State2: {}, State3: {}",
+                                state1.get(),
+                                state2.get(),
                                 state3.get())}
                         </MenubarItem>
                     </MenubarContent>
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }

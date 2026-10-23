@@ -1,10 +1,9 @@
 //! AlertDialog trigger component
-//! 
+//!
 //! This module contains the AlertDialogTrigger component for triggering
 //! the alert dialog.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 use web_sys::MouseEvent;
 
 #[component]

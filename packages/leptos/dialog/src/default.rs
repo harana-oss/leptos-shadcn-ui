@@ -1,6 +1,9 @@
-use leptos::{ev::{MouseEvent, KeyboardEvent}, prelude::*};
+use leptos::{
+    ev::{KeyboardEvent, MouseEvent},
+    prelude::*,
+};
 use leptos_node_ref::AnyNodeRef;
-use leptos_struct_component::{StructComponent, struct_component};
+use leptos_struct_component::StructComponent;
 use leptos_style::Style;
 
 // Dialog Root Provider
@@ -78,10 +81,8 @@ pub fn DialogTrigger(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let ctx = expect_context::<DialogContextValue>();
-    
-    let trigger_class = Signal::derive(move || {
-        format!("{}", class.get().unwrap_or_default())
-    });
+
+    let trigger_class = Signal::derive(move || class.get().unwrap_or_default().to_string());
 
     let handle_click = Callback::new(move |_: MouseEvent| {
         ctx.set_open.run(true);
@@ -112,14 +113,17 @@ pub fn DialogContent(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let ctx = expect_context::<DialogContextValue>();
-    
+
     let content_class = Signal::derive(move || {
-        format!("fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg {}", class.get().unwrap_or_default())
+        format!(
+            "fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg {}",
+            class.get().unwrap_or_default()
+        )
     });
 
     if ctx.open.get() {
         view! {
-            <div 
+            <div
                 class="fixed inset-0 z-50"
                 on:click=move |_| ctx.set_open.run(false)
             >
@@ -136,7 +140,8 @@ pub fn DialogContent(
                     {children.map(|c| c())}
                 </div>
             </div>
-        }.into_any()
+        }
+        .into_any()
     } else {
         view! { <div></div> }.into_any()
     }
@@ -149,7 +154,10 @@ pub fn DialogHeader(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let header_class = Signal::derive(move || {
-        format!("flex flex-col space-y-1.5 text-center sm:text-left {}", class.get().unwrap_or_default())
+        format!(
+            "flex flex-col space-y-1.5 text-center sm:text-left {}",
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {
@@ -166,11 +174,14 @@ pub fn DialogTitle(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let title_class = Signal::derive(move || {
-        format!("text-lg font-semibold leading-none tracking-tight {}", class.get().unwrap_or_default())
+        format!(
+            "text-lg font-semibold leading-none tracking-tight {}",
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {
-        <h2 
+        <h2
             class={title_class}
             id="dialog-title"
         >
@@ -186,11 +197,14 @@ pub fn DialogDescription(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let description_class = Signal::derive(move || {
-        format!("text-sm text-muted-foreground {}", class.get().unwrap_or_default())
+        format!(
+            "text-sm text-muted-foreground {}",
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {
-        <p 
+        <p
             class={description_class}
             id="dialog-description"
         >
@@ -206,7 +220,10 @@ pub fn DialogFooter(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let footer_class = Signal::derive(move || {
-        format!("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 {}", class.get().unwrap_or_default())
+        format!(
+            "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 {}",
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {
@@ -223,10 +240,8 @@ pub fn DialogClose(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let ctx = expect_context::<DialogContextValue>();
-    
-    let close_class = Signal::derive(move || {
-        format!("{}", class.get().unwrap_or_default())
-    });
+
+    let close_class = Signal::derive(move || class.get().unwrap_or_default().to_string());
 
     view! {
         <button

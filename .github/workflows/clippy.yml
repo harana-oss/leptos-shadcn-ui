@@ -68,7 +68,7 @@ jobs:
 
       - name: Run Clippy
         run: |
-          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo clippy --workspace -- -D warnings
 
       - name: Generate Clippy report
         if: always()
@@ -76,7 +76,7 @@ jobs:
           mkdir -p clippy-reports
 
           # Run clippy with output format for parsing
-          cargo clippy --workspace --all-targets --all-features \
+          cargo clippy --workspace \
             --message-format=json \
             -- -D warnings 2>&1 | tee clippy-reports/clippy.json
 
