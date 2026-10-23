@@ -96,21 +96,3 @@ cargo fmt --all                            # or: make fmt
 cargo check --workspace                    # or: make check
 make test-e2e                              # Playwright E2E tests
 ```
-
-See [AGENTS.md](AGENTS.md) for code style and project layout.
-
-## Repository layout
-
-| Path | Contents |
-|---|---|
-| `packages/` | Component crates and supporting libraries |
-| `examples/` | Example applications |
-| `demo/` | Standalone demos and WASM test apps |
-| `build/` | Build, publish and maintenance scripts (`build/scripts/`) |
-| `docs/` | Documentation, release notes and reports |
-| `tests/` | End-to-end tests |
-| `performance-audit/` | Performance audit system |
-
-## License
-
-MIT. See [LICENSE](LICENSE).
