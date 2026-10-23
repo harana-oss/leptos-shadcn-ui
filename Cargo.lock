@@ -3672,6 +3672,7 @@ dependencies = [
 name = "leptos-shadcn-sonner"
 version = "0.9.0"
 dependencies = [
+ "js-sys",
  "leptos",
 ]
 

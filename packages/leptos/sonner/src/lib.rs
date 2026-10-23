@@ -76,6 +76,21 @@ type TimerHandle = leptos::leptos_dom::helpers::TimeoutHandle;
 #[cfg(not(target_arch = "wasm32"))]
 type TimerHandle = ();
 
+/// Wall-clock time in ms since the UNIX epoch (target-specific source).
+#[cfg(target_arch = "wasm32")]
+pub fn real_now_ms() -> u64 {
+    js_sys::Date::now() as u64
+}
+
+/// Wall-clock time in ms since the UNIX epoch (target-specific source).
+#[cfg(not(target_arch = "wasm32"))]
+pub fn real_now_ms() -> u64 {
+    std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_millis() as u64)
+        .unwrap_or(0)
+}
+
 /// Toast API handle, shared through context.
 #[derive(Clone, Copy)]
 pub struct ToasterContext {
@@ -107,12 +122,34 @@ impl ToasterContext {
             None => Some(self.default_duration_ms.get_untracked()),
         };
         let mut id = 0;
+        let now = real_now_ms();
         self.queue
-            .update(|q| id = q.add(kind, title, options.description, duration));
+            .update(|q| id = q.add_at(kind, title, options.description, duration, now));
         if let Some(ms) = duration {
             self.schedule(id, ms);
         }
         id
+    }
+
+    /// Advances the toaster clock to `now_ms` and dismisses expired toasts.
+    /// Target-independent; the browser timer calls this, and native/SSR code
+    /// (or tests) may call it with any clock. Returns the dismissed ids.
+    pub fn tick(&self, now_ms: u64) -> Vec<ToastId> {
+        let mut expired = Vec::new();
+        let any = self
+            .queue
+            .with_untracked(|q| q.next_expiry().is_some_and(|e| e <= now_ms.max(q.now_ms())));
+        if any {
+            self.queue.update(|q| expired = q.tick(now_ms));
+        } else {
+            self.queue.update_untracked(|q| {
+                q.tick(now_ms);
+            });
+        }
+        for id in &expired {
+            self.clear_timer(*id);
+        }
+        expired
     }
 
     pub fn message(&self, title: impl Into<String>) -> ToastId {
@@ -154,9 +191,7 @@ impl ToasterContext {
         if let Ok(handle) = set_timeout_with_handle(
             move || {
                 this.timers.update_value(|t| t.retain(|(i, _)| *i != id));
-                this.queue.update(|q| {
-                    q.dismiss(id);
-                });
+                this.tick(real_now_ms());
             },
             std::time::Duration::from_millis(ms),
         ) {
