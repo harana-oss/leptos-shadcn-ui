@@ -11,6 +11,7 @@
 //! Tailwind input stylesheet:
 //!
 //! ```no_run
+//! # #![allow(clippy::needless_doctest_main)]
 //! // build.rs
 //! fn main() {
 //!     leptos_shadcn_tailwind::write_sources_css("style/shadcn-sources.css")

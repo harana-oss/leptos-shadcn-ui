@@ -26,10 +26,10 @@ pub fn next_menu_id() -> u64 {
 pub fn open_menu(id: u64, open: RwSignal<bool>) {
     ensure_document_listener();
     let previous = OPEN_MENU.with(|m| m.borrow_mut().replace((id, open)));
-    if let Some((prev_id, prev_open)) = previous {
-        if prev_id != id {
-            prev_open.try_set(false);
-        }
+    if let Some((prev_id, prev_open)) = previous
+        && prev_id != id
+    {
+        prev_open.try_set(false);
     }
     open.try_set(true);
 }

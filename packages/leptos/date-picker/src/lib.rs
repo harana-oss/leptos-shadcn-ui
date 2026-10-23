@@ -17,7 +17,9 @@ mod tests;
 #[cfg(test)]
 mod tdd_tests;
 
+#[cfg(test)]
 mod advanced_date_picker_tests;
+#[cfg(test)]
 pub mod advanced_tests;
 
 // Signal-managed exports
