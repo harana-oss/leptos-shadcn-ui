@@ -4,8 +4,11 @@ pub mod signal_managed;
 pub mod default;
 pub mod new_york;
 
-pub use default::{Popover};
-pub use new_york::{Popover as PopoverNewYork};
+pub use default::{Popover, PopoverContent, PopoverContext, PopoverTrigger};
+pub use new_york::{
+    Popover as PopoverNewYork, PopoverContent as PopoverContentNewYork,
+    PopoverTrigger as PopoverTriggerNewYork,
+};
 
 mod tests;
 

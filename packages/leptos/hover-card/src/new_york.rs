@@ -1,7 +1,16 @@
+//! New York style hover card. Shares state/context with the default variant
+//! and only adjusts styling.
 use leptos::prelude::*;
 use leptos_style::Style;
 
-const HOVER_CARD_CLASS: &str = "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+pub use crate::default::HoverCardContext;
+
+const NEW_YORK_TRIGGER_CLASS: &str = "text-sm";
+const NEW_YORK_CONTENT_CLASS: &str = "shadow-md";
+
+fn merge(base: &str, extra: Option<String>) -> String {
+    format!("{} {}", base, extra.unwrap_or_default())
+}
 
 #[component]
 pub fn HoverCard(
@@ -9,51 +18,69 @@ pub fn HoverCard(
     #[prop(into, optional)] size: MaybeProp<String>,
     #[prop(into, optional)] on_click: Option<Callback<()>>,
     #[prop(into, optional)] disabled: Signal<bool>,
+    #[prop(optional)] open: Option<RwSignal<bool>>,
+    #[prop(into, optional)] on_open_change: Option<Callback<bool>>,
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: Signal<Style>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let handle_click = {
-        let on_click = on_click.clone();
-        move |_| {
-            if let Some(callback) = &on_click {
-                callback.run(());
-            }
-        }
-    };
+    crate::default::HoverCard(crate::default::HoverCardProps {
+        variant,
+        size,
+        on_click,
+        disabled,
+        open,
+        on_open_change,
+        class,
+        id,
+        style,
+        children,
+    })
+}
 
-    let computed_class = Signal::derive(move || {
-        let variant_class = match variant.get().unwrap_or_default().as_str() {
-            "default" => "bg-primary text-primary-foreground hover:bg-primary/90",
-            "destructive" => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-            "outline" => "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-            "secondary" => "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-            "ghost" => "hover:bg-accent hover:text-accent-foreground",
-            "link" => "text-primary underline-offset-4 hover:underline",
-            _ => "bg-primary text-primary-foreground hover:bg-primary/90",
-        };
-        
-        let size_class = match size.get().unwrap_or_default().as_str() {
-            "default" => "h-10 px-4 py-2",
-            "sm" => "h-9 rounded-md px-3",
-            "lg" => "h-11 rounded-md px-8",
-            "icon" => "h-10 w-10",
-            _ => "h-10 px-4 py-2",
-        };
-        
-        format!("{} {} {} {}", HOVER_CARD_CLASS, variant_class, size_class, class.get().unwrap_or_default())
-    });
+#[component]
+pub fn HoverCardTrigger(
+    #[prop(into, optional)] disabled: Signal<bool>,
+    #[prop(into, optional)] class: MaybeProp<String>,
+    #[prop(into, optional)] id: MaybeProp<String>,
+    #[prop(into, optional)] style: MaybeProp<String>,
+    #[prop(into, optional)] role: MaybeProp<String>,
+    #[prop(into, optional)] dir: MaybeProp<String>,
+    #[prop(into, optional)] lang: MaybeProp<String>,
+    #[prop(into, optional)] tabindex: MaybeProp<String>,
+    #[prop(optional)] children: Option<Children>,
+) -> impl IntoView {
+    crate::default::HoverCardTrigger(crate::default::HoverCardTriggerProps {
+        disabled,
+        class: MaybeProp::derive(move || Some(merge(NEW_YORK_TRIGGER_CLASS, class.get()))),
+        id,
+        style,
+        role,
+        dir,
+        lang,
+        tabindex,
+        children,
+    })
+}
 
-    view! {
-        <button
-            class=computed_class
-            id=id.get().unwrap_or_default()
-            style=move || style.get().to_string()
-            disabled=disabled
-            on:click=handle_click
-        >
-            {children.map(|c| c())}
-        </button>
-    }
+#[component]
+pub fn HoverCardContent(
+    #[prop(into, optional)] class: MaybeProp<String>,
+    #[prop(into, optional)] id: MaybeProp<String>,
+    #[prop(into, optional)] style: MaybeProp<String>,
+    #[prop(into, optional)] role: MaybeProp<String>,
+    #[prop(into, optional)] dir: MaybeProp<String>,
+    #[prop(into, optional)] lang: MaybeProp<String>,
+    #[prop(optional)] children: Option<Children>,
+) -> impl IntoView {
+    crate::default::HoverCardContent(crate::default::HoverCardContentProps {
+        class: MaybeProp::derive(move || Some(merge(NEW_YORK_CONTENT_CLASS, class.get()))),
+        id,
+        style,
+        role,
+        dir,
+        lang,
+        children,
+    })
 }
