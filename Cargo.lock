@@ -3574,6 +3574,9 @@ name = "leptos-shadcn-sidebar"
 version = "0.9.0"
 dependencies = [
  "leptos",
+ "send_wrapper",
+ "wasm-bindgen",
+ "web-sys",
 ]
 
 [[package]]

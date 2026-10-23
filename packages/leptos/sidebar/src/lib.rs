@@ -18,6 +18,66 @@ pub const SIDEBAR_KEYBOARD_SHORTCUT: &str = "b";
 pub const SIDEBAR_WIDTH: &str = "16rem";
 pub const SIDEBAR_WIDTH_MOBILE: &str = "18rem";
 pub const SIDEBAR_WIDTH_ICON: &str = "3rem";
+/// Viewport width (px) at and above which the layout is considered desktop.
+pub const MOBILE_BREAKPOINT: u32 = 768;
+
+/// Media query matching mobile viewports (`max-width: 767px`).
+pub fn mobile_media_query() -> String {
+    format!("(max-width: {}px)", MOBILE_BREAKPOINT - 1)
+}
+
+/// Whether a viewport of `width` CSS pixels counts as mobile.
+pub fn is_mobile_width(width: f64) -> bool {
+    width < MOBILE_BREAKPOINT as f64
+}
+
+/// Resolves the effective mobile flag: an explicit override wins over detection.
+pub fn resolve_is_mobile(override_value: Option<bool>, detected: bool) -> bool {
+    override_value.unwrap_or(detected)
+}
+
+/// Reactive mobile detection, mirroring shadcn's `useIsMobile`.
+///
+/// In the browser this subscribes to `matchMedia("(max-width: 767px)")`
+/// change events and removes the listener on cleanup. During SSR and on
+/// native targets it stays `false`.
+pub fn use_is_mobile() -> Signal<bool> {
+    let is_mobile = RwSignal::new(false);
+    #[cfg(target_arch = "wasm32")]
+    {
+        // Effects only run on the client, so SSR never touches `window`.
+        Effect::new(move |prev: Option<()>| {
+            if prev.is_none() {
+                attach_media_listener(is_mobile);
+            }
+        });
+    }
+    is_mobile.into()
+}
+
+#[cfg(target_arch = "wasm32")]
+fn attach_media_listener(is_mobile: RwSignal<bool>) {
+    use send_wrapper::SendWrapper;
+    use wasm_bindgen::{closure::Closure, JsCast};
+
+    let Some(window) = web_sys::window() else { return };
+    let Ok(Some(mql)) = window.match_media(&mobile_media_query()) else {
+        return;
+    };
+    is_mobile.set(mql.matches());
+
+    let closure = Closure::<dyn Fn(web_sys::MediaQueryListEvent)>::new(
+        move |e: web_sys::MediaQueryListEvent| is_mobile.set(e.matches()),
+    );
+    let _ = mql.add_event_listener_with_callback("change", closure.as_ref().unchecked_ref());
+
+    let guard = SendWrapper::new((mql, closure));
+    on_cleanup(move || {
+        let (mql, closure) = guard.take();
+        let _ = mql
+            .remove_event_listener_with_callback("change", closure.as_ref().unchecked_ref());
+    });
+}
 
 /// Which edge the sidebar is attached to.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
@@ -180,7 +240,8 @@ pub fn SidebarProvider(
     #[prop(optional)]
     open: Option<RwSignal<bool>>,
     #[prop(optional)] on_open_change: Option<Callback<bool>>,
-    /// Signal telling the provider whether the viewport is mobile.
+    /// Optional override for mobile detection. When unset, the provider
+    /// detects mobile viewports automatically via [`use_is_mobile`].
     #[prop(into, optional)]
     is_mobile: MaybeProp<bool>,
     #[prop(into, optional)] class: MaybeProp<String>,
@@ -193,10 +254,9 @@ pub fn SidebarProvider(
         ctx.open = open;
     }
     ctx.on_open_change = on_open_change;
+    let detected = use_is_mobile();
     Effect::new(move |_| {
-        if let Some(m) = is_mobile.get() {
-            ctx.is_mobile.set(m);
-        }
+        ctx.is_mobile.set(resolve_is_mobile(is_mobile.get(), detected.get()));
     });
     provide_context(ctx);
 
