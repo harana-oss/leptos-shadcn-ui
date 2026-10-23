@@ -12,8 +12,16 @@ mod default;
 
 mod tests;
 
+#[cfg(test)]
 mod tdd_tests;
 
 // Signal-managed module and exports
 pub mod signal_managed;
 pub use signal_managed::*;
+
+// Leptos effects spawn on the async executor; native tests need one.
+#[cfg(test)]
+#[ctor::ctor]
+unsafe fn init_test_executor() {
+    let _ = any_spawner::Executor::init_futures_executor();
+}

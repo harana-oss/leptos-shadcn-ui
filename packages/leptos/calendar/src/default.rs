@@ -29,15 +29,59 @@ impl CalendarDate {
     }
 }
 
-fn get_days_in_month(year: u32, month: u32) -> u32 {
-    let date = Date::new_with_year_month_day(year, (month - 1) as i32, 1);
-    let next_month = Date::new_with_year_month_day(year, month as i32, 1);
-    ((next_month.get_time() - date.get_time()) / (1000.0 * 60.0 * 60.0 * 24.0)) as u32
+// Pure calendar math so the component also renders during SSR and in
+// native tests, where `js_sys::Date` is unavailable.
+fn is_leap_year(year: u32) -> bool {
+    (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
 }
 
-fn get_first_day_of_month(year: u32, month: u32) -> u32 {
-    let date = Date::new_with_year_month_day(year, (month - 1) as i32, 1);
-    date.get_day() as u32
+pub(crate) fn get_days_in_month(year: u32, month: u32) -> u32 {
+    match month {
+        1 | 3 | 5 | 7 | 8 | 10 | 12 => 31,
+        4 | 6 | 9 | 11 => 30,
+        2 if is_leap_year(year) => 29,
+        2 => 28,
+        _ => 0,
+    }
+}
+
+/// Day of week for the 1st of the month, 0 = Sunday (Sakamoto's method).
+pub(crate) fn get_first_day_of_month(year: u32, month: u32) -> u32 {
+    const T: [u32; 12] = [0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4];
+    let y = if month < 3 { year - 1 } else { year };
+    (y + y / 4 - y / 100 + y / 400 + T[(month - 1) as usize] + 1) % 7
+}
+
+/// Today's date: from the browser clock on wasm, from the system clock elsewhere.
+fn today() -> CalendarDate {
+    #[cfg(target_arch = "wasm32")]
+    {
+        let now = Date::new_0();
+        CalendarDate::new(now.get_full_year(), now.get_month() + 1, now.get_date())
+    }
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        let secs = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_secs())
+            .unwrap_or(0);
+        civil_from_days((secs / 86_400) as i64)
+    }
+}
+
+/// Converts days since 1970-01-01 to a civil date (Howard Hinnant's algorithm).
+#[cfg(not(target_arch = "wasm32"))]
+fn civil_from_days(z: i64) -> CalendarDate {
+    let z = z + 719_468;
+    let era = z.div_euclid(146_097);
+    let doe = z.rem_euclid(146_097);
+    let yoe = (doe - doe / 1460 + doe / 36_524 - doe / 146_096) / 365;
+    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    let mp = (5 * doy + 2) / 153;
+    let day = (doy - (153 * mp + 2) / 5 + 1) as u32;
+    let month = if mp < 10 { mp + 3 } else { mp - 9 } as u32;
+    let year = (yoe + era * 400 + i64::from(month <= 2)) as u32;
+    CalendarDate::new(year, month, day)
 }
 
 #[component]
@@ -50,11 +94,7 @@ pub fn Calendar(
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let today = CalendarDate::new(
-        Date::new_0().get_full_year() as u32,
-        (Date::new_0().get_month() + 1) as u32,
-        Date::new_0().get_date() as u32,
-    );
+    let today = today();
     
     let current_month = RwSignal::new((today.year, today.month));
     let disabled_dates = disabled;
@@ -218,5 +258,35 @@ pub fn Calendar(
                 </div>
             </div>
         </div>
+    }
+}
+#[cfg(test)]
+mod date_math_tests {
+    use super::*;
+
+    #[test]
+    fn days_in_month_handles_leap_years() {
+        assert_eq!(get_days_in_month(2024, 2), 29);
+        assert_eq!(get_days_in_month(2023, 2), 28);
+        assert_eq!(get_days_in_month(1900, 2), 28);
+        assert_eq!(get_days_in_month(2000, 2), 29);
+        assert_eq!(get_days_in_month(2024, 4), 30);
+        assert_eq!(get_days_in_month(2024, 12), 31);
+    }
+
+    #[test]
+    fn first_weekday_matches_known_dates() {
+        assert_eq!(get_first_day_of_month(2024, 1), 1); // Monday
+        assert_eq!(get_first_day_of_month(2024, 9), 0); // Sunday
+        assert_eq!(get_first_day_of_month(2026, 10), 4); // Thursday
+        assert_eq!(get_first_day_of_month(2000, 3), 3); // Wednesday
+    }
+
+    #[test]
+    fn civil_from_days_round_trips_epoch() {
+        let d = civil_from_days(0);
+        assert_eq!((d.year, d.month, d.day), (1970, 1, 1));
+        let d = civil_from_days(19_723); // 2024-01-01
+        assert_eq!((d.year, d.month, d.day), (2024, 1, 1));
     }
 }
