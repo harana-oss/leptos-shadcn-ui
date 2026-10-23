@@ -90,3 +90,34 @@ fn matrix_and_ymax() {
     assert_eq!(m, vec![vec![186.0, 305.0], vec![80.0, 0.0]]);
     assert_eq!(y_max(&m), 500.0);
 }
+
+#[test]
+fn default_size_is_backward_compatible() {
+    assert_eq!(resolve_size(None, None), (600.0, 300.0));
+    assert_eq!(view_box(600.0, 300.0), "0 0 600 300");
+    assert_eq!(plot_size(600.0, 300.0), (552.0, 268.0));
+}
+
+#[test]
+fn custom_size_viewbox_and_plot_area() {
+    let (w, h) = resolve_size(Some(800.0), Some(400.0));
+    assert_eq!(view_box(w, h), "0 0 800 400");
+    assert_eq!(plot_size(w, h), (752.0, 368.0));
+    // Invalid values fall back to defaults; tiny sizes clamp to zero.
+    assert_eq!(resolve_size(Some(-1.0), Some(f64::NAN)), (600.0, 300.0));
+    assert_eq!(plot_size(10.0, 10.0), (0.0, 0.0));
+}
+
+#[test]
+fn custom_size_threads_into_coords() {
+    let (pw, ph) = plot_size(800.0, 400.0);
+    let pts = line_points(&[0.0, 100.0], pw, ph, 100.0);
+    assert!(approx(pts[0].1, ph));
+    assert!(approx(pts[1].1, 0.0));
+    assert!(pts[1].0 > plot_size(600.0, 300.0).0);
+    let bars = bar_rects(&[vec![100.0]], pw, ph, 100.0, 0.0);
+    assert!(approx(bars[0].height, ph));
+    assert!(approx(bars[0].y, 0.0));
+    let band = BandScale::new(4, pw, 0.0);
+    assert!(approx(band.step, pw / 4.0));
+}
