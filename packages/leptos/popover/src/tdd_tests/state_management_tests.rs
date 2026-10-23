@@ -13,7 +13,7 @@ mod state_management_tests {
         let open_state = RwSignal::new(false);
         
         let _popover_view = view! {
-            <Popover open=open_state.into()>
+            <Popover attr:data-open=open_state>
                 <button>"Toggle Popover"</button>
                 <div class="popover-content">
                     <p>"Popover content"</p>
@@ -34,7 +34,7 @@ mod state_management_tests {
         let value_state = RwSignal::new("".to_string());
         
         let _popover_view = view! {
-            <Popover value=value_state.into()>
+            <Popover attr:data-value=value_state>
                 <button>"Select Value"</button>
                 <div class="popover-content">
                     <button
@@ -64,7 +64,7 @@ mod state_management_tests {
         let disabled_state = RwSignal::new(false);
         
         let _popover_view = view! {
-            <Popover disabled=disabled_state.into()>
+            <Popover disabled=disabled_state>
                 <button>"Disabled Popover"</button>
                 <div class="popover-content">
                     <p>"Disabled content"</p>
@@ -91,7 +91,7 @@ mod state_management_tests {
         });
         
         let _popover_view = view! {
-            <Popover on_select=Some(callback)>
+            <Popover on_click=Callback::new(move |_| callback.run("selected".to_string()))>
                 <button>"Callback Popover"</button>
                 <div class="popover-content">
                     <button
@@ -256,9 +256,9 @@ mod state_management_tests {
         
         let _popover_view = view! {
             <Popover
-                open=open_state.into()
-                value=value_state.into()
-                disabled=disabled_state.into()
+                attr:data-open=open_state
+                attr:data-value=value_state
+                disabled=disabled_state
             >
                 <button>"Multi-State Popover"</button>
                 <div class="popover-content">
@@ -324,7 +324,7 @@ mod state_management_tests {
                     <div
                         class=move || if valid_state.get() { "valid" } else { "invalid" }
                     >
-                        {move || if valid_state.get() { "Valid Content" } else { error_state.get() }}
+                        {move || if valid_state.get() { "Valid Content".to_string() } else { error_state.get() }}
                     </div>
                 </div>
             </Popover>

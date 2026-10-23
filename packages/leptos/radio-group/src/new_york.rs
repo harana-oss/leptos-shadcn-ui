@@ -23,7 +23,7 @@ pub fn RadioGroup(
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: Signal<Style>,
 
-    #[prop(optional, into)] children: Option<ChildrenFn>,
+    #[prop(optional)] children: Option<ChildrenFn>,
 ) -> impl IntoView {
     let selected_value = RwSignal::new(value.get_untracked());
     
@@ -87,7 +87,7 @@ pub fn RadioGroupItem(
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: Signal<Style>,
 
-    #[prop(optional, into)] children: Option<ChildrenFn>,
+    #[prop(optional)] children: Option<ChildrenFn>,
 ) -> impl IntoView {
     let context = use_context::<RadioGroupContext>().expect("RadioGroupItem must be used within RadioGroup");
     

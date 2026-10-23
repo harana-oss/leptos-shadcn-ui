@@ -70,9 +70,9 @@ mod state_management_tests {
         
         let _event_label_view = view! {
             <Label
-                on_click=move |_| click_handled.set(true)
-                on_focus=move |_| focus_handled.set(true)
-                on_blur=move |_| blur_handled.set(true)
+                on:click=move |_| click_handled.set(true)
+                on:focus=move |_| focus_handled.set(true)
+                on:blur=move |_| blur_handled.set(true)
             >
                 "Event Label"
             </Label>
@@ -104,9 +104,9 @@ mod state_management_tests {
         
         let _form_label_view = view! {
             <Label
-                for=form_name
-                aria_required=move || form_required.get()
-                aria_invalid=move || !form_valid.get()
+                {..} for=form_name
+                attr:aria-required=move || form_required.get()
+                attr:aria-invalid=move || !form_valid.get()
             >
                 {move || form_value.get()}
             </Label>
@@ -141,13 +141,13 @@ mod state_management_tests {
         
         let _validation_label_view = view! {
             <Label
-                aria_invalid=move || error_state.get()
-                class=move || {
+                attr:aria-invalid=move || error_state.get()
+                class=Signal::derive(move || String::from({
                     if error_state.get() { "error-label" }
                     else if warning_state.get() { "warning-label" }
                     else if valid_state.get() { "valid-label" }
                     else { "default-label" }
-                }
+                }))
             >
                 {move || {
                     if error_state.get() { "Field with Error" }
@@ -184,9 +184,9 @@ mod state_management_tests {
         
         let _focus_label_view = view! {
             <Label
-                on_focus=move |_| focused_state.set(true)
-                on_blur=move |_| focused_state.set(false)
-                on_focus_visible=move |_| focus_visible_state.set(true)
+                on:focus=move |_| focused_state.set(true)
+                on:blur=move |_| focused_state.set(false)
+                on:focusin=move |_| focus_visible_state.set(true)
             >
                 "Focusable Label"
             </Label>
@@ -212,13 +212,13 @@ mod state_management_tests {
         
         let _disabled_label_view = view! {
             <Label
-                aria_disabled=move || disabled_state.get()
-                aria_readonly=move || readonly_state.get()
-                class=move || {
+                attr:aria-disabled=move || disabled_state.get()
+                attr:aria-readonly=move || readonly_state.get()
+                class=Signal::derive(move || String::from({
                     if disabled_state.get() { "disabled-label" }
                     else if readonly_state.get() { "readonly-label" }
                     else { "enabled-label" }
-                }
+                }))
             >
                 "State Label"
             </Label>
@@ -274,7 +274,7 @@ mod state_management_tests {
         
         let _size_label_view = view! {
             <Label
-                class=move || format!("label-{}", size_signal.get())
+                class=Signal::derive(move || format!("label-{}", size_signal.get()))
             >
                 {move || format!("{} Label", size_signal.get())}
             </Label>
@@ -298,7 +298,7 @@ mod state_management_tests {
         
         let _variant_label_view = view! {
             <Label
-                class=move || format!("label-{}", variant_signal.get())
+                class=Signal::derive(move || format!("label-{}", variant_signal.get()))
             >
                 {move || format!("{} Label", variant_signal.get())}
             </Label>
@@ -325,8 +325,8 @@ mod state_management_tests {
         
         let _validation_label_view = view! {
             <Label
-                aria_required=move || required.get()
-                aria_invalid=move || {
+                attr:aria-required=move || required.get()
+                attr:aria-invalid=move || {
                     let val = value.get();
                     required.get() && (val.is_empty() || val.len() < min_length.get() as usize || val.len() > max_length.get() as usize)
                 }
@@ -378,9 +378,9 @@ mod state_management_tests {
         
         let _consistency_label_view = view! {
             <Label
-                aria_disabled=move || disabled.get()
-                aria_required=move || required.get()
-                aria_readonly=move || readonly.get()
+                attr:aria-disabled=move || disabled.get()
+                attr:aria-required=move || required.get()
+                attr:aria-readonly=move || readonly.get()
             >
                 {move || value.get()}
             </Label>
