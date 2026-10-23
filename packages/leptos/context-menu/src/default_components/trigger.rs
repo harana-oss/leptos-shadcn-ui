@@ -6,7 +6,7 @@
 use leptos::prelude::*;
 use leptos_style::Style;
 use web_sys::MouseEvent;
-use wasm_bindgen::JsCast;
+use crate::default_components::context_menu::ContextMenuId;
 
 #[component]
 pub fn ContextMenuTrigger(
@@ -15,21 +15,20 @@ pub fn ContextMenuTrigger(
 ) -> impl IntoView {
     let open = expect_context::<RwSignal<bool>>();
     let position = expect_context::<RwSignal<(i32, i32)>>();
+    let menu_id = expect_context::<ContextMenuId>().0;
 
     let handle_context_menu = move |e: MouseEvent| {
         e.prevent_default();
-        let x = e.client_x();
-        let y = e.client_y();
-        position.set((x, y));
-        open.set(true);
+        e.stop_propagation();
+        position.set((e.client_x(), e.client_y()));
+        // Closes any other open context menu; a single shared document
+        // listener handles outside clicks and Escape.
+        crate::global::open_menu(menu_id, open);
     };
 
     let handle_click = move |_| {
-        open.set(false);
+        crate::global::close_menu(menu_id);
     };
-
-    // Use a simpler approach without global event listeners
-    // The context menu will close when clicking on items or outside
 
     view! {
         <div

@@ -9,6 +9,7 @@ pub use new_york::{Checkbox as CheckboxNewYork};
 
 mod tests;
 
+#[cfg(test)]
 mod tdd_tests;
 
 mod implementation_tests;

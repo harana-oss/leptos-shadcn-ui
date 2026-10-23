@@ -117,6 +117,39 @@ pub fn MyForm() -> impl IntoView {
 }
 ```
 
+### **Tailwind CSS Setup**
+
+Tailwind v4 only emits CSS for classes it finds in files it scans. Component
+crates live in the Cargo registry, outside your project, so without extra
+setup the class names render in HTML but the CSS is missing.
+
+1. Add the helper as a build dependency:
+
+```toml
+[build-dependencies]
+leptos-shadcn-tailwind = "0.9"
+```
+
+2. Generate `@source` directives in `build.rs`:
+
+```rust
+fn main() {
+    leptos_shadcn_tailwind::write_sources_css("style/shadcn-sources.css")
+        .expect("failed to write Tailwind sources for leptos-shadcn-ui");
+}
+```
+
+3. Import the generated file from your Tailwind input stylesheet, next to the
+   shadcn theme tokens (`--background`, `--primary`, `@theme inline`, ...):
+
+```css
+@import "tailwindcss";
+@import "./shadcn-sources.css";
+```
+
+Add `style/shadcn-sources.css` to `.gitignore`; it contains absolute paths
+for the local machine.
+
 ### **Performance Monitoring**
 
 Monitor and optimize your component performance with the built-in audit system:

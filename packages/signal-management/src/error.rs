@@ -26,7 +26,7 @@ impl Default for ErrorSeverity {
 }
 
 /// Source location where the error occurred
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, PartialEq)]
 pub struct ErrorSource {
     /// File path where the error occurred
     pub file: Option<String>,
@@ -75,7 +75,7 @@ impl ErrorSource {
 }
 
 /// Recovery suggestion for signal management errors
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct RecoverySuggestion {
     /// User-friendly action to take
     pub action: String,
@@ -109,7 +109,7 @@ impl RecoverySuggestion {
 }
 
 /// Enhanced error context for signal management errors
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct SignalErrorContext {
     /// Error message
     pub message: String,

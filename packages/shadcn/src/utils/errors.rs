@@ -49,8 +49,8 @@ impl CliRecoverySuggestion {
         self
     }
 
-    pub fn with_example(mut self, example: String) -> Self {
-        self.example_command = Some(example);
+    pub fn with_example(mut self, example: impl Into<String>) -> Self {
+        self.example_command = Some(example.into());
         self
     }
 }
