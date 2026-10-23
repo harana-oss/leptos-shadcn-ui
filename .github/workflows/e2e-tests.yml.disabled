@@ -77,7 +77,7 @@ jobs:
       
       - name: Build test application
         run: |
-          cd demo/minimal-wasm-test
+          cd examples/minimal-wasm-test
           wasm-pack build --target web --out-dir pkg
           cd ..
       
@@ -168,7 +168,7 @@ jobs:
       
       - name: Build WASM application
         run: |
-          cd demo/minimal-wasm-test
+          cd examples/minimal-wasm-test
           wasm-pack build --target web --out-dir pkg
           cd ..
       
@@ -224,7 +224,7 @@ jobs:
       
       - name: Build application
         run: |
-          cd demo/minimal-wasm-test
+          cd examples/minimal-wasm-test
           wasm-pack build --target web --out-dir pkg
           cd ..
       
