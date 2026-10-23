@@ -2214,6 +2214,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "leptos-shadcn-chart"
+version = "0.9.0"
+dependencies = [
+ "leptos",
+]
+
+[[package]]
 name = "leptos-shadcn-checkbox"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3202,6 +3209,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "leptos-shadcn-sidebar"
+version = "0.9.0"
+dependencies = [
+ "leptos",
+]
+
+[[package]]
 name = "leptos-shadcn-signal-management"
 version = "0.1.0"
 dependencies = [
@@ -3288,6 +3302,13 @@ dependencies = [
  "tailwind_fuse 0.3.2",
  "wasm-bindgen-test",
  "web-sys",
+]
+
+[[package]]
+name = "leptos-shadcn-sonner"
+version = "0.9.0"
+dependencies = [
+ "leptos",
 ]
 
 [[package]]
