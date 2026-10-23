@@ -57,7 +57,7 @@ mod basic_rendering_tests {
         });
         
         let _popover_view = view! {
-            <Popover on_select=Some(callback)>"Popover with callback"</Popover>
+            <Popover on_click=callback>"Popover with callback"</Popover>
         };
     }
 
@@ -78,7 +78,7 @@ mod basic_rendering_tests {
     #[test]
     fn test_popover_with_custom_style() {
         let _popover_view = view! {
-            <Popover style="color: red;">"Custom style popover"</Popover>
+            <Popover style=leptos_style::Style::from("color: red;")>"Custom style popover"</Popover>
         };
     }
 
@@ -92,8 +92,8 @@ mod basic_rendering_tests {
                 size="default"
                 class="custom-class"
                 id="custom-id"
-                style="color: blue;"
-                on_select=Some(callback)
+                style=leptos_style::Style::from("color: blue;")
+                on_click=callback
             >
                 "Complete popover"
             </Popover>

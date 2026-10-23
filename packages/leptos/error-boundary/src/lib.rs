@@ -11,7 +11,7 @@ pub mod new_york;
 #[cfg(test)]
 mod test_helpers;
 #[cfg(test)]
-mod tests;
+mod placeholder_tests;
 
 pub use context::{
     ErrorContext, ErrorContextBuilder, ErrorSeverity, ErrorSource, RecoverySuggestion,
@@ -406,6 +406,7 @@ pub fn handle_error<T>(result: Result<T, impl std::fmt::Debug>) -> Option<T> {
     }
 }
 
+#[cfg(test)]
 mod tests {
     use super::*;
 

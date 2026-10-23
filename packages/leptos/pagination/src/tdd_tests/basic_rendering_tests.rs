@@ -1,6 +1,9 @@
 #[cfg(test)]
 mod basic_rendering_tests {
+    #[allow(unused_imports)]
     use super::*;
+    use crate::*;
+    use leptos::prelude::*;
 
     // ===== BASIC RENDERING TESTS =====
     // These tests focus on basic rendering and component creation
@@ -101,7 +104,7 @@ mod basic_rendering_tests {
                 total_pages=10
                 current_page=MaybeProp::from(5)
                 class=MaybeProp::from("custom-pagination")
-                id=MaybeProp::from("pagination-1")
+                attr:id="pagination-1"
                 show_previous_next=MaybeProp::from(true)
                 show_first_last=MaybeProp::from(true)
             />
@@ -127,9 +130,9 @@ mod basic_rendering_tests {
             {if show_pagination {
                 view! {
                     <Pagination total_pages=10/>
-                }.into_view()
+                }.into_any()
             } else {
-                view! {}.into_view()
+                view! {}.into_any()
             }}
         };
     }
@@ -147,8 +150,8 @@ mod basic_rendering_tests {
         let _accessible_pagination_view = view! {
             <Pagination 
                 total_pages=10
-                aria_label="Pagination navigation"
-                role="navigation"
+                attr:aria-label="Pagination navigation"
+                attr:role="navigation"
             />
         };
     }
@@ -182,7 +185,7 @@ mod basic_rendering_tests {
         let _styled_pagination_view = view! {
             <Pagination 
                 total_pages=10
-                style="margin: 20px; padding: 10px;"
+                attr:style="margin: 20px; padding: 10px;"
             />
         };
     }
