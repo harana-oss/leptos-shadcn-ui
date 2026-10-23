@@ -8,7 +8,7 @@ pub const NATIVE_SELECT_SIZE_SM_CLASS: &str = "h-8 py-1";
 pub const NATIVE_SELECT_ICON_CLASS: &str = "text-muted-foreground pointer-events-none absolute top-1/2 right-3.5 size-4 -translate-y-1/2 opacity-50 select-none";
 
 /// Joins class fragments, skipping empty ones.
-pub fn cn(parts: &[&str]) -> String {
+pub(crate) fn cn(parts: &[&str]) -> String {
     parts
         .iter()
         .map(|p| p.trim())

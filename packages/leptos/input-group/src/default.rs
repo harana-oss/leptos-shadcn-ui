@@ -32,7 +32,7 @@ pub const TEXTAREA_BASE_CLASS: &str = "border-input placeholder:text-muted-foreg
 pub const INPUT_GROUP_TEXTAREA_CLASS: &str = "flex-1 resize-none rounded-none border-0 bg-transparent py-3 shadow-none focus-visible:ring-0 dark:bg-transparent";
 
 /// Joins class fragments, skipping empty ones.
-pub fn cn(parts: &[&str]) -> String {
+pub(crate) fn cn(parts: &[&str]) -> String {
     parts
         .iter()
         .map(|p| p.trim())

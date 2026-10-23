@@ -3,7 +3,7 @@
 use leptos::prelude::*;
 
 /// Merge a base class string with an optional user class.
-pub fn cn(base: &str, extra: Option<String>) -> String {
+pub(crate) fn cn(base: &str, extra: Option<String>) -> String {
     match extra {
         Some(e) if !e.trim().is_empty() => format!("{base} {}", e.trim()),
         _ => base.to_string(),

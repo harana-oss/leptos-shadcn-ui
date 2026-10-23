@@ -20,7 +20,7 @@ pub const FIELD_ERROR_CLASS: &str = "text-destructive text-sm font-normal";
 pub const FIELD_ERROR_LIST_CLASS: &str = "ml-4 flex list-disc flex-col gap-1";
 
 /// Joins class fragments, skipping empty ones.
-pub fn cn(parts: &[&str]) -> String {
+pub(crate) fn cn(parts: &[&str]) -> String {
     parts
         .iter()
         .map(|p| p.trim())

@@ -47,6 +47,35 @@
 //! MIT License - see the [LICENSE](../LICENSE) file for details.
 
 // Re-export all components (conditionally based on features)
+
+// Components added to track current shadcn/ui
+#[cfg(feature = "button-group")]
+pub use leptos_shadcn_button_group::default::*;
+#[cfg(feature = "kbd")]
+pub use leptos_shadcn_kbd::default::*;
+#[cfg(feature = "spinner")]
+pub use leptos_shadcn_spinner::default::*;
+#[cfg(feature = "empty")]
+pub use leptos_shadcn_empty::default::*;
+#[cfg(feature = "item")]
+pub use leptos_shadcn_item::default::*;
+#[cfg(feature = "typography")]
+pub use leptos_shadcn_typography::default::*;
+#[cfg(feature = "field")]
+pub use leptos_shadcn_field::default::*;
+#[cfg(feature = "input-group")]
+pub use leptos_shadcn_input_group::default::*;
+#[cfg(feature = "native-select")]
+pub use leptos_shadcn_native_select::default::*;
+#[cfg(feature = "toggle-group")]
+pub use leptos_shadcn_toggle_group::default::*;
+#[cfg(feature = "sidebar")]
+pub use leptos_shadcn_sidebar::*;
+#[cfg(feature = "sonner")]
+pub use leptos_shadcn_sonner::*;
+#[cfg(feature = "chart")]
+pub use leptos_shadcn_chart::*;
+
 #[cfg(feature = "button")]
 pub use leptos_shadcn_button::default::*;
 #[cfg(feature = "input")]

@@ -12,7 +12,7 @@ pub const TOGGLE_SIZE_LG_CLASS: &str = "h-10 px-2.5 min-w-10";
 pub const TOGGLE_GROUP_ITEM_CLASS: &str = "min-w-0 flex-1 shrink-0 rounded-none shadow-none first:rounded-l-md last:rounded-r-md focus:z-10 focus-visible:z-10 data-[variant=outline]:border-l-0 data-[variant=outline]:first:border-l";
 
 /// Joins class fragments, skipping empty ones.
-pub fn cn(parts: &[&str]) -> String {
+pub(crate) fn cn(parts: &[&str]) -> String {
     parts
         .iter()
         .map(|p| p.trim())
