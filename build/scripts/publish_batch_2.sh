@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# 🚀 Publish Batch 7: Dependent Components
-# This script publishes the seventh batch of 4 packages efficiently
-# Note: These packages have dependencies on previously published packages
+# 🚀 Publish Batch 2: Navigation Components
+# This script publishes the second batch of 5 packages efficiently
 
 set -e
 
@@ -14,25 +13,23 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-WORKSPACE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+WORKSPACE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 VERSION="0.1.0"
 DELAY=75  # 75 seconds between packages (conservative for rate limiting)
 
-# Batch 7 packages (Dependent Components)
+# Batch 2 packages (Navigation Components)
 PACKAGES=(
-    "date-picker"
-    "pagination"
-    "form"
-    "combobox"
+    "breadcrumb"
+    "navigation-menu"
+    "context-menu"
+    "dropdown-menu"
+    "menubar"
 )
 
-echo -e "${GREEN}🚀 Starting Batch 7: Dependent Components${NC}"
+echo -e "${GREEN}🚀 Starting Batch 2: Navigation Components${NC}"
 echo -e "${BLUE}Total packages: ${#PACKAGES[@]}${NC}"
 echo -e "${BLUE}Delay between packages: ${DELAY}s${NC}"
 echo -e "${BLUE}Estimated time: 15-20 minutes${NC}"
-echo ""
-echo -e "${YELLOW}⚠️  Note: These packages have dependencies on previously published packages${NC}"
-echo -e "${YELLOW}⚠️  Ensure all dependencies are available on crates.io before proceeding${NC}"
 echo ""
 
 # Check if we're in the right directory
@@ -53,11 +50,11 @@ echo ""
 echo -e "${YELLOW}⚠️  This will publish ${#PACKAGES[@]} packages to crates.io${NC}"
 echo -e "${YELLOW}⚠️  Estimated time: $((DELAY * ${#PACKAGES[@]} / 60)) minutes${NC}"
 echo ""
-read -p "Do you want to continue with Batch 7? (y/N): " -n 1 -r
+read -p "Do you want to continue with Batch 2? (y/N): " -n 1 -r
 echo ""
 
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    echo -e "${YELLOW}Batch 7 publication cancelled${NC}"
+    echo -e "${YELLOW}Batch 2 publication cancelled${NC}"
     exit 0
 fi
 
@@ -66,7 +63,7 @@ success_count=0
 fail_count=0
 total=${#PACKAGES[@]}
 
-echo -e "\n${GREEN}🎯 Starting Batch 7 publication process...${NC}"
+echo -e "\n${GREEN}🎯 Starting Batch 2 publication process...${NC}"
 
 for i in "${!PACKAGES[@]}"; do
     package="${PACKAGES[$i]}"
@@ -90,28 +87,27 @@ for i in "${!PACKAGES[@]}"; do
         ((success_count++))
     else
         echo -e "${RED}❌ Failed to publish $package_name${NC}"
-        echo -e "${YELLOW}⚠️  This might be due to rate limiting. Check the error message above.${NC}"
         ((fail_count++))
         continue
     fi
     
     # Wait before next package (except for the last one)
-    if [[ $i -lt $((total - 1)) ]]; then
+    if [[ "$package" != "${PACKAGES[-1]}" ]]; then
         echo -e "${BLUE}⏳ Waiting ${DELAY} seconds before next package...${NC}"
         sleep "$DELAY"
     fi
 done
 
 # Final summary
-echo -e "\n${GREEN}🎉 Batch 7 completed!${NC}"
+echo -e "\n${GREEN}🎉 Batch 2 completed!${NC}"
 echo -e "${GREEN}✅ Successfully published: $success_count packages${NC}"
 if [[ $fail_count -gt 0 ]]; then
     echo -e "${RED}❌ Failed to publish: $fail_count packages${NC}"
 fi
 
 if [[ $fail_count -eq 0 ]]; then
-    echo -e "\n${GREEN}🎯 All Batch 7 packages published successfully!${NC}"
-    echo -e "${BLUE}Ready to proceed with Batch 8: Utility Package${NC}"
+    echo -e "\n${GREEN}🎯 All Batch 2 packages published successfully!${NC}"
+    echo -e "${BLUE}Ready to proceed with Batch 3: Feedback & Status Components${NC}"
 else
     echo -e "\n${YELLOW}⚠️  Some packages failed. Please check the errors above.${NC}"
 fi

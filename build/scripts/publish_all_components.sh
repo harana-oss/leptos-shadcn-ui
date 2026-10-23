@@ -13,7 +13,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-WORKSPACE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+WORKSPACE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 COMPONENTS_DIR="$WORKSPACE_ROOT/packages/leptos"
 VERSION="0.1.0"
 DELAY_BETWEEN_PUBLISHES=60  # Seconds to wait between publishes (increased for rate limiting)

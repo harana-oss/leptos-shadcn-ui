@@ -8,6 +8,6 @@ version.workspace = true
 
 [dependencies]
 leptos = "0.8"
-leptos-shadcn-ui = { path = "../packages/leptos-shadcn-ui", features = ["all-components"] }
+leptos-shadcn-ui = { path = "../../packages/leptos-shadcn-ui", features = ["all-components"] }
 leptos_router = "0.8"
 console_error_panic_hook = "0.1"

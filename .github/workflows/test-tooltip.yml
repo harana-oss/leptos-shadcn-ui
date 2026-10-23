@@ -6,14 +6,14 @@ on:
     paths:
       - 'packages/*/tooltip/**'
       - 'tests/tooltip_integration_test.rs'
-      - 'scripts/test_tooltip.sh'
+      - 'build/scripts/test_tooltip.sh'
       - '.github/workflows/test-tooltip.yml'
   pull_request:
     branches: [ main ]
     paths:
       - 'packages/*/tooltip/**'
       - 'tests/tooltip_integration_test.rs'
-      - 'scripts/test_tooltip.sh'
+      - 'build/scripts/test_tooltip.sh'
       - '.github/workflows/test-tooltip.yml'
 
 env:
@@ -61,7 +61,7 @@ jobs:
         node-version: '18'
 
     - name: Run comprehensive tooltip tests
-      run: ./scripts/test_tooltip.sh
+      run: ./build/scripts/test_tooltip.sh
 
   test-browser:
     name: Browser Compatibility Tests

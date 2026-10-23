@@ -29,11 +29,11 @@ members = [
     "packages/leptos-shadcn-ui",  # Re-added for final publishing
     "packages/leptos-shadcn-ui-wasm",  # WASM-optimized version with minimal dependencies
     "performance-audit",  # Performance audit system
-    "leptos_v0_8_test_app",  # Leptos v0.8 compatibility test app
+    "demo/leptos_v0_8_test_app",  # Leptos v0.8 compatibility test app
     "examples/leptos",  # WASM demo application
     "examples/dashboard-demo",  # Dashboard demo application
     "examples/comprehensive-demo",  # Comprehensive demo application
-    "wasm-demo",  # Dedicated WASM demo for leptos-shadcn-ui-wasm
+    "demo/wasm-demo",  # Dedicated WASM demo for leptos-shadcn-ui-wasm
 
     # Basic components (no internal dependencies)
     "packages/leptos/button",
@@ -102,10 +102,10 @@ members = [
     "packages/leptos/analytics",      # Component usage analytics
     "packages/leptos/utils",          # Utility functions
 
-    "scripts/run_quality_assessment",
-    "scripts/generate_component_tests",
+    "build/scripts/run_quality_assessment",
+    "build/scripts/generate_component_tests",
     "packages/bundle-size-monitor",  # Bundle size monitoring tool
-    "leptos_v0_8_test_app"]
+]
 
 [workspace.package]
 authors = ["CloudShuttle <info@cloudshuttle.com>"]

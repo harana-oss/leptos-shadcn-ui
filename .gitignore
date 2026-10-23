@@ -176,7 +176,7 @@ playwright-report/
 *.bak3
 
 # Generated scripts
-scripts/generate_missing_tests
+build/scripts/generate_missing_tests
 
 # Test coverage reports
 coverage-reports/

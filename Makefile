@@ -96,7 +96,7 @@ test-e2e-codegen: ## Generate E2E test code
 # WASM Testing
 test-wasm: ## Run comprehensive WASM browser tests
 	@echo "🧪 Running WASM browser tests..."
-	./scripts/run-wasm-tests.sh
+	./build/scripts/run-wasm-tests.sh
 
 test-wasm-browsers: ## Run WASM tests on specific browsers (usage: make test-wasm-browsers BROWSERS=chromium,firefox)
 	@if [ -z "$(BROWSERS)" ]; then \
@@ -104,19 +104,19 @@ test-wasm-browsers: ## Run WASM tests on specific browsers (usage: make test-was
 		exit 1; \
 	fi
 	@echo "🧪 Running WASM tests on $(BROWSERS)..."
-	./scripts/run-wasm-tests.sh -b "$(BROWSERS)"
+	./build/scripts/run-wasm-tests.sh -b "$(BROWSERS)"
 
 test-wasm-headed: ## Run WASM tests in headed mode
 	@echo "🧪 Running WASM tests in headed mode..."
-	./scripts/run-wasm-tests.sh -H
+	./build/scripts/run-wasm-tests.sh -H
 
 test-wasm-parallel: ## Run WASM tests in parallel
 	@echo "🧪 Running WASM tests in parallel..."
-	./scripts/run-wasm-tests.sh -p
+	./build/scripts/run-wasm-tests.sh -p
 
 test-wasm-verbose: ## Run WASM tests with verbose output
 	@echo "🧪 Running WASM tests with verbose output..."
-	./scripts/run-wasm-tests.sh -v
+	./build/scripts/run-wasm-tests.sh -v
 
 # Enhanced E2E Testing
 test-e2e-enhanced: ## Run enhanced E2E tests with comprehensive reporting
@@ -150,7 +150,7 @@ test-e2e-report: ## Generate comprehensive E2E test report
 # Performance Benchmarking
 benchmark: ## Run performance benchmarks
 	@echo "🏃 Running performance benchmarks..."
-	./scripts/run-performance-benchmarks.sh benchmark
+	./build/scripts/run-performance-benchmarks.sh benchmark
 
 benchmark-components: ## Run benchmarks for specific components (usage: make benchmark-components COMPONENTS=button,input)
 	@if [ -z "$(COMPONENTS)" ]; then \
@@ -158,40 +158,40 @@ benchmark-components: ## Run benchmarks for specific components (usage: make ben
 		exit 1; \
 	fi
 	@echo "🏃 Running benchmarks for $(COMPONENTS)..."
-	./scripts/run-performance-benchmarks.sh benchmark -c "$(COMPONENTS)"
+	./build/scripts/run-performance-benchmarks.sh benchmark -c "$(COMPONENTS)"
 
 benchmark-html: ## Run benchmarks and generate HTML report
 	@echo "🏃 Running benchmarks with HTML report..."
-	./scripts/run-performance-benchmarks.sh benchmark -f html -o test-results/performance/benchmark-report.html
+	./build/scripts/run-performance-benchmarks.sh benchmark -f html -o test-results/performance/benchmark-report.html
 
 regression-test: ## Run performance regression tests
 	@echo "📊 Running performance regression tests..."
-	./scripts/run-performance-benchmarks.sh regression
+	./build/scripts/run-performance-benchmarks.sh regression
 
 regression-update: ## Run regression tests and update baseline
 	@echo "📊 Running regression tests with baseline update..."
-	./scripts/run-performance-benchmarks.sh regression -u
+	./build/scripts/run-performance-benchmarks.sh regression -u
 
 performance-monitor: ## Start automated performance monitoring
 	@echo "📈 Starting automated performance monitoring..."
-	./scripts/run-performance-benchmarks.sh monitor
+	./build/scripts/run-performance-benchmarks.sh monitor
 
 performance-monitor-alerts: ## Start monitoring with alerts enabled
 	@echo "📈 Starting performance monitoring with alerts..."
-	./scripts/run-performance-benchmarks.sh monitor -a
+	./build/scripts/run-performance-benchmarks.sh monitor -a
 
 setup-baseline: ## Setup performance baseline
 	@echo "🔧 Setting up performance baseline..."
-	./scripts/run-performance-benchmarks.sh setup
+	./build/scripts/run-performance-benchmarks.sh setup
 
 performance-report: ## Generate performance report
 	@echo "📄 Generating performance report..."
-	./scripts/run-performance-benchmarks.sh report
+	./build/scripts/run-performance-benchmarks.sh report
 
 # Accessibility Automation
 accessibility-audit: ## Run comprehensive accessibility audit
 	@echo "♿ Running accessibility audit..."
-	./scripts/run-accessibility-audit.sh
+	./build/scripts/run-accessibility-audit.sh
 
 accessibility-audit-wcag: ## Run accessibility audit with specific WCAG level (usage: make accessibility-audit-wcag LEVEL=AAA)
 	@if [ -z "$(LEVEL)" ]; then \
@@ -199,7 +199,7 @@ accessibility-audit-wcag: ## Run accessibility audit with specific WCAG level (u
 		exit 1; \
 	fi
 	@echo "♿ Running accessibility audit with WCAG $(LEVEL)..."
-	./scripts/run-accessibility-audit.sh -l "$(LEVEL)"
+	./build/scripts/run-accessibility-audit.sh -l "$(LEVEL)"
 
 accessibility-audit-components: ## Run accessibility audit for specific components (usage: make accessibility-audit-components COMPONENTS=button,input)
 	@if [ -z "$(COMPONENTS)" ]; then \
@@ -207,40 +207,40 @@ accessibility-audit-components: ## Run accessibility audit for specific componen
 		exit 1; \
 	fi
 	@echo "♿ Running accessibility audit for $(COMPONENTS)..."
-	./scripts/run-accessibility-audit.sh -c "$(COMPONENTS)"
+	./build/scripts/run-accessibility-audit.sh -c "$(COMPONENTS)"
 
 accessibility-audit-html: ## Run accessibility audit and generate HTML report
 	@echo "♿ Running accessibility audit with HTML report..."
-	./scripts/run-accessibility-audit.sh -f html -o test-results/accessibility/accessibility-report.html
+	./build/scripts/run-accessibility-audit.sh -f html -o test-results/accessibility/accessibility-report.html
 
 accessibility-audit-verbose: ## Run accessibility audit with verbose output
 	@echo "♿ Running accessibility audit with verbose output..."
-	./scripts/run-accessibility-audit.sh -v
+	./build/scripts/run-accessibility-audit.sh -v
 
 accessibility-audit-focus: ## Run accessibility audit focusing on focus management
 	@echo "♿ Running accessibility audit focusing on focus management..."
-	./scripts/run-accessibility-audit.sh --no-color-contrast --no-screen-reader
+	./build/scripts/run-accessibility-audit.sh --no-color-contrast --no-screen-reader
 
 # Test Coverage Reporting
 coverage: ## Generate comprehensive coverage reports (HTML, JSON, LCov)
 	@echo "📊 Generating coverage reports..."
-	./scripts/generate_coverage_report.sh --format all
+	./build/scripts/generate_coverage_report.sh --format all
 
 coverage-html: ## Generate HTML coverage report
 	@echo "📊 Generating HTML coverage report..."
-	./scripts/generate_coverage_report.sh --format html --open
+	./build/scripts/generate_coverage_report.sh --format html --open
 
 coverage-json: ## Generate JSON coverage report
 	@echo "📊 Generating JSON coverage report..."
-	./scripts/generate_coverage_report.sh --format json
+	./build/scripts/generate_coverage_report.sh --format json
 
 coverage-lcov: ## Generate LCov coverage report
 	@echo "📊 Generating LCov coverage report..."
-	./scripts/generate_coverage_report.sh --format lcov
+	./build/scripts/generate_coverage_report.sh --format lcov
 
 coverage-terminal: ## Generate terminal coverage report
 	@echo "📊 Generating terminal coverage report..."
-	./scripts/generate_coverage_report.sh --format terminal
+	./build/scripts/generate_coverage_report.sh --format terminal
 
 coverage-component: ## Generate coverage for specific component (usage: make coverage-component COMPONENT=button)
 	@if [ -z "$(COMPONENT)" ]; then \
@@ -248,27 +248,27 @@ coverage-component: ## Generate coverage for specific component (usage: make cov
 		exit 1; \
 	fi
 	@echo "📊 Generating coverage for $(COMPONENT)..."
-	./scripts/generate_coverage_report.sh --package leptos-shadcn-$(COMPONENT)
+	./build/scripts/generate_coverage_report.sh --package leptos-shadcn-$(COMPONENT)
 
 coverage-open: ## Open HTML coverage report in browser
 	@echo "📊 Opening coverage report..."
-	./scripts/generate_coverage_report.sh --format html --open
+	./build/scripts/generate_coverage_report.sh --format html --open
 
 coverage-ci: ## Generate coverage reports in CI mode
 	@echo "📊 Generating coverage reports (CI mode)..."
-	./scripts/generate_coverage_report.sh --ci --fail-under 95
+	./build/scripts/generate_coverage_report.sh --ci --fail-under 95
 
 coverage-verify: ## Verify coverage meets minimum thresholds
 	@echo "📊 Verifying coverage thresholds..."
-	./scripts/generate_coverage_report.sh --fail-under 95 --ci
+	./build/scripts/generate_coverage_report.sh --fail-under 95 --ci
 
 coverage-badge: ## Generate coverage badge
 	@echo "📊 Generating coverage badge..."
-	python3 scripts/coverage_reporter.py --format json --output-dir coverage-reports/badges
+	python3 build/scripts/coverage_reporter.py --format json --output-dir coverage-reports/badges
 
 coverage-trend: ## Analyze coverage trends over time
 	@echo "📊 Analyzing coverage trends..."
-	python3 scripts/coverage_reporter.py --trend --format terminal
+	python3 build/scripts/coverage_reporter.py --trend --format terminal
 
 coverage-full: coverage coverage-badge coverage-trend ## Generate all coverage reports and badges
 	@echo "✅ Full coverage report generation complete!"
@@ -276,16 +276,16 @@ coverage-full: coverage coverage-badge coverage-trend ## Generate all coverage r
 # Production Readiness
 analyze-bundle: ## Analyze bundle sizes and optimization opportunities
 	@echo "📦 Analyzing bundle sizes for production readiness..."
-	./scripts/analyze_bundle.sh
+	./build/scripts/analyze_bundle.sh
 
 build-production: ## Build production-optimized version
 	@echo "🏗️ Building production-optimized version..."
-	./scripts/build_production.sh
+	./build/scripts/build_production.sh
 
 # WASM Size Optimization
 build-wasm-optimized: ## Build WASM with size optimizations (<2MB target)
 	@echo "🚀 Building WASM with size optimizations..."
-	./scripts/build-wasm-optimized.sh
+	./build/scripts/build-wasm-optimized.sh
 
 build-wasm-release: ## Build WASM release with maximum size optimizations
 	@echo "🏗️ Building WASM release (maximum optimization)..."
