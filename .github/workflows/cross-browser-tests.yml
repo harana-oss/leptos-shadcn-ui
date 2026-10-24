@@ -254,6 +254,7 @@ jobs:
           done
 
       - name: Run Edge cross-browser tests
+        shell: bash
         run: |
           pnpm exec playwright test comprehensive-demo.spec.ts \
             --config=tests/e2e/cross-browser.config.ts \
