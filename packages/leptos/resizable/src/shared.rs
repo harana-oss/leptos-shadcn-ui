@@ -82,6 +82,25 @@ impl GroupContext {
             self.notify(&old);
         }
     }
+
+    /// Like `set_size`, but ignores the min/max limits of the panel and of the
+    /// neighbour that absorbs the change. Used for collapsing and expanding.
+    pub fn force_size(&self, index: usize, size: f64) {
+        let saved = self.panels.get_untracked();
+        self.panels.update(|p| {
+            for layout in p.iter_mut() {
+                layout.min = 0.0;
+                layout.max = 100.0;
+            }
+        });
+        self.set_size(index, size);
+        self.panels.update(|p| {
+            for (layout, original) in p.iter_mut().zip(&saved) {
+                layout.min = original.min;
+                layout.max = original.max;
+            }
+        });
+    }
 }
 
 /// Moves the boundary between panels `before` and `before + 1` by `delta` percent,
@@ -154,7 +173,7 @@ pub(crate) fn render_group(props: GroupProps) -> impl IntoView {
         handle_count: RwSignal::new(0),
         is_resizing: RwSignal::new(false),
         keyboard_resize: Signal::derive(move || keyboard_resize.get().unwrap_or(false)),
-        touch_support: Signal::derive(move || touch_support.get().unwrap_or(false)),
+        touch_support: Signal::derive(move || touch_support.get().unwrap_or(true)),
         group_ref: NodeRef::new(),
         on_resize: Signal::derive(move || on_resize.get()),
         panel_callbacks: StoredValue::new(Vec::new()),
@@ -267,12 +286,8 @@ pub(crate) fn render_panel(props: PanelProps) -> impl IntoView {
     });
 
     let set_size = move |size: f64| match (group, index) {
-        (Some(ctx), Some(i)) => {
-            // Collapsing must be able to go below `min`, so relax the limit while applying it.
-            ctx.panels.update(|p| p[i].min = p[i].min.min(size));
-            ctx.set_size(i, size);
-            ctx.panels.update(|p| p[i].min = min);
-        }
+        // Collapsing must go below the limits of this panel and its neighbour.
+        (Some(ctx), Some(i)) => ctx.force_size(i, size),
         _ => {
             if local_size.get_untracked() != size {
                 local_size.set(size);
@@ -319,6 +334,16 @@ pub(crate) fn render_panel(props: PanelProps) -> impl IntoView {
             style_str.push(';');
         }
         style_str.push_str(&format!(" flex: 0 0 {}%; overflow: hidden;", current_size.get()));
+        // Keep a collapsed panel wide enough for its expand button to stay reachable.
+        if is_collapsed.get() && collapsible.get().unwrap_or(false) {
+            let vertical =
+                group.is_some_and(|ctx| ctx.direction.get() == ResizeDirection::Vertical);
+            style_str.push_str(if vertical {
+                " min-height: 2rem;"
+            } else {
+                " min-width: 2rem;"
+            });
+        }
         style_str
     });
 
@@ -613,6 +638,9 @@ mod tests {
             assert_eq!(second.get_untracked(), 55.0);
             ctx.set_size(1, 80.0);
             assert_eq!(reported.get_untracked(), vec![20.0, 80.0]);
+            ctx.force_size(0, 0.0);
+            assert_eq!(reported.get_untracked(), vec![0.0, 100.0]);
+            assert_eq!(ctx.panels.get_untracked()[1].max, 90.0);
         });
     }
 }
