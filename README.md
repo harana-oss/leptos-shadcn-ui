@@ -7,21 +7,21 @@ shadcn/ui components for [Leptos](https://leptos.dev) 0.9, styled with Tailwind 
 
 Components are distributed as a Git dependency. Each component is its own
 crate named `leptos-shadcn-<component>`; add the ones you need, pinned to a
-release tag (latest: `v0.9.0`).
+release tag (latest: `v0.9.1`).
 
 With `cargo add`:
 
 ```sh
-cargo add leptos-shadcn-button --git https://github.com/harana-oss/leptos-shadcn-ui --tag v0.9.0
+cargo add leptos-shadcn-button --git https://github.com/harana-oss/leptos-shadcn-ui --tag v0.9.1
 ```
 
 Or in `Cargo.toml`:
 
 ```toml
 [dependencies]
-leptos-shadcn-button = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.0" }
-leptos-shadcn-input  = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.0" }
-leptos-shadcn-card   = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.0" }
+leptos-shadcn-button = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
+leptos-shadcn-input  = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
+leptos-shadcn-card   = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
 Cargo resolves each crate by name from the workspace at that tag. Use
