@@ -1,8 +1,6 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::*;
-
     #[test]
     fn test_accordion_component_exists() {
     leptos::prelude::Owner::new().with(|| {

@@ -18,6 +18,9 @@ js-sys = { workspace = true }
 getrandom = { workspace = true }
 uuid = { version = "1.29", features = ["v4", "js"] }
 
+# Optional WASM initialization helpers (enabled by the `wasm` feature)
+leptos-shadcn-ui-wasm = { path = "../../packages/leptos-shadcn-ui-wasm", optional = true }
+
 # Tailwind-RS (workspace path)
 tailwind-rs-core = { path = "../../packages/tailwind-rs-core" }
 
@@ -35,3 +38,6 @@ leptos-shadcn-input = { workspace = true }
 
 [lib]
 crate-type = ["cdylib"]
+
+[features]
+wasm = ["dep:leptos-shadcn-ui-wasm"]

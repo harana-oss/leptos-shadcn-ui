@@ -19,6 +19,9 @@ uuid = { version = "1.29", features = ["v4", "js"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 
+# Optional WASM initialization helpers (enabled by the `wasm` feature)
+leptos-shadcn-ui-wasm = { path = "../../packages/leptos-shadcn-ui-wasm", optional = true }
+
 # Local components (using workspace dependencies)
 leptos-shadcn-button = { workspace = true }
 leptos-shadcn-card = { workspace = true }
@@ -31,3 +34,6 @@ tailwind-rs-core = { path = "../../packages/tailwind-rs-core" }
 [[bin]]
 name = "standalone-demo"
 path = "src/main.rs"
+
+[features]
+wasm = ["dep:leptos-shadcn-ui-wasm"]

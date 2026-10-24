@@ -310,7 +310,7 @@ pub mod utils {
         let suggestion_bonus = (suggestions.len() as f64 * 0.05).min(0.2);
 
         let base_score = 1.0 - (critical_issues as f64 * 0.25) - (minor_issues as f64 * 0.1);
-        (base_score + suggestion_bonus).max(0.0).min(1.0)
+        (base_score + suggestion_bonus).clamp(0.0, 1.0)
     }
 }
 

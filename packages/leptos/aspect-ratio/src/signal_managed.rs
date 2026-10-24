@@ -84,7 +84,6 @@ pub fn SignalManagedAspectRatio(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _aspect_ratio_state_for_disabled = aspect_ratio_state.clone();
     view! {
         <div
             class=move || computed_class.get()

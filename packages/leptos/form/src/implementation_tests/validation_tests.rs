@@ -1,6 +1,6 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod validation_tests {
-    use leptos::prelude::*;
     use std::collections::HashMap;
 
     // Mock types for testing - these would be imported from the actual form module

@@ -70,7 +70,7 @@ impl AnalyticsContext {
         let mut stats: Vec<_> = self
             .analytics
             .with(|analytics| analytics.stats.values().cloned().collect());
-        stats.sort_by(|a, b| b.mount_count.cmp(&a.mount_count));
+        stats.sort_by_key(|s| std::cmp::Reverse(s.mount_count));
         stats
     }
 

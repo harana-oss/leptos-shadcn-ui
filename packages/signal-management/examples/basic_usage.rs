@@ -34,7 +34,7 @@ fn main() {
     
     // Demonstrate BatchedSignalUpdater
     println!("\n=== BatchedSignalUpdater Demo ===");
-    let mut updater = BatchedSignalUpdater::new();
+    let updater = BatchedSignalUpdater::new();
     
     // Create some test signals
     let (counter1, set_counter1) = signal(0);
@@ -53,7 +53,7 @@ fn main() {
     
     // Demonstrate Memory Management
     println!("\n=== Memory Management Demo ===");
-    let mut memory_manager = SignalMemoryManager::new();
+    let memory_manager = SignalMemoryManager::new();
     
     // Create a signal group
     memory_manager.create_group("demo_group".to_string()).unwrap();
@@ -78,6 +78,8 @@ fn main() {
         estimated_memory_bytes: 1024,
         tracked_groups: 1,
     };
+    detector.set_baseline(baseline);
+    detector.update_current(current);
     
     let leak_detected = detector.check_for_leaks().unwrap_or(false);
     println!("Memory leak detected: {}", leak_detected);

@@ -1,7 +1,8 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod tests {
-    use crate::default::{Label, LABEL_CLASS};
-    use leptos::prelude::*;
+    use crate::default::LABEL_CLASS;
+    
 
     #[test]
     fn test_label_base_css_classes() {
@@ -85,8 +86,8 @@ mod tests {
         // Test label's role in form accessibility
         // Labels should be associable with form controls
         
-        let form_association_methods = vec!["for", "wrapping", "aria-labelledby"];
-        assert!(form_association_methods.len() > 0);
+        let form_association_methods = ["for", "wrapping", "aria-labelledby"];
+        assert!(!form_association_methods.is_empty());
         
         // Test peer interaction concept
         assert!(LABEL_CLASS.contains("peer-disabled"));

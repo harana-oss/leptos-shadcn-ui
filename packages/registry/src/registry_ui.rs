@@ -2,31 +2,11 @@ use std::{collections::HashMap, sync::LazyLock};
 
 use crate::schema::{FrameworkName, Mode, Registry, RegistryEntry, RegistryItemType, RegistryItemFile, RegistryItemTailwind, RegistryItemTailwindConfig};
 
-/// Creates a complete registry entry for a UI component with enhanced metadata
-fn create_ui_component(
-    name: &str,
-    description: &str,
-    category: &str,
-    dependencies: Vec<&str>,
-) -> RegistryEntry {
-    create_ui_component_with_metadata(
-        name,
-        description,
-        category,
-        None,
-        dependencies,
-        None,
-        None,
-        None,
-    )
-}
-
 /// Creates a complete registry entry for a UI component with full metadata control
 fn create_ui_component_with_metadata(
     name: &str,
     description: &str,
-    category: &str,
-    subcategory: Option<&str>,
+    (category, subcategory): (&str, Option<&str>),
     dependencies: Vec<&str>,
     registry_dependencies: Option<Vec<&str>>,
     css_vars: Option<HashMap<Mode, HashMap<String, String>>>,
@@ -84,8 +64,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "button",
             "Displays a button or a component that looks like a button. Supports multiple variants including default, destructive, outline, secondary, ghost, and link. Includes icon support and loading states.",
-            "forms",
-            Some("basic-input"),
+            ("forms", Some("basic-input")),
             vec!["tailwind_fuse"],
             None,
             Some(create_css_vars(vec![
@@ -98,8 +77,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "checkbox",
             "A control that allows the user to toggle between checked and not checked. Supports indeterminate state and custom styling.",
-            "forms",
-            Some("selection"),
+            ("forms", Some("selection")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -111,8 +89,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "radio-group",
             "A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time. Ideal for selecting from a small set of mutually exclusive options.",
-            "forms",
-            Some("selection"),
+            ("forms", Some("selection")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -124,8 +101,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "select",
             "Displays a list of options for the user to pick from—triggered by a button. Supports single selection, keyboard navigation, and customizable triggers.",
-            "forms",
-            Some("dropdown"),
+            ("forms", Some("dropdown")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["popover"]),
             None,
@@ -134,8 +110,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "combobox",
             "Autocomplete input and command palette with a list of suggestions. Combines an input with a dropdown menu for filtering and selecting from large datasets.",
-            "forms",
-            Some("autocomplete"),
+            ("forms", Some("autocomplete")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["command", "popover"]),
             None,
@@ -144,8 +119,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "form",
             "Building blocks for creating accessible forms with validation. Provides form context, field components, and integration with validation libraries.",
-            "forms",
-            Some("container"),
+            ("forms", Some("container")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["label", "input", "checkbox", "radio-group"]),
             None,
@@ -154,8 +128,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "input",
             "Displays a form input field or a component that looks like an input field. Supports various types including text, email, password, number, and file inputs.",
-            "forms",
-            Some("basic-input"),
+            ("forms", Some("basic-input")),
             vec!["tailwind_fuse"],
             None,
             Some(create_css_vars(vec![
@@ -168,8 +141,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "label",
             "Renders an accessible label associated with controls. Essential for form accessibility and can be linked to inputs via HTML htmlFor attribute.",
-            "forms",
-            Some("container"),
+            ("forms", Some("container")),
             vec!["tailwind_fuse"],
             None,
             None,
@@ -178,8 +150,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "textarea",
             "Displays a form textarea or a component that looks like a textarea. Provides multi-line text input with auto-resize support.",
-            "forms",
-            Some("basic-input"),
+            ("forms", Some("basic-input")),
             vec!["tailwind_fuse"],
             None,
             None,
@@ -188,8 +159,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "slider",
             "An input where the user selects a value from within a given range. Supports single and multiple thumbs, vertical orientation, and custom styling.",
-            "forms",
-            Some("range"),
+            ("forms", Some("range")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -201,8 +171,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "switch",
             "A control that allows the user to toggle between checked and not checked. Similar to a checkbox but with a distinct visual design optimized for toggle actions.",
-            "forms",
-            Some("selection"),
+            ("forms", Some("selection")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -214,8 +183,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "toggle",
             "A two-state button that can be either on or off. Can be used individually or in groups for selecting multiple options.",
-            "forms",
-            Some("selection"),
+            ("forms", Some("selection")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -227,8 +195,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "toggle-group",
             "A set of two-state buttons that can be toggled on or off. Useful for segmented controls and option groups where single or multiple selection is needed.",
-            "forms",
-            Some("selection"),
+            ("forms", Some("selection")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["toggle"]),
             None,
@@ -241,8 +208,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "navigation-menu",
             "A collection of links for navigating websites. Displays a hierarchical menu with support for dropdowns, icons, and keyboard navigation.",
-            "navigation",
-            Some("menus"),
+            ("navigation", Some("menus")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -251,8 +217,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "menubar",
             "A visually persistent menu common in desktop applications. Displays menu items in a horizontal bar with dropdown submenus.",
-            "navigation",
-            Some("menus"),
+            ("navigation", Some("menus")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["dropdown-menu"]),
             None,
@@ -261,8 +226,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "tabs",
             "A set of layered sections of content—known as tab panels—that are displayed one at a time. Supports keyboard navigation and customizable tab lists.",
-            "navigation",
-            Some("tabs"),
+            ("navigation", Some("tabs")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -274,8 +238,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "breadcrumb",
             "Displays the path to the current resource using a hierarchy of links. Essential for navigation in deep page hierarchies.",
-            "navigation",
-            Some("breadcrumbs"),
+            ("navigation", Some("breadcrumbs")),
             vec!["tailwind_fuse"],
             Some(vec!["separator"]),
             None,
@@ -284,8 +247,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "pagination",
             "Pagination with page navigation, next and previous links. Supports customizable page counts, ellipsis for large page sets, and size variants.",
-            "navigation",
-            Some("pagination"),
+            ("navigation", Some("pagination")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["button"]),
             None,
@@ -294,8 +256,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "command",
             "Fast, composable, unstyled command menu. Ideal for command palettes, searchable lists, and autocomplete functionality with keyboard navigation.",
-            "navigation",
-            Some("command"),
+            ("navigation", Some("command")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -304,8 +265,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "context-menu",
             "Displays a menu to the user—such as a set of actions or functions—triggered by right-click or long-press on an element.",
-            "navigation",
-            Some("menus"),
+            ("navigation", Some("menus")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -318,8 +278,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "dialog",
             "A window overlaid on either the primary window or another dialog window. Supports modal and non-modal modes with customizable animations.",
-            "overlay",
-            Some("dialogs"),
+            ("overlay", Some("dialogs")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -331,8 +290,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "alert-dialog",
             "A modal dialog that interrupts the user with important content and expects a response. Ideal for confirmations and critical alerts.",
-            "overlay",
-            Some("dialogs"),
+            ("overlay", Some("dialogs")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["button"]),
             Some(create_css_vars(vec![
@@ -344,8 +302,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "sheet",
             "Extends the Dialog component to display content that complements the main content of the screen. Slides in from edges with customizable animations.",
-            "overlay",
-            Some("drawers"),
+            ("overlay", Some("drawers")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -354,8 +311,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "drawer",
             "A panel that slides out from the edge of the screen. Similar to Sheet but optimized for mobile and touch interactions.",
-            "overlay",
-            Some("drawers"),
+            ("overlay", Some("drawers")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -364,8 +320,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "dropdown-menu",
             "Displays a menu to the user—such as a set of actions or functions—triggered by a button. Supports nested submenus and keyboard navigation.",
-            "overlay",
-            Some("menus"),
+            ("overlay", Some("menus")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -374,8 +329,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "popover",
             "Displays rich content in a portal, triggered by a button. Highly flexible overlay component for custom content and interactions.",
-            "overlay",
-            Some("popovers"),
+            ("overlay", Some("popovers")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -387,8 +341,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "tooltip",
             "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it. Supports custom positioning and delays.",
-            "overlay",
-            Some("tooltips"),
+            ("overlay", Some("tooltips")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -397,8 +350,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "toast",
             "A succinct message that is displayed temporarily. Supports multiple positions, variants (default, destructive, action), and auto-dismissal.",
-            "overlay",
-            Some("notifications"),
+            ("overlay", Some("notifications")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -415,8 +367,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "accordion",
             "A vertically stacked set of interactive headings that each reveal a section of content. Supports multiple open items and collapsible all behavior.",
-            "layout",
-            Some("disclosure"),
+            ("layout", Some("disclosure")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -425,8 +376,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "collapsible",
             "An interactive component which can be expanded/collapsed. Foundation component for Accordion and other disclosure widgets.",
-            "layout",
-            Some("disclosure"),
+            ("layout", Some("disclosure")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -435,8 +385,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "resizable",
             "Accessible resizable panel groups and layouts with keyboard support. Enables creating resizable split-pane layouts with persistence.",
-            "layout",
-            Some("panels"),
+            ("layout", Some("panels")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -445,8 +394,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "scroll-area",
             "Augments native scroll functionality for custom, cross-browser styling. Provides consistent scrollbar appearance across platforms.",
-            "layout",
-            Some("scrolling"),
+            ("layout", Some("scrolling")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -455,8 +403,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "separator",
             "Visually or semantically separates content. Renders a horizontal or vertical divider with customizable orientation and styling.",
-            "layout",
-            Some("dividers"),
+            ("layout", Some("dividers")),
             vec!["tailwind_fuse"],
             None,
             None,
@@ -465,8 +412,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "sidebar",
             "Composable, themeable, multi-level sidebar navigation component. Supports collapsible sections, nested menus, and mobile responsiveness.",
-            "layout",
-            Some("sidebars"),
+            ("layout", Some("sidebars")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["collapsible", "separator"]),
             None,
@@ -475,8 +421,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "aspect-ratio",
             "Displays content within a desired ratio. Ideal for maintaining consistent aspect ratios for images, videos, and embeddable content.",
-            "layout",
-            Some("containers"),
+            ("layout", Some("containers")),
             vec!["tailwind_fuse"],
             None,
             None,
@@ -489,8 +434,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "alert",
             "Displays a callout for user attention. Supports variants including default, destructive, and warning. Ideal for notifications and warnings.",
-            "display",
-            Some("alerts"),
+            ("display", Some("alerts")),
             vec!["tailwind_fuse"],
             None,
             Some(create_css_vars(vec![
@@ -503,8 +447,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "avatar",
             "An image element with a fallback for representing the user. Supports images, initials, and loading states with multiple sizes.",
-            "display",
-            Some("user"),
+            ("display", Some("user")),
             vec!["tailwind_fuse"],
             None,
             None,
@@ -513,8 +456,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "badge",
             "Displays a badge or a component that looks like a badge. Ideal for status indicators, counts, and labels with multiple variants.",
-            "display",
-            Some("labels"),
+            ("display", Some("labels")),
             vec!["tailwind_fuse"],
             None,
             Some(create_css_vars(vec![
@@ -526,8 +468,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "card",
             "Displays a card with header, content, and footer. A versatile container component for grouping related content and actions.",
-            "display",
-            Some("containers"),
+            ("display", Some("containers")),
             vec!["tailwind_fuse"],
             None,
             Some(create_css_vars(vec![
@@ -540,8 +481,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "calendar",
             "A date field component that allows users to enter and edit dates. Supports single date, date range, and multiple date selection modes.",
-            "display",
-            Some("dates"),
+            ("display", Some("dates")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -554,8 +494,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "progress",
             "Displays an indicator showing the completion progress of a task. Supports determinate and indeterminate states with customizable styling.",
-            "display",
-            Some("feedback"),
+            ("display", Some("feedback")),
             vec!["tailwind_fuse"],
             None,
             Some(create_css_vars(vec![
@@ -567,8 +506,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "skeleton",
             "Use to show a placeholder while content is loading. Provides a visual placeholder that matches the structure of expected content.",
-            "display",
-            Some("feedback"),
+            ("display", Some("feedback")),
             vec!["tailwind_fuse"],
             None,
             None,
@@ -577,8 +515,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "table",
             "A responsive table component with header, body, and footer. Supports sorting, selection, and custom styling with consistent borders.",
-            "display",
-            Some("data"),
+            ("display", Some("data")),
             vec!["tailwind_fuse"],
             None,
             Some(create_css_vars(vec![
@@ -596,8 +533,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "carousel",
             "A carousel with motion and swipe built using Embla. Supports autoplay, loop, draggable, and custom navigation with multiple slides per view.",
-            "advanced",
-            Some("media"),
+            ("advanced", Some("media")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["button"]),
             None,
@@ -606,8 +542,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "date-picker",
             "A date picker component with range and multiple selection. Combines calendar functionality with input field for comprehensive date selection.",
-            "advanced",
-            Some("dates"),
+            ("advanced", Some("dates")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["calendar", "popover"]),
             None,
@@ -616,8 +551,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "hover-card",
             "For sighted users to preview content available behind a link. Displays rich content on hover with customizable positioning and delay.",
-            "advanced",
-            Some("overlays"),
+            ("advanced", Some("overlays")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["popover"]),
             None,
@@ -626,8 +560,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "input-otp",
             "Accessible one-time password component with copy paste functionality. Ideal for 2FA codes and verification inputs with spinner support.",
-            "advanced",
-            Some("input"),
+            ("advanced", Some("input")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -636,8 +569,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "utils",
             "Utility functions and helpers for the component library. Includes class name merging, cn utility, and common helper functions.",
-            "advanced",
-            Some("utilities"),
+            ("advanced", Some("utilities")),
             vec!["tailwind_fuse"],
             None,
             None,
@@ -650,8 +582,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "chart",
             "Recharts components built using Recharts and designed to work seamlessly with shadcn/ui. Provides beautiful, responsive chart components.",
-            "advanced",
-            Some("data-visualization"),
+            ("advanced", Some("data-visualization")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -660,8 +591,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "data-table",
             "Powerful table and datagrids built using TanStack Table. Features sorting, filtering, pagination, and row selection with column resizing.",
-            "advanced",
-            Some("data"),
+            ("advanced", Some("data")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["table", "button", "checkbox", "input", "dropdown-menu"]),
             None,
@@ -670,8 +600,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "sonner",
             "An opinionated toast component with beautiful animations. Supports multiple types, promises, and custom styling with stack management.",
-            "advanced",
-            Some("notifications"),
+            ("advanced", Some("notifications")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -680,8 +609,7 @@ fn create_complete_registry() -> Registry {
         create_ui_component_with_metadata(
             "typography",
             "Styles for headings, paragraphs, lists, and other text elements. Provides consistent typography with customizable variants and scales.",
-            "advanced",
-            Some("text"),
+            ("advanced", Some("text")),
             vec!["tailwind_fuse"],
             None,
             Some(create_css_vars(vec![
@@ -705,8 +633,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "button",
             "Displays a button or a component that looks like a button. Supports multiple variants including default, destructive, outline, secondary, ghost, and link. Includes icon support and loading states.",
-            "forms",
-            Some("basic-input"),
+            ("forms", Some("basic-input")),
             vec!["tailwind_fuse"],
             None,
             Some(create_css_vars(vec![
@@ -719,8 +646,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "checkbox",
             "A control that allows the user to toggle between checked and not checked. Supports indeterminate state and custom styling.",
-            "forms",
-            Some("selection"),
+            ("forms", Some("selection")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -732,8 +658,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "radio-group",
             "A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time. Ideal for selecting from a small set of mutually exclusive options.",
-            "forms",
-            Some("selection"),
+            ("forms", Some("selection")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -745,8 +670,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "select",
             "Displays a list of options for the user to pick from—triggered by a button. Supports single selection, keyboard navigation, and customizable triggers.",
-            "forms",
-            Some("dropdown"),
+            ("forms", Some("dropdown")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["popover"]),
             None,
@@ -755,8 +679,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "combobox",
             "Autocomplete input and command palette with a list of suggestions. Combines an input with a dropdown menu for filtering and selecting from large datasets.",
-            "forms",
-            Some("autocomplete"),
+            ("forms", Some("autocomplete")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["command", "popover"]),
             None,
@@ -765,8 +688,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "form",
             "Building blocks for creating accessible forms with validation. Provides form context, field components, and integration with validation libraries.",
-            "forms",
-            Some("container"),
+            ("forms", Some("container")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["label", "input", "checkbox", "radio-group"]),
             None,
@@ -775,8 +697,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "input",
             "Displays a form input field or a component that looks like an input field. Supports various types including text, email, password, number, and file inputs.",
-            "forms",
-            Some("basic-input"),
+            ("forms", Some("basic-input")),
             vec!["tailwind_fuse"],
             None,
             Some(create_css_vars(vec![
@@ -789,8 +710,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "label",
             "Renders an accessible label associated with controls. Essential for form accessibility and can be linked to inputs via HTML htmlFor attribute.",
-            "forms",
-            Some("container"),
+            ("forms", Some("container")),
             vec!["tailwind_fuse"],
             None,
             None,
@@ -799,8 +719,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "textarea",
             "Displays a form textarea or a component that looks like a textarea. Provides multi-line text input with auto-resize support.",
-            "forms",
-            Some("basic-input"),
+            ("forms", Some("basic-input")),
             vec!["tailwind_fuse"],
             None,
             None,
@@ -809,8 +728,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "slider",
             "An input where the user selects a value from within a given range. Supports single and multiple thumbs, vertical orientation, and custom styling.",
-            "forms",
-            Some("range"),
+            ("forms", Some("range")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -822,8 +740,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "switch",
             "A control that allows the user to toggle between checked and not checked. Similar to a checkbox but with a distinct visual design optimized for toggle actions.",
-            "forms",
-            Some("selection"),
+            ("forms", Some("selection")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -835,8 +752,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "toggle",
             "A two-state button that can be either on or off. Can be used individually or in groups for selecting multiple options.",
-            "forms",
-            Some("selection"),
+            ("forms", Some("selection")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -848,8 +764,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "toggle-group",
             "A set of two-state buttons that can be toggled on or off. Useful for segmented controls and option groups where single or multiple selection is needed.",
-            "forms",
-            Some("selection"),
+            ("forms", Some("selection")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["toggle"]),
             None,
@@ -862,8 +777,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "navigation-menu",
             "A collection of links for navigating websites. Displays a hierarchical menu with support for dropdowns, icons, and keyboard navigation.",
-            "navigation",
-            Some("menus"),
+            ("navigation", Some("menus")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -872,8 +786,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "menubar",
             "A visually persistent menu common in desktop applications. Displays menu items in a horizontal bar with dropdown submenus.",
-            "navigation",
-            Some("menus"),
+            ("navigation", Some("menus")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["dropdown-menu"]),
             None,
@@ -882,8 +795,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "tabs",
             "A set of layered sections of content—known as tab panels—that are displayed one at a time. Supports keyboard navigation and customizable tab lists.",
-            "navigation",
-            Some("tabs"),
+            ("navigation", Some("tabs")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -895,8 +807,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "breadcrumb",
             "Displays the path to the current resource using a hierarchy of links. Essential for navigation in deep page hierarchies.",
-            "navigation",
-            Some("breadcrumbs"),
+            ("navigation", Some("breadcrumbs")),
             vec!["tailwind_fuse"],
             Some(vec!["separator"]),
             None,
@@ -905,8 +816,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "pagination",
             "Pagination with page navigation, next and previous links. Supports customizable page counts, ellipsis for large page sets, and size variants.",
-            "navigation",
-            Some("pagination"),
+            ("navigation", Some("pagination")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["button"]),
             None,
@@ -915,8 +825,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "command",
             "Fast, composable, unstyled command menu. Ideal for command palettes, searchable lists, and autocomplete functionality with keyboard navigation.",
-            "navigation",
-            Some("command"),
+            ("navigation", Some("command")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -925,8 +834,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "context-menu",
             "Displays a menu to the user—such as a set of actions or functions—triggered by right-click or long-press on an element.",
-            "navigation",
-            Some("menus"),
+            ("navigation", Some("menus")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -939,8 +847,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "dialog",
             "A window overlaid on either the primary window or another dialog window. Supports modal and non-modal modes with customizable animations.",
-            "overlay",
-            Some("dialogs"),
+            ("overlay", Some("dialogs")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -952,8 +859,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "alert-dialog",
             "A modal dialog that interrupts the user with important content and expects a response. Ideal for confirmations and critical alerts.",
-            "overlay",
-            Some("dialogs"),
+            ("overlay", Some("dialogs")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["button"]),
             Some(create_css_vars(vec![
@@ -965,8 +871,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "sheet",
             "Extends the Dialog component to display content that complements the main content of the screen. Slides in from edges with customizable animations.",
-            "overlay",
-            Some("drawers"),
+            ("overlay", Some("drawers")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -975,8 +880,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "drawer",
             "A panel that slides out from the edge of the screen. Similar to Sheet but optimized for mobile and touch interactions.",
-            "overlay",
-            Some("drawers"),
+            ("overlay", Some("drawers")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -985,8 +889,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "dropdown-menu",
             "Displays a menu to the user—such as a set of actions or functions—triggered by a button. Supports nested submenus and keyboard navigation.",
-            "overlay",
-            Some("menus"),
+            ("overlay", Some("menus")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -995,8 +898,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "popover",
             "Displays rich content in a portal, triggered by a button. Highly flexible overlay component for custom content and interactions.",
-            "overlay",
-            Some("popovers"),
+            ("overlay", Some("popovers")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -1008,8 +910,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "tooltip",
             "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it. Supports custom positioning and delays.",
-            "overlay",
-            Some("tooltips"),
+            ("overlay", Some("tooltips")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -1018,8 +919,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "toast",
             "A succinct message that is displayed temporarily. Supports multiple positions, variants (default, destructive, action), and auto-dismissal.",
-            "overlay",
-            Some("notifications"),
+            ("overlay", Some("notifications")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -1036,8 +936,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "accordion",
             "A vertically stacked set of interactive headings that each reveal a section of content. Supports multiple open items and collapsible all behavior.",
-            "layout",
-            Some("disclosure"),
+            ("layout", Some("disclosure")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -1046,8 +945,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "collapsible",
             "An interactive component which can be expanded/collapsed. Foundation component for Accordion and other disclosure widgets.",
-            "layout",
-            Some("disclosure"),
+            ("layout", Some("disclosure")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -1056,8 +954,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "resizable",
             "Accessible resizable panel groups and layouts with keyboard support. Enables creating resizable split-pane layouts with persistence.",
-            "layout",
-            Some("panels"),
+            ("layout", Some("panels")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -1066,8 +963,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "scroll-area",
             "Augments native scroll functionality for custom, cross-browser styling. Provides consistent scrollbar appearance across platforms.",
-            "layout",
-            Some("scrolling"),
+            ("layout", Some("scrolling")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -1076,8 +972,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "separator",
             "Visually or semantically separates content. Renders a horizontal or vertical divider with customizable orientation and styling.",
-            "layout",
-            Some("dividers"),
+            ("layout", Some("dividers")),
             vec!["tailwind_fuse"],
             None,
             None,
@@ -1086,8 +981,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "sidebar",
             "Composable, themeable, multi-level sidebar navigation component. Supports collapsible sections, nested menus, and mobile responsiveness.",
-            "layout",
-            Some("sidebars"),
+            ("layout", Some("sidebars")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["collapsible", "separator"]),
             None,
@@ -1096,8 +990,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "aspect-ratio",
             "Displays content within a desired ratio. Ideal for maintaining consistent aspect ratios for images, videos, and embeddable content.",
-            "layout",
-            Some("containers"),
+            ("layout", Some("containers")),
             vec!["tailwind_fuse"],
             None,
             None,
@@ -1110,8 +1003,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "alert",
             "Displays a callout for user attention. Supports variants including default, destructive, and warning. Ideal for notifications and warnings.",
-            "display",
-            Some("alerts"),
+            ("display", Some("alerts")),
             vec!["tailwind_fuse"],
             None,
             Some(create_css_vars(vec![
@@ -1124,8 +1016,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "avatar",
             "An image element with a fallback for representing the user. Supports images, initials, and loading states with multiple sizes.",
-            "display",
-            Some("user"),
+            ("display", Some("user")),
             vec!["tailwind_fuse"],
             None,
             None,
@@ -1134,8 +1025,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "badge",
             "Displays a badge or a component that looks like a badge. Ideal for status indicators, counts, and labels with multiple variants.",
-            "display",
-            Some("labels"),
+            ("display", Some("labels")),
             vec!["tailwind_fuse"],
             None,
             Some(create_css_vars(vec![
@@ -1147,8 +1037,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "card",
             "Displays a card with header, content, and footer. A versatile container component for grouping related content and actions.",
-            "display",
-            Some("containers"),
+            ("display", Some("containers")),
             vec!["tailwind_fuse"],
             None,
             Some(create_css_vars(vec![
@@ -1161,8 +1050,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "calendar",
             "A date field component that allows users to enter and edit dates. Supports single date, date range, and multiple date selection modes.",
-            "display",
-            Some("dates"),
+            ("display", Some("dates")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             Some(create_css_vars(vec![
@@ -1175,8 +1063,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "progress",
             "Displays an indicator showing the completion progress of a task. Supports determinate and indeterminate states with customizable styling.",
-            "display",
-            Some("feedback"),
+            ("display", Some("feedback")),
             vec!["tailwind_fuse"],
             None,
             Some(create_css_vars(vec![
@@ -1188,8 +1075,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "skeleton",
             "Use to show a placeholder while content is loading. Provides a visual placeholder that matches the structure of expected content.",
-            "display",
-            Some("feedback"),
+            ("display", Some("feedback")),
             vec!["tailwind_fuse"],
             None,
             None,
@@ -1198,8 +1084,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "table",
             "A responsive table component with header, body, and footer. Supports sorting, selection, and custom styling with consistent borders.",
-            "display",
-            Some("data"),
+            ("display", Some("data")),
             vec!["tailwind_fuse"],
             None,
             Some(create_css_vars(vec![
@@ -1217,8 +1102,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "carousel",
             "A carousel with motion and swipe built using Embla. Supports autoplay, loop, draggable, and custom navigation with multiple slides per view.",
-            "advanced",
-            Some("media"),
+            ("advanced", Some("media")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["button"]),
             None,
@@ -1227,8 +1111,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "date-picker",
             "A date picker component with range and multiple selection. Combines calendar functionality with input field for comprehensive date selection.",
-            "advanced",
-            Some("dates"),
+            ("advanced", Some("dates")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["calendar", "popover"]),
             None,
@@ -1237,8 +1120,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "hover-card",
             "For sighted users to preview content available behind a link. Displays rich content on hover with customizable positioning and delay.",
-            "advanced",
-            Some("overlays"),
+            ("advanced", Some("overlays")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["popover"]),
             None,
@@ -1247,8 +1129,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "input-otp",
             "Accessible one-time password component with copy paste functionality. Ideal for 2FA codes and verification inputs with spinner support.",
-            "advanced",
-            Some("input"),
+            ("advanced", Some("input")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -1257,8 +1138,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "utils",
             "Utility functions and helpers for the component library. Includes class name merging, cn utility, and common helper functions.",
-            "advanced",
-            Some("utilities"),
+            ("advanced", Some("utilities")),
             vec!["tailwind_fuse"],
             None,
             None,
@@ -1267,8 +1147,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "toggle-group",
             "A set of two-state buttons that can be toggled on or off. Useful for segmented controls and option groups where single or multiple selection is needed.",
-            "advanced",
-            Some("selection"),
+            ("advanced", Some("selection")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["toggle"]),
             None,
@@ -1281,8 +1160,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "chart",
             "Recharts components built using Recharts and designed to work seamlessly with shadcn/ui. Provides beautiful, responsive chart components. [PLANNED]",
-            "advanced",
-            Some("data-visualization"),
+            ("advanced", Some("data-visualization")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -1291,8 +1169,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "data-table",
             "Powerful table and datagrids built using TanStack Table. Features sorting, filtering, pagination, and row selection with column resizing. [PLANNED]",
-            "advanced",
-            Some("data"),
+            ("advanced", Some("data")),
             vec!["tailwind_fuse", "web-sys"],
             Some(vec!["table", "button", "checkbox", "input", "dropdown-menu"]),
             None,
@@ -1301,8 +1178,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "sonner",
             "An opinionated toast component with beautiful animations. Supports multiple types, promises, and custom styling with stack management. [PLANNED]",
-            "advanced",
-            Some("notifications"),
+            ("advanced", Some("notifications")),
             vec!["tailwind_fuse", "web-sys"],
             None,
             None,
@@ -1311,8 +1187,7 @@ fn create_leptos_registry() -> Registry {
         create_ui_component_with_metadata(
             "typography",
             "Styles for headings, paragraphs, lists, and other text elements. Provides consistent typography with customizable variants and scales. [PLANNED]",
-            "advanced",
-            Some("text"),
+            ("advanced", Some("text")),
             vec!["tailwind_fuse"],
             None,
             Some(create_css_vars(vec![

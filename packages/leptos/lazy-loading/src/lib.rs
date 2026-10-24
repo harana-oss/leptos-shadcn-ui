@@ -138,8 +138,11 @@ pub fn LazyComponent(
     }
 }
 
+/// Load outcome tracked by [`use_lazy_component`]: `None` until loading finishes.
+pub type LazyComponentResult = Option<Result<View<()>, String>>;
+
 /// Hook for lazy loading components with proper cleanup
-pub fn use_lazy_component(name: &str) -> (ReadSignal<bool>, ReadSignal<Option<Result<View<()>, String>>>, WriteSignal<bool>) {
+pub fn use_lazy_component(name: &str) -> (ReadSignal<bool>, ReadSignal<LazyComponentResult>, WriteSignal<bool>) {
     let (loading, set_loading) = signal(false);
     let (component, set_component) = signal(None::<Result<View<()>, String>>);
     let (is_mounted, set_is_mounted) = signal(true);
@@ -149,7 +152,7 @@ pub fn use_lazy_component(name: &str) -> (ReadSignal<bool>, ReadSignal<Option<Re
 
     let name = name.to_string();
     let is_mounted_for_load = is_mounted;
-    let _load = move || {
+    let load = move || {
         set_loading.set(true);
         spawn_local(async move {
             let result = loader.load_component(&name);
@@ -159,6 +162,7 @@ pub fn use_lazy_component(name: &str) -> (ReadSignal<bool>, ReadSignal<Option<Re
             }
         });
     };
+    load();
 
     on_cleanup(move || {
         set_is_mounted.set(false);

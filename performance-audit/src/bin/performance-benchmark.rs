@@ -225,7 +225,7 @@ async fn run_regression_tests(
     baseline: PathBuf,
     output: PathBuf,
     update_baseline: bool,
-    _commit: Option<String>,
+    commit: Option<String>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     println!("📊 Running performance regression tests...");
     
@@ -254,6 +254,12 @@ async fn run_regression_tests(
     
     // Save results
     tester.save_results(&regression_results).await?;
+
+    // Update baseline if requested
+    if update_baseline {
+        let commit_hash = commit.as_deref().unwrap_or("unknown");
+        tester.update_baseline(&current_results, commit_hash).await?;
+    }
     
     // Generate report
     let report = tester.generate_report(&regression_results);

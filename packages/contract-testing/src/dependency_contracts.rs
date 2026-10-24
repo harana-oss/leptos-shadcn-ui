@@ -45,15 +45,27 @@ impl DependencyContractTester {
 
     /// Test that no published dependencies conflict with workspace
     pub fn test_no_published_version_conflicts(&self) -> Result<(), ContractError> {
-        // This test should fail initially, demonstrating the TDD red-green-refactor cycle
-        let problematic_deps = ["leptos-shadcn-button = { version = \"0.6.0\"",
-            "leptos-shadcn-input = { version = \"0.6.1\""];
+        let main_cargo_path = format!("{}/packages/leptos-shadcn-ui/Cargo.toml", self.workspace_root);
+        let manifest = std::fs::read_to_string(&main_cargo_path).map_err(|err| {
+            ContractError::ValidationError {
+                message: format!("Failed to read {}: {}", main_cargo_path, err),
+            }
+        })?;
+
+        // Internal component crates must come from the workspace, not from a published version
+        let problematic_deps: Vec<&str> = manifest
+            .lines()
+            .map(str::trim)
+            .filter(|line| line.starts_with("leptos-shadcn-"))
+            .filter(|line| line.contains("version") && !line.contains("path") && !line.contains("workspace"))
+            .collect();
 
         if !problematic_deps.is_empty() {
             return Err(ContractError::ValidationError {
                 message: format!(
-                    "Found {} published dependencies that should use workspace paths",
-                    problematic_deps.len()
+                    "Found {} published dependencies that should use workspace paths: {}",
+                    problematic_deps.len(),
+                    problematic_deps.join(", ")
                 ),
             });
         }

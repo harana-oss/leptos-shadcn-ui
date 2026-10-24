@@ -26,7 +26,7 @@ pub fn DatePicker(
         }
     });
     
-    let _handle_select = move |date: CalendarDate| {
+    let handle_select = move |date: CalendarDate| {
         selected_date.set(Some(date.clone()));
         is_open.set(false);
         if let Some(on_select) = on_select {
@@ -77,19 +77,12 @@ pub fn DatePicker(
                     <div class="mt-2 w-auto p-0 border rounded-md bg-background">
                         <CalendarComponent
                             selected=selected_date
-                            on_select=Callback::new(move |date: CalendarDate| {
-                                selected_date.set(Some(date.clone()));
-                                is_open.set(false);
-                                if let Some(cb) = on_select {
-                                    cb.run(date);
-                                }
-                            })
+                            on_select=Callback::new(handle_select)
                             disabled=disabled_dates
                         />
                     </div>
                 }.into_any()
-            } else { let _: () = view! {};
-            ().into_any() }}
+            } else { ().into_any() }}
         </div>
     }
 }
@@ -214,8 +207,7 @@ pub fn DatePickerWithRange(
                         />
                     </div>
                 }.into_any()
-            } else { let _: () = view! {};
-            ().into_any() }}
+            } else { ().into_any() }}
         </div>
     }
 }

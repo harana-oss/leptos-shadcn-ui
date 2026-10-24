@@ -5,23 +5,12 @@ use leptos_style::Style;
 use leptos_shadcn_signal_management::*;
 
 /// Signal-managed calendar state
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub struct SignalManagedCalendarState {
     pub is_active: bool,
     pub is_hovered: bool,
     pub is_focused: bool,
     pub click_count: u32,
-}
-
-impl Default for SignalManagedCalendarState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
 }
 
 /// Signal-managed calendar component
@@ -93,7 +82,6 @@ pub fn SignalManagedCalendar(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let calendar_state_for_disabled = calendar_state.clone();
     view! {
         <div
             class=move || computed_class.get()

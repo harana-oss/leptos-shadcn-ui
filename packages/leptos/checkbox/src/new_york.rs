@@ -14,7 +14,6 @@ pub fn Checkbox(
     #[prop(into, optional)] style: Signal<Style>,
 ) -> impl IntoView {
     let handle_change = {
-        let on_change = on_change;
         move |event: Event| {
             if let Some(callback) = &on_change {
                 let target = event.target().unwrap();

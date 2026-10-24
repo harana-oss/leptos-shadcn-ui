@@ -3,6 +3,9 @@
 //! This module provides comprehensive WASM binding initialization with proper state management,
 //! loading states, error handling, and initialization status tracking for Leptos applications.
 
+// WasmError is public API; boxing it would be a breaking change.
+#![allow(clippy::result_large_err)]
+
 use leptos::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::sync::atomic::{AtomicBool, Ordering};

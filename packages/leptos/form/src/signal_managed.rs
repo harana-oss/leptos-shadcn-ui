@@ -84,7 +84,6 @@ pub fn SignalManagedForm(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _form_state_for_disabled = form_state.clone();
     view! {
         <div
             class=move || computed_class.get()

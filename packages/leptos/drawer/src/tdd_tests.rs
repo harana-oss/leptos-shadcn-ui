@@ -1,3 +1,4 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 use leptos::prelude::*;
 use crate::*;
 

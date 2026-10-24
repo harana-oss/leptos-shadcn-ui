@@ -1,3 +1,4 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod integration_tests {
     
@@ -63,7 +64,7 @@ mod integration_tests {
         let items = vec!["Item 1", "Item 2", "Item 3"];
         let _context_menu_view = view! {
             <ul>
-                <For each=move || items.clone() key=|item| item.clone() let:item>
+                <For each=move || items.clone() key=|item| *item let:item>
                     <li>
                         <ContextMenu>
                             <ContextMenuTrigger>

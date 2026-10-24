@@ -84,7 +84,6 @@ pub fn SignalManagedDropdownmenu(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _dropdown_menu_state_for_disabled = dropdown_menu_state.clone();
     view! {
         <div
             class=move || computed_class.get()

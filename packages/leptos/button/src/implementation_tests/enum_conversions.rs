@@ -1,7 +1,7 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod enum_conversions {
     use crate::default::{ButtonVariant, ButtonSize};
-    use leptos::prelude::*;
 
     // ===== ENUM CONVERSION TESTS =====
     // These tests focus on enum conversions, defaults, and basic trait implementations

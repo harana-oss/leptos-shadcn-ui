@@ -1,3 +1,4 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod tests {
     use crate::default::{AlertVariant, ALERT_CLASS, ALERT_TITLE_CLASS, ALERT_DESCRIPTION_CLASS};

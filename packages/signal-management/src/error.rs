@@ -222,8 +222,8 @@ impl SignalErrorContext {
         if let Some(cause) = &self.cause {
             output.push_str(&format!("Cause: {}\n", cause));
         }
-        if self.source.file.is_some() {
-            output.push_str(&format!("Source: {}\n", self.source.file.as_ref().unwrap()));
+        if let Some(file) = &self.source.file {
+            output.push_str(&format!("Source: {}\n", file));
             if let Some(line) = self.source.line {
                 output.push_str(&format!("  Line: {}\n", line));
             }

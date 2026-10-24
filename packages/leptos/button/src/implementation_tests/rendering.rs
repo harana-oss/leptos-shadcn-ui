@@ -1,3 +1,5 @@
+#![allow(clippy::unnecessary_literal_unwrap)] // tests exercise Option default handling on fixed inputs
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod rendering {
     use crate::default::{ButtonVariant, ButtonSize, BUTTON_CLASS};

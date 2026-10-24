@@ -6,6 +6,7 @@
 //! - CSS selectors do not conflict between components
 //! - Global state isolation for concurrent component instances
 //! - Component lifecycle management under concurrent operations
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 
 use leptos::prelude::*;
 use crate::*;

@@ -431,15 +431,13 @@ impl MemorySafetyTester {
 
     /// Run all memory safety tests for a component
     pub fn run_all_tests(&mut self, component_name: &str) -> Vec<MemorySafetyResult> {
-        let mut results = Vec::new();
-
-        results.push(self.test_component_lifecycle(component_name));
-        results.push(self.test_event_listener_cleanup(component_name));
-        results.push(self.test_signal_cleanup(component_name));
-        results.push(self.test_context_cleanup(component_name));
-        results.push(self.test_long_running_stability(component_name));
-
-        results
+        vec![
+            self.test_component_lifecycle(component_name),
+            self.test_event_listener_cleanup(component_name),
+            self.test_signal_cleanup(component_name),
+            self.test_context_cleanup(component_name),
+            self.test_long_running_stability(component_name),
+        ]
     }
 
     /// Get test result for a specific test

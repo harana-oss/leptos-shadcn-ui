@@ -1,6 +1,7 @@
 //! Accessibility Tests for Dialog Component
 //! 
 //! This module contains tests for accessibility features, ARIA attributes, and keyboard navigation.
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 
 #[cfg(test)]
 mod accessibility_tests {

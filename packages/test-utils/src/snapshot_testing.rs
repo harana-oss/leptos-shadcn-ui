@@ -79,8 +79,8 @@ impl SnapshotTester {
                     } else {
                         SnapshotTestResult::Failed {
                             differences: self.compute_differences(&snapshot, &existing_snapshot),
-                            actual: snapshot,
-                            expected: existing_snapshot,
+                            actual: Box::new(snapshot),
+                            expected: Box::new(existing_snapshot),
                         }
                     }
                 }
@@ -242,8 +242,8 @@ pub enum SnapshotTestResult {
     Updated,
     Failed {
         differences: Vec<SnapshotDifference>,
-        actual: Snapshot,
-        expected: Snapshot,
+        actual: Box<Snapshot>,
+        expected: Box<Snapshot>,
     },
     Error(String),
 }

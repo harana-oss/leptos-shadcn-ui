@@ -130,8 +130,8 @@ impl AdvancedMemoryManagement for SignalMemoryManager {
                 }
                 MemoryPressureLevel::Medium => {
                     // Perform moderate cleanup
-                    self.cleanup_old_groups(3600); // Cleanup groups older than 1 hour
-                    true
+                    // Cleanup groups older than 1 hour
+                    self.cleanup_old_groups(3600).is_ok()
                 }
                 _ => false,
             }
@@ -193,7 +193,7 @@ impl AdvancedMemoryManagement for SignalMemoryManager {
         let avg_group_size = (stats.active_signals + stats.active_memos) as f64 / stats.tracked_groups as f64;
         let fragmentation = 1.0 - (avg_group_size / 10.0).min(1.0);
         
-        fragmentation.max(0.0).min(1.0)
+        fragmentation.clamp(0.0, 1.0)
     }
     
     fn enable_adaptive_management(&mut self) -> bool {
@@ -281,10 +281,3 @@ impl SignalMemoryManager {
 }
 
 // Remove duplicate queue_size method - it's already implemented in batched_updates.rs
-
-impl MemoryLeakDetector {
-    /// Check if leak prevention is enabled
-    fn leak_prevention_enabled(&self) -> bool {
-        self.leak_prevention_enabled
-    }
-}

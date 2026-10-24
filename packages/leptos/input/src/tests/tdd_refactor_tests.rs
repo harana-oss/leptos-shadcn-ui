@@ -1,6 +1,7 @@
 //! TDD Pattern 3: REFACTOR - Enhanced validation system tests
 //! 
 //! This module contains tests for the enhanced validation system and component functionality.
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 
 #[cfg(test)]
 mod tdd_refactor_tests {

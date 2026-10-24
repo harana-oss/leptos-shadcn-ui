@@ -1,3 +1,4 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod variant_comparison_tests {
     use crate::default::{ButtonVariant as DefaultButtonVariant, ButtonSize as DefaultButtonSize};

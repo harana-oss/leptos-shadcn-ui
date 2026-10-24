@@ -122,23 +122,12 @@ pub struct GeneratedDocs {
 /// Main documentation generator
 pub struct DocGenerator {
     config: DocConfig,
-    handlebars: handlebars::Handlebars<'static>,
 }
 
 impl DocGenerator {
     /// Create a new documentation generator
     pub fn new(config: DocConfig) -> Result<Self, DocError> {
-        let handlebars = handlebars::Handlebars::new();
-        
-        // Register built-in helpers
-        // TODO: Implement template helpers
-        // handlebars.register_helper("format_code", Box::new(templates::format_code_helper));
-        // handlebars.register_helper("markdown", Box::new(templates::markdown_helper));
-        
-        Ok(Self {
-            config,
-            handlebars,
-        })
+        Ok(Self { config })
     }
 
     /// Generate complete documentation

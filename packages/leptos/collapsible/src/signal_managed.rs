@@ -5,23 +5,12 @@ use leptos_style::Style;
 use leptos_shadcn_signal_management::*;
 
 /// Signal-managed collapsible state
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub struct SignalManagedCollapsibleState {
     pub is_active: bool,
     pub is_hovered: bool,
     pub is_focused: bool,
     pub click_count: u32,
-}
-
-impl Default for SignalManagedCollapsibleState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
 }
 
 /// Signal-managed collapsible component
@@ -93,7 +82,6 @@ pub fn SignalManagedCollapsible(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let collapsible_state_for_disabled = collapsible_state.clone();
     view! {
         <div
             class=move || computed_class.get()

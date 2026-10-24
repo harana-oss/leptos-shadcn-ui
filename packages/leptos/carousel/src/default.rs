@@ -136,11 +136,13 @@ pub fn CarouselItem(
 #[component]
 pub fn CarouselPrevious(
     #[prop(into, optional)] class: MaybeProp<String>,
-    #[prop(into, optional)] _variant: MaybeProp<String>,
-    #[prop(into, optional)] _size: MaybeProp<String>,
+    #[prop(into, optional)] variant: MaybeProp<String>,
+    #[prop(into, optional)] size: MaybeProp<String>,
     #[prop(into, optional)] on_click: Option<Callback<()>>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
+    // Accepted for API compatibility; the nav buttons use a fixed outline style.
+    let _ = (variant, size);
     let orientation = expect_context::<Signal<CarouselOrientation>>();
     let api = expect_context::<CarouselApi>();
 
@@ -191,11 +193,13 @@ pub fn CarouselPrevious(
 #[component]
 pub fn CarouselNext(
     #[prop(into, optional)] class: MaybeProp<String>,
-    #[prop(into, optional)] _variant: MaybeProp<String>,
-    #[prop(into, optional)] _size: MaybeProp<String>,
+    #[prop(into, optional)] variant: MaybeProp<String>,
+    #[prop(into, optional)] size: MaybeProp<String>,
     #[prop(into, optional)] on_click: Option<Callback<()>>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
+    // Accepted for API compatibility; the nav buttons use a fixed outline style.
+    let _ = (variant, size);
     let orientation = expect_context::<Signal<CarouselOrientation>>();
     let api = expect_context::<CarouselApi>();
 

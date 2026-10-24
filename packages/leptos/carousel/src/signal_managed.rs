@@ -84,7 +84,6 @@ pub fn SignalManagedCarousel(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _carousel_state_for_disabled = carousel_state.clone();
     view! {
         <div
             class=move || computed_class.get()

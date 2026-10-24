@@ -1,3 +1,5 @@
+#![allow(clippy::unnecessary_literal_unwrap)] // tests exercise Option default handling on fixed inputs
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod tdd_green_tests {
     use crate::default::CHECKBOX_CLASS;

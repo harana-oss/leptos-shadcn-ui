@@ -84,7 +84,6 @@ pub fn SignalManagedContextmenu(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _context_menu_state_for_disabled = context_menu_state.clone();
     view! {
         <div
             class=move || computed_class.get()

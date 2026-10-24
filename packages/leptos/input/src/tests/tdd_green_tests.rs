@@ -2,6 +2,7 @@
 //! 
 //! This module contains tests that verify the basic validation state management
 //! and minimal implementation functionality.
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 
 #[cfg(test)]
 mod tdd_green_tests {

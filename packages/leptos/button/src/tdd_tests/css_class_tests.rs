@@ -1,6 +1,7 @@
 //! CSS Class Logic Tests for Button Component
 //! 
 //! This module tests the CSS class computation and styling logic.
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 
 #[cfg(test)]
 mod css_class_tests {

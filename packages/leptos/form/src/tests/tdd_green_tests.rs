@@ -1,10 +1,10 @@
 //! TDD Phase 2: GREEN - Enhanced tests for advanced functionality
 //! 
 //! This module contains tests that verify the enhanced functionality and advanced features.
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 
 #[cfg(test)]
 mod tdd_green_tests {
-    use leptos::prelude::*;
     use crate::default::{
         FormValidation, FormError, FormData
     };

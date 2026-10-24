@@ -13,7 +13,7 @@ fn main() {
         .responsive("sm", "text-sm")
         .state("hover", "hover:bg-blue-700");
     
-    println!("   Classes: {}", basic_classes.to_string());
+    println!("   Classes: {}", basic_classes);
 
     // 2. Color system usage
     println!("\n2. Color System:");
@@ -31,7 +31,7 @@ fn main() {
         .lg("text-lg")
         .xl("text-xl");
     
-    println!("   Responsive classes: {}", responsive.to_string());
+    println!("   Responsive classes: {}", responsive);
 
     // 4. Theme system
     println!("\n4. Theme System:");
@@ -67,9 +67,9 @@ fn main() {
     let spacing = patterns::spacing();
     let grid = patterns::grid();
     
-    println!("   Text sizing: {}", text_sizing.to_string());
-    println!("   Spacing: {}", spacing.to_string());
-    println!("   Grid: {}", grid.to_string());
+    println!("   Text sizing: {}", text_sizing);
+    println!("   Spacing: {}", spacing);
+    println!("   Grid: {}", grid);
 
     println!("\n✅ All examples completed successfully!");
     println!("\n🚀 Ready for Leptos integration!");

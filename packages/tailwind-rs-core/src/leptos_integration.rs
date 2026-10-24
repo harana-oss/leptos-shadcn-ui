@@ -200,30 +200,15 @@ impl ViewportSignal {
     pub fn with_viewport(initial_viewport: Viewport) -> Self {
         let (viewport, set_viewport) = signal(initial_viewport);
 
-        let breakpoint = Memo::new({
-            let viewport = viewport;
-            move |_| viewport.get().breakpoint()
-        });
+        let breakpoint = Memo::new(move |_| viewport.get().breakpoint());
 
-        let is_mobile = Memo::new({
-            let viewport = viewport;
-            move |_| viewport.get().is_mobile()
-        });
+        let is_mobile = Memo::new(move |_| viewport.get().is_mobile());
 
-        let is_tablet = Memo::new({
-            let viewport = viewport;
-            move |_| viewport.get().is_tablet()
-        });
+        let is_tablet = Memo::new(move |_| viewport.get().is_tablet());
 
-        let is_desktop = Memo::new({
-            let viewport = viewport;
-            move |_| viewport.get().is_desktop()
-        });
+        let is_desktop = Memo::new(move |_| viewport.get().is_desktop());
 
-        let orientation = Memo::new({
-            let viewport = viewport;
-            move |_| viewport.get().orientation
-        });
+        let orientation = Memo::new(move |_| viewport.get().orientation);
 
         Self {
             viewport,

@@ -21,7 +21,6 @@ pub struct ComponentMetadata {
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum ComponentStatus {
     Complete,
-    Partial,
     Planned,
 }
 
@@ -29,7 +28,6 @@ impl ComponentStatus {
     pub fn as_str(&self) -> &'static str {
         match self {
             ComponentStatus::Complete => "Complete",
-            ComponentStatus::Partial => "Partial",
             ComponentStatus::Planned => "Planned",
         }
     }
@@ -37,7 +35,6 @@ impl ComponentStatus {
     pub fn badge_class(&self) -> &'static str {
         match self {
             ComponentStatus::Complete => "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-            ComponentStatus::Partial => "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
             ComponentStatus::Planned => "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200",
         }
     }
@@ -451,7 +448,9 @@ fn save_favorites(favorites: &[String]) {
     if let Some(window) = web_sys::window() {
         if let Ok(Some(storage)) = window.local_storage() {
             if let Ok(favorites_str) = serde_json::to_string(favorites) {
-                let _ = storage.set(FAVORITES_KEY, &favorites_str);
+                if storage.set(FAVORITES_KEY, &favorites_str).is_err() {
+                    leptos::logging::warn!("Failed to save favorites to localStorage");
+                }
             }
         }
     }
@@ -468,7 +467,7 @@ pub fn ComponentBrowser() -> impl IntoView {
 
     // Save favorites to localStorage whenever they change
     let favorites_for_effect = favorites;
-    create_effect(move |_| {
+    Effect::new(move |_| {
         let favs = favorites_for_effect.get();
         save_favorites(&favs);
     });

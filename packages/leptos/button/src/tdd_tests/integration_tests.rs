@@ -1,6 +1,7 @@
 //! Integration Tests for Button Component
 //! 
 //! This module tests complex scenarios and integration with other components.
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 
 #[cfg(test)]
 mod integration_tests {

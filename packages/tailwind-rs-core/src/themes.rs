@@ -234,8 +234,10 @@ impl Default for Theme {
     }
 }
 
+pub use presets as themes;
+
 /// Predefined themes for common use cases.
-pub mod themes {
+pub mod presets {
     use super::*;
 
     /// Default theme with blue primary color.

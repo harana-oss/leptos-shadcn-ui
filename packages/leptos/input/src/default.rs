@@ -26,9 +26,6 @@ pub fn Input(
     let (_is_validating, _set_is_validating) = signal(false);
 
     let handle_input = {
-        let on_change = on_change;
-        let set_validation_result = set_validation_result;
-        let _set_is_validating = _set_is_validating;
         
         move |event: Event| {
             if let Some(callback) = &on_change {

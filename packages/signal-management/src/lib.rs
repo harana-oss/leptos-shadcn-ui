@@ -5,6 +5,9 @@
 //! This crate provides utilities for managing signal lifecycles, implementing batched updates,
 //! and ensuring proper memory management in Leptos applications.
 
+// SignalManagementError is public API; boxing its context would be a breaking change.
+#![allow(clippy::result_large_err)]
+
 pub mod lifecycle;
 pub mod batched_updates;
 pub mod memory_management;
@@ -19,7 +22,7 @@ pub use error::*;
 pub use advanced_memory::*;
 pub use component_migration::*;
 
-/// Re-export commonly used types for convenience
+// Re-export commonly used types for convenience
 // Note: We don't re-export leptos::prelude::* to avoid conflicts with standard Leptos types
 
 // Include test modules

@@ -23,7 +23,7 @@ pub fn EnhancedButton(
             class=classes.get()
             disabled=disabled
         >
-            {children.map(|c| c()).unwrap_or_else(|| "Click me".into())}
+            {children.map(|c| c()).unwrap_or_else(|| "Click me".into_any())}
         </button>
     }
 }
@@ -99,7 +99,7 @@ pub fn ResponsiveCard(
         .lg("p-8")
         .xl("p-10");
 
-    let card_classes = format!("rounded-lg border bg-card text-card-foreground shadow-sm {}", responsive_classes.to_string());
+    let card_classes = format!("rounded-lg border bg-card text-card-foreground shadow-sm {}", responsive_classes);
 
     view! {
         <div class=card_classes>
@@ -109,7 +109,7 @@ pub fn ResponsiveCard(
                 </div>
             })}
             <div class="p-6 pt-0">
-                {children.map(|c| c()).unwrap_or_else(|| "Card content".into())}
+                {children.map(|c| c()).unwrap_or_else(|| "Card content".into_any())}
             </div>
         </div>
     }
@@ -121,12 +121,17 @@ pub fn ThemedComponent(
     #[prop(optional)] theme: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    // Create theme manager
-    let theme_manager = ReactiveThemeManager::new();
-    
+    // Create theme manager and apply the requested theme, if any
+    let mut theme_manager = ThemeManager::new();
+    if let Some(name) = theme.as_deref() {
+        if let Err(err) = theme_manager.switch_theme(name) {
+            leptos::logging::warn!("{err}");
+        }
+    }
+
     // Get theme classes
-    let primary_classes = theme_manager.get_classes_signal(&Variant::Primary, &Size::Md);
-    let secondary_classes = theme_manager.get_classes_signal(&Variant::Secondary, &Size::Md);
+    let primary_classes = theme_manager.get_classes(&Variant::Primary, &Size::Md);
+    let secondary_classes = theme_manager.get_classes(&Variant::Secondary, &Size::Md);
 
     view! {
         <div class="space-y-4">
@@ -136,7 +141,7 @@ pub fn ThemedComponent(
             <div class=secondary_classes>
                 "Secondary themed content"
             </div>
-            {children.map(|c| c()).unwrap_or_else(|| "Themed content".into())}
+            {children.map(|c| c()).unwrap_or_else(|| "Themed content".into_any())}
         </div>
     }
 }
@@ -145,22 +150,24 @@ pub fn ThemedComponent(
 #[component]
 pub fn ColorSystemComponent() -> impl IntoView {
     // Create reactive color system
-    let color_system = ReactiveColor::new(Color::Blue);
-    
-    // Get color signals
-    let background_signal = color_system.background_signal(600);
-    let text_signal = color_system.text_signal(900);
-    let hover_signal = color_system.hover_signal(700);
+    let color_system = ColorSignal::new(Color::Blue);
+    let color = color_system.color;
+
+    // Derive classes from the current color
+    let classes = move || {
+        let color = color.get();
+        format!("{} {} {}", color.background(600), color.text(900), color.hover(700))
+    };
 
     view! {
         <div class="space-y-4">
-            <div class=format!("{} {} {}", background_signal.get(), text_signal.get(), hover_signal.get())>
+            <div class=classes>
                 "Dynamic color system"
             </div>
             <button
                 on:click=move |_| {
                     // Switch to different color
-                    color_system.set_color.set(Color::Green);
+                    color_system.set_color(Color::Green);
                 }
             >
                 "Switch to Green"
@@ -172,11 +179,11 @@ pub fn ColorSystemComponent() -> impl IntoView {
 /// Example form component using tailwind-rs-core for validation styling.
 #[component]
 pub fn ValidatedForm() -> impl IntoView {
-    let (email, set_email) = create_signal(String::new());
-    let (is_valid, set_is_valid) = create_signal(false);
+    let (email, set_email) = signal(String::new());
+    let (is_valid, set_is_valid) = signal(false);
 
     // Create validation classes
-    let input_classes = create_memo(move |_| {
+    let input_classes = Memo::new(move |_| {
         if is_valid.get() {
             "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 border-green-500"
         } else {
@@ -233,7 +240,7 @@ pub fn ResponsiveGrid(
         .lg("grid-cols-3")
         .xl("grid-cols-4");
 
-    let container_classes = format!("grid gap-4 {}", grid_classes.to_string());
+    let container_classes = format!("grid gap-4 {}", grid_classes);
 
     view! {
         <div class=container_classes>
@@ -303,4 +310,9 @@ pub fn TailwindRsCoreDemo() -> impl IntoView {
             </section>
         </div>
     }
+}
+
+fn main() {
+    // Intended to be built for wasm32 and run in the browser.
+    leptos::mount::mount_to_body(TailwindRsCoreDemo);
 }

@@ -103,6 +103,10 @@
 //! }
 //! ```
 
+// Component crates each export `default`, `new_york` and `signal_managed` modules;
+// their items are re-exported here, and narrowing the globs would drop public items.
+#![allow(ambiguous_glob_reexports)]
+
 // Re-export all available components for easy access
 // Note: We re-export the main component from each package
 // Users can access sub-components directly from the individual packages if needed
@@ -264,16 +268,12 @@ pub use leptos_shadcn_tooltip::*;
 
 /// Convenience module for easy imports
 pub mod prelude {
-    //! Re-exports all available components and utilities
-    
     // Re-export all components from the main module
     pub use super::*;
 }
 
 /// WASM-specific utilities and helpers
 pub mod wasm_utils {
-    //! Utilities specifically designed for WASM environments
-
     use web_sys::*;
     
     /// Initialize WASM-specific features
@@ -305,8 +305,6 @@ pub mod wasm_utils {
 
 /// Bundle size optimization utilities
 pub mod bundle_utils {
-    //! Utilities for optimizing bundle size in WASM
-    
     use super::BundleInfo;
     
     /// Get bundle size information
@@ -319,18 +317,15 @@ pub mod bundle_utils {
     }
     
     /// Get list of enabled features
-    #[allow(unused_mut)]
     pub fn get_enabled_features() -> Vec<&'static str> {
         macro_rules! collect_features {
             ($($feat:literal),*) => {
-                {
-                    let mut features = Vec::new();
+                vec![
                     $(
                         #[cfg(feature = $feat)]
-                        features.push($feat);
+                        $feat,
                     )*
-                    features
-                }
+                ]
             };
         }
 

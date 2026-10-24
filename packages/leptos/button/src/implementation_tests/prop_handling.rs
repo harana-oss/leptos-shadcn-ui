@@ -1,3 +1,4 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod prop_handling {
     use crate::default::{ButtonChildProps, BUTTON_CLASS};

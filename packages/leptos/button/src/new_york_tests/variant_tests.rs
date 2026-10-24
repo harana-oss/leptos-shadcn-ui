@@ -1,7 +1,7 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod variant_tests {
     use crate::new_york::{ButtonVariant as ButtonVariantNewYork, ButtonSize as ButtonSizeNewYork};
-    use leptos::prelude::*;
 
     // ===== NEW YORK VARIANT TESTS =====
     // These tests focus on the New York theme variant implementation

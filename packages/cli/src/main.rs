@@ -4,7 +4,6 @@ use indicatif::{ProgressBar, ProgressStyle};
 use std::path::PathBuf;
 
 mod commands;
-mod utils;
 
 use commands::{add, init, validate, list};
 

@@ -1,7 +1,7 @@
-use std::path::PathBuf;
+use std::path::Path;
 
 /// Initialize a new project
-pub async fn init_project(path: &PathBuf, framework: &str, theme: &str) -> anyhow::Result<()> {
+pub async fn init_project(path: &Path, framework: &str, theme: &str) -> anyhow::Result<()> {
     // TODO: Implement project initialization logic
     // This would:
     // 1. Create project structure

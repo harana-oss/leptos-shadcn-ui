@@ -106,7 +106,6 @@ pub fn SignalManagedButton(
     // Create event handler with proper signal management
     let handle_click = {
         let button_state = button_state.clone();
-        let on_click = on_click;
         move |_event: leptos::ev::MouseEvent| {
             if !button_state.get().disabled && !button_state.get().loading {
                 // Update state atomically
@@ -127,13 +126,8 @@ pub fn SignalManagedButton(
                 });
                 
                 // Check memory pressure and perform cleanup if needed
-                if let Some(pressure) = memory_manager.detect_memory_pressure() {
-                    match pressure {
-                        MemoryPressureLevel::High | MemoryPressureLevel::Critical => {
-                            memory_manager.perform_automatic_cleanup();
-                        }
-                        _ => {}
-                    }
+                if let Some(MemoryPressureLevel::High | MemoryPressureLevel::Critical) = memory_manager.detect_memory_pressure() {
+                    memory_manager.perform_automatic_cleanup();
                 }
             }
         }
@@ -246,7 +240,6 @@ pub fn EnhancedButton(
     // Create event handler with performance monitoring
     let handle_click = {
         let button_state = button_state.clone();
-        let on_click = on_click;
         move |_event: leptos::ev::MouseEvent| {
             if !button_state.get().disabled && !button_state.get().loading {
                 // Update state atomically
@@ -266,13 +259,8 @@ pub fn EnhancedButton(
                 });
                 
                 // Monitor memory usage
-                if let Some(pressure) = memory_manager.detect_memory_pressure() {
-                    match pressure {
-                        MemoryPressureLevel::High | MemoryPressureLevel::Critical => {
-                            memory_manager.perform_automatic_cleanup();
-                        }
-                        _ => {}
-                    }
+                if let Some(MemoryPressureLevel::High | MemoryPressureLevel::Critical) = memory_manager.detect_memory_pressure() {
+                    memory_manager.perform_automatic_cleanup();
                 }
             }
         }

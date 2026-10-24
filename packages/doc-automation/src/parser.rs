@@ -94,11 +94,7 @@ fn extract_doc_comment(attrs: &[Attribute]) -> Option<String> {
                     if let syn::Lit::Str(lit_str) = &expr_lit.lit {
                         let line = lit_str.value();
                         // Remove leading space if present
-                        let trimmed = if line.starts_with(' ') {
-                            &line[1..]
-                        } else {
-                            &line
-                        };
+                        let trimmed = line.strip_prefix(' ').unwrap_or(&line);
                         doc_lines.push(trimmed.to_string());
                     }
                 }

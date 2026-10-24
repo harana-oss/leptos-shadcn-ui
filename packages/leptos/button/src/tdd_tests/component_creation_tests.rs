@@ -1,6 +1,7 @@
 //! Component Creation & Props Tests for Button Component
 //! 
 //! This module tests the basic creation and configuration of Button components.
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 
 #[cfg(test)]
 mod component_creation_tests {

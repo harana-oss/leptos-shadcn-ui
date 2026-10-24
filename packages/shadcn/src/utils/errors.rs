@@ -289,9 +289,9 @@ impl ErrorType {
     }
 
     /// Create an enhanced error context
-    pub fn to_error_context(&self, custom_message: Option<String>) -> CliErrorContext {
+    pub fn to_error_context(self, custom_message: Option<String>) -> CliErrorContext {
         let message = custom_message.unwrap_or_else(|| self.description().to_string());
-        let mut context = CliErrorContext::new(*self, message);
+        let mut context = CliErrorContext::new(self, message);
 
         // Set severity based on error type
         let severity = match self {

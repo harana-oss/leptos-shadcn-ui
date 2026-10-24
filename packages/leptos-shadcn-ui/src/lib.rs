@@ -46,6 +46,10 @@
 //!
 //! MIT License - see the [LICENSE](../LICENSE) file for details.
 
+// Several component crates export a `signal_managed` module; their items are re-exported
+// here, and narrowing the globs would drop public items.
+#![allow(ambiguous_glob_reexports)]
+
 // Re-export all components (conditionally based on features)
 
 // Components added to track current shadcn/ui
@@ -112,6 +116,9 @@ pub use leptos_shadcn_alert::default::*;
 pub use leptos_shadcn_badge::default::*;
 #[cfg(feature = "skeleton")]
 pub use leptos_shadcn_skeleton::default::*;
+// Sidebar also exports a SKELETON_CLASS; the Skeleton component's constant takes precedence.
+#[cfg(feature = "skeleton")]
+pub use leptos_shadcn_skeleton::default::SKELETON_CLASS;
 #[cfg(feature = "progress")]
 pub use leptos_shadcn_progress::default::*;
 #[cfg(feature = "toast")]

@@ -84,7 +84,6 @@ pub fn SignalManagedDialog(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _dialog_state_for_disabled = dialog_state.clone();
     view! {
         <div
             class=move || computed_class.get()

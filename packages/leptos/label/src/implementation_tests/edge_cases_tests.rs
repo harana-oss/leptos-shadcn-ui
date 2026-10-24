@@ -3,13 +3,11 @@
 //! This module contains tests for edge cases, performance characteristics,
 //! memory management, and validation logic for the Label component.
 
-use crate::default::LABEL_CLASS;
-use leptos::prelude::*;
-use leptos_style::Style;
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::default::LABEL_CLASS;
+    use leptos::prelude::*;
 
     #[test]
     fn test_label_edge_cases() {
@@ -73,14 +71,14 @@ mod tests {
         let (text, set_text) = signal("Label text".to_string());
         
         // Test initial state
-        assert_eq!(is_visible.get(), true);
+        assert!(is_visible.get());
         assert_eq!(text.get(), "Label text");
         
         // Test state updates
         set_is_visible.set(false);
         set_text.set("Updated text".to_string());
         
-        assert_eq!(is_visible.get(), false);
+        assert!(!is_visible.get());
         assert_eq!(text.get(), "Updated text");
     }
 }

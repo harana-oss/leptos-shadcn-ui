@@ -32,7 +32,7 @@ impl CalendarDate {
 // Pure calendar math so the component also renders during SSR and in
 // native tests, where `js_sys::Date` is unavailable.
 fn is_leap_year(year: u32) -> bool {
-    (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
+    (year.is_multiple_of(4) && !year.is_multiple_of(100)) || year.is_multiple_of(400)
 }
 
 pub(crate) fn get_days_in_month(year: u32, month: u32) -> u32 {
@@ -94,19 +94,18 @@ pub fn Calendar(
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
+    // `mode` and `initial_focus` are accepted for API compatibility; only
+    // single-date selection is implemented.
+    let _ = (mode, initial_focus);
     let today = today();
     
     let current_month = RwSignal::new((today.year, today.month));
     let disabled_dates = disabled;
     
-    let handle_day_click = {
-        let selected = selected.clone();
-        let on_select = on_select.clone();
-        move |date: CalendarDate| {
-            selected.set(Some(date.clone()));
-            if let Some(callback) = &on_select {
-                callback.run(date);
-            }
+    let handle_day_click = move |date: CalendarDate| {
+        selected.set(Some(date.clone()));
+        if let Some(callback) = &on_select {
+            callback.run(date);
         }
     };
     
@@ -224,7 +223,7 @@ pub fn Calendar(
                                 }.into_any());
                                 
                                 if current_week.len() == 7 {
-                                    let row_items = current_week.drain(..).collect::<Vec<_>>();
+                                    let row_items = std::mem::take(&mut current_week);
                                     weeks.push(view! {
                                         <div class=CALENDAR_ROW_CLASS>
                                             {row_items}
@@ -257,6 +256,7 @@ pub fn Calendar(
                     </div>
                 </div>
             </div>
+            {children.map(|c| c())}
         </div>
     }
 }

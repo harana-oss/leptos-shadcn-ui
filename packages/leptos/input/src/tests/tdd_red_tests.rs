@@ -2,6 +2,7 @@
 //! 
 //! This module contains the initial failing tests that define the desired behavior
 //! before implementing the actual functionality.
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 
 #[cfg(test)]
 mod tdd_red_tests {
@@ -26,7 +27,10 @@ mod tdd_red_tests {
     #[test]
     fn test_input_validation_required_field() {
         // RED: This test should fail initially - we need to add validation support
-        let _validation_state = RwSignal::new(ValidationState::new());
+        let validation_state = RwSignal::new(ValidationState::new());
+        let initial = validation_state.get();
+        assert!(initial.is_valid, "New validation state should start valid");
+        assert!(initial.errors.is_empty(), "New validation state should have no errors");
         let is_required = Signal::derive(|| true);
         let value = RwSignal::new("".to_string());
         

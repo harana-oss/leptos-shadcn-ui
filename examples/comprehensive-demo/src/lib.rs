@@ -20,7 +20,9 @@ pub fn main() {
             verbose: true,
             ..Default::default()
         };
-        let _ = init_wasm_with_config(config);
+        if let Err(err) = init_wasm_with_config(config) {
+            leptos::logging::error!("WASM initialization failed: {err}");
+        }
     }
 
     mount_to_body(|| view! { <App /> })
@@ -158,7 +160,7 @@ pub fn App() -> impl IntoView {
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-4">
                                 <Button variant=ButtonVariant::Ghost on:click=toggle_sidebar class="p-2 hover:bg-accent transition-colors">
-                                    <span class="text-lg">{move || if sidebar_open.get() { "☰" } else { "☰" }}</span>
+                                    <span class="text-lg">"☰"</span>
                                 </Button>
                                 <h1 class="text-2xl font-semibold">"Dashboard"</h1>
                             </div>

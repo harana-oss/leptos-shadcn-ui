@@ -2393,6 +2393,7 @@ dependencies = [
 name = "leptos-shadcn-button"
 version = "0.9.1"
 dependencies = [
+ "criterion",
  "getrandom 0.4.3",
  "js-sys",
  "leptos",
@@ -2670,6 +2671,7 @@ dependencies = [
  "leptos-shadcn-drawer 0.9.1",
  "leptos-shadcn-input 0.9.1",
  "leptos-shadcn-select 0.9.1",
+ "leptos-shadcn-ui-wasm",
  "leptos_meta",
  "log",
  "tailwind-rs-core",
@@ -5997,6 +5999,7 @@ dependencies = [
  "leptos-shadcn-button 0.9.1",
  "leptos-shadcn-card 0.9.1",
  "leptos-shadcn-input 0.9.1",
+ "leptos-shadcn-ui-wasm",
  "leptos_meta",
  "leptos_router",
  "serde",

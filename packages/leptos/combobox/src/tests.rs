@@ -1,7 +1,7 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod tests {
     
-    use leptos::prelude::*;
 
     #[test]
     fn test_combobox_component_exists() {

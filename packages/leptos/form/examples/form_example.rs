@@ -31,14 +31,14 @@ pub fn FormExample() -> impl IntoView {
             }
         }
         
-        if let Some(name) = data.get("name") {
-            if name.is_empty() {
-                new_errors.push(("name".to_string(), "Name is required".to_string()));
-            }
+        if let Some(name) = data.get("name")
+            && name.is_empty()
+        {
+            new_errors.push(("name".to_string(), "Name is required".to_string()));
         }
         
         if new_errors.is_empty() {
-            log::info!("Form submitted successfully!");
+            leptos::logging::log!("Form submitted successfully!");
         }
 
         set_errors.set(new_errors);

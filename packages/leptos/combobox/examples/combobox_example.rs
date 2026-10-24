@@ -21,7 +21,7 @@ pub fn ComboboxExample() -> impl IntoView {
     
     let handle_change = Callback::new(move |value: String| {
         set_selected_value.set(value.clone());
-        log::info!("Selected value: {}", value);
+        leptos::logging::log!("Selected value: {}", value);
     });
     
     view! {

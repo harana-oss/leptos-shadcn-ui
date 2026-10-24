@@ -97,7 +97,6 @@ pub fn Button(
     #[prop(into, optional)] touch_friendly: Signal<bool>,
     ) -> impl IntoView {
     let handle_click = {
-        let on_click = on_click;
         move |_: MouseEvent| {
             if let Some(callback) = &on_click {
                 callback.run(());
@@ -106,7 +105,6 @@ pub fn Button(
     };
 
     let handle_keydown = {
-        let on_click = on_click;
         move |event: KeyboardEvent| {
             if event.key() == "Enter" || event.key() == " " {
                 event.prevent_default();
@@ -181,7 +179,6 @@ pub fn Button(
                             <span class="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" aria-hidden="true"></span>
                         }.into_any()
                     } else {
-                        let _: () = view! {};
                         ().into_any()
                     }}
                     {children.map(|c| c())}

@@ -68,6 +68,15 @@ pub use responsive::*;
 pub use themes::*;
 pub use validation::*;
 
+/// Utility functions for colors and responsive design.
+///
+/// Merges `colors::utils` and `responsive::utils`, whose names would otherwise
+/// collide through the glob re-exports above.
+pub mod utils {
+    pub use crate::colors::utils::*;
+    pub use crate::responsive::utils::*;
+}
+
 // Re-export specific items to avoid conflicts
 pub use colors::utils as color_utils;
 pub use responsive::utils as responsive_utils;

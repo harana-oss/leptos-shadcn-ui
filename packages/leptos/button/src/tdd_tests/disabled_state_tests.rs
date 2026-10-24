@@ -1,6 +1,7 @@
 //! Disabled State Logic Tests for Button Component
 //! 
 //! This module tests the disabled state functionality and click prevention.
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 
 #[cfg(test)]
 mod disabled_state_tests {

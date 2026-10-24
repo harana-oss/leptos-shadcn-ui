@@ -75,7 +75,6 @@ pub fn SignalManagedInput(
     // Create event handler with proper signal management
     let handle_input = {
         let input_state = input_state.clone();
-        let on_change = on_change;
         move |event: Event| {
             if let Some(callback) = &on_change {
                 let target = event.target().unwrap();
@@ -105,13 +104,8 @@ pub fn SignalManagedInput(
                 }
                 
                 // Check memory pressure and perform cleanup if needed
-                if let Some(pressure) = memory_manager.detect_memory_pressure() {
-                    match pressure {
-                        MemoryPressureLevel::High | MemoryPressureLevel::Critical => {
-                            memory_manager.perform_automatic_cleanup();
-                        }
-                        _ => {}
-                    }
+                if let Some(MemoryPressureLevel::High | MemoryPressureLevel::Critical) = memory_manager.detect_memory_pressure() {
+                    memory_manager.perform_automatic_cleanup();
                 }
             }
         }
@@ -160,7 +154,6 @@ pub fn SignalManagedInput(
                     </div>
                 }.into_any()
             } else {
-                let _: () = view! {};
                 ().into_any()
             }}
             
