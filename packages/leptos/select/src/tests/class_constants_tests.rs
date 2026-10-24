@@ -1,7 +1,5 @@
 #[cfg(test)]
 mod class_constants_tests {
-    use leptos::prelude::*;
-    use leptos_style::Style;
 
     #[test]
     fn test_select_class_constants() {
@@ -115,15 +113,18 @@ mod class_constants_tests {
         let base_classes = "flex h-10 w-full items-center justify-between";
         let additional_classes = "custom-class another-class";
         let combined = format!("{} {}", base_classes, additional_classes);
-        
+
         assert!(combined.contains("flex"));
         assert!(combined.contains("h-10"));
         assert!(combined.contains("w-full"));
         assert!(combined.contains("custom-class"));
         assert!(combined.contains("another-class"));
-        
+
         // Test class merging logic
         let merged = format!("{} {}", base_classes, additional_classes);
-        assert_eq!(merged, "flex h-10 w-full items-center justify-between custom-class another-class");
+        assert_eq!(
+            merged,
+            "flex h-10 w-full items-center justify-between custom-class another-class"
+        );
     }
 }

@@ -143,17 +143,18 @@ impl Responsive {
     }
 
     /// Generate the final responsive class string.
+    #[allow(clippy::inherent_to_string)]
     pub fn to_string(&self) -> String {
         let mut classes = Vec::new();
-        
+
         // Sort breakpoints by min-width to ensure proper order
         let mut sorted_breakpoints: Vec<_> = self.breakpoints.iter().collect();
         sorted_breakpoints.sort_by_key(|(bp, _)| bp.min_width());
-        
+
         for (breakpoint, class) in sorted_breakpoints {
             classes.push(format!("{}:{}", breakpoint.prefix(), class));
         }
-        
+
         classes.join(" ")
     }
 
@@ -242,11 +243,7 @@ pub mod patterns {
 
     /// Mobile-first spacing pattern.
     pub fn spacing() -> Responsive {
-        Responsive::new()
-            .sm("p-2")
-            .md("p-4")
-            .lg("p-6")
-            .xl("p-8")
+        Responsive::new().sm("p-2").md("p-4").lg("p-6").xl("p-8")
     }
 
     /// Mobile-first grid pattern.
@@ -260,16 +257,12 @@ pub mod patterns {
 
     /// Mobile-first flex pattern.
     pub fn flex() -> Responsive {
-        Responsive::new()
-            .sm("flex-col")
-            .md("flex-row")
+        Responsive::new().sm("flex-col").md("flex-row")
     }
 
     /// Mobile-first visibility pattern.
     pub fn visibility() -> Responsive {
-        Responsive::new()
-            .sm("hidden")
-            .md("block")
+        Responsive::new().sm("hidden").md("block")
     }
 }
 
@@ -335,7 +328,7 @@ pub mod utils {
 
     /// Check if the screen is in tablet range.
     pub fn is_tablet(screen_width: u32) -> bool {
-        screen_width >= 768 && screen_width < 1024
+        (768..1024).contains(&screen_width)
     }
 
     /// Check if the screen is in desktop range.
@@ -676,11 +669,7 @@ mod tests {
 
     #[test]
     fn test_responsive_builder() {
-        let responsive = responsive()
-            .sm("p-2")
-            .md("p-4")
-            .lg("p-6")
-            .build();
+        let responsive = responsive().sm("p-2").md("p-4").lg("p-6").build();
 
         let result = responsive.to_string();
         assert!(result.contains("sm:p-2"));
@@ -690,13 +679,9 @@ mod tests {
 
     #[test]
     fn test_responsive_merge() {
-        let responsive1 = Responsive::new()
-            .sm("text-sm")
-            .md("text-base");
+        let responsive1 = Responsive::new().sm("text-sm").md("text-base");
 
-        let responsive2 = Responsive::new()
-            .lg("text-lg")
-            .xl("text-xl");
+        let responsive2 = Responsive::new().lg("text-lg").xl("text-xl");
 
         let merged = responsive1.merge(responsive2);
         let result = merged.to_string();
@@ -769,22 +754,12 @@ mod tests {
 
     #[test]
     fn test_viewport_touch_target() {
-        let mobile = Viewport::with_device_info(
-            375,
-            667,
-            2.0,
-            HoverCapability::None,
-            PointerType::Coarse,
-        );
+        let mobile =
+            Viewport::with_device_info(375, 667, 2.0, HoverCapability::None, PointerType::Coarse);
         assert_eq!(mobile.min_touch_target(), 44);
 
-        let desktop = Viewport::with_device_info(
-            1920,
-            1080,
-            1.0,
-            HoverCapability::Hover,
-            PointerType::Fine,
-        );
+        let desktop =
+            Viewport::with_device_info(1920, 1080, 1.0, HoverCapability::Hover, PointerType::Fine);
         assert_eq!(desktop.min_touch_target(), 24);
     }
 

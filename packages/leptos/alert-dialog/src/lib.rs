@@ -1,27 +1,22 @@
 //! Leptos port of shadcn/ui alert dialog
 
-pub mod signal_managed;
 pub mod default;
-pub mod new_york;
 pub mod default_components;
+pub mod new_york;
+pub mod signal_managed;
 
 pub use default::{
-    AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
-    AlertDialogFooter, AlertDialogTitle, AlertDialogDescription,
-    AlertDialogAction, AlertDialogCancel, AlertDialogOverlay,
+    AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription,
+    AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, AlertDialogTitle, AlertDialogTrigger,
 };
 
 pub use new_york::{
-    AlertDialog as AlertDialogNewYork,
-    AlertDialogTrigger as AlertDialogTriggerNewYork,
-    AlertDialogContent as AlertDialogContentNewYork,
-    AlertDialogHeader as AlertDialogHeaderNewYork,
-    AlertDialogFooter as AlertDialogFooterNewYork,
-    AlertDialogTitle as AlertDialogTitleNewYork,
+    AlertDialog as AlertDialogNewYork, AlertDialogAction as AlertDialogActionNewYork,
+    AlertDialogCancel as AlertDialogCancelNewYork, AlertDialogContent as AlertDialogContentNewYork,
     AlertDialogDescription as AlertDialogDescriptionNewYork,
-    AlertDialogAction as AlertDialogActionNewYork,
-    AlertDialogCancel as AlertDialogCancelNewYork,
-    AlertDialogOverlay as AlertDialogOverlayNewYork,
+    AlertDialogFooter as AlertDialogFooterNewYork, AlertDialogHeader as AlertDialogHeaderNewYork,
+    AlertDialogOverlay as AlertDialogOverlayNewYork, AlertDialogTitle as AlertDialogTitleNewYork,
+    AlertDialogTrigger as AlertDialogTriggerNewYork,
 };
 
 mod tests;

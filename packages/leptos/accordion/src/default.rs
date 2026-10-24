@@ -1,29 +1,19 @@
 use leptos::prelude::*;
-use web_sys::MouseEvent;
 use web_sys::KeyboardEvent;
+use web_sys::MouseEvent;
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub enum AccordionType {
+    #[default]
     Single,
     Multiple,
 }
 
-impl Default for AccordionType {
-    fn default() -> Self {
-        AccordionType::Single
-    }
-}
-
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub enum AccordionOrientation {
+    #[default]
     Vertical,
     Horizontal,
-}
-
-impl Default for AccordionOrientation {
-    fn default() -> Self {
-        AccordionOrientation::Vertical
-    }
 }
 
 /// Context newtypes: each boolean signal gets its own type so that
@@ -99,9 +89,8 @@ pub fn Accordion(
     provide_context(value);
     provide_context(on_value_change);
 
-    let computed_class = Signal::derive(move || {
-        format!("w-full {}", class.get().unwrap_or_default())
-    });
+    let computed_class =
+        Signal::derive(move || format!("w-full {}", class.get().unwrap_or_default()));
 
     view! {
         <div
@@ -125,7 +114,7 @@ pub fn AccordionItem(
 ) -> impl IntoView {
     let accordion_disabled = expect_context::<AccordionDisabled>().0;
     let accordion_value = expect_context::<RwSignal<Vec<String>>>();
-    
+
     let is_disabled = Signal::derive(move || disabled.get() || accordion_disabled.get());
     let value_clone = value.clone();
     let is_expanded = Signal::derive(move || accordion_value.get().contains(&value_clone));
@@ -134,9 +123,8 @@ pub fn AccordionItem(
     provide_context(AccordionItemDisabled(is_disabled));
     provide_context(AccordionItemExpanded(is_expanded));
 
-    let computed_class = Signal::derive(move || {
-        format!("border-b {}", class.get().unwrap_or_default())
-    });
+    let computed_class =
+        Signal::derive(move || format!("border-b {}", class.get().unwrap_or_default()));
 
     view! {
         <div
@@ -165,8 +153,6 @@ pub fn AccordionTrigger(
 
     // Toggle logic extracted so it can be used by both click and keydown without moving closures
     let toggle = {
-        let accordion_value = accordion_value.clone();
-        let on_value_change = on_value_change.clone();
         let item_value = item_value.clone();
         move || {
             if is_disabled.get() {
@@ -197,14 +183,12 @@ pub fn AccordionTrigger(
 
     let handle_keydown = {
         let toggle = toggle.clone();
-        move |e: KeyboardEvent| {
-            match e.key().as_str() {
-                "Enter" | " " => {
-                    e.prevent_default();
-                    toggle();
-                }
-                _ => {}
+        move |e: KeyboardEvent| match e.key().as_str() {
+            "Enter" | " " => {
+                e.prevent_default();
+                toggle();
             }
+            _ => {}
         }
     };
 
@@ -224,7 +208,7 @@ pub fn AccordionTrigger(
                 }
 
                 let mut current_value = accordion_value.get();
-                
+
                 match accordion_type.get() {
                     AccordionType::Single => {
                         if current_value.contains(&item_value) {
@@ -254,7 +238,8 @@ pub fn AccordionTrigger(
             disabled: is_disabled.get(),
             expanded: is_expanded.get(),
         };
-        as_child.run(child_props).into_any()
+        as_child.run(child_props);
+        ().into_any()
     } else {
         view! {
             <button
@@ -278,7 +263,8 @@ pub fn AccordionTrigger(
                     <path d="m6 9 6 6 6-6"/>
                 </svg>
             </button>
-        }.into_any()
+        }
+        .into_any()
     }
 }
 
@@ -342,20 +328,32 @@ mod context_type_regression_tests {
     fn collapsible_with_enabled_item_collapses() {
         let cur = vec!["a".to_string()];
         assert!(compute_toggle(&AccordionType::Single, true, false, &cur, "a").is_empty());
-        assert_eq!(compute_toggle(&AccordionType::Single, false, false, &cur, "a"), cur);
+        assert_eq!(
+            compute_toggle(&AccordionType::Single, false, false, &cur, "a"),
+            cur
+        );
     }
 
     #[test]
     fn disabled_blocks_toggle_regardless_of_collapsible() {
         let cur = vec!["a".to_string()];
-        assert_eq!(compute_toggle(&AccordionType::Single, true, true, &cur, "a"), cur);
+        assert_eq!(
+            compute_toggle(&AccordionType::Single, true, true, &cur, "a"),
+            cur
+        );
         assert!(compute_toggle(&AccordionType::Multiple, false, true, &[], "b").is_empty());
     }
 
     #[test]
     fn single_and_multiple_open() {
         let cur = vec!["a".to_string()];
-        assert_eq!(compute_toggle(&AccordionType::Single, false, false, &cur, "b"), vec!["b"]);
-        assert_eq!(compute_toggle(&AccordionType::Multiple, false, false, &cur, "b"), vec!["a", "b"]);
+        assert_eq!(
+            compute_toggle(&AccordionType::Single, false, false, &cur, "b"),
+            vec!["b"]
+        );
+        assert_eq!(
+            compute_toggle(&AccordionType::Multiple, false, false, &cur, "b"),
+            vec!["a", "b"]
+        );
     }
 }

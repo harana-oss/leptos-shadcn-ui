@@ -1,6 +1,6 @@
+use crate::*;
 use leptos::prelude::*;
 use leptos_style::Style;
-use crate::*;
 
 #[cfg(test)]
 mod tdd_tests {
@@ -383,7 +383,7 @@ mod tdd_tests {
     fn test_sheet_custom_styles() {
         let style = RwSignal::new(Style::default());
         let _sheet_view = view! {
-            <Sheet 
+            <Sheet
                 class=MaybeProp::from("custom-sheet-style")
                 style=style
             >
@@ -396,7 +396,7 @@ mod tdd_tests {
     fn test_sheet_combined_props() {
         let style = RwSignal::new(Style::default());
         let _sheet_view = view! {
-            <Sheet 
+            <Sheet
                 class=MaybeProp::from("combined-props-sheet")
                 id=MaybeProp::from("combined-sheet")
                 style=style

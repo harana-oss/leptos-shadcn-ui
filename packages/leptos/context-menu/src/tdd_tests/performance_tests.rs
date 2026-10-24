@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod performance_tests {
-    use super::*;
+
     use crate::*;
     use leptos::prelude::*;
 
@@ -13,7 +13,7 @@ mod performance_tests {
         let _owner = Owner::new();
         _owner.set();
         let start = std::time::Instant::now();
-        
+
         for _ in 0..100 {
             let _context_menu_view = view! {
                 <ContextMenu>
@@ -27,7 +27,7 @@ mod performance_tests {
                 </ContextMenu>
             };
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 100);
     }
@@ -38,7 +38,7 @@ mod performance_tests {
         let _owner = Owner::new();
         _owner.set();
         let start = std::time::Instant::now();
-        
+
         let items = StoredValue::new(Vec::from_iter(1..=100));
         let _context_menu_view = view! {
             <ContextMenu>
@@ -52,7 +52,7 @@ mod performance_tests {
                 </ContextMenuContent>
             </ContextMenu>
         };
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 50);
     }
@@ -73,7 +73,7 @@ mod performance_tests {
                 </ContextMenuContent>
             </ContextMenu>
         };
-        
+
         let size = std::mem::size_of::<usize>();
         assert!(size < 1024);
     }
@@ -95,13 +95,13 @@ mod performance_tests {
                 </ContextMenuContent>
             </ContextMenu>
         };
-        
+
         let start = std::time::Instant::now();
-        
+
         for i in 0..100 {
             open.set(i % 2 == 0);
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 10);
     }
@@ -125,13 +125,13 @@ mod performance_tests {
                 </ContextMenuContent>
             </ContextMenu>
         };
-        
+
         let start = std::time::Instant::now();
-        
+
         for _ in 0..100 {
             on_open_change.run(true);
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 10);
         assert_eq!(call_count.get(), 100);
@@ -155,15 +155,15 @@ mod performance_tests {
                 </ContextMenuContent>
             </ContextMenu>
         };
-        
+
         let start = std::time::Instant::now();
-        
+
         for i in 0..100 {
             items.update(|items| {
                 items.push(Box::leak(format!("Item {}", i + 3).into_boxed_str()));
             });
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 50);
     }
@@ -174,8 +174,11 @@ mod performance_tests {
         let _owner = Owner::new();
         _owner.set();
         let open = RwSignal::new(false);
-        let computed_class = Signal::derive(move || {
-            format!("context-menu-{}", if open.get() { "open" } else { "closed" })
+        let _computed_class = Signal::derive(move || {
+            format!(
+                "context-menu-{}",
+                if open.get() { "open" } else { "closed" }
+            )
         });
         let _context_menu_view = view! {
             <ContextMenu>
@@ -187,13 +190,13 @@ mod performance_tests {
                 </ContextMenuContent>
             </ContextMenu>
         };
-        
+
         let start = std::time::Instant::now();
-        
+
         for i in 0..100 {
             open.set(i % 2 == 0);
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 20);
     }
@@ -204,8 +207,11 @@ mod performance_tests {
         let _owner = Owner::new();
         _owner.set();
         let open = RwSignal::new(false);
-        let memoized_class = Memo::new(move |_| {
-            format!("context-menu-{}", if open.get() { "open" } else { "closed" })
+        let _memoized_class = Memo::new(move |_| {
+            format!(
+                "context-menu-{}",
+                if open.get() { "open" } else { "closed" }
+            )
         });
         let _context_menu_view = view! {
             <ContextMenu>
@@ -217,13 +223,13 @@ mod performance_tests {
                 </ContextMenuContent>
             </ContextMenu>
         };
-        
+
         let start = std::time::Instant::now();
-        
+
         for i in 0..100 {
             open.set(i % 2 == 0);
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 15);
     }
@@ -245,16 +251,16 @@ mod performance_tests {
                 </ContextMenuContent>
             </ContextMenu>
         };
-        
+
         let start = std::time::Instant::now();
-        
+
         for i in 0..100 {
             batch(move || {
                 open.set(i % 2 == 0);
                 disabled.set(i % 3 == 0);
             });
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 20);
     }
@@ -275,13 +281,13 @@ mod performance_tests {
                 </ContextMenuContent>
             </ContextMenu>
         };
-        
+
         let start = std::time::Instant::now();
-        
+
         for _ in 0..1000 {
             let _untracked_value = open.get_untracked();
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 5);
     }
@@ -313,14 +319,14 @@ mod performance_tests {
                 </ContextMenuContent>
             </ContextMenu>
         };
-        
+
         let start = std::time::Instant::now();
-        
+
         for i in 0..100 {
             open1.set(i % 2 == 0);
             open2.set(i % 2 == 1);
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 30);
     }
@@ -350,9 +356,9 @@ mod performance_tests {
                 </div>
             </div>
         };
-        
+
         let start = std::time::Instant::now();
-        
+
         for _ in 0..100 {
             let _nested_view = view! {
                 <div>
@@ -371,7 +377,7 @@ mod performance_tests {
                 </div>
             };
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 50);
     }
@@ -393,9 +399,9 @@ mod performance_tests {
                 </ContextMenuContent>
             </ContextMenu>
         };
-        
+
         let start = std::time::Instant::now();
-        
+
         for _ in 0..50 {
             let _many_props_view = view! {
                 <ContextMenu>
@@ -408,7 +414,7 @@ mod performance_tests {
                 </ContextMenu>
             };
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 100);
     }
@@ -419,12 +425,12 @@ mod performance_tests {
         let _owner = Owner::new();
         _owner.set();
         let start = std::time::Instant::now();
-        
+
         for i in 0..50 {
             let items = StoredValue::new(Vec::from_iter(1..=20));
             let open = RwSignal::new(false);
             let disabled = RwSignal::new(i % 2 == 0);
-            
+
             let _context_menu_view = view! {
                 <ContextMenu>
                     <ContextMenuTrigger>
@@ -439,13 +445,13 @@ mod performance_tests {
                     </ContextMenuContent>
                 </ContextMenu>
             };
-            
+
             // Perform some updates
             open.set(true);
             disabled.set(!disabled.get());
             open.set(false);
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 500);
     }
@@ -456,7 +462,7 @@ mod performance_tests {
         let _owner = Owner::new();
         _owner.set();
         for _ in 0..100 {
-            let open = RwSignal::new(false);
+            let _open = RwSignal::new(false);
             let _context_menu_view = view! {
                 <ContextMenu>
                     <ContextMenuTrigger>
@@ -467,11 +473,11 @@ mod performance_tests {
                     </ContextMenuContent>
                 </ContextMenu>
             };
-            
+
             // Drop the view to test cleanup
             drop(_context_menu_view);
         }
-        
+
         // Test that no significant memory leaks occur
         // This is a simple test - in practice you'd use more sophisticated memory monitoring
     }
@@ -482,11 +488,11 @@ mod performance_tests {
         let _owner = Owner::new();
         _owner.set();
         let mut signals = Vec::new();
-        
+
         for i in 0..100 {
             let open = RwSignal::new(false);
             signals.push(open);
-            
+
             let _context_menu_view = view! {
                 <ContextMenu>
                     <ContextMenuTrigger>
@@ -498,7 +504,7 @@ mod performance_tests {
                 </ContextMenu>
             };
         }
-        
+
         // Test that signals can be properly cleaned up
         drop(signals);
     }
@@ -509,13 +515,13 @@ mod performance_tests {
         let _owner = Owner::new();
         _owner.set();
         let mut callbacks = Vec::new();
-        
+
         for i in 0..100 {
             let callback = Callback::new(move |open: bool| {
                 leptos::logging::log!("Menu {} open state changed: {}", i, open);
             });
             callbacks.push(callback.clone());
-            
+
             let _context_menu_view = view! {
                 <ContextMenu>
                     <ContextMenuTrigger>
@@ -527,7 +533,7 @@ mod performance_tests {
                 </ContextMenu>
             };
         }
-        
+
         // Test that callbacks can be properly cleaned up
         drop(callbacks);
     }
@@ -538,15 +544,15 @@ mod performance_tests {
         let _owner = Owner::new();
         _owner.set();
         let start = std::time::Instant::now();
-        
+
         // Test with various edge cases
         let test_cases: Vec<Vec<String>> = vec![
-            vec![], // Empty items
-            vec!["".to_string()], // Empty strings
-            vec!["a".repeat(1000)], // Very long strings
+            vec![],                                              // Empty items
+            vec!["".to_string()],                                // Empty strings
+            vec!["a".repeat(1000)],                              // Very long strings
             (1..=1000).map(|i| format!("Item {}", i)).collect(), // Many items
         ];
-        
+
         for items in test_cases {
             let items = StoredValue::new(items);
             let _context_menu_view = view! {
@@ -555,14 +561,14 @@ mod performance_tests {
                         "Right-click me"
                     </ContextMenuTrigger>
                     <ContextMenuContent>
-                        <For each=move || items.get_value() key=|item| item.clone() let:item>
+                        <For each=move || items.get_value() key=|item| item.to_string() let:item>
                             <ContextMenuItem>{item}</ContextMenuItem>
                         </For>
                     </ContextMenuContent>
                 </ContextMenu>
             };
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 200);
     }
@@ -583,14 +589,14 @@ mod performance_tests {
                 </ContextMenuContent>
             </ContextMenu>
         };
-        
+
         let start = std::time::Instant::now();
-        
+
         // Rapid state changes
         for i in 0..1000 {
             open.set(i % 2 == 0);
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 50);
     }
@@ -601,7 +607,7 @@ mod performance_tests {
         let _owner = Owner::new();
         _owner.set();
         let start = std::time::Instant::now();
-        
+
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
@@ -629,7 +635,7 @@ mod performance_tests {
                 </ContextMenuContent>
             </ContextMenu>
         };
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 100);
     }
@@ -643,7 +649,7 @@ mod performance_tests {
         let callback = Callback::new(move |_| {
             click_count.update(|c| *c += 1);
         });
-        
+
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
@@ -658,14 +664,14 @@ mod performance_tests {
                 </ContextMenuContent>
             </ContextMenu>
         };
-        
+
         let start = std::time::Instant::now();
-        
+
         // Simulate multiple clicks
         for _ in 0..100 {
             callback.run(());
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 20);
         assert_eq!(click_count.get(), 100);

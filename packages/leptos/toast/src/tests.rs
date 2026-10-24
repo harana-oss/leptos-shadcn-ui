@@ -1,7 +1,5 @@
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::*;
 
     #[test]
     fn test_toast_component_exists() {

@@ -1,27 +1,29 @@
 //! System information gathering for performance testing context
 
-use crate::{SystemInfo, PerfTestError};
+use crate::{PerfTestError, SystemInfo};
 
 /// Gather comprehensive system information for performance context
 pub fn gather_system_info() -> Result<SystemInfo, PerfTestError> {
     let system = sysinfo::System::new_all();
-    
-    let os = format!("{} {}", 
-        std::env::consts::OS, 
+
+    let os = format!(
+        "{} {}",
+        std::env::consts::OS,
         sysinfo::System::kernel_version().unwrap_or_else(|| "unknown".to_string())
     );
-    
-    let cpu_model = system.cpus()
+
+    let cpu_model = system
+        .cpus()
         .first()
         .map(|cpu| cpu.brand().to_string())
         .unwrap_or_else(|| "Unknown CPU".to_string());
-    
+
     let cpu_cores = system.cpus().len();
     let memory_total_mb = system.total_memory() / 1024 / 1024;
-    
+
     let rust_version = get_rust_version();
     let leptos_version = get_leptos_version();
-    
+
     Ok(SystemInfo {
         os,
         cpu_model,
@@ -46,8 +48,7 @@ fn get_rust_version() -> String {
 /// Get Leptos version from Cargo.toml or environment
 fn get_leptos_version() -> String {
     // Try to get from environment first (set during build)
-    std::env::var("LEPTOS_VERSION")
-        .unwrap_or_else(|_| "0.8.0".to_string()) // Default fallback
+    std::env::var("LEPTOS_VERSION").unwrap_or_else(|_| "0.8.0".to_string()) // Default fallback
 }
 
 #[cfg(test)]
@@ -57,7 +58,7 @@ mod tests {
     #[test]
     fn test_gather_system_info() {
         let info = gather_system_info().unwrap();
-        
+
         assert!(!info.os.is_empty());
         assert!(!info.cpu_model.is_empty());
         assert!(info.cpu_cores > 0);

@@ -23,6 +23,7 @@ leptos-struct-component = "0.2"
 leptos-shadcn-signal-management.workspace = true
 
 [dev-dependencies]
+log = { workspace = true }
 shadcn-ui-test-utils = { path = "../../test-utils" }
 wasm-bindgen-test = { workspace = true }
 

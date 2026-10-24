@@ -1,6 +1,6 @@
+use leptos::wasm_bindgen::JsCast;
 use leptos::{ev::Event, prelude::*};
 use leptos_style::Style;
-use leptos::wasm_bindgen::JsCast;
 
 pub const CHECKBOX_CLASS: &str = "h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground";
 
@@ -14,7 +14,6 @@ pub fn Checkbox(
     #[prop(into, optional)] style: Signal<Style>,
 ) -> impl IntoView {
     let handle_change = {
-        let on_change = on_change.clone();
         move |event: Event| {
             if let Some(callback) = &on_change {
                 let target = event.target().unwrap();
@@ -24,9 +23,8 @@ pub fn Checkbox(
         }
     };
 
-    let computed_class = Signal::derive(move || {
-        format!("{} {}", CHECKBOX_CLASS, class.get().unwrap_or_default())
-    });
+    let computed_class =
+        Signal::derive(move || format!("{} {}", CHECKBOX_CLASS, class.get().unwrap_or_default()));
 
     view! {
         <input

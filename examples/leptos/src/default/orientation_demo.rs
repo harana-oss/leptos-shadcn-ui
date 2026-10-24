@@ -115,7 +115,7 @@ pub fn OrientationDemo() -> impl IntoView {
 /// Shows current device orientation
 #[component]
 fn OrientationIndicator() -> impl IntoView {
-    let (is_landscape, set_is_landscape) = create_signal(false);
+    let (is_landscape, set_is_landscape) = signal(false);
 
     // Check orientation on mount and window resize
     Effect::new(move |_| {

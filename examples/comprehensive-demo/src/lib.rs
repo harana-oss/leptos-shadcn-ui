@@ -1,29 +1,14 @@
 use leptos::prelude::*;
 use leptos_meta::*;
 use wasm_bindgen::prelude::*;
-use web_sys;
-
-// For production: use leptos-shadcn-ui-wasm for proper WASM initialization
-#[cfg(feature = "wasm")]
-use leptos_shadcn_ui_wasm::init::{init_wasm_with_config, WasmInitConfig};
 
 // Import all the refactored components
-use leptos_shadcn_button::{Button, ButtonVariant, ButtonSize};
+use leptos_shadcn_button::{Button, ButtonSize, ButtonVariant};
 use leptos_shadcn_card::*;
 use leptos_shadcn_input::*;
 
 #[wasm_bindgen(start)]
 pub fn main() {
-    // Initialize WASM with proper state management
-    #[cfg(feature = "wasm")]
-    {
-        let config = WasmInitConfig {
-            verbose: true,
-            ..Default::default()
-        };
-        let _ = init_wasm_with_config(config);
-    }
-
     mount_to_body(|| view! { <App /> })
 }
 
@@ -86,7 +71,7 @@ pub fn App() -> impl IntoView {
         <Meta charset="utf-8"/>
         <Meta name="viewport" content="width=device-width, initial-scale=1"/>
         <Meta name="description" content="Professional dashboard built with Leptos and ShadCN UI components"/>
-        
+
         <div class=Signal::derive(move || {
             if is_dark.get() {
                 "min-h-screen bg-background text-foreground dark".to_string()
@@ -98,49 +83,49 @@ pub fn App() -> impl IntoView {
                 // Sidebar
                 {move || if sidebar_open.get() {
                     view! {
-                        <div class="w-64 bg-card border-r border-border flex flex-col">
-                            <div class="p-6 border-b border-border">
+                        <div class="w-64 max-md:w-16 shrink-0 bg-card border-r border-border flex flex-col">
+                            <div class="p-6 max-md:p-3 border-b border-border">
                                 <div class="flex items-center gap-2">
                                     <div class="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
                                         <span class="text-primary-foreground font-bold">"L"</span>
                                     </div>
-                                    <span class="font-semibold">"Leptos Dashboard"</span>
+                                    <span class="font-semibold max-md:sr-only">"Leptos Dashboard"</span>
                     </div>
                 </div>
 
-                            <nav class="flex-1 p-4 space-y-2">
+                            <nav class="flex-1 p-4 max-md:p-2 space-y-2">
                                 <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md bg-primary text-primary-foreground">
                                     <span>"🏠"</span>
-                                    "Dashboard"
+                                    <span class="max-md:sr-only">"Dashboard"</span>
                                 </a>
                                 <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-accent hover:text-accent-foreground">
                                     <span>"📊"</span>
-                                    "Analytics"
+                                    <span class="max-md:sr-only">"Analytics"</span>
                                 </a>
                                 <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-accent hover:text-accent-foreground">
                                     <span>"📁"</span>
-                                    "Projects"
+                                    <span class="max-md:sr-only">"Projects"</span>
                                 </a>
                                 <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-accent hover:text-accent-foreground">
                                     <span>"👥"</span>
-                                    "Team"
+                                    <span class="max-md:sr-only">"Team"</span>
                                 </a>
                                 <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-accent hover:text-accent-foreground">
                                     <span>"📄"</span>
-                                    "Documents"
+                                    <span class="max-md:sr-only">"Documents"</span>
                                 </a>
                                 <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-accent hover:text-accent-foreground">
                                     <span>"⚙️"</span>
-                                    "Settings"
+                                    <span class="max-md:sr-only">"Settings"</span>
                                 </a>
                             </nav>
-                            
-                            <div class="p-4 border-t border-border">
+
+                            <div class="p-4 max-md:p-2 border-t border-border">
                                 <div class="flex items-center gap-3">
                                     <div class="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
                                         <span class="text-sm font-medium">"U"</span>
                                     </div>
-                                    <div class="flex-1">
+                                    <div class="flex-1 max-md:sr-only">
                                         <p class="text-sm font-medium">"shadcn"</p>
                                         <p class="text-xs text-muted-foreground">"shadcn@example.com"</p>
                                     </div>
@@ -153,17 +138,17 @@ pub fn App() -> impl IntoView {
                 }}
 
                 // Main Content
-                <div class="flex-1 flex flex-col">
+                <div class="flex-1 flex flex-col min-w-0">
                     // Header
                     <header class="bg-card border-b border-border px-6 py-4">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-4">
                                 <Button variant=ButtonVariant::Ghost on:click=toggle_sidebar class="p-2 hover:bg-accent transition-colors">
-                                    <span class="text-lg">{move || if sidebar_open.get() { "☰" } else { "☰" }}</span>
+                                    <span class="text-lg">"☰"</span>
                                 </Button>
                                 <h1 class="text-2xl font-semibold">"Dashboard"</h1>
                             </div>
-                            
+
                             <div class="flex items-center gap-4">
                                 <Button variant=ButtonVariant::Ghost on:click=toggle_theme class="flex items-center gap-2">
                                     {move || if is_dark.get() { "🌞" } else { "🌙" }}
@@ -177,7 +162,7 @@ pub fn App() -> impl IntoView {
                     </header>
 
                     // Dashboard Content
-                    <main class="flex-1 p-6 bg-background">
+                    <main class="flex-1 min-w-0 p-6 max-md:p-3 bg-background">
                         <div class="space-y-6">
                             // Welcome Section
                             <div class="mb-8">
@@ -276,7 +261,7 @@ pub fn App() -> impl IntoView {
                         </CardHeader>
                         <CardContent>
                             <div class="space-y-4">
-                                <Input 
+                                <Input
                                     placeholder="Type something..."
                                     prop:value=input_value
                                     on:input=move |ev| {
@@ -301,12 +286,12 @@ pub fn App() -> impl IntoView {
                                         <div class="space-y-4">
                                             // Using ShadCN components
                                             <Button class="mb-4">"ShadCN Button"</Button>
-                                            
+
                                             // Using tailwind-rs-wasm for dynamic styling
                                             <div class="bg-blue-600 text-white px-4 py-2 rounded">
                                                 "Dynamic styling with Tailwind CSS"
                                             </div>
-                                            
+
                                             // Combining both approaches
                                             <Card class="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer" on:click=move |_| {
                                                 web_sys::console::log_1(&"Best of both worlds clicked!".into());

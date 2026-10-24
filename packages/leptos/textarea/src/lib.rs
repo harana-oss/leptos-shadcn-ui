@@ -1,11 +1,11 @@
 //! Leptos port of shadcn/ui textarea
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
+pub mod signal_managed;
 
-pub use default::{Textarea};
-pub use new_york::{Textarea as TextareaNewYork};
+pub use default::Textarea;
+pub use new_york::Textarea as TextareaNewYork;
 
 mod tests;
 

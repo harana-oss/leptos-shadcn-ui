@@ -132,21 +132,20 @@ export default defineConfig({
         ...browserConfigs.chromium,
       },
     },
-    // Disabled for faster CI - only Chromium installed
-    // {
-    //   name: 'firefox',
-    //   use: { 
-    //     ...devices['Desktop Firefox'],
-    //     ...browserConfigs.firefox,
-    //   },
-    // },
-    // {
-    //   name: 'webkit',
-    //   use: { 
-    //     ...devices['Desktop Safari'],
-    //     ...browserConfigs.webkit,
-    //   },
-    // },
+    {
+      name: 'firefox',
+      use: {
+        ...devices['Desktop Firefox'],
+        ...browserConfigs.firefox,
+      },
+    },
+    {
+      name: 'webkit',
+      use: {
+        ...devices['Desktop Safari'],
+        ...browserConfigs.webkit,
+      },
+    },
     
     // Mobile browsers - Disabled for faster CI
     // {

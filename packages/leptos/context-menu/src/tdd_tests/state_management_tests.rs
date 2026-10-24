@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod state_management_tests {
-    use super::*;
+
     use crate::*;
     use leptos::prelude::*;
 
@@ -30,7 +30,7 @@ mod state_management_tests {
         // Components use context; an owner must be active on native.
         let _owner = Owner::new();
         _owner.set();
-        let open = RwSignal::new(false);
+        let _open = RwSignal::new(false);
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
@@ -49,7 +49,7 @@ mod state_management_tests {
         // Components use context; an owner must be active on native.
         let _owner = Owner::new();
         _owner.set();
-        let on_open_change = Callback::new(|_: bool| {});
+        let _on_open_change = Callback::new(|_: bool| {});
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
@@ -68,8 +68,8 @@ mod state_management_tests {
         // Components use context; an owner must be active on native.
         let _owner = Owner::new();
         _owner.set();
-        let open = RwSignal::new(false);
-        let disabled = RwSignal::new(false);
+        let _open = RwSignal::new(false);
+        let _disabled = RwSignal::new(false);
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
@@ -89,8 +89,11 @@ mod state_management_tests {
         let _owner = Owner::new();
         _owner.set();
         let open = RwSignal::new(false);
-        let computed_class = Signal::derive(move || {
-            format!("context-menu-{}", if open.get() { "open" } else { "closed" })
+        let _computed_class = Signal::derive(move || {
+            format!(
+                "context-menu-{}",
+                if open.get() { "open" } else { "closed" }
+            )
         });
         let _context_menu_view = view! {
             <ContextMenu>
@@ -111,9 +114,7 @@ mod state_management_tests {
         let _owner = Owner::new();
         _owner.set();
         let open = RwSignal::new(false);
-        let derived_signal = Signal::derive(move || {
-            open.get().to_string()
-        });
+        let derived_signal = Signal::derive(move || open.get().to_string());
         let _context_menu_view = view! {
             <ContextMenu attr:aria-expanded=derived_signal>
                 <ContextMenuTrigger>
@@ -133,8 +134,11 @@ mod state_management_tests {
         let _owner = Owner::new();
         _owner.set();
         let open = RwSignal::new(false);
-        let memoized_class = Memo::new(move |_| {
-            format!("context-menu-{}", if open.get() { "open" } else { "closed" })
+        let _memoized_class = Memo::new(move |_| {
+            format!(
+                "context-menu-{}",
+                if open.get() { "open" } else { "closed" }
+            )
         });
         let _context_menu_view = view! {
             <ContextMenu>
@@ -279,7 +283,7 @@ mod state_management_tests {
         // Components use context; an owner must be active on native.
         let _owner = Owner::new();
         _owner.set();
-        let is_disabled = RwSignal::new(false);
+        let _is_disabled = RwSignal::new(false);
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
@@ -305,7 +309,7 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
                         <ContextMenuItem>{item}</ContextMenuItem>
                     </For>
                 </ContextMenuContent>
@@ -326,7 +330,9 @@ mod state_management_tests {
             if f.is_empty() {
                 all_items.clone()
             } else {
-                all_items.clone().into_iter()
+                all_items
+                    .clone()
+                    .into_iter()
                     .filter(|item| item.contains(&f))
                     .collect()
             }
@@ -337,7 +343,7 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || filtered_items.get() key=|item| item.clone() let:item>
+                    <For each=move || filtered_items.get() key=|item| item.to_string() let:item>
                         <ContextMenuItem>{item}</ContextMenuItem>
                     </For>
                 </ContextMenuContent>
@@ -363,7 +369,7 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || sorted_items.get() key=|item| item.clone() let:item>
+                    <For each=move || sorted_items.get() key=|item| item.to_string() let:item>
                         <ContextMenuItem>{item}</ContextMenuItem>
                     </For>
                 </ContextMenuContent>
@@ -412,7 +418,7 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
                         <ContextMenuItem>{item}</ContextMenuItem>
                     </For>
                 </ContextMenuContent>
@@ -435,7 +441,7 @@ mod state_management_tests {
                 </ContextMenuTrigger>
                 <ContextMenuContent>
                     <Show when=move || !loading.get()>
-                        <For each=move || items.get() key=|item| item.clone() let:item>
+                        <For each=move || items.get() key=|item| item.to_string() let:item>
                             <ContextMenuItem>{item}</ContextMenuItem>
                         </For>
                     </Show>
@@ -462,7 +468,7 @@ mod state_management_tests {
                 </ContextMenuTrigger>
                 <ContextMenuContent>
                     <Show when=move || error.get().is_none()>
-                        <For each=move || items.get() key=|item| item.clone() let:item>
+                        <For each=move || items.get() key=|item| item.to_string() let:item>
                             <ContextMenuItem>{item}</ContextMenuItem>
                         </For>
                     </Show>
@@ -482,19 +488,17 @@ mod state_management_tests {
         _owner.set();
         let items = RwSignal::new(vec!["Item 1", "Item 2"]);
         let selected_item = RwSignal::new("".to_string());
-        let is_valid = Signal::derive(move || {
-            !selected_item.get().is_empty()
-        });
+        let _is_valid = Signal::derive(move || !selected_item.get().is_empty());
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
-                        <ContextMenuItem on:click=(move |_| {
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
+                        <ContextMenuItem on:click=move |_| {
                                 selected_item.set(item.to_string());
-                            })>
+                            }>
                             {item}
                         </ContextMenuItem>
                     </For>
@@ -510,14 +514,14 @@ mod state_management_tests {
         let _owner = Owner::new();
         _owner.set();
         let items = RwSignal::new(vec!["Item 1", "Item 2"]);
-        let form_data = RwSignal::new(std::collections::HashMap::<String, String>::new());
+        let _form_data = RwSignal::new(std::collections::HashMap::<String, String>::new());
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
                         <ContextMenuItem>{item}</ContextMenuItem>
                     </For>
                 </ContextMenuContent>
@@ -539,7 +543,7 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
                         <ContextMenuItem class=MaybeProp::from(Signal::derive(move || {
                                 if item == selected_item.get() { "selected".to_string() } else { String::new() }
                             }))>
@@ -566,11 +570,11 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
-                        <ContextMenuItem on:click=(move |_| {
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
+                        <ContextMenuItem on:click=move |_| {
                                 history.update(|h| h.push(selected_item.get()));
                                 selected_item.set(item.to_string());
-                            })>
+                            }>
                             {item}
                         </ContextMenuItem>
                     </For>
@@ -594,13 +598,13 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
-                        <ContextMenuItem on:click=(move |_| {
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
+                        <ContextMenuItem on:click=move |_| {
                                 batch(move || {
                                     selected_item.set(item.to_string());
                                     open.set(false);
                                 });
-                            })>
+                            }>
                             {item}
                         </ContextMenuItem>
                     </For>
@@ -616,14 +620,14 @@ mod state_management_tests {
         let _owner = Owner::new();
         _owner.set();
         let items = RwSignal::new(vec!["Item 1", "Item 2"]);
-        let search_term = RwSignal::new("".to_string());
+        let _search_term = RwSignal::new("".to_string());
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
                         <ContextMenuItem>{item}</ContextMenuItem>
                     </For>
                 </ContextMenuContent>
@@ -645,10 +649,10 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
-                        <ContextMenuItem on:click=(move |_| {
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
+                        <ContextMenuItem on:click=move |_| {
                                 update_count.update(|c| *c += 1);
-                            })>
+                            }>
                             {item}
                         </ContextMenuItem>
                     </For>
@@ -671,11 +675,11 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
-                        <ContextMenuItem on:click=(move |_| {
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
+                        <ContextMenuItem on:click=move |_| {
                                 // Optimistic update
                                 selected_item.set(item.to_string());
-                            })>
+                            }>
                             {item}
                         </ContextMenuItem>
                     </For>
@@ -699,11 +703,11 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
-                        <ContextMenuItem on:click=(move |_| {
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
+                        <ContextMenuItem on:click=move |_| {
                                 previous_item.set(selected_item.get());
                                 selected_item.set(item.to_string());
-                            })>
+                            }>
                             {item}
                         </ContextMenuItem>
                     </For>
@@ -727,8 +731,8 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
-                        <ContextMenuItem on:click=(move |_| {
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
+                        <ContextMenuItem on:click=move |_| {
                                 match conflict_resolution.get().as_str() {
                                     "last_wins" => selected_item.set(item.to_string()),
                                     "first_wins" => {
@@ -738,7 +742,7 @@ mod state_management_tests {
                                     },
                                     _ => selected_item.set(item.to_string()),
                                 }
-                            })>
+                            }>
                             {item}
                         </ContextMenuItem>
                     </For>
@@ -762,12 +766,12 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
-                        <ContextMenuItem on:click=(move |_| {
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
+                        <ContextMenuItem on:click=move |_| {
                                 if sync_enabled.get() {
                                     selected_item.set(item.to_string());
                                 }
-                            })>
+                            }>
                             {item}
                         </ContextMenuItem>
                     </For>
@@ -791,14 +795,14 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
-                        <ContextMenuItem on:click=(move |_| {
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
+                        <ContextMenuItem on:click=move |_| {
                                 selected_item.set(item.to_string());
                                 // Replicate to other instances
                                 for _ in 0..replica_count.get() {
                                     // Replication logic would go here
                                 }
-                            })>
+                            }>
                             {item}
                         </ContextMenuItem>
                     </For>
@@ -822,8 +826,8 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
-                        <ContextMenuItem on:click=(move |_| {
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
+                        <ContextMenuItem on:click=move |_| {
                                 match consistency_level.get().as_str() {
                                     "strong" => {
                                         // Strong consistency
@@ -835,7 +839,7 @@ mod state_management_tests {
                                     },
                                     _ => selected_item.set(item.to_string()),
                                 }
-                            })>
+                            }>
                             {item}
                         </ContextMenuItem>
                     </For>
@@ -858,13 +862,13 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
-                        <ContextMenuItem on:click=(move |_| {
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
+                        <ContextMenuItem on:click=move |_| {
                                 // Atomic operation
                                 batch(move || {
                                     selected_item.set(item.to_string());
                                 });
-                            })>
+                            }>
                             {item}
                         </ContextMenuItem>
                     </For>
@@ -888,8 +892,8 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
-                        <ContextMenuItem on:click=(move |_| {
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
+                        <ContextMenuItem on:click=move |_| {
                                 match isolation_level.get().as_str() {
                                     "read_committed" => {
                                         // Read committed isolation
@@ -901,7 +905,7 @@ mod state_management_tests {
                                     },
                                     _ => selected_item.set(item.to_string()),
                                 }
-                            })>
+                            }>
                             {item}
                         </ContextMenuItem>
                     </For>
@@ -925,13 +929,13 @@ mod state_management_tests {
                     "Right-click me"
                 </ContextMenuTrigger>
                 <ContextMenuContent>
-                    <For each=move || items.get() key=|item| item.clone() let:item>
-                        <ContextMenuItem on:click=(move |_| {
+                    <For each=move || items.get() key=|item| item.to_string() let:item>
+                        <ContextMenuItem on:click=move |_| {
                                 selected_item.set(item.to_string());
                                 if durability_enabled.get() {
                                     // Persist to durable storage
                                 }
-                            })>
+                            }>
                             {item}
                         </ContextMenuItem>
                     </For>

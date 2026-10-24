@@ -5,24 +5,19 @@
 //! and recovery hints for debugging.
 
 use leptos::prelude::*;
-use std::time::{Duration, Instant};
 use std::collections::HashMap;
+use std::time::{Duration, Instant};
 
 /// Toast position variants
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum ToastPosition {
     TopLeft,
+    #[default]
     TopRight,
     BottomLeft,
     BottomRight,
     TopCenter,
     BottomCenter,
-}
-
-impl Default for ToastPosition {
-    fn default() -> Self {
-        ToastPosition::TopRight
-    }
 }
 
 impl From<String> for ToastPosition {
@@ -40,17 +35,12 @@ impl From<String> for ToastPosition {
 }
 
 /// Toast theme variants
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum ToastTheme {
     Light,
     Dark,
+    #[default]
     Auto,
-}
-
-impl Default for ToastTheme {
-    fn default() -> Self {
-        ToastTheme::Auto
-    }
 }
 
 impl From<String> for ToastTheme {
@@ -65,20 +55,15 @@ impl From<String> for ToastTheme {
 }
 
 /// Toast variant types
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum ToastVariant {
+    #[default]
     Default,
     Success,
     Error,
     Warning,
     Info,
     Loading,
-}
-
-impl Default for ToastVariant {
-    fn default() -> Self {
-        ToastVariant::Default
-    }
 }
 
 /// Toast action definition
@@ -399,7 +384,11 @@ impl ToastData {
     /// Get a formatted debug string for error toasts
     pub fn debug_string(&self) -> String {
         if self.variant != ToastVariant::Error {
-            return format!("{}: {}", self.title, self.description.as_ref().unwrap_or(&String::new()));
+            return format!(
+                "{}: {}",
+                self.title,
+                self.description.as_ref().unwrap_or(&String::new())
+            );
         }
 
         let mut output = String::new();

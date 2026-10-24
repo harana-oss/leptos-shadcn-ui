@@ -9,7 +9,9 @@ use leptos::prelude::*;
 mod config;
 pub mod scale;
 pub use config::*;
-pub use scale::{bar_rects, line_path, line_points, linear_scale, nice_max, ticks, BandScale, BarRect};
+pub use scale::{
+    BandScale, BarRect, bar_rects, line_path, line_points, linear_scale, nice_max, ticks,
+};
 
 #[cfg(test)]
 mod tests;
@@ -42,7 +44,10 @@ pub struct ChartRow {
 
 impl ChartRow {
     pub fn new(label: impl Into<String>) -> Self {
-        Self { label: label.into(), values: Vec::new() }
+        Self {
+            label: label.into(),
+            values: Vec::new(),
+        }
     }
 
     pub fn value(mut self, key: impl Into<String>, v: f64) -> Self {
@@ -51,7 +56,11 @@ impl ChartRow {
     }
 
     pub fn get(&self, key: &str) -> f64 {
-        self.values.iter().find(|(k, _)| k == key).map(|(_, v)| *v).unwrap_or(0.0)
+        self.values
+            .iter()
+            .find(|(k, _)| k == key)
+            .map(|(_, v)| *v)
+            .unwrap_or(0.0)
     }
 }
 

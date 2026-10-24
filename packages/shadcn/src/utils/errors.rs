@@ -6,22 +6,17 @@
 use std::collections::HashMap;
 
 /// Error severity level for CLI errors
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Default)]
 pub enum CliErrorSeverity {
     /// Informational message
     Info,
     /// Warning that doesn't prevent operation
     Warning,
     /// Error that prevents operation
+    #[default]
     Error,
     /// Critical error that requires immediate attention
     Critical,
-}
-
-impl Default for CliErrorSeverity {
-    fn default() -> Self {
-        Self::Error
-    }
 }
 
 /// Recovery suggestion for CLI errors
@@ -266,23 +261,23 @@ impl ErrorType {
                 CliRecoverySuggestion::new("Add import alias to tsconfig.json".to_string())
                     .with_example(r#""paths": { "@/*": ["./*"] }"#),
             ],
-            Self::UnsupportedFramework => vec![
-                CliRecoverySuggestion::new("Use a supported framework (leptos)".to_string()),
-            ],
+            Self::UnsupportedFramework => vec![CliRecoverySuggestion::new(
+                "Use a supported framework (leptos)".to_string(),
+            )],
             Self::ComponentUrlNotFound => vec![
                 CliRecoverySuggestion::new("Check component name spelling".to_string())
                     .with_example("rust-shadcn list"),
                 CliRecoverySuggestion::new("Verify internet connection".to_string()),
             ],
-            Self::ComponentUrlUnauthorized => vec![
-                CliRecoverySuggestion::new("Check authentication credentials".to_string()),
-            ],
-            Self::ComponentUrlForbidden => vec![
-                CliRecoverySuggestion::new("Verify you have access to this component".to_string()),
-            ],
-            Self::ComponentUrlBadRequest => vec![
-                CliRecoverySuggestion::new("Check your request parameters".to_string()),
-            ],
+            Self::ComponentUrlUnauthorized => vec![CliRecoverySuggestion::new(
+                "Check authentication credentials".to_string(),
+            )],
+            Self::ComponentUrlForbidden => vec![CliRecoverySuggestion::new(
+                "Verify you have access to this component".to_string(),
+            )],
+            Self::ComponentUrlBadRequest => vec![CliRecoverySuggestion::new(
+                "Check your request parameters".to_string(),
+            )],
             Self::ComponentUrlInternalServerError => vec![
                 CliRecoverySuggestion::new("Try again later".to_string()),
                 CliRecoverySuggestion::new("Report the issue if it persists".to_string())
@@ -299,13 +294,13 @@ impl ErrorType {
         // Set severity based on error type
         let severity = match self {
             Self::ComponentUrlInternalServerError => CliErrorSeverity::Critical,
-            Self::MissingDirOrEmptyProject |
-            Self::MissingConfig |
-            Self::FailedConfigRead |
-            Self::TailwindNotConfigured => CliErrorSeverity::Error,
-            Self::ExistingConfig |
-            Self::ImportAliasMissing |
-            Self::UnsupportedFramework => CliErrorSeverity::Warning,
+            Self::MissingDirOrEmptyProject
+            | Self::MissingConfig
+            | Self::FailedConfigRead
+            | Self::TailwindNotConfigured => CliErrorSeverity::Error,
+            Self::ExistingConfig | Self::ImportAliasMissing | Self::UnsupportedFramework => {
+                CliErrorSeverity::Warning
+            }
             _ => CliErrorSeverity::Error,
         };
         context = context.with_severity(severity);
@@ -326,7 +321,10 @@ mod tests {
     #[test]
     fn test_error_type_codes() {
         assert_eq!(ErrorType::MissingConfig.error_code(), Some("CLI_003"));
-        assert_eq!(ErrorType::ComponentUrlNotFound.error_code(), Some("HTTP_404"));
+        assert_eq!(
+            ErrorType::ComponentUrlNotFound.error_code(),
+            Some("HTTP_404")
+        );
     }
 
     #[test]
@@ -353,7 +351,8 @@ mod tests {
 
     #[test]
     fn test_error_debug_details() {
-        let context = ErrorType::MissingConfig.to_error_context(None)
+        let context = ErrorType::MissingConfig
+            .to_error_context(None)
             .with_command("rust-shadcn add button".to_string())
             .with_related_path("/project/components.json".to_string());
 

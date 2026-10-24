@@ -1,10 +1,9 @@
 //! Drawer nested components
-//! 
+//!
 //! This module contains nested drawer components for complex drawer hierarchies.
 
-use leptos::prelude::*;
-use leptos_style::Style;
 use super::types::DrawerDirection;
+use leptos::prelude::*;
 
 #[component]
 pub fn DrawerNestedRoot(

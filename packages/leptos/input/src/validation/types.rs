@@ -43,22 +43,17 @@ impl ValidationRule {
 }
 
 /// Severity level for validation errors
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Default)]
 pub enum ValidationSeverity {
     /// Informational notice
     Info,
     /// Warning that doesn't prevent submission
     Warning,
     /// Error that must be fixed
+    #[default]
     Error,
     /// Critical error that blocks the entire form
     Critical,
-}
-
-impl Default for ValidationSeverity {
-    fn default() -> Self {
-        Self::Error
-    }
 }
 
 /// Source location for the validation error
@@ -269,9 +264,15 @@ impl ValidationResult {
         }
     }
 
-    pub fn add_error(&mut self, field: impl Into<String>, message: impl Into<String>, rule: ValidationRule) {
+    pub fn add_error(
+        &mut self,
+        field: impl Into<String>,
+        message: impl Into<String>,
+        rule: ValidationRule,
+    ) {
         self.is_valid = false;
-        self.errors.push(ValidationError::new(field.into(), message.into(), rule));
+        self.errors
+            .push(ValidationError::new(field.into(), message.into(), rule));
     }
 
     /// Add a validation error with enhanced context
@@ -297,12 +298,14 @@ impl ValidationResult {
     }
 
     pub fn get_error_message(&self, field: &str) -> Option<&str> {
-        self.get_field_error(field).map(|error| error.message.as_str())
+        self.get_field_error(field)
+            .map(|error| error.message.as_str())
     }
 
     /// Get errors by severity level
     pub fn errors_by_severity(&self, severity: ValidationSeverity) -> Vec<&ValidationError> {
-        self.errors.iter()
+        self.errors
+            .iter()
             .filter(|error| error.severity == severity)
             .collect()
     }
@@ -314,7 +317,8 @@ impl ValidationResult {
 
     /// Get all error messages for display
     pub fn all_error_messages(&self) -> Vec<String> {
-        self.errors.iter()
+        self.errors
+            .iter()
             .map(|error| error.display_message())
             .collect()
     }
@@ -368,18 +372,21 @@ impl ValidationContext {
     }
 
     pub fn get_field_error(&self, field: &str) -> Option<&ValidationError> {
-        self.results.get(field)
+        self.results
+            .get(field)
             .and_then(|result| result.get_field_error(field))
     }
 
     pub fn has_field_error(&self, field: &str) -> bool {
-        self.results.get(field)
+        self.results
+            .get(field)
             .map(|result| result.has_field_error(field))
             .unwrap_or(false)
     }
 
     pub fn is_field_valid(&self, field: &str) -> bool {
-        self.results.get(field)
+        self.results
+            .get(field)
             .map(|result| result.is_valid)
             .unwrap_or(true)
     }
@@ -389,14 +396,16 @@ impl ValidationContext {
     }
 
     pub fn get_all_errors(&self) -> Vec<&ValidationError> {
-        self.results.values()
+        self.results
+            .values()
             .flat_map(|result| &result.errors)
             .collect()
     }
 
     /// Get all critical errors across all fields
     pub fn get_critical_errors(&self) -> Vec<&ValidationError> {
-        self.get_all_errors().into_iter()
+        self.get_all_errors()
+            .into_iter()
             .filter(|error| error.severity == ValidationSeverity::Critical)
             .collect()
     }
@@ -406,10 +415,12 @@ impl ValidationContext {
         let all_errors = self.get_all_errors();
         let field_count = self.results.len();
         let valid_field_count = self.results.values().filter(|r| r.is_valid).count();
-        let critical_errors = all_errors.iter()
+        let critical_errors = all_errors
+            .iter()
             .filter(|e| e.severity == ValidationSeverity::Critical)
             .count();
-        let warning_errors = all_errors.iter()
+        let warning_errors = all_errors
+            .iter()
             .filter(|e| e.severity == ValidationSeverity::Warning)
             .count();
 

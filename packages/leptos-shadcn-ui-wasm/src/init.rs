@@ -105,7 +105,7 @@ impl From<JsValue> for WasmError {
 }
 
 /// Configuration for WASM initialization
-#[derive(Clone)]
+#[derive(Clone, Default)]
 pub struct WasmInitConfig {
     /// Enable verbose logging during initialization
     pub verbose: bool,
@@ -119,19 +119,6 @@ pub struct WasmInitConfig {
     pub on_error: Option<WasmErrorCallback>,
     /// Callback invoked on progress updates
     pub on_progress: Option<WasmProgressCallback>,
-}
-
-impl Default for WasmInitConfig {
-    fn default() -> Self {
-        Self {
-            verbose: false,
-            panic_message: None,
-            on_start: None,
-            on_ready: None,
-            on_error: None,
-            on_progress: None,
-        }
-    }
 }
 
 /// Callback type for WASM initialization events
@@ -282,24 +269,22 @@ impl WasmInitManager {
     fn detect_features(&self, config: &WasmInitConfig) -> Result<(), WasmError> {
         self.update_progress(30, "Detecting browser features...");
 
-        let window = web_sys::window()
-            .ok_or_else(|| WasmError {
-                category: WasmErrorCategory::FeatureDetection,
-                message: "Could not access window object".to_string(),
-                details: None,
-                stack: None,
-                context: std::collections::HashMap::new(),
-            })?;
+        let window = web_sys::window().ok_or_else(|| WasmError {
+            category: WasmErrorCategory::FeatureDetection,
+            message: "Could not access window object".to_string(),
+            details: None,
+            stack: None,
+            context: std::collections::HashMap::new(),
+        })?;
 
         // Check for required APIs
-        let _performance = window.performance()
-            .ok_or_else(|| WasmError {
-                category: WasmErrorCategory::FeatureDetection,
-                message: "Performance API not available".to_string(),
-                details: None,
-                stack: None,
-                context: std::collections::HashMap::new(),
-            })?;
+        let _performance = window.performance().ok_or_else(|| WasmError {
+            category: WasmErrorCategory::FeatureDetection,
+            message: "Performance API not available".to_string(),
+            details: None,
+            stack: None,
+            context: std::collections::HashMap::new(),
+        })?;
 
         // Log window availability if verbose
         if config.verbose {

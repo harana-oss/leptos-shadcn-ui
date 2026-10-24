@@ -1,11 +1,11 @@
 //! Type-safe class generation and management.
 
-use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
 /// A type-safe Tailwind class container that provides compile-time validation
 /// and runtime optimization.
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Default)]
 pub struct TailwindClasses {
     /// Base classes that are always applied
     pub base: String,
@@ -56,27 +56,28 @@ impl TailwindClasses {
     }
 
     /// Generate the final class string.
+    #[allow(clippy::inherent_to_string)]
     pub fn to_string(&self) -> String {
         let mut classes = vec![self.base.clone()];
-        
+
         // Add variants
         for variant in self.variants.values() {
             classes.push(variant.clone());
         }
-        
+
         // Add responsive classes with proper breakpoint prefixes
         for (breakpoint, responsive) in &self.responsive {
             classes.push(format!("{}:{}", breakpoint, responsive));
         }
-        
+
         // Add state classes
         for state in self.states.values() {
             classes.push(state.clone());
         }
-        
+
         // Add custom classes
         classes.extend(self.custom.clone());
-        
+
         classes.join(" ")
     }
 
@@ -86,38 +87,26 @@ impl TailwindClasses {
         if !other.base.is_empty() {
             self.base = format!("{} {}", self.base, other.base);
         }
-        
+
         // Merge variants
         for (key, value) in other.variants {
             self.variants.insert(key, value);
         }
-        
+
         // Merge responsive
         for (key, value) in other.responsive {
             self.responsive.insert(key, value);
         }
-        
+
         // Merge states
         for (key, value) in other.states {
             self.states.insert(key, value);
         }
-        
+
         // Merge custom
         self.custom.extend(other.custom);
-        
-        self
-    }
-}
 
-impl Default for TailwindClasses {
-    fn default() -> Self {
-        Self {
-            base: String::new(),
-            variants: HashMap::new(),
-            responsive: HashMap::new(),
-            states: HashMap::new(),
-            custom: Vec::new(),
-        }
+        self
     }
 }
 
@@ -224,15 +213,13 @@ mod tests {
 
     #[test]
     fn test_classes_merge() {
-        let classes1 = TailwindClasses::new("px-4 py-2")
-            .variant("primary", "bg-blue-600");
-        
-        let classes2 = TailwindClasses::new("rounded-md")
-            .variant("secondary", "bg-gray-200");
+        let classes1 = TailwindClasses::new("px-4 py-2").variant("primary", "bg-blue-600");
+
+        let classes2 = TailwindClasses::new("rounded-md").variant("secondary", "bg-gray-200");
 
         let merged = classes1.merge(classes2);
         let result = merged.to_string();
-        
+
         assert!(result.contains("px-4 py-2 rounded-md"));
         assert!(result.contains("bg-blue-600"));
         assert!(result.contains("bg-gray-200"));

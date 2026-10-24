@@ -17,10 +17,12 @@ pub use queue::*;
 #[cfg(test)]
 mod tests;
 
-pub const TOASTER_CLASS: &str = "toaster group fixed z-[100] flex w-full max-w-[356px] flex-col gap-2 p-0 pointer-events-none";
+pub const TOASTER_CLASS: &str =
+    "toaster group fixed z-[100] flex w-full max-w-[356px] flex-col gap-2 p-0 pointer-events-none";
 pub const TOASTER_STYLE: &str = "--normal-bg: var(--popover); --normal-text: var(--popover-foreground); --normal-border: var(--border); --border-radius: var(--radius);";
 pub const TOAST_CLASS: &str = "group toast pointer-events-auto relative flex w-full items-start gap-1.5 rounded-(--border-radius) border border-(--normal-border) bg-(--normal-bg) p-4 text-(--normal-text) text-[13px] shadow-lg";
-pub const TOAST_ICON_CLASS: &str = "flex size-4 shrink-0 items-center justify-center [&>svg]:size-4";
+pub const TOAST_ICON_CLASS: &str =
+    "flex size-4 shrink-0 items-center justify-center [&>svg]:size-4";
 pub const TOAST_CONTENT_CLASS: &str = "flex flex-1 flex-col gap-0.5";
 pub const TOAST_TITLE_CLASS: &str = "font-medium leading-normal";
 pub const TOAST_DESCRIPTION_CLASS: &str = "text-muted-foreground leading-snug";
@@ -101,7 +103,9 @@ pub struct ToasterContext {
 
 impl std::fmt::Debug for ToasterContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("ToasterContext").field("queue", &self.queue).finish()
+        f.debug_struct("ToasterContext")
+            .field("queue", &self.queue)
+            .finish()
     }
 }
 
@@ -115,7 +119,12 @@ impl ToasterContext {
     }
 
     /// Shows a toast of `kind` and returns its id.
-    pub fn toast(&self, kind: ToastKind, title: impl Into<String>, options: ToastOptions) -> ToastId {
+    pub fn toast(
+        &self,
+        kind: ToastKind,
+        title: impl Into<String>,
+        options: ToastOptions,
+    ) -> ToastId {
         let duration = match options.duration_ms {
             Some(0) => None,
             Some(d) => Some(d),
@@ -244,16 +253,23 @@ pub fn provide_sonner() -> ToasterContext {
 /// # Panics
 /// Panics if neither `provide_sonner` nor a parent `Toaster` provided it.
 pub fn use_sonner() -> ToasterContext {
-    use_context::<ToasterContext>().expect("use_sonner requires provide_sonner() or an ancestor <Toaster/>")
+    use_context::<ToasterContext>()
+        .expect("use_sonner requires provide_sonner() or an ancestor <Toaster/>")
 }
 
 fn icon_path(kind: ToastKind) -> Option<&'static str> {
     match kind {
         ToastKind::Message => None,
         ToastKind::Success => Some("M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4 12 14.01l-3-3"),
-        ToastKind::Error => Some("M12 22c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10zM15 9l-6 6M9 9l6 6"),
-        ToastKind::Info => Some("M12 22c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10zM12 16v-4M12 8h.01"),
-        ToastKind::Warning => Some("m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3ZM12 9v4M12 17h.01"),
+        ToastKind::Error => Some(
+            "M12 22c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10zM15 9l-6 6M9 9l6 6",
+        ),
+        ToastKind::Info => Some(
+            "M12 22c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10zM12 16v-4M12 8h.01",
+        ),
+        ToastKind::Warning => Some(
+            "m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3ZM12 9v4M12 17h.01",
+        ),
     }
 }
 

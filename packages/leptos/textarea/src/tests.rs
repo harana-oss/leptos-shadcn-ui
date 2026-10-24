@@ -1,7 +1,5 @@
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::*;
 
     #[test]
     fn test_textarea_component_exists() {

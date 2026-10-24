@@ -1,14 +1,14 @@
 //! Leptos port of shadcn/ui dropdown-menu
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
+pub mod signal_managed;
 
 pub use default::{
     DropdownMenu, DropdownMenuContent, DropdownMenuContext, DropdownMenuGroup, DropdownMenuItem,
     DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger,
 };
-pub use new_york::{DropdownMenu as DropdownMenuNewYork};
+pub use new_york::DropdownMenu as DropdownMenuNewYork;
 
 mod tests;
 

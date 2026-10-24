@@ -1,11 +1,11 @@
 //! State Management Tests for Toggle Component
-//! 
+//!
 //! This module contains tests for state management, context handling, and animations.
 
 #[cfg(test)]
 mod state_management_tests {
-    use leptos::prelude::*;
     use crate::Toggle;
+    use leptos::prelude::*;
 
     #[test]
     fn test_toggle_state_management() {

@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod interaction_tests {
-    use leptos::prelude::*;
     use crate::*;
+    use leptos::prelude::*;
 
     #[test]
     fn test_command_keyboard_navigation() {
@@ -52,7 +52,7 @@ mod interaction_tests {
         let _owner = Owner::new();
         _owner.set();
         let start = std::time::Instant::now();
-        
+
         for i in 0..100 {
             let _command_view = view! {
                 <Command>
@@ -67,9 +67,12 @@ mod interaction_tests {
                 </Command>
             };
         }
-        
+
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 1000, "Command rendering should be performant");
+        assert!(
+            duration.as_millis() < 1000,
+            "Command rendering should be performant"
+        );
     }
 
     #[test]
@@ -80,9 +83,9 @@ mod interaction_tests {
         _owner.set();
         let callback = Callback::new(move |value: String| {
             // Test callback handling
-            assert!(value.len() >= 0);
+            let _ = value;
         });
-        
+
         let _command_view = view! {
             <Command on_value_change=callback>
                 <CommandInput placeholder=MaybeProp::from("Search...")/>
@@ -104,7 +107,7 @@ mod interaction_tests {
         let _owner = Owner::new();
         _owner.set();
         let value_signal = RwSignal::new("".to_string());
-        
+
         let _command_view = view! {
             <Command value=MaybeProp::from(value_signal)>
                 <CommandInput placeholder=MaybeProp::from("Search...")/>
@@ -117,11 +120,11 @@ mod interaction_tests {
                 </CommandList>
             </Command>
         };
-        
+
         // Test value updates
         value_signal.set("test".to_string());
         assert_eq!(value_signal.get(), "test");
-        
+
         value_signal.set("updated".to_string());
         assert_eq!(value_signal.get(), "updated");
     }

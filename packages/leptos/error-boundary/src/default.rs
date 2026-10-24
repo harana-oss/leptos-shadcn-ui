@@ -4,12 +4,7 @@ pub use super::*;
 
 // Re-export the main components for easy access
 pub use super::{
-    ErrorBoundary,
-    ErrorFallback,
-    ErrorInfo,
-    use_error_handler,
-    create_user_error,
-    handle_error,
+    ErrorBoundary, ErrorFallback, ErrorInfo, create_user_error, handle_error, use_error_handler,
 };
 
 // Default styling classes for the error fallback
@@ -23,7 +18,8 @@ pub const ERROR_RETRY_CLASSES: &str = "error-retry";
 
 // Default error messages
 pub const DEFAULT_ERROR_TITLE: &str = "Something went wrong";
-pub const DEFAULT_ERROR_MESSAGE: &str = "An unexpected error occurred. Please try refreshing the page.";
+pub const DEFAULT_ERROR_MESSAGE: &str =
+    "An unexpected error occurred. Please try refreshing the page.";
 pub const DEFAULT_RETRY_TEXT: &str = "Try Again";
 
 // Default error icons

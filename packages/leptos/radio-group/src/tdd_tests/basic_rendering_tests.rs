@@ -36,7 +36,7 @@ mod basic_rendering_tests {
                 <RadioGroupItem value="option2" />
             </RadioGroup>
         };
-        
+
         // Test custom class
         assert_eq!(custom_class, "custom-radio-group");
     }
@@ -46,8 +46,15 @@ mod basic_rendering_tests {
         let owner = Owner::new();
         owner.set();
         // Test radio group variants
-        let variants = vec!["default", "destructive", "outline", "secondary", "ghost", "link"];
-        
+        let variants = vec![
+            "default",
+            "destructive",
+            "outline",
+            "secondary",
+            "ghost",
+            "link",
+        ];
+
         for variant in variants {
             let _variant_radio_group_view = view! {
                 <RadioGroup class=format!("radio-group-{}", variant)>
@@ -55,11 +62,16 @@ mod basic_rendering_tests {
                     <RadioGroupItem value="option2" />
                 </RadioGroup>
             };
-            
+
             // Test variant class
-            assert!(variant.contains("default") || variant.contains("destructive") || 
-                   variant.contains("outline") || variant.contains("secondary") || 
-                   variant.contains("ghost") || variant.contains("link"));
+            assert!(
+                variant.contains("default")
+                    || variant.contains("destructive")
+                    || variant.contains("outline")
+                    || variant.contains("secondary")
+                    || variant.contains("ghost")
+                    || variant.contains("link")
+            );
         }
     }
 
@@ -69,7 +81,7 @@ mod basic_rendering_tests {
         owner.set();
         // Test radio group sizes
         let sizes = vec!["small", "default", "large"];
-        
+
         for size in sizes {
             let _size_radio_group_view = view! {
                 <RadioGroup class=format!("radio-group-{}", size)>
@@ -77,7 +89,7 @@ mod basic_rendering_tests {
                     <RadioGroupItem value="option2" />
                 </RadioGroup>
             };
-            
+
             // Test size class
             assert!(size.contains("small") || size.contains("default") || size.contains("large"));
         }
@@ -96,7 +108,7 @@ mod basic_rendering_tests {
                 <RadioGroupItem value="option4" />
             </RadioGroup>
         };
-        
+
         // Test multiple items
         let items = vec!["option1", "option2", "option3", "option4"];
         assert_eq!(items.len(), 4);
@@ -112,7 +124,7 @@ mod basic_rendering_tests {
             <RadioGroupItem value="test-value" />
             </RadioGroup>
         };
-        
+
         // Test item creation
         let test_value = "test-value";
         assert_eq!(test_value, "test-value");
@@ -130,7 +142,7 @@ mod basic_rendering_tests {
             </RadioGroupItem>
             </RadioGroup>
         };
-        
+
         // Test labeled item
         let label_text = "Label Text";
         assert_eq!(label_text, "Label Text");
@@ -143,19 +155,19 @@ mod basic_rendering_tests {
         // Test radio group item with custom properties
         let _custom_radio_item_view = view! {
             <RadioGroup>
-            <RadioGroupItem 
+            <RadioGroupItem
                 value="custom-value"
                 class="custom-radio-item"
                 id="custom-radio-id"
             />
             </RadioGroup>
         };
-        
+
         // Test custom properties
         let custom_value = "custom-value";
         let custom_class = "custom-radio-item";
         let custom_id = "custom-radio-id";
-        
+
         assert_eq!(custom_value, "custom-value");
         assert_eq!(custom_class, "custom-radio-item");
         assert_eq!(custom_id, "custom-radio-id");
@@ -174,7 +186,7 @@ mod basic_rendering_tests {
                 </div>
             </RadioGroup>
         };
-        
+
         // Test nested structure
         let container_class = "radio-group-container";
         assert_eq!(container_class, "radio-group-container");
@@ -198,7 +210,7 @@ mod basic_rendering_tests {
                 view! {}.into_any()
             }}
         };
-        
+
         // Test conditional rendering
         assert!(show_radio_group);
     }
@@ -219,7 +231,7 @@ mod basic_rendering_tests {
                 }).collect::<Vec<_>>()}
             </RadioGroup>
         };
-        
+
         // Test dynamic content
         assert_eq!(dynamic_options.len(), 3);
         assert_eq!(dynamic_options[0], "dynamic1");
@@ -238,22 +250,22 @@ mod basic_rendering_tests {
                 attr:aria-label="Accessible radio group"
                 attr:aria-required="true"
             >
-                <RadioGroupItem 
+                <RadioGroupItem
                     value="accessible-option1"
                     attr:aria-label="First option"
                 />
-                <RadioGroupItem 
+                <RadioGroupItem
                     value="accessible-option2"
                     attr:aria-label="Second option"
                 />
             </RadioGroup>
         };
-        
+
         // Test accessibility attributes
         let role = "radiogroup";
         let aria_label = "Accessible radio group";
         let aria_required = "true";
-        
+
         assert_eq!(role, "radiogroup");
         assert_eq!(aria_label, "Accessible radio group");
         assert_eq!(aria_required, "true");

@@ -1,7 +1,5 @@
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use leptos::*;
 
     #[test]
     fn test_carousel_component_exists() {

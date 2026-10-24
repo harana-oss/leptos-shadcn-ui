@@ -1,12 +1,12 @@
 //! Performance Tests for Toggle Component
-//! 
+//!
 //! This module contains tests for performance, complex content, callbacks, and component integration.
 
 #[cfg(test)]
 mod performance_tests {
+    use crate::Toggle;
     use leptos::prelude::*;
     use leptos_style::Style;
-    use crate::Toggle;
 
     #[test]
     fn test_toggle_performance() {
@@ -134,7 +134,7 @@ mod performance_tests {
         let style = RwSignal::new(Style::default());
         let callback = Callback::new(move |_| {});
         let _toggle_view = view! {
-            <Toggle 
+            <Toggle
                 variant=MaybeProp::from("outline")
                 size=MaybeProp::from("lg")
                 disabled=disabled

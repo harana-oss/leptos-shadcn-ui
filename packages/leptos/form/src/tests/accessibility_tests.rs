@@ -1,14 +1,13 @@
 //! Accessibility Tests for Form Component
-//! 
+//!
 //! This module contains tests for accessibility features, ARIA attributes, and form integration.
 
 #[cfg(test)]
 mod accessibility_tests {
-    use leptos::prelude::*;
     use crate::default::{
-        Form, FormField, FormItem, FormLabel, FormControl, 
-        FormMessage, FormDescription, FormValidation, FormError, FormData
+        Form, FormControl, FormData, FormDescription, FormField, FormLabel, FormMessage,
     };
+    use leptos::prelude::*;
 
     #[test]
     fn test_form_aria_attributes() {
@@ -20,7 +19,7 @@ mod accessibility_tests {
                 </FormField>
             </Form>
         };
-        
+
         // Verify the view renders without errors
         let _view = form.into_view();
         // If we get here without panicking, the view was created successfully
@@ -30,13 +29,13 @@ mod accessibility_tests {
     fn test_form_field_aria_attributes() {
         // Test form field with validation
         let invalid = RwSignal::new(true);
-        
+
         let form_field = view! {
             <FormField name="email" invalid=invalid>
                 <FormLabel for_field="email">"Email"</FormLabel>
             </FormField>
         };
-        
+
         // Verify the view renders without errors
         let _view = form_field.into_view();
         // If we get here without panicking, the view was created successfully
@@ -48,7 +47,7 @@ mod accessibility_tests {
         let form_label = view! {
             <FormLabel for_field="email">"Email Address"</FormLabel>
         };
-        
+
         // Verify the view renders without errors
         let _view = form_label.into_view();
         // If we get here without panicking, the view was created successfully
@@ -60,7 +59,7 @@ mod accessibility_tests {
         let form_message = view! {
             <FormMessage message="Email is required" />
         };
-        
+
         // Verify the view renders without errors
         let _view = form_message.into_view();
         // If we get here without panicking, the view was created successfully
@@ -72,7 +71,7 @@ mod accessibility_tests {
         let form_description = view! {
             <FormDescription>"Please fill out all required fields"</FormDescription>
         };
-        
+
         // Verify the view renders without errors
         let _view = form_description.into_view();
         // If we get here without panicking, the view was created successfully
@@ -81,13 +80,13 @@ mod accessibility_tests {
     #[test]
     fn test_form_submission_with_validation() {
         // Test form submission with validation
-        let (submitted, set_submitted) = signal(false);
-        let form_data = FormData::new();
-        
+        let (_submitted, set_submitted) = signal(false);
+        let _form_data = FormData::new();
+
         let on_submit = Callback::new(move |_data: FormData| {
             set_submitted.set(true);
         });
-        
+
         let form = view! {
             <Form on_submit=on_submit>
                 <FormField name="email">
@@ -96,7 +95,7 @@ mod accessibility_tests {
                 </FormField>
             </Form>
         };
-        
+
         // Verify the view renders without errors
         let _view = form.into_view();
         // If we get here without panicking, the view was created successfully
@@ -123,7 +122,7 @@ mod accessibility_tests {
                 </FormField>
             </Form>
         };
-        
+
         // Verify the view renders without errors
         let _view = form.into_view();
         // If we get here without panicking, the view was created successfully

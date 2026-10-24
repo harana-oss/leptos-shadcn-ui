@@ -1,5 +1,5 @@
 //! TDD Expansion Framework
-//! 
+//!
 //! This module provides tools to apply TDD principles to other packages
 //! in the workspace, ensuring consistent quality and testing standards.
 
@@ -68,16 +68,16 @@ impl TddExpansionManager {
     /// Scan workspace and identify packages that need TDD implementation
     pub fn scan_workspace(&mut self) -> Result<Vec<String>> {
         let mut packages_needing_tdd = Vec::new();
-        
+
         // Read workspace Cargo.toml
         let workspace_toml = self.workspace_root.join("Cargo.toml");
         let content = std::fs::read_to_string(&workspace_toml)?;
-        
+
         // Parse workspace members
         let mut in_members = false;
         for line in content.lines() {
             let line = line.trim();
-            
+
             if line.starts_with("[workspace]") {
                 in_members = false;
             } else if line.starts_with("members = [") {
@@ -89,7 +89,7 @@ impl TddExpansionManager {
                 }
             }
         }
-        
+
         Ok(packages_needing_tdd)
     }
 
@@ -97,17 +97,17 @@ impl TddExpansionManager {
     fn analyze_package_for_tdd(&mut self, package_path: &str) -> Result<Option<String>> {
         let full_path = self.workspace_root.join(package_path);
         let cargo_toml = full_path.join("Cargo.toml");
-        
+
         if !cargo_toml.exists() {
             return Ok(None);
         }
-        
+
         let content = std::fs::read_to_string(&cargo_toml)?;
         let package_name = self.extract_package_name(&content)?;
-        
+
         // Check if package already has TDD implementation
         let tdd_score = self.calculate_tdd_score(&full_path)?;
-        
+
         if tdd_score < 0.7 {
             // Package needs TDD implementation
             let config = self.create_tdd_config(&package_name, &full_path)?;
@@ -174,7 +174,11 @@ impl TddExpansionManager {
             score += 1.0;
         }
 
-        Ok(if total_checks > 0.0 { score / total_checks } else { 0.0 })
+        Ok(if total_checks > 0.0 {
+            score / total_checks
+        } else {
+            0.0
+        })
     }
 
     /// Check if package has contract tests
@@ -187,16 +191,16 @@ impl TddExpansionManager {
         for entry in std::fs::read_dir(&src_path)? {
             let entry = entry?;
             let path = entry.path();
-            
+
             if path.is_file() {
-                if let Some(content) = std::fs::read_to_string(&path).ok() {
+                if let Ok(content) = std::fs::read_to_string(&path) {
                     if content.contains("contract") && content.contains("test") {
                         return Ok(true);
                     }
                 }
             }
         }
-        
+
         Ok(false)
     }
 
@@ -213,9 +217,9 @@ impl TddExpansionManager {
             for entry in std::fs::read_dir(&src_path)? {
                 let entry = entry?;
                 let path = entry.path();
-                
+
                 if path.is_file() {
-                    if let Some(content) = std::fs::read_to_string(&path).ok() {
+                    if let Ok(content) = std::fs::read_to_string(&path) {
                         if content.contains("benchmark") || content.contains("performance") {
                             return Ok(true);
                         }
@@ -223,7 +227,7 @@ impl TddExpansionManager {
                 }
             }
         }
-        
+
         Ok(false)
     }
 
@@ -237,21 +241,25 @@ impl TddExpansionManager {
         for entry in std::fs::read_dir(&src_path)? {
             let entry = entry?;
             let path = entry.path();
-            
+
             if path.is_file() {
-                if let Some(content) = std::fs::read_to_string(&path).ok() {
+                if let Ok(content) = std::fs::read_to_string(&path) {
                     if content.contains("///") && content.contains("```") {
                         return Ok(true);
                     }
                 }
             }
         }
-        
+
         Ok(false)
     }
 
     /// Create TDD configuration for a package
-    fn create_tdd_config(&self, package_name: &str, package_path: &Path) -> Result<PackageTddConfig> {
+    fn create_tdd_config(
+        &self,
+        package_name: &str,
+        package_path: &Path,
+    ) -> Result<PackageTddConfig> {
         let test_categories = vec![
             TestCategory::Unit,
             TestCategory::Integration,
@@ -283,29 +291,30 @@ impl TddExpansionManager {
 
     /// Generate TDD implementation for a package
     pub fn generate_tdd_implementation(&self, package_name: &str) -> Result<()> {
-        let config = self.package_configs.get(package_name)
-            .ok_or_else(|| anyhow::anyhow!("Package {} not found in configurations", package_name))?;
+        let config = self.package_configs.get(package_name).ok_or_else(|| {
+            anyhow::anyhow!("Package {} not found in configurations", package_name)
+        })?;
 
         println!("🧪 Generating TDD implementation for {}", package_name);
 
         // Create test directory structure
-        self.create_test_structure(&config)?;
+        self.create_test_structure(config)?;
 
         // Generate test files
-        self.generate_test_files(&config)?;
+        self.generate_test_files(config)?;
 
         // Generate contract tests
         if config.dependency_contracts {
-            self.generate_contract_tests(&config)?;
+            self.generate_contract_tests(config)?;
         }
 
         // Generate performance tests
-        if let Some(_) = &config.performance_contracts {
-            self.generate_performance_tests(&config)?;
+        if config.performance_contracts.is_some() {
+            self.generate_performance_tests(config)?;
         }
 
         // Update Cargo.toml with test dependencies
-        self.update_cargo_toml(&config)?;
+        self.update_cargo_toml(config)?;
 
         println!("✅ TDD implementation generated for {}", package_name);
         Ok(())
@@ -322,7 +331,10 @@ impl TddExpansionManager {
         // Create integration test file
         let integration_test = tests_dir.join("integration_test.rs");
         if !integration_test.exists() {
-            std::fs::write(&integration_test, self.generate_integration_test_template(config))?;
+            std::fs::write(
+                &integration_test,
+                self.generate_integration_test_template(config),
+            )?;
         }
 
         // Create contract test file
@@ -354,7 +366,7 @@ impl TddExpansionManager {
     /// Generate contract tests
     fn generate_contract_tests(&self, config: &PackageTddConfig) -> Result<()> {
         let contract_test_file = config.package_path.join("tests").join("contract_test.rs");
-        
+
         let contract_test_content = format!(
             r#"//! Contract Tests for {}
 //! 
@@ -385,10 +397,7 @@ async fn test_version_consistency() -> Result<()> {{
     Ok(())
 }}
 "#,
-            config.package_name,
-            config.package_name,
-            config.package_name,
-            config.package_name
+            config.package_name, config.package_name, config.package_name, config.package_name
         );
 
         std::fs::write(&contract_test_file, contract_test_content)?;
@@ -398,8 +407,11 @@ async fn test_version_consistency() -> Result<()> {{
     /// Generate performance tests
     fn generate_performance_tests(&self, config: &PackageTddConfig) -> Result<()> {
         if let Some(perf_config) = &config.performance_contracts {
-            let bench_file = config.package_path.join("benches").join("performance_benchmark.rs");
-            
+            let bench_file = config
+                .package_path
+                .join("benches")
+                .join("performance_benchmark.rs");
+
             let bench_content = format!(
                 r#"//! Performance Benchmarks for {}
 //! 
@@ -446,7 +458,7 @@ criterion_main!(benches);
 
             std::fs::write(&bench_file, bench_content)?;
         }
-        
+
         Ok(())
     }
 
@@ -454,30 +466,29 @@ criterion_main!(benches);
     fn update_cargo_toml(&self, config: &PackageTddConfig) -> Result<()> {
         let cargo_toml_path = config.package_path.join("Cargo.toml");
         let content = std::fs::read_to_string(&cargo_toml_path)?;
-        
+
         // Check if test dependencies are already present
         if content.contains("[dev-dependencies]") {
             return Ok(()); // Already has dev-dependencies
         }
-        
-        let test_deps = format!(
-            r#"
+
+        let test_deps = r#"
 
 [dev-dependencies]
 anyhow = "1.0"
-tokio = {{ version = "1.0", features = ["full"] }}
-criterion = {{ version = "0.5", features = ["html_reports"] }}
-leptos-shadcn-contract-testing = {{ path = "../../contract-testing" }}
+tokio = { version = "1.0", features = ["full"] }
+criterion = { version = "0.5", features = ["html_reports"] }
+leptos-shadcn-contract-testing = { path = "../../contract-testing" }
 
 [[bench]]
 name = "performance_benchmark"
 harness = false
 "#
-        );
-        
+        .to_string();
+
         let new_content = format!("{}{}", content, test_deps);
         std::fs::write(&cargo_toml_path, new_content)?;
-        
+
         Ok(())
     }
 
@@ -540,94 +551,120 @@ fn test_backward_compatibility() -> Result<()> {{
 
     /// Generate test module template
     fn generate_test_module_template(&self, _config: &PackageTddConfig) -> String {
-        format!(
-            r#"
+        r#"
 #[cfg(test)]
-mod tests {{
+mod tests {
     use super::*;
 
     #[test]
-    fn test_basic_functionality() {{
+    fn test_basic_functionality() {
         // TODO: Implement unit tests
-    }}
+    }
 
     #[test]
-    fn test_edge_cases() {{
+    fn test_edge_cases() {
         // TODO: Implement edge case tests
-    }}
-}}
+    }
+}
 "#
-        )
+        .to_string()
     }
 
     /// Generate TDD implementation report
     pub fn generate_implementation_report(&self) -> Result<String> {
         let mut report = String::new();
-        
+
         report.push_str("# TDD Implementation Report\n\n");
-        report.push_str(&format!("Generated: {}\n\n", 
-                                chrono::Utc::now().format("%Y-%m-%d %H:%M:%S UTC")));
-        
+        report.push_str(&format!(
+            "Generated: {}\n\n",
+            chrono::Utc::now().format("%Y-%m-%d %H:%M:%S UTC")
+        ));
+
         report.push_str("## Packages Requiring TDD Implementation\n\n");
-        
+
         for (package_name, config) in &self.package_configs {
             let status = self.analyze_package_status(package_name, config)?;
-            
+
             report.push_str(&format!("### {}\n", package_name));
-            report.push_str(&format!("- **TDD Score**: {:.1}%\n", status.overall_score * 100.0));
-            report.push_str(&format!("- **Test Coverage**: {:.1}%\n", status.test_coverage * 100.0));
-            report.push_str(&format!("- **Contract Compliance**: {:.1}%\n", status.contract_compliance * 100.0));
-            report.push_str(&format!("- **Performance Score**: {:.1}%\n", status.performance_score * 100.0));
-            
+            report.push_str(&format!(
+                "- **TDD Score**: {:.1}%\n",
+                status.overall_score * 100.0
+            ));
+            report.push_str(&format!(
+                "- **Test Coverage**: {:.1}%\n",
+                status.test_coverage * 100.0
+            ));
+            report.push_str(&format!(
+                "- **Contract Compliance**: {:.1}%\n",
+                status.contract_compliance * 100.0
+            ));
+            report.push_str(&format!(
+                "- **Performance Score**: {:.1}%\n",
+                status.performance_score * 100.0
+            ));
+
             if !status.missing_components.is_empty() {
                 report.push_str("- **Missing Components**:\n");
                 for component in &status.missing_components {
                     report.push_str(&format!("  - {}\n", component));
                 }
             }
-            
+
             if !status.recommendations.is_empty() {
                 report.push_str("- **Recommendations**:\n");
                 for rec in &status.recommendations {
                     report.push_str(&format!("  - {}\n", rec));
                 }
             }
-            
-            report.push_str("\n");
+
+            report.push('\n');
         }
-        
+
         Ok(report)
     }
 
     /// Analyze package status for reporting
-    fn analyze_package_status(&self, package_name: &str, config: &PackageTddConfig) -> Result<TddImplementationStatus> {
+    fn analyze_package_status(
+        &self,
+        package_name: &str,
+        config: &PackageTddConfig,
+    ) -> Result<TddImplementationStatus> {
         let tdd_score = self.calculate_tdd_score(&config.package_path)?;
-        
+
         let mut missing_components = Vec::new();
         let mut recommendations = Vec::new();
-        
+
         // Check for missing test categories
         if !config.package_path.join("tests").exists() {
             missing_components.push("Integration tests".to_string());
             recommendations.push("Create tests/ directory with integration tests".to_string());
         }
-        
+
         if !config.package_path.join("benches").exists() {
             missing_components.push("Performance benchmarks".to_string());
-            recommendations.push("Create benches/ directory with performance benchmarks".to_string());
+            recommendations
+                .push("Create benches/ directory with performance benchmarks".to_string());
         }
-        
+
         if !self.has_contract_tests(&config.package_path)? {
             missing_components.push("Contract tests".to_string());
             recommendations.push("Add contract testing to ensure API stability".to_string());
         }
-        
+
         Ok(TddImplementationStatus {
             package_name: package_name.to_string(),
             overall_score: tdd_score,
             test_coverage: tdd_score * 0.8, // Estimate based on TDD score
-            contract_compliance: if config.dependency_contracts { 0.9 } else { 0.3 },
-            performance_score: if config.performance_contracts.is_some() { 0.8 } else { 0.4 },
+            contract_compliance: if config.dependency_contracts {
+                0.9
+            } else {
+                0.3
+            },
+            performance_score: if config.performance_contracts.is_some() {
+                0.8
+            } else {
+                0.4
+            },
             missing_components,
             recommendations,
         })
@@ -636,12 +673,15 @@ mod tests {{
     /// Apply TDD to all packages in workspace
     pub fn apply_tdd_to_workspace(&self) -> Result<()> {
         println!("🧪 Applying TDD principles to workspace packages...");
-        
-        for (package_name, _) in &self.package_configs {
+
+        for package_name in self.package_configs.keys() {
             self.generate_tdd_implementation(package_name)?;
         }
-        
-        println!("✅ TDD implementation applied to {} packages", self.package_configs.len());
+
+        println!(
+            "✅ TDD implementation applied to {} packages",
+            self.package_configs.len()
+        );
         Ok(())
     }
 }

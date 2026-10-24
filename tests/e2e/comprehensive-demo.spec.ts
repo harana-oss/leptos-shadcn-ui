@@ -63,7 +63,7 @@ test.describe('Comprehensive Dashboard Demo E2E Tests', () => {
 
   test.describe('Metrics Cards', () => {
     test('should display all metric cards', async () => {
-      const metricCards = page.locator('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-4 > div');
+      const metricCards = page.locator('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-4 > article');
       await expect(metricCards).toHaveCount(4);
       
       // Check individual cards
@@ -163,7 +163,7 @@ test.describe('Comprehensive Dashboard Demo E2E Tests', () => {
 
   test.describe('Data Table Section', () => {
     test('should display project documents table', async () => {
-      const tableSection = page.locator('h3:has-text("Project Documents")');
+      const tableSection = page.locator('h2:has-text("Project Documents")');
       await expect(tableSection).toBeVisible();
       
       // Check table headers

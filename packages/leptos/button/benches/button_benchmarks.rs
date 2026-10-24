@@ -1,15 +1,15 @@
-use criterion::{black_box, criterion_group, criterion_main, Criterion, BenchmarkId};
+use criterion::{BenchmarkId, Criterion, black_box, criterion_group, criterion_main};
 use leptos::prelude::*;
-use leptos_shadcn_button::default::{Button, ButtonVariant, ButtonSize};
+use leptos_shadcn_button::default::{Button, ButtonSize, ButtonVariant};
 
 /// Button Component Performance Benchmarks
-/// 
+///
 /// TDD Approach: These benchmarks define the performance requirements
 /// and will guide the implementation of comprehensive performance testing.
 
 fn benchmark_button_creation(c: &mut Criterion) {
     let mut group = c.benchmark_group("button_creation");
-    
+
     // Test different button variants
     let variants = vec![
         ButtonVariant::Default,
@@ -19,7 +19,7 @@ fn benchmark_button_creation(c: &mut Criterion) {
         ButtonVariant::Ghost,
         ButtonVariant::Link,
     ];
-    
+
     for variant in variants {
         group.bench_with_input(
             BenchmarkId::new("variant", format!("{:?}", variant)),
@@ -41,13 +41,13 @@ fn benchmark_button_creation(c: &mut Criterion) {
             },
         );
     }
-    
+
     group.finish();
 }
 
 fn benchmark_button_rendering(c: &mut Criterion) {
     let mut group = c.benchmark_group("button_rendering");
-    
+
     // Test different button sizes
     let sizes = vec![
         ButtonSize::Sm,
@@ -55,7 +55,7 @@ fn benchmark_button_rendering(c: &mut Criterion) {
         ButtonSize::Lg,
         ButtonSize::Icon,
     ];
-    
+
     for size in sizes {
         group.bench_with_input(
             BenchmarkId::new("size", format!("{:?}", size)),
@@ -72,7 +72,7 @@ fn benchmark_button_rendering(c: &mut Criterion) {
                         style: Signal::derive(|| leptos_style::Style::default()),
                         children: Some(Children::new(|_| view! { "Benchmark Button" })),
                     };
-                    
+
                     // Simulate rendering by calling into_view
                     let _view = button.into_view();
                     black_box(_view);
@@ -80,13 +80,13 @@ fn benchmark_button_rendering(c: &mut Criterion) {
             },
         );
     }
-    
+
     group.finish();
 }
 
 fn benchmark_button_state_changes(c: &mut Criterion) {
     let mut group = c.benchmark_group("button_state_changes");
-    
+
     // Test disabled state changes
     group.bench_function("disabled_toggle", |b| {
         let disabled_signal = RwSignal::new(false);
@@ -100,13 +100,13 @@ fn benchmark_button_state_changes(c: &mut Criterion) {
             style: Signal::derive(|| leptos_style::Style::default()),
             children: Some(Children::new(|_| view! { "Benchmark Button" })),
         };
-        
+
         b.iter(|| {
             disabled_signal.set(!disabled_signal.get());
             black_box(button.disabled.get());
         });
     });
-    
+
     // Test class changes
     group.bench_function("class_changes", |b| {
         let class_signal = RwSignal::new("benchmark-button".to_string());
@@ -120,26 +120,26 @@ fn benchmark_button_state_changes(c: &mut Criterion) {
             style: Signal::derive(|| leptos_style::Style::default()),
             children: Some(Children::new(|_| view! { "Benchmark Button" })),
         };
-        
+
         b.iter(|| {
             class_signal.set(format!("benchmark-button-{}", rand::random::<u32>()));
             black_box(button.class.get());
         });
     });
-    
+
     group.finish();
 }
 
 fn benchmark_button_click_handling(c: &mut Criterion) {
     let mut group = c.benchmark_group("button_click_handling");
-    
+
     // Test click callback performance
     group.bench_function("click_callback", |b| {
         let click_count = RwSignal::new(0);
         let callback = Callback::new(move |_| {
             click_count.set(click_count.get() + 1);
         });
-        
+
         let button = Button {
             variant: Some(ButtonVariant::Default),
             size: Some(ButtonSize::Default),
@@ -150,7 +150,7 @@ fn benchmark_button_click_handling(c: &mut Criterion) {
             style: Signal::derive(|| leptos_style::Style::default()),
             children: Some(Children::new(|_| view! { "Benchmark Button" })),
         };
-        
+
         b.iter(|| {
             if let Some(callback) = &button.on_click {
                 callback.call(());
@@ -158,14 +158,14 @@ fn benchmark_button_click_handling(c: &mut Criterion) {
             black_box(click_count.get());
         });
     });
-    
+
     // Test rapid clicks
     group.bench_function("rapid_clicks", |b| {
         let click_count = RwSignal::new(0);
         let callback = Callback::new(move |_| {
             click_count.set(click_count.get() + 1);
         });
-        
+
         let button = Button {
             variant: Some(ButtonVariant::Default),
             size: Some(ButtonSize::Default),
@@ -176,7 +176,7 @@ fn benchmark_button_click_handling(c: &mut Criterion) {
             style: Signal::derive(|| leptos_style::Style::default()),
             children: Some(Children::new(|_| view! { "Benchmark Button" })),
         };
-        
+
         b.iter(|| {
             for _ in 0..100 {
                 if let Some(callback) = &button.on_click {
@@ -186,13 +186,13 @@ fn benchmark_button_click_handling(c: &mut Criterion) {
             black_box(click_count.get());
         });
     });
-    
+
     group.finish();
 }
 
 fn benchmark_button_memory_usage(c: &mut Criterion) {
     let mut group = c.benchmark_group("button_memory_usage");
-    
+
     // Test memory usage for multiple buttons
     group.bench_function("multiple_buttons", |b| {
         b.iter(|| {
@@ -213,7 +213,7 @@ fn benchmark_button_memory_usage(c: &mut Criterion) {
             black_box(buttons);
         });
     });
-    
+
     // Test memory usage for buttons with complex children
     group.bench_function("complex_children", |b| {
         b.iter(|| {
@@ -240,13 +240,13 @@ fn benchmark_button_memory_usage(c: &mut Criterion) {
             black_box(button);
         });
     });
-    
+
     group.finish();
 }
 
 fn benchmark_button_accessibility(c: &mut Criterion) {
     let mut group = c.benchmark_group("button_accessibility");
-    
+
     // Test accessibility attribute generation
     group.bench_function("accessibility_attributes", |b| {
         b.iter(|| {
@@ -260,20 +260,20 @@ fn benchmark_button_accessibility(c: &mut Criterion) {
                 style: Signal::derive(|| leptos_style::Style::default()),
                 children: Some(Children::new(|_| view! { "Accessible Button" })),
             };
-            
+
             // Simulate accessibility attribute generation
             let _aria_label = "Accessible Button";
             let _role = "button";
             let _tabindex = 0;
-            
+
             black_box((_aria_label, _role, _tabindex));
         });
     });
-    
+
     // Test keyboard navigation performance
     group.bench_function("keyboard_navigation", |b| {
-        let buttons = (0..100).map(|i| {
-            Button {
+        let buttons = (0..100)
+            .map(|i| Button {
                 variant: Some(ButtonVariant::Default),
                 size: Some(ButtonSize::Default),
                 disabled: Signal::derive(|| false),
@@ -282,9 +282,9 @@ fn benchmark_button_accessibility(c: &mut Criterion) {
                 id: MaybeProp::from(format!("benchmark-button-{}", i)),
                 style: Signal::derive(|| leptos_style::Style::default()),
                 children: Some(Children::new(move |_| view! { format!("Button {}", i) })),
-            }
-        }).collect::<Vec<_>>();
-        
+            })
+            .collect::<Vec<_>>();
+
         b.iter(|| {
             // Simulate tab navigation through buttons
             for i in 0..100 {
@@ -293,7 +293,7 @@ fn benchmark_button_accessibility(c: &mut Criterion) {
             }
         });
     });
-    
+
     group.finish();
 }
 
@@ -305,7 +305,7 @@ criterion_group!(
         .measurement_time(std::time::Duration::from_secs(10))
         .warm_up_time(std::time::Duration::from_secs(2))
         .noise_threshold(0.05);
-    targets = 
+    targets =
         benchmark_button_creation,
         benchmark_button_rendering,
         benchmark_button_state_changes,

@@ -51,12 +51,20 @@ pub struct BandScale {
 impl BandScale {
     pub fn new(n: usize, width: f64, padding: f64) -> Self {
         if n == 0 {
-            return Self { step: 0.0, bandwidth: 0.0, offset: 0.0 };
+            return Self {
+                step: 0.0,
+                bandwidth: 0.0,
+                offset: 0.0,
+            };
         }
         let padding = padding.clamp(0.0, 0.99);
         let step = width / n as f64;
         let bandwidth = step * (1.0 - padding);
-        Self { step, bandwidth, offset: (step - bandwidth) / 2.0 }
+        Self {
+            step,
+            bandwidth,
+            offset: (step - bandwidth) / 2.0,
+        }
     }
 
     /// Left x of band `i`.
@@ -82,7 +90,13 @@ pub struct BarRect {
 }
 
 /// Grouped bar rectangles for `values[series][category]` inside `width x height`.
-pub fn bar_rects(values: &[Vec<f64>], width: f64, height: f64, y_max: f64, padding: f64) -> Vec<BarRect> {
+pub fn bar_rects(
+    values: &[Vec<f64>],
+    width: f64,
+    height: f64,
+    y_max: f64,
+    padding: f64,
+) -> Vec<BarRect> {
     let n = values.iter().map(|s| s.len()).max().unwrap_or(0);
     let band = BandScale::new(n, width, padding);
     let series_count = values.len().max(1);
@@ -111,7 +125,12 @@ pub fn line_points(values: &[f64], width: f64, height: f64, y_max: f64) -> Vec<(
     values
         .iter()
         .enumerate()
-        .map(|(i, v)| (band.center(i), linear_scale(*v, (0.0, y_max), (height, 0.0))))
+        .map(|(i, v)| {
+            (
+                band.center(i),
+                linear_scale(*v, (0.0, y_max), (height, 0.0)),
+            )
+        })
         .collect()
 }
 

@@ -2,8 +2,10 @@
 
 use crate::{SidebarMenuButtonSize, SidebarMenuButtonVariant, SidebarSide, SidebarVariant};
 
-pub const SIDEBAR_WRAPPER_CLASS: &str = "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full";
-pub const SIDEBAR_STATIC_CLASS: &str = "bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col";
+pub const SIDEBAR_WRAPPER_CLASS: &str =
+    "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full";
+pub const SIDEBAR_STATIC_CLASS: &str =
+    "bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col";
 pub const SIDEBAR_PEER_CLASS: &str = "group peer text-sidebar-foreground hidden md:block";
 pub const SIDEBAR_GAP_CLASS: &str = "relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear group-data-[collapsible=offcanvas]:w-0 group-data-[side=right]:rotate-180";
 pub const SIDEBAR_CONTAINER_CLASS: &str = "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex";
@@ -24,7 +26,8 @@ pub const SIDEBAR_GROUP_CONTENT_CLASS: &str = "w-full text-sm";
 pub const SIDEBAR_MENU_CLASS: &str = "flex w-full min-w-0 flex-col gap-1";
 pub const SIDEBAR_MENU_ITEM_CLASS: &str = "group/menu-item relative";
 pub const SIDEBAR_MENU_BUTTON_CLASS: &str = "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-hidden ring-sidebar-ring transition-[width,height,padding] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0";
-pub const SIDEBAR_MENU_BUTTON_VARIANT_DEFAULT: &str = "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground";
+pub const SIDEBAR_MENU_BUTTON_VARIANT_DEFAULT: &str =
+    "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground";
 pub const SIDEBAR_MENU_BUTTON_VARIANT_OUTLINE: &str = "bg-background shadow-[0_0_0_1px_var(--sidebar-border)] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-[0_0_0_1px_var(--sidebar-accent)]";
 pub const SIDEBAR_MENU_BUTTON_SIZE_DEFAULT: &str = "h-8 text-sm";
 pub const SIDEBAR_MENU_BUTTON_SIZE_SM: &str = "h-7 text-xs";
@@ -50,8 +53,12 @@ pub fn sidebar_gap_class(variant: SidebarVariant) -> String {
 
 pub fn sidebar_container_class(side: SidebarSide, variant: SidebarVariant) -> String {
     let side_class = match side {
-        SidebarSide::Left => "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]",
-        SidebarSide::Right => "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
+        SidebarSide::Left => {
+            "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
+        }
+        SidebarSide::Right => {
+            "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]"
+        }
     };
     let variant_class = match variant {
         SidebarVariant::Floating | SidebarVariant::Inset => {
@@ -71,7 +78,10 @@ pub fn sidebar_mobile_side_class(side: SidebarSide) -> &'static str {
     }
 }
 
-pub fn sidebar_menu_button_class(variant: SidebarMenuButtonVariant, size: SidebarMenuButtonSize) -> String {
+pub fn sidebar_menu_button_class(
+    variant: SidebarMenuButtonVariant,
+    size: SidebarMenuButtonSize,
+) -> String {
     let v = match variant {
         SidebarMenuButtonVariant::Default => SIDEBAR_MENU_BUTTON_VARIANT_DEFAULT,
         SidebarMenuButtonVariant::Outline => SIDEBAR_MENU_BUTTON_VARIANT_OUTLINE,

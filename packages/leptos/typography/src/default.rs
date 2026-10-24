@@ -9,14 +9,17 @@ pub(crate) fn cn(base: &str, extra: Option<String>) -> String {
         _ => base.to_string(),
     }
 }
-pub const TYPOGRAPHY_H1_CLASS: &str = "scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance";
-pub const TYPOGRAPHY_H2_CLASS: &str = "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0";
+pub const TYPOGRAPHY_H1_CLASS: &str =
+    "scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance";
+pub const TYPOGRAPHY_H2_CLASS: &str =
+    "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0";
 pub const TYPOGRAPHY_H3_CLASS: &str = "scroll-m-20 text-2xl font-semibold tracking-tight";
 pub const TYPOGRAPHY_H4_CLASS: &str = "scroll-m-20 text-xl font-semibold tracking-tight";
 pub const TYPOGRAPHY_P_CLASS: &str = "leading-7 [&:not(:first-child)]:mt-6";
 pub const TYPOGRAPHY_BLOCKQUOTE_CLASS: &str = "mt-6 border-l-2 pl-6 italic";
 pub const TYPOGRAPHY_LIST_CLASS: &str = "my-6 ml-6 list-disc [&>li]:mt-2";
-pub const TYPOGRAPHY_INLINE_CODE_CLASS: &str = "bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold";
+pub const TYPOGRAPHY_INLINE_CODE_CLASS: &str =
+    "bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold";
 pub const TYPOGRAPHY_LEAD_CLASS: &str = "text-muted-foreground text-xl";
 pub const TYPOGRAPHY_LARGE_CLASS: &str = "text-lg font-semibold";
 pub const TYPOGRAPHY_SMALL_CLASS: &str = "text-sm leading-none font-medium";

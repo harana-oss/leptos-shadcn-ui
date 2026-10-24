@@ -7,8 +7,8 @@
 //! - Global state isolation for concurrent component instances
 //! - Component lifecycle management under concurrent operations
 
-use leptos::prelude::*;
 use crate::*;
+use leptos::prelude::*;
 
 #[cfg(test)]
 mod integration_tests {
@@ -353,9 +353,7 @@ mod integration_tests {
     #[test]
     fn test_memory_management_multiple_popovers() {
         // Test: Multiple popovers don't cause memory leaks
-        let popovers: Vec<RwSignal<bool>> = (0..10)
-            .map(|_| RwSignal::new(false))
-            .collect();
+        let popovers: Vec<RwSignal<bool>> = (0..10).map(|_| RwSignal::new(false)).collect();
 
         let _view = view! {
             <div>

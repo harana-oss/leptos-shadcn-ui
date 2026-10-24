@@ -1,10 +1,10 @@
 //! Functionality tests for the advanced Date-picker component
-//! 
+//!
 //! This module contains tests for date presets, custom formatting,
 //! validation, and keyboard navigation functionality.
 
+use crate::default::DatePicker;
 use leptos::prelude::*;
-use crate::default::{DatePicker, DatePickerWithRange};
 use leptos_shadcn_calendar::CalendarDate;
 
 #[cfg(test)]
@@ -13,69 +13,75 @@ mod tests {
 
     #[test]
     fn test_date_presets() {
-    leptos::prelude::Owner::new().with(|| {
-        let test_result = std::panic::catch_unwind(|| {
-            let _date_picker_with_presets = view! {
-                <DatePicker
-                    selected=Some(CalendarDate::new(2024, 1, 15)).into()
-                    placeholder="Select a date".to_string().into()
-                    class="w-full".into()
-                />
-            };
-            true
+        leptos::prelude::Owner::new().with(|| {
+            let test_result = std::panic::catch_unwind(|| {
+                let _date_picker_with_presets = view! {
+                    <DatePicker
+                        selected=Some(CalendarDate::new(2024, 1, 15)).into()
+                        placeholder="Select a date".to_string().into()
+                        class="w-full".into()
+                    />
+                };
+                true
+            });
+            assert!(test_result.is_ok(), "Date presets test failed");
         });
-        assert!(test_result.is_ok(), "Date presets test failed");
-    });
-}
+    }
 
     #[test]
     fn test_custom_date_formatting() {
-    leptos::prelude::Owner::new().with(|| {
-        let test_result = std::panic::catch_unwind(|| {
-            let _date_picker_with_formatting = view! {
-                <DatePicker
-                    selected=Some(CalendarDate::new(2024, 1, 15)).into()
-                    placeholder="Select a date".to_string().into()
-                    class="w-full".into()
-                />
-            };
-            true
+        leptos::prelude::Owner::new().with(|| {
+            let test_result = std::panic::catch_unwind(|| {
+                let _date_picker_with_formatting = view! {
+                    <DatePicker
+                        selected=Some(CalendarDate::new(2024, 1, 15)).into()
+                        placeholder="Select a date".to_string().into()
+                        class="w-full".into()
+                    />
+                };
+                true
+            });
+            assert!(test_result.is_ok(), "Custom date formatting test failed");
         });
-        assert!(test_result.is_ok(), "Custom date formatting test failed");
-    });
-}
+    }
 
     #[test]
     fn test_date_validation_and_constraints() {
-    leptos::prelude::Owner::new().with(|| {
-        let test_result = std::panic::catch_unwind(|| {
-            let _date_picker_with_validation = view! {
-                <DatePicker
-                    selected=Some(CalendarDate::new(2024, 1, 15)).into()
-                    placeholder="Select a date".to_string().into()
-                    class="w-full".into()
-                />
-            };
-            true
+        leptos::prelude::Owner::new().with(|| {
+            let test_result = std::panic::catch_unwind(|| {
+                let _date_picker_with_validation = view! {
+                    <DatePicker
+                        selected=Some(CalendarDate::new(2024, 1, 15)).into()
+                        placeholder="Select a date".to_string().into()
+                        class="w-full".into()
+                    />
+                };
+                true
+            });
+            assert!(
+                test_result.is_ok(),
+                "Date validation and constraints test failed"
+            );
         });
-        assert!(test_result.is_ok(), "Date validation and constraints test failed");
-    });
-}
+    }
 
     #[test]
     fn test_keyboard_navigation_and_shortcuts() {
-    leptos::prelude::Owner::new().with(|| {
-        let test_result = std::panic::catch_unwind(|| {
-            let _date_picker_with_keyboard = view! {
-                <DatePicker
-                    selected=Some(CalendarDate::new(2024, 1, 15)).into()
-                    placeholder="Select a date".to_string().into()
-                    class="w-full".into()
-                />
-            };
-            true
+        leptos::prelude::Owner::new().with(|| {
+            let test_result = std::panic::catch_unwind(|| {
+                let _date_picker_with_keyboard = view! {
+                    <DatePicker
+                        selected=Some(CalendarDate::new(2024, 1, 15)).into()
+                        placeholder="Select a date".to_string().into()
+                        class="w-full".into()
+                    />
+                };
+                true
+            });
+            assert!(
+                test_result.is_ok(),
+                "Keyboard navigation and shortcuts test failed"
+            );
         });
-        assert!(test_result.is_ok(), "Keyboard navigation and shortcuts test failed");
-    });
-}
+    }
 }

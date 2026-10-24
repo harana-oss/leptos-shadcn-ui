@@ -58,9 +58,11 @@ pub fn use_is_mobile() -> Signal<bool> {
 #[cfg(target_arch = "wasm32")]
 fn attach_media_listener(is_mobile: RwSignal<bool>) {
     use send_wrapper::SendWrapper;
-    use wasm_bindgen::{closure::Closure, JsCast};
+    use wasm_bindgen::{JsCast, closure::Closure};
 
-    let Some(window) = web_sys::window() else { return };
+    let Some(window) = web_sys::window() else {
+        return;
+    };
     let Ok(Some(mql)) = window.match_media(&mobile_media_query()) else {
         return;
     };
@@ -74,8 +76,7 @@ fn attach_media_listener(is_mobile: RwSignal<bool>) {
     let guard = SendWrapper::new((mql, closure));
     on_cleanup(move || {
         let (mql, closure) = guard.take();
-        let _ = mql
-            .remove_event_listener_with_callback("change", closure.as_ref().unchecked_ref());
+        let _ = mql.remove_event_listener_with_callback("change", closure.as_ref().unchecked_ref());
     });
 }
 
@@ -163,11 +164,7 @@ impl SidebarMenuButtonSize {
 
 /// `data-state` value for the given open flag.
 pub fn sidebar_state(open: bool) -> &'static str {
-    if open {
-        "expanded"
-    } else {
-        "collapsed"
-    }
+    if open { "expanded" } else { "collapsed" }
 }
 
 /// Returns true when a keydown should toggle the sidebar.
@@ -256,7 +253,8 @@ pub fn SidebarProvider(
     ctx.on_open_change = on_open_change;
     let detected = use_is_mobile();
     Effect::new(move |_| {
-        ctx.is_mobile.set(resolve_is_mobile(is_mobile.get(), detected.get()));
+        ctx.is_mobile
+            .set(resolve_is_mobile(is_mobile.get(), detected.get()));
     });
     provide_context(ctx);
 
@@ -442,12 +440,37 @@ macro_rules! slot_div {
     };
 }
 
-slot_div!(SidebarHeader, "sidebar-header", "header", SIDEBAR_HEADER_CLASS);
-slot_div!(SidebarFooter, "sidebar-footer", "footer", SIDEBAR_FOOTER_CLASS);
-slot_div!(SidebarContent, "sidebar-content", "content", SIDEBAR_CONTENT_CLASS);
+slot_div!(
+    SidebarHeader,
+    "sidebar-header",
+    "header",
+    SIDEBAR_HEADER_CLASS
+);
+slot_div!(
+    SidebarFooter,
+    "sidebar-footer",
+    "footer",
+    SIDEBAR_FOOTER_CLASS
+);
+slot_div!(
+    SidebarContent,
+    "sidebar-content",
+    "content",
+    SIDEBAR_CONTENT_CLASS
+);
 slot_div!(SidebarGroup, "sidebar-group", "group", SIDEBAR_GROUP_CLASS);
-slot_div!(SidebarGroupLabel, "sidebar-group-label", "group-label", SIDEBAR_GROUP_LABEL_CLASS);
-slot_div!(SidebarGroupContent, "sidebar-group-content", "group-content", SIDEBAR_GROUP_CONTENT_CLASS);
+slot_div!(
+    SidebarGroupLabel,
+    "sidebar-group-label",
+    "group-label",
+    SIDEBAR_GROUP_LABEL_CLASS
+);
+slot_div!(
+    SidebarGroupContent,
+    "sidebar-group-content",
+    "group-content",
+    SIDEBAR_GROUP_CONTENT_CLASS
+);
 
 #[component]
 pub fn SidebarInset(
@@ -568,12 +591,10 @@ pub fn SidebarMenuButton(
     let ctx = use_context::<SidebarContext>();
     let size = move || size.get().unwrap_or_default();
     let title = move || {
-        let collapsed = ctx.map(|c| !c.open.get() && !c.is_mobile.get()).unwrap_or(false);
-        if collapsed {
-            tooltip.get()
-        } else {
-            None
-        }
+        let collapsed = ctx
+            .map(|c| !c.open.get() && !c.is_mobile.get())
+            .unwrap_or(false);
+        if collapsed { tooltip.get() } else { None }
     };
     view! {
         <button
@@ -623,7 +644,12 @@ pub fn SidebarMenuAction(
     }
 }
 
-slot_div!(SidebarMenuBadge, "sidebar-menu-badge", "menu-badge", SIDEBAR_MENU_BADGE_CLASS);
+slot_div!(
+    SidebarMenuBadge,
+    "sidebar-menu-badge",
+    "menu-badge",
+    SIDEBAR_MENU_BADGE_CLASS
+);
 
 #[component]
 pub fn SidebarMenuSkeleton(

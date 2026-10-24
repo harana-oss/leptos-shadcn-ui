@@ -25,7 +25,7 @@ pub(crate) fn now_ms() -> f64 {
 }
 
 /// Memory usage statistics for signal management
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub struct MemoryStats {
     /// Number of active signals
     pub active_signals: usize,
@@ -35,17 +35,6 @@ pub struct MemoryStats {
     pub estimated_memory_bytes: usize,
     /// Number of tracked signal groups
     pub tracked_groups: usize,
-}
-
-impl Default for MemoryStats {
-    fn default() -> Self {
-        Self {
-            active_signals: 0,
-            active_memos: 0,
-            estimated_memory_bytes: 0,
-            tracked_groups: 0,
-        }
-    }
 }
 
 /// Name of the group used by `add_signal` / `add_memo` when no group is active
@@ -101,7 +90,9 @@ impl Eq for TrackedItem {}
 
 impl std::fmt::Debug for TrackedItem {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("TrackedItem").field("source", &self.source).finish()
+        f.debug_struct("TrackedItem")
+            .field("source", &self.source)
+            .finish()
     }
 }
 
@@ -133,7 +124,11 @@ fn insert_unique(list: &mut Vec<TrackedItem>, index: &mut HashSet<AnySource>, it
     }
 }
 
-fn remove_by_source(list: &mut Vec<TrackedItem>, index: &mut HashSet<AnySource>, source: &AnySource) -> bool {
+fn remove_by_source(
+    list: &mut Vec<TrackedItem>,
+    index: &mut HashSet<AnySource>,
+    source: &AnySource,
+) -> bool {
     index.remove(source);
     let before = list.len();
     list.retain(|item| &item.source != source);
@@ -147,20 +142,38 @@ impl SignalGroup {
     }
 
     /// Add a signal to this group. Adding the same signal twice is a no-op.
-    pub fn add_signal<T: Send + Sync + 'static>(&mut self, signal: ArcRwSignal<T>) -> ArcRwSignal<T> {
-        insert_unique(&mut self.signals, &mut self.signal_index, TrackedItem::new(signal.clone()));
+    pub fn add_signal<T: Send + Sync + 'static>(
+        &mut self,
+        signal: ArcRwSignal<T>,
+    ) -> ArcRwSignal<T> {
+        insert_unique(
+            &mut self.signals,
+            &mut self.signal_index,
+            TrackedItem::new(signal.clone()),
+        );
         signal
     }
 
     /// Add a memo to this group. Adding the same memo twice is a no-op.
     pub fn add_memo<T: Send + Sync + 'static>(&mut self, memo: ArcMemo<T>) -> ArcMemo<T> {
-        insert_unique(&mut self.memos, &mut self.memo_index, TrackedItem::new(memo.clone()));
+        insert_unique(
+            &mut self.memos,
+            &mut self.memo_index,
+            TrackedItem::new(memo.clone()),
+        );
         memo
     }
 
     /// Remove a specific signal (by identity). Returns true if it was tracked.
-    pub fn remove_tracked_signal<T: Send + Sync + 'static>(&mut self, signal: &ArcRwSignal<T>) -> bool {
-        remove_by_source(&mut self.signals, &mut self.signal_index, &signal.to_any_source())
+    pub fn remove_tracked_signal<T: Send + Sync + 'static>(
+        &mut self,
+        signal: &ArcRwSignal<T>,
+    ) -> bool {
+        remove_by_source(
+            &mut self.signals,
+            &mut self.signal_index,
+            &signal.to_any_source(),
+        )
     }
 
     /// Remove a specific memo (by identity). Returns true if it was tracked.
@@ -283,7 +296,13 @@ impl SignalMemoryManager {
     pub fn active_group_name(&self) -> String {
         let current = self.current_group.get_untracked();
         match current {
-            Some(name) if self.tracked_groups.with_untracked(|g| g.contains_key(&name)) => name,
+            Some(name)
+                if self
+                    .tracked_groups
+                    .with_untracked(|g| g.contains_key(&name)) =>
+            {
+                name
+            }
             _ => DEFAULT_GROUP_NAME.to_string(),
         }
     }
@@ -291,7 +310,7 @@ impl SignalMemoryManager {
     fn forget_current_if(&self, removed: impl Fn(&str) -> bool) {
         let clear = self
             .current_group
-            .with_untracked(|c| c.as_deref().map(|n| removed(n)).unwrap_or(false));
+            .with_untracked(|c| c.as_deref().map(removed).unwrap_or(false));
         if clear {
             self.current_group.set(None);
         }
@@ -432,16 +451,14 @@ impl SignalMemoryManager {
 
     /// Get total number of signals across all groups
     pub fn total_signals(&self) -> usize {
-        self.tracked_groups.with(|groups| {
-            groups.values().map(|group| group.signal_count()).sum()
-        })
+        self.tracked_groups
+            .with(|groups| groups.values().map(|group| group.signal_count()).sum())
     }
 
     /// Get total number of memos across all groups
     pub fn total_memos(&self) -> usize {
-        self.tracked_groups.with(|groups| {
-            groups.values().map(|group| group.memo_count()).sum()
-        })
+        self.tracked_groups
+            .with(|groups| groups.values().map(|group| group.memo_count()).sum())
     }
 
     /// Get memory usage in KB
@@ -451,20 +468,29 @@ impl SignalMemoryManager {
 
     /// Add a signal to the active group (the most recently created group,
     /// or the default group if none is active)
-    pub fn add_signal<T: Send + Sync + 'static>(&self, signal: ArcRwSignal<T>) -> Result<ArcRwSignal<T>, SignalManagementError> {
+    pub fn add_signal<T: Send + Sync + 'static>(
+        &self,
+        signal: ArcRwSignal<T>,
+    ) -> Result<ArcRwSignal<T>, SignalManagementError> {
         let group = self.active_group_name();
         self.add_signal_to_group(&group, signal)
     }
 
     /// Add a memo to the active group (the most recently created group,
     /// or the default group if none is active)
-    pub fn add_memo<T: Send + Sync + 'static>(&self, memo: ArcMemo<T>) -> Result<ArcMemo<T>, SignalManagementError> {
+    pub fn add_memo<T: Send + Sync + 'static>(
+        &self,
+        memo: ArcMemo<T>,
+    ) -> Result<ArcMemo<T>, SignalManagementError> {
         let group = self.active_group_name();
         self.add_memo_to_group(&group, memo)
     }
 
     /// Remove a signal from tracking in every group that holds it
-    pub fn remove_signal<T: Send + Sync + 'static>(&self, signal: &ArcRwSignal<T>) -> Result<(), SignalManagementError> {
+    pub fn remove_signal<T: Send + Sync + 'static>(
+        &self,
+        signal: &ArcRwSignal<T>,
+    ) -> Result<(), SignalManagementError> {
         self.tracked_groups.update(|groups| {
             for group in groups.values_mut() {
                 group.remove_tracked_signal(signal);
@@ -475,7 +501,10 @@ impl SignalMemoryManager {
     }
 
     /// Remove a memo from tracking in every group that holds it
-    pub fn remove_memo<T: Send + Sync + 'static>(&self, memo: &ArcMemo<T>) -> Result<(), SignalManagementError> {
+    pub fn remove_memo<T: Send + Sync + 'static>(
+        &self,
+        memo: &ArcMemo<T>,
+    ) -> Result<(), SignalManagementError> {
         self.tracked_groups.update(|groups| {
             for group in groups.values_mut() {
                 group.remove_tracked_memo(memo);
@@ -553,9 +582,8 @@ impl SignalMemoryManager {
 
     /// Get a specific group by name
     pub fn get_group(&self, group_name: &str) -> Option<SignalGroup> {
-        self.tracked_groups.with(|groups| {
-            groups.get(group_name).cloned()
-        })
+        self.tracked_groups
+            .with(|groups| groups.get(group_name).cloned())
     }
 }
 
@@ -587,7 +615,7 @@ impl MemoryLeakDetector {
             leak_prevention_enabled: false,
         }
     }
-    
+
     /// Create a new memory leak detector with custom threshold
     pub fn with_threshold(growth_threshold: f64) -> Self {
         Self {
@@ -597,44 +625,47 @@ impl MemoryLeakDetector {
             leak_prevention_enabled: false,
         }
     }
-    
+
     /// Set baseline memory stats
     pub fn set_baseline(&mut self, stats: MemoryStats) {
         self.baseline_stats = stats;
     }
-    
+
     /// Update current memory stats
     pub fn update_current(&self, stats: MemoryStats) {
         self.current_stats.set(stats);
     }
-    
+
     /// Check for memory leaks
     pub fn check_for_leaks(&self) -> Result<bool, SignalManagementError> {
         let current = self.current_stats.get();
-        
+
         // Check if memory usage has grown significantly
         let memory_growth = if self.baseline_stats.estimated_memory_bytes > 0 {
-            (current.estimated_memory_bytes as f64 - self.baseline_stats.estimated_memory_bytes as f64)
+            (current.estimated_memory_bytes as f64
+                - self.baseline_stats.estimated_memory_bytes as f64)
                 / self.baseline_stats.estimated_memory_bytes as f64
         } else {
             0.0
         };
-        
+
         Ok(memory_growth > self.growth_threshold)
     }
-    
+
     /// Get memory growth percentage
     pub fn memory_growth_percentage(&self) -> f64 {
         let current = self.current_stats.get();
-        
+
         if self.baseline_stats.estimated_memory_bytes > 0 {
-            ((current.estimated_memory_bytes as f64 - self.baseline_stats.estimated_memory_bytes as f64)
-                / self.baseline_stats.estimated_memory_bytes as f64) * 100.0
+            ((current.estimated_memory_bytes as f64
+                - self.baseline_stats.estimated_memory_bytes as f64)
+                / self.baseline_stats.estimated_memory_bytes as f64)
+                * 100.0
         } else {
             0.0
         }
     }
-    
+
     /// Get the growth threshold
     pub fn growth_threshold(&self) -> f64 {
         self.growth_threshold

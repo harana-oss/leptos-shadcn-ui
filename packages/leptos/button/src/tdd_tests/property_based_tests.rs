@@ -1,11 +1,11 @@
 //! Property-Based Testing Examples for Button Component
-//! 
+//!
 //! This module contains property-based tests that validate component behavior
 //! across a wide range of inputs and scenarios.
 
 #[cfg(test)]
 mod property_based_tests {
-    use crate::default::{ButtonVariant, ButtonSize};
+    use crate::default::{ButtonSize, ButtonVariant};
 
     #[test]
     fn test_button_variant_string_conversion_properties() {
@@ -21,10 +21,14 @@ mod property_based_tests {
             ("DESTRUCTIVE", ButtonVariant::Default), // Case sensitive
             ("", ButtonVariant::Default),
         ];
-        
+
         for (input, expected) in test_cases {
             let result = ButtonVariant::from(input.to_string());
-            assert_eq!(result, expected, "Input '{}' should convert to {:?}", input, expected);
+            assert_eq!(
+                result, expected,
+                "Input '{}' should convert to {:?}",
+                input, expected
+            );
         }
     }
 
@@ -34,16 +38,20 @@ mod property_based_tests {
         let test_cases = vec![
             ("default", ButtonSize::Default),
             ("sm", ButtonSize::Sm),
-            ("lg", ButtonSize::Lg),  
+            ("lg", ButtonSize::Lg),
             ("icon", ButtonSize::Icon),
             ("unknown", ButtonSize::Default),
             ("SM", ButtonSize::Default), // Case sensitive
             ("large", ButtonSize::Default),
         ];
-        
+
         for (input, expected) in test_cases {
             let result = ButtonSize::from(input.to_string());
-            assert_eq!(result, expected, "Input '{}' should convert to {:?}", input, expected);
+            assert_eq!(
+                result, expected,
+                "Input '{}' should convert to {:?}",
+                input, expected
+            );
         }
     }
 }

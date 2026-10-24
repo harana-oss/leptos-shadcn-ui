@@ -8,9 +8,13 @@ pub async fn validate_components(component: &str, path: PathBuf) -> anyhow::Resu
     // 2. Validate theme consistency
     // 3. Check API consistency
     // 4. Generate quality report
-    
-    println!("Validating {} components in project at {}", component, path.display());
-    
+
+    println!(
+        "Validating {} components in project at {}",
+        component,
+        path.display()
+    );
+
     // For now, just show what would happen
     if component == "all" {
         println!("All components would be validated for:");
@@ -21,6 +25,6 @@ pub async fn validate_components(component: &str, path: PathBuf) -> anyhow::Resu
         println!("Component '{}' would be validated", component);
     }
     println!("This feature is coming soon!");
-    
+
     Ok(())
 }

@@ -1,5 +1,5 @@
 //! TDD Pattern 2: GREEN - Make tests pass with minimal implementation
-//! 
+//!
 //! This module contains tests that verify the basic validation state management
 //! and minimal implementation functionality.
 
@@ -11,7 +11,7 @@ mod tdd_green_tests {
         pub is_valid: bool,
         pub errors: Vec<String>,
     }
-    
+
     impl ValidationState {
         fn new() -> Self {
             Self {
@@ -19,12 +19,12 @@ mod tdd_green_tests {
                 errors: Vec::new(),
             }
         }
-        
+
         fn add_error(&mut self, error: String) {
             self.is_valid = false;
             self.errors.push(error);
         }
-        
+
         fn clear_errors(&mut self) {
             self.is_valid = true;
             self.errors.clear();
@@ -42,7 +42,7 @@ mod tdd_green_tests {
     fn test_validation_state_add_error() {
         let mut state = ValidationState::new();
         state.add_error("Test error".to_string());
-        
+
         assert!(!state.is_valid);
         assert_eq!(state.errors.len(), 1);
         assert_eq!(state.errors[0], "Test error");
@@ -53,7 +53,7 @@ mod tdd_green_tests {
         let mut state = ValidationState::new();
         state.add_error("Test error".to_string());
         state.clear_errors();
-        
+
         assert!(state.is_valid);
         assert!(state.errors.is_empty());
     }
@@ -63,7 +63,7 @@ mod tdd_green_tests {
         let mut state = ValidationState::new();
         state.add_error("First error".to_string());
         state.add_error("Second error".to_string());
-        
+
         assert!(!state.is_valid);
         assert_eq!(state.errors.len(), 2);
         assert!(state.errors.contains(&"First error".to_string()));

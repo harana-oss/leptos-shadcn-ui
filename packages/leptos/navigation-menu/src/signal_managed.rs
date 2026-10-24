@@ -1,27 +1,16 @@
 //! Signal-managed version of the navigation-menu component using leptos-shadcn-signal-management
 
 use leptos::prelude::*;
-use leptos_style::Style;
 use leptos_shadcn_signal_management::*;
+use leptos_style::Style;
 
 /// Signal-managed navigation-menu state
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub struct SignalManagedNavigationmenuState {
     pub is_active: bool,
     pub is_hovered: bool,
     pub is_focused: bool,
     pub click_count: u32,
-}
-
-impl Default for SignalManagedNavigationmenuState {
-    fn default() -> Self {
-        Self {
-            is_active: false,
-            is_hovered: false,
-            is_focused: false,
-            click_count: 0,
-        }
-    }
 }
 
 /// Signal-managed navigation-menu component
@@ -43,11 +32,12 @@ pub fn SignalManagedNavigationmenu(
         let active_class = if state.is_active { "active" } else { "" };
         let hover_class = if state.is_hovered { "hover" } else { "" };
         let focus_class = if state.is_focused { "focus" } else { "" };
-        
-        format!("{} {} {} {} {}", 
-            base_class, 
-            active_class, 
-            hover_class, 
+
+        format!(
+            "{} {} {} {} {}",
+            base_class,
+            active_class,
+            hover_class,
             focus_class,
             class.get().unwrap_or_default()
         )
@@ -93,7 +83,7 @@ pub fn SignalManagedNavigationmenu(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let navigation_menu_state_for_disabled = navigation_menu_state.clone();
+    let _navigation_menu_state_for_disabled = navigation_menu_state.clone();
     view! {
         <div
             class=move || computed_class.get()
@@ -124,14 +114,27 @@ pub fn EnhancedNavigationmenu(
     let computed_class = ArcMemo::new(move |_| {
         let state = navigation_menu_state_for_class.get();
         let base_class = "component-base-class"; // TODO: Replace with actual base class
-        let active_class = if state.is_active { "active transition-all" } else { "" };
-        let hover_class = if state.is_hovered { "hover:shadow-md" } else { "" };
-        let focus_class = if state.is_focused { "focus:ring-2 focus:ring-ring" } else { "" };
-        
-        format!("{} {} {} {} {}", 
-            base_class, 
-            active_class, 
-            hover_class, 
+        let active_class = if state.is_active {
+            "active transition-all"
+        } else {
+            ""
+        };
+        let hover_class = if state.is_hovered {
+            "hover:shadow-md"
+        } else {
+            ""
+        };
+        let focus_class = if state.is_focused {
+            "focus:ring-2 focus:ring-ring"
+        } else {
+            ""
+        };
+
+        format!(
+            "{} {} {} {} {}",
+            base_class,
+            active_class,
+            hover_class,
             focus_class,
             class.get().unwrap_or_default()
         )
@@ -141,10 +144,9 @@ pub fn EnhancedNavigationmenu(
     let navigation_menu_state_for_metrics = navigation_menu_state.clone();
     let performance_metrics = ArcMemo::new(move |_| {
         let state = navigation_menu_state_for_metrics.get();
-        format!("Clicks: {}, Active: {}, Hovered: {}", 
-            state.click_count, 
-            state.is_active, 
-            state.is_hovered
+        format!(
+            "Clicks: {}, Active: {}, Hovered: {}",
+            state.click_count, state.is_active, state.is_hovered
         )
     });
 
@@ -201,7 +203,7 @@ pub fn EnhancedNavigationmenu(
             >
                 {children.map(|c| c())}
             </div>
-            
+
             // Performance monitoring (only in development)
             #[cfg(debug_assertions)]
             <div class="performance-monitor text-xs text-muted-foreground mt-1">

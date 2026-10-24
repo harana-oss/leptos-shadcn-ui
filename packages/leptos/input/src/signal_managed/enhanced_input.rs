@@ -1,13 +1,13 @@
 //! Enhanced Signal-Managed Input Component
-//! 
+//!
 //! This module contains the enhanced signal-managed input component with advanced features.
 
-use leptos::{ev::Event, prelude::*};
-use leptos_style::Style;
-use leptos::wasm_bindgen::JsCast;
-use leptos_shadcn_signal_management::*;
+use super::types::{INPUT_CLASS, INPUT_ERROR_CLASS, SignalManagedInputState};
 use crate::validation::{InputValidator, ValidationResult};
-use super::types::{SignalManagedInputState, INPUT_CLASS, INPUT_ERROR_CLASS};
+use leptos::wasm_bindgen::JsCast;
+use leptos::{ev::Event, prelude::*};
+use leptos_shadcn_signal_management::*;
+use leptos_style::Style;
 
 /// Enhanced Input component with advanced signal management
 #[component]
@@ -52,10 +52,9 @@ pub fn EnhancedInput(
     let input_state_for_metrics = input_state.clone();
     let performance_metrics = ArcMemo::new(move |_| {
         let state = input_state_for_metrics.get();
-        format!("Focus: {}, Validating: {}, Error: {}", 
-            state.focus_count, 
-            state.is_validating, 
-            state.has_error
+        format!(
+            "Focus: {}, Validating: {}, Error: {}",
+            state.focus_count, state.is_validating, state.has_error
         )
     });
 
@@ -74,43 +73,39 @@ pub fn EnhancedInput(
     // Create event handler with performance monitoring
     let handle_input = {
         let input_state = input_state.clone();
-        let on_change = on_change.clone();
         move |event: Event| {
             if let Some(callback) = &on_change {
                 let target = event.target().unwrap();
                 let input = target.unchecked_into::<web_sys::HtmlInputElement>();
                 let input_value = input.value();
                 callback.run(input_value.clone());
-                
+
                 // Update state atomically
                 input_state.update(|state| {
                     state.value = input_value.clone();
                     state.focus_count += 1;
                 });
-                
+
                 // Real-time validation
                 if let Some(validator) = &validator {
                     input_state.update(|state| {
                         state.is_validating = true;
                     });
-                    
+
                     let result = validator.validate(&input_value);
-                    
+
                     input_state.update(|state| {
                         state.validation_result = result.clone();
                         state.is_validating = false;
                         state.has_error = !result.is_valid;
                     });
                 }
-                
+
                 // Check memory pressure and perform cleanup if needed
-                if let Some(pressure) = memory_manager.detect_memory_pressure() {
-                    match pressure {
-                        MemoryPressureLevel::High | MemoryPressureLevel::Critical => {
-                            memory_manager.perform_automatic_cleanup();
-                        }
-                        _ => {}
-                    }
+                if let Some(MemoryPressureLevel::High | MemoryPressureLevel::Critical) =
+                    memory_manager.detect_memory_pressure()
+                {
+                    memory_manager.perform_automatic_cleanup();
                 }
             }
         }
@@ -124,7 +119,7 @@ pub fn EnhancedInput(
     let input_state_for_placeholder = input_state.clone();
     let input_state_for_disabled = input_state.clone();
     let input_state_for_validation_display = input_state.clone();
-    
+
     view! {
         <div class="enhanced-input-container">
             <input
@@ -137,7 +132,7 @@ pub fn EnhancedInput(
                 style=move || style.get().to_string()
                 on:input=handle_input
             />
-            
+
             // Validation display
             {move || if show_validation.get() && input_state_for_validation_display.get().has_error {
                 let error_msg = input_state_for_validation_display.get().validation_result.get_error_message("input").unwrap_or_default().to_string();
@@ -147,9 +142,9 @@ pub fn EnhancedInput(
                     </div>
                 }.into_any()
             } else {
-                view! {}.into_any()
+                ().into_any()
             }}
-            
+
             // Performance monitoring (only in development)
             #[cfg(debug_assertions)]
             <div class="performance-monitor text-xs text-muted-foreground mt-1">

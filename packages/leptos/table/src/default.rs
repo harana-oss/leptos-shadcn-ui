@@ -10,9 +10,8 @@ pub fn Table(
     #[prop(into, optional)] style: Signal<Style>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let computed_class = Signal::derive(move || {
-        format!("{} {}", TABLE_CLASS, class.get().unwrap_or_default())
-    });
+    let computed_class =
+        Signal::derive(move || format!("{} {}", TABLE_CLASS, class.get().unwrap_or_default()));
 
     view! {
         <div

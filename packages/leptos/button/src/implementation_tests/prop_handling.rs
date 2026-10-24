@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod prop_handling {
-    use crate::default::{ButtonChildProps, BUTTON_CLASS};
+    use crate::default::{BUTTON_CLASS, ButtonChildProps};
     use leptos::prelude::*;
 
     // ===== PROP HANDLING TESTS =====
@@ -123,7 +123,10 @@ mod prop_handling {
 
         assert_eq!(props.class, "class-with-special-chars!@#$%^&*()");
         assert_eq!(props.id, "id-with-special-chars!@#$%^&*()");
-        assert_eq!(props.style, "color: red; background: blue; font-size: 12px;");
+        assert_eq!(
+            props.style,
+            "color: red; background: blue; font-size: 12px;"
+        );
         assert_eq!(props.r#type, "button");
         assert!(!props.disabled);
         assert!(props.onclick.is_none());
@@ -170,7 +173,7 @@ mod prop_handling {
         if let Some(cb) = &props.onclick {
             cb.run(());
             assert_eq!(click_count.get(), 1);
-            
+
             cb.run(());
             assert_eq!(click_count.get(), 2);
         }
@@ -258,8 +261,11 @@ mod prop_handling {
         ];
 
         for expected_class in expected_classes {
-            assert!(BUTTON_CLASS.contains(expected_class), 
-                "BUTTON_CLASS should contain '{}'", expected_class);
+            assert!(
+                BUTTON_CLASS.contains(expected_class),
+                "BUTTON_CLASS should contain '{}'",
+                expected_class
+            );
         }
     }
 
@@ -285,8 +291,20 @@ mod prop_handling {
         };
 
         assert_eq!(
-            (&props1.class, &props1.id, &props1.style, props1.disabled, &props1.r#type),
-            (&props2.class, &props2.id, &props2.style, props2.disabled, &props2.r#type)
+            (
+                &props1.class,
+                &props1.id,
+                &props1.style,
+                props1.disabled,
+                &props1.r#type
+            ),
+            (
+                &props2.class,
+                &props2.id,
+                &props2.style,
+                props2.disabled,
+                &props2.r#type
+            )
         );
     }
 
@@ -312,8 +330,20 @@ mod prop_handling {
         };
 
         assert_ne!(
-            (&props1.class, &props1.id, &props1.style, props1.disabled, &props1.r#type),
-            (&props2.class, &props2.id, &props2.style, props2.disabled, &props2.r#type)
+            (
+                &props1.class,
+                &props1.id,
+                &props1.style,
+                props1.disabled,
+                &props1.r#type
+            ),
+            (
+                &props2.class,
+                &props2.id,
+                &props2.style,
+                props2.disabled,
+                &props2.r#type
+            )
         );
     }
 }

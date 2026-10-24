@@ -1,7 +1,7 @@
 //! Handlebars template helpers for documentation generation
 
 use handlebars::{Context, Handlebars, Helper, HelperResult, Output, RenderContext};
-use pulldown_cmark::{Parser, Options, html};
+use pulldown_cmark::{html, Options, Parser};
 
 /// Template for component API documentation
 pub const API_DOC_TEMPLATE: &str = r#"
@@ -472,11 +472,11 @@ pub fn markdown_helper(
         let mut options = Options::empty();
         options.insert(Options::ENABLE_STRIKETHROUGH);
         options.insert(Options::ENABLE_TABLES);
-        
+
         let parser = Parser::new_ext(markdown, options);
         let mut html_output = String::new();
         html::push_html(&mut html_output, parser);
-        
+
         out.write(&html_output)?;
     }
     Ok(())
@@ -491,14 +491,16 @@ mod tests {
     fn test_format_code_helper() {
         let mut handlebars = Handlebars::new();
         handlebars.register_helper("format_code", Box::new(format_code_helper));
-        
+
         let template = "{{format_code code}}";
-        handlebars.register_template_string("test", template).unwrap();
-        
+        handlebars
+            .register_template_string("test", template)
+            .unwrap();
+
         let data = serde_json::json!({
             "code": "<button>Click me</button>"
         });
-        
+
         let result = handlebars.render("test", &data).unwrap();
         assert!(result.contains("&lt;button&gt;"));
     }
@@ -507,14 +509,16 @@ mod tests {
     fn test_markdown_helper() {
         let mut handlebars = Handlebars::new();
         handlebars.register_helper("markdown", Box::new(markdown_helper));
-        
+
         let template = "{{{markdown text}}}";
-        handlebars.register_template_string("test", template).unwrap();
-        
+        handlebars
+            .register_template_string("test", template)
+            .unwrap();
+
         let data = serde_json::json!({
             "text": "# Heading\n\nThis is **bold** text."
         });
-        
+
         let result = handlebars.render("test", &data).unwrap();
         assert!(result.contains("<h1>Heading</h1>"));
         assert!(result.contains("<strong>bold</strong>"));
@@ -525,7 +529,7 @@ mod tests {
         let mut handlebars = Handlebars::new();
         handlebars.register_helper("format_code", Box::new(format_code_helper));
         handlebars.register_helper("markdown", Box::new(markdown_helper));
-        
+
         let result = handlebars.register_template_string("api_doc", API_DOC_TEMPLATE);
         assert!(result.is_ok());
     }
@@ -535,7 +539,7 @@ mod tests {
         let mut handlebars = Handlebars::new();
         handlebars.register_helper("format_code", Box::new(format_code_helper));
         handlebars.register_helper("markdown", Box::new(markdown_helper));
-        
+
         let result = handlebars.register_template_string("gallery", GALLERY_TEMPLATE);
         assert!(result.is_ok());
     }
@@ -543,7 +547,7 @@ mod tests {
     #[test]
     fn test_test_report_template_compilation() {
         let mut handlebars = Handlebars::new();
-        
+
         let result = handlebars.register_template_string("test_report", TEST_REPORT_TEMPLATE);
         assert!(result.is_ok());
     }

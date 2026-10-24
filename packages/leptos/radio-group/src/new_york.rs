@@ -10,13 +10,16 @@ const RADIO_INDICATOR_DOT_CLASS: &str = "h-2.5 w-2.5 rounded-full bg-current";
 #[component]
 pub fn RadioGroup(
     /// Currently selected value
-    #[prop(into, optional)] value: MaybeProp<String>,
-    
+    #[prop(into, optional)]
+    value: MaybeProp<String>,
+
     /// Callback when value changes
-    #[prop(into, optional)] on_value_change: Option<Callback<String>>,
-    
+    #[prop(into, optional)]
+    on_value_change: Option<Callback<String>>,
+
     /// Whether the radio group is disabled
-    #[prop(into, optional)] disabled: Signal<bool>,
+    #[prop(into, optional)]
+    disabled: Signal<bool>,
 
     // Global attributes
     #[prop(into, optional)] class: MaybeProp<String>,
@@ -26,11 +29,8 @@ pub fn RadioGroup(
     #[prop(optional)] children: Option<ChildrenFn>,
 ) -> impl IntoView {
     let selected_value = RwSignal::new(value.get_untracked());
-    
+
     let on_item_select = {
-        let selected_value = selected_value.clone();
-        let on_value_change = on_value_change.clone();
-        
         Callback::new(move |value: String| {
             selected_value.set(Some(value.clone()));
             if let Some(callback) = &on_value_change {
@@ -38,23 +38,19 @@ pub fn RadioGroup(
             }
         })
     };
-    
+
     let context = RadioGroupContext {
         selected_value: selected_value.read_only(),
         on_item_select,
         disabled,
     };
-    
+
     let computed_class = Signal::derive(move || {
-        format!(
-            "{} {}",
-            RADIO_GROUP_CLASS,
-            class.get().unwrap_or_default()
-        )
+        format!("{} {}", RADIO_GROUP_CLASS, class.get().unwrap_or_default())
     });
-    
+
     provide_context(context);
-    
+
     view! {
         <div
             class=move || computed_class.get()
@@ -77,10 +73,12 @@ struct RadioGroupContext {
 #[component]
 pub fn RadioGroupItem(
     /// The value of this radio item
-    #[prop(into)] value: String,
-    
+    #[prop(into)]
+    value: String,
+
     /// Whether this item is disabled
-    #[prop(into, optional)] disabled: Signal<bool>,
+    #[prop(into, optional)]
+    disabled: Signal<bool>,
 
     // Global attributes
     #[prop(into, optional)] class: MaybeProp<String>,
@@ -89,48 +87,41 @@ pub fn RadioGroupItem(
 
     #[prop(optional)] children: Option<ChildrenFn>,
 ) -> impl IntoView {
-    let context = use_context::<RadioGroupContext>().expect("RadioGroupItem must be used within RadioGroup");
-    
+    let context =
+        use_context::<RadioGroupContext>().expect("RadioGroupItem must be used within RadioGroup");
+
     let value_clone = value.clone();
-    let is_selected = Signal::derive(move || {
-        context.selected_value.get().as_ref() == Some(&value_clone)
-    });
-    
-    let is_disabled = Signal::derive(move || {
-        disabled.get() || context.disabled.get()
-    });
-    
+    let is_selected =
+        Signal::derive(move || context.selected_value.get().as_ref() == Some(&value_clone));
+
+    let is_disabled = Signal::derive(move || disabled.get() || context.disabled.get());
+
     let handle_click = {
         let value = value.clone();
-        let on_select = context.on_item_select.clone();
-        
+        let on_select = context.on_item_select;
+
         move |_: MouseEvent| {
             if !is_disabled.get() {
                 on_select.run(value.clone());
             }
         }
     };
-    
-    let computed_class = Signal::derive(move || {
-        format!(
-            "{} {}",
-            RADIO_ITEM_CLASS,
-            class.get().unwrap_or_default()
-        )
-    });
-    
-    let aria_checked = Signal::derive(move || {
-        is_selected.get().to_string()
-    });
-    
+
+    let computed_class =
+        Signal::derive(move || format!("{} {}", RADIO_ITEM_CLASS, class.get().unwrap_or_default()));
+
+    let aria_checked = Signal::derive(move || is_selected.get().to_string());
+
     let data_state = Signal::derive(move || {
-        if is_selected.get() { "checked" } else { "unchecked" }
+        if is_selected.get() {
+            "checked"
+        } else {
+            "unchecked"
+        }
     });
-    
-    let data_disabled = Signal::derive(move || {
-        is_disabled.get().to_string()
-    });
-    
+
+    let data_disabled = Signal::derive(move || is_disabled.get().to_string());
+
     view! {
         <button
             r#type="button"

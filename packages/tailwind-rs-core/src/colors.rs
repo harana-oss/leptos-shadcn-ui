@@ -212,19 +212,19 @@ pub mod palettes {
 
     /// Primary color palette (Blue).
     pub const PRIMARY: Color = Color::Blue;
-    
+
     /// Secondary color palette (Gray).
     pub const SECONDARY: Color = Color::Gray;
-    
+
     /// Success color palette (Green).
     pub const SUCCESS: Color = Color::Green;
-    
+
     /// Warning color palette (Yellow).
     pub const WARNING: Color = Color::Yellow;
-    
+
     /// Error color palette (Red).
     pub const ERROR: Color = Color::Red;
-    
+
     /// Info color palette (Sky).
     pub const INFO: Color = Color::Sky;
 }
@@ -265,11 +265,28 @@ pub mod utils {
     /// Get all available colors.
     pub fn all_colors() -> Vec<Color> {
         vec![
-            Color::Slate, Color::Gray, Color::Zinc, Color::Neutral, Color::Stone,
-            Color::Red, Color::Orange, Color::Amber, Color::Yellow, Color::Lime,
-            Color::Green, Color::Emerald, Color::Teal, Color::Cyan, Color::Sky,
-            Color::Blue, Color::Indigo, Color::Violet, Color::Purple, Color::Fuchsia,
-            Color::Pink, Color::Rose,
+            Color::Slate,
+            Color::Gray,
+            Color::Zinc,
+            Color::Neutral,
+            Color::Stone,
+            Color::Red,
+            Color::Orange,
+            Color::Amber,
+            Color::Yellow,
+            Color::Lime,
+            Color::Green,
+            Color::Emerald,
+            Color::Teal,
+            Color::Cyan,
+            Color::Sky,
+            Color::Blue,
+            Color::Indigo,
+            Color::Violet,
+            Color::Purple,
+            Color::Fuchsia,
+            Color::Pink,
+            Color::Rose,
         ]
     }
 }

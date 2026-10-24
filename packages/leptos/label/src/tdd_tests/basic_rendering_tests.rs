@@ -14,7 +14,7 @@ mod basic_rendering_tests {
                 "Basic Label"
             </Label>
         };
-        
+
         // This test will fail initially - we need to implement proper rendering
     }
 
@@ -26,7 +26,7 @@ mod basic_rendering_tests {
                 "Enter your name"
             </Label>
         };
-        
+
         // This test will fail initially - we need to implement text content
     }
 
@@ -38,7 +38,7 @@ mod basic_rendering_tests {
                 <span>"Required"</span> " Field"
             </Label>
         };
-        
+
         // This test will fail initially - we need to implement HTML content
     }
 
@@ -46,13 +46,13 @@ mod basic_rendering_tests {
     fn test_label_custom_styling() {
         // Test label with custom styling
         let _styled_label_view = view! {
-            <Label 
+            <Label
                 class="custom-label-style"
             >
                 "Styled Label"
             </Label>
         };
-        
+
         // Test custom styling
         let custom_class = "custom-label-style";
         assert_eq!(custom_class, "custom-label-style");
@@ -61,21 +61,33 @@ mod basic_rendering_tests {
     #[test]
     fn test_label_variants() {
         // Test label variants
-        let variants = vec!["default", "destructive", "outline", "secondary", "ghost", "link"];
-        
+        let variants = vec![
+            "default",
+            "destructive",
+            "outline",
+            "secondary",
+            "ghost",
+            "link",
+        ];
+
         for variant in variants {
             let _variant_label_view = view! {
-                <Label 
+                <Label
                     class=format!("label-{}", variant)
                 >
                     {format!("{} Label", variant)}
                 </Label>
             };
-            
+
             // Test variant class
-            assert!(variant.contains("default") || variant.contains("destructive") || 
-                   variant.contains("outline") || variant.contains("secondary") || 
-                   variant.contains("ghost") || variant.contains("link"));
+            assert!(
+                variant.contains("default")
+                    || variant.contains("destructive")
+                    || variant.contains("outline")
+                    || variant.contains("secondary")
+                    || variant.contains("ghost")
+                    || variant.contains("link")
+            );
         }
     }
 
@@ -83,16 +95,16 @@ mod basic_rendering_tests {
     fn test_label_sizes() {
         // Test label sizes
         let sizes = vec!["small", "default", "large"];
-        
+
         for size in sizes {
             let _size_label_view = view! {
-                <Label 
+                <Label
                     class=format!("label-{}", size)
                 >
                     {format!("{} Label", size)}
                 </Label>
             };
-            
+
             // Test size class
             assert!(size.contains("small") || size.contains("default") || size.contains("large"));
         }
@@ -102,7 +114,7 @@ mod basic_rendering_tests {
     fn test_label_custom_properties() {
         // Test label with custom properties
         let _custom_label_view = view! {
-            <Label 
+            <Label
                 class="custom-label"
                 id="custom-label-id"
                 {..} for="input-field"
@@ -110,12 +122,12 @@ mod basic_rendering_tests {
                 "Custom Label"
             </Label>
         };
-        
+
         // Test custom properties
         let custom_class = "custom-label";
         let custom_id = "custom-label-id";
         let custom_for = "input-field";
-        
+
         assert_eq!(custom_class, "custom-label");
         assert_eq!(custom_id, "custom-label-id");
         assert_eq!(custom_for, "input-field");
@@ -132,13 +144,13 @@ mod basic_rendering_tests {
                 </Label>
             </div>
         };
-        
+
         // Test nested structure
         let container_class = "label-container";
         let icon_class = "label-icon";
         let icon_text = "*";
         let label_text = "Required Field";
-        
+
         assert_eq!(container_class, "label-container");
         assert_eq!(icon_class, "label-icon");
         assert_eq!(icon_text, "*");
@@ -160,7 +172,7 @@ mod basic_rendering_tests {
                 view! {}.into_any()
             }}
         };
-        
+
         // Test conditional rendering
         assert!(show_label);
     }
@@ -174,7 +186,7 @@ mod basic_rendering_tests {
                 {dynamic_text}
             </Label>
         };
-        
+
         // Test dynamic content
         assert_eq!(dynamic_text, "Dynamic Label Text");
     }
@@ -187,24 +199,24 @@ mod basic_rendering_tests {
                 "First Label"
             </Label>
         };
-        
+
         let _label2 = view! {
             <Label class="label-2">
                 "Second Label"
             </Label>
         };
-        
+
         let _label3 = view! {
             <Label class="label-3">
                 "Third Label"
             </Label>
         };
-        
+
         // Test multiple instances
         let label1_class = "label-1";
         let label2_class = "label-2";
         let label3_class = "label-3";
-        
+
         assert_eq!(label1_class, "label-1");
         assert_eq!(label2_class, "label-2");
         assert_eq!(label3_class, "label-3");
@@ -222,12 +234,12 @@ mod basic_rendering_tests {
                 "Accessible Label"
             </Label>
         };
-        
+
         // Test accessibility attributes
         let for_attr = "accessible-input";
         let aria_label = "Accessible label";
         let role = "label";
-        
+
         assert_eq!(for_attr, "accessible-input");
         assert_eq!(aria_label, "Accessible label");
         assert_eq!(role, "label");
@@ -243,7 +255,7 @@ mod basic_rendering_tests {
                 "Styled Label"
             </Label>
         };
-        
+
         // Test style properties
         let style_prop = "color: red; font-weight: bold;";
         assert_eq!(style_prop, "color: red; font-weight: bold;");

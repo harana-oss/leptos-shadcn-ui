@@ -2,7 +2,7 @@
 //!
 //! This module contains the core validation logic for different rule types.
 
-use super::types::{ValidationRule, ValidationResult, ValidationError};
+use super::types::{ValidationError, ValidationResult, ValidationRule};
 
 /// Validates a value against a specific validation rule
 pub fn validate_rule(value: &str, rule: &ValidationRule) -> Result<(), ValidationError> {
@@ -73,14 +73,14 @@ pub fn validate_rule(value: &str, rule: &ValidationRule) -> Result<(), Validatio
 /// Validates a value against multiple rules
 pub fn validate_rules(value: &str, rules: &[ValidationRule], field_name: &str) -> ValidationResult {
     let mut result = ValidationResult::new();
-    
+
     for rule in rules {
         if let Err(mut error) = validate_rule(value, rule) {
             error.field = field_name.to_string();
             result.add_error(field_name, error.message.clone(), error.rule.clone());
         }
     }
-    
+
     result
 }
 
@@ -90,29 +90,29 @@ fn is_valid_email(email: &str) -> bool {
     if email.is_empty() {
         return false;
     }
-    
+
     let parts: Vec<&str> = email.split('@').collect();
     if parts.len() != 2 {
         return false;
     }
-    
+
     let (local, domain) = (parts[0], parts[1]);
-    
+
     // Basic validation - local part and domain should not be empty
     if local.is_empty() || domain.is_empty() {
         return false;
     }
-    
+
     // Domain should contain at least one dot
     if !domain.contains('.') {
         return false;
     }
-    
+
     // Domain should not start or end with a dot
     if domain.starts_with('.') || domain.ends_with('.') {
         return false;
     }
-    
+
     true
 }
 
@@ -120,7 +120,7 @@ fn is_valid_email(email: &str) -> bool {
 fn matches_pattern(value: &str, pattern: &str) -> bool {
     // This is a simplified pattern matcher
     // In a real implementation, you'd use a proper regex library
-    
+
     match pattern {
         "numeric" => value.chars().all(|c| c.is_ascii_digit()),
         "alpha" => value.chars().all(|c| c.is_ascii_alphabetic()),
@@ -134,19 +134,20 @@ fn matches_pattern(value: &str, pattern: &str) -> bool {
             // SSN pattern: XXX-XX-XXXX
             if value.len() == 11 {
                 let chars: Vec<char> = value.chars().collect();
-                chars[3] == '-' && chars[6] == '-' &&
-                chars[0..3].iter().all(|c| c.is_ascii_digit()) &&
-                chars[4..6].iter().all(|c| c.is_ascii_digit()) &&
-                chars[7..11].iter().all(|c| c.is_ascii_digit())
+                chars[3] == '-'
+                    && chars[6] == '-'
+                    && chars[0..3].iter().all(|c| c.is_ascii_digit())
+                    && chars[4..6].iter().all(|c| c.is_ascii_digit())
+                    && chars[7..11].iter().all(|c| c.is_ascii_digit())
             } else {
                 false
             }
         }
         pattern if pattern.starts_with("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)") => {
             // Password pattern: at least one uppercase, one lowercase, one digit
-            value.chars().any(|c| c.is_ascii_uppercase()) &&
-            value.chars().any(|c| c.is_ascii_lowercase()) &&
-            value.chars().any(|c| c.is_ascii_digit())
+            value.chars().any(|c| c.is_ascii_uppercase())
+                && value.chars().any(|c| c.is_ascii_lowercase())
+                && value.chars().any(|c| c.is_ascii_digit())
         }
         _ => {
             // For other patterns, do basic string matching
@@ -198,11 +199,11 @@ mod tests {
             ValidationRule::MinLength(3),
             ValidationRule::MaxLength(10),
         ];
-        
+
         let result = validate_rules("", &rules, "test_field");
         assert!(!result.is_valid);
         assert!(result.has_field_error("test_field"));
-        
+
         let result = validate_rules("valid", &rules, "test_field");
         assert!(result.is_valid);
     }

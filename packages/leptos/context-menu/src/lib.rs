@@ -1,32 +1,28 @@
 //! Leptos port of shadcn/ui context menu
 
-pub mod signal_managed;
 pub mod default;
-pub mod new_york;
 pub mod default_components;
 pub mod global;
+pub mod new_york;
+pub mod signal_managed;
 
 pub use default::{
-    ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger,
-    ContextMenuSeparator, ContextMenuLabel, ContextMenuCheckboxItem,
-    ContextMenuRadioGroup, ContextMenuRadioItem, ContextMenuSub,
-    ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuShortcut,
+    ContextMenu, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuLabel,
+    ContextMenuRadioGroup, ContextMenuRadioItem, ContextMenuSeparator, ContextMenuShortcut,
+    ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger,
 };
 
 pub use new_york::{
-    ContextMenu as ContextMenuNewYork,
-    ContextMenuContent as ContextMenuContentNewYork,
-    ContextMenuItem as ContextMenuItemNewYork,
-    ContextMenuTrigger as ContextMenuTriggerNewYork,
-    ContextMenuSeparator as ContextMenuSeparatorNewYork,
+    ContextMenu as ContextMenuNewYork, ContextMenuCheckboxItem as ContextMenuCheckboxItemNewYork,
+    ContextMenuContent as ContextMenuContentNewYork, ContextMenuItem as ContextMenuItemNewYork,
     ContextMenuLabel as ContextMenuLabelNewYork,
-    ContextMenuCheckboxItem as ContextMenuCheckboxItemNewYork,
     ContextMenuRadioGroup as ContextMenuRadioGroupNewYork,
     ContextMenuRadioItem as ContextMenuRadioItemNewYork,
-    ContextMenuSub as ContextMenuSubNewYork,
+    ContextMenuSeparator as ContextMenuSeparatorNewYork,
+    ContextMenuShortcut as ContextMenuShortcutNewYork, ContextMenuSub as ContextMenuSubNewYork,
     ContextMenuSubContent as ContextMenuSubContentNewYork,
     ContextMenuSubTrigger as ContextMenuSubTriggerNewYork,
-    ContextMenuShortcut as ContextMenuShortcutNewYork,
+    ContextMenuTrigger as ContextMenuTriggerNewYork,
 };
 
 mod tests;

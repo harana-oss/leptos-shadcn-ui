@@ -1,10 +1,9 @@
 //! AlertDialog title and description components
-//! 
+//!
 //! This module contains the AlertDialogTitle and AlertDialogDescription
 //! components for providing accessible labels and descriptions for the alert dialog.
 
 use leptos::prelude::*;
-use leptos_style::Style;
 
 #[component]
 pub fn AlertDialogTitle(

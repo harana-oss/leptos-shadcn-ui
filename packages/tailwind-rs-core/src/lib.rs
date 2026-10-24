@@ -1,31 +1,31 @@
 //! # tailwind-rs-core
-//! 
+//!
 //! Type-safe Tailwind CSS class generation for Rust web frameworks.
-//! 
+//!
 //! This crate provides compile-time validation and type-safe generation of Tailwind CSS classes,
 //! with support for dynamic styling, responsive design, and theme systems.
-//! 
+//!
 //! ## Features
-//! 
+//!
 //! - 🛡️ **Type Safety**: Compile-time validation of Tailwind classes
 //! - ⚡ **Performance**: Optimized class generation and merging
 //! - 🎨 **Dynamic Styling**: Runtime class generation with type safety
 //! - 📱 **Responsive**: Type-safe responsive design utilities
 //! - 🎭 **Theming**: Built-in theme and variant system
 //! - 🔧 **Framework Agnostic**: Works with any Rust web framework
-//! 
+//!
 //! ## Quick Start
-//! 
+//!
 //! ```rust
 //! use tailwind_rs_core::*;
-//! 
+//!
 //! // Type-safe class generation
 //! let classes = classes! {
 //!     base: "px-4 py-2 rounded-md font-medium",
 //!     variant: "bg-blue-600 text-white hover:bg-blue-700",
 //!     responsive: "sm:text-sm md:text-base lg:text-lg",
 //! };
-//! 
+//!
 //! // Dynamic styling with type safety
 //! let color = Color::Blue;
 //! let dynamic_classes = classes! {
@@ -34,13 +34,13 @@
 //!     hover: color.hover(700),
 //! };
 //! ```
-//! 
+//!
 //! ## Integration with Leptos
-//! 
+//!
 //! ```rust
 //! use leptos::*;
 //! use tailwind_rs_core::*;
-//! 
+//!
 //! #[component]
 //! pub fn Button(variant: ButtonVariant) -> impl IntoView {
 //!     let classes = classes! {
@@ -63,6 +63,7 @@ pub mod validation;
 
 // Re-export main types and macros
 pub use classes::*;
+#[allow(ambiguous_glob_reexports)]
 pub use colors::*;
 pub use responsive::*;
 pub use themes::*;
@@ -70,9 +71,9 @@ pub use validation::*;
 
 // Re-export specific items to avoid conflicts
 pub use colors::utils as color_utils;
-pub use responsive::utils as responsive_utils;
 pub use responsive::media_queries;
 pub use responsive::patterns;
+pub use responsive::utils as responsive_utils;
 
 // Re-export macros (when available)
 // #[cfg(feature = "macros")]

@@ -1,23 +1,24 @@
 //! # Leptos ShadCN Signal Management
-//! 
+//!
 //! Signal lifecycle management utilities for Leptos 0.8.8+ with tailwind-rs integration.
-//! 
+//!
 //! This crate provides utilities for managing signal lifecycles, implementing batched updates,
 //! and ensuring proper memory management in Leptos applications.
+#![allow(clippy::result_large_err)]
 
-pub mod lifecycle;
-pub mod batched_updates;
-pub mod memory_management;
-pub mod error;
 pub mod advanced_memory;
+pub mod batched_updates;
 pub mod component_migration;
+pub mod error;
+pub mod lifecycle;
+pub mod memory_management;
 
-pub use lifecycle::*;
-pub use batched_updates::*;
-pub use memory_management::*;
-pub use error::*;
 pub use advanced_memory::*;
+pub use batched_updates::*;
 pub use component_migration::*;
+pub use error::*;
+pub use lifecycle::*;
+pub use memory_management::*;
 
 /// Re-export commonly used types for convenience
 // Note: We don't re-export leptos::prelude::* to avoid conflicts with standard Leptos types
@@ -34,4 +35,3 @@ mod lifecycle_tests;
 
 #[cfg(test)]
 mod memory_management_tests;
-

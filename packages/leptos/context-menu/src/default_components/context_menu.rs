@@ -1,5 +1,5 @@
 //! Main ContextMenu component
-//! 
+//!
 //! This module contains the main ContextMenu component that provides context
 //! for the context menu system.
 
@@ -10,9 +10,7 @@ use leptos::prelude::*;
 pub struct ContextMenuId(pub u64);
 
 #[component]
-pub fn ContextMenu(
-    #[prop(optional)] children: Option<Children>,
-) -> impl IntoView {
+pub fn ContextMenu(#[prop(optional)] children: Option<Children>) -> impl IntoView {
     let open = RwSignal::new(false);
     let position = RwSignal::new((0, 0));
     let menu_id = crate::global::next_menu_id();

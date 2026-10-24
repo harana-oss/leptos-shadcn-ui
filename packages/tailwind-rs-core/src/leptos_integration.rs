@@ -1,9 +1,9 @@
 //! Leptos integration for tailwind-rs-core.
 
 #[cfg(feature = "leptos")]
-use leptos::prelude::*;
+use crate::{Breakpoint, Color, Orientation, Responsive, TailwindClasses, Viewport};
 #[cfg(feature = "leptos")]
-use crate::{TailwindClasses, Color, Responsive, Viewport, Breakpoint, Orientation};
+use leptos::prelude::*;
 
 #[cfg(feature = "leptos")]
 /// A Leptos-compatible class signal that provides reactive styling.
@@ -20,7 +20,10 @@ impl ClassSignal {
     /// Create a new ClassSignal with initial classes.
     pub fn new(initial_classes: impl Into<String>) -> Self {
         let (classes, set_classes) = signal(initial_classes.into());
-        Self { classes, set_classes }
+        Self {
+            classes,
+            set_classes,
+        }
     }
 
     /// Create a new ClassSignal from a TailwindClasses instance.
@@ -66,7 +69,10 @@ impl ThemeSignal {
     /// Create a new ThemeSignal with the default theme.
     pub fn new(initial_theme_name: impl Into<String>) -> Self {
         let (theme_name, set_theme_name) = signal(initial_theme_name.into());
-        Self { theme_name, set_theme_name }
+        Self {
+            theme_name,
+            set_theme_name,
+        }
     }
 
     /// Set a new theme by name.
@@ -160,7 +166,10 @@ impl ResponsiveSignal {
     /// Create a new ResponsiveSignal with initial settings.
     pub fn new(initial_responsive: Responsive) -> Self {
         let (responsive, set_responsive) = signal(initial_responsive);
-        Self { responsive, set_responsive }
+        Self {
+            responsive,
+            set_responsive,
+        }
     }
 
     /// Set new responsive settings.
@@ -200,30 +209,15 @@ impl ViewportSignal {
     pub fn with_viewport(initial_viewport: Viewport) -> Self {
         let (viewport, set_viewport) = signal(initial_viewport);
 
-        let breakpoint = Memo::new({
-            let viewport = viewport.clone();
-            move |_| viewport.get().breakpoint()
-        });
+        let breakpoint = Memo::new(move |_| viewport.get().breakpoint());
 
-        let is_mobile = Memo::new({
-            let viewport = viewport.clone();
-            move |_| viewport.get().is_mobile()
-        });
+        let is_mobile = Memo::new(move |_| viewport.get().is_mobile());
 
-        let is_tablet = Memo::new({
-            let viewport = viewport.clone();
-            move |_| viewport.get().is_tablet()
-        });
+        let is_tablet = Memo::new(move |_| viewport.get().is_tablet());
 
-        let is_desktop = Memo::new({
-            let viewport = viewport.clone();
-            move |_| viewport.get().is_desktop()
-        });
+        let is_desktop = Memo::new(move |_| viewport.get().is_desktop());
 
-        let orientation = Memo::new({
-            let viewport = viewport.clone();
-            move |_| viewport.get().orientation
-        });
+        let orientation = Memo::new(move |_| viewport.get().orientation);
 
         Self {
             viewport,
@@ -278,7 +272,10 @@ impl ViewportSignal {
         let vp = self.viewport.get();
         format!(
             "Viewport: {}x{}, {}, {:?}",
-            vp.width, vp.height, vp.breakpoint().prefix(), vp.orientation
+            vp.width,
+            vp.height,
+            vp.breakpoint().prefix(),
+            vp.orientation
         )
     }
 }
@@ -342,8 +339,8 @@ pub mod helpers {
         breakpoint: &str,
     ) -> TailwindClasses {
         TailwindClasses::new(base_classes)
-            .custom(&theme_classes(theme_name))
-            .custom(&color_classes(color))
-            .responsive(breakpoint, &responsive_classes(breakpoint))
+            .custom(theme_classes(theme_name))
+            .custom(color_classes(color))
+            .responsive(breakpoint, responsive_classes(breakpoint))
     }
 }

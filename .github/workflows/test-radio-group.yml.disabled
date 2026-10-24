@@ -103,7 +103,7 @@ jobs:
         run: ./build/scripts/test_radio_group.sh
         
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: radio-group-test-results

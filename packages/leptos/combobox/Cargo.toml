@@ -20,6 +20,7 @@ leptos-struct-component = "0.2"
 leptos-shadcn-signal-management.workspace = true
 
 [dev-dependencies]
+log = { workspace = true }
 ctor = "0.6"
 any_spawner = { version = "0.3", features = ["futures-executor"] }
 shadcn-ui-test-utils = { path = "../../test-utils" }

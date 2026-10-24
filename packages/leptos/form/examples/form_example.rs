@@ -1,56 +1,65 @@
 use leptos::prelude::*;
-use leptos_shadcn_form::{Form, FormField, FormItem, FormLabel, FormControl, FormMessage, FormDescription};
-use leptos_shadcn_form::default::FormData;
-use leptos_shadcn_input::Input;
 use leptos_shadcn_button::Button;
+use leptos_shadcn_form::default::FormData;
+use leptos_shadcn_form::{
+    Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage,
+};
+use leptos_shadcn_input::Input;
 
 #[component]
 pub fn FormExample() -> impl IntoView {
     let (form_data, set_form_data) = signal(FormData::new());
     let (errors, set_errors) = signal(Vec::<(String, String)>::new());
-    
+
     let handle_submit = Callback::new(move |data: FormData| {
         set_form_data.set(data.clone());
-        
+
         // Simple validation
         let mut new_errors = Vec::new();
-        
+
         if let Some(email) = data.get("email") {
             if email.is_empty() {
                 new_errors.push(("email".to_string(), "Email is required".to_string()));
             } else if !email.contains('@') {
-                new_errors.push(("email".to_string(), "Please enter a valid email".to_string()));
+                new_errors.push((
+                    "email".to_string(),
+                    "Please enter a valid email".to_string(),
+                ));
             }
         }
-        
+
         if let Some(password) = data.get("password") {
             if password.is_empty() {
                 new_errors.push(("password".to_string(), "Password is required".to_string()));
             } else if password.len() < 6 {
-                new_errors.push(("password".to_string(), "Password must be at least 6 characters".to_string()));
+                new_errors.push((
+                    "password".to_string(),
+                    "Password must be at least 6 characters".to_string(),
+                ));
             }
         }
-        
+
         if let Some(name) = data.get("name") {
             if name.is_empty() {
                 new_errors.push(("name".to_string(), "Name is required".to_string()));
             }
         }
-        
+
         if new_errors.is_empty() {
             log::info!("Form submitted successfully!");
         }
 
         set_errors.set(new_errors);
     });
-    
+
     let get_error = move |field: &str| {
-        errors.get()
+        errors
+            .get()
             .iter()
             .find(|(f, _)| f == field)
             .map(|(_, msg)| msg.clone())
     };
-    
+
     view! {
         <div class="p-8 space-y-6">
             <div class="space-y-2">
@@ -59,7 +68,7 @@ pub fn FormExample() -> impl IntoView {
                     "A complete form with validation and accessibility features."
                 </p>
             </div>
-            
+
             <Form on_submit=handle_submit>
                 <FormField name="name">
                     <FormItem>
@@ -73,7 +82,7 @@ pub fn FormExample() -> impl IntoView {
                         <FormMessage message=Signal::derive(move || get_error("name")) />
                     </FormItem>
                 </FormField>
-                
+
                 <FormField name="email">
                     <FormItem>
                         <FormLabel for_field="email">"Email"</FormLabel>
@@ -90,7 +99,7 @@ pub fn FormExample() -> impl IntoView {
                         </FormDescription>
                     </FormItem>
                 </FormField>
-                
+
                 <FormField name="password">
                     <FormItem>
                         <FormLabel for_field="password">"Password"</FormLabel>
@@ -107,12 +116,12 @@ pub fn FormExample() -> impl IntoView {
                         </FormDescription>
                     </FormItem>
                 </FormField>
-                
+
                 <Button class="w-full">
                     "Submit"
                 </Button>
             </Form>
-            
+
             {move || {
                 let fields = form_data.get().fields;
                 if !fields.is_empty() {
@@ -128,7 +137,7 @@ pub fn FormExample() -> impl IntoView {
                     view! { <div class="hidden"></div> }.into_any()
                 }
             }}
-            
+
             <div class="space-y-4">
                 <h3 class="text-lg font-semibold">"Features Demonstrated:"</h3>
                 <ul class="list-disc list-inside space-y-1 text-sm text-muted-foreground">

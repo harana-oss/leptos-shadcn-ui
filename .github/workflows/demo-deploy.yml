@@ -71,6 +71,13 @@ jobs:
         rm -f Cargo.lock
         wasm-pack build --target web --out-dir pkg --release
 
+    - name: Upload demo build
+      uses: actions/upload-artifact@v4
+      with:
+        name: demo-pkg
+        path: examples/comprehensive-demo/pkg/
+        retention-days: 1
+
     - name: Start demo server
       run: |
         cd examples/comprehensive-demo
@@ -81,7 +88,7 @@ jobs:
 
     - name: Run Playwright tests
       run: |
-        npx playwright test comprehensive-demo.spec.ts --reporter=html
+        npx playwright test comprehensive-demo.spec.ts --project=chromium --reporter=html
       env:
         BASE_URL: http://localhost:8001
 
@@ -240,9 +247,17 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps chromium firefox webkit
 
+    - name: Download demo build
+      uses: actions/download-artifact@v4
+      with:
+        name: demo-pkg
+        path: examples/comprehensive-demo/pkg/
+
     - name: Run performance tests
       run: |
-        npx playwright test comprehensive-demo.spec.ts --grep "Performance" --reporter=json > performance-results.json
+        npx playwright test comprehensive-demo.spec.ts --grep "Performance" --project=chromium --reporter=json > performance-results.json
+      env:
+        BASE_URL: http://localhost:8001
 
     - name: Upload performance results
       uses: actions/upload-artifact@v4
@@ -272,9 +287,17 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps chromium firefox webkit
 
+    - name: Download demo build
+      uses: actions/download-artifact@v4
+      with:
+        name: demo-pkg
+        path: examples/comprehensive-demo/pkg/
+
     - name: Run accessibility tests
       run: |
-        npx playwright test comprehensive-demo.spec.ts --grep "Accessibility" --reporter=json > accessibility-results.json
+        npx playwright test comprehensive-demo.spec.ts --grep "Accessibility" --project=chromium --reporter=json > accessibility-results.json
+      env:
+        BASE_URL: http://localhost:8001
 
     - name: Upload accessibility results
       uses: actions/upload-artifact@v4
@@ -309,9 +332,17 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps chromium firefox webkit
 
+    - name: Download demo build
+      uses: actions/download-artifact@v4
+      with:
+        name: demo-pkg
+        path: examples/comprehensive-demo/pkg/
+
     - name: Run cross-browser tests
       run: |
         npx playwright test comprehensive-demo.spec.ts --project=${{ matrix.browser }} --reporter=json > ${{ matrix.browser }}-results.json
+      env:
+        BASE_URL: http://localhost:8001
 
     - name: Upload browser results
       uses: actions/upload-artifact@v4

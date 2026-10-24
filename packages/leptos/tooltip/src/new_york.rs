@@ -1,6 +1,6 @@
 use leptos::{ev::MouseEvent, prelude::*};
 use leptos_node_ref::AnyNodeRef;
-use leptos_struct_component::{StructComponent, struct_component};
+use leptos_struct_component::StructComponent;
 use leptos_style::Style;
 use tailwind_fuse::*;
 
@@ -18,8 +18,9 @@ pub enum TooltipVariant {
     Default,
 }
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Default)]
 pub enum TooltipSide {
+    #[default]
     Top,
     Right,
     Bottom,
@@ -30,7 +31,7 @@ impl TooltipSide {
     pub fn as_str(self) -> &'static str {
         match self {
             TooltipSide::Top => "top",
-            TooltipSide::Right => "right", 
+            TooltipSide::Right => "right",
             TooltipSide::Bottom => "bottom",
             TooltipSide::Left => "left",
         }
@@ -40,12 +41,6 @@ impl TooltipSide {
 impl std::fmt::Display for TooltipSide {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.as_str())
-    }
-}
-
-impl Default for TooltipSide {
-    fn default() -> Self {
-        TooltipSide::Top
     }
 }
 
@@ -63,7 +58,7 @@ pub fn TooltipProvider(#[prop(optional)] children: Option<Children>) -> impl Int
     children.map(|children| children())
 }
 
-#[component]  
+#[component]
 pub fn Tooltip(
     #[prop(into, optional)] open: Signal<bool>,
     #[prop(into, optional)] on_open_change: Option<Callback<bool>>,
@@ -71,7 +66,7 @@ pub fn Tooltip(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let (is_open, set_is_open) = signal(open.get_untracked());
-    
+
     Effect::new(move |_| {
         if open.get() != is_open.get() {
             set_is_open.set(open.get());
@@ -79,7 +74,7 @@ pub fn Tooltip(
     });
 
     provide_context((is_open, set_is_open, on_open_change, delay_duration));
-    
+
     children.map(|children| children())
 }
 
@@ -92,8 +87,12 @@ pub fn TooltipTrigger(
     #[prop(into, optional)] style: Signal<Style>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let (_is_open, set_is_open, on_open_change, _delay_duration) = 
-        expect_context::<(ReadSignal<bool>, WriteSignal<bool>, Option<Callback<bool>>, Signal<u32>)>();
+    let (_is_open, set_is_open, on_open_change, _delay_duration) = expect_context::<(
+        ReadSignal<bool>,
+        WriteSignal<bool>,
+        Option<Callback<bool>>,
+        Signal<u32>,
+    )>();
 
     let handle_mouse_enter = move |_: MouseEvent| {
         set_is_open.set(true);
@@ -147,8 +146,12 @@ pub fn TooltipContent(
     #[prop(into, optional)] as_child: Option<Callback<TooltipContentChildProps, AnyView>>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let (is_open, _, _, _) = 
-        expect_context::<(ReadSignal<bool>, WriteSignal<bool>, Option<Callback<bool>>, Signal<u32>)>();
+    let (is_open, _, _, _) = expect_context::<(
+        ReadSignal<bool>,
+        WriteSignal<bool>,
+        Option<Callback<bool>>,
+        Signal<u32>,
+    )>();
 
     let computed_class = Memo::new(move |_| {
         TooltipContentClass {

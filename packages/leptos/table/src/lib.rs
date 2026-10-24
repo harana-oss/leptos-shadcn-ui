@@ -1,16 +1,16 @@
 //! Leptos port of shadcn/ui table
 
-pub mod signal_managed;
+pub mod data_table;
 pub mod default;
 pub mod new_york;
-pub mod data_table;
+pub mod signal_managed;
 
-pub use default::{Table};
-pub use new_york::{Table as TableNewYork};
 pub use data_table::{
-    DataTable, DataRow, DataColumn, DataTableState,
-    SortDirection, FilterType, FilterOperator, SelectionMode, ExportFormat,
+    DataColumn, DataRow, DataTable, DataTableState, ExportFormat, FilterOperator, FilterType,
+    SelectionMode, SortDirection,
 };
+pub use default::Table;
+pub use new_york::Table as TableNewYork;
 
 mod tests;
 

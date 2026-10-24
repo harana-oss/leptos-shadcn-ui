@@ -1,22 +1,19 @@
 //! Leptos port of shadcn/ui carousel
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
+pub mod signal_managed;
 
 pub use default::{
-    Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext,
-    CarouselOrientation, CarouselApi,
+    Carousel, CarouselApi, CarouselContent, CarouselItem, CarouselNext, CarouselOrientation,
+    CarouselPrevious,
 };
 
 pub use new_york::{
-    Carousel as CarouselNewYork,
-    CarouselContent as CarouselContentNewYork,
-    CarouselItem as CarouselItemNewYork,
+    Carousel as CarouselNewYork, CarouselApi as CarouselApiNewYork,
+    CarouselContent as CarouselContentNewYork, CarouselItem as CarouselItemNewYork,
+    CarouselNext as CarouselNextNewYork, CarouselOrientation as CarouselOrientationNewYork,
     CarouselPrevious as CarouselPreviousNewYork,
-    CarouselNext as CarouselNextNewYork,
-    CarouselOrientation as CarouselOrientationNewYork,
-    CarouselApi as CarouselApiNewYork,
 };
 
 mod tests;

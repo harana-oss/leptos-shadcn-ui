@@ -6,9 +6,18 @@ fn s(v: &[&str]) -> Vec<String> {
 
 #[test]
 fn orientation_parse() {
-    assert_eq!(FieldOrientation::parse("horizontal"), FieldOrientation::Horizontal);
-    assert_eq!(FieldOrientation::parse("responsive"), FieldOrientation::Responsive);
-    assert_eq!(FieldOrientation::parse("vertical"), FieldOrientation::Vertical);
+    assert_eq!(
+        FieldOrientation::parse("horizontal"),
+        FieldOrientation::Horizontal
+    );
+    assert_eq!(
+        FieldOrientation::parse("responsive"),
+        FieldOrientation::Responsive
+    );
+    assert_eq!(
+        FieldOrientation::parse("vertical"),
+        FieldOrientation::Vertical
+    );
     assert_eq!(FieldOrientation::parse(""), FieldOrientation::Vertical);
     assert_eq!(FieldOrientation::parse("bogus"), FieldOrientation::Vertical);
     assert_eq!(FieldOrientation::default(), FieldOrientation::Vertical);
@@ -16,7 +25,11 @@ fn orientation_parse() {
 
 #[test]
 fn orientation_roundtrip() {
-    for o in [FieldOrientation::Vertical, FieldOrientation::Horizontal, FieldOrientation::Responsive] {
+    for o in [
+        FieldOrientation::Vertical,
+        FieldOrientation::Horizontal,
+        FieldOrientation::Responsive,
+    ] {
         assert_eq!(FieldOrientation::parse(o.as_str()), o);
     }
 }
@@ -50,12 +63,18 @@ fn legend_variants() {
 #[test]
 fn error_content_none() {
     assert_eq!(field_error_content(&[]), FieldErrorContent::None);
-    assert_eq!(field_error_content(&s(&["", "  "])), FieldErrorContent::None);
+    assert_eq!(
+        field_error_content(&s(&["", "  "])),
+        FieldErrorContent::None
+    );
 }
 
 #[test]
 fn error_content_single_and_dedupe() {
-    assert_eq!(field_error_content(&s(&["Required"])), FieldErrorContent::Single("Required".into()));
+    assert_eq!(
+        field_error_content(&s(&["Required"])),
+        FieldErrorContent::Single("Required".into())
+    );
     assert_eq!(
         field_error_content(&s(&["Required", "Required", ""])),
         FieldErrorContent::Single("Required".into())

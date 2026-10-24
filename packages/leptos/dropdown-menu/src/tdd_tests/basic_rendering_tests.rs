@@ -1,5 +1,5 @@
-use leptos::prelude::*;
 use crate::*;
+use leptos::prelude::*;
 
 #[cfg(test)]
 mod basic_rendering_tests {
@@ -48,7 +48,7 @@ mod basic_rendering_tests {
         let callback = Callback::new(move |_| {
             // Test callback functionality
         });
-        
+
         let _dropdown_view = view! {
             <DropdownMenu on_click=callback>
                 "Dropdown with Callback"
@@ -95,7 +95,7 @@ mod basic_rendering_tests {
     #[test]
     fn test_dropdown_menu_with_all_props() {
         let callback = Callback::new(move |_| {});
-        
+
         let _dropdown_view = view! {
             <DropdownMenu
                 variant=MaybeProp::from("default")
@@ -338,7 +338,7 @@ mod basic_rendering_tests {
     fn test_dropdown_menu_performance_rendering() {
         // Test that rendering is performant
         let start = std::time::Instant::now();
-        
+
         for _ in 0..100 {
             let _view = view! {
                 <DropdownMenu>
@@ -359,7 +359,7 @@ mod basic_rendering_tests {
                 </DropdownMenu>
             };
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 100, "Rendering should be performant");
     }
@@ -385,8 +385,11 @@ mod basic_rendering_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Memory usage should be reasonable
-        assert!(std::mem::size_of::<usize>() < 1024, "Memory usage should be reasonable");
+        assert!(
+            std::mem::size_of::<usize>() < 1024,
+            "Memory usage should be reasonable"
+        );
     }
 }

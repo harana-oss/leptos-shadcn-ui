@@ -11,13 +11,14 @@ pub fn CommandList(
     #[prop(optional)] style: MaybeProp<String>,
     children: Children,
 ) -> impl IntoView {
-    let merged_class = tw_merge!(&format!("{} {}", 
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
         COMMAND_LIST_CLASS,
         class.get().unwrap_or_default()
     ));
-    
+
     view! {
-        <div 
+        <div
             class={merged_class}
             id=id.get()
             style=style.get()
@@ -35,13 +36,14 @@ pub fn CommandEmpty(
     #[prop(optional)] style: MaybeProp<String>,
     children: Children,
 ) -> impl IntoView {
-    let merged_class = tw_merge!(&format!("{} {}", 
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
         COMMAND_EMPTY_CLASS,
         class.get().unwrap_or_default()
     ));
-    
+
     view! {
-        <div 
+        <div
             class={merged_class}
             id=id.get()
             style=style.get()

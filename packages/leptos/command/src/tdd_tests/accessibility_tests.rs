@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod accessibility_tests {
-    use leptos::prelude::*;
     use crate::*;
+    use leptos::prelude::*;
 
     #[test]
     fn test_command_accessibility() {
@@ -32,8 +32,8 @@ mod accessibility_tests {
         _owner.set();
         let _command_view = view! {
             <Command>
-                <CommandInput 
-                    placeholder=MaybeProp::from("Search...") 
+                <CommandInput
+                    placeholder=MaybeProp::from("Search...")
                 />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>

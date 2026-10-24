@@ -1,7 +1,6 @@
 //! AlertDialog content component
 
 use leptos::prelude::*;
-use leptos_style::Style;
 use web_sys::MouseEvent;
 
 #[component]

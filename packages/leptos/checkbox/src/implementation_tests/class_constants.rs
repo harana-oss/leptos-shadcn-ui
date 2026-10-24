@@ -113,7 +113,7 @@ mod class_constants {
     fn test_checkbox_class_validation() {
         // Test checkbox class validation
         let base_class = CHECKBOX_CLASS;
-        
+
         // Test that base class contains required elements
         assert!(base_class.contains("h-4"));
         assert!(base_class.contains("w-4"));
@@ -130,10 +130,10 @@ mod class_constants {
         assert!(base_class.contains("disabled:opacity-50"));
         assert!(base_class.contains("data-[state=checked]:bg-primary"));
         assert!(base_class.contains("data-[state=checked]:text-primary-foreground"));
-        
+
         // Test that base class is not empty
         assert!(!base_class.is_empty());
-        
+
         // Test that base class has reasonable length
         assert!(base_class.len() > 10);
         assert!(base_class.len() < 1000);
@@ -144,7 +144,7 @@ mod class_constants {
         // Test that checkbox class is immutable
         let original_class = CHECKBOX_CLASS;
         let _computed_class = format!("{} {}", CHECKBOX_CLASS, "custom-class");
-        
+
         // Original class should remain unchanged
         assert_eq!(CHECKBOX_CLASS, original_class);
     }
@@ -155,7 +155,7 @@ mod class_constants {
         let class1 = CHECKBOX_CLASS;
         let class2 = CHECKBOX_CLASS;
         let class3 = CHECKBOX_CLASS;
-        
+
         assert_eq!(class1, class2);
         assert_eq!(class2, class3);
         assert_eq!(class1, class3);
@@ -165,13 +165,13 @@ mod class_constants {
     fn test_checkbox_class_edge_cases() {
         // Test edge cases for checkbox class
         let base_class = CHECKBOX_CLASS;
-        
+
         // Test with very long custom class
         let long_class = "a".repeat(1000);
         let computed_class = format!("{} {}", base_class, long_class);
         assert!(computed_class.contains("h-4"));
         assert!(computed_class.contains(&long_class));
-        
+
         // Test with empty base class (should not happen in practice)
         let empty_base = "";
         let custom_class = "custom-class";
@@ -183,13 +183,13 @@ mod class_constants {
     fn test_checkbox_class_performance() {
         // Test checkbox class generation performance
         let start = std::time::Instant::now();
-        
+
         for _ in 0..1000 {
             let _computed_class = format!("{} {}", CHECKBOX_CLASS, "custom-class");
         }
-        
+
         let duration = start.elapsed();
-        
+
         // Should complete quickly (less than 10ms for 1000 iterations)
         assert!(duration.as_millis() < 10);
     }
@@ -199,7 +199,7 @@ mod class_constants {
         // Test checkbox class memory usage
         let computed_class = format!("{} {}", CHECKBOX_CLASS, "custom-class");
         let size = std::mem::size_of_val(&computed_class);
-        
+
         // Should be reasonable size (less than 1KB)
         assert!(size < 1024);
     }

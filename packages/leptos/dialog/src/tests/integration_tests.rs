@@ -7,8 +7,8 @@
 //! - Global state isolation for concurrent component instances
 //! - Component lifecycle management under concurrent operations
 
-use leptos::prelude::*;
 use crate::*;
+use leptos::prelude::*;
 
 #[cfg(test)]
 mod integration_tests {
@@ -379,9 +379,7 @@ mod integration_tests {
         let _owner = Owner::new();
         _owner.set();
         // Test: Multiple dialogs don't cause memory leaks
-        let dialogs: Vec<RwSignal<bool>> = (0..10)
-            .map(|_| RwSignal::new(false))
-            .collect();
+        let dialogs: Vec<RwSignal<bool>> = (0..10).map(|_| RwSignal::new(false)).collect();
 
         let _view = view! {
             <div>

@@ -1,8 +1,8 @@
 //! Leptos port of shadcn/ui hover-card
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
+pub mod signal_managed;
 
 pub use default::{HoverCard, HoverCardContent, HoverCardContext, HoverCardTrigger};
 pub use new_york::{

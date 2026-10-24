@@ -1,10 +1,10 @@
 //! Component Migration Helpers Module
-//! 
+//!
 //! This module provides helper functions for migrating specific components
 //! to use ArcRwSignal and ArcMemo patterns.
 
-use leptos::prelude::*;
 use super::component_types::*;
+use leptos::prelude::*;
 
 /// Helper function to create a migrated button component
 /// Migrates Button component to use ArcRwSignal and ArcMemo patterns
@@ -16,12 +16,13 @@ pub fn create_migrated_button_component() -> Option<()> {
         disabled: false,
         loading: false,
     });
-    
+
     // Create computed signal using ArcMemo for derived state
     let button_state_for_class = button_state.clone();
     let _button_class = ArcMemo::new(move |_| {
         let state = button_state_for_class.get();
-        format!("button-{}-{}", 
+        format!(
+            "button-{}-{}",
             match state.variant {
                 ButtonVariant::Default => "default",
                 ButtonVariant::Destructive => "destructive",
@@ -38,7 +39,7 @@ pub fn create_migrated_button_component() -> Option<()> {
             }
         )
     });
-    
+
     // Create event handler with proper signal management
     let _handle_click = {
         let button_state = button_state.clone();
@@ -48,7 +49,7 @@ pub fn create_migrated_button_component() -> Option<()> {
                 button_state.update(|state| {
                     state.loading = true;
                 });
-                
+
                 // Simulate async operation
                 // In real implementation, this would be an async operation
                 button_state.update(|state| {
@@ -57,7 +58,7 @@ pub fn create_migrated_button_component() -> Option<()> {
             }
         }
     };
-    
+
     Some(())
 }
 
@@ -72,7 +73,7 @@ pub fn create_migrated_input_component() -> Option<()> {
         error: None,
         focused: false,
     });
-    
+
     // Create computed validation state using ArcMemo
     let input_state_for_validation = input_state.clone();
     let _validation_state = ArcMemo::new(move |_| {
@@ -83,19 +84,28 @@ pub fn create_migrated_input_component() -> Option<()> {
             error_message: state.error.clone(),
         }
     });
-    
+
     // Create computed class using ArcMemo
     let input_state_for_class = input_state.clone();
     let validation_state_for_class = _validation_state.clone();
     let _input_class = ArcMemo::new(move |_| {
         let state = input_state_for_class.get();
         let validation = validation_state_for_class.get();
-        format!("input-{}-{}", 
-            if state.focused { "focused" } else { "unfocused" },
-            if validation.has_error { "error" } else { "valid" }
+        format!(
+            "input-{}-{}",
+            if state.focused {
+                "focused"
+            } else {
+                "unfocused"
+            },
+            if validation.has_error {
+                "error"
+            } else {
+                "valid"
+            }
         )
     });
-    
+
     Some(())
 }
 
@@ -109,16 +119,21 @@ pub fn create_migrated_card_component() -> Option<()> {
         expanded: false,
         loading: false,
     });
-    
+
     // Create computed card class using ArcMemo
     let _card_class = ArcMemo::new(move |_| {
         let state = card_state.get();
-        format!("card-{}-{}", 
-            if state.expanded { "expanded" } else { "collapsed" },
+        format!(
+            "card-{}-{}",
+            if state.expanded {
+                "expanded"
+            } else {
+                "collapsed"
+            },
             if state.loading { "loading" } else { "ready" }
         )
     });
-    
+
     Some(())
 }
 
@@ -132,7 +147,7 @@ pub fn create_migrated_form_component() -> Option<()> {
         is_valid: false,
         errors: Vec::new(),
     });
-    
+
     // Create computed form validation using ArcMemo
     let _form_validation = ArcMemo::new(move |_| {
         let state = form_state.get();
@@ -142,7 +157,7 @@ pub fn create_migrated_form_component() -> Option<()> {
             error_count: state.errors.len(),
         }
     });
-    
+
     Some(())
 }
 
@@ -158,14 +173,14 @@ pub fn create_migrated_table_component() -> Option<()> {
         page: 1,
         page_size: 10,
     });
-    
+
     // Create computed sorted data using ArcMemo
     let _sorted_data = ArcMemo::new(move |_| {
         let state = table_state.get();
         // In real implementation, this would sort the data
         state.data.clone()
     });
-    
+
     Some(())
 }
 
@@ -179,16 +194,17 @@ pub fn create_migrated_dialog_component() -> Option<()> {
         content: String::new(),
         can_close: true,
     });
-    
+
     // Create computed dialog class using ArcMemo
     let _dialog_class = ArcMemo::new(move |_| {
         let state = dialog_state.get();
-        format!("dialog-{}-{}", 
+        format!(
+            "dialog-{}-{}",
             if state.is_open { "open" } else { "closed" },
             if state.can_close { "closable" } else { "modal" }
         )
     });
-    
+
     Some(())
 }
 
@@ -202,16 +218,25 @@ pub fn create_migrated_navigation_component() -> Option<()> {
         collapsed: false,
         mobile_open: false,
     });
-    
+
     // Create computed navigation class using ArcMemo
     let _nav_class = ArcMemo::new(move |_| {
         let state = nav_state.get();
-        format!("nav-{}-{}", 
-            if state.collapsed { "collapsed" } else { "expanded" },
-            if state.mobile_open { "mobile" } else { "desktop" }
+        format!(
+            "nav-{}-{}",
+            if state.collapsed {
+                "collapsed"
+            } else {
+                "expanded"
+            },
+            if state.mobile_open {
+                "mobile"
+            } else {
+                "desktop"
+            }
         )
     });
-    
+
     Some(())
 }
 
@@ -225,21 +250,26 @@ pub fn create_migrated_toast_component() -> Option<()> {
         duration: 5000,
         is_visible: false,
     });
-    
+
     // Create computed toast class using ArcMemo
     let _toast_class = ArcMemo::new(move |_| {
         let state = toast_state.get();
-        format!("toast-{}-{}", 
+        format!(
+            "toast-{}-{}",
             match state.variant {
                 ToastVariant::Info => "info",
                 ToastVariant::Success => "success",
                 ToastVariant::Warning => "warning",
                 ToastVariant::Error => "error",
             },
-            if state.is_visible { "visible" } else { "hidden" }
+            if state.is_visible {
+                "visible"
+            } else {
+                "hidden"
+            }
         )
     });
-    
+
     Some(())
 }
 
@@ -253,7 +283,7 @@ pub fn create_migrated_calendar_component() -> Option<()> {
         events: Vec::new(),
         view_mode: CalendarView::Month,
     });
-    
+
     // Create computed calendar data using ArcMemo
     let _calendar_data = ArcMemo::new(move |_| {
         let state = calendar_state.get();
@@ -263,6 +293,6 @@ pub fn create_migrated_calendar_component() -> Option<()> {
             event_count: state.events.len(),
         }
     });
-    
+
     Some(())
 }

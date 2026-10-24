@@ -1,8 +1,8 @@
 //! Signal-managed version of the Card component using leptos-shadcn-signal-management
 
 use leptos::prelude::*;
-use leptos_style::Style;
 use leptos_shadcn_signal_management::*;
+use leptos_style::Style;
 
 pub const CARD_CLASS: &str = "rounded-lg border bg-card text-card-foreground shadow-sm";
 pub const CARD_HEADER_CLASS: &str = "flex flex-col space-y-1.5 p-6";
@@ -12,25 +12,13 @@ pub const CARD_CONTENT_CLASS: &str = "p-6 pt-0";
 pub const CARD_FOOTER_CLASS: &str = "flex items-center p-6 pt-0";
 
 /// Signal-managed card state
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub struct SignalManagedCardState {
     pub is_hovered: bool,
     pub is_focused: bool,
     pub is_selected: bool,
     pub click_count: u32,
     pub hover_duration: u64,
-}
-
-impl Default for SignalManagedCardState {
-    fn default() -> Self {
-        Self {
-            is_hovered: false,
-            is_focused: false,
-            is_selected: false,
-            click_count: 0,
-            hover_duration: 0,
-        }
-    }
 }
 
 /// Signal-managed Card component
@@ -49,14 +37,27 @@ pub fn SignalManagedCard(
     let computed_class = ArcMemo::new(move |_| {
         let state = card_state_for_class.get();
         let base_class = CARD_CLASS;
-        let hover_class = if state.is_hovered { "hover:shadow-md" } else { "" };
-        let focus_class = if state.is_focused { "focus:ring-2 focus:ring-ring" } else { "" };
-        let selected_class = if state.is_selected { "ring-2 ring-primary" } else { "" };
-        
-        format!("{} {} {} {} {}", 
-            base_class, 
-            hover_class, 
-            focus_class, 
+        let hover_class = if state.is_hovered {
+            "hover:shadow-md"
+        } else {
+            ""
+        };
+        let focus_class = if state.is_focused {
+            "focus:ring-2 focus:ring-ring"
+        } else {
+            ""
+        };
+        let selected_class = if state.is_selected {
+            "ring-2 ring-primary"
+        } else {
+            ""
+        };
+
+        format!(
+            "{} {} {} {} {}",
+            base_class,
+            hover_class,
+            focus_class,
             selected_class,
             class.get().unwrap_or_default()
         )
@@ -133,14 +134,27 @@ pub fn EnhancedCard(
     let computed_class = ArcMemo::new(move |_| {
         let state = card_state_for_class.get();
         let base_class = CARD_CLASS;
-        let hover_class = if state.is_hovered { "hover:shadow-md transition-shadow" } else { "" };
-        let focus_class = if state.is_focused { "focus:ring-2 focus:ring-ring" } else { "" };
-        let selected_class = if state.is_selected { "ring-2 ring-primary" } else { "" };
-        
-        format!("{} {} {} {} {}", 
-            base_class, 
-            hover_class, 
-            focus_class, 
+        let hover_class = if state.is_hovered {
+            "hover:shadow-md transition-shadow"
+        } else {
+            ""
+        };
+        let focus_class = if state.is_focused {
+            "focus:ring-2 focus:ring-ring"
+        } else {
+            ""
+        };
+        let selected_class = if state.is_selected {
+            "ring-2 ring-primary"
+        } else {
+            ""
+        };
+
+        format!(
+            "{} {} {} {} {}",
+            base_class,
+            hover_class,
+            focus_class,
             selected_class,
             class.get().unwrap_or_default()
         )
@@ -150,10 +164,9 @@ pub fn EnhancedCard(
     let card_state_for_metrics = card_state.clone();
     let performance_metrics = ArcMemo::new(move |_| {
         let state = card_state_for_metrics.get();
-        format!("Clicks: {}, Hovered: {}, Selected: {}", 
-            state.click_count, 
-            state.is_hovered, 
-            state.is_selected
+        format!(
+            "Clicks: {}, Hovered: {}, Selected: {}",
+            state.click_count, state.is_hovered, state.is_selected
         )
     });
 
@@ -213,7 +226,7 @@ pub fn EnhancedCard(
             >
                 {children.map(|c| c())}
             </div>
-            
+
             // Performance monitoring (only in development)
             #[cfg(debug_assertions)]
             <div class="performance-monitor text-xs text-muted-foreground mt-1">
@@ -231,9 +244,8 @@ pub fn SignalManagedCardHeader(
     #[prop(into, optional)] style: Signal<Style>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let computed_class = ArcMemo::new(move |_| {
-        format!("{} {}", CARD_HEADER_CLASS, class.get().unwrap_or_default())
-    });
+    let computed_class =
+        ArcMemo::new(move |_| format!("{} {}", CARD_HEADER_CLASS, class.get().unwrap_or_default()));
 
     view! {
         <div
@@ -254,9 +266,8 @@ pub fn SignalManagedCardTitle(
     #[prop(into, optional)] style: Signal<Style>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let computed_class = ArcMemo::new(move |_| {
-        format!("{} {}", CARD_TITLE_CLASS, class.get().unwrap_or_default())
-    });
+    let computed_class =
+        ArcMemo::new(move |_| format!("{} {}", CARD_TITLE_CLASS, class.get().unwrap_or_default()));
 
     view! {
         <div
@@ -278,7 +289,11 @@ pub fn SignalManagedCardDescription(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let computed_class = ArcMemo::new(move |_| {
-        format!("{} {}", CARD_DESCRIPTION_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            CARD_DESCRIPTION_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {
@@ -323,9 +338,8 @@ pub fn SignalManagedCardFooter(
     #[prop(into, optional)] style: Signal<Style>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let computed_class = ArcMemo::new(move |_| {
-        format!("{} {}", CARD_FOOTER_CLASS, class.get().unwrap_or_default())
-    });
+    let computed_class =
+        ArcMemo::new(move |_| format!("{} {}", CARD_FOOTER_CLASS, class.get().unwrap_or_default()));
 
     view! {
         <div

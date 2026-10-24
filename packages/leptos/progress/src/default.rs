@@ -4,19 +4,14 @@ use leptos_style::Style;
 pub const PROGRESS_CLASS: &str = "relative w-full overflow-hidden rounded-full bg-secondary";
 pub const PROGRESS_INDICATOR_CLASS: &str = "h-full w-full flex-1 bg-primary transition-all";
 
-#[derive(Clone, Copy, PartialEq, Debug)]
+#[derive(Clone, Copy, PartialEq, Debug, Default)]
 pub enum ProgressVariant {
+    #[default]
     Default,
     Success,
     Warning,
     Destructive,
     Info,
-}
-
-impl Default for ProgressVariant {
-    fn default() -> Self {
-        ProgressVariant::Default
-    }
 }
 
 impl From<String> for ProgressVariant {
@@ -63,11 +58,15 @@ pub fn Progress(
         "xl" => "h-6",
         _ => "h-3",
     };
-    
+
     let progress_percentage = Signal::derive(move || {
         let val = value.get();
         let max_val = max_value;
-        if max_val <= 0.0 { 0.0 } else { (val / max_val * 100.0).clamp(0.0, 100.0) }
+        if max_val <= 0.0 {
+            0.0
+        } else {
+            (val / max_val * 100.0).clamp(0.0, 100.0)
+        }
     });
 
     let indicator_class = Signal::derive(move || {
@@ -78,7 +77,12 @@ pub fn Progress(
     });
 
     let computed_class = Signal::derive(move || {
-        format!("{} {} {}", PROGRESS_CLASS, size_class, class.get().unwrap_or_default())
+        format!(
+            "{} {} {}",
+            PROGRESS_CLASS,
+            size_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {
@@ -177,25 +181,39 @@ pub fn ProgressIndicator(
     #[prop(into, optional)] style: Signal<Style>,
 ) -> impl IntoView {
     let ctx = expect_context::<ProgressContextValue>();
-    
+
     let progress_percentage = Signal::derive(move || {
         let val = ctx.value.get();
         let max_val = ctx.max.get();
-        if max_val <= 0.0 { 0.0 } else { (val / max_val * 100.0).clamp(0.0, 100.0) }
+        if max_val <= 0.0 {
+            0.0
+        } else {
+            (val / max_val * 100.0).clamp(0.0, 100.0)
+        }
     });
 
     let indicator_class = Signal::derive(move || {
         let base_class = PROGRESS_INDICATOR_CLASS;
         let variant_class = ctx.variant.get().indicator_class();
-        let animation_class = if ctx.animated.get() { "animate-pulse" } else { "" };
-        format!("{} {} {} {}", base_class, variant_class, animation_class, class.get().unwrap_or_default())
+        let animation_class = if ctx.animated.get() {
+            "animate-pulse"
+        } else {
+            ""
+        };
+        format!(
+            "{} {} {} {}",
+            base_class,
+            variant_class,
+            animation_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {
         <div
             class=indicator_class
             id=move || id.get().unwrap_or_default()
-            style={move || format!("width: {}%; {}", progress_percentage.get(), style.get().to_string())}
+            style={move || format!("width: {}%; {}", progress_percentage.get(), style.get())}
         />
     }
 }
@@ -208,15 +226,22 @@ pub fn ProgressLabel(
     #[prop(into, optional)] style: Signal<Style>,
 ) -> impl IntoView {
     let ctx = expect_context::<ProgressContextValue>();
-    
+
     let progress_percentage = Signal::derive(move || {
         let val = ctx.value.get();
         let max_val = ctx.max.get();
-        if max_val <= 0.0 { 0.0 } else { (val / max_val * 100.0).clamp(0.0, 100.0) }
+        if max_val <= 0.0 {
+            0.0
+        } else {
+            (val / max_val * 100.0).clamp(0.0, 100.0)
+        }
     });
 
     let computed_class = Signal::derive(move || {
-        format!("flex justify-between text-sm text-muted-foreground {}", class.get().unwrap_or_default())
+        format!(
+            "flex justify-between text-sm text-muted-foreground {}",
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {

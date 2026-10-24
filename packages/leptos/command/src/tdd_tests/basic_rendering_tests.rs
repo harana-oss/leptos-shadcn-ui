@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod basic_rendering_tests {
-    use leptos::prelude::*;
     use crate::*;
+    use leptos::prelude::*;
 
     #[test]
     fn test_command_basic_rendering() {
@@ -184,7 +184,7 @@ mod basic_rendering_tests {
             // Combined props callback
         });
         let _command_view = view! {
-            <Command 
+            <Command
                 value=MaybeProp::from("combined")
                 on_value_change=callback
                 class=MaybeProp::from("combined-class")
@@ -215,7 +215,7 @@ mod basic_rendering_tests {
                 </CommandList>
             </Command>
         };
-        
+
         let _command_view2 = view! {
             <Command>
                 <CommandInput placeholder=MaybeProp::from("Search 2...")/>
@@ -224,7 +224,6 @@ mod basic_rendering_tests {
                 </CommandList>
             </Command>
         };
-        
     }
 
     #[test]
@@ -246,7 +245,7 @@ mod basic_rendering_tests {
                 </CommandList>
             </Command>
         };
-        
+
         // Test state management
         value_signal.set("test value".to_string());
         assert_eq!(value_signal.get(), "test value");

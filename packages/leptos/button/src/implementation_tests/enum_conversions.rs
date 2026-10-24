@@ -1,7 +1,6 @@
 #[cfg(test)]
 mod enum_conversions {
-    use crate::default::{ButtonVariant, ButtonSize};
-    use leptos::prelude::*;
+    use crate::default::{ButtonSize, ButtonVariant};
 
     // ===== ENUM CONVERSION TESTS =====
     // These tests focus on enum conversions, defaults, and basic trait implementations
@@ -9,12 +8,27 @@ mod enum_conversions {
     #[test]
     fn test_button_variant_enum_conversions() {
         // Test ButtonVariant From<String> implementation
-        assert_eq!(ButtonVariant::from("destructive".to_string()), ButtonVariant::Destructive);
-        assert_eq!(ButtonVariant::from("outline".to_string()), ButtonVariant::Outline);
-        assert_eq!(ButtonVariant::from("secondary".to_string()), ButtonVariant::Secondary);
-        assert_eq!(ButtonVariant::from("ghost".to_string()), ButtonVariant::Ghost);
+        assert_eq!(
+            ButtonVariant::from("destructive".to_string()),
+            ButtonVariant::Destructive
+        );
+        assert_eq!(
+            ButtonVariant::from("outline".to_string()),
+            ButtonVariant::Outline
+        );
+        assert_eq!(
+            ButtonVariant::from("secondary".to_string()),
+            ButtonVariant::Secondary
+        );
+        assert_eq!(
+            ButtonVariant::from("ghost".to_string()),
+            ButtonVariant::Ghost
+        );
         assert_eq!(ButtonVariant::from("link".to_string()), ButtonVariant::Link);
-        assert_eq!(ButtonVariant::from("invalid".to_string()), ButtonVariant::Default);
+        assert_eq!(
+            ButtonVariant::from("invalid".to_string()),
+            ButtonVariant::Default
+        );
         assert_eq!(ButtonVariant::from("".to_string()), ButtonVariant::Default);
     }
 
@@ -129,11 +143,26 @@ mod enum_conversions {
     #[test]
     fn test_button_variant_from_str() {
         // Test ButtonVariant from string conversion
-        assert_eq!(ButtonVariant::from("default".to_string()), ButtonVariant::Default);
-        assert_eq!(ButtonVariant::from("destructive".to_string()), ButtonVariant::Destructive);
-        assert_eq!(ButtonVariant::from("outline".to_string()), ButtonVariant::Outline);
-        assert_eq!(ButtonVariant::from("secondary".to_string()), ButtonVariant::Secondary);
-        assert_eq!(ButtonVariant::from("ghost".to_string()), ButtonVariant::Ghost);
+        assert_eq!(
+            ButtonVariant::from("default".to_string()),
+            ButtonVariant::Default
+        );
+        assert_eq!(
+            ButtonVariant::from("destructive".to_string()),
+            ButtonVariant::Destructive
+        );
+        assert_eq!(
+            ButtonVariant::from("outline".to_string()),
+            ButtonVariant::Outline
+        );
+        assert_eq!(
+            ButtonVariant::from("secondary".to_string()),
+            ButtonVariant::Secondary
+        );
+        assert_eq!(
+            ButtonVariant::from("ghost".to_string()),
+            ButtonVariant::Ghost
+        );
         assert_eq!(ButtonVariant::from("link".to_string()), ButtonVariant::Link);
     }
 
@@ -150,8 +179,14 @@ mod enum_conversions {
     fn test_button_variant_case_insensitive() {
         // Test case insensitive conversion (if implemented)
         // This test assumes case insensitive conversion is not implemented
-        assert_eq!(ButtonVariant::from("DESTRUCTIVE".to_string()), ButtonVariant::Default);
-        assert_eq!(ButtonVariant::from("OUTLINE".to_string()), ButtonVariant::Default);
+        assert_eq!(
+            ButtonVariant::from("DESTRUCTIVE".to_string()),
+            ButtonVariant::Default
+        );
+        assert_eq!(
+            ButtonVariant::from("OUTLINE".to_string()),
+            ButtonVariant::Default
+        );
     }
 
     #[test]
@@ -165,8 +200,14 @@ mod enum_conversions {
     #[test]
     fn test_button_variant_whitespace_handling() {
         // Test whitespace handling in string conversion
-        assert_eq!(ButtonVariant::from(" destructive ".to_string()), ButtonVariant::Default);
-        assert_eq!(ButtonVariant::from(" outline ".to_string()), ButtonVariant::Default);
+        assert_eq!(
+            ButtonVariant::from(" destructive ".to_string()),
+            ButtonVariant::Default
+        );
+        assert_eq!(
+            ButtonVariant::from(" outline ".to_string()),
+            ButtonVariant::Default
+        );
     }
 
     #[test]
@@ -180,11 +221,11 @@ mod enum_conversions {
     fn test_button_variant_hash() {
         // Test Hash implementation for ButtonVariant
         use std::collections::HashMap;
-        
+
         let mut map = HashMap::new();
         map.insert(ButtonVariant::Default, "default");
         map.insert(ButtonVariant::Destructive, "destructive");
-        
+
         assert_eq!(map.get(&ButtonVariant::Default), Some(&"default"));
         assert_eq!(map.get(&ButtonVariant::Destructive), Some(&"destructive"));
     }
@@ -193,11 +234,11 @@ mod enum_conversions {
     fn test_button_size_hash() {
         // Test Hash implementation for ButtonSize
         use std::collections::HashMap;
-        
+
         let mut map = HashMap::new();
         map.insert(ButtonSize::Default, "default");
         map.insert(ButtonSize::Sm, "small");
-        
+
         assert_eq!(map.get(&ButtonSize::Default), Some(&"default"));
         assert_eq!(map.get(&ButtonSize::Sm), Some(&"small"));
     }

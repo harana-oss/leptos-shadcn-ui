@@ -20,9 +20,12 @@ pub const ITEM_GROUP_CLASS: &str = "group/item-group flex flex-col";
 pub const ITEM_SEPARATOR_CLASS: &str = "bg-border shrink-0 h-px w-full my-0";
 pub const ITEM_MEDIA_CLASS: &str = "flex shrink-0 items-center justify-center gap-2 group-has-[[data-slot=item-description]]/item:self-start [&_svg]:pointer-events-none group-has-[[data-slot=item-description]]/item:translate-y-0.5";
 pub const ITEM_MEDIA_DEFAULT_CLASS: &str = "bg-transparent";
-pub const ITEM_MEDIA_ICON_CLASS: &str = "size-8 border rounded-sm bg-muted [&_svg:not([class*='size-'])]:size-4";
-pub const ITEM_MEDIA_IMAGE_CLASS: &str = "size-10 rounded-sm overflow-hidden [&_img]:size-full [&_img]:object-cover";
-pub const ITEM_CONTENT_CLASS: &str = "flex flex-1 flex-col gap-1 [&+[data-slot=item-content]]:flex-none";
+pub const ITEM_MEDIA_ICON_CLASS: &str =
+    "size-8 border rounded-sm bg-muted [&_svg:not([class*='size-'])]:size-4";
+pub const ITEM_MEDIA_IMAGE_CLASS: &str =
+    "size-10 rounded-sm overflow-hidden [&_img]:size-full [&_img]:object-cover";
+pub const ITEM_CONTENT_CLASS: &str =
+    "flex flex-1 flex-col gap-1 [&+[data-slot=item-content]]:flex-none";
 pub const ITEM_TITLE_CLASS: &str = "flex w-fit items-center gap-2 text-sm leading-snug font-medium";
 pub const ITEM_DESCRIPTION_CLASS: &str = "text-muted-foreground line-clamp-2 text-sm leading-normal font-normal text-balance [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4";
 pub const ITEM_ACTIONS_CLASS: &str = "flex items-center gap-2";
@@ -112,7 +115,10 @@ impl ItemMediaVariant {
 
 /// Full class for an Item.
 pub fn item_class(variant: ItemVariant, size: ItemSize, extra: Option<String>) -> String {
-    cn(&format!("{} {} {}", ITEM_CLASS, variant.class(), size.class()), extra)
+    cn(
+        &format!("{} {} {}", ITEM_CLASS, variant.class(), size.class()),
+        extra,
+    )
 }
 
 /// Full class for ItemMedia.

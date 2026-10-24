@@ -1,10 +1,10 @@
 //! Accessibility tests for the Hover-card component
-//! 
+//!
 //! This module contains tests for accessibility features, keyboard navigation,
 //! advanced interactions, and form integration for the Hover-card component.
 
-use leptos::prelude::*;
 use crate::default::{HoverCard, HoverCardContent, HoverCardTrigger};
+use leptos::prelude::*;
 
 #[cfg(test)]
 mod tests {
@@ -19,7 +19,7 @@ mod tests {
                 <HoverCardContent>"Accessibility content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -33,7 +33,7 @@ mod tests {
                 <HoverCardContent>"Keyboard navigation content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -47,7 +47,7 @@ mod tests {
                 <HoverCardContent>"Focus management content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -63,7 +63,7 @@ mod tests {
                 </HoverCard>
             </form>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -73,14 +73,14 @@ mod tests {
         // Test hover card ARIA attributes
         let hover_card_view = view! {
             <HoverCard>
-                <HoverCardTrigger 
+                <HoverCardTrigger
                     attr:aria-label="Custom label"
                     attr:aria-describedby="hover-card-content"
                     role="button"
                 >
                     "ARIA trigger"
                 </HoverCardTrigger>
-                <HoverCardContent 
+                <HoverCardContent
                     id="hover-card-content"
                     role="tooltip"
                     attr:aria-live="polite"
@@ -89,7 +89,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -103,7 +103,7 @@ mod tests {
                 <HoverCardContent role="tooltip">"Screen reader content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -117,7 +117,7 @@ mod tests {
                 <HoverCardContent>"High contrast content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -131,7 +131,7 @@ mod tests {
                 <HoverCardContent>"Reduced motion content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -145,7 +145,7 @@ mod tests {
                 <HoverCardContent>"Voice control content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -159,7 +159,7 @@ mod tests {
                 <HoverCardContent>"Switch control content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -173,7 +173,7 @@ mod tests {
                 <HoverCardContent>"Eye tracking content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -187,7 +187,7 @@ mod tests {
                 <HoverCardContent>"Motor impairment content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -201,7 +201,7 @@ mod tests {
                 <HoverCardContent>"Cognitive impairment content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -215,7 +215,7 @@ mod tests {
                 <HoverCardContent>"Visual impairment content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -229,7 +229,7 @@ mod tests {
                 <HoverCardContent>"Hearing impairment content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -243,7 +243,7 @@ mod tests {
                 <HoverCardContent lang="en">"Multilingual content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -257,7 +257,7 @@ mod tests {
                 <HoverCardContent dir="rtl">"RTL content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -271,7 +271,7 @@ mod tests {
                 <HoverCardContent>"Zoom content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -285,7 +285,7 @@ mod tests {
                 <HoverCardContent>"Mobile content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -299,7 +299,7 @@ mod tests {
                 <HoverCardContent>"Touch content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -313,7 +313,7 @@ mod tests {
                 <HoverCardContent>"Gesture content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -327,7 +327,7 @@ mod tests {
                 <HoverCardContent>"VoiceOver content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -341,7 +341,7 @@ mod tests {
                 <HoverCardContent>"NVDA content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -355,7 +355,7 @@ mod tests {
                 <HoverCardContent>"JAWS content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -369,7 +369,7 @@ mod tests {
                 <HoverCardContent>"Orca content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -383,7 +383,7 @@ mod tests {
                 <HoverCardContent>"TalkBack content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -397,7 +397,7 @@ mod tests {
                 <HoverCardContent>"Switch Access content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -411,7 +411,7 @@ mod tests {
                 <HoverCardContent>"Voice Control iOS content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -425,7 +425,7 @@ mod tests {
                 <HoverCardContent>"Voice Control macOS content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -439,7 +439,7 @@ mod tests {
                 <HoverCardContent>"Dragon content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -453,7 +453,7 @@ mod tests {
                 <HoverCardContent>"Windows Speech content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -467,7 +467,7 @@ mod tests {
                 <HoverCardContent>"Google Voice Access content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -481,7 +481,7 @@ mod tests {
                 <HoverCardContent>"Samsung Voice Assistant content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -495,7 +495,7 @@ mod tests {
                 <HoverCardContent>"Amazon Alexa content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -509,7 +509,7 @@ mod tests {
                 <HoverCardContent>"Google Assistant content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -523,7 +523,7 @@ mod tests {
                 <HoverCardContent>"Siri content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -537,7 +537,7 @@ mod tests {
                 <HoverCardContent>"Cortana content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -551,7 +551,7 @@ mod tests {
                 <HoverCardContent>"Bixby content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -561,7 +561,7 @@ mod tests {
         // Test hover card comprehensive accessibility
         let hover_card_view = view! {
             <HoverCard>
-                <HoverCardTrigger 
+                <HoverCardTrigger
                     attr:aria-label="Comprehensive accessibility trigger"
                     role="button"
                     tabindex="0"
@@ -570,7 +570,7 @@ mod tests {
                 >
                     "Comprehensive trigger"
                 </HoverCardTrigger>
-                <HoverCardContent 
+                <HoverCardContent
                     role="tooltip"
                     attr:aria-describedby="hover-card-content"
                     lang="en"
@@ -580,7 +580,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
