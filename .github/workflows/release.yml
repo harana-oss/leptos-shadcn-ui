@@ -1,0 +1,129 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version without the leading v (e.g. 0.9.1)"
+        required: true
+        type: string
+      prerelease:
+        description: "Mark the GitHub release as a pre-release"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate version
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Version '$VERSION' is not valid semver (expected X.Y.Z[-pre])"
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+
+      - name: Ensure tag does not exist
+        env:
+          TAG: v${{ inputs.version }}
+        run: |
+          if git rev-parse -q --verify "refs/tags/$TAG" >/dev/null; then
+            echo "::error::Tag $TAG already exists"
+            exit 1
+          fi
+
+      - name: Bump workspace version
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          # Only the version line inside [workspace.package]
+          sed -i '/^\[workspace\.package\]/,/^\[/ s/^version = ".*"/version = "'"$VERSION"'"/' Cargo.toml
+          grep -A6 '^\[workspace\.package\]' Cargo.toml
+
+      - name: Update README install section
+        env:
+          TAG: v${{ inputs.version }}
+          REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+        run: |
+          python3 - <<'PY'
+          import os, re, pathlib
+          tag, url = os.environ["TAG"], os.environ["REPO_URL"]
+          section = f"""<!-- install:start -->
+          ## Install
+
+          Components are distributed as a Git dependency. Each component is its own
+          crate named `leptos-shadcn-<component>`; add the ones you need, pinned to a
+          release tag (latest: `{tag}`).
+
+          With `cargo add`:
+
+          ```sh
+          cargo add leptos-shadcn-button --git {url} --tag {tag}
+          ```
+
+          Or in `Cargo.toml`:
+
+          ```toml
+          [dependencies]
+          leptos-shadcn-button = {{ git = "{url}", tag = "{tag}" }}
+          leptos-shadcn-input  = {{ git = "{url}", tag = "{tag}" }}
+          leptos-shadcn-card   = {{ git = "{url}", tag = "{tag}" }}
+          ```
+
+          Cargo resolves each crate by name from the workspace at that tag. Use
+          `branch = "main"` instead of `tag` to track unreleased changes.
+          <!-- install:end -->"""
+          p = pathlib.Path("README.md")
+          text = p.read_text()
+          pat = re.compile(r"<!-- install:start -->.*?<!-- install:end -->", re.S)
+          if pat.search(text):
+              text = pat.sub(lambda _: section, text, count=1)
+          else:
+              legacy = re.compile(r"^## Install\n.*?(?=^## )", re.S | re.M)
+              if legacy.search(text):
+                  text = legacy.sub(lambda _: section + "\n\n", text, count=1)
+              else:
+                  text = text.rstrip() + "\n\n" + section + "\n"
+          p.write_text(text)
+          PY
+          sed -n '/install:start/,/install:end/p' README.md
+
+      - name: Commit, tag and push
+        env:
+          TAG: v${{ inputs.version }}
+          BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Cargo.toml README.md
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(release): $TAG"
+          fi
+          git tag -a "$TAG" -m "Release $TAG"
+          git push origin "HEAD:$BRANCH"
+          git push origin "$TAG"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: v${{ inputs.version }}
+          PRERELEASE: ${{ inputs.prerelease }}
+        run: |
+          args=(--title "$TAG" --generate-notes --verify-tag)
+          if [ "$PRERELEASE" = "true" ]; then args+=(--prerelease); fi
+          gh release create "$TAG" "${args[@]}"
