@@ -1,3 +1,4 @@
+{% raw %}
 # Measurement and Benchmarking Guide
 
 A comprehensive guide to measuring performance improvements and validating optimizations in Leptos ShadCN UI applications.
@@ -858,3 +859,5 @@ By following the patterns in this guide, you can accurately measure performance 
 ---
 
 *For optimization strategies, see the [Performance Optimization Guide](./PERFORMANCE_OPTIMIZATION_GUIDE.md). For profiling techniques, see the [Profiling Quick Reference](./PROFILING_QUICK_REFERENCE.md).*
+
+{% endraw %}
