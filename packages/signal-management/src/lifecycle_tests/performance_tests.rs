@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod performance_tests {
     use crate::*;
     use leptos::prelude::*;
@@ -48,7 +49,7 @@ mod performance_tests {
         
         // Test memo cleanup
         drop(memo);
-        assert!(true); // If we get here, memory cleanup worked
+        // If we get here, memory cleanup worked
     }
 
     #[test]
@@ -75,7 +76,7 @@ mod performance_tests {
         assert_eq!(cleanup.signals_count(), 1);
         
         // Test cleanup
-        cleanup.cleanup();
+        cleanup.cleanup().unwrap();
         assert_eq!(cleanup.signals_count(), 0);
     }
 
@@ -103,7 +104,7 @@ mod performance_tests {
         
         // Test cleanup performance
         let cleanup_start = std::time::Instant::now();
-        cleanup.cleanup();
+        cleanup.cleanup().unwrap();
         let cleanup_duration = cleanup_start.elapsed();
         
         assert!(cleanup_duration.as_millis() < 100); // Should be fast
@@ -137,7 +138,7 @@ mod performance_tests {
         
         // Test cleanup performance
         let cleanup_start = std::time::Instant::now();
-        cleanup.cleanup();
+        cleanup.cleanup().unwrap();
         let cleanup_duration = cleanup_start.elapsed();
         
         assert!(cleanup_duration.as_millis() < 100); // Should be fast
@@ -170,7 +171,7 @@ mod performance_tests {
         assert_eq!(cleanup.signals_count(), 100);
         
         // Test cleanup
-        cleanup.cleanup();
+        cleanup.cleanup().unwrap();
         
         assert_eq!(cleanup.signals_count(), 0);
     }
@@ -201,7 +202,7 @@ mod performance_tests {
         assert_eq!(final_memos, initial_memos);
         
         // Test memory cleanup
-        cleanup.cleanup();
+        cleanup.cleanup().unwrap();
         let cleaned_signals = cleanup.signals_count();
         assert_eq!(cleaned_signals, 0);
     }
@@ -222,7 +223,7 @@ mod performance_tests {
             
             if (i + 1) % 1000 == 0 {
                 // Test periodic cleanup
-                cleanup.cleanup();
+                cleanup.cleanup().unwrap();
             }
         }
         
@@ -251,10 +252,10 @@ mod performance_tests {
         assert_eq!(cleanup.signals_count(), 1000);
         
         // Test cleanup
-        cleanup.cleanup();
+        cleanup.cleanup().unwrap();
         assert_eq!(cleanup.signals_count(), 0);
         
         // Test memory is cleaned up
-        assert!(true); // If we get here, memory cleanup worked
+        // If we get here, memory cleanup worked
     }
 }

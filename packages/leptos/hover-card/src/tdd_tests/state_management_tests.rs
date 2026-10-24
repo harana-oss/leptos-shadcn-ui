@@ -13,7 +13,7 @@ mod tests {
     #[test]
     fn test_hover_card_state_management() {
         // Test hover card state management
-        let (is_open, _set_is_open) = create_signal(false);
+        let (is_open, _set_is_open) = signal(false);
         
         let hover_card_view = view! {
             <HoverCard>
@@ -73,7 +73,7 @@ mod tests {
     #[test]
     fn test_hover_card_theme_switching() {
         // Test hover card theme switching
-        let (theme, _set_theme) = create_signal("light");
+        let (theme, _set_theme) = signal("light");
         
         let hover_card_view = view! {
             <HoverCard>
@@ -105,7 +105,7 @@ mod tests {
     #[test]
     fn test_hover_card_advanced_interactions() {
         // Test hover card advanced interactions
-        let (interaction_count, _set_interaction_count) = create_signal(0);
+        let (interaction_count, _set_interaction_count) = signal(0);
         
         let hover_card_view = view! {
             <HoverCard>
@@ -143,7 +143,7 @@ mod tests {
     #[test]
     fn test_hover_card_validation_comprehensive() {
         // Test hover card validation comprehensive
-        let (is_valid, _set_is_valid) = create_signal(true);
+        let (is_valid, _set_is_valid) = signal(true);
         
         let hover_card_view = view! {
             <HoverCard>
@@ -203,7 +203,7 @@ mod tests {
     #[test]
     fn test_hover_card_complete_workflow() {
         // Test hover card complete workflow
-        let (workflow_step, _set_workflow_step) = create_signal(0);
+        let (workflow_step, _set_workflow_step) = signal(0);
         
         let hover_card_view = view! {
             <HoverCard>
@@ -235,7 +235,7 @@ mod tests {
     #[test]
     fn test_hover_card_click_handling() {
         // Test hover card click handling
-        let (click_count, _set_click_count) = create_signal(0);
+        let (click_count, _set_click_count) = signal(0);
         
         let hover_card_view = view! {
             <HoverCard>
@@ -253,7 +253,7 @@ mod tests {
     #[test]
     fn test_hover_card_checked_change_callback() {
         // Test hover card checked change callback
-        let (checked, _set_checked) = create_signal(false);
+        let (checked, _set_checked) = signal(false);
         
         let hover_card_view = view! {
             <HoverCard>
@@ -285,7 +285,7 @@ mod tests {
     #[test]
     fn test_hover_card_callback_execution() {
         // Test hover card callback execution
-        let (callback_executed, _set_callback_executed) = create_signal(false);
+        let (callback_executed, _set_callback_executed) = signal(false);
         
         let hover_card_view = view! {
             <HoverCard>
@@ -303,8 +303,8 @@ mod tests {
     #[test]
     fn test_hover_card_multiple_callbacks() {
         // Test hover card multiple callbacks
-        let (callback1_count, _set_callback1_count) = create_signal(0);
-        let (callback2_count, _set_callback2_count) = create_signal(0);
+        let (callback1_count, _set_callback1_count) = signal(0);
+        let (callback2_count, _set_callback2_count) = signal(0);
         
         let hover_card_view = view! {
             <HoverCard>
@@ -322,7 +322,7 @@ mod tests {
     #[test]
     fn test_hover_card_disabled_state() {
         // Test hover card disabled state
-        let (is_disabled, _set_is_disabled) = create_signal(false);
+        let (is_disabled, _set_is_disabled) = signal(false);
         
         let hover_card_view = view! {
             <HoverCard>
@@ -340,7 +340,7 @@ mod tests {
     #[test]
     fn test_hover_card_enabled_state() {
         // Test hover card enabled state
-        let (is_enabled, _set_is_enabled) = create_signal(true);
+        let (is_enabled, _set_is_enabled) = signal(true);
         
         let hover_card_view = view! {
             <HoverCard>
@@ -358,7 +358,7 @@ mod tests {
     #[test]
     fn test_hover_card_dynamic_content() {
         // Test hover card dynamic content
-        let (content_type, _set_content_type) = create_signal("text");
+        let (content_type, _set_content_type) = signal("text");
         
         let hover_card_view = view! {
             <HoverCard>
@@ -376,7 +376,7 @@ mod tests {
     #[test]
     fn test_hover_card_conditional_rendering() {
         // Test hover card conditional rendering
-        let (show_content, _set_show_content) = create_signal(true);
+        let (show_content, _set_show_content) = signal(true);
         
         let hover_card_view = view! {
             <HoverCard>
@@ -394,7 +394,7 @@ mod tests {
     #[test]
     fn test_hover_card_data_binding() {
         // Test hover card data binding
-        let (bound_data, _set_bound_data) = create_signal("initial data".to_string());
+        let (bound_data, _set_bound_data) = signal("initial data".to_string());
         
         let hover_card_view = view! {
             <HoverCard>
@@ -412,7 +412,7 @@ mod tests {
     #[test]
     fn test_hover_card_event_propagation() {
         // Test hover card event propagation
-        let (event_count, _set_event_count) = create_signal(0);
+        let (event_count, _set_event_count) = signal(0);
         
         let hover_card_view = view! {
             <HoverCard>
@@ -458,7 +458,7 @@ mod tests {
     #[test]
     fn test_hover_card_lifecycle_management() {
         // Test hover card lifecycle management
-        let (lifecycle_stage, _set_lifecycle_stage) = create_signal("initialized".to_string());
+        let (lifecycle_stage, _set_lifecycle_stage) = signal("initialized".to_string());
         
         let hover_card_view = view! {
             <HoverCard>
@@ -476,8 +476,8 @@ mod tests {
     #[test]
     fn test_hover_card_state_synchronization() {
         // Test hover card state synchronization
-        let (local_state, _set_local_state) = create_signal("local".to_string());
-        let (remote_state, _set_remote_state) = create_signal("remote".to_string());
+        let (local_state, _set_local_state) = signal("local".to_string());
+        let (remote_state, _set_remote_state) = signal("remote".to_string());
         
         let hover_card_view = view! {
             <HoverCard>
@@ -495,9 +495,9 @@ mod tests {
     #[test]
     fn test_hover_card_comprehensive_state_management() {
         // Test hover card comprehensive state management
-        let (state1, _set_state1) = create_signal(false);
-        let (state2, _set_state2) = create_signal(false);
-        let (state3, _set_state3) = create_signal(false);
+        let (state1, _set_state1) = signal(false);
+        let (state2, _set_state2) = signal(false);
+        let (state3, _set_state3) = signal(false);
         
         let hover_card_view = view! {
             <HoverCard>

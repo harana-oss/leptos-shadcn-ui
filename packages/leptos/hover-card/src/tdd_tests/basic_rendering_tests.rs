@@ -71,7 +71,7 @@ mod tests {
     #[test]
     fn test_hover_card_with_callback() {
         // Test hover card with callback
-        let (callback_count, _set_callback_count) = create_signal(0);
+        let (callback_count, _set_callback_count) = signal(0);
         
         let hover_card_view = view! {
             <HoverCard>

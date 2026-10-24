@@ -3,28 +3,22 @@ use web_sys::MouseEvent;
 use web_sys::KeyboardEvent;
 
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub enum AccordionType {
+    #[default]
     Single,
     Multiple,
 }
 
-impl Default for AccordionType {
-    fn default() -> Self {
-        AccordionType::Single
-    }
-}
 
 #[derive(Debug, Clone, PartialEq)]
+#[derive(Default)]
 pub enum AccordionOrientation {
+    #[default]
     Vertical,
     Horizontal,
 }
 
-impl Default for AccordionOrientation {
-    fn default() -> Self {
-        AccordionOrientation::Vertical
-    }
-}
 
 /// Context newtypes: each boolean signal gets its own type so that
 /// `provide_context` calls do not overwrite each other.
@@ -165,8 +159,6 @@ pub fn AccordionTrigger(
 
     // Toggle logic extracted so it can be used by both click and keydown without moving closures
     let toggle = {
-        let accordion_value = accordion_value.clone();
-        let on_value_change = on_value_change.clone();
         let item_value = item_value.clone();
         move || {
             if is_disabled.get() {
@@ -250,11 +242,12 @@ pub fn AccordionTrigger(
                     callback.run(current_value);
                 }
             })),
-            onkeydown: Some(Callback::new(move |e| handle_keydown(e))),
+            onkeydown: Some(Callback::new(handle_keydown)),
             disabled: is_disabled.get(),
             expanded: is_expanded.get(),
         };
-        as_child.run(child_props).into_any()
+        as_child.run(child_props);
+        ().into_any()
     } else {
         view! {
             <button

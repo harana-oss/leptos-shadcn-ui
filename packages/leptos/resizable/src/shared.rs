@@ -28,21 +28,37 @@ pub(crate) struct GroupContext {
     pub touch_support: Signal<bool>,
     pub group_ref: NodeRef<html::Div>,
     pub on_resize: Signal<Option<Callback<Vec<f64>>>>,
+    /// Per-panel `on_resize` callbacks, indexed like `panels`.
+    pub panel_callbacks: StoredValue<Vec<Option<Callback<f64>>>>,
 }
 
 impl GroupContext {
-    fn notify(&self) {
+    fn sizes(&self) -> Vec<f64> {
+        self.panels.with_untracked(|p| p.iter().map(|l| l.size).collect())
+    }
+
+    /// Fires the group callback and the callbacks of panels whose size changed.
+    fn notify(&self, old: &[f64]) {
+        let new = self.sizes();
+        self.panel_callbacks.with_value(|callbacks| {
+            for (i, size) in new.iter().enumerate() {
+                if let (true, Some(Some(callback))) = (old.get(i) != Some(size), callbacks.get(i)) {
+                    callback.run(*size);
+                }
+            }
+        });
         if let Some(callback) = self.on_resize.get_untracked() {
-            callback.run(self.panels.with_untracked(|p| p.iter().map(|l| l.size).collect()));
+            callback.run(new);
         }
     }
 
     /// Moves the boundary after panel `before` by `delta` percent.
     pub fn resize(&self, before: usize, delta: f64) {
+        let old = self.sizes();
         let mut changed = false;
         self.panels.update(|panels| changed = apply_delta(panels, before, delta));
         if changed {
-            self.notify();
+            self.notify(&old);
         }
     }
 
@@ -58,8 +74,9 @@ impl GroupContext {
         } else if index > 0 {
             self.resize(index - 1, -delta);
         } else {
+            let old = self.sizes();
             self.panels.update(|p| p[0].size = size.clamp(p[0].min, p[0].max));
-            self.notify();
+            self.notify(&old);
         }
     }
 }
@@ -137,6 +154,7 @@ pub(crate) fn render_group(props: GroupProps) -> impl IntoView {
         touch_support: Signal::derive(move || touch_support.get().unwrap_or(false)),
         group_ref: NodeRef::new(),
         on_resize: Signal::derive(move || on_resize.get()),
+        panel_callbacks: StoredValue::new(Vec::new()),
     };
     provide_context(ctx);
 
@@ -224,6 +242,7 @@ pub(crate) fn render_panel(props: PanelProps) -> impl IntoView {
             index = p.len();
             p.push(PanelLayout { size: initial, min, max });
         });
+        ctx.panel_callbacks.update_value(|c| c.push(on_resize.get_untracked()));
         index
     });
 
@@ -244,23 +263,19 @@ pub(crate) fn render_panel(props: PanelProps) -> impl IntoView {
             ctx.set_size(i, size);
             ctx.panels.update(|p| p[i].min = min);
         }
-        _ => local_size.set(size),
+        _ => {
+            if local_size.get_untracked() != size {
+                local_size.set(size);
+                if let Some(callback) = on_resize.get_untracked() {
+                    callback.run(size);
+                }
+            }
+        }
     };
 
     if initially_collapsed {
         set_size(collapsed_size_val);
     }
-
-    // Report size changes to the panel's own callback.
-    Effect::new(move |prev: Option<f64>| {
-        let size = current_size.get();
-        if let Some(prev) = prev
-            && prev != size
-                && let Some(callback) = on_resize.get_untracked() {
-                    callback.run(size);
-                }
-        size
-    });
 
     let toggle_collapse = move |_| {
         if !collapsible.get_untracked().unwrap_or(false) {
@@ -563,6 +578,7 @@ mod tests {
         let owner = Owner::new();
         owner.with(|| {
             let reported = RwSignal::new(Vec::<f64>::new());
+            let second = RwSignal::new(0.0);
             let ctx = GroupContext {
                 direction: Signal::stored(ResizeDirection::Horizontal),
                 panels: RwSignal::new(layout(&[50.0, 50.0])),
@@ -572,9 +588,14 @@ mod tests {
                 touch_support: Signal::stored(true),
                 group_ref: NodeRef::new(),
                 on_resize: Signal::stored(Some(Callback::new(move |s| reported.set(s)))),
+                panel_callbacks: StoredValue::new(vec![
+                    None,
+                    Some(Callback::new(move |s| second.set(s))),
+                ]),
             };
             ctx.resize(0, -KEYBOARD_STEP);
             assert_eq!(reported.get_untracked(), vec![45.0, 55.0]);
+            assert_eq!(second.get_untracked(), 55.0);
             ctx.set_size(1, 80.0);
             assert_eq!(reported.get_untracked(), vec![20.0, 80.0]);
         });

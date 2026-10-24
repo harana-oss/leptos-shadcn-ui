@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod batched_updates_tests {
     use crate::*;
     use leptos::prelude::*;
@@ -72,7 +73,7 @@ mod batched_updates_tests {
         assert!(updater.is_batching());
         
         // End batching
-        updater.end_batching();
+        updater.end_batching().unwrap();
         assert!(!updater.is_batching());
     }
 
@@ -102,7 +103,7 @@ mod batched_updates_tests {
         assert_eq!(signal2.get(), "initial2");
         
         // Flush updates
-        updater.flush_updates();
+        updater.flush_updates().unwrap();
         
         // Test queue is empty
         assert_eq!(updater.queue_size(), 0);
@@ -206,7 +207,7 @@ mod batched_updates_tests {
         assert_eq!(updater.queue_size(), 3);
         
         // Flush updates
-        updater.flush_updates();
+        updater.flush_updates().unwrap();
         
         // Test all signals are updated
         assert_eq!(signal1.get(), "update1");
@@ -239,7 +240,7 @@ mod batched_updates_tests {
         assert_eq!(updater.queue_size(), 3);
         
         // Flush updates
-        updater.flush_updates();
+        updater.flush_updates().unwrap();
         
         // Test signal has last update
         assert_eq!(signal.get(), "update3");
@@ -297,7 +298,7 @@ mod batched_updates_tests {
         
         // Test flush performance
         let flush_start = std::time::Instant::now();
-        updater.flush_updates();
+        updater.flush_updates().unwrap();
         let flush_duration = flush_start.elapsed();
         
         // Should be fast
@@ -331,6 +332,6 @@ mod batched_updates_tests {
         assert_eq!(updater.queue_size(), 0);
         
         // Test memory is cleaned up
-        assert!(true); // If we get here, memory cleanup worked
+        // If we get here, memory cleanup worked
     }
 }

@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod performance_tests {
     use crate::*;
     
@@ -38,8 +39,8 @@ mod performance_tests {
             for j in 0..10 {
                 let signal = ArcRwSignal::new(format!("value_{}_{}", i, j));
                 let memo = ArcMemo::new(move |_| i * j);
-                manager.add_signal(signal);
-                manager.add_memo(memo);
+                manager.add_signal(signal).unwrap();
+                manager.add_memo(memo).unwrap();
             }
         }
         
@@ -47,7 +48,7 @@ mod performance_tests {
         assert!(duration.as_millis() < 500, "Creating groups with signals/memos should be fast");
         
         // Test memory stats
-        manager.update_memory_stats();
+        manager.update_memory_stats().unwrap();
         let stats = manager.get_memory_stats();
         assert_eq!(stats.active_signals, 1000); // 100 groups * 10 signals
         assert_eq!(stats.active_memos, 1000); // 100 groups * 10 memos
@@ -122,7 +123,7 @@ mod performance_tests {
         // Cleanup all groups
         for i in 0..1000 {
             let group_name = format!("group_{}", i);
-            manager.remove_group(&group_name);
+            manager.remove_group(&group_name).unwrap();
         }
         
         let duration = start.elapsed();
@@ -158,15 +159,15 @@ mod performance_tests {
             
             let signal = ArcRwSignal::new(format!("value_{}", i));
             let memo = ArcMemo::new(move |_| i);
-            manager.add_signal(signal);
-            manager.add_memo(memo);
+            manager.add_signal(signal).unwrap();
+            manager.add_memo(memo).unwrap();
         }
         
         let start = std::time::Instant::now();
         
         // Update stats many times
         for _i in 0..1000 {
-            manager.update_memory_stats();
+            manager.update_memory_stats().unwrap();
         }
         
         let duration = start.elapsed();
@@ -192,7 +193,7 @@ mod performance_tests {
         let start = std::time::Instant::now();
         
         // Run adaptive cleanup
-        manager.adaptive_cleanup();
+        manager.adaptive_cleanup().unwrap();
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 100, "Adaptive cleanup should be fast");
@@ -214,8 +215,8 @@ mod performance_tests {
             for j in 0..100 {
                 let signal = ArcRwSignal::new(format!("value_{}_{}", i, j));
                 let memo = ArcMemo::new(move |_| i * j);
-                manager.add_signal(signal);
-                manager.add_memo(memo);
+                manager.add_signal(signal).unwrap();
+                manager.add_memo(memo).unwrap();
             }
         }
         
@@ -223,7 +224,7 @@ mod performance_tests {
         assert!(duration.as_millis() < 2000, "Large scale operations should be reasonable");
         
         // Test final state
-        manager.update_memory_stats();
+        manager.update_memory_stats().unwrap();
         let stats = manager.get_memory_stats();
         assert_eq!(stats.active_signals, 10000); // 100 groups * 100 signals
         assert_eq!(stats.active_memos, 10000); // 100 groups * 100 memos
@@ -253,7 +254,7 @@ mod performance_tests {
         let start = std::time::Instant::now();
         
         // Cleanup old groups
-        manager.cleanup_old_groups(1000); // Cleanup groups older than 1000 seconds
+        manager.cleanup_old_groups(1000).unwrap(); // Cleanup groups older than 1000 seconds
         
         let duration = start.elapsed();
         assert!(duration.as_millis() < 100, "Cleanup operations should be fast");
@@ -273,7 +274,7 @@ mod performance_tests {
 
         // Use the manager's own memory estimate (deterministic) rather than
         // wall-clock time as a proxy for memory per group
-        manager.update_memory_stats();
+        manager.update_memory_stats().unwrap();
         let memory_per_group = manager.get_memory_stats().estimated_memory_bytes / 1000;
         
         // Test memory efficiency (should be reasonable)
@@ -295,11 +296,11 @@ mod performance_tests {
             // Add content
             let signal = ArcRwSignal::new(format!("value_{}", i));
             let memo = ArcMemo::new(move |_| i);
-            manager.add_signal(signal);
-            manager.add_memo(memo);
+            manager.add_signal(signal).unwrap();
+            manager.add_memo(memo).unwrap();
             
             // Update stats
-            manager.update_memory_stats();
+            manager.update_memory_stats().unwrap();
             
             // Check memory pressure
             let _pressure = manager.detect_memory_pressure();

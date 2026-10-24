@@ -41,7 +41,7 @@ mod tests {
     #[test]
     fn test_hover_card_update_performance() {
         // Test hover card update performance
-        let (update_count, _set_update_count) = create_signal(0);
+        let (update_count, _set_update_count) = signal(0);
         
         let hover_card_view = view! {
             <HoverCard>
@@ -507,9 +507,9 @@ mod tests {
     #[test]
     fn test_hover_card_comprehensive_performance() {
         // Test hover card comprehensive performance
-        let (performance_metric, _set_performance_metric) = create_signal(0.0);
-        let (memory_usage, _set_memory_usage) = create_signal(0);
-        let (cpu_usage, _set_cpu_usage) = create_signal(0.0);
+        let (performance_metric, _set_performance_metric) = signal(0.0);
+        let (memory_usage, _set_memory_usage) = signal(0);
+        let (cpu_usage, _set_cpu_usage) = signal(0.0);
         
         let hover_card_view = view! {
             <HoverCard>
