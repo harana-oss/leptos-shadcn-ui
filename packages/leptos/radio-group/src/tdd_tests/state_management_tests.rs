@@ -13,11 +13,19 @@ mod state_management_tests {
         let selected_value = RwSignal::new("option1".to_string());
 
         // Test initial selection
-        assert_eq!(selected_value.get(), "option1", "Initial value should be option1");
+        assert_eq!(
+            selected_value.get(),
+            "option1",
+            "Initial value should be option1"
+        );
 
         // Simulate selection change
         selected_value.set("option2".to_string());
-        assert_eq!(selected_value.get(), "option2", "Value should change to option2");
+        assert_eq!(
+            selected_value.get(),
+            "option2",
+            "Value should change to option2"
+        );
     }
 
     #[test]

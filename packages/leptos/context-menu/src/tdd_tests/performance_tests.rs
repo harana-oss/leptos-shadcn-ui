@@ -176,7 +176,10 @@ mod performance_tests {
         _owner.set();
         let open = RwSignal::new(false);
         let _computed_class = Signal::derive(move || {
-            format!("context-menu-{}", if open.get() { "open" } else { "closed" })
+            format!(
+                "context-menu-{}",
+                if open.get() { "open" } else { "closed" }
+            )
         });
         let _context_menu_view = view! {
             <ContextMenu>
@@ -206,7 +209,10 @@ mod performance_tests {
         _owner.set();
         let open = RwSignal::new(false);
         let _memoized_class = Memo::new(move |_| {
-            format!("context-menu-{}", if open.get() { "open" } else { "closed" })
+            format!(
+                "context-menu-{}",
+                if open.get() { "open" } else { "closed" }
+            )
         });
         let _context_menu_view = view! {
             <ContextMenu>
@@ -556,7 +562,7 @@ mod performance_tests {
                         "Right-click me"
                     </ContextMenuTrigger>
                     <ContextMenuContent>
-                        <For each=move || items.get_value() key=|item| item.clone() let:item>
+                        <For each=move || items.get_value() key=|item| item.to_string() let:item>
                             <ContextMenuItem>{item}</ContextMenuItem>
                         </For>
                     </ContextMenuContent>

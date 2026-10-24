@@ -83,7 +83,10 @@ mod tdd_tests {
             let _calendar_view = view! {
                 <Calendar class=custom_class>"Custom styled calendar"</Calendar>
             };
-            assert_eq!(custom_class, "custom-calendar-class", "Custom styling should be supported");
+            assert_eq!(
+                custom_class, "custom-calendar-class",
+                "Custom styling should be supported"
+            );
         });
     }
 
@@ -94,7 +97,10 @@ mod tdd_tests {
             let _calendar_view = view! {
                 <Calendar>"Calendar with ID"</Calendar>
             };
-            assert_eq!(custom_id, "custom-calendar-id", "Custom ID should be supported");
+            assert_eq!(
+                custom_id, "custom-calendar-id",
+                "Custom ID should be supported"
+            );
         });
     }
 
@@ -432,7 +438,11 @@ mod tdd_tests {
                     "Month: " {current_month}
                 </Calendar>
             };
-            assert_eq!(current_month.get(), "January", "Dynamic content should work");
+            assert_eq!(
+                current_month.get(),
+                "January",
+                "Dynamic content should work"
+            );
         });
     }
 

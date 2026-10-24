@@ -43,8 +43,14 @@ mod tdd_green_tests {
         // Clear errors (simulate reset)
         validation = FormValidation::new();
 
-        assert!(validation.is_valid, "Form should be valid after clearing errors");
-        assert!(validation.errors.is_empty(), "Should have no errors after clearing");
+        assert!(
+            validation.is_valid,
+            "Form should be valid after clearing errors"
+        );
+        assert!(
+            validation.errors.is_empty(),
+            "Should have no errors after clearing"
+        );
     }
 
     #[test]
@@ -88,15 +94,27 @@ mod tdd_green_tests {
         let field_id = "email";
 
         // Test proper labeling
-        assert_eq!(field_name, label_for, "Field name should match label for attribute");
-        assert_eq!(field_id, label_for, "Field ID should match label for attribute");
+        assert_eq!(
+            field_name, label_for,
+            "Field name should match label for attribute"
+        );
+        assert_eq!(
+            field_id, label_for,
+            "Field ID should match label for attribute"
+        );
 
         // Test ARIA attributes
         let has_aria_invalid = true;
         let has_aria_describedby = true;
 
-        assert!(has_aria_invalid, "Form should support aria-invalid attribute");
-        assert!(has_aria_describedby, "Form should support aria-describedby attribute");
+        assert!(
+            has_aria_invalid,
+            "Form should support aria-invalid attribute"
+        );
+        assert!(
+            has_aria_describedby,
+            "Form should support aria-describedby attribute"
+        );
     }
 
     #[test]
@@ -144,8 +162,15 @@ mod tdd_green_tests {
         }
 
         assert!(!validation.is_valid, "Form should be invalid");
-        assert_eq!(validation.errors.len(), 2, "Should have two validation errors");
-        assert_eq!(validation.get_error("email"), Some("Email format is invalid"));
+        assert_eq!(
+            validation.errors.len(),
+            2,
+            "Should have two validation errors"
+        );
+        assert_eq!(
+            validation.get_error("email"),
+            Some("Email format is invalid")
+        );
         assert_eq!(
             validation.get_error("password"),
             Some("Password must be at least 8 characters")
@@ -163,7 +188,10 @@ mod tdd_green_tests {
         validation.add_error("confirm_password", "Passwords do not match");
 
         // First error should be the most critical
-        assert_eq!(validation.errors[0].field, "email", "First error should be email");
+        assert_eq!(
+            validation.errors[0].field, "email",
+            "First error should be email"
+        );
         assert_eq!(
             validation.errors[0].message, "Email is required",
             "First error message should match"
@@ -185,10 +213,17 @@ mod tdd_green_tests {
         assert_eq!(form_data.fields.len(), 1, "Should have one field");
 
         form_data.fields.remove("temp_field");
-        assert_eq!(form_data.fields.len(), 0, "Should have no fields after removal");
+        assert_eq!(
+            form_data.fields.len(),
+            0,
+            "Should have no fields after removal"
+        );
 
         // Test cleanup
         form_data.fields.clear();
-        assert!(form_data.fields.is_empty(), "Fields should be empty after clear");
+        assert!(
+            form_data.fields.is_empty(),
+            "Fields should be empty after clear"
+        );
     }
 }

@@ -12,7 +12,11 @@ mod state_management_tests {
         // Test table state initialization
         let table_state = RwSignal::new("initial");
 
-        assert_eq!(table_state.get(), "initial", "Table state should be initialized");
+        assert_eq!(
+            table_state.get(),
+            "initial",
+            "Table state should be initialized"
+        );
     }
 
     #[test]
@@ -22,7 +26,11 @@ mod state_management_tests {
 
         // Update state
         table_state.set("updated");
-        assert_eq!(table_state.get(), "updated", "Table state should be updated");
+        assert_eq!(
+            table_state.get(),
+            "updated",
+            "Table state should be updated"
+        );
 
         // Multiple updates
         table_state.set("final");
@@ -38,13 +46,21 @@ mod state_management_tests {
 
         // Add new row
         table_data.update(|data| data.push("row4"));
-        assert_eq!(table_data.get().len(), 4, "Should have 4 rows after addition");
+        assert_eq!(
+            table_data.get().len(),
+            4,
+            "Should have 4 rows after addition"
+        );
 
         // Remove row
         table_data.update(|data| {
             data.pop();
         });
-        assert_eq!(table_data.get().len(), 3, "Should have 3 rows after removal");
+        assert_eq!(
+            table_data.get().len(),
+            3,
+            "Should have 3 rows after removal"
+        );
     }
 
     #[test]
@@ -54,11 +70,19 @@ mod state_management_tests {
         let sort_direction = RwSignal::new("asc");
 
         assert_eq!(sort_column.get(), "name", "Sort column should be name");
-        assert_eq!(sort_direction.get(), "asc", "Sort direction should be ascending");
+        assert_eq!(
+            sort_direction.get(),
+            "asc",
+            "Sort direction should be ascending"
+        );
 
         // Change sort direction
         sort_direction.set("desc");
-        assert_eq!(sort_direction.get(), "desc", "Sort direction should be descending");
+        assert_eq!(
+            sort_direction.get(),
+            "desc",
+            "Sort direction should be descending"
+        );
     }
 
     #[test]
@@ -115,7 +139,11 @@ mod state_management_tests {
         let loading_message = RwSignal::new("Loading...");
 
         assert!(!is_loading.get(), "Should not be loading initially");
-        assert_eq!(loading_message.get(), "Loading...", "Should have loading message");
+        assert_eq!(
+            loading_message.get(),
+            "Loading...",
+            "Should have loading message"
+        );
 
         // Start loading
         is_loading.set(true);
@@ -135,7 +163,11 @@ mod state_management_tests {
         has_error.set(true);
         error_message.set("Failed to load data");
         assert!(has_error.get(), "Should have error");
-        assert_eq!(error_message.get(), "Failed to load data", "Should have error message");
+        assert_eq!(
+            error_message.get(),
+            "Failed to load data",
+            "Should have error message"
+        );
     }
 
     #[test]
@@ -143,7 +175,11 @@ mod state_management_tests {
         // Test that table context provides state
         let table_context = RwSignal::new("context_value");
 
-        assert_eq!(table_context.get(), "context_value", "Context should provide value");
+        assert_eq!(
+            table_context.get(),
+            "context_value",
+            "Context should provide value"
+        );
     }
 
     #[test]
@@ -157,7 +193,11 @@ mod state_management_tests {
 
         // Restore state
         persistent_state.set(saved_state);
-        assert_eq!(persistent_state.get(), "persistent", "State should be restored");
+        assert_eq!(
+            persistent_state.get(),
+            "persistent",
+            "State should be restored"
+        );
     }
 
     #[test]

@@ -126,7 +126,12 @@ pub fn Slider(
     let variant_class = slider_variant.range_class();
 
     let computed_class = Signal::derive(move || {
-        format!("{} {} {}", SLIDER_CLASS, track_class, class.get().unwrap_or_default())
+        format!(
+            "{} {} {}",
+            SLIDER_CLASS,
+            track_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     let computed_range_class =
@@ -234,8 +239,11 @@ pub fn RangeSlider(
     // parent feeds the new pair back through `values`.
     let emit = move |thumb: usize, value: f64| {
         let current = values.get_untracked();
-        let next =
-            move_thumb(current, thumb, snap_to_step(value, min_value, max_value, step_value));
+        let next = move_thumb(
+            current,
+            thumb,
+            snap_to_step(value, min_value, max_value, step_value),
+        );
         if next != current
             && let Some(callback) = on_change
         {
@@ -306,7 +314,12 @@ pub fn RangeSlider(
     let variant_class = slider_variant.range_class();
 
     let computed_class = Signal::derive(move || {
-        format!("{} {} {}", SLIDER_CLASS, track_class, class.get().unwrap_or_default())
+        format!(
+            "{} {} {}",
+            SLIDER_CLASS,
+            track_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     let computed_range_class =

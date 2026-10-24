@@ -396,7 +396,10 @@ mod accessibility_tests {
 
         // Test memory usage
         let size = std::mem::size_of::<usize>();
-        assert!(size < 1024, "Accessibility features should not cause excessive memory usage");
+        assert!(
+            size < 1024,
+            "Accessibility features should not cause excessive memory usage"
+        );
     }
 
     #[test]

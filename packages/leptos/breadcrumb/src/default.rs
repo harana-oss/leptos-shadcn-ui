@@ -12,8 +12,11 @@ const BREADCRUMB_ELLIPSIS_CLASS: &str = "flex h-9 w-9 items-center justify-cente
 
 #[component]
 pub fn Breadcrumb(#[prop(optional)] class: MaybeProp<String>, children: Children) -> impl IntoView {
-    let merged_class =
-        tw_merge!(&format!("{} {}", BREADCRUMB_CLASS, class.get().unwrap_or_default()));
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
+        BREADCRUMB_CLASS,
+        class.get().unwrap_or_default()
+    ));
 
     view! {
         <nav
@@ -30,8 +33,11 @@ pub fn BreadcrumbList(
     #[prop(optional)] class: MaybeProp<String>,
     children: Children,
 ) -> impl IntoView {
-    let merged_class =
-        tw_merge!(&format!("{} {}", BREADCRUMB_LIST_CLASS, class.get().unwrap_or_default()));
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
+        BREADCRUMB_LIST_CLASS,
+        class.get().unwrap_or_default()
+    ));
 
     view! {
         <ol class={merged_class}>
@@ -45,8 +51,11 @@ pub fn BreadcrumbItem(
     #[prop(optional)] class: MaybeProp<String>,
     children: Children,
 ) -> impl IntoView {
-    let merged_class =
-        tw_merge!(&format!("{} {}", BREADCRUMB_ITEM_CLASS, class.get().unwrap_or_default()));
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
+        BREADCRUMB_ITEM_CLASS,
+        class.get().unwrap_or_default()
+    ));
 
     view! {
         <li class={merged_class}>
@@ -62,8 +71,11 @@ pub fn BreadcrumbLink(
     #[prop(optional)] as_child: MaybeProp<bool>,
     children: Children,
 ) -> impl IntoView {
-    let merged_class =
-        tw_merge!(&format!("{} {}", BREADCRUMB_LINK_CLASS, class.get().unwrap_or_default()));
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
+        BREADCRUMB_LINK_CLASS,
+        class.get().unwrap_or_default()
+    ));
 
     let is_as_child = as_child.get().unwrap_or(false);
 
@@ -88,8 +100,11 @@ pub fn BreadcrumbPage(
     #[prop(optional)] class: MaybeProp<String>,
     children: Children,
 ) -> impl IntoView {
-    let merged_class =
-        tw_merge!(&format!("{} {}", BREADCRUMB_PAGE_CLASS, class.get().unwrap_or_default()));
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
+        BREADCRUMB_PAGE_CLASS,
+        class.get().unwrap_or_default()
+    ));
 
     view! {
         <span
@@ -108,8 +123,11 @@ pub fn BreadcrumbSeparator(
     #[prop(optional)] class: MaybeProp<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let merged_class =
-        tw_merge!(&format!("{} {}", BREADCRUMB_SEPARATOR_CLASS, class.get().unwrap_or_default()));
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
+        BREADCRUMB_SEPARATOR_CLASS,
+        class.get().unwrap_or_default()
+    ));
 
     view! {
         <li role="presentation" aria-hidden="true" class={merged_class}>
@@ -140,8 +158,11 @@ pub fn BreadcrumbSeparator(
 
 #[component]
 pub fn BreadcrumbEllipsis(#[prop(optional)] class: MaybeProp<String>) -> impl IntoView {
-    let merged_class =
-        tw_merge!(&format!("{} {}", BREADCRUMB_ELLIPSIS_CLASS, class.get().unwrap_or_default()));
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
+        BREADCRUMB_ELLIPSIS_CLASS,
+        class.get().unwrap_or_default()
+    ));
 
     view! {
         <span

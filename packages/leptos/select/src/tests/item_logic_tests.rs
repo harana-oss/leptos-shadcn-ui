@@ -10,7 +10,10 @@ mod item_logic_tests {
         let available_items = ["item1", "item2", "item3"];
 
         // Test initial state
-        assert!(selected_item.get().is_none(), "No item should be selected initially");
+        assert!(
+            selected_item.get().is_none(),
+            "No item should be selected initially"
+        );
 
         // Test selecting an item
         selected_item.set(Some("item2".to_string()));
@@ -32,8 +35,10 @@ mod item_logic_tests {
     #[test]
     fn test_select_item_disabled_logic() {
         // Test disabled item handling
-        let disabled_items =
-            RwSignal::new(vec!["disabled_item1".to_string(), "disabled_item2".to_string()]);
+        let disabled_items = RwSignal::new(vec![
+            "disabled_item1".to_string(),
+            "disabled_item2".to_string(),
+        ]);
         let all_items = [
             "item1",
             "item2",
@@ -57,8 +62,14 @@ mod item_logic_tests {
         assert_eq!(enabled_items, vec!["item1", "item2", "item3"]);
 
         // Test item state checking
-        assert!(disabled.contains(&"disabled_item1".to_string()), "Item should be disabled");
-        assert!(!disabled.contains(&"item1".to_string()), "Item should be enabled");
+        assert!(
+            disabled.contains(&"disabled_item1".to_string()),
+            "Item should be disabled"
+        );
+        assert!(
+            !disabled.contains(&"item1".to_string()),
+            "Item should be enabled"
+        );
     }
 
     #[test]

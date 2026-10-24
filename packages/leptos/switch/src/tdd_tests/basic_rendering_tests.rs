@@ -130,7 +130,10 @@ mod basic_rendering_tests {
                 };
 
                 // Test that size is properly set
-                assert!(matches!(size, SwitchSize::Sm | SwitchSize::Md | SwitchSize::Lg));
+                assert!(matches!(
+                    size,
+                    SwitchSize::Sm | SwitchSize::Md | SwitchSize::Lg
+                ));
             }
         });
     }
@@ -152,7 +155,10 @@ mod basic_rendering_tests {
             assert!(animated_signal.get(), "Switch should support animation");
 
             animated_signal.set(false);
-            assert!(!animated_signal.get(), "Switch should not support animation");
+            assert!(
+                !animated_signal.get(),
+                "Switch should not support animation"
+            );
         });
     }
 

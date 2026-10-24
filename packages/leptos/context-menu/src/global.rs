@@ -133,7 +133,10 @@ mod tests {
             assert_eq!(open_menu_id(), Some(id_a));
 
             open_menu(id_b, b);
-            assert!(!a.get_untracked(), "first menu must close when second opens");
+            assert!(
+                !a.get_untracked(),
+                "first menu must close when second opens"
+            );
             assert!(b.get_untracked());
             assert_eq!(open_menu_id(), Some(id_b));
         });

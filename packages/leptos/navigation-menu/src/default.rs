@@ -119,7 +119,11 @@ pub fn NavigationMenuList(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let computed_class = Signal::derive(move || {
-        format!("{} {}", NAVIGATION_MENU_LIST_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            NAVIGATION_MENU_LIST_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     view! { <ul class=computed_class>{children.map(|c| c())}</ul> }
 }
@@ -160,7 +164,11 @@ pub fn NavigationMenuTrigger(
     let is_open_for_state = is_open.clone();
     let is_open_for_aria = is_open.clone();
     let computed_class = Signal::derive(move || {
-        format!("{} {}", NAVIGATION_MENU_TRIGGER_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            NAVIGATION_MENU_TRIGGER_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     view! {
         <button
@@ -200,7 +208,11 @@ pub fn NavigationMenuContent(
     let ctx = nav_ctx();
     let item = use_context::<NavigationMenuItemContext>();
     let computed_class = Signal::derive(move || {
-        format!("{} {}", NAVIGATION_MENU_CONTENT_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            NAVIGATION_MENU_CONTENT_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     let children = StoredValue::new(children);
     view! {
@@ -228,7 +240,11 @@ pub fn NavigationMenuLink(
 ) -> impl IntoView {
     let ctx = nav_ctx();
     let computed_class = Signal::derive(move || {
-        format!("{} {}", NAVIGATION_MENU_LINK_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            NAVIGATION_MENU_LINK_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     view! {
         <a

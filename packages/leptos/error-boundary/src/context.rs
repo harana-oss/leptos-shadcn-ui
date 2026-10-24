@@ -431,7 +431,10 @@ mod tests {
 
         assert_eq!(context.message, "Builder test");
         assert_eq!(context.severity, ErrorSeverity::Warning);
-        assert_eq!(context.technical_details, Some("Technical info".to_string()));
+        assert_eq!(
+            context.technical_details,
+            Some("Technical info".to_string())
+        );
         assert_eq!(context.error_code, Some("TEST_001".to_string()));
         assert_eq!(context.metadata.get("key"), Some(&"value".to_string()));
     }
@@ -481,7 +484,10 @@ mod tests {
             .expect("hook captured panic");
 
         assert_eq!(context.severity, ErrorSeverity::Critical);
-        assert_eq!(context.technical_details, Some(format!("Panic: {}", message)));
+        assert_eq!(
+            context.technical_details,
+            Some(format!("Panic: {}", message))
+        );
         assert_eq!(context.cause, Some(message.to_string()));
         assert_eq!(context.error_code, Some("PANIC".to_string()));
         assert!(!context.recovery_suggestions.is_empty());

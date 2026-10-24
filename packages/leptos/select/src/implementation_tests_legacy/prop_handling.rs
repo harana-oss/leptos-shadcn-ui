@@ -133,7 +133,10 @@ mod prop_handling {
             assert!(class.len() > 10, "Class should be substantial");
 
             // Test that classes don't contain invalid characters
-            assert!(!class.contains("undefined"), "Class should not contain undefined");
+            assert!(
+                !class.contains("undefined"),
+                "Class should not contain undefined"
+            );
             assert!(!class.contains("null"), "Class should not contain null");
         }
     }
@@ -150,7 +153,10 @@ mod prop_handling {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 10, "Prop handling should be performant");
+        assert!(
+            duration.as_millis() < 10,
+            "Prop handling should be performant"
+        );
     }
 
     #[test]
@@ -162,7 +168,10 @@ mod prop_handling {
 
         let total_size = trigger_class.len() + content_class.len() + item_class.len();
 
-        assert!(total_size < 1024, "Props should not cause excessive memory usage");
+        assert!(
+            total_size < 1024,
+            "Props should not cause excessive memory usage"
+        );
     }
 
     #[test]
@@ -204,7 +213,10 @@ mod prop_handling {
             assert!(!class.is_empty(), "Should handle empty strings gracefully");
 
             // Test special character handling
-            assert!(!class.contains("undefined"), "Should handle undefined values");
+            assert!(
+                !class.contains("undefined"),
+                "Should handle undefined values"
+            );
             assert!(!class.contains("null"), "Should handle null values");
 
             // Test whitespace handling
@@ -219,20 +231,41 @@ mod prop_handling {
         let trigger_class = "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1";
 
         // Test that required props are present
-        assert!(trigger_class.contains("flex"), "Required layout prop should be present");
-        assert!(trigger_class.contains("h-10"), "Required height prop should be present");
-        assert!(trigger_class.contains("w-full"), "Required width prop should be present");
+        assert!(
+            trigger_class.contains("flex"),
+            "Required layout prop should be present"
+        );
+        assert!(
+            trigger_class.contains("h-10"),
+            "Required height prop should be present"
+        );
+        assert!(
+            trigger_class.contains("w-full"),
+            "Required width prop should be present"
+        );
 
         // Test that props are properly formatted
-        assert!(trigger_class.contains("px-3"), "Spacing props should be properly formatted");
-        assert!(trigger_class.contains("py-2"), "Spacing props should be properly formatted");
+        assert!(
+            trigger_class.contains("px-3"),
+            "Spacing props should be properly formatted"
+        );
+        assert!(
+            trigger_class.contains("py-2"),
+            "Spacing props should be properly formatted"
+        );
         assert!(
             trigger_class.contains("text-sm"),
             "Typography props should be properly formatted"
         );
 
         // Test that props don't conflict
-        assert!(!trigger_class.contains("h-10 h-20"), "Height props should not conflict");
-        assert!(!trigger_class.contains("w-full w-auto"), "Width props should not conflict");
+        assert!(
+            !trigger_class.contains("h-10 h-20"),
+            "Height props should not conflict"
+        );
+        assert!(
+            !trigger_class.contains("w-full w-auto"),
+            "Width props should not conflict"
+        );
     }
 }

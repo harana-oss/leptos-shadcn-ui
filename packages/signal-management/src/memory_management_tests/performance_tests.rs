@@ -19,7 +19,10 @@ mod performance_tests {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 1000, "Creating 1000 groups should be fast");
+        assert!(
+            duration.as_millis() < 1000,
+            "Creating 1000 groups should be fast"
+        );
         assert_eq!(manager.tracked_groups.get().len(), 1000);
     }
 
@@ -45,7 +48,10 @@ mod performance_tests {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 500, "Creating groups with signals/memos should be fast");
+        assert!(
+            duration.as_millis() < 500,
+            "Creating groups with signals/memos should be fast"
+        );
 
         // Test memory stats
         manager.update_memory_stats().unwrap();
@@ -71,7 +77,10 @@ mod performance_tests {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 1000, "Adding 10000 signals/memos should be fast");
+        assert!(
+            duration.as_millis() < 1000,
+            "Adding 10000 signals/memos should be fast"
+        );
 
         assert_eq!(group.signals.len(), 10000);
         assert_eq!(group.memos.len(), 10000);
@@ -102,7 +111,10 @@ mod performance_tests {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 100, "Creating 10000 stats should be fast");
+        assert!(
+            duration.as_millis() < 100,
+            "Creating 10000 stats should be fast"
+        );
     }
 
     #[test]
@@ -127,7 +139,10 @@ mod performance_tests {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 500, "Removing 1000 groups should be fast");
+        assert!(
+            duration.as_millis() < 500,
+            "Removing 1000 groups should be fast"
+        );
         assert_eq!(manager.tracked_groups.get().len(), 0);
     }
 
@@ -144,7 +159,10 @@ mod performance_tests {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 100, "Memory pressure detection should be fast");
+        assert!(
+            duration.as_millis() < 100,
+            "Memory pressure detection should be fast"
+        );
     }
 
     #[test]
@@ -196,7 +214,10 @@ mod performance_tests {
         manager.adaptive_cleanup().unwrap();
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 100, "Adaptive cleanup should be fast");
+        assert!(
+            duration.as_millis() < 100,
+            "Adaptive cleanup should be fast"
+        );
     }
 
     #[test]
@@ -221,7 +242,10 @@ mod performance_tests {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 2000, "Large scale operations should be reasonable");
+        assert!(
+            duration.as_millis() < 2000,
+            "Large scale operations should be reasonable"
+        );
 
         // Test final state
         manager.update_memory_stats().unwrap();
@@ -257,7 +281,10 @@ mod performance_tests {
         manager.cleanup_old_groups(1000).unwrap(); // Cleanup groups older than 1000 seconds
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 100, "Cleanup operations should be fast");
+        assert!(
+            duration.as_millis() < 100,
+            "Cleanup operations should be fast"
+        );
         assert_eq!(manager.tracked_groups.get().len(), 0);
     }
 
@@ -278,7 +305,10 @@ mod performance_tests {
         let memory_per_group = manager.get_memory_stats().estimated_memory_bytes / 1000;
 
         // Test memory efficiency (should be reasonable)
-        assert!(memory_per_group < 1000, "Memory per group should be efficient");
+        assert!(
+            memory_per_group < 1000,
+            "Memory per group should be efficient"
+        );
     }
 
     #[test]
@@ -307,6 +337,9 @@ mod performance_tests {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 1000, "Concurrent operations should be fast");
+        assert!(
+            duration.as_millis() < 1000,
+            "Concurrent operations should be fast"
+        );
     }
 }

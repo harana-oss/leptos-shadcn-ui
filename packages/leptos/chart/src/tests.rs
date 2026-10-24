@@ -40,7 +40,13 @@ fn band_scale_layout() {
 
 #[test]
 fn bar_rects_grouped() {
-    let rects = bar_rects(&[vec![50.0, 100.0], vec![25.0, 0.0]], 200.0, 100.0, 100.0, 0.0);
+    let rects = bar_rects(
+        &[vec![50.0, 100.0], vec![25.0, 0.0]],
+        200.0,
+        100.0,
+        100.0,
+        0.0,
+    );
     assert_eq!(rects.len(), 4);
     let r = &rects[0];
     assert!(
@@ -67,7 +73,10 @@ fn css_var_generation() {
     let cfg = ChartConfig::new()
         .series("desktop", "Desktop", "var(--chart-1)")
         .series("mobile", "Mobile", "#2563eb");
-    assert_eq!(cfg.css_vars(), "--color-desktop: var(--chart-1); --color-mobile: #2563eb;");
+    assert_eq!(
+        cfg.css_vars(),
+        "--color-desktop: var(--chart-1); --color-mobile: #2563eb;"
+    );
     assert_eq!(cfg.get("mobile").unwrap().label, "Mobile");
     assert_eq!(color_var("desktop"), "var(--color-desktop)");
 }

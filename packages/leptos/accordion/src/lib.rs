@@ -1,4 +1,5 @@
 //! Leptos port of shadcn/ui accordion
+#![allow(clippy::redundant_closure)]
 
 pub mod default;
 pub mod new_york;

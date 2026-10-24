@@ -69,7 +69,11 @@ pub fn Tooltip(
 
     // Follow changes to the `open` prop only; tracking `is_open` here would undo
     // every hover-driven change straight away.
-    Effect::watch(move || open.get(), move |open, _, _| set_is_open.set(*open), false);
+    Effect::watch(
+        move || open.get(),
+        move |open, _, _| set_is_open.set(*open),
+        false,
+    );
 
     provide_context((is_open, set_is_open, on_open_change, delay_duration));
 

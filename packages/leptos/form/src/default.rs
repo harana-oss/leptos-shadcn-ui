@@ -286,7 +286,10 @@ impl FormValidationSummary {
         if self.is_valid {
             "Form is valid and ready to submit".to_string()
         } else if self.critical_errors > 0 {
-            format!("{} critical error(s) must be fixed before submission", self.critical_errors)
+            format!(
+                "{} critical error(s) must be fixed before submission",
+                self.critical_errors
+            )
         } else {
             format!("{} error(s) need attention", self.total_errors)
         }

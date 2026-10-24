@@ -36,8 +36,10 @@ mod css_class_tests {
             ButtonSize::Icon => "h-10 w-10",
         };
 
-        let computed_class =
-            format!("{} {} {} {}", BUTTON_CLASS, variant_class, size_class, custom_class);
+        let computed_class = format!(
+            "{} {} {} {}",
+            BUTTON_CLASS, variant_class, size_class, custom_class
+        );
 
         // Test that all parts are included
         assert!(computed_class.contains(BUTTON_CLASS));

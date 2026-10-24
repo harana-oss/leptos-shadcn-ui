@@ -17,10 +17,19 @@ mod input_tests {
         assert!(INPUT_CLASS.contains("w-full"), "Should be full width");
 
         // Styling
-        assert!(INPUT_CLASS.contains("rounded-md"), "Should have rounded corners");
+        assert!(
+            INPUT_CLASS.contains("rounded-md"),
+            "Should have rounded corners"
+        );
         assert!(INPUT_CLASS.contains("border"), "Should have border");
-        assert!(INPUT_CLASS.contains("bg-background"), "Should have background");
-        assert!(INPUT_CLASS.contains("px-3"), "Should have horizontal padding");
+        assert!(
+            INPUT_CLASS.contains("bg-background"),
+            "Should have background"
+        );
+        assert!(
+            INPUT_CLASS.contains("px-3"),
+            "Should have horizontal padding"
+        );
         assert!(INPUT_CLASS.contains("py-2"), "Should have vertical padding");
         assert!(INPUT_CLASS.contains("text-sm"), "Should have small text");
 
@@ -29,9 +38,18 @@ mod input_tests {
             INPUT_CLASS.contains("focus-visible:outline-none"),
             "Should remove default outline"
         );
-        assert!(INPUT_CLASS.contains("focus-visible:ring-2"), "Should have focus ring");
-        assert!(INPUT_CLASS.contains("focus-visible:ring-ring"), "Should have ring color");
-        assert!(INPUT_CLASS.contains("focus-visible:ring-offset-2"), "Should have ring offset");
+        assert!(
+            INPUT_CLASS.contains("focus-visible:ring-2"),
+            "Should have focus ring"
+        );
+        assert!(
+            INPUT_CLASS.contains("focus-visible:ring-ring"),
+            "Should have ring color"
+        );
+        assert!(
+            INPUT_CLASS.contains("focus-visible:ring-offset-2"),
+            "Should have ring offset"
+        );
 
         // Disabled state
         assert!(
@@ -52,7 +70,10 @@ mod input_tests {
 
     #[test]
     fn input_error_class_has_error_styles() {
-        assert!(!INPUT_ERROR_CLASS.is_empty(), "INPUT_ERROR_CLASS should not be empty");
+        assert!(
+            !INPUT_ERROR_CLASS.is_empty(),
+            "INPUT_ERROR_CLASS should not be empty"
+        );
         assert!(
             INPUT_ERROR_CLASS.contains("border-destructive"),
             "Should have destructive border color"
@@ -67,17 +88,36 @@ mod input_tests {
     fn validation_result_creation_and_state() {
         // Test ValidationResult struct functionality
         let mut result = ValidationResult::new();
-        assert!(result.is_valid, "New ValidationResult should be valid by default");
-        assert!(result.errors.is_empty(), "New ValidationResult should have no errors");
+        assert!(
+            result.is_valid,
+            "New ValidationResult should be valid by default"
+        );
+        assert!(
+            result.errors.is_empty(),
+            "New ValidationResult should have no errors"
+        );
 
         // Test adding errors
         result.add_error("test_field", "Required field", ValidationRule::Required);
 
-        assert!(!result.is_valid, "ValidationResult with errors should be invalid");
+        assert!(
+            !result.is_valid,
+            "ValidationResult with errors should be invalid"
+        );
         assert_eq!(result.errors.len(), 1, "Should have one error");
-        assert_eq!(result.errors[0].message, "Required field", "Should have correct error message");
-        assert_eq!(result.errors[0].field, "test_field", "Should have correct field name");
-        assert_eq!(result.errors[0].rule, ValidationRule::Required, "Should have correct rule");
+        assert_eq!(
+            result.errors[0].message, "Required field",
+            "Should have correct error message"
+        );
+        assert_eq!(
+            result.errors[0].field, "test_field",
+            "Should have correct field name"
+        );
+        assert_eq!(
+            result.errors[0].rule,
+            ValidationRule::Required,
+            "Should have correct rule"
+        );
     }
 
     #[test]
@@ -125,17 +165,26 @@ mod input_tests {
 
         // Test empty value (should fail required)
         let result1 = validator.validate("");
-        assert!(!result1.is_valid, "Empty value should fail required validation");
+        assert!(
+            !result1.is_valid,
+            "Empty value should fail required validation"
+        );
         assert!(!result1.errors.is_empty(), "Should have validation errors");
 
         // Test too short value (should fail min length)
         let result2 = validator.validate("ab");
-        assert!(!result2.is_valid, "Short value should fail min length validation");
+        assert!(
+            !result2.is_valid,
+            "Short value should fail min length validation"
+        );
 
         // Test valid value
         let result3 = validator.validate("valid input");
         assert!(result3.is_valid, "Valid value should pass all rules");
-        assert!(result3.errors.is_empty(), "Valid value should have no errors");
+        assert!(
+            result3.errors.is_empty(),
+            "Valid value should have no errors"
+        );
     }
 
     #[test]
@@ -178,15 +227,24 @@ mod input_tests {
 
         // Test too short
         let result1 = validator.validate("ab");
-        assert!(!result1.is_valid, "Value below min length should be invalid");
+        assert!(
+            !result1.is_valid,
+            "Value below min length should be invalid"
+        );
 
         // Test too long
         let result2 = validator.validate("this is way too long");
-        assert!(!result2.is_valid, "Value above max length should be invalid");
+        assert!(
+            !result2.is_valid,
+            "Value above max length should be invalid"
+        );
 
         // Test just right
         let result3 = validator.validate("perfect");
-        assert!(result3.is_valid, "Value within length bounds should be valid");
+        assert!(
+            result3.is_valid,
+            "Value within length bounds should be valid"
+        );
 
         // Test edge cases
         let result4 = validator.validate("abc"); // exactly min length
@@ -198,8 +256,9 @@ mod input_tests {
 
     #[test]
     fn pattern_validation() {
-        let validator = InputValidator::new("ssn_field")
-            .with_rule(ValidationRule::Pattern("^\\d{3}-\\d{2}-\\d{4}$".to_string())); // SSN format
+        let validator = InputValidator::new("ssn_field").with_rule(ValidationRule::Pattern(
+            "^\\d{3}-\\d{2}-\\d{4}$".to_string(),
+        )); // SSN format
 
         // Test invalid patterns
         let invalid_patterns = vec![
@@ -225,7 +284,9 @@ mod input_tests {
         let validator = InputValidator::new("password_field")
             .with_rule(ValidationRule::Required)
             .with_rule(ValidationRule::MinLength(8))
-            .with_rule(ValidationRule::Pattern("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)".to_string())); // Password pattern
+            .with_rule(ValidationRule::Pattern(
+                "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)".to_string(),
+            )); // Password pattern
 
         // Test empty value (fails required)
         let result1 = validator.validate("");
@@ -254,7 +315,10 @@ mod input_tests {
         // Test valid value (passes all rules)
         let result4 = validator.validate("Password123");
         assert!(result4.is_valid, "Value meeting all criteria should pass");
-        assert!(result4.errors.is_empty(), "Valid value should have no errors");
+        assert!(
+            result4.errors.is_empty(),
+            "Valid value should have no errors"
+        );
     }
 
     #[test]
@@ -271,8 +335,14 @@ mod input_tests {
 
         // Error messages should be descriptive (test the structure exists)
         for error in &result.errors {
-            assert!(!error.message.is_empty(), "Error messages should not be empty");
-            assert!(error.message.len() > 5, "Error messages should be descriptive");
+            assert!(
+                !error.message.is_empty(),
+                "Error messages should not be empty"
+            );
+            assert!(
+                error.message.len() > 5,
+                "Error messages should be descriptive"
+            );
         }
     }
 

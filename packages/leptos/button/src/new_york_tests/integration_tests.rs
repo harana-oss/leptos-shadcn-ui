@@ -151,8 +151,14 @@ mod integration_tests {
                 ButtonVariantNewYork::Secondary,
                 "bg-secondary text-secondary-foreground hover:bg-secondary/80",
             ),
-            (ButtonVariantNewYork::Ghost, "hover:bg-accent hover:text-accent-foreground"),
-            (ButtonVariantNewYork::Link, "text-primary underline-offset-4 hover:underline"),
+            (
+                ButtonVariantNewYork::Ghost,
+                "hover:bg-accent hover:text-accent-foreground",
+            ),
+            (
+                ButtonVariantNewYork::Link,
+                "text-primary underline-offset-4 hover:underline",
+            ),
         ];
 
         for (variant, expected_class) in variants {
@@ -199,7 +205,11 @@ mod integration_tests {
                 ButtonSizeNewYork::Icon => "h-10 w-10",
             };
 
-            assert_eq!(size_class, expected_class, "Size {:?} should have correct class", size);
+            assert_eq!(
+                size_class, expected_class,
+                "Size {:?} should have correct class",
+                size
+            );
         }
     }
 

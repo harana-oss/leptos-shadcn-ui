@@ -146,13 +146,21 @@ impl SignalGroup {
         &mut self,
         signal: ArcRwSignal<T>,
     ) -> ArcRwSignal<T> {
-        insert_unique(&mut self.signals, &mut self.signal_index, TrackedItem::new(signal.clone()));
+        insert_unique(
+            &mut self.signals,
+            &mut self.signal_index,
+            TrackedItem::new(signal.clone()),
+        );
         signal
     }
 
     /// Add a memo to this group. Adding the same memo twice is a no-op.
     pub fn add_memo<T: Send + Sync + 'static>(&mut self, memo: ArcMemo<T>) -> ArcMemo<T> {
-        insert_unique(&mut self.memos, &mut self.memo_index, TrackedItem::new(memo.clone()));
+        insert_unique(
+            &mut self.memos,
+            &mut self.memo_index,
+            TrackedItem::new(memo.clone()),
+        );
         memo
     }
 
@@ -161,7 +169,11 @@ impl SignalGroup {
         &mut self,
         signal: &ArcRwSignal<T>,
     ) -> bool {
-        remove_by_source(&mut self.signals, &mut self.signal_index, &signal.to_any_source())
+        remove_by_source(
+            &mut self.signals,
+            &mut self.signal_index,
+            &signal.to_any_source(),
+        )
     }
 
     /// Remove a specific memo (by identity). Returns true if it was tracked.

@@ -45,11 +45,19 @@ fn main() {
     updater.queue_update(move || set_counter2.set(2)).unwrap();
     updater.queue_update(move || set_counter1.set(3)).unwrap();
 
-    println!("Before flush - counter1: {}, counter2: {}", counter1.get(), counter2.get());
+    println!(
+        "Before flush - counter1: {}, counter2: {}",
+        counter1.get(),
+        counter2.get()
+    );
 
     // Flush all updates
     updater.flush_updates().unwrap();
-    println!("After flush - counter1: {}, counter2: {}", counter1.get(), counter2.get());
+    println!(
+        "After flush - counter1: {}, counter2: {}",
+        counter1.get(),
+        counter2.get()
+    );
 
     // Demonstrate Memory Management
     println!("\n=== Memory Management Demo ===");

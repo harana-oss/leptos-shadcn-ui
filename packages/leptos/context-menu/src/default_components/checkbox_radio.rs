@@ -39,7 +39,10 @@ pub fn ContextMenuCheckboxItem(
             ""
         };
         let custom_class = class.get().unwrap_or_default();
-        format!("{}{}{} {}", base_class, checked_class, disabled_class, custom_class)
+        format!(
+            "{}{}{} {}",
+            base_class, checked_class, disabled_class, custom_class
+        )
     };
 
     view! {
@@ -113,7 +116,10 @@ pub fn ContextMenuRadioItem(
             ""
         };
         let custom_class = class.get().unwrap_or_default();
-        format!("{}{}{} {}", base_class, selected_class, disabled_class, custom_class)
+        format!(
+            "{}{}{} {}",
+            base_class, selected_class, disabled_class, custom_class
+        )
     };
 
     view! {

@@ -57,7 +57,10 @@ mod tests {
         // rather than specific focus/disabled states
         let has_semantic_styling =
             CARD_CLASS.contains("bg-card") && CARD_CLASS.contains("text-card-foreground");
-        assert!(has_semantic_styling, "Card should have semantic color theming");
+        assert!(
+            has_semantic_styling,
+            "Card should have semantic color theming"
+        );
     }
 
     #[test]
@@ -147,10 +150,16 @@ mod tests {
             base_class.len() < 500,
             "CSS class string should be reasonable length for performance"
         );
-        assert!(base_class.len() > 5, "CSS class string should contain actual styling");
+        assert!(
+            base_class.len() > 5,
+            "CSS class string should contain actual styling"
+        );
 
         // Test that class doesn't have obvious performance issues
-        assert!(!base_class.contains("!important"), "Should avoid !important for performance");
+        assert!(
+            !base_class.contains("!important"),
+            "Should avoid !important for performance"
+        );
     }
 
     // Component Rendering Tests

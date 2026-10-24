@@ -159,7 +159,10 @@ mod prop_handling_tests {
         form_data
             .fields
             .insert("field1".to_string(), "updated_value1".to_string());
-        assert_eq!(form_data.fields.get("field1"), Some(&"updated_value1".to_string()));
+        assert_eq!(
+            form_data.fields.get("field1"),
+            Some(&"updated_value1".to_string())
+        );
         assert_eq!(form_data.fields.len(), 3); // Length should remain the same
 
         // Test removal

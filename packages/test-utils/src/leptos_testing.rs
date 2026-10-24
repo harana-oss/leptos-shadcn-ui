@@ -90,9 +90,12 @@ impl LeptosTestUtils {
 
     /// Test component interaction (clicks, focus, etc.)
     pub fn test_component_interaction(interaction_type: &str) -> TestResult {
-        TestResult::success(format!("Component {} interaction test passed", interaction_type))
-            .with_detail("framework", "Leptos".to_string())
-            .with_detail("interaction_type", interaction_type.to_string())
+        TestResult::success(format!(
+            "Component {} interaction test passed",
+            interaction_type
+        ))
+        .with_detail("framework", "Leptos".to_string())
+        .with_detail("interaction_type", interaction_type.to_string())
     }
 
     /// Test component state changes
@@ -165,8 +168,10 @@ impl DomTestUtils {
         let tag_name = element.tag_name().to_lowercase();
         let tab_index = element.get_attribute("tabindex");
 
-        matches!(tag_name.as_str(), "button" | "input" | "select" | "textarea" | "a")
-            || tab_index.is_some()
+        matches!(
+            tag_name.as_str(),
+            "button" | "input" | "select" | "textarea" | "a"
+        ) || tab_index.is_some()
     }
 
     /// Check if an element has proper semantic structure

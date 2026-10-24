@@ -39,7 +39,10 @@ mod tests {
         });
 
         // This test should pass once we fix the attr: syntax
-        assert!(test_result.is_ok(), "Leptos v0.8 attribute system compatibility test failed");
+        assert!(
+            test_result.is_ok(),
+            "Leptos v0.8 attribute system compatibility test failed"
+        );
     }
 
     /// Test that verifies specific attribute types work correctly
@@ -67,7 +70,10 @@ mod tests {
             true
         });
 
-        assert!(test_result.is_ok(), "Attribute types compatibility test failed");
+        assert!(
+            test_result.is_ok(),
+            "Attribute types compatibility test failed"
+        );
     }
 
     /// Test that verifies signal attribute handling works correctly
@@ -128,6 +134,9 @@ mod tests {
             true
         });
 
-        assert!(test_result.is_ok(), "Reserved keyword attributes test failed");
+        assert!(
+            test_result.is_ok(),
+            "Reserved keyword attributes test failed"
+        );
     }
 }

@@ -121,7 +121,10 @@ impl ComponentTester {
 
         // Theme tests
         if self.test_config.enable_theme_tests {
-            results.push(("theme_consistency", self.test_theme_consistency(Theme::NewYork)));
+            results.push((
+                "theme_consistency",
+                self.test_theme_consistency(Theme::NewYork),
+            ));
         }
 
         // Accessibility tests
@@ -274,13 +277,19 @@ impl TestSuiteResult {
 
     pub fn generate_report(&self) -> String {
         let mut report = String::new();
-        report.push_str(&format!("=== Test Suite Report: {} ===\n\n", self.component_name));
+        report.push_str(&format!(
+            "=== Test Suite Report: {} ===\n\n",
+            self.component_name
+        ));
 
         report.push_str("📊 Test Summary:\n");
         report.push_str(&format!("  - Total Tests: {}\n", self.total_tests));
         report.push_str(&format!("  - Passed: {}\n", self.passed_tests));
         report.push_str(&format!("  - Failed: {}\n", self.failed_tests));
-        report.push_str(&format!("  - Success Rate: {:.1}%\n", self.success_rate() * 100.0));
+        report.push_str(&format!(
+            "  - Success Rate: {:.1}%\n",
+            self.success_rate() * 100.0
+        ));
         report.push_str(&format!("  - Duration: {:.2?}\n\n", self.duration));
 
         if !self.results.is_empty() {
@@ -453,7 +462,10 @@ mod tests {
         assert_eq!(tester.component_name, "button");
         assert_eq!(tester.framework, Framework::Leptos);
         assert_eq!(tester.theme, Theme::NewYork);
-        assert_eq!(tester.properties.get("variant"), Some(&"primary".to_string()));
+        assert_eq!(
+            tester.properties.get("variant"),
+            Some(&"primary".to_string())
+        );
     }
 
     #[test]

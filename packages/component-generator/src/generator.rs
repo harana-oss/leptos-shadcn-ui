@@ -24,7 +24,10 @@ impl Generator {
         // Generate theme variants
         for theme in &config.theme_variants {
             let theme_file = Self::generate_theme_component(config, theme)?;
-            std::fs::write(component_dir.join("src").join(format!("{}.rs", theme)), theme_file)?;
+            std::fs::write(
+                component_dir.join("src").join(format!("{}.rs", theme)),
+                theme_file,
+            )?;
         }
 
         Ok(())

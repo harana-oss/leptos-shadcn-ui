@@ -28,7 +28,11 @@ pub fn Command(
         }
     });
 
-    let merged_class = tw_merge!(&format!("{} {}", COMMAND_CLASS, class.get().unwrap_or_default()));
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
+        COMMAND_CLASS,
+        class.get().unwrap_or_default()
+    ));
 
     // Create context for child components
     provide_context(CommandContext {

@@ -23,7 +23,10 @@ mod tdd_green_tests {
         on_open_change.run(false);
         on_open_change.run(true);
 
-        assert!(open.get(), "Dialog should be open after multiple state changes");
+        assert!(
+            open.get(),
+            "Dialog should be open after multiple state changes"
+        );
         assert_eq!(state_changes.get(), 3, "Should track all state changes");
     }
 
@@ -54,10 +57,19 @@ mod tdd_green_tests {
         let has_aria_describedby = true;
         let has_role_dialog = true;
 
-        assert!(open.get(), "Dialog should be open for accessibility testing");
+        assert!(
+            open.get(),
+            "Dialog should be open for accessibility testing"
+        );
         assert!(has_aria_modal, "Dialog should have aria-modal attribute");
-        assert!(has_aria_labelledby, "Dialog should have aria-labelledby attribute");
-        assert!(has_aria_describedby, "Dialog should have aria-describedby attribute");
+        assert!(
+            has_aria_labelledby,
+            "Dialog should have aria-labelledby attribute"
+        );
+        assert!(
+            has_aria_describedby,
+            "Dialog should have aria-describedby attribute"
+        );
         assert!(has_role_dialog, "Dialog should have role='dialog'");
     }
 
@@ -70,7 +82,11 @@ mod tdd_green_tests {
 
         // Test tab navigation
         current_focus_index.update(|index| *index = (*index + 1) % focusable_elements.len());
-        assert_eq!(current_focus_index.get(), 1, "Should navigate to next focusable element");
+        assert_eq!(
+            current_focus_index.get(),
+            1,
+            "Should navigate to next focusable element"
+        );
 
         // Test shift+tab navigation (from index 1, go to previous which is 0)
         current_focus_index.update(|index| {
@@ -80,9 +96,16 @@ mod tdd_green_tests {
                 *index -= 1;
             }
         });
-        assert_eq!(current_focus_index.get(), 0, "Should navigate to previous focusable element");
+        assert_eq!(
+            current_focus_index.get(),
+            0,
+            "Should navigate to previous focusable element"
+        );
 
-        assert!(open.get(), "Dialog should remain open during keyboard navigation");
+        assert!(
+            open.get(),
+            "Dialog should remain open during keyboard navigation"
+        );
     }
 
     #[test]
@@ -94,7 +117,10 @@ mod tdd_green_tests {
         // Test default theme classes
         let default_classes =
             "fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm";
-        assert!(default_classes.contains("fixed"), "Default theme should have fixed positioning");
+        assert!(
+            default_classes.contains("fixed"),
+            "Default theme should have fixed positioning"
+        );
         assert!(
             default_classes.contains("backdrop-blur-sm"),
             "Default theme should have backdrop blur"
@@ -112,8 +138,14 @@ mod tdd_green_tests {
             "New York theme should have backdrop blur"
         );
 
-        assert_eq!(default_theme, "default", "Default theme should be available");
-        assert_eq!(new_york_theme, "new_york", "New York theme should be available");
+        assert_eq!(
+            default_theme, "default",
+            "Default theme should be available"
+        );
+        assert_eq!(
+            new_york_theme, "new_york",
+            "New York theme should be available"
+        );
     }
 
     #[test]
@@ -128,8 +160,14 @@ mod tdd_green_tests {
         });
 
         on_form_submit.run(());
-        assert!(form_submitted.get(), "Form submission should work within dialog");
-        assert!(open.get(), "Dialog should remain open during form interaction");
+        assert!(
+            form_submitted.get(),
+            "Form submission should work within dialog"
+        );
+        assert!(
+            open.get(),
+            "Dialog should remain open during form interaction"
+        );
     }
 
     #[test]

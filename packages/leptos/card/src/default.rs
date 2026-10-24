@@ -41,7 +41,10 @@ pub fn Card(
             ""
         };
         let custom_class = class.get().unwrap_or_default();
-        format!("{}{}{} {}", base_class, variant_class, interactive_class, custom_class)
+        format!(
+            "{}{}{} {}",
+            base_class, variant_class, interactive_class, custom_class
+        )
     });
 
     view! {
@@ -112,7 +115,11 @@ pub fn CardDescription(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let computed_class = Signal::derive(move || {
-        format!("{} {}", CARD_DESCRIPTION_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            CARD_DESCRIPTION_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {
@@ -193,7 +200,10 @@ pub fn InteractiveCard(
         };
         let interactive_class = " cursor-pointer hover:shadow-md transition-shadow focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2";
         let custom_class = class.get().unwrap_or_default();
-        format!("{}{}{} {}", base_class, variant_class, interactive_class, custom_class)
+        format!(
+            "{}{}{} {}",
+            base_class, variant_class, interactive_class, custom_class
+        )
     });
 
     let handle_click = move |_: MouseEvent| {

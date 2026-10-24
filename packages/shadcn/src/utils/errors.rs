@@ -321,7 +321,10 @@ mod tests {
     #[test]
     fn test_error_type_codes() {
         assert_eq!(ErrorType::MissingConfig.error_code(), Some("CLI_003"));
-        assert_eq!(ErrorType::ComponentUrlNotFound.error_code(), Some("HTTP_404"));
+        assert_eq!(
+            ErrorType::ComponentUrlNotFound.error_code(),
+            Some("HTTP_404")
+        );
     }
 
     #[test]

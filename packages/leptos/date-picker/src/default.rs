@@ -49,11 +49,19 @@ pub fn DatePicker(
             "November",
             "December",
         ];
-        format!("{} {}, {}", months[(date.month - 1) as usize], date.day, date.year)
+        format!(
+            "{} {}, {}",
+            months[(date.month - 1) as usize],
+            date.day,
+            date.year
+        )
     };
 
-    let merged_class =
-        tw_merge!(&format!("{} {}", DATE_PICKER_CLASS, class.get().unwrap_or_default()));
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
+        DATE_PICKER_CLASS,
+        class.get().unwrap_or_default()
+    ));
 
     view! {
         <div class={merged_class}>
@@ -164,7 +172,12 @@ pub fn DatePickerWithRange(
             "November",
             "December",
         ];
-        format!("{} {}, {}", months[(date.month - 1) as usize], date.day, date.year)
+        format!(
+            "{} {}, {}",
+            months[(date.month - 1) as usize],
+            date.day,
+            date.year
+        )
     };
 
     let format_date_range = move || -> String {
@@ -184,8 +197,11 @@ pub fn DatePickerWithRange(
         }
     };
 
-    let merged_class =
-        tw_merge!(&format!("{} {}", DATE_PICKER_CLASS, class.get().unwrap_or_default()));
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
+        DATE_PICKER_CLASS,
+        class.get().unwrap_or_default()
+    ));
 
     view! {
         <div class={merged_class}>

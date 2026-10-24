@@ -57,8 +57,10 @@ pub async fn get_status(detailed: bool) -> anyhow::Result<String> {
             status.push_str("  - Next: Advanced features and optimization\n");
         } else if progress_percentage >= 80.0 {
             status.push_str("  - Status: Well Advanced\n");
-            status
-                .push_str(&format!("  - Next: Complete final {} components\n", missing_components));
+            status.push_str(&format!(
+                "  - Next: Complete final {} components\n",
+                missing_components
+            ));
         } else if progress_percentage >= 50.0 {
             status.push_str("  - Status: Good Progress\n");
             status.push_str(&format!(

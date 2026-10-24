@@ -147,10 +147,11 @@ impl PropsValidation for CoreProps {
     fn test_prop_compliance(&self) -> TestResult {
         match self.validate_props() {
             Ok(()) => TestResult::passed("Core props validation passed"),
-            Err(issues) => {
-                TestResult::failed(format!("Core props validation failed: {} issues", issues.len()))
-                    .with_detail("issues", serde_json::to_value(issues).unwrap_or_default())
-            }
+            Err(issues) => TestResult::failed(format!(
+                "Core props validation failed: {} issues",
+                issues.len()
+            ))
+            .with_detail("issues", serde_json::to_value(issues).unwrap_or_default()),
         }
     }
 }
@@ -327,10 +328,11 @@ impl PropsValidation for FormProps {
     fn test_prop_compliance(&self) -> TestResult {
         match self.validate_props() {
             Ok(()) => TestResult::passed("Form props validation passed"),
-            Err(issues) => {
-                TestResult::failed(format!("Form props validation failed: {} issues", issues.len()))
-                    .with_detail("issues", serde_json::to_value(issues).unwrap_or_default())
-            }
+            Err(issues) => TestResult::failed(format!(
+                "Form props validation failed: {} issues",
+                issues.len()
+            ))
+            .with_detail("issues", serde_json::to_value(issues).unwrap_or_default()),
         }
     }
 }
@@ -437,7 +439,10 @@ impl ComponentPropsValidator {
                 issues.len()
             ))
             .with_timing(start_time.elapsed().as_millis() as u64)
-            .with_detail("all_issues", serde_json::to_value(issues).unwrap_or_default()),
+            .with_detail(
+                "all_issues",
+                serde_json::to_value(issues).unwrap_or_default(),
+            ),
         }
     }
 }

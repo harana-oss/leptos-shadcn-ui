@@ -203,9 +203,15 @@ mod mock_test_utils {
 
             report.push_str("📊 Overall Statistics:\n");
             report.push_str(&format!("  - Total Components: {}\n", total_components));
-            report.push_str(&format!("  - Average Quality Score: {:.1}%\n", avg_score * 100.0));
+            report.push_str(&format!(
+                "  - Average Quality Score: {:.1}%\n",
+                avg_score * 100.0
+            ));
             report.push_str(&format!("  - High Quality (≥80%): {}\n", high_quality));
-            report.push_str(&format!("  - Needs Improvement (<60%): {}\n\n", needs_improvement));
+            report.push_str(&format!(
+                "  - Needs Improvement (<60%): {}\n\n",
+                needs_improvement
+            ));
 
             // Modern implementation highlights
             report.push_str("🚀 Modern Implementation Highlights:\n");

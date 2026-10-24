@@ -37,7 +37,10 @@ mod sonner_tests {
         });
 
         // This test should pass once we implement Sonner features
-        assert!(test_result.is_ok(), "Sonner toast system requirements test failed");
+        assert!(
+            test_result.is_ok(),
+            "Sonner toast system requirements test failed"
+        );
     }
 
     /// Test that verifies toast positioning system

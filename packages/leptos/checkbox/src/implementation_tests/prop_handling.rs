@@ -76,9 +76,18 @@ mod prop_handling {
         let class = Some("test-class-with-special-chars!@#$%^&*()".to_string());
         let style = Some("color: red; background: blue; font-size: 16px;".to_string());
 
-        assert_eq!(id.unwrap_or_default(), "test-id-with-special-chars!@#$%^&*()");
-        assert_eq!(class.unwrap_or_default(), "test-class-with-special-chars!@#$%^&*()");
-        assert_eq!(style.unwrap_or_default(), "color: red; background: blue; font-size: 16px;");
+        assert_eq!(
+            id.unwrap_or_default(),
+            "test-id-with-special-chars!@#$%^&*()"
+        );
+        assert_eq!(
+            class.unwrap_or_default(),
+            "test-class-with-special-chars!@#$%^&*()"
+        );
+        assert_eq!(
+            style.unwrap_or_default(),
+            "color: red; background: blue; font-size: 16px;"
+        );
     }
 
     #[test]
@@ -224,7 +233,10 @@ mod prop_handling {
 
         assert_eq!(id.unwrap_or_default(), "test-id");
         assert_eq!(class.unwrap_or_default(), "test-class custom-class");
-        assert_eq!(style.unwrap_or_default(), "color: red; background: blue; font-size: 16px;");
+        assert_eq!(
+            style.unwrap_or_default(),
+            "color: red; background: blue; font-size: 16px;"
+        );
         assert!(!disabled.unwrap_or_default());
         assert!(callback.is_some());
         assert_eq!(signal.unwrap().get(), "test-value");

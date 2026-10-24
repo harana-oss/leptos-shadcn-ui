@@ -222,7 +222,10 @@ impl AutomatedMonitor {
         drop(is_monitoring);
 
         println!("🚀 Starting automated performance monitoring...");
-        println!("📊 Monitoring interval: {:?}", self.config.monitoring_interval);
+        println!(
+            "📊 Monitoring interval: {:?}",
+            self.config.monitoring_interval
+        );
         println!("🔔 Alerts enabled: {}", self.config.enable_alerts);
 
         // Start monitoring task
@@ -750,7 +753,9 @@ impl AutomatedMonitor {
         let response = client.post(url).json(alert).send().await?;
 
         if !response.status().is_success() {
-            return Err(format!("Webhook request failed with status: {}", response.status()).into());
+            return Err(
+                format!("Webhook request failed with status: {}", response.status()).into(),
+            );
         }
 
         Ok(())
@@ -815,9 +820,15 @@ mod tests {
         let monitor = AutomatedMonitor::new(config);
 
         assert_eq!(monitor.determine_alert_severity(5.0), AlertSeverity::Low);
-        assert_eq!(monitor.determine_alert_severity(15.0), AlertSeverity::Medium);
+        assert_eq!(
+            monitor.determine_alert_severity(15.0),
+            AlertSeverity::Medium
+        );
         assert_eq!(monitor.determine_alert_severity(30.0), AlertSeverity::High);
-        assert_eq!(monitor.determine_alert_severity(60.0), AlertSeverity::Critical);
+        assert_eq!(
+            monitor.determine_alert_severity(60.0),
+            AlertSeverity::Critical
+        );
     }
 
     #[test]

@@ -197,7 +197,10 @@ pub fn DialogDescription(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let description_class = Signal::derive(move || {
-        format!("text-sm text-muted-foreground {}", class.get().unwrap_or_default())
+        format!(
+            "text-sm text-muted-foreground {}",
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {

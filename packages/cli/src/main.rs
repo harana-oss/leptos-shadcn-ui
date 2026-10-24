@@ -140,8 +140,15 @@ async fn main() -> anyhow::Result<()> {
             add::add_component(component, framework, path.clone()).await?;
 
             pb.finish_with_message(format!("✅ {} component added successfully!", component));
-            println!("\n📦 Component '{}' has been added to your project", component);
-            println!("📁 Location: {}/src/components/{}", path.display(), component);
+            println!(
+                "\n📦 Component '{}' has been added to your project",
+                component
+            );
+            println!(
+                "📁 Location: {}/src/components/{}",
+                path.display(),
+                component
+            );
             println!("\nTo use the component:");
             println!("  use crate::components::{}::{};", component, component);
         }

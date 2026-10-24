@@ -300,8 +300,10 @@ mod integration_tests {
 
         // Test New York theme class generation performance
         for _ in 0..1000 {
-            let _computed_class =
-                format!("{} {} {}", CARD_CLASS_NY, CARD_HEADER_CLASS_NY, CARD_TITLE_CLASS_NY);
+            let _computed_class = format!(
+                "{} {} {}",
+                CARD_CLASS_NY, CARD_HEADER_CLASS_NY, CARD_TITLE_CLASS_NY
+            );
         }
 
         let duration = start.elapsed();

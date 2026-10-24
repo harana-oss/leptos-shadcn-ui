@@ -2,6 +2,8 @@
 //!
 //! This module provides comprehensive error handling for production applications.
 //! It includes rich error context, graceful degradation, and enhanced user experience.
+#![allow(clippy::result_large_err)]
+#![allow(clippy::type_complexity)]
 
 mod context;
 
@@ -304,8 +306,11 @@ pub fn RichErrorBoundary(
 }
 
 /// Hook for manual error handling
-pub fn use_error_handler() -> (ReadSignal<bool>, WriteSignal<bool>, WriteSignal<Option<ErrorInfo>>)
-{
+pub fn use_error_handler() -> (
+    ReadSignal<bool>,
+    WriteSignal<bool>,
+    WriteSignal<Option<ErrorInfo>>,
+) {
     let (has_error, set_has_error) = signal(false);
     let (_error_info, set_error_info) = signal(None::<ErrorInfo>);
 
@@ -420,7 +425,10 @@ mod tests {
         };
 
         assert_eq!(error.message, "Test error");
-        assert_eq!(error.technical_details, Some("Technical details".to_string()));
+        assert_eq!(
+            error.technical_details,
+            Some("Technical details".to_string())
+        );
     }
 
     #[test]

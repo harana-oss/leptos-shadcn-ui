@@ -9,7 +9,12 @@ pub async fn init_project(path: &Path, framework: &str, theme: &str) -> anyhow::
     // 3. Create basic component structure
     // 4. Set up Tailwind CSS configuration
 
-    println!("Initializing {} project with {} theme at {}", framework, theme, path.display());
+    println!(
+        "Initializing {} project with {} theme at {}",
+        framework,
+        theme,
+        path.display()
+    );
 
     // For now, just show what would happen
     println!("Project would be initialized with:");

@@ -140,7 +140,10 @@ mod state_management_tests {
             };
 
             // Test validation
-            assert!(!validation_checked.get(), "Validation should start unchecked");
+            assert!(
+                !validation_checked.get(),
+                "Validation should start unchecked"
+            );
             assert!(validation_required.get(), "Validation should be required");
             assert_eq!(validation_error.get(), "");
 
@@ -178,7 +181,10 @@ mod state_management_tests {
             };
 
             // Test click handling
-            assert!(!click_handled.get(), "Click should not be handled initially");
+            assert!(
+                !click_handled.get(),
+                "Click should not be handled initially"
+            );
             assert_eq!(click_count.get(), 0);
 
             // Simulate click
@@ -208,8 +214,14 @@ mod state_management_tests {
             };
 
             // Test callback
-            assert!(!callback_called.get(), "Callback should not be called initially");
-            assert!(!callback_value.get(), "Callback value should be false initially");
+            assert!(
+                !callback_called.get(),
+                "Callback should not be called initially"
+            );
+            assert!(
+                !callback_value.get(),
+                "Callback value should be false initially"
+            );
 
             // Simulate callback
             callback_called.set(true);

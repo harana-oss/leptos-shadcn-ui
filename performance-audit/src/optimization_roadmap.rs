@@ -108,7 +108,10 @@ impl OptimizationRecommendation {
 
     /// Check if recommendation is high priority
     pub fn is_high_priority(&self) -> bool {
-        matches!(self.priority, OptimizationPriority::High | OptimizationPriority::Critical)
+        matches!(
+            self.priority,
+            OptimizationPriority::High | OptimizationPriority::Critical
+        )
     }
 }
 

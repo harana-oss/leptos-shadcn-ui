@@ -49,7 +49,10 @@ mod state_management_tests {
 
         // Test closing
         open_signal.set(false);
-        assert!(!open_signal.get(), "Open state should be false after closing");
+        assert!(
+            !open_signal.get(),
+            "Open state should be false after closing"
+        );
     }
 
     #[test]
@@ -64,14 +67,20 @@ mod state_management_tests {
 
         // Test clearing value
         value_signal.set(None);
-        assert!(value_signal.get().is_none(), "Value should be None after clearing");
+        assert!(
+            value_signal.get().is_none(),
+            "Value should be None after clearing"
+        );
     }
 
     #[test]
     fn test_select_disabled_state_management() {
         // Test disabled state signal
         let disabled_signal = RwSignal::new(false);
-        assert!(!disabled_signal.get(), "Initial disabled state should be false");
+        assert!(
+            !disabled_signal.get(),
+            "Initial disabled state should be false"
+        );
 
         // Test disabling
         disabled_signal.set(true);
@@ -86,7 +95,10 @@ mod state_management_tests {
     fn test_select_required_state_management() {
         // Test required state signal
         let required_signal = RwSignal::new(false);
-        assert!(!required_signal.get(), "Initial required state should be false");
+        assert!(
+            !required_signal.get(),
+            "Initial required state should be false"
+        );
 
         // Test making required
         required_signal.set(true);

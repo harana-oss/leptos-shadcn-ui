@@ -58,7 +58,10 @@ mod integration_tests {
         let selection_mode = "multiple";
 
         assert_eq!(selected_rows.get().len(), 2, "Should have 2 selected rows");
-        assert_eq!(selection_mode, "multiple", "Should support multiple selection");
+        assert_eq!(
+            selection_mode, "multiple",
+            "Should support multiple selection"
+        );
     }
 
     #[test]
@@ -68,7 +71,10 @@ mod integration_tests {
         let action_called = RwSignal::new(false);
 
         assert_eq!(available_actions.len(), 3, "Should have 3 actions");
-        assert!(!action_called.get(), "Should not have called action initially");
+        assert!(
+            !action_called.get(),
+            "Should not have called action initially"
+        );
     }
 
     #[test]
@@ -88,7 +94,11 @@ mod integration_tests {
         let loading_message = RwSignal::new("Loading...");
 
         assert!(!is_loading.get(), "Should not be loading initially");
-        assert_eq!(loading_message.get(), "Loading...", "Should have loading message");
+        assert_eq!(
+            loading_message.get(),
+            "Loading...",
+            "Should have loading message"
+        );
     }
 
     #[test]
@@ -118,7 +128,10 @@ mod integration_tests {
         let responsive_breakpoint = "768px";
 
         assert!(!is_mobile.get(), "Should not be mobile initially");
-        assert_eq!(responsive_breakpoint, "768px", "Should have responsive breakpoint");
+        assert_eq!(
+            responsive_breakpoint, "768px",
+            "Should have responsive breakpoint"
+        );
     }
 
     #[test]
@@ -150,7 +163,10 @@ mod integration_tests {
         let validation_errors: RwSignal<Vec<String>> = RwSignal::new(vec![]);
 
         assert!(is_valid.get(), "Should be valid initially");
-        assert!(validation_errors.get().is_empty(), "Should have no validation errors");
+        assert!(
+            validation_errors.get().is_empty(),
+            "Should have no validation errors"
+        );
     }
 
     #[test]
@@ -160,7 +176,11 @@ mod integration_tests {
         let custom_classes = RwSignal::new("custom-class");
 
         assert_eq!(custom_styles.get(), "custom", "Should have custom styles");
-        assert_eq!(custom_classes.get(), "custom-class", "Should have custom classes");
+        assert_eq!(
+            custom_classes.get(),
+            "custom-class",
+            "Should have custom classes"
+        );
     }
 
     #[test]

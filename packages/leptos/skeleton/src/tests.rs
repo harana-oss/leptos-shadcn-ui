@@ -9,12 +9,30 @@ mod tests {
         assert_eq!(SkeletonVariant::default(), SkeletonVariant::Default);
 
         // Test From<String> conversion
-        assert_eq!(SkeletonVariant::from("text".to_string()), SkeletonVariant::Text);
-        assert_eq!(SkeletonVariant::from("avatar".to_string()), SkeletonVariant::Avatar);
-        assert_eq!(SkeletonVariant::from("button".to_string()), SkeletonVariant::Button);
-        assert_eq!(SkeletonVariant::from("card".to_string()), SkeletonVariant::Card);
-        assert_eq!(SkeletonVariant::from("image".to_string()), SkeletonVariant::Image);
-        assert_eq!(SkeletonVariant::from("unknown".to_string()), SkeletonVariant::Default);
+        assert_eq!(
+            SkeletonVariant::from("text".to_string()),
+            SkeletonVariant::Text
+        );
+        assert_eq!(
+            SkeletonVariant::from("avatar".to_string()),
+            SkeletonVariant::Avatar
+        );
+        assert_eq!(
+            SkeletonVariant::from("button".to_string()),
+            SkeletonVariant::Button
+        );
+        assert_eq!(
+            SkeletonVariant::from("card".to_string()),
+            SkeletonVariant::Card
+        );
+        assert_eq!(
+            SkeletonVariant::from("image".to_string()),
+            SkeletonVariant::Image
+        );
+        assert_eq!(
+            SkeletonVariant::from("unknown".to_string()),
+            SkeletonVariant::Default
+        );
     }
 
     #[test]
@@ -130,7 +148,10 @@ mod tests {
     #[test]
     fn test_skeleton_styling_consistency() {
         // Test that all required styling properties are present
-        assert!(SKELETON_CLASS.len() > 5, "SKELETON_CLASS should contain substantial styling");
+        assert!(
+            SKELETON_CLASS.len() > 5,
+            "SKELETON_CLASS should contain substantial styling"
+        );
 
         // Check for basic styling classes
         let has_animation = SKELETON_CLASS.contains("animate-pulse");
@@ -163,9 +184,15 @@ mod tests {
             base_class.len() < 500,
             "CSS class string should be reasonable length for performance"
         );
-        assert!(base_class.len() > 5, "CSS class string should contain actual styling");
+        assert!(
+            base_class.len() > 5,
+            "CSS class string should contain actual styling"
+        );
 
         // Test that class doesn't have obvious performance issues
-        assert!(!base_class.contains("!important"), "Should avoid !important for performance");
+        assert!(
+            !base_class.contains("!important"),
+            "Should avoid !important for performance"
+        );
     }
 }

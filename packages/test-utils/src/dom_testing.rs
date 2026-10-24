@@ -260,7 +260,10 @@ mod tests {
 
         // Test that button rendered correctly
         assert!(harness.query_selector("button").is_some());
-        assert_eq!(harness.get_text_content("button"), Some("Test Button".to_string()));
+        assert_eq!(
+            harness.get_text_content("button"),
+            Some("Test Button".to_string())
+        );
         assert!(harness.has_class("button", "btn-primary"));
     }
 
@@ -293,6 +296,9 @@ mod tests {
         });
 
         assert!(render_time > 0.0, "Should measure some render time");
-        assert!(render_time < 1000.0, "Render time should be reasonable (< 1 second)");
+        assert!(
+            render_time < 1000.0,
+            "Render time should be reasonable (< 1 second)"
+        );
     }
 }

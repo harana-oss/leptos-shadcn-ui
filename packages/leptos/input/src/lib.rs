@@ -1,4 +1,6 @@
 //! Leptos port of shadcn/ui input
+#![allow(clippy::result_large_err)]
+#![allow(clippy::type_complexity)]
 
 pub mod default;
 pub mod new_york;

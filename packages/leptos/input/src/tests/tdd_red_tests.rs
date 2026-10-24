@@ -10,6 +10,7 @@ mod tdd_red_tests {
     use regex::Regex;
 
     #[derive(Clone, Debug)]
+    #[allow(dead_code)]
     struct ValidationState {
         pub is_valid: bool,
         pub errors: Vec<String>,
@@ -30,7 +31,10 @@ mod tdd_red_tests {
         let validation_state = RwSignal::new(ValidationState::new());
         let initial = validation_state.get();
         assert!(initial.is_valid, "New validation state should start valid");
-        assert!(initial.errors.is_empty(), "New validation state should have no errors");
+        assert!(
+            initial.errors.is_empty(),
+            "New validation state should have no errors"
+        );
         let is_required = Signal::derive(|| true);
         let value = RwSignal::new("".to_string());
 
@@ -38,7 +42,10 @@ mod tdd_red_tests {
         let is_valid =
             Signal::derive(move || !(is_required.get() && value.get().trim().is_empty()));
 
-        assert!(!is_valid.get(), "Required field should be invalid when empty");
+        assert!(
+            !is_valid.get(),
+            "Required field should be invalid when empty"
+        );
 
         value.set("valid input".to_string());
         assert!(is_valid.get(), "Required field should be valid when filled");
@@ -54,10 +61,16 @@ mod tdd_red_tests {
             email.contains('@') && email.contains('.') && email.len() > 5
         });
 
-        assert!(!is_valid_email.get(), "Invalid email format should fail validation");
+        assert!(
+            !is_valid_email.get(),
+            "Invalid email format should fail validation"
+        );
 
         email_value.set("user@example.com".to_string());
-        assert!(is_valid_email.get(), "Valid email format should pass validation");
+        assert!(
+            is_valid_email.get(),
+            "Valid email format should pass validation"
+        );
     }
 
     #[test]
@@ -68,10 +81,16 @@ mod tdd_red_tests {
 
         let is_valid_length = Signal::derive(move || value.get().len() >= min_length);
 
-        assert!(!is_valid_length.get(), "Value below minimum length should be invalid");
+        assert!(
+            !is_valid_length.get(),
+            "Value below minimum length should be invalid"
+        );
 
         value.set("abc".to_string());
-        assert!(is_valid_length.get(), "Value meeting minimum length should be valid");
+        assert!(
+            is_valid_length.get(),
+            "Value meeting minimum length should be valid"
+        );
     }
 
     #[test]
@@ -82,10 +101,16 @@ mod tdd_red_tests {
 
         let is_valid_length = Signal::derive(move || value.get().len() <= max_length);
 
-        assert!(!is_valid_length.get(), "Value exceeding maximum length should be invalid");
+        assert!(
+            !is_valid_length.get(),
+            "Value exceeding maximum length should be invalid"
+        );
 
         value.set("short".to_string());
-        assert!(is_valid_length.get(), "Value within maximum length should be valid");
+        assert!(
+            is_valid_length.get(),
+            "Value within maximum length should be valid"
+        );
     }
 
     #[test]
@@ -102,7 +127,10 @@ mod tdd_red_tests {
         );
 
         value.set("abc123".to_string());
-        assert!(is_valid_pattern.get(), "Alphanumeric value should pass pattern validation");
+        assert!(
+            is_valid_pattern.get(),
+            "Alphanumeric value should pass pattern validation"
+        );
     }
 
     #[test]
@@ -111,11 +139,17 @@ mod tdd_red_tests {
         let validation_error = RwSignal::new(Some("This field is required".to_string()));
         let show_error = Signal::derive(move || validation_error.get().is_some());
 
-        assert!(show_error.get(), "Error should be shown when validation fails");
+        assert!(
+            show_error.get(),
+            "Error should be shown when validation fails"
+        );
         assert_eq!(validation_error.get().unwrap(), "This field is required");
 
         validation_error.set(None);
-        assert!(!show_error.get(), "Error should be hidden when validation passes");
+        assert!(
+            !show_error.get(),
+            "Error should be hidden when validation passes"
+        );
     }
 
     #[test]

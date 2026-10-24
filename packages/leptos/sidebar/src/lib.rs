@@ -440,9 +440,24 @@ macro_rules! slot_div {
     };
 }
 
-slot_div!(SidebarHeader, "sidebar-header", "header", SIDEBAR_HEADER_CLASS);
-slot_div!(SidebarFooter, "sidebar-footer", "footer", SIDEBAR_FOOTER_CLASS);
-slot_div!(SidebarContent, "sidebar-content", "content", SIDEBAR_CONTENT_CLASS);
+slot_div!(
+    SidebarHeader,
+    "sidebar-header",
+    "header",
+    SIDEBAR_HEADER_CLASS
+);
+slot_div!(
+    SidebarFooter,
+    "sidebar-footer",
+    "footer",
+    SIDEBAR_FOOTER_CLASS
+);
+slot_div!(
+    SidebarContent,
+    "sidebar-content",
+    "content",
+    SIDEBAR_CONTENT_CLASS
+);
 slot_div!(SidebarGroup, "sidebar-group", "group", SIDEBAR_GROUP_CLASS);
 slot_div!(
     SidebarGroupLabel,
@@ -629,7 +644,12 @@ pub fn SidebarMenuAction(
     }
 }
 
-slot_div!(SidebarMenuBadge, "sidebar-menu-badge", "menu-badge", SIDEBAR_MENU_BADGE_CLASS);
+slot_div!(
+    SidebarMenuBadge,
+    "sidebar-menu-badge",
+    "menu-badge",
+    SIDEBAR_MENU_BADGE_CLASS
+);
 
 #[component]
 pub fn SidebarMenuSkeleton(

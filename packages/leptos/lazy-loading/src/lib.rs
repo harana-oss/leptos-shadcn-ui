@@ -1,4 +1,5 @@
 //! Lazy loading system for shadcn/ui Leptos components
+#![allow(clippy::type_complexity)]
 
 use leptos::html::ElementChild;
 use leptos::prelude::*;
@@ -146,7 +147,11 @@ pub type LazyComponentResult = Option<Result<View<()>, String>>;
 /// Hook for lazy loading components with proper cleanup
 pub fn use_lazy_component(
     name: &str,
-) -> (ReadSignal<bool>, ReadSignal<LazyComponentResult>, WriteSignal<bool>) {
+) -> (
+    ReadSignal<bool>,
+    ReadSignal<LazyComponentResult>,
+    WriteSignal<bool>,
+) {
     let (loading, set_loading) = signal(false);
     let (component, set_component) = signal(None::<Result<View<()>, String>>);
     let (is_mounted, set_is_mounted) = signal(true);

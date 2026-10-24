@@ -138,11 +138,17 @@ mod accessibility_tests {
             };
 
             // Test focus management
-            assert!(!focus_visible_signal.get(), "Switch should start without focus visible");
+            assert!(
+                !focus_visible_signal.get(),
+                "Switch should start without focus visible"
+            );
 
             // Simulate focus visible
             focus_visible_signal.set(true);
-            assert!(focus_visible_signal.get(), "Switch should have focus visible");
+            assert!(
+                focus_visible_signal.get(),
+                "Switch should have focus visible"
+            );
         });
     }
 

@@ -99,7 +99,11 @@ pub fn CarouselContent(
             CarouselOrientation::Vertical => "flex flex-col",
         };
 
-        format!("{} w-full {}", position_class, class.get().unwrap_or_default())
+        format!(
+            "{} w-full {}",
+            position_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     let rendered_children = children.map(|c| c());

@@ -84,7 +84,10 @@ fn print_results(results: &[TestSuiteResult]) {
         println!("\n⚠️  Some tests failed:");
         for result in results {
             if result.failed_tests > 0 {
-                println!("   ❌ {}: {} failed", result.suite_name, result.failed_tests);
+                println!(
+                    "   ❌ {}: {} failed",
+                    result.suite_name, result.failed_tests
+                );
             }
         }
     }
@@ -102,7 +105,10 @@ fn print_single_result(result: &TestSuiteResult) {
     if result.failed_tests > 0 {
         println!("\n❌ Failed Tests:");
         for test_result in &result.results {
-            if matches!(test_result.status, leptos_shadcn_test_runner::TestStatus::Failed) {
+            if matches!(
+                test_result.status,
+                leptos_shadcn_test_runner::TestStatus::Failed
+            ) {
                 println!(
                     "   - {}: {}",
                     test_result.test_name,

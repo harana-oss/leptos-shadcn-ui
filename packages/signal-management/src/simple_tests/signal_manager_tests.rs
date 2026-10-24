@@ -278,7 +278,13 @@ fn test_tailwind_signal_manager_clone_behavior() {
     let manager2 = manager1.clone();
 
     // Test both managers have same state
-    assert_eq!(manager1.tracked_signals_count(), manager2.tracked_signals_count());
-    assert_eq!(manager1.tracked_memos_count(), manager2.tracked_memos_count());
+    assert_eq!(
+        manager1.tracked_signals_count(),
+        manager2.tracked_signals_count()
+    );
+    assert_eq!(
+        manager1.tracked_memos_count(),
+        manager2.tracked_memos_count()
+    );
     assert_eq!(manager1.is_valid(), manager2.is_valid());
 }

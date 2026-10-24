@@ -333,7 +333,10 @@ pub(crate) fn render_panel(props: PanelProps) -> impl IntoView {
         if !style_str.is_empty() && !style_str.trim_end().ends_with(';') {
             style_str.push(';');
         }
-        style_str.push_str(&format!(" flex: 0 0 {}%; overflow: hidden;", current_size.get()));
+        style_str.push_str(&format!(
+            " flex: 0 0 {}%; overflow: hidden;",
+            current_size.get()
+        ));
         // Keep a collapsed panel wide enough for its expand button to stay reachable.
         if is_collapsed.get() && collapsible.get().unwrap_or(false) {
             let vertical =

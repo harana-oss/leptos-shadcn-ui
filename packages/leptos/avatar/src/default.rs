@@ -59,7 +59,11 @@ pub fn AvatarFallback(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let computed_class = Signal::derive(move || {
-        format!("{} {}", AVATAR_FALLBACK_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            AVATAR_FALLBACK_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {

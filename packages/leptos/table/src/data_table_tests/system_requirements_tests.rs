@@ -44,7 +44,10 @@ mod system_requirements_tests {
         });
 
         // This test should pass once we implement data table features
-        assert!(test_result.is_ok(), "Data table system requirements test failed");
+        assert!(
+            test_result.is_ok(),
+            "Data table system requirements test failed"
+        );
     }
 
     #[test]

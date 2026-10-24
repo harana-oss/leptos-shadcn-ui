@@ -25,7 +25,11 @@ mod property_based_tests {
 
         for (input, expected) in test_cases {
             let result = ButtonVariant::from(input.to_string());
-            assert_eq!(result, expected, "Input '{}' should convert to {:?}", input, expected);
+            assert_eq!(
+                result, expected,
+                "Input '{}' should convert to {:?}",
+                input, expected
+            );
         }
     }
 
@@ -44,7 +48,11 @@ mod property_based_tests {
 
         for (input, expected) in test_cases {
             let result = ButtonSize::from(input.to_string());
-            assert_eq!(result, expected, "Input '{}' should convert to {:?}", input, expected);
+            assert_eq!(
+                result, expected,
+                "Input '{}' should convert to {:?}",
+                input, expected
+            );
         }
     }
 }

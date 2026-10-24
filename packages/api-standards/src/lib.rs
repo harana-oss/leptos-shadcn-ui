@@ -262,7 +262,11 @@ pub mod utils {
             .unwrap()
             .as_nanos();
 
-        format!("{}-{:x}", component_name.to_lowercase(), hasher.finish() ^ (timestamp as u64))
+        format!(
+            "{}-{:x}",
+            component_name.to_lowercase(),
+            hasher.finish() ^ (timestamp as u64)
+        )
     }
 
     /// Generate CSS classes following component standards
@@ -274,8 +278,16 @@ pub mod utils {
     ) -> String {
         let mut classes = vec![
             format!("shadcn-{}", component_name.to_lowercase()),
-            format!("shadcn-{}--{}", component_name.to_lowercase(), variant.to_css_class()),
-            format!("shadcn-{}--{}", component_name.to_lowercase(), size.to_css_class()),
+            format!(
+                "shadcn-{}--{}",
+                component_name.to_lowercase(),
+                variant.to_css_class()
+            ),
+            format!(
+                "shadcn-{}--{}",
+                component_name.to_lowercase(),
+                size.to_css_class()
+            ),
         ];
 
         if let Some(custom) = custom_class {
@@ -355,7 +367,10 @@ mod tests {
             Some("custom-class"),
         );
 
-        assert_eq!(classes, "shadcn-button shadcn-button--primary shadcn-button--lg custom-class");
+        assert_eq!(
+            classes,
+            "shadcn-button shadcn-button--primary shadcn-button--lg custom-class"
+        );
     }
 
     #[test]

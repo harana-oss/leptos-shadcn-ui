@@ -80,7 +80,11 @@ pub fn CardDescription(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let computed_class = Signal::derive(move || {
-        format!("{} {}", CARD_DESCRIPTION_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            CARD_DESCRIPTION_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {

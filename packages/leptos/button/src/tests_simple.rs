@@ -11,14 +11,29 @@ mod button_tests {
         assert_eq!(default_variant, ButtonVariant::Default);
 
         // Test From<String> implementations
-        assert_eq!(ButtonVariant::from("destructive".to_string()), ButtonVariant::Destructive);
-        assert_eq!(ButtonVariant::from("outline".to_string()), ButtonVariant::Outline);
-        assert_eq!(ButtonVariant::from("secondary".to_string()), ButtonVariant::Secondary);
-        assert_eq!(ButtonVariant::from("ghost".to_string()), ButtonVariant::Ghost);
+        assert_eq!(
+            ButtonVariant::from("destructive".to_string()),
+            ButtonVariant::Destructive
+        );
+        assert_eq!(
+            ButtonVariant::from("outline".to_string()),
+            ButtonVariant::Outline
+        );
+        assert_eq!(
+            ButtonVariant::from("secondary".to_string()),
+            ButtonVariant::Secondary
+        );
+        assert_eq!(
+            ButtonVariant::from("ghost".to_string()),
+            ButtonVariant::Ghost
+        );
         assert_eq!(ButtonVariant::from("link".to_string()), ButtonVariant::Link);
 
         // Unknown values should default
-        assert_eq!(ButtonVariant::from("unknown".to_string()), ButtonVariant::Default);
+        assert_eq!(
+            ButtonVariant::from("unknown".to_string()),
+            ButtonVariant::Default
+        );
     }
 
     #[test]
@@ -42,13 +57,34 @@ mod button_tests {
         assert!(!BUTTON_CLASS.is_empty(), "BUTTON_CLASS should not be empty");
 
         // Check for key accessibility and styling classes
-        assert!(BUTTON_CLASS.contains("inline-flex"), "Should have inline-flex");
-        assert!(BUTTON_CLASS.contains("items-center"), "Should have items-center");
-        assert!(BUTTON_CLASS.contains("justify-center"), "Should have justify-center");
-        assert!(BUTTON_CLASS.contains("rounded-md"), "Should have rounded-md");
-        assert!(BUTTON_CLASS.contains("focus-visible:outline-none"), "Should have focus styles");
-        assert!(BUTTON_CLASS.contains("focus-visible:ring-2"), "Should have focus ring");
-        assert!(BUTTON_CLASS.contains("disabled:opacity-50"), "Should handle disabled state");
+        assert!(
+            BUTTON_CLASS.contains("inline-flex"),
+            "Should have inline-flex"
+        );
+        assert!(
+            BUTTON_CLASS.contains("items-center"),
+            "Should have items-center"
+        );
+        assert!(
+            BUTTON_CLASS.contains("justify-center"),
+            "Should have justify-center"
+        );
+        assert!(
+            BUTTON_CLASS.contains("rounded-md"),
+            "Should have rounded-md"
+        );
+        assert!(
+            BUTTON_CLASS.contains("focus-visible:outline-none"),
+            "Should have focus styles"
+        );
+        assert!(
+            BUTTON_CLASS.contains("focus-visible:ring-2"),
+            "Should have focus ring"
+        );
+        assert!(
+            BUTTON_CLASS.contains("disabled:opacity-50"),
+            "Should handle disabled state"
+        );
     }
 
     #[test]
@@ -76,7 +112,10 @@ mod button_tests {
         // Test Debug formatting for variants
         let variant = ButtonVariant::Destructive;
         let debug_str = format!("{:?}", variant);
-        assert_eq!(debug_str, "Destructive", "Debug format should match variant name");
+        assert_eq!(
+            debug_str, "Destructive",
+            "Debug format should match variant name"
+        );
     }
 
     #[test]
@@ -144,12 +183,18 @@ mod button_tests {
     #[test]
     fn button_class_has_accessibility_features() {
         // Verify accessibility-related classes are present
-        assert!(BUTTON_CLASS.contains("focus-visible"), "Should have focus-visible styles");
+        assert!(
+            BUTTON_CLASS.contains("focus-visible"),
+            "Should have focus-visible styles"
+        );
         assert!(
             BUTTON_CLASS.contains("ring-offset"),
             "Should have ring offset for better visibility"
         );
-        assert!(BUTTON_CLASS.contains("disabled:"), "Should handle disabled state styling");
+        assert!(
+            BUTTON_CLASS.contains("disabled:"),
+            "Should handle disabled state styling"
+        );
         assert!(
             BUTTON_CLASS.contains("pointer-events-none")
                 || BUTTON_CLASS.contains("disabled:pointer-events-none"),

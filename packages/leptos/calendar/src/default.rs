@@ -155,7 +155,7 @@ pub fn Calendar(
                     </button>
                 </div>
                 <div class="space-y-2">
-                    <div class=format!("{}", CALENDAR_HEADER_CLASS)>
+                    <div class=CALENDAR_HEADER_CLASS>
                         {vec!["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].into_iter().map(|day| {
                             view! {
                                 <div class=CALENDAR_HEADER_CELL_CLASS>
@@ -164,7 +164,7 @@ pub fn Calendar(
                             }
                         }).collect::<Vec<_>>()}
                     </div>
-                    <div class=format!("{}", CALENDAR_GRID_CLASS)>
+                    <div class=CALENDAR_GRID_CLASS>
                         {move || {
                             let (year, month) = current_month.get();
                             let days_in_month = get_days_in_month(year, month);

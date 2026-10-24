@@ -9,11 +9,26 @@ mod tests {
         assert_eq!(ProgressVariant::default(), ProgressVariant::Default);
 
         // Test From<String> conversion
-        assert_eq!(ProgressVariant::from("success".to_string()), ProgressVariant::Success);
-        assert_eq!(ProgressVariant::from("warning".to_string()), ProgressVariant::Warning);
-        assert_eq!(ProgressVariant::from("destructive".to_string()), ProgressVariant::Destructive);
-        assert_eq!(ProgressVariant::from("info".to_string()), ProgressVariant::Info);
-        assert_eq!(ProgressVariant::from("unknown".to_string()), ProgressVariant::Default);
+        assert_eq!(
+            ProgressVariant::from("success".to_string()),
+            ProgressVariant::Success
+        );
+        assert_eq!(
+            ProgressVariant::from("warning".to_string()),
+            ProgressVariant::Warning
+        );
+        assert_eq!(
+            ProgressVariant::from("destructive".to_string()),
+            ProgressVariant::Destructive
+        );
+        assert_eq!(
+            ProgressVariant::from("info".to_string()),
+            ProgressVariant::Info
+        );
+        assert_eq!(
+            ProgressVariant::from("unknown".to_string()),
+            ProgressVariant::Default
+        );
     }
 
     #[test]
@@ -82,8 +97,14 @@ mod tests {
         assert!(has_accessibility);
 
         // Test that base classes support accessibility
-        assert!(PROGRESS_CLASS.contains("relative"), "Should have positioning for accessibility");
-        assert!(PROGRESS_CLASS.contains("overflow-hidden"), "Should handle overflow properly");
+        assert!(
+            PROGRESS_CLASS.contains("relative"),
+            "Should have positioning for accessibility"
+        );
+        assert!(
+            PROGRESS_CLASS.contains("overflow-hidden"),
+            "Should handle overflow properly"
+        );
     }
 
     #[test]
@@ -129,7 +150,10 @@ mod tests {
     #[test]
     fn test_progress_styling_consistency() {
         // Test that all required styling properties are present
-        assert!(PROGRESS_CLASS.len() > 10, "PROGRESS_CLASS should contain substantial styling");
+        assert!(
+            PROGRESS_CLASS.len() > 10,
+            "PROGRESS_CLASS should contain substantial styling"
+        );
 
         // Check for basic layout/styling classes
         let has_layout = PROGRESS_CLASS.contains("relative")
@@ -160,9 +184,15 @@ mod tests {
             base_class.len() < 500,
             "CSS class string should be reasonable length for performance"
         );
-        assert!(base_class.len() > 5, "CSS class string should contain actual styling");
+        assert!(
+            base_class.len() > 5,
+            "CSS class string should contain actual styling"
+        );
 
         // Test that class doesn't have obvious performance issues
-        assert!(!base_class.contains("!important"), "Should avoid !important for performance");
+        assert!(
+            !base_class.contains("!important"),
+            "Should avoid !important for performance"
+        );
     }
 }

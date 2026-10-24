@@ -70,7 +70,10 @@ mod interaction_tests {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 1000, "Command rendering should be performant");
+        assert!(
+            duration.as_millis() < 1000,
+            "Command rendering should be performant"
+        );
     }
 
     #[test]

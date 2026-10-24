@@ -28,11 +28,17 @@ mod tdd_red_tests {
 
         // Test opening dialog
         on_open_change.run(true);
-        assert!(open.get(), "Dialog should be open after on_open_change(true)");
+        assert!(
+            open.get(),
+            "Dialog should be open after on_open_change(true)"
+        );
 
         // Test closing dialog
         on_open_change.run(false);
-        assert!(!open.get(), "Dialog should be closed after on_open_change(false)");
+        assert!(
+            !open.get(),
+            "Dialog should be closed after on_open_change(false)"
+        );
     }
 
     #[test]
@@ -54,7 +60,10 @@ mod tdd_red_tests {
         let open = RwSignal::new(false);
 
         // When closed, content should not be visible
-        assert!(!open.get(), "Dialog content should not be visible when closed");
+        assert!(
+            !open.get(),
+            "Dialog content should not be visible when closed"
+        );
 
         // When open, content should be visible
         open.set(true);
@@ -84,7 +93,10 @@ mod tdd_red_tests {
 
         // Simulate escape key press
         on_open_change.run(false);
-        assert!(!open.get(), "Dialog should close when escape key is pressed");
+        assert!(
+            !open.get(),
+            "Dialog should close when escape key is pressed"
+        );
     }
 
     #[test]
@@ -98,7 +110,10 @@ mod tdd_red_tests {
 
         // When dialog closes, focus should return to trigger
         open.set(false);
-        assert!(!open.get(), "Focus should return to trigger when dialog closes");
+        assert!(
+            !open.get(),
+            "Focus should return to trigger when dialog closes"
+        );
     }
 
     #[test]
@@ -109,7 +124,10 @@ mod tdd_red_tests {
         let title_id = "test-dialog-title";
 
         // Dialog should have proper ARIA attributes
-        assert!(open.get(), "Dialog should be open for accessibility testing");
+        assert!(
+            open.get(),
+            "Dialog should be open for accessibility testing"
+        );
         assert!(!dialog_id.is_empty(), "Dialog should have an ID");
         assert!(!title_id.is_empty(), "Dialog should have a title ID");
     }
@@ -121,8 +139,14 @@ mod tdd_red_tests {
         let header_class = "flex flex-col space-y-1.5 text-center sm:text-left";
 
         assert!(!title_text.is_empty(), "Dialog should have a title");
-        assert!(header_class.contains("flex"), "Dialog header should have flex layout");
-        assert!(header_class.contains("space-y-1.5"), "Dialog header should have proper spacing");
+        assert!(
+            header_class.contains("flex"),
+            "Dialog header should have flex layout"
+        );
+        assert!(
+            header_class.contains("space-y-1.5"),
+            "Dialog header should have proper spacing"
+        );
     }
 
     #[test]
@@ -131,10 +155,22 @@ mod tdd_red_tests {
         let content_class =
             "fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm";
 
-        assert!(content_class.contains("fixed"), "Dialog content should be fixed positioned");
-        assert!(content_class.contains("inset-0"), "Dialog content should cover full screen");
-        assert!(content_class.contains("z-50"), "Dialog content should have high z-index");
-        assert!(content_class.contains("flex"), "Dialog content should use flex layout");
+        assert!(
+            content_class.contains("fixed"),
+            "Dialog content should be fixed positioned"
+        );
+        assert!(
+            content_class.contains("inset-0"),
+            "Dialog content should cover full screen"
+        );
+        assert!(
+            content_class.contains("z-50"),
+            "Dialog content should have high z-index"
+        );
+        assert!(
+            content_class.contains("flex"),
+            "Dialog content should use flex layout"
+        );
         assert!(
             content_class.contains("items-center"),
             "Dialog content should be vertically centered"
@@ -150,12 +186,18 @@ mod tdd_red_tests {
         // Test animation classes for smooth transitions
         let animation_classes = "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0";
 
-        assert!(animation_classes.contains("animate-in"), "Dialog should have animate-in class");
+        assert!(
+            animation_classes.contains("animate-in"),
+            "Dialog should have animate-in class"
+        );
         assert!(
             animation_classes.contains("animate-out"),
             "Dialog should have animate-out class"
         );
-        assert!(animation_classes.contains("fade-in-0"), "Dialog should have fade-in animation");
+        assert!(
+            animation_classes.contains("fade-in-0"),
+            "Dialog should have fade-in animation"
+        );
         assert!(
             animation_classes.contains("fade-out-0"),
             "Dialog should have fade-out animation"
@@ -178,12 +220,30 @@ mod tdd_red_tests {
         // Test dialog trigger component props
         let trigger_class = "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
 
-        assert!(trigger_class.contains("inline-flex"), "Trigger should be inline-flex");
-        assert!(trigger_class.contains("items-center"), "Trigger should center items");
-        assert!(trigger_class.contains("justify-center"), "Trigger should center justify");
-        assert!(trigger_class.contains("rounded-md"), "Trigger should have rounded corners");
-        assert!(trigger_class.contains("text-sm"), "Trigger should have small text");
-        assert!(trigger_class.contains("font-medium"), "Trigger should have medium font weight");
+        assert!(
+            trigger_class.contains("inline-flex"),
+            "Trigger should be inline-flex"
+        );
+        assert!(
+            trigger_class.contains("items-center"),
+            "Trigger should center items"
+        );
+        assert!(
+            trigger_class.contains("justify-center"),
+            "Trigger should center justify"
+        );
+        assert!(
+            trigger_class.contains("rounded-md"),
+            "Trigger should have rounded corners"
+        );
+        assert!(
+            trigger_class.contains("text-sm"),
+            "Trigger should have small text"
+        );
+        assert!(
+            trigger_class.contains("font-medium"),
+            "Trigger should have medium font weight"
+        );
     }
 
     #[test]
@@ -211,7 +271,10 @@ mod tdd_red_tests {
 
         // Simulate content click (should not close dialog)
         content_clicked.set(true);
-        assert!(open.get(), "Dialog should remain open when content is clicked");
+        assert!(
+            open.get(),
+            "Dialog should remain open when content is clicked"
+        );
         assert!(content_clicked.get(), "Content click should be registered");
     }
 }

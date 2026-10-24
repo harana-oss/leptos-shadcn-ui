@@ -288,7 +288,11 @@ pub fn SignalManagedCardDescription(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let computed_class = ArcMemo::new(move |_| {
-        format!("{} {}", CARD_DESCRIPTION_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            CARD_DESCRIPTION_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {

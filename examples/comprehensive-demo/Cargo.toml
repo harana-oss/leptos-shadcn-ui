@@ -41,3 +41,6 @@ crate-type = ["cdylib"]
 
 [features]
 wasm = ["dep:leptos-shadcn-ui-wasm"]
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ["-O", "--enable-bulk-memory", "--enable-nontrapping-float-to-int", "--enable-sign-ext", "--enable-mutable-globals"]

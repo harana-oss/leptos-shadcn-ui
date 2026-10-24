@@ -46,7 +46,12 @@ pub fn Badge(
             BadgeVariant::Outline => "text-foreground",
         };
 
-        format!("{} {} {}", BADGE_CLASS, variant_class, class.get().unwrap_or_default())
+        format!(
+            "{} {} {}",
+            BADGE_CLASS,
+            variant_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {

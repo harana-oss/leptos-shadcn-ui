@@ -132,7 +132,11 @@ pub fn MenubarTrigger(
 ) -> impl IntoView {
     let ctx = MenubarMenuContext::current();
     let computed_class = Signal::derive(move || {
-        format!("{} {}", MENUBAR_TRIGGER_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            MENUBAR_TRIGGER_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     view! {
         <button
@@ -167,7 +171,11 @@ pub fn MenubarContent(
 ) -> impl IntoView {
     let ctx = MenubarMenuContext::current();
     let computed_class = Signal::derive(move || {
-        format!("{} {}", MENUBAR_CONTENT_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            MENUBAR_CONTENT_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     let children = StoredValue::new(children);
     view! {

@@ -9,27 +9,63 @@ mod tests {
         assert!(!BADGE_CLASS.is_empty(), "BADGE_CLASS should not be empty");
 
         // Test that BADGE_CLASS contains the expected styling classes
-        assert!(BADGE_CLASS.contains("inline-flex"), "Should have flexbox layout");
+        assert!(
+            BADGE_CLASS.contains("inline-flex"),
+            "Should have flexbox layout"
+        );
         assert!(BADGE_CLASS.contains("items-center"), "Should center items");
-        assert!(BADGE_CLASS.contains("rounded-full"), "Should have rounded corners");
+        assert!(
+            BADGE_CLASS.contains("rounded-full"),
+            "Should have rounded corners"
+        );
         assert!(BADGE_CLASS.contains("border"), "Should have border");
-        assert!(BADGE_CLASS.contains("px-2.5"), "Should have horizontal padding");
-        assert!(BADGE_CLASS.contains("py-0.5"), "Should have vertical padding");
-        assert!(BADGE_CLASS.contains("text-xs"), "Should have small text size");
-        assert!(BADGE_CLASS.contains("font-semibold"), "Should have semibold font weight");
-        assert!(BADGE_CLASS.contains("transition-colors"), "Should have color transitions");
+        assert!(
+            BADGE_CLASS.contains("px-2.5"),
+            "Should have horizontal padding"
+        );
+        assert!(
+            BADGE_CLASS.contains("py-0.5"),
+            "Should have vertical padding"
+        );
+        assert!(
+            BADGE_CLASS.contains("text-xs"),
+            "Should have small text size"
+        );
+        assert!(
+            BADGE_CLASS.contains("font-semibold"),
+            "Should have semibold font weight"
+        );
+        assert!(
+            BADGE_CLASS.contains("transition-colors"),
+            "Should have color transitions"
+        );
 
         // Test accessibility-related CSS classes
-        assert!(BADGE_CLASS.contains("focus:outline-none"), "Should have focus outline removal");
-        assert!(BADGE_CLASS.contains("focus:ring-2"), "Should have focus ring");
-        assert!(BADGE_CLASS.contains("focus:ring-ring"), "Should have focus ring color");
-        assert!(BADGE_CLASS.contains("focus:ring-offset-2"), "Should have focus ring offset");
+        assert!(
+            BADGE_CLASS.contains("focus:outline-none"),
+            "Should have focus outline removal"
+        );
+        assert!(
+            BADGE_CLASS.contains("focus:ring-2"),
+            "Should have focus ring"
+        );
+        assert!(
+            BADGE_CLASS.contains("focus:ring-ring"),
+            "Should have focus ring color"
+        );
+        assert!(
+            BADGE_CLASS.contains("focus:ring-offset-2"),
+            "Should have focus ring offset"
+        );
     }
 
     #[test]
     fn test_badge_styling_consistency() {
         // Test that all required styling properties are present
-        assert!(BADGE_CLASS.len() > 10, "BADGE_CLASS should contain substantial styling");
+        assert!(
+            BADGE_CLASS.len() > 10,
+            "BADGE_CLASS should contain substantial styling"
+        );
 
         // Check for basic layout/styling classes
         let has_layout = BADGE_CLASS.contains("flex")
@@ -66,7 +102,10 @@ mod tests {
             BADGE_CLASS.contains("focus:ring-2"),
             "Should have focus ring for keyboard navigation"
         );
-        assert!(BADGE_CLASS.contains("focus:ring-ring"), "Should have themed focus ring color");
+        assert!(
+            BADGE_CLASS.contains("focus:ring-ring"),
+            "Should have themed focus ring color"
+        );
         assert!(
             BADGE_CLASS.contains("focus:ring-offset-2"),
             "Should have focus ring offset for visibility"
@@ -74,7 +113,10 @@ mod tests {
 
         // Test that focus styles are properly configured
         let has_focus_styles = BADGE_CLASS.contains("focus:");
-        assert!(has_focus_styles, "Should have focus-related styling for accessibility");
+        assert!(
+            has_focus_styles,
+            "Should have focus-related styling for accessibility"
+        );
     }
 
     #[test]
@@ -176,9 +218,15 @@ mod tests {
             base_class.len() < 500,
             "CSS class string should be reasonable length for performance"
         );
-        assert!(base_class.len() > 5, "CSS class string should contain actual styling");
+        assert!(
+            base_class.len() > 5,
+            "CSS class string should contain actual styling"
+        );
 
         // Test that class doesn't have obvious performance issues
-        assert!(!base_class.contains("!important"), "Should avoid !important for performance");
+        assert!(
+            !base_class.contains("!important"),
+            "Should avoid !important for performance"
+        );
     }
 }

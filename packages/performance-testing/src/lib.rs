@@ -483,10 +483,10 @@ impl PerformanceTestSuite {
 
     /// Save performance report to disk
     async fn save_report(&self, report: &PerformanceReport) -> Result<(), PerfTestError> {
-        let report_file = self
-            .config
-            .output_dir
-            .join(format!("performance_report_{}.json", report.timestamp.format("%Y%m%d_%H%M%S")));
+        let report_file = self.config.output_dir.join(format!(
+            "performance_report_{}.json",
+            report.timestamp.format("%Y%m%d_%H%M%S")
+        ));
 
         let content = serde_json::to_string_pretty(report)?;
         tokio::fs::write(&report_file, &content).await?;
@@ -570,11 +570,26 @@ mod tests {
 
     #[test]
     fn test_regression_severity() {
-        assert_eq!(RegressionSeverity::from_percent(0.0), RegressionSeverity::None);
-        assert_eq!(RegressionSeverity::from_percent(3.0), RegressionSeverity::Minor);
-        assert_eq!(RegressionSeverity::from_percent(10.0), RegressionSeverity::Moderate);
-        assert_eq!(RegressionSeverity::from_percent(20.0), RegressionSeverity::Major);
-        assert_eq!(RegressionSeverity::from_percent(40.0), RegressionSeverity::Critical);
+        assert_eq!(
+            RegressionSeverity::from_percent(0.0),
+            RegressionSeverity::None
+        );
+        assert_eq!(
+            RegressionSeverity::from_percent(3.0),
+            RegressionSeverity::Minor
+        );
+        assert_eq!(
+            RegressionSeverity::from_percent(10.0),
+            RegressionSeverity::Moderate
+        );
+        assert_eq!(
+            RegressionSeverity::from_percent(20.0),
+            RegressionSeverity::Major
+        );
+        assert_eq!(
+            RegressionSeverity::from_percent(40.0),
+            RegressionSeverity::Critical
+        );
     }
 
     #[tokio::test]

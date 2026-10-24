@@ -303,11 +303,17 @@ mod component_behavior {
 
         for class in classes {
             // Test that classes are not excessively complex
-            assert!(class.len() < 1000, "Class should not be excessively complex");
+            assert!(
+                class.len() < 1000,
+                "Class should not be excessively complex"
+            );
 
             // Test that classes use efficient CSS properties
             assert!(!class.contains("!important"), "Should not use !important");
-            assert!(!class.contains("calc("), "Should not use complex calculations");
+            assert!(
+                !class.contains("calc("),
+                "Should not use complex calculations"
+            );
         }
     }
 

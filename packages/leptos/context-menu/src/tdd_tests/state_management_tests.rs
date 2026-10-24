@@ -91,7 +91,10 @@ mod state_management_tests {
         _owner.set();
         let open = RwSignal::new(false);
         let _computed_class = Signal::derive(move || {
-            format!("context-menu-{}", if open.get() { "open" } else { "closed" })
+            format!(
+                "context-menu-{}",
+                if open.get() { "open" } else { "closed" }
+            )
         });
         let _context_menu_view = view! {
             <ContextMenu>
@@ -133,7 +136,10 @@ mod state_management_tests {
         _owner.set();
         let open = RwSignal::new(false);
         let _memoized_class = Memo::new(move |_| {
-            format!("context-menu-{}", if open.get() { "open" } else { "closed" })
+            format!(
+                "context-menu-{}",
+                if open.get() { "open" } else { "closed" }
+            )
         });
         let _context_menu_view = view! {
             <ContextMenu>

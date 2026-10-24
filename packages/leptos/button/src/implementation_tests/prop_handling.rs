@@ -124,7 +124,10 @@ mod prop_handling {
 
         assert_eq!(props.class, "class-with-special-chars!@#$%^&*()");
         assert_eq!(props.id, "id-with-special-chars!@#$%^&*()");
-        assert_eq!(props.style, "color: red; background: blue; font-size: 12px;");
+        assert_eq!(
+            props.style,
+            "color: red; background: blue; font-size: 12px;"
+        );
         assert_eq!(props.r#type, "button");
         assert!(!props.disabled);
         assert!(props.onclick.is_none());
@@ -289,8 +292,20 @@ mod prop_handling {
         };
 
         assert_eq!(
-            (&props1.class, &props1.id, &props1.style, props1.disabled, &props1.r#type),
-            (&props2.class, &props2.id, &props2.style, props2.disabled, &props2.r#type)
+            (
+                &props1.class,
+                &props1.id,
+                &props1.style,
+                props1.disabled,
+                &props1.r#type
+            ),
+            (
+                &props2.class,
+                &props2.id,
+                &props2.style,
+                props2.disabled,
+                &props2.r#type
+            )
         );
     }
 
@@ -316,8 +331,20 @@ mod prop_handling {
         };
 
         assert_ne!(
-            (&props1.class, &props1.id, &props1.style, props1.disabled, &props1.r#type),
-            (&props2.class, &props2.id, &props2.style, props2.disabled, &props2.r#type)
+            (
+                &props1.class,
+                &props1.id,
+                &props1.style,
+                props1.disabled,
+                &props1.r#type
+            ),
+            (
+                &props2.class,
+                &props2.id,
+                &props2.style,
+                props2.disabled,
+                &props2.r#type
+            )
         );
     }
 }

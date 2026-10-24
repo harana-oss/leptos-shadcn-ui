@@ -9,7 +9,12 @@ pub async fn add_component(component: &str, framework: &str, path: PathBuf) -> a
     // 3. Add to project structure
     // 4. Update dependencies
 
-    println!("Adding {} component to {} project at {}", component, framework, path.display());
+    println!(
+        "Adding {} component to {} project at {}",
+        component,
+        framework,
+        path.display()
+    );
 
     // For now, just show what would happen
     println!("Component '{}' would be added to your project", component);

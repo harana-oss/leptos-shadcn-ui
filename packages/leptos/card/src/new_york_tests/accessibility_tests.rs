@@ -73,13 +73,22 @@ mod accessibility_tests {
         let aria_describedby = Some("description-with-special-chars!@#$%^&*()".to_string());
         let role = Some("region-with-special-chars!@#$%^&*()".to_string());
 
-        assert_eq!(id.unwrap_or_default(), "test-id-with-special-chars!@#$%^&*()");
-        assert_eq!(aria_label.unwrap_or_default(), "Test card with special chars!@#$%^&*()");
+        assert_eq!(
+            id.unwrap_or_default(),
+            "test-id-with-special-chars!@#$%^&*()"
+        );
+        assert_eq!(
+            aria_label.unwrap_or_default(),
+            "Test card with special chars!@#$%^&*()"
+        );
         assert_eq!(
             aria_describedby.unwrap_or_default(),
             "description-with-special-chars!@#$%^&*()"
         );
-        assert_eq!(role.unwrap_or_default(), "region-with-special-chars!@#$%^&*()");
+        assert_eq!(
+            role.unwrap_or_default(),
+            "region-with-special-chars!@#$%^&*()"
+        );
     }
 
     #[test]
@@ -237,8 +246,14 @@ mod accessibility_tests {
         let signal = Some(RwSignal::new("test-value".to_string()));
 
         assert_eq!(id.unwrap_or_default(), "test-id");
-        assert_eq!(aria_label.unwrap_or_default(), "Test card with complex props");
-        assert_eq!(aria_describedby.unwrap_or_default(), "card-description with complex props");
+        assert_eq!(
+            aria_label.unwrap_or_default(),
+            "Test card with complex props"
+        );
+        assert_eq!(
+            aria_describedby.unwrap_or_default(),
+            "card-description with complex props"
+        );
         assert_eq!(role.unwrap_or_default(), "region with complex props");
         assert!(!disabled.unwrap_or_default());
         assert!(callback.is_some());

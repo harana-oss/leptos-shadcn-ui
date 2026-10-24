@@ -17,8 +17,10 @@ impl DependencyFixer {
 
     /// Fix main package dependencies by converting to workspace paths
     pub fn fix_main_package_dependencies(&self) -> Result<(), ContractError> {
-        let main_cargo_path =
-            format!("{}/packages/leptos-shadcn-ui/Cargo.toml", self.workspace_root);
+        let main_cargo_path = format!(
+            "{}/packages/leptos-shadcn-ui/Cargo.toml",
+            self.workspace_root
+        );
 
         if !Path::new(&main_cargo_path).exists() {
             return Err(ContractError::ValidationError {
@@ -278,8 +280,10 @@ impl DependencyFixer {
 
     /// Update version to 0.8.0 across the package
     pub fn update_package_version(&self) -> Result<(), ContractError> {
-        let main_cargo_path =
-            format!("{}/packages/leptos-shadcn-ui/Cargo.toml", self.workspace_root);
+        let main_cargo_path = format!(
+            "{}/packages/leptos-shadcn-ui/Cargo.toml",
+            self.workspace_root
+        );
 
         if !Path::new(&main_cargo_path).exists() {
             return Err(ContractError::ValidationError {
@@ -306,8 +310,10 @@ impl DependencyFixer {
 
     /// Validate that fixes were applied correctly
     pub fn validate_fixes(&self) -> Result<(), ContractError> {
-        let main_cargo_path =
-            format!("{}/packages/leptos-shadcn-ui/Cargo.toml", self.workspace_root);
+        let main_cargo_path = format!(
+            "{}/packages/leptos-shadcn-ui/Cargo.toml",
+            self.workspace_root
+        );
 
         let content =
             fs::read_to_string(&main_cargo_path).map_err(|e| ContractError::ValidationError {
@@ -349,7 +355,10 @@ impl DependencyFixer {
             });
         }
 
-        println!("✅ Validation passed: {} workspace paths found", found_paths);
+        println!(
+            "✅ Validation passed: {} workspace paths found",
+            found_paths
+        );
         Ok(())
     }
 }
@@ -403,6 +412,9 @@ leptos-shadcn-button = { version = "0.6.0", optional = true }
         let fixer = DependencyFixer::new(workspace_root);
         let result = fixer.validate_fixes();
 
-        assert!(result.is_err(), "Validation should fail with published dependencies");
+        assert!(
+            result.is_err(),
+            "Validation should fail with published dependencies"
+        );
     }
 }

@@ -27,11 +27,17 @@ mod tests {
         let base_class = LABEL_CLASS;
 
         // Test that the class is not excessively long (performance consideration)
-        assert!(base_class.len() < 200, "Class should not be excessively long");
+        assert!(
+            base_class.len() < 200,
+            "Class should not be excessively long"
+        );
 
         // Test that essential classes are present
         assert!(base_class.contains("text-sm"), "Should have text size");
-        assert!(base_class.contains("font-medium"), "Should have font weight");
+        assert!(
+            base_class.contains("font-medium"),
+            "Should have font weight"
+        );
     }
 
     #[test]

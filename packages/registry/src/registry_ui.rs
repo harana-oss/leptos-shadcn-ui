@@ -6,6 +6,7 @@ use crate::schema::{
 };
 
 /// Creates a complete registry entry for a UI component with full metadata control
+#[allow(clippy::too_many_arguments)]
 fn create_ui_component_with_metadata(
     name: &str,
     description: &str,
@@ -602,7 +603,13 @@ fn create_complete_registry() -> Registry {
             "Powerful table and datagrids built using TanStack Table. Features sorting, filtering, pagination, and row selection with column resizing.",
             ("advanced", Some("data")),
             vec!["tailwind_fuse", "web-sys"],
-            Some(vec!["table", "button", "checkbox", "input", "dropdown-menu"]),
+            Some(vec![
+                "table",
+                "button",
+                "checkbox",
+                "input",
+                "dropdown-menu",
+            ]),
             None,
             Some(vec!["@tanstack/react-table"]),
         ),
@@ -1174,7 +1181,13 @@ fn create_leptos_registry() -> Registry {
             "Powerful table and datagrids built using TanStack Table. Features sorting, filtering, pagination, and row selection with column resizing. [PLANNED]",
             ("advanced", Some("data")),
             vec!["tailwind_fuse", "web-sys"],
-            Some(vec!["table", "button", "checkbox", "input", "dropdown-menu"]),
+            Some(vec![
+                "table",
+                "button",
+                "checkbox",
+                "input",
+                "dropdown-menu",
+            ]),
             None,
             Some(vec!["@tanstack/react-table"]),
         ),

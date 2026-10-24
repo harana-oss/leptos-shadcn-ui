@@ -4,10 +4,6 @@ mod comprehensive_demo;
 use leptos::prelude::*;
 use leptos_meta::*;
 
-// For production: use leptos-shadcn-ui-wasm for proper WASM initialization
-#[cfg(feature = "wasm")]
-use leptos_shadcn_ui_wasm::init::provide_wasm_init;
-
 fn main() {
     // Mount the app to the body
     mount_to_body(|| view! { <App /> })
@@ -17,10 +13,6 @@ fn main() {
 pub fn App() -> impl IntoView {
     // Provides context that manages stylesheets, titles, meta tags, etc.
     provide_meta_context();
-
-    // Initialize WASM with proper state management
-    #[cfg(feature = "wasm")]
-    provide_wasm_init();
 
     view! {
         <Title text="Leptos ShadCN UI Demo"/>

@@ -1,5 +1,3 @@
-//! Example integration of tailwind-rs-core with Leptos components.
-
 use leptos::prelude::*;
 use tailwind_rs_core::*;
 
@@ -86,8 +84,10 @@ fn create_class_signal(variant: ButtonVariant, size: ButtonSize, disabled: bool)
         ""
     };
 
-    let all_classes =
-        format!("{} {} {} {}", base_classes, variant_classes, size_classes, disabled_classes);
+    let all_classes = format!(
+        "{} {} {} {}",
+        base_classes, variant_classes, size_classes, disabled_classes
+    );
     ClassSignal::new(all_classes)
 }
 
@@ -160,7 +160,12 @@ pub fn ColorSystemComponent() -> impl IntoView {
     // Derive classes from the current color
     let classes = move || {
         let color = color.get();
-        format!("{} {} {}", color.background(600), color.text(900), color.hover(700))
+        format!(
+            "{} {} {}",
+            color.background(600),
+            color.text(900),
+            color.hover(700)
+        )
     };
 
     view! {

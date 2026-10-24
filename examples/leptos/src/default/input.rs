@@ -4,7 +4,7 @@ use crate::default::components::ui::input::Input;
 
 #[component]
 pub fn InputExample() -> impl IntoView {
-    let (value, set_value) = create_signal(String::new());
+    let (value, set_value) = signal(String::new());
 
     let handle_change = Callback::new(move |new_value: String| {
         set_value.set(new_value);

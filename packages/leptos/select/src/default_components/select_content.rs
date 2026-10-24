@@ -83,7 +83,10 @@ pub fn SelectSeparator(
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: MaybeProp<String>,
 ) -> impl IntoView {
-    let separator_class = format!("-mx-1 my-1 h-px bg-muted {}", class.get().unwrap_or_default());
+    let separator_class = format!(
+        "-mx-1 my-1 h-px bg-muted {}",
+        class.get().unwrap_or_default()
+    );
 
     view! {
         <div
@@ -103,8 +106,10 @@ pub fn SelectLabel(
     #[prop(into, optional)] style: MaybeProp<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let label_class =
-        format!("py-1.5 pl-8 pr-2 text-sm font-semibold {}", class.get().unwrap_or_default());
+    let label_class = format!(
+        "py-1.5 pl-8 pr-2 text-sm font-semibold {}",
+        class.get().unwrap_or_default()
+    );
 
     view! {
         <div
@@ -126,7 +131,10 @@ pub fn SelectGroup(
     #[prop(into, optional)] style: MaybeProp<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let group_class = format!("p-1 text-muted-foreground {}", class.get().unwrap_or_default());
+    let group_class = format!(
+        "p-1 text-muted-foreground {}",
+        class.get().unwrap_or_default()
+    );
 
     view! {
         <div

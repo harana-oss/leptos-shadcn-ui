@@ -69,6 +69,7 @@ pub use leptos_shadcn_item::default::*;
 pub use leptos_shadcn_kbd::default::*;
 #[cfg(feature = "native-select")]
 pub use leptos_shadcn_native_select::default::*;
+#[allow(ambiguous_glob_reexports)]
 #[cfg(feature = "sidebar")]
 pub use leptos_shadcn_sidebar::*;
 #[cfg(feature = "sonner")]

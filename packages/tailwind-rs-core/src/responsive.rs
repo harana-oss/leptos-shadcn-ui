@@ -557,7 +557,10 @@ impl MediaQuery {
 
     /// Generate the CSS @media rule with a selector.
     pub fn to_css_with_selector(&self, selector: &str, content: &str) -> String {
-        format!("@media {} {{\n{} {{\n{}\n}}\n}}", self.condition, selector, content)
+        format!(
+            "@media {} {{\n{} {{\n{}\n}}\n}}",
+            self.condition, selector, content
+        )
     }
 }
 

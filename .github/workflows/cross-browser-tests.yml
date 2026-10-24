@@ -114,10 +114,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cargo-
 
+      - name: Install wasm-pack
+        uses: taiki-e/install-action@v2
+        with:
+          tool: wasm-pack
+
       - name: Build demo application
         run: |
           cd examples/comprehensive-demo
-          trunk build --public-url /comprehensive-demo
+          wasm-pack build --target web --out-dir pkg --release
 
       - name: Start test server
         run: |
@@ -140,32 +145,33 @@ jobs:
 
       - name: Run ${{ matrix.display-name }} cross-browser tests
         run: |
-          pnpm exec playwright test \
+          pnpm exec playwright test comprehensive-demo.spec.ts \
             --config=tests/e2e/cross-browser.config.ts \
             --project=${{ matrix.project }} \
             --reporter=json \
             --reporter=html \
             --reporter=line
         env:
+          BASE_URL: http://localhost:8001
           CI: true
           HEADLESS: true
 
       - name: Upload ${{ matrix.display-name }} test results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cross-browser-results-${{ matrix.browser }}
           path: |
-            test-results/cross-browser/
-            playwright-report/
+            tests/e2e/test-results/cross-browser/
+            tests/e2e/playwright-report/
           retention-days: 30
 
       - name: Upload ${{ matrix.display-name }} screenshots
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cross-browser-screenshots-${{ matrix.browser }}
-          path: test-results/cross-browser/
+          path: tests/e2e/test-results/cross-browser/
           retention-days: 30
 
       - name: Stop test server
@@ -220,18 +226,23 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps msedge
 
+      - name: Install wasm-pack
+        uses: taiki-e/install-action@v2
+        with:
+          tool: wasm-pack
+
       - name: Build demo application
         run: |
           cd examples/comprehensive-demo
-          trunk build --public-url /comprehensive-demo
+          wasm-pack build --target web --out-dir pkg --release
 
       - name: Start test server
+        shell: pwsh
         run: |
-          cd examples/comprehensive-demo
-          python -m http.server 8001
-        continue-on-error: true
+          Start-Process -FilePath python -ArgumentList '-m','http.server','8001' -WorkingDirectory examples/comprehensive-demo
 
       - name: Wait for server
+        shell: bash
         run: |
           for i in {1..30}; do
             if curl -s http://localhost:8001 > /dev/null; then
@@ -243,24 +254,26 @@ jobs:
           done
 
       - name: Run Edge cross-browser tests
+        shell: bash
         run: |
-          pnpm exec playwright test \
+          pnpm exec playwright test comprehensive-demo.spec.ts \
             --config=tests/e2e/cross-browser.config.ts \
             --project=edge \
             --reporter=json \
             --reporter=html
         env:
+          BASE_URL: http://localhost:8001
           CI: true
           HEADLESS: true
 
       - name: Upload Edge test results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cross-browser-results-edge
           path: |
-            test-results/cross-browser/
-            playwright-report/
+            tests/e2e/test-results/cross-browser/
+            tests/e2e/playwright-report/
           retention-days: 30
 
   mobile-tests:
@@ -300,6 +313,12 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium webkit
 
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.RUST_VERSION }}
+          targets: wasm32-unknown-unknown
+
       - name: Cache Cargo build
         uses: actions/cache@v3
         with:
@@ -310,10 +329,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cargo-
 
+      - name: Install wasm-pack
+        uses: taiki-e/install-action@v2
+        with:
+          tool: wasm-pack
+
       - name: Build demo application
         run: |
           cd examples/comprehensive-demo
-          trunk build --public-url /comprehensive-demo
+          wasm-pack build --target web --out-dir pkg --release
 
       - name: Start test server
         run: |
@@ -334,22 +358,28 @@ jobs:
 
       - name: Run ${{ matrix.display-name }} tests
         run: |
-          pnpm exec playwright test \
+          pnpm exec playwright test comprehensive-demo.spec.ts \
             --config=tests/e2e/cross-browser.config.ts \
             --project=${{ matrix.mobile-browser }} \
             --reporter=line
         env:
+          BASE_URL: http://localhost:8001
           CI: true
           HEADLESS: true
 
+      - name: Print failure context
+        if: failure()
+        run: |
+          find tests/e2e/test-results -name error-context.md -print -exec cat {} \; 2>/dev/null | head -400 || true
+
       - name: Upload ${{ matrix.display-name }} test results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cross-browser-results-${{ matrix.mobile-browser }}
           path: |
-            test-results/cross-browser/
-            playwright-report/
+            tests/e2e/test-results/cross-browser/
+            tests/e2e/playwright-report/
           retention-days: 30
 
       - name: Stop test server
@@ -367,7 +397,7 @@ jobs:
 
     steps:
       - name: Download all test results
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: test-results/all
 

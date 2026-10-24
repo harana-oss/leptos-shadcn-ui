@@ -106,8 +106,10 @@ pub fn SelectValue(
 ) -> impl IntoView {
     let value_state = expect_context::<Signal<String>>();
 
-    let value_class =
-        format!("placeholder:text-muted-foreground {}", class.get().unwrap_or_default());
+    let value_class = format!(
+        "placeholder:text-muted-foreground {}",
+        class.get().unwrap_or_default()
+    );
 
     view! {
         <span

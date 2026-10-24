@@ -166,10 +166,14 @@ fn benchmark_accessibility_features(c: &mut Criterion) {
     ];
 
     for feature in a11y_features {
-        group.bench_with_input(BenchmarkId::new("a11y", feature), &feature, |b, &feature| {
-            let benchmarker = ComponentBenchmarker::new();
-            b.iter(|| black_box(benchmarker.benchmark_accessibility_feature(feature)));
-        });
+        group.bench_with_input(
+            BenchmarkId::new("a11y", feature),
+            &feature,
+            |b, &feature| {
+                let benchmarker = ComponentBenchmarker::new();
+                b.iter(|| black_box(benchmarker.benchmark_accessibility_feature(feature)));
+            },
+        );
     }
 
     group.finish();

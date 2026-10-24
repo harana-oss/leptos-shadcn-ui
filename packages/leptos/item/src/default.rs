@@ -115,7 +115,10 @@ impl ItemMediaVariant {
 
 /// Full class for an Item.
 pub fn item_class(variant: ItemVariant, size: ItemSize, extra: Option<String>) -> String {
-    cn(&format!("{} {} {}", ITEM_CLASS, variant.class(), size.class()), extra)
+    cn(
+        &format!("{} {} {}", ITEM_CLASS, variant.class(), size.class()),
+        extra,
+    )
 }
 
 /// Full class for ItemMedia.

@@ -24,7 +24,10 @@ mod tests {
                 };
                 true
             });
-            assert!(test_result.is_ok(), "Date picker with custom actions test failed");
+            assert!(
+                test_result.is_ok(),
+                "Date picker with custom actions test failed"
+            );
         });
     }
 
@@ -41,7 +44,10 @@ mod tests {
                 };
                 true
             });
-            assert!(test_result.is_ok(), "Date picker accessibility features test failed");
+            assert!(
+                test_result.is_ok(),
+                "Date picker accessibility features test failed"
+            );
         });
     }
 
@@ -58,7 +64,10 @@ mod tests {
                 };
                 true
             });
-            assert!(test_result.is_ok(), "Date picker with custom styling test failed");
+            assert!(
+                test_result.is_ok(),
+                "Date picker with custom styling test failed"
+            );
         });
     }
 }

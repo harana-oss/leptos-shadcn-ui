@@ -188,11 +188,17 @@ impl PerformanceMonitor {
             ViolationType::VersionMismatch => "Version mismatch detected".to_string(),
         };
 
-        println!("\n{} PERFORMANCE CONTRACT VIOLATION DETECTED", severity_emoji);
+        println!(
+            "\n{} PERFORMANCE CONTRACT VIOLATION DETECTED",
+            severity_emoji
+        );
         println!("Component: {}", alert.component);
         println!("Violation: {}", violation_desc);
         println!("Severity: {:?}", alert.severity);
-        println!("Timestamp: {}", chrono::Utc::now().format("%Y-%m-%d %H:%M:%S UTC"));
+        println!(
+            "Timestamp: {}",
+            chrono::Utc::now().format("%Y-%m-%d %H:%M:%S UTC")
+        );
         println!("{}", "=".repeat(50));
 
         // In a real implementation, you would send alerts to:
@@ -268,7 +274,10 @@ impl PerformanceMonitor {
                 ));
 
                 report.push_str(&format!("- **Severity**: {:?}\n", alert.severity));
-                report.push_str(&format!("- **Current Value**: {:.2}\n", alert.current_value));
+                report.push_str(&format!(
+                    "- **Current Value**: {:.2}\n",
+                    alert.current_value
+                ));
                 report.push_str(&format!("- **Threshold**: {:.2}\n", alert.threshold));
                 report.push_str(&format!(
                     "- **Timestamp**: {}\n\n",
@@ -349,7 +358,10 @@ async fn main() -> Result<()> {
                 println!("✅ All performance contracts satisfied");
                 std::process::exit(0);
             } else {
-                println!("❌ {} performance contract violations detected", violations.len());
+                println!(
+                    "❌ {} performance contract violations detected",
+                    violations.len()
+                );
                 for violation in violations {
                     println!(
                         "- {}: {:?} (severity: {:?})",
@@ -378,7 +390,10 @@ async fn main() -> Result<()> {
         }
 
         _ => {
-            eprintln!("Usage: {} [monitor|check|report] [interval_seconds]", args[0]);
+            eprintln!(
+                "Usage: {} [monitor|check|report] [interval_seconds]",
+                args[0]
+            );
             eprintln!("  monitor: Start continuous monitoring");
             eprintln!("  check:   Check contracts once and exit");
             eprintln!("  report:  Generate performance report");

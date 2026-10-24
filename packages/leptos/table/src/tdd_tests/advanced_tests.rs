@@ -426,8 +426,11 @@ mod advanced_tests {
 
     #[test]
     fn test_table_export_functionality() {
-        let table_data =
-            RwSignal::new(vec![("Name", "Age"), ("John Doe", "30"), ("Jane Smith", "25")]);
+        let table_data = RwSignal::new(vec![
+            ("Name", "Age"),
+            ("John Doe", "30"),
+            ("Jane Smith", "25"),
+        ]);
 
         let _table_view = view! {
             <Table>

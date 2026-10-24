@@ -15,7 +15,10 @@ mod tdd_red_tests {
         let validation = FormValidation::new();
 
         assert!(validation.is_valid, "Form should start in valid state");
-        assert!(validation.errors.is_empty(), "Form should start with no errors");
+        assert!(
+            validation.errors.is_empty(),
+            "Form should start with no errors"
+        );
     }
 
     #[test]
@@ -26,10 +29,19 @@ mod tdd_red_tests {
         // Add an error
         validation.add_error("email", "Email is required");
 
-        assert!(!validation.is_valid, "Form should be invalid after adding error");
+        assert!(
+            !validation.is_valid,
+            "Form should be invalid after adding error"
+        );
         assert_eq!(validation.errors.len(), 1, "Should have one error");
-        assert_eq!(validation.errors[0].field, "email", "Error should be for email field");
-        assert_eq!(validation.errors[0].message, "Email is required", "Error message should match");
+        assert_eq!(
+            validation.errors[0].field, "email",
+            "Error should be for email field"
+        );
+        assert_eq!(
+            validation.errors[0].message, "Email is required",
+            "Error message should match"
+        );
     }
 
     #[test]
@@ -43,9 +55,20 @@ mod tdd_red_tests {
         let password_error = validation.get_error("password");
         let non_existent_error = validation.get_error("username");
 
-        assert_eq!(email_error, Some("Email is required"), "Should get email error");
-        assert_eq!(password_error, Some("Password is too short"), "Should get password error");
-        assert_eq!(non_existent_error, None, "Should return None for non-existent field");
+        assert_eq!(
+            email_error,
+            Some("Email is required"),
+            "Should get email error"
+        );
+        assert_eq!(
+            password_error,
+            Some("Password is too short"),
+            "Should get password error"
+        );
+        assert_eq!(
+            non_existent_error, None,
+            "Should return None for non-existent field"
+        );
     }
 
     #[test]
@@ -54,7 +77,11 @@ mod tdd_red_tests {
         let form_data = FormData::new();
 
         assert!(form_data.fields.is_empty(), "FormData should start empty");
-        assert_eq!(form_data.get("email"), None, "Should return None for non-existent field");
+        assert_eq!(
+            form_data.get("email"),
+            None,
+            "Should return None for non-existent field"
+        );
         assert_eq!(
             form_data.get_or_default("email"),
             "",
@@ -117,7 +144,10 @@ mod tdd_red_tests {
         // Simulate form submission
         on_submit.run(test_data);
 
-        assert!(form_submitted.get(), "Form submission callback should be called");
+        assert!(
+            form_submitted.get(),
+            "Form submission callback should be called"
+        );
         assert_eq!(
             submitted_data.get().get("email"),
             Some(&"test@example.com".to_string()),
@@ -132,7 +162,10 @@ mod tdd_red_tests {
         let field_class = "space-y-2";
 
         assert!(!field_name.is_empty(), "Field name should not be empty");
-        assert!(field_class.contains("space-y-2"), "Field should have proper spacing class");
+        assert!(
+            field_class.contains("space-y-2"),
+            "Field should have proper spacing class"
+        );
     }
 
     #[test]
@@ -140,7 +173,10 @@ mod tdd_red_tests {
         // Test FormItem component functionality
         let item_class = "space-y-2";
 
-        assert!(item_class.contains("space-y-2"), "Form item should have proper spacing class");
+        assert!(
+            item_class.contains("space-y-2"),
+            "Form item should have proper spacing class"
+        );
     }
 
     #[test]
@@ -150,9 +186,18 @@ mod tdd_red_tests {
         let label_class = "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70";
 
         assert!(!for_field.is_empty(), "Label should have a for field");
-        assert!(label_class.contains("text-sm"), "Label should have small text");
-        assert!(label_class.contains("font-medium"), "Label should have medium font weight");
-        assert!(label_class.contains("leading-none"), "Label should have no line height");
+        assert!(
+            label_class.contains("text-sm"),
+            "Label should have small text"
+        );
+        assert!(
+            label_class.contains("font-medium"),
+            "Label should have medium font weight"
+        );
+        assert!(
+            label_class.contains("leading-none"),
+            "Label should have no line height"
+        );
     }
 
     #[test]
@@ -170,8 +215,14 @@ mod tdd_red_tests {
         let message_class = "text-sm font-medium text-destructive";
 
         assert!(!message_text.is_empty(), "Message should have text");
-        assert!(message_class.contains("text-sm"), "Message should have small text");
-        assert!(message_class.contains("font-medium"), "Message should have medium font weight");
+        assert!(
+            message_class.contains("text-sm"),
+            "Message should have small text"
+        );
+        assert!(
+            message_class.contains("font-medium"),
+            "Message should have medium font weight"
+        );
         assert!(
             message_class.contains("text-destructive"),
             "Message should have destructive color"
@@ -183,7 +234,10 @@ mod tdd_red_tests {
         // Test FormDescription component functionality
         let description_class = "text-sm text-muted-foreground";
 
-        assert!(description_class.contains("text-sm"), "Description should have small text");
+        assert!(
+            description_class.contains("text-sm"),
+            "Description should have small text"
+        );
         assert!(
             description_class.contains("text-muted-foreground"),
             "Description should have muted color"
@@ -197,8 +251,14 @@ mod tdd_red_tests {
         let custom_class = "custom-form";
         let merged_class = format!("{} {}", base_class, custom_class);
 
-        assert!(merged_class.contains("space-y-6"), "Should include base class");
-        assert!(merged_class.contains("custom-form"), "Should include custom class");
+        assert!(
+            merged_class.contains("space-y-6"),
+            "Should include base class"
+        );
+        assert!(
+            merged_class.contains("custom-form"),
+            "Should include custom class"
+        );
     }
 
     #[test]
@@ -210,13 +270,22 @@ mod tdd_red_tests {
         validation.add_error("password", "Password is too short");
         validation.add_error("confirm_password", "Passwords do not match");
 
-        assert!(!validation.is_valid, "Form should be invalid with multiple errors");
+        assert!(
+            !validation.is_valid,
+            "Form should be invalid with multiple errors"
+        );
         assert_eq!(validation.errors.len(), 3, "Should have three errors");
 
         // Test getting specific errors
         assert_eq!(validation.get_error("email"), Some("Email is required"));
-        assert_eq!(validation.get_error("password"), Some("Password is too short"));
-        assert_eq!(validation.get_error("confirm_password"), Some("Passwords do not match"));
+        assert_eq!(
+            validation.get_error("password"),
+            Some("Password is too short")
+        );
+        assert_eq!(
+            validation.get_error("confirm_password"),
+            Some("Passwords do not match")
+        );
     }
 
     #[test]
@@ -236,7 +305,10 @@ mod tdd_red_tests {
             .insert("remember".to_string(), "on".to_string());
 
         assert_eq!(form_data.fields.len(), 3, "Should have three fields");
-        assert_eq!(form_data.get("email"), Some(&"user@example.com".to_string()));
+        assert_eq!(
+            form_data.get("email"),
+            Some(&"user@example.com".to_string())
+        );
         assert_eq!(form_data.get("password"), Some(&"password123".to_string()));
         assert_eq!(form_data.get("remember"), Some(&"on".to_string()));
     }

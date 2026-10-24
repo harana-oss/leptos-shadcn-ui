@@ -42,7 +42,10 @@ mod rendering {
     fn test_button_computed_class_all_variants() {
         // Test computed class generation for all variants
         let variants = vec![
-            (ButtonVariant::Default, "bg-primary text-primary-foreground hover:bg-primary/90"),
+            (
+                ButtonVariant::Default,
+                "bg-primary text-primary-foreground hover:bg-primary/90",
+            ),
             (
                 ButtonVariant::Destructive,
                 "bg-destructive text-destructive-foreground hover:bg-destructive/90",
@@ -55,8 +58,14 @@ mod rendering {
                 ButtonVariant::Secondary,
                 "bg-secondary text-secondary-foreground hover:bg-secondary/80",
             ),
-            (ButtonVariant::Ghost, "hover:bg-accent hover:text-accent-foreground"),
-            (ButtonVariant::Link, "text-primary underline-offset-4 hover:underline"),
+            (
+                ButtonVariant::Ghost,
+                "hover:bg-accent hover:text-accent-foreground",
+            ),
+            (
+                ButtonVariant::Link,
+                "text-primary underline-offset-4 hover:underline",
+            ),
         ];
 
         for (variant, expected_class) in variants {
@@ -101,7 +110,11 @@ mod rendering {
                 ButtonSize::Icon => "h-10 w-10",
             };
 
-            assert_eq!(size_class, expected_class, "Size {:?} should have correct class", size);
+            assert_eq!(
+                size_class, expected_class,
+                "Size {:?} should have correct class",
+                size
+            );
         }
     }
 

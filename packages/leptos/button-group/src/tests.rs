@@ -3,7 +3,10 @@ use leptos::prelude::*;
 
 #[test]
 fn orientation_classes() {
-    assert_eq!(ButtonGroupOrientation::default(), ButtonGroupOrientation::Horizontal);
+    assert_eq!(
+        ButtonGroupOrientation::default(),
+        ButtonGroupOrientation::Horizontal
+    );
     assert!(
         ButtonGroupOrientation::Horizontal
             .class()

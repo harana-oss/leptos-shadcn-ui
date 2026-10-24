@@ -106,7 +106,12 @@ pub fn TabsTrigger(
         } else {
             "hover:bg-background hover:text-foreground"
         };
-        format!("{} {} {}", base_class, selected_class, class.get().unwrap_or_default())
+        format!(
+            "{} {} {}",
+            base_class,
+            selected_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     let child_props = TabsTriggerChildProps {

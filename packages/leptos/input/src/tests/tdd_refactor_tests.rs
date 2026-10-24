@@ -116,7 +116,9 @@ mod tdd_refactor_tests {
             .with_rule(crate::validation::ValidationRule::Required)
             .with_rule(crate::validation::ValidationRule::MinLength(3))
             .with_rule(crate::validation::ValidationRule::MaxLength(100))
-            .with_rule(crate::validation::ValidationRule::Pattern(r"^[a-zA-Z0-9]+$".to_string()));
+            .with_rule(crate::validation::ValidationRule::Pattern(
+                r"^[a-zA-Z0-9]+$".to_string(),
+            ));
 
         // Test that validation is fast even with multiple rules
         let start = std::time::Instant::now();
@@ -126,7 +128,10 @@ mod tdd_refactor_tests {
         let duration = start.elapsed();
 
         // Should complete 1000 validations in reasonable time (< 1000ms)
-        assert!(duration.as_millis() < 1000, "Validation should be performant");
+        assert!(
+            duration.as_millis() < 1000,
+            "Validation should be performant"
+        );
     }
 
     #[test]

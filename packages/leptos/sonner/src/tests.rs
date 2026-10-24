@@ -83,7 +83,10 @@ fn context_api_returns_ids_and_dismisses() {
                 duration_ms: Some(0),
             },
         );
-        assert_eq!(ctx.queue.get_untracked().get(sticky).unwrap().duration_ms, None);
+        assert_eq!(
+            ctx.queue.get_untracked().get(sticky).unwrap().duration_ms,
+            None
+        );
         let _ = (e, i, m);
         ctx.dismiss_all();
         assert!(ctx.queue.get_untracked().is_empty());

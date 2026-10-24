@@ -322,14 +322,20 @@ mod integration_tests {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 2000, "Creating 1000 groups should be reasonable");
+        assert!(
+            duration.as_millis() < 2000,
+            "Creating 1000 groups should be reasonable"
+        );
 
         // Test stats update performance
         let stats_start = std::time::Instant::now();
         manager.update_memory_stats().unwrap();
         let stats_duration = stats_start.elapsed();
 
-        assert!(stats_duration.as_millis() < 100, "Stats update should be fast");
+        assert!(
+            stats_duration.as_millis() < 100,
+            "Stats update should be fast"
+        );
 
         // Test cleanup performance
         let cleanup_start = std::time::Instant::now();
@@ -339,7 +345,10 @@ mod integration_tests {
         }
         let cleanup_duration = cleanup_start.elapsed();
 
-        assert!(cleanup_duration.as_millis() < 1000, "Cleanup should be reasonable");
+        assert!(
+            cleanup_duration.as_millis() < 1000,
+            "Cleanup should be reasonable"
+        );
         assert_eq!(manager.tracked_groups.get().len(), 0);
     }
 }

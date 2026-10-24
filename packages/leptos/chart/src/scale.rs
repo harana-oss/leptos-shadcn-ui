@@ -125,7 +125,12 @@ pub fn line_points(values: &[f64], width: f64, height: f64, y_max: f64) -> Vec<(
     values
         .iter()
         .enumerate()
-        .map(|(i, v)| (band.center(i), linear_scale(*v, (0.0, y_max), (height, 0.0))))
+        .map(|(i, v)| {
+            (
+                band.center(i),
+                linear_scale(*v, (0.0, y_max), (height, 0.0)),
+            )
+        })
         .collect()
 }
 

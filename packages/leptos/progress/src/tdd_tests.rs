@@ -83,7 +83,10 @@ mod tdd_tests {
         let _progress_view = view! {
             <Progress value=Signal::derive(|| 50.0) class=custom_class/>
         };
-        assert_eq!(custom_class, "custom-progress-class", "Custom styling should be supported");
+        assert_eq!(
+            custom_class, "custom-progress-class",
+            "Custom styling should be supported"
+        );
     }
 
     #[test]
@@ -92,7 +95,10 @@ mod tdd_tests {
         let _progress_view = view! {
             <Progress value=Signal::derive(|| 50.0) id=custom_id/>
         };
-        assert_eq!(custom_id, "custom-progress-id", "Custom ID should be supported");
+        assert_eq!(
+            custom_id, "custom-progress-id",
+            "Custom ID should be supported"
+        );
     }
 
     #[test]

@@ -219,7 +219,10 @@ mod validation_tests {
 
         // Should only have one error per field (last one wins)
         assert_eq!(validation.errors.len(), 1);
-        assert_eq!(validation.get_error("email"), Some(&"Email format is invalid".to_string()));
+        assert_eq!(
+            validation.get_error("email"),
+            Some(&"Email format is invalid".to_string())
+        );
 
         // Test error removal
         validation.clear_errors();
@@ -287,7 +290,10 @@ mod validation_tests {
 
         // Test retrieval
         assert_eq!(form_data.get("name"), Some(&"John Doe".to_string()));
-        assert_eq!(form_data.get("email"), Some(&"john@example.com".to_string()));
+        assert_eq!(
+            form_data.get("email"),
+            Some(&"john@example.com".to_string())
+        );
         assert_eq!(form_data.get("age"), Some(&"25".to_string()));
         assert_eq!(form_data.get("phone"), Some(&"123-456-7890".to_string()));
         assert_eq!(form_data.get("newsletter"), Some(&"true".to_string()));

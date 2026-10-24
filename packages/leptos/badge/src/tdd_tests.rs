@@ -90,7 +90,10 @@ mod tdd_tests {
         let _badge_view = view! {
             <Badge class=custom_class>"Custom styled badge"</Badge>
         };
-        assert_eq!(custom_class, "custom-badge-class", "Custom styling should be supported");
+        assert_eq!(
+            custom_class, "custom-badge-class",
+            "Custom styling should be supported"
+        );
     }
 
     #[test]
@@ -99,7 +102,10 @@ mod tdd_tests {
         let _badge_view = view! {
             <Badge id=custom_id>"Badge with ID"</Badge>
         };
-        assert_eq!(custom_id, "custom-badge-id", "Custom ID should be supported");
+        assert_eq!(
+            custom_id, "custom-badge-id",
+            "Custom ID should be supported"
+        );
     }
 
     #[test]

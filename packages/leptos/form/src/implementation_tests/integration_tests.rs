@@ -172,8 +172,14 @@ mod integration_tests {
             .insert("password".to_string(), "secret123".to_string());
 
         assert_eq!(form_data.fields.len(), 2);
-        assert_eq!(form_data.fields.get("email"), Some(&"user@example.com".to_string()));
-        assert_eq!(form_data.fields.get("password"), Some(&"secret123".to_string()));
+        assert_eq!(
+            form_data.fields.get("email"),
+            Some(&"user@example.com".to_string())
+        );
+        assert_eq!(
+            form_data.fields.get("password"),
+            Some(&"secret123".to_string())
+        );
 
         // Test registration form data
         form_data
@@ -184,8 +190,14 @@ mod integration_tests {
             .insert("confirm_password".to_string(), "secret123".to_string());
 
         assert_eq!(form_data.fields.len(), 4);
-        assert_eq!(form_data.fields.get("username"), Some(&"johndoe".to_string()));
-        assert_eq!(form_data.fields.get("confirm_password"), Some(&"secret123".to_string()));
+        assert_eq!(
+            form_data.fields.get("username"),
+            Some(&"johndoe".to_string())
+        );
+        assert_eq!(
+            form_data.fields.get("confirm_password"),
+            Some(&"secret123".to_string())
+        );
 
         // Test contact form data
         form_data
@@ -194,14 +206,21 @@ mod integration_tests {
         form_data
             .fields
             .insert("subject".to_string(), "Inquiry".to_string());
-        form_data
-            .fields
-            .insert("message".to_string(), "Hello, I have a question.".to_string());
+        form_data.fields.insert(
+            "message".to_string(),
+            "Hello, I have a question.".to_string(),
+        );
 
         assert_eq!(form_data.fields.len(), 7);
         assert_eq!(form_data.fields.get("name"), Some(&"John Doe".to_string()));
-        assert_eq!(form_data.fields.get("subject"), Some(&"Inquiry".to_string()));
-        assert_eq!(form_data.fields.get("message"), Some(&"Hello, I have a question.".to_string()));
+        assert_eq!(
+            form_data.fields.get("subject"),
+            Some(&"Inquiry".to_string())
+        );
+        assert_eq!(
+            form_data.fields.get("message"),
+            Some(&"Hello, I have a question.".to_string())
+        );
     }
 
     #[test]

@@ -36,7 +36,10 @@ pub struct GenerateArgs {
 }
 
 pub async fn generate(args: GenerateArgs) -> Result<()> {
-    println!("🔧 Generating {} component for {}...", args.name, args.framework);
+    println!(
+        "🔧 Generating {} component for {}...",
+        args.name, args.framework
+    );
 
     // Parse framework
     let framework = match args.framework.to_lowercase().as_str() {
@@ -91,7 +94,10 @@ pub async fn generate(args: GenerateArgs) -> Result<()> {
     )?;
 
     println!("✅ Successfully generated {} component!", args.name);
-    println!("📁 Files created in: {}", output_dir.join(&args.name).display());
+    println!(
+        "📁 Files created in: {}",
+        output_dir.join(&args.name).display()
+    );
     println!("📝 Next steps:");
     println!("   1. Add the component to your workspace members in Cargo.toml");
     println!("   2. Customize the component implementation");

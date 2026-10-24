@@ -374,7 +374,11 @@ async fn run_roadmap_command(
 
 fn output_text_results(results: &PerformanceResults) {
     println!("📊 Performance Audit Results");
-    println!("Overall Score: {:.1}/100 ({})", results.overall_score, results.get_grade());
+    println!(
+        "Overall Score: {:.1}/100 ({})",
+        results.overall_score,
+        results.get_grade()
+    );
     println!(
         "Meets Targets: {}",
         if results.meets_targets() {
@@ -386,8 +390,14 @@ fn output_text_results(results: &PerformanceResults) {
     println!();
 
     println!("📦 Bundle Analysis:");
-    println!("  Overall Efficiency: {:.1}%", results.bundle_analysis.overall_efficiency_score);
-    println!("  Total Size: {:.1} KB", results.bundle_analysis.total_bundle_size_kb);
+    println!(
+        "  Overall Efficiency: {:.1}%",
+        results.bundle_analysis.overall_efficiency_score
+    );
+    println!(
+        "  Total Size: {:.1} KB",
+        results.bundle_analysis.total_bundle_size_kb
+    );
     println!(
         "  Average Component Size: {:.1} KB",
         results.bundle_analysis.average_component_size_kb
@@ -443,10 +453,22 @@ fn output_markdown_results(
 fn output_bundle_text_results(results: &bundle_analysis::BundleAnalysisResults) {
     println!("📦 Bundle Analysis Results");
     println!("Total Size: {:.1} KB", results.total_bundle_size_kb);
-    println!("Average Component Size: {:.1} KB", results.average_component_size_kb);
-    println!("Largest Component: {:.1} KB", results.largest_component_size_kb);
-    println!("Oversized Components: {}", results.oversized_components.len());
-    println!("Overall Efficiency: {:.1}%", results.overall_efficiency_score);
+    println!(
+        "Average Component Size: {:.1} KB",
+        results.average_component_size_kb
+    );
+    println!(
+        "Largest Component: {:.1} KB",
+        results.largest_component_size_kb
+    );
+    println!(
+        "Oversized Components: {}",
+        results.oversized_components.len()
+    );
+    println!(
+        "Overall Efficiency: {:.1}%",
+        results.overall_efficiency_score
+    );
 }
 
 fn output_bundle_json_results(
@@ -474,7 +496,10 @@ fn output_monitoring_text_results(results: &performance_monitoring::PerformanceM
     println!("📊 Performance Monitoring Results");
     println!("Overall Score: {:.1}%", results.overall_performance_score);
     println!("Failing Components: {}", results.failing_components.len());
-    println!("Performance Bottlenecks: {}", results.performance_bottlenecks.len());
+    println!(
+        "Performance Bottlenecks: {}",
+        results.performance_bottlenecks.len()
+    );
 }
 
 fn output_monitoring_json_results(
@@ -529,7 +554,10 @@ fn output_benchmark_markdown_results(
 fn output_roadmap_text_results(roadmap: &optimization_roadmap::OptimizationRoadmap) {
     println!("🗺️ Optimization Roadmap");
     println!("Total Recommendations: {}", roadmap.recommendations.len());
-    println!("Estimated Effort: {:.1} hours", roadmap.total_estimated_effort_hours);
+    println!(
+        "Estimated Effort: {:.1} hours",
+        roadmap.total_estimated_effort_hours
+    );
     println!("Expected Impact: {:.1}%", roadmap.overall_expected_impact);
 
     let high_priority = roadmap.get_high_priority_recommendations();

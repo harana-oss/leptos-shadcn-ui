@@ -20,7 +20,12 @@ pub fn Toast(
             _ => "bg-background text-foreground",
         };
 
-        format!("{} {} {}", TOAST_CLASS, variant_class, class.get().unwrap_or_default())
+        format!(
+            "{} {} {}",
+            TOAST_CLASS,
+            variant_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {

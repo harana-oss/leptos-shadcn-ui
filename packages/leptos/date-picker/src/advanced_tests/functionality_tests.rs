@@ -58,7 +58,10 @@ mod tests {
                 };
                 true
             });
-            assert!(test_result.is_ok(), "Date validation and constraints test failed");
+            assert!(
+                test_result.is_ok(),
+                "Date validation and constraints test failed"
+            );
         });
     }
 
@@ -75,7 +78,10 @@ mod tests {
                 };
                 true
             });
-            assert!(test_result.is_ok(), "Keyboard navigation and shortcuts test failed");
+            assert!(
+                test_result.is_ok(),
+                "Keyboard navigation and shortcuts test failed"
+            );
         });
     }
 }

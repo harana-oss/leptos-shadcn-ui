@@ -8,7 +8,10 @@ pub async fn list_components(
     missing: bool,
 ) -> anyhow::Result<()> {
     if framework != "leptos" {
-        eprintln!("{}", style("⚠️  Only Leptos framework is currently supported").yellow());
+        eprintln!(
+            "{}",
+            style("⚠️  Only Leptos framework is currently supported").yellow()
+        );
         return Ok(());
     }
 
@@ -33,7 +36,10 @@ pub async fn list_components(
         .collect();
     completed_components.sort();
 
-    println!("{}", style("=== Leptos shadcn/ui Components ===").bold().blue());
+    println!(
+        "{}",
+        style("=== Leptos shadcn/ui Components ===").bold().blue()
+    );
     println!();
 
     if completed {

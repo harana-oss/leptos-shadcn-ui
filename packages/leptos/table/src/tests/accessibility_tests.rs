@@ -16,7 +16,10 @@ mod accessibility_tests {
 
         assert_eq!(table_role, "table", "Table should have table role");
         assert!(!table_aria_label.is_empty(), "Table should have aria-label");
-        assert!(!table_aria_labelledby.is_empty(), "Table should have aria-labelledby");
+        assert!(
+            !table_aria_labelledby.is_empty(),
+            "Table should have aria-labelledby"
+        );
     }
 
     #[test]
@@ -27,7 +30,10 @@ mod accessibility_tests {
         let header_scope = "col";
 
         assert_eq!(header_role, "row", "Header should have row role");
-        assert!(!header_aria_label.is_empty(), "Header should have aria-label");
+        assert!(
+            !header_aria_label.is_empty(),
+            "Header should have aria-label"
+        );
         assert_eq!(header_scope, "col", "Header should have col scope");
     }
 
@@ -40,7 +46,10 @@ mod accessibility_tests {
 
         assert_eq!(cell_role, "cell", "Cell should have cell role");
         assert!(!cell_aria_label.is_empty(), "Cell should have aria-label");
-        assert!(!cell_aria_valuenow.is_empty(), "Cell should have aria-valuenow");
+        assert!(
+            !cell_aria_valuenow.is_empty(),
+            "Cell should have aria-valuenow"
+        );
     }
 
     #[test]
@@ -51,7 +60,11 @@ mod accessibility_tests {
 
         // Test tab navigation
         current_focus_index.update(|index| *index = (*index + 1) % focusable_elements.len());
-        assert_eq!(current_focus_index.get(), 1, "Should navigate to next focusable element");
+        assert_eq!(
+            current_focus_index.get(),
+            1,
+            "Should navigate to next focusable element"
+        );
 
         // Test shift+tab navigation
         current_focus_index.update(|index| {
@@ -61,7 +74,11 @@ mod accessibility_tests {
                 *index -= 1;
             }
         });
-        assert_eq!(current_focus_index.get(), 0, "Should navigate to previous focusable element");
+        assert_eq!(
+            current_focus_index.get(),
+            0,
+            "Should navigate to previous focusable element"
+        );
     }
 
     #[test]
@@ -71,8 +88,14 @@ mod accessibility_tests {
         let aria_live_region = "polite";
         let aria_announcements = true;
 
-        assert!(!screen_reader_text.is_empty(), "Should have screen reader text");
-        assert_eq!(aria_live_region, "polite", "Should have polite aria-live region");
+        assert!(
+            !screen_reader_text.is_empty(),
+            "Should have screen reader text"
+        );
+        assert_eq!(
+            aria_live_region, "polite",
+            "Should have polite aria-live region"
+        );
         assert!(aria_announcements, "Should support aria announcements");
     }
 
@@ -108,7 +131,10 @@ mod accessibility_tests {
         let aria_sort_none = "none";
 
         assert_eq!(aria_sort_asc, "ascending", "Should support ascending sort");
-        assert_eq!(aria_sort_desc, "descending", "Should support descending sort");
+        assert_eq!(
+            aria_sort_desc, "descending",
+            "Should support descending sort"
+        );
         assert_eq!(aria_sort_none, "none", "Should support no sort");
     }
 
@@ -120,8 +146,14 @@ mod accessibility_tests {
         let aria_selected_undefined = "undefined";
 
         assert_eq!(aria_selected_true, "true", "Should support true selection");
-        assert_eq!(aria_selected_false, "false", "Should support false selection");
-        assert_eq!(aria_selected_undefined, "undefined", "Should support undefined selection");
+        assert_eq!(
+            aria_selected_false, "false",
+            "Should support false selection"
+        );
+        assert_eq!(
+            aria_selected_undefined, "undefined",
+            "Should support undefined selection"
+        );
     }
 
     #[test]
@@ -131,7 +163,10 @@ mod accessibility_tests {
         let aria_expanded_false = "false";
 
         assert_eq!(aria_expanded_true, "true", "Should support expanded state");
-        assert_eq!(aria_expanded_false, "false", "Should support collapsed state");
+        assert_eq!(
+            aria_expanded_false, "false",
+            "Should support collapsed state"
+        );
     }
 
     #[test]
@@ -171,8 +206,14 @@ mod accessibility_tests {
         let aria_live_assertive = "assertive";
         let aria_live_off = "off";
 
-        assert_eq!(aria_live_polite, "polite", "Should support polite live region");
-        assert_eq!(aria_live_assertive, "assertive", "Should support assertive live region");
+        assert_eq!(
+            aria_live_polite, "polite",
+            "Should support polite live region"
+        );
+        assert_eq!(
+            aria_live_assertive, "assertive",
+            "Should support assertive live region"
+        );
         assert_eq!(aria_live_off, "off", "Should support off live region");
     }
 
@@ -194,8 +235,14 @@ mod accessibility_tests {
         let aria_relevant_text = "text";
         let aria_relevant_all = "all";
 
-        assert_eq!(aria_relevant_additions, "additions", "Should support additions");
-        assert_eq!(aria_relevant_removals, "removals", "Should support removals");
+        assert_eq!(
+            aria_relevant_additions, "additions",
+            "Should support additions"
+        );
+        assert_eq!(
+            aria_relevant_removals, "removals",
+            "Should support removals"
+        );
         assert_eq!(aria_relevant_text, "text", "Should support text");
         assert_eq!(aria_relevant_all, "all", "Should support all");
     }

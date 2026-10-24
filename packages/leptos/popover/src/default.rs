@@ -39,7 +39,10 @@ fn use_popover_context() -> PopoverContext {
 fn next_content_id() -> String {
     use std::sync::atomic::{AtomicUsize, Ordering};
     static COUNTER: AtomicUsize = AtomicUsize::new(0);
-    format!("popover-content-{}", COUNTER.fetch_add(1, Ordering::Relaxed))
+    format!(
+        "popover-content-{}",
+        COUNTER.fetch_add(1, Ordering::Relaxed)
+    )
 }
 
 fn data_state(open: bool) -> &'static str {
@@ -174,7 +177,11 @@ pub fn PopoverContent(
 ) -> impl IntoView {
     let ctx = use_popover_context();
     let computed_class = Signal::derive(move || {
-        format!("{} {}", POPOVER_CONTENT_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            POPOVER_CONTENT_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {

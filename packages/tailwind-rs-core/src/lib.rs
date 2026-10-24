@@ -72,6 +72,7 @@ pub mod validation;
 
 // Re-export main types and macros
 pub use classes::*;
+#[allow(ambiguous_glob_reexports)]
 pub use colors::*;
 pub use responsive::*;
 pub use themes::*;

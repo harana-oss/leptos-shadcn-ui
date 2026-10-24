@@ -62,7 +62,10 @@ mod tdd_tests {
         let _alert_view = view! {
             <Alert class=custom_class>"Custom styled alert"</Alert>
         };
-        assert_eq!(custom_class, "custom-alert-class", "Custom styling should be supported");
+        assert_eq!(
+            custom_class, "custom-alert-class",
+            "Custom styling should be supported"
+        );
     }
 
     #[test]
@@ -71,7 +74,10 @@ mod tdd_tests {
         let _alert_view = view! {
             <Alert id=custom_id>"Alert with ID"</Alert>
         };
-        assert_eq!(custom_id, "custom-alert-id", "Custom ID should be supported");
+        assert_eq!(
+            custom_id, "custom-alert-id",
+            "Custom ID should be supported"
+        );
     }
 
     #[test]

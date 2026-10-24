@@ -145,8 +145,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             email_recipients,
             duration,
         } => {
-            run_monitoring(interval, enable_alerts, webhook_url, email_recipients, duration)
-                .await?;
+            run_monitoring(
+                interval,
+                enable_alerts,
+                webhook_url,
+                email_recipients,
+                duration,
+            )
+            .await?;
         }
         Commands::Report {
             input,
@@ -316,10 +322,16 @@ async fn run_regression_tests(
         .count();
 
     if critical_regressions > 0 {
-        println!("🚨 CRITICAL: {} critical regressions detected!", critical_regressions);
+        println!(
+            "🚨 CRITICAL: {} critical regressions detected!",
+            critical_regressions
+        );
         std::process::exit(1);
     } else if major_regressions > 0 {
-        println!("⚠️ WARNING: {} major regressions detected!", major_regressions);
+        println!(
+            "⚠️ WARNING: {} major regressions detected!",
+            major_regressions
+        );
         std::process::exit(1);
     } else {
         println!("✅ No significant regressions detected!");
@@ -485,12 +497,24 @@ fn print_text_results(results: &BenchmarkSuiteResults) {
 
     for (name, result) in &results.benchmark_results {
         println!("\n{} ({})", result.component_name, name);
-        println!("  Average time: {:.2}ms", result.average_time.as_secs_f64() * 1000.0);
-        println!("  Min time: {:.2}ms", result.min_time.as_secs_f64() * 1000.0);
-        println!("  Max time: {:.2}ms", result.max_time.as_secs_f64() * 1000.0);
+        println!(
+            "  Average time: {:.2}ms",
+            result.average_time.as_secs_f64() * 1000.0
+        );
+        println!(
+            "  Min time: {:.2}ms",
+            result.min_time.as_secs_f64() * 1000.0
+        );
+        println!(
+            "  Max time: {:.2}ms",
+            result.max_time.as_secs_f64() * 1000.0
+        );
         println!("  Memory usage: {} bytes", result.memory_usage_bytes);
         println!("  Performance score: {:.1}/100", result.performance_score);
-        println!("  Meets target: {}", if result.meets_target { "✅" } else { "❌" });
+        println!(
+            "  Meets target: {}",
+            if result.meets_target { "✅" } else { "❌" }
+        );
     }
 
     println!("\nOverall Score: {:.1}/100", results.overall_score);

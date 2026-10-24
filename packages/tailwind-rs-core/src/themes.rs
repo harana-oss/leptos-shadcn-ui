@@ -200,9 +200,17 @@ impl Theme {
                 self.primary.background(50)
             ),
             Variant::Ghost => {
-                format!("{} hover:{}", self.primary.ghost(100), self.primary.background(100))
+                format!(
+                    "{} hover:{}",
+                    self.primary.ghost(100),
+                    self.primary.background(100)
+                )
             }
-            Variant::Link => format!("{} hover:{}", self.primary.link(600), self.primary.text(700)),
+            Variant::Link => format!(
+                "{} hover:{}",
+                self.primary.link(600),
+                self.primary.text(700)
+            ),
             Variant::Destructive => format!(
                 "{} {} hover:{}",
                 self.error.background(600),
@@ -225,7 +233,11 @@ impl Theme {
 
     /// Get classes for a specific variant and size combination.
     pub fn get_classes(&self, variant: &Variant, size: &Size) -> String {
-        format!("{} {}", self.get_variant_classes(variant), self.get_size_classes(size))
+        format!(
+            "{} {}",
+            self.get_variant_classes(variant),
+            self.get_size_classes(size)
+        )
     }
 }
 

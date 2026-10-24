@@ -4,7 +4,6 @@
 //!
 //! This crate provides utilities for managing signal lifecycles, implementing batched updates,
 //! and ensuring proper memory management in Leptos applications.
-
 // SignalManagementError is public API; boxing its context would be a breaking change.
 #![allow(clippy::result_large_err)]
 

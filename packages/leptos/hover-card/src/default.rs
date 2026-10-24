@@ -37,7 +37,10 @@ fn use_hover_card_context() -> HoverCardContext {
 fn next_content_id() -> String {
     use std::sync::atomic::{AtomicUsize, Ordering};
     static COUNTER: AtomicUsize = AtomicUsize::new(0);
-    format!("hover-card-content-{}", COUNTER.fetch_add(1, Ordering::Relaxed))
+    format!(
+        "hover-card-content-{}",
+        COUNTER.fetch_add(1, Ordering::Relaxed)
+    )
 }
 
 fn data_state(open: bool) -> &'static str {
@@ -76,7 +79,11 @@ pub fn HoverCard(
     // `variant` and `size` are accepted for backwards compatibility and exposed
     // as data attributes; styling lives on the trigger/content parts.
     let computed_class = Signal::derive(move || {
-        format!("{} {}", HOVER_CARD_ROOT_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            HOVER_CARD_ROOT_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {
@@ -115,7 +122,11 @@ pub fn HoverCardTrigger(
     let ctx = use_hover_card_context();
     let is_disabled = Signal::derive(move || disabled.get() || ctx.disabled.get());
     let computed_class = Signal::derive(move || {
-        format!("{} {}", HOVER_CARD_TRIGGER_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            HOVER_CARD_TRIGGER_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     let open_card = move || {
         if !is_disabled.get_untracked() {
@@ -159,7 +170,11 @@ pub fn HoverCardContent(
 ) -> impl IntoView {
     let ctx = use_hover_card_context();
     let computed_class = Signal::derive(move || {
-        format!("{} {}", HOVER_CARD_CONTENT_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            HOVER_CARD_CONTENT_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {

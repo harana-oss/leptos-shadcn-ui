@@ -23,7 +23,10 @@ mod click_handler_tests {
             callback.run(());
         }
 
-        assert!(*clicked.lock().unwrap(), "Button click handler should execute successfully");
+        assert!(
+            *clicked.lock().unwrap(),
+            "Button click handler should execute successfully"
+        );
     }
 
     #[test]

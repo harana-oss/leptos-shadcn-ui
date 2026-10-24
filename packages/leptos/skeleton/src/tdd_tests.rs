@@ -71,7 +71,10 @@ mod tdd_tests {
         let _skeleton_view = view! {
             <Skeleton class=custom_class />
         };
-        assert_eq!(custom_class, "custom-skeleton-class", "Custom styling should be supported");
+        assert_eq!(
+            custom_class, "custom-skeleton-class",
+            "Custom styling should be supported"
+        );
     }
 
     #[test]
@@ -80,7 +83,10 @@ mod tdd_tests {
         let _skeleton_view = view! {
             <Skeleton id=custom_id />
         };
-        assert_eq!(custom_id, "custom-skeleton-id", "Custom ID should be supported");
+        assert_eq!(
+            custom_id, "custom-skeleton-id",
+            "Custom ID should be supported"
+        );
     }
 
     #[test]

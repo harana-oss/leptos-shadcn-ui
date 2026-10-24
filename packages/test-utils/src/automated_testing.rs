@@ -253,8 +253,14 @@ impl AutomatedTestManager {
         report.push_str("📊 Overall Statistics:\n");
         report.push_str(&format!("  - Total Components: {}\n", total_components));
         report.push_str(&format!("  - Tests Generated: {}\n", successful_generation));
-        report.push_str(&format!("  - Compilation Success: {}\n", successful_compilation));
-        report.push_str(&format!("  - Test Execution Success: {}\n", successful_execution));
+        report.push_str(&format!(
+            "  - Compilation Success: {}\n",
+            successful_compilation
+        ));
+        report.push_str(&format!(
+            "  - Test Execution Success: {}\n",
+            successful_execution
+        ));
         report.push_str(&format!("  - Fully Successful: {}\n\n", fully_successful));
 
         // Component breakdown
@@ -264,8 +270,10 @@ impl AutomatedTestManager {
             report.push_str(&format!("  {} {}\n", status, component_name));
 
             if !result.test_files_created.is_empty() {
-                report
-                    .push_str(&format!("    - Test files: {}\n", result.test_files_created.len()));
+                report.push_str(&format!(
+                    "    - Test files: {}\n",
+                    result.test_files_created.len()
+                ));
             }
 
             if !result.errors.is_empty() {

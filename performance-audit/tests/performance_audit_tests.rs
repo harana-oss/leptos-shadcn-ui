@@ -363,6 +363,9 @@ async fn test_performance_audit_configuration() {
     let monitoring_config = performance_monitoring::PerformanceConfig::default();
     assert_eq!(monitoring_config.max_render_time_ms, 16.0);
     assert_eq!(monitoring_config.max_memory_usage_bytes, 1024 * 1024);
-    assert_eq!(monitoring_config.monitoring_duration, Duration::from_secs(60));
+    assert_eq!(
+        monitoring_config.monitoring_duration,
+        Duration::from_secs(60)
+    );
     assert_eq!(monitoring_config.sample_rate, Duration::from_millis(100));
 }

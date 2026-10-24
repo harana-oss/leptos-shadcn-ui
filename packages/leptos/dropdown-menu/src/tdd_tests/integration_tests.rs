@@ -528,7 +528,10 @@ mod integration_tests {
         };
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 10, "Integration should be performant");
+        assert!(
+            duration.as_millis() < 10,
+            "Integration should be performant"
+        );
     }
 
     #[test]
@@ -548,7 +551,10 @@ mod integration_tests {
 
         // Test memory usage
         let size = std::mem::size_of::<usize>();
-        assert!(size < 1024, "Integration should not cause excessive memory usage");
+        assert!(
+            size < 1024,
+            "Integration should not cause excessive memory usage"
+        );
     }
 
     // ===== E2E INTEGRATION TESTS =====

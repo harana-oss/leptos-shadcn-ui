@@ -24,7 +24,11 @@ fn discovers_button_crate_sources() {
         .iter()
         .find(|s| s.name == "leptos-shadcn-button")
         .expect("button crate is in the dependency graph");
-    assert!(button.src_dir.is_dir(), "{} must exist", button.src_dir.display());
+    assert!(
+        button.src_dir.is_dir(),
+        "{} must exist",
+        button.src_dir.display()
+    );
 }
 
 #[test]
@@ -41,7 +45,10 @@ fn scanned_sources_contain_outline_button_classes() {
         "hover:bg-accent",
         "hover:text-accent-foreground",
     ] {
-        assert!(all.contains(class), "class {class} must be visible to Tailwind");
+        assert!(
+            all.contains(class),
+            "class {class} must be visible to Tailwind"
+        );
     }
 }
 
@@ -60,7 +67,10 @@ fn every_component_crate_is_covered() {
             .find(|s| s.name == name)
             .unwrap_or_else(|| panic!("{name} missing"));
         let path = s.src_dir.to_string_lossy().replace('\\', "/");
-        assert!(css.contains(&format!("@source \"{path}\";")), "{name} not in generated css");
+        assert!(
+            css.contains(&format!("@source \"{path}\";")),
+            "{name} not in generated css"
+        );
     }
 }
 

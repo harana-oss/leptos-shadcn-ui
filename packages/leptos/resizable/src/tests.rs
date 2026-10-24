@@ -22,7 +22,10 @@ mod tests {
             true
         });
 
-        assert!(test_result.is_ok(), "ResizablePanelGroup creation test failed");
+        assert!(
+            test_result.is_ok(),
+            "ResizablePanelGroup creation test failed"
+        );
     }
 
     #[test]

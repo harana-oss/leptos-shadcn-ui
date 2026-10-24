@@ -44,7 +44,12 @@ pub fn Alert(
             AlertVariant::Warning => "border-yellow-500/50 text-yellow-600 dark:text-yellow-400",
         };
 
-        format!("{} {} {}", ALERT_CLASS, variant_class, class.get().unwrap_or_default())
+        format!(
+            "{} {} {}",
+            ALERT_CLASS,
+            variant_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {
@@ -88,7 +93,11 @@ pub fn AlertDescription(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let computed_class = Signal::derive(move || {
-        format!("{} {}", ALERT_DESCRIPTION_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            ALERT_DESCRIPTION_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {

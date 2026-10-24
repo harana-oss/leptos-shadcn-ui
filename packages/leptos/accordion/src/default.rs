@@ -328,20 +328,29 @@ mod context_type_regression_tests {
     fn collapsible_with_enabled_item_collapses() {
         let cur = vec!["a".to_string()];
         assert!(compute_toggle(&AccordionType::Single, true, false, &cur, "a").is_empty());
-        assert_eq!(compute_toggle(&AccordionType::Single, false, false, &cur, "a"), cur);
+        assert_eq!(
+            compute_toggle(&AccordionType::Single, false, false, &cur, "a"),
+            cur
+        );
     }
 
     #[test]
     fn disabled_blocks_toggle_regardless_of_collapsible() {
         let cur = vec!["a".to_string()];
-        assert_eq!(compute_toggle(&AccordionType::Single, true, true, &cur, "a"), cur);
+        assert_eq!(
+            compute_toggle(&AccordionType::Single, true, true, &cur, "a"),
+            cur
+        );
         assert!(compute_toggle(&AccordionType::Multiple, false, true, &[], "b").is_empty());
     }
 
     #[test]
     fn single_and_multiple_open() {
         let cur = vec!["a".to_string()];
-        assert_eq!(compute_toggle(&AccordionType::Single, false, false, &cur, "b"), vec!["b"]);
+        assert_eq!(
+            compute_toggle(&AccordionType::Single, false, false, &cur, "b"),
+            vec!["b"]
+        );
         assert_eq!(
             compute_toggle(&AccordionType::Multiple, false, false, &cur, "b"),
             vec!["a", "b"]

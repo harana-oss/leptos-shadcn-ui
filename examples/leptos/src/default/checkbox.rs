@@ -4,7 +4,7 @@ use crate::default::components::ui::checkbox::Checkbox;
 
 #[component]
 pub fn CheckboxExample() -> impl IntoView {
-    let (checked, set_checked) = create_signal(false);
+    let (checked, set_checked) = signal(false);
 
     let handle_change = Callback::new(move |new_checked: bool| {
         set_checked.set(new_checked);

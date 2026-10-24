@@ -7,7 +7,7 @@ use crate::new_york::components::ui::{
 
 #[component]
 pub fn DialogExample() -> impl IntoView {
-    let (open, set_open) = create_signal(false);
+    let (open, set_open) = signal(false);
 
     let handle_open_change = Callback::new(move |new_open: bool| {
         set_open.set(new_open);

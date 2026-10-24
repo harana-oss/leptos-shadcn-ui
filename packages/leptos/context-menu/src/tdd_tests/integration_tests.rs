@@ -569,7 +569,11 @@ mod integration_tests {
         // Components use context; an owner must be active on native.
         let _owner = Owner::new();
         _owner.set();
-        let data = RwSignal::new(vec![("edit", "Edit"), ("copy", "Copy"), ("delete", "Delete")]);
+        let data = RwSignal::new(vec![
+            ("edit", "Edit"),
+            ("copy", "Copy"),
+            ("delete", "Delete"),
+        ]);
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>

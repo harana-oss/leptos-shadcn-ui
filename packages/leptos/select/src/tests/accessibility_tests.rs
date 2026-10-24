@@ -11,19 +11,37 @@ mod accessibility_tests {
         let aria_disabled = RwSignal::new(false);
 
         // Test initial ARIA state
-        assert!(!aria_expanded.get(), "ARIA expanded should be false initially");
-        assert!(!aria_selected.get(), "ARIA selected should be false initially");
-        assert!(!aria_disabled.get(), "ARIA disabled should be false initially");
+        assert!(
+            !aria_expanded.get(),
+            "ARIA expanded should be false initially"
+        );
+        assert!(
+            !aria_selected.get(),
+            "ARIA selected should be false initially"
+        );
+        assert!(
+            !aria_disabled.get(),
+            "ARIA disabled should be false initially"
+        );
 
         // Test ARIA state changes
         aria_expanded.set(true);
-        assert!(aria_expanded.get(), "ARIA expanded should be true when open");
+        assert!(
+            aria_expanded.get(),
+            "ARIA expanded should be true when open"
+        );
 
         aria_selected.set(true);
-        assert!(aria_selected.get(), "ARIA selected should be true when item selected");
+        assert!(
+            aria_selected.get(),
+            "ARIA selected should be true when item selected"
+        );
 
         aria_disabled.set(true);
-        assert!(aria_disabled.get(), "ARIA disabled should be true when disabled");
+        assert!(
+            aria_disabled.get(),
+            "ARIA disabled should be true when disabled"
+        );
     }
 
     #[test]
@@ -41,8 +59,14 @@ mod accessibility_tests {
         let tabindex_enabled = 0;
         let tabindex_disabled = -1;
 
-        assert_eq!(tabindex_enabled, 0, "Enabled element should have tabindex 0");
-        assert_eq!(tabindex_disabled, -1, "Disabled element should have tabindex -1");
+        assert_eq!(
+            tabindex_enabled, 0,
+            "Enabled element should have tabindex 0"
+        );
+        assert_eq!(
+            tabindex_disabled, -1,
+            "Disabled element should have tabindex -1"
+        );
 
         // Test aria-label support
         let aria_label = "Choose an option";
@@ -83,7 +107,10 @@ mod accessibility_tests {
         // Test initial validation state
         assert!(is_valid.get(), "Should be valid initially");
         assert!(!is_invalid.get(), "Should not be invalid initially");
-        assert!(validation_message.get().is_none(), "No validation message initially");
+        assert!(
+            validation_message.get().is_none(),
+            "No validation message initially"
+        );
 
         // Test invalid state
         is_valid.set(false);
@@ -92,7 +119,10 @@ mod accessibility_tests {
 
         assert!(!is_valid.get(), "Should be invalid");
         assert!(is_invalid.get(), "Should be invalid");
-        assert_eq!(validation_message.get(), Some("Please select an option".to_string()));
+        assert_eq!(
+            validation_message.get(),
+            Some("Please select an option".to_string())
+        );
     }
 
     #[test]

@@ -388,6 +388,9 @@ mod basic_rendering_tests {
         };
 
         // Memory usage should be reasonable
-        assert!(std::mem::size_of::<usize>() < 1024, "Memory usage should be reasonable");
+        assert!(
+            std::mem::size_of::<usize>() < 1024,
+            "Memory usage should be reasonable"
+        );
     }
 }

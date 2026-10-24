@@ -93,8 +93,11 @@ pub fn Pagination(
         pages
     };
 
-    let merged_class =
-        tw_merge!(&format!("{} {}", PAGINATION_CLASS, class.get().unwrap_or_default()));
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
+        PAGINATION_CLASS,
+        class.get().unwrap_or_default()
+    ));
 
     view! {
         <nav
@@ -162,8 +165,11 @@ pub fn PaginationContent(
     #[prop(optional)] class: MaybeProp<String>,
     children: Children,
 ) -> impl IntoView {
-    let merged_class =
-        tw_merge!(&format!("{} {}", PAGINATION_CONTENT_CLASS, class.get().unwrap_or_default()));
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
+        PAGINATION_CONTENT_CLASS,
+        class.get().unwrap_or_default()
+    ));
 
     view! {
         <div class={merged_class}>
@@ -205,7 +211,11 @@ pub fn PaginationLink(
         PAGINATION_ITEM_CLASS.to_string()
     };
 
-    let merged_class = tw_merge!(&format!("{} {}", button_class, class.get().unwrap_or_default()));
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
+        button_class,
+        class.get().unwrap_or_default()
+    ));
 
     view! {
         <button
@@ -308,8 +318,11 @@ pub fn PaginationNext(
 
 #[component]
 pub fn PaginationEllipsis(#[prop(optional)] class: MaybeProp<String>) -> impl IntoView {
-    let merged_class =
-        tw_merge!(&format!("{} {}", PAGINATION_ELLIPSIS_CLASS, class.get().unwrap_or_default()));
+    let merged_class = tw_merge!(&format!(
+        "{} {}",
+        PAGINATION_ELLIPSIS_CLASS,
+        class.get().unwrap_or_default()
+    ));
 
     view! {
         <span

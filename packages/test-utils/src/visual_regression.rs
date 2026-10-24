@@ -212,7 +212,10 @@ impl VisualRegressionSuite {
             ))
         }
         .with_detail("pass_rate", format!("{}%", pass_rate as u32))
-        .with_detail("threshold", format!("{}%", (self.pixel_threshold * 100.0) as u32))
+        .with_detail(
+            "threshold",
+            format!("{}%", (self.pixel_threshold * 100.0) as u32),
+        )
         .with_detail("failed_tests", (total_count - passed_count).to_string())
     }
 }

@@ -23,7 +23,10 @@ mod performance_tests {
         let _view = table_view.into_view();
         let duration = start_time.elapsed();
 
-        assert!(duration.as_millis() < 100, "Table rendering should complete within 100ms");
+        assert!(
+            duration.as_millis() < 100,
+            "Table rendering should complete within 100ms"
+        );
     }
 
     #[test]
@@ -65,7 +68,10 @@ mod performance_tests {
         let duration = start_time.elapsed();
 
         assert_eq!(callback_count.get(), 100, "Should have 100 callbacks");
-        assert!(duration.as_millis() < 10, "Callbacks should complete within 10ms");
+        assert!(
+            duration.as_millis() < 10,
+            "Callbacks should complete within 10ms"
+        );
     }
 
     #[test]
@@ -82,7 +88,10 @@ mod performance_tests {
         let duration = start_time.elapsed();
 
         assert_eq!(state.get(), 999, "Should have final state value");
-        assert!(duration.as_millis() < 20, "State updates should complete within 20ms");
+        assert!(
+            duration.as_millis() < 20,
+            "State updates should complete within 20ms"
+        );
     }
 
     #[test]
@@ -100,7 +109,10 @@ mod performance_tests {
         let duration = start_time.elapsed();
 
         assert_eq!(computed_value.get(), 20, "Should have computed value");
-        assert!(duration.as_millis() < 5, "Computed values should complete within 5ms");
+        assert!(
+            duration.as_millis() < 5,
+            "Computed values should complete within 5ms"
+        );
     }
 
     #[test]
@@ -117,7 +129,10 @@ mod performance_tests {
         let duration = start_time.elapsed();
 
         assert_eq!(event_count.get(), 100, "Should have 100 events");
-        assert!(duration.as_millis() < 5, "Event handling should complete within 5ms");
+        assert!(
+            duration.as_millis() < 5,
+            "Event handling should complete within 5ms"
+        );
     }
 
     #[test]
@@ -154,7 +169,10 @@ mod performance_tests {
         // Simulate concurrent operations
         let _duration = operation_time.elapsed();
 
-        assert_eq!(concurrent_operations, 10, "Should have 10 concurrent operations");
+        assert_eq!(
+            concurrent_operations, 10,
+            "Should have 10 concurrent operations"
+        );
     }
 
     #[test]
@@ -168,7 +186,10 @@ mod performance_tests {
         let duration = start_time.elapsed();
 
         assert_eq!(string_operations.len(), 1000, "Should have 1000 strings");
-        assert!(duration.as_millis() < 30, "String operations should complete within 30ms");
+        assert!(
+            duration.as_millis() < 30,
+            "String operations should complete within 30ms"
+        );
     }
 
     #[test]
@@ -185,7 +206,10 @@ mod performance_tests {
         let duration = start_time.elapsed();
 
         assert_eq!(hashmap.len(), 1000, "Should have 1000 hashmap entries");
-        assert!(duration.as_millis() < 20, "Hashmap operations should complete within 20ms");
+        assert!(
+            duration.as_millis() < 20,
+            "Hashmap operations should complete within 20ms"
+        );
     }
 
     #[test]
@@ -202,7 +226,10 @@ mod performance_tests {
         let duration = start_time.elapsed();
 
         assert_eq!(style_operations, 100, "Should have 100 style operations");
-        assert!(duration.as_millis() < 10, "Style operations should complete within 10ms");
+        assert!(
+            duration.as_millis() < 10,
+            "Style operations should complete within 10ms"
+        );
     }
 
     #[test]
@@ -219,7 +246,10 @@ mod performance_tests {
         let duration = start_time.elapsed();
 
         assert_eq!(validation_checks, 100, "Should have 100 validation checks");
-        assert!(duration.as_millis() < 5, "Validation should complete within 5ms");
+        assert!(
+            duration.as_millis() < 5,
+            "Validation should complete within 5ms"
+        );
     }
 
     #[test]

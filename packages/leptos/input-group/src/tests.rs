@@ -2,8 +2,14 @@ use crate::default::*;
 
 #[test]
 fn align_parse_and_roundtrip() {
-    assert_eq!(InputGroupAddonAlign::parse(""), InputGroupAddonAlign::InlineStart);
-    assert_eq!(InputGroupAddonAlign::parse("nope"), InputGroupAddonAlign::InlineStart);
+    assert_eq!(
+        InputGroupAddonAlign::parse(""),
+        InputGroupAddonAlign::InlineStart
+    );
+    assert_eq!(
+        InputGroupAddonAlign::parse("nope"),
+        InputGroupAddonAlign::InlineStart
+    );
     for a in [
         InputGroupAddonAlign::InlineStart,
         InputGroupAddonAlign::InlineEnd,
@@ -30,18 +36,36 @@ fn button_size_mapping() {
     assert_eq!(button_size_class(""), INPUT_GROUP_BUTTON_SIZE_XS_CLASS);
     assert_eq!(button_size_class("xs"), INPUT_GROUP_BUTTON_SIZE_XS_CLASS);
     assert_eq!(button_size_class("sm"), INPUT_GROUP_BUTTON_SIZE_SM_CLASS);
-    assert_eq!(button_size_class("icon-xs"), INPUT_GROUP_BUTTON_SIZE_ICON_XS_CLASS);
-    assert_eq!(button_size_class("icon-sm"), INPUT_GROUP_BUTTON_SIZE_ICON_SM_CLASS);
+    assert_eq!(
+        button_size_class("icon-xs"),
+        INPUT_GROUP_BUTTON_SIZE_ICON_XS_CLASS
+    );
+    assert_eq!(
+        button_size_class("icon-sm"),
+        INPUT_GROUP_BUTTON_SIZE_ICON_SM_CLASS
+    );
 }
 
 #[test]
 fn button_variant_mapping() {
     assert_eq!(button_variant_class(""), BUTTON_VARIANT_GHOST_CLASS);
     assert_eq!(button_variant_class("ghost"), BUTTON_VARIANT_GHOST_CLASS);
-    assert_eq!(button_variant_class("default"), BUTTON_VARIANT_DEFAULT_CLASS);
-    assert_eq!(button_variant_class("outline"), BUTTON_VARIANT_OUTLINE_CLASS);
-    assert_eq!(button_variant_class("secondary"), BUTTON_VARIANT_SECONDARY_CLASS);
-    assert_eq!(button_variant_class("destructive"), BUTTON_VARIANT_DESTRUCTIVE_CLASS);
+    assert_eq!(
+        button_variant_class("default"),
+        BUTTON_VARIANT_DEFAULT_CLASS
+    );
+    assert_eq!(
+        button_variant_class("outline"),
+        BUTTON_VARIANT_OUTLINE_CLASS
+    );
+    assert_eq!(
+        button_variant_class("secondary"),
+        BUTTON_VARIANT_SECONDARY_CLASS
+    );
+    assert_eq!(
+        button_variant_class("destructive"),
+        BUTTON_VARIANT_DESTRUCTIVE_CLASS
+    );
     assert_eq!(button_variant_class("link"), BUTTON_VARIANT_LINK_CLASS);
 }
 

@@ -153,8 +153,14 @@ mod tdd_red_tests {
         let class = Some("test-class-with-special-chars!@#$%^&*()".to_string());
         let style = Some("color: red; background: blue; font-size: 16px;".to_string());
 
-        assert_eq!(id.unwrap_or_default(), "test-id-with-special-chars!@#$%^&*()");
-        assert_eq!(class.clone().unwrap_or_default(), "test-class-with-special-chars!@#$%^&*()");
+        assert_eq!(
+            id.unwrap_or_default(),
+            "test-id-with-special-chars!@#$%^&*()"
+        );
+        assert_eq!(
+            class.clone().unwrap_or_default(),
+            "test-class-with-special-chars!@#$%^&*()"
+        );
         assert_eq!(
             style.clone().unwrap_or_default(),
             "color: red; background: blue; font-size: 16px;"
@@ -171,7 +177,10 @@ mod tdd_red_tests {
 
         assert_eq!(id.unwrap_or_default(), "test-id-🚀");
         assert_eq!(class.clone().unwrap_or_default(), "test-class-🎉");
-        assert_eq!(style.clone().unwrap_or_default(), "color: red; content: '🚀';");
+        assert_eq!(
+            style.clone().unwrap_or_default(),
+            "color: red; content: '🚀';"
+        );
     }
 
     #[test]
@@ -198,7 +207,10 @@ mod tdd_red_tests {
 
         assert_eq!(id.unwrap_or_default(), "test-id-123");
         assert_eq!(class.clone().unwrap_or_default(), "test-class-456");
-        assert_eq!(style.clone().unwrap_or_default(), "width: 100px; height: 200px;");
+        assert_eq!(
+            style.clone().unwrap_or_default(),
+            "width: 100px; height: 200px;"
+        );
     }
 
     #[test]

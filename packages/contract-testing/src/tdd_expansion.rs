@@ -331,7 +331,10 @@ impl TddExpansionManager {
         // Create integration test file
         let integration_test = tests_dir.join("integration_test.rs");
         if !integration_test.exists() {
-            std::fs::write(&integration_test, self.generate_integration_test_template(config))?;
+            std::fs::write(
+                &integration_test,
+                self.generate_integration_test_template(config),
+            )?;
         }
 
         // Create contract test file
@@ -583,9 +586,14 @@ mod tests {
             let status = self.analyze_package_status(package_name, config)?;
 
             report.push_str(&format!("### {}\n", package_name));
-            report.push_str(&format!("- **TDD Score**: {:.1}%\n", status.overall_score * 100.0));
-            report
-                .push_str(&format!("- **Test Coverage**: {:.1}%\n", status.test_coverage * 100.0));
+            report.push_str(&format!(
+                "- **TDD Score**: {:.1}%\n",
+                status.overall_score * 100.0
+            ));
+            report.push_str(&format!(
+                "- **Test Coverage**: {:.1}%\n",
+                status.test_coverage * 100.0
+            ));
             report.push_str(&format!(
                 "- **Contract Compliance**: {:.1}%\n",
                 status.contract_compliance * 100.0
@@ -670,7 +678,10 @@ mod tests {
             self.generate_tdd_implementation(package_name)?;
         }
 
-        println!("✅ TDD implementation applied to {} packages", self.package_configs.len());
+        println!(
+            "✅ TDD implementation applied to {} packages",
+            self.package_configs.len()
+        );
         Ok(())
     }
 }

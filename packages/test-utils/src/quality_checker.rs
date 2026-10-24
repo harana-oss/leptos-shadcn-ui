@@ -324,10 +324,14 @@ impl QualityChecker {
 
         for required_feature in &self.quality_thresholds.required_accessibility_features {
             if !features.contains(required_feature) {
-                issues
-                    .push(format!("Missing required accessibility feature: {}", required_feature));
-                recommendations
-                    .push(format!("Implement {} for better accessibility", required_feature));
+                issues.push(format!(
+                    "Missing required accessibility feature: {}",
+                    required_feature
+                ));
+                recommendations.push(format!(
+                    "Implement {} for better accessibility",
+                    required_feature
+                ));
                 score *= 0.8;
             }
         }
@@ -468,9 +472,15 @@ impl QualityChecker {
 
         report.push_str("📊 Overall Statistics:\n");
         report.push_str(&format!("  - Total Components: {}\n", total_components));
-        report.push_str(&format!("  - Average Quality Score: {:.1}%\n", avg_score * 100.0));
+        report.push_str(&format!(
+            "  - Average Quality Score: {:.1}%\n",
+            avg_score * 100.0
+        ));
         report.push_str(&format!("  - High Quality (≥80%): {}\n", high_quality));
-        report.push_str(&format!("  - Needs Improvement (<60%): {}\n\n", needs_improvement));
+        report.push_str(&format!(
+            "  - Needs Improvement (<60%): {}\n\n",
+            needs_improvement
+        ));
 
         // Component breakdown
         report.push_str("🎯 Component Breakdown:\n");

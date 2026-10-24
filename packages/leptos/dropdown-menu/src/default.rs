@@ -151,7 +151,11 @@ pub fn DropdownMenuTrigger(
     let ctx = DropdownMenuContext::current();
     let is_disabled = move || disabled.get() || ctx.disabled.get();
     let computed_class = Signal::derive(move || {
-        format!("{} {}", DROPDOWN_MENU_TRIGGER_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            DROPDOWN_MENU_TRIGGER_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     view! {
         <button
@@ -208,7 +212,11 @@ pub fn DropdownMenuContent(
 ) -> impl IntoView {
     let ctx = DropdownMenuContext::current();
     let computed_class = Signal::derive(move || {
-        format!("{} {}", DROPDOWN_MENU_CONTENT_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            DROPDOWN_MENU_CONTENT_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     let children = StoredValue::new(children);
     view! {
@@ -244,7 +252,11 @@ pub fn DropdownMenuItem(
 ) -> impl IntoView {
     let ctx = DropdownMenuContext::current();
     let computed_class = Signal::derive(move || {
-        format!("{} {}", DROPDOWN_MENU_ITEM_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            DROPDOWN_MENU_ITEM_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     let select = move || {
         if disabled.get_untracked() {
@@ -306,7 +318,11 @@ pub fn DropdownMenuLabel(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let computed_class = Signal::derive(move || {
-        format!("{} {}", DROPDOWN_MENU_LABEL_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            DROPDOWN_MENU_LABEL_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     view! { <div class=computed_class id=move || id.get()>{children.map(|c| c())}</div> }
 }
@@ -315,7 +331,11 @@ pub fn DropdownMenuLabel(
 #[component]
 pub fn DropdownMenuSeparator(#[prop(into, optional)] class: MaybeProp<String>) -> impl IntoView {
     let computed_class = Signal::derive(move || {
-        format!("{} {}", DROPDOWN_MENU_SEPARATOR_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            DROPDOWN_MENU_SEPARATOR_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     view! { <div role="separator" aria-orientation="horizontal" class=computed_class></div> }
 }
@@ -336,7 +356,11 @@ pub fn DropdownMenuShortcut(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let computed_class = Signal::derive(move || {
-        format!("{} {}", DROPDOWN_MENU_SHORTCUT_CLASS, class.get().unwrap_or_default())
+        format!(
+            "{} {}",
+            DROPDOWN_MENU_SHORTCUT_CLASS,
+            class.get().unwrap_or_default()
+        )
     });
     view! { <span class=computed_class>{children.map(|c| c())}</span> }
 }

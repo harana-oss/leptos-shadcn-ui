@@ -38,7 +38,10 @@ mod tests {
                 };
                 true
             });
-            assert!(test_result.is_ok(), "Advanced date picker integration test failed");
+            assert!(
+                test_result.is_ok(),
+                "Advanced date picker integration test failed"
+            );
         });
     }
 

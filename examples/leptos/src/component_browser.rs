@@ -1,6 +1,8 @@
 //! Component browser with favorites filtering
 //! Provides an interactive interface to browse, search, and filter components by favorites
 
+#![allow(dead_code)]
+
 use leptos::prelude::*;
 use leptos::*;
 use leptos_shadcn_button::{Button, ButtonSize, ButtonVariant};

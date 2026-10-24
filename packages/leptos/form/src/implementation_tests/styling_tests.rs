@@ -134,7 +134,10 @@ mod styling_tests {
         assert!(peer_disabled_opacity.contains("peer-disabled:opacity-70"));
 
         // Test peer combinations
-        let combined_peer = format!("{} {} {}", peer, peer_disabled_cursor, peer_disabled_opacity);
+        let combined_peer = format!(
+            "{} {} {}",
+            peer, peer_disabled_cursor, peer_disabled_opacity
+        );
         assert!(combined_peer.contains("peer"));
         assert!(combined_peer.contains("peer-disabled:cursor-not-allowed"));
         assert!(combined_peer.contains("peer-disabled:opacity-70"));

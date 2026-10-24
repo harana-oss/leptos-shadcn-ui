@@ -102,7 +102,7 @@
 //!     }
 //! }
 //! ```
-
+#![allow(clippy::result_large_err)]
 // Component crates each export `default`, `new_york` and `signal_managed` modules;
 // their items are re-exported here, and narrowing the globs would drop public items.
 #![allow(ambiguous_glob_reexports)]
@@ -128,6 +128,7 @@ pub use loading::{WasmInlineLoader, WasmLoadingText, WasmProgressBar, WasmSpinne
 #[cfg(feature = "accordion")]
 pub use leptos_shadcn_accordion::*;
 
+#[allow(ambiguous_glob_reexports)]
 #[cfg(feature = "alert")]
 pub use leptos_shadcn_alert::*;
 

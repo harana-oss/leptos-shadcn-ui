@@ -77,7 +77,12 @@ pub fn Progress(
     });
 
     let computed_class = Signal::derive(move || {
-        format!("{} {} {}", PROGRESS_CLASS, size_class, class.get().unwrap_or_default())
+        format!(
+            "{} {} {}",
+            PROGRESS_CLASS,
+            size_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {

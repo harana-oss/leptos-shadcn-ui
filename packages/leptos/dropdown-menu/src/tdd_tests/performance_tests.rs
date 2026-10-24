@@ -67,7 +67,10 @@ mod performance_tests {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 10, "Disabled state changes should be performant");
+        assert!(
+            duration.as_millis() < 10,
+            "Disabled state changes should be performant"
+        );
     }
 
     #[test]
@@ -118,7 +121,10 @@ mod performance_tests {
         };
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 10, "Complex content should be performant");
+        assert!(
+            duration.as_millis() < 10,
+            "Complex content should be performant"
+        );
     }
 
     #[test]
@@ -172,7 +178,10 @@ mod performance_tests {
         };
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 100, "Large dataset should be performant");
+        assert!(
+            duration.as_millis() < 100,
+            "Large dataset should be performant"
+        );
     }
 
     #[test]
@@ -186,7 +195,10 @@ mod performance_tests {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 10, "Frequent updates should be performant");
+        assert!(
+            duration.as_millis() < 10,
+            "Frequent updates should be performant"
+        );
         assert_eq!(update_count.get(), 1000);
     }
 
@@ -231,7 +243,10 @@ mod performance_tests {
         };
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 10, "Nested menus should be performant");
+        assert!(
+            duration.as_millis() < 10,
+            "Nested menus should be performant"
+        );
     }
 
     #[test]
@@ -245,7 +260,10 @@ mod performance_tests {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 10, "Animation state changes should be performant");
+        assert!(
+            duration.as_millis() < 10,
+            "Animation state changes should be performant"
+        );
     }
 
     #[test]
@@ -257,7 +275,10 @@ mod performance_tests {
 
         // Test callback memory usage
         let size = std::mem::size_of_val(&callback);
-        assert!(size < 1024, "Callback should not cause excessive memory usage");
+        assert!(
+            size < 1024,
+            "Callback should not cause excessive memory usage"
+        );
 
         // Test callback execution
         callback.run("test".to_string());
@@ -275,7 +296,10 @@ mod performance_tests {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 10, "State updates should be performant");
+        assert!(
+            duration.as_millis() < 10,
+            "State updates should be performant"
+        );
         assert_eq!(state_count.get(), 1000);
     }
 
@@ -302,7 +326,10 @@ mod performance_tests {
 
         // Test rendering memory usage
         let size = std::mem::size_of::<usize>();
-        assert!(size < 1024, "Rendering should not cause excessive memory usage");
+        assert!(
+            size < 1024,
+            "Rendering should not cause excessive memory usage"
+        );
     }
 
     #[test]
@@ -321,7 +348,10 @@ mod performance_tests {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 50, "Complex callbacks should be performant");
+        assert!(
+            duration.as_millis() < 50,
+            "Complex callbacks should be performant"
+        );
         assert_eq!(complex_callback_count.get(), 1000);
     }
 
@@ -344,7 +374,10 @@ mod performance_tests {
         };
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 5, "Optimized rendering should be very fast");
+        assert!(
+            duration.as_millis() < 5,
+            "Optimized rendering should be very fast"
+        );
     }
 
     #[test]

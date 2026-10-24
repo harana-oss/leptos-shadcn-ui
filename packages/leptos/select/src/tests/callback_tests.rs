@@ -17,7 +17,10 @@ mod callback_tests {
         // Simulate callback invocation
         value_callback.run(Some("test_value".to_string()));
 
-        assert!(callback_triggered.get(), "Callback should have been triggered");
+        assert!(
+            callback_triggered.get(),
+            "Callback should have been triggered"
+        );
         assert_eq!(callback_value.get(), Some("test_value".to_string()));
     }
 
@@ -35,12 +38,21 @@ mod callback_tests {
         // Simulate callback invocation
         open_callback.run(true);
 
-        assert!(open_callback_triggered.get(), "Open callback should have been triggered");
-        assert!(callback_open_state.get(), "Callback should have received open state");
+        assert!(
+            open_callback_triggered.get(),
+            "Open callback should have been triggered"
+        );
+        assert!(
+            callback_open_state.get(),
+            "Callback should have received open state"
+        );
 
         // Test closing callback
         open_callback.run(false);
-        assert!(!callback_open_state.get(), "Callback should have received closed state");
+        assert!(
+            !callback_open_state.get(),
+            "Callback should have received closed state"
+        );
     }
 
     #[test]

@@ -345,8 +345,10 @@ impl RegressionTester {
         }
 
         if change.memory_change_percent > 0.0 {
-            recommendations
-                .push(format!("Memory usage increased by {:.1}%", change.memory_change_percent));
+            recommendations.push(format!(
+                "Memory usage increased by {:.1}%",
+                change.memory_change_percent
+            ));
 
             if change.memory_change_percent > 20.0 {
                 recommendations.push("Check for memory leaks in component cleanup".to_string());
@@ -521,7 +523,10 @@ impl RegressionTester {
         report.push_str("## Summary\n\n");
         report.push_str(&format!("- **Total Tests**: {}\n", total_tests));
         report.push_str(&format!("- **Regressions Detected**: {}\n", regressions));
-        report.push_str(&format!("- **Critical Regressions**: {}\n", critical_regressions));
+        report.push_str(&format!(
+            "- **Critical Regressions**: {}\n",
+            critical_regressions
+        ));
         report.push_str(&format!("- **Major Regressions**: {}\n", major_regressions));
         report.push('\n');
 
@@ -541,8 +546,10 @@ impl RegressionTester {
                     "- **Memory Change**: {:.1}%\n",
                     result.change.memory_change_percent
                 ));
-                report
-                    .push_str(&format!("- **Score Change**: {:.1}\n", result.change.score_change));
+                report.push_str(&format!(
+                    "- **Score Change**: {:.1}\n",
+                    result.change.score_change
+                ));
 
                 if !result.recommendations.is_empty() {
                     report.push_str("\n**Recommendations**:\n");

@@ -153,11 +153,20 @@ mod tdd_tests {
         // Test multiple interactions
         for i in 0..5 {
             interaction_count.update(|count| *count += 1);
-            assert_eq!(interaction_count.get(), i + 1, "Interaction count should be {}", i + 1);
+            assert_eq!(
+                interaction_count.get(),
+                i + 1,
+                "Interaction count should be {}",
+                i + 1
+            );
         }
 
         // Should handle rapid interactions
-        assert_eq!(interaction_count.get(), 5, "Should handle multiple interactions");
+        assert_eq!(
+            interaction_count.get(),
+            5,
+            "Should handle multiple interactions"
+        );
     }
 
     #[test]
@@ -172,7 +181,11 @@ mod tdd_tests {
         assert_eq!(tabs_state.get(), "active", "State should change to active");
 
         tabs_state.set("inactive");
-        assert_eq!(tabs_state.get(), "inactive", "State should change to inactive");
+        assert_eq!(
+            tabs_state.get(),
+            "inactive",
+            "State should change to inactive"
+        );
     }
 
     #[test]
@@ -272,14 +285,26 @@ mod tdd_tests {
         let callback_count = RwSignal::new(0);
 
         // Test callback functionality
-        assert_eq!(selected_value.get(), "tab1", "Initial value should be 'tab1'");
-        assert_eq!(callback_count.get(), 0, "Initial callback count should be 0");
+        assert_eq!(
+            selected_value.get(),
+            "tab1",
+            "Initial value should be 'tab1'"
+        );
+        assert_eq!(
+            callback_count.get(),
+            0,
+            "Initial callback count should be 0"
+        );
 
         // Simulate value change
         selected_value.set("tab2".to_string());
         callback_count.update(|count| *count += 1);
 
-        assert_eq!(selected_value.get(), "tab2", "Value should change to 'tab2'");
+        assert_eq!(
+            selected_value.get(),
+            "tab2",
+            "Value should change to 'tab2'"
+        );
         assert_eq!(callback_count.get(), 1, "Callback count should be 1");
     }
 

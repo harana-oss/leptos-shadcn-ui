@@ -72,7 +72,11 @@ impl ChartConfig {
         self.entries
             .iter()
             .map(|(k, v)| {
-                format!("--color-{}: {};", sanitize_key(k), v.color.replace([';', '{', '}'], ""))
+                format!(
+                    "--color-{}: {};",
+                    sanitize_key(k),
+                    v.color.replace([';', '{', '}'], "")
+                )
             })
             .collect::<Vec<_>>()
             .join(" ")

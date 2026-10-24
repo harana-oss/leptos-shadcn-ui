@@ -21,7 +21,10 @@ pub fn FormExample() -> impl IntoView {
             if email.is_empty() {
                 new_errors.push(("email".to_string(), "Email is required".to_string()));
             } else if !email.contains('@') {
-                new_errors.push(("email".to_string(), "Please enter a valid email".to_string()));
+                new_errors.push((
+                    "email".to_string(),
+                    "Please enter a valid email".to_string(),
+                ));
             }
         }
 

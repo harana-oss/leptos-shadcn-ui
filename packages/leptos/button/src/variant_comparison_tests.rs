@@ -237,9 +237,15 @@ mod variant_comparison_tests {
         // Comprehensive comparison of all button variants
         let variant_pairs = vec![
             (DefaultButtonVariant::Default, NewYorkButtonVariant::Default),
-            (DefaultButtonVariant::Destructive, NewYorkButtonVariant::Destructive),
+            (
+                DefaultButtonVariant::Destructive,
+                NewYorkButtonVariant::Destructive,
+            ),
             (DefaultButtonVariant::Outline, NewYorkButtonVariant::Outline),
-            (DefaultButtonVariant::Secondary, NewYorkButtonVariant::Secondary),
+            (
+                DefaultButtonVariant::Secondary,
+                NewYorkButtonVariant::Secondary,
+            ),
             (DefaultButtonVariant::Ghost, NewYorkButtonVariant::Ghost),
             (DefaultButtonVariant::Link, NewYorkButtonVariant::Link),
         ];
@@ -264,7 +270,10 @@ mod variant_comparison_tests {
                 NewYorkButtonVariant::Link => "link",
             };
 
-            assert_eq!(default_string, new_york_string, "Variant strings should match");
+            assert_eq!(
+                default_string, new_york_string,
+                "Variant strings should match"
+            );
 
             // Test conversion back from string
             let default_from_string = DefaultButtonVariant::from(default_string.to_string());

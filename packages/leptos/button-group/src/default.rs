@@ -43,7 +43,10 @@ impl ButtonGroupOrientation {
 
 /// Full class for a button group with the given orientation.
 pub fn button_group_class(orientation: ButtonGroupOrientation, extra: Option<String>) -> String {
-    cn(&format!("{} {}", BUTTON_GROUP_CLASS, orientation.class()), extra)
+    cn(
+        &format!("{} {}", BUTTON_GROUP_CLASS, orientation.class()),
+        extra,
+    )
 }
 
 /// Groups related buttons together (data-slot="button-group").

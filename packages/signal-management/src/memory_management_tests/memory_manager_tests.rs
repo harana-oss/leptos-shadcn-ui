@@ -228,7 +228,10 @@ mod memory_manager_tests {
         let cloned_manager = manager.clone();
 
         // Test cloned manager has same state
-        assert_eq!(manager.tracked_groups.get().len(), cloned_manager.tracked_groups.get().len());
+        assert_eq!(
+            manager.tracked_groups.get().len(),
+            cloned_manager.tracked_groups.get().len()
+        );
         assert_eq!(manager.stats.get(), cloned_manager.stats.get());
     }
 

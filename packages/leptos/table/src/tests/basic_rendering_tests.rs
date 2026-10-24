@@ -121,14 +121,23 @@ mod basic_rendering_tests {
         let expected_class = "rounded-lg border bg-card text-card-foreground shadow-sm";
 
         // Verify the class contains expected styling elements
-        assert!(expected_class.contains("rounded-lg"), "Should have rounded corners");
+        assert!(
+            expected_class.contains("rounded-lg"),
+            "Should have rounded corners"
+        );
         assert!(expected_class.contains("border"), "Should have border");
-        assert!(expected_class.contains("bg-card"), "Should have card background");
+        assert!(
+            expected_class.contains("bg-card"),
+            "Should have card background"
+        );
         assert!(
             expected_class.contains("text-card-foreground"),
             "Should have card foreground text"
         );
-        assert!(expected_class.contains("shadow-sm"), "Should have small shadow");
+        assert!(
+            expected_class.contains("shadow-sm"),
+            "Should have small shadow"
+        );
     }
 
     #[test]
@@ -137,8 +146,14 @@ mod basic_rendering_tests {
         let default_theme = "default";
         let new_york_theme = "new_york";
 
-        assert_eq!(default_theme, "default", "Default theme should be available");
-        assert_eq!(new_york_theme, "new_york", "New York theme should be available");
+        assert_eq!(
+            default_theme, "default",
+            "Default theme should be available"
+        );
+        assert_eq!(
+            new_york_theme, "new_york",
+            "New York theme should be available"
+        );
     }
 
     #[test]
@@ -151,7 +166,10 @@ mod basic_rendering_tests {
         // Test that props can be created without errors
         assert!(class_prop.is_some(), "Class prop should be Some");
         assert!(id_prop.is_some(), "ID prop should be Some");
-        assert!(style_prop.get().to_string().is_empty(), "Style prop should be empty initially");
+        assert!(
+            style_prop.get().to_string().is_empty(),
+            "Style prop should be empty initially"
+        );
     }
 
     #[test]
@@ -161,8 +179,14 @@ mod basic_rendering_tests {
         let custom_class = "custom-table";
         let expected_merged = format!("{} {}", base_class, custom_class);
 
-        assert!(expected_merged.contains(base_class), "Should include base class");
-        assert!(expected_merged.contains(custom_class), "Should include custom class");
+        assert!(
+            expected_merged.contains(base_class),
+            "Should include base class"
+        );
+        assert!(
+            expected_merged.contains(custom_class),
+            "Should include custom class"
+        );
     }
 
     #[test]
@@ -181,7 +205,10 @@ mod basic_rendering_tests {
         let responsive_class = "w-full overflow-auto";
 
         assert!(responsive_class.contains("w-full"), "Should be full width");
-        assert!(responsive_class.contains("overflow-auto"), "Should have auto overflow");
+        assert!(
+            responsive_class.contains("overflow-auto"),
+            "Should have auto overflow"
+        );
     }
 
     #[test]

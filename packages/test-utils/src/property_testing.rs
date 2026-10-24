@@ -231,15 +231,17 @@ pub mod button_properties {
             optional_string_strategy(),
             prop::sample::select(vec!["button", "submit", "reset"]).prop_map(|s| s.to_string()),
         )
-            .prop_map(|(variant, size, disabled, class, id, style, r#type)| ButtonProps {
-                variant,
-                size,
-                disabled,
-                class,
-                id,
-                style,
-                r#type,
-            })
+            .prop_map(
+                |(variant, size, disabled, class, id, style, r#type)| ButtonProps {
+                    variant,
+                    size,
+                    disabled,
+                    class,
+                    id,
+                    style,
+                    r#type,
+                },
+            )
     }
 
     pub fn assert_button_properties(props: ButtonProps, _component: impl IntoView) {
@@ -298,8 +300,8 @@ pub mod form_properties {
             optional_string_strategy(),
             optional_string_strategy(),
         )
-            .prop_map(|(action, method, enctype, autocomplete, novalidate, class, id)| {
-                FormProps {
+            .prop_map(
+                |(action, method, enctype, autocomplete, novalidate, class, id)| FormProps {
                     action,
                     method,
                     enctype,
@@ -307,8 +309,8 @@ pub mod form_properties {
                     novalidate,
                     class,
                     id,
-                }
-            })
+                },
+            )
     }
 
     pub fn assert_form_properties(props: FormProps, _component: impl IntoView) {

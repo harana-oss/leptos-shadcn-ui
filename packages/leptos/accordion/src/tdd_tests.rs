@@ -149,7 +149,10 @@ mod tdd_tests {
                     </AccordionItem>
                 </Accordion>
             };
-            assert!(collapsible.get(), "Collapsible property should be supported");
+            assert!(
+                collapsible.get(),
+                "Collapsible property should be supported"
+            );
         });
     }
 
@@ -181,7 +184,10 @@ mod tdd_tests {
                     </AccordionItem>
                 </Accordion>
             };
-            assert!(item_disabled.get(), "Item disabled state should be supported");
+            assert!(
+                item_disabled.get(),
+                "Item disabled state should be supported"
+            );
         });
     }
 
@@ -197,7 +203,11 @@ mod tdd_tests {
                     </AccordionItem>
                 </Accordion>
             };
-            assert_eq!(value.get(), vec!["item1".to_string()], "Value management should work");
+            assert_eq!(
+                value.get(),
+                vec!["item1".to_string()],
+                "Value management should work"
+            );
         });
     }
 
@@ -446,7 +456,10 @@ mod tdd_tests {
 
             let on_value_change = Callback::new(move |new_value: Vec<String>| {
                 *callback_called_clone.lock().unwrap() = true;
-                assert!(!new_value.is_empty(), "Workflow callback should receive value");
+                assert!(
+                    !new_value.is_empty(),
+                    "Workflow callback should receive value"
+                );
             });
 
             let _accordion_view = view! {

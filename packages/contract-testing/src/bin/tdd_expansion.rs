@@ -96,7 +96,10 @@ async fn main() -> Result<()> {
                 println!("✅ All packages have adequate TDD implementation!");
                 std::process::exit(0);
             } else {
-                println!("❌ {} packages still need TDD implementation:", packages.len());
+                println!(
+                    "❌ {} packages still need TDD implementation:",
+                    packages.len()
+                );
                 for package in &packages {
                     println!("  - {}", package);
                 }

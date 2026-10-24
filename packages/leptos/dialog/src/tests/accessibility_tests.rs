@@ -13,7 +13,10 @@ mod accessibility_tests {
         let open = RwSignal::new(true);
 
         // Test ARIA attribute requirements
-        assert!(open.get(), "Dialog should be open for accessibility testing");
+        assert!(
+            open.get(),
+            "Dialog should be open for accessibility testing"
+        );
 
         // Test that required ARIA attributes are present
         let has_aria_modal = true;
@@ -22,8 +25,14 @@ mod accessibility_tests {
         let has_role_dialog = true;
 
         assert!(has_aria_modal, "Dialog should have aria-modal attribute");
-        assert!(has_aria_labelledby, "Dialog should have aria-labelledby attribute");
-        assert!(has_aria_describedby, "Dialog should have aria-describedby attribute");
+        assert!(
+            has_aria_labelledby,
+            "Dialog should have aria-labelledby attribute"
+        );
+        assert!(
+            has_aria_describedby,
+            "Dialog should have aria-describedby attribute"
+        );
         assert!(has_role_dialog, "Dialog should have role='dialog'");
     }
 
@@ -37,14 +46,21 @@ mod accessibility_tests {
 
         // Test escape key functionality
         on_open_change.run(false);
-        assert!(!open.get(), "Dialog should close when escape key is pressed");
+        assert!(
+            !open.get(),
+            "Dialog should close when escape key is pressed"
+        );
 
         // Test tab navigation
         let focusable_elements = ["trigger", "content", "close-button"];
         let current_focus_index = RwSignal::new(0);
 
         current_focus_index.update(|index| *index = (*index + 1) % focusable_elements.len());
-        assert_eq!(current_focus_index.get(), 1, "Should navigate to next focusable element");
+        assert_eq!(
+            current_focus_index.get(),
+            1,
+            "Should navigate to next focusable element"
+        );
     }
 
     #[test]
@@ -57,7 +73,10 @@ mod accessibility_tests {
 
         // Test focus return when dialog closes
         open.set(false);
-        assert!(!open.get(), "Focus should return to trigger when dialog closes");
+        assert!(
+            !open.get(),
+            "Focus should return to trigger when dialog closes"
+        );
     }
 
     #[test]
@@ -70,7 +89,10 @@ mod accessibility_tests {
 
         // Test that modal blocks interaction with background
         let background_interaction_blocked = true;
-        assert!(background_interaction_blocked, "Modal should block background interaction");
+        assert!(
+            background_interaction_blocked,
+            "Modal should block background interaction"
+        );
 
         // Test that modal has proper z-index
         let z_index = 50;

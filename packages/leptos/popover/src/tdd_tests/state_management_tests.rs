@@ -353,7 +353,10 @@ mod state_management_tests {
         }
 
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 10, "State updates should be performant");
+        assert!(
+            duration.as_millis() < 10,
+            "State updates should be performant"
+        );
         assert_eq!(performance_state.get(), 1000);
     }
 

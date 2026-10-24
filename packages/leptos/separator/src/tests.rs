@@ -16,7 +16,10 @@ mod tests {
     #[test]
     fn test_separator_styling_consistency() {
         // Test that all required styling properties are present
-        assert!(SEPARATOR_CLASS.len() > 10, "SEPARATOR_CLASS should contain substantial styling");
+        assert!(
+            SEPARATOR_CLASS.len() > 10,
+            "SEPARATOR_CLASS should contain substantial styling"
+        );
 
         // Check for basic styling classes
         let has_typography = SEPARATOR_CLASS.contains("text-sm")
@@ -24,8 +27,14 @@ mod tests {
             || SEPARATOR_CLASS.contains("leading-none");
         let has_accessibility = SEPARATOR_CLASS.contains("peer-disabled:");
 
-        assert!(has_typography, "SEPARATOR_CLASS should contain typography classes");
-        assert!(has_accessibility, "SEPARATOR_CLASS should contain accessibility classes");
+        assert!(
+            has_typography,
+            "SEPARATOR_CLASS should contain typography classes"
+        );
+        assert!(
+            has_accessibility,
+            "SEPARATOR_CLASS should contain accessibility classes"
+        );
     }
 
     #[test]
@@ -97,7 +106,10 @@ mod tests {
             || base_class.contains("font-medium")
             || base_class.contains("peer-disabled:");
 
-        assert!(has_theme_vars, "Component should use theme typography and state variables");
+        assert!(
+            has_theme_vars,
+            "Component should use theme typography and state variables"
+        );
     }
 
     #[test]
@@ -143,9 +155,15 @@ mod tests {
             base_class.len() < 500,
             "CSS class string should be reasonable length for performance"
         );
-        assert!(base_class.len() > 5, "CSS class string should contain actual styling");
+        assert!(
+            base_class.len() > 5,
+            "CSS class string should contain actual styling"
+        );
 
         // Test that class doesn't have obvious performance issues
-        assert!(!base_class.contains("!important"), "Should avoid !important for performance");
+        assert!(
+            !base_class.contains("!important"),
+            "Should avoid !important for performance"
+        );
     }
 }

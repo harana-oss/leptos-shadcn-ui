@@ -75,7 +75,10 @@ mod tdd_tests {
         let _toast_view = view! {
             <Toast class=custom_class>"Custom styled toast"</Toast>
         };
-        assert_eq!(custom_class, "custom-toast-class", "Custom styling should be supported");
+        assert_eq!(
+            custom_class, "custom-toast-class",
+            "Custom styling should be supported"
+        );
     }
 
     #[test]
@@ -84,7 +87,10 @@ mod tdd_tests {
         let _toast_view = view! {
             <Toast id=custom_id>"Toast with ID"</Toast>
         };
-        assert_eq!(custom_id, "custom-toast-id", "Custom ID should be supported");
+        assert_eq!(
+            custom_id, "custom-toast-id",
+            "Custom ID should be supported"
+        );
     }
 
     #[test]
@@ -391,7 +397,11 @@ mod tdd_tests {
                 "Message: " {message}
             </Toast>
         };
-        assert_eq!(message.get(), "Dynamic message", "Dynamic content should work");
+        assert_eq!(
+            message.get(),
+            "Dynamic message",
+            "Dynamic content should work"
+        );
     }
 
     #[test]

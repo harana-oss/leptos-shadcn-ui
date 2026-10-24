@@ -372,7 +372,10 @@ pub fn some_function() {
         ];
 
         let result = extract_doc_comment(&attrs);
-        assert_eq!(result, Some("First line\nSecond line\n\nThird line".to_string()));
+        assert_eq!(
+            result,
+            Some("First line\nSecond line\n\nThird line".to_string())
+        );
     }
 
     #[test]

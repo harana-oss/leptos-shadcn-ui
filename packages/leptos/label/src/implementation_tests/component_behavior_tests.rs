@@ -25,8 +25,14 @@ mod tests {
 
         // Test that the class contains semantic elements
         assert!(base_class.contains("text-sm"), "Should have text size");
-        assert!(base_class.contains("font-medium"), "Should have font weight");
-        assert!(base_class.contains("leading-none"), "Should have line height");
+        assert!(
+            base_class.contains("font-medium"),
+            "Should have font weight"
+        );
+        assert!(
+            base_class.contains("leading-none"),
+            "Should have line height"
+        );
     }
 
     #[test]
@@ -39,7 +45,10 @@ mod tests {
             base_class.contains("peer-disabled:cursor-not-allowed"),
             "Should have disabled cursor"
         );
-        assert!(base_class.contains("peer-disabled:opacity-70"), "Should have disabled opacity");
+        assert!(
+            base_class.contains("peer-disabled:opacity-70"),
+            "Should have disabled opacity"
+        );
     }
 
     #[test]
@@ -49,8 +58,14 @@ mod tests {
 
         // Test typography elements
         assert!(base_class.contains("text-sm"), "Should have small text");
-        assert!(base_class.contains("font-medium"), "Should have medium font weight");
-        assert!(base_class.contains("leading-none"), "Should have tight line height");
+        assert!(
+            base_class.contains("font-medium"),
+            "Should have medium font weight"
+        );
+        assert!(
+            base_class.contains("leading-none"),
+            "Should have tight line height"
+        );
     }
 
     #[test]
@@ -75,7 +90,13 @@ mod tests {
         let base_class = LABEL_CLASS;
 
         // Test that the class supports form integration
-        assert!(base_class.contains("text-sm"), "Should support form integration");
-        assert!(base_class.contains("font-medium"), "Should support form integration");
+        assert!(
+            base_class.contains("text-sm"),
+            "Should support form integration"
+        );
+        assert!(
+            base_class.contains("font-medium"),
+            "Should support form integration"
+        );
     }
 }

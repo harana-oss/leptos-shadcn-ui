@@ -50,7 +50,10 @@ mod performance_tests {
             };
 
             // Test responsive design
-            assert!(!responsive_checked.get(), "Responsive should start unchecked");
+            assert!(
+                !responsive_checked.get(),
+                "Responsive should start unchecked"
+            );
             assert_eq!(responsive_size.get(), SwitchSize::Md);
 
             // Test responsive changes
@@ -103,10 +106,22 @@ mod performance_tests {
             };
 
             // Test advanced interactions
-            assert!(!interaction_checked.get(), "Interaction should start unchecked");
-            assert!(!interaction_disabled.get(), "Interaction should start enabled");
-            assert!(!interaction_focused.get(), "Interaction should start unfocused");
-            assert!(!interaction_hovered.get(), "Interaction should start unhovered");
+            assert!(
+                !interaction_checked.get(),
+                "Interaction should start unchecked"
+            );
+            assert!(
+                !interaction_disabled.get(),
+                "Interaction should start enabled"
+            );
+            assert!(
+                !interaction_focused.get(),
+                "Interaction should start unfocused"
+            );
+            assert!(
+                !interaction_hovered.get(),
+                "Interaction should start unhovered"
+            );
 
             // Test interaction changes
             interaction_checked.set(true);
