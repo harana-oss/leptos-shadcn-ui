@@ -117,7 +117,7 @@ pub fn Pagination(
                         Some(page) => view! {
                             <PaginationItem>
                                 <PaginationLink 
-                                    _page=page.into()
+                                    page=page
                                     is_active={(page == current).into()}
                                     on_click=Callback::new(move |_| handle_page_change(page))
                                 >
@@ -182,7 +182,7 @@ pub fn PaginationItem(
 
 #[component]
 pub fn PaginationLink(
-    #[prop(optional)] _page: MaybeProp<usize>,
+    #[prop(into, optional)] page: MaybeProp<usize>,
     #[prop(optional)] is_active: MaybeProp<bool>,
     #[prop(optional)] disabled: MaybeProp<bool>,
     #[prop(optional)] on_click: Option<Callback<()>>,
@@ -214,6 +214,8 @@ pub fn PaginationLink(
                     }
             }
             aria-current={if is_active_val { "page" } else { "false" }}
+            aria-label=move || page.get().map(|p| format!("Page {p}"))
+            data-page=move || page.get()
         >
             {children()}
         </button>

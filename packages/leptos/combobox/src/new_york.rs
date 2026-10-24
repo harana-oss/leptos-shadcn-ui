@@ -17,7 +17,7 @@ pub fn Combobox(
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] style: Signal<Style>,
-    #[prop(optional)] _children: Option<Children>,
+    #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     // Internal state
     let (is_open, set_is_open) = signal(false);
@@ -231,6 +231,9 @@ pub fn Combobox(
                     }
                 }}
             </div>
+
+            // Extra content supplied by the caller, rendered after the option list
+            {children.map(|c| c())}
         </div>
     }
 }

@@ -21,7 +21,7 @@ pub fn EnhancedInput(
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: Signal<Style>,
     #[prop(into, optional)] validator: Option<InputValidator>,
-    #[prop(into, optional)] _validation_error: MaybeProp<String>,
+    #[prop(into, optional)] validation_error: MaybeProp<String>,
     #[prop(into, optional)] show_validation: Signal<bool>,
 ) -> impl IntoView {
     // Create persistent state using ArcRwSignal
@@ -40,7 +40,8 @@ pub fn EnhancedInput(
     let input_state_for_class = input_state.clone();
     let input_class = ArcMemo::new(move |_| {
         let state = input_state_for_class.get();
-        let base_class = if state.has_error {
+        let external_error = validation_error.get().is_some_and(|e| !e.is_empty());
+        let base_class = if state.has_error || external_error {
             format!("{} {}", INPUT_CLASS, INPUT_ERROR_CLASS)
         } else {
             INPUT_CLASS.to_string()
@@ -133,15 +134,23 @@ pub fn EnhancedInput(
             />
             
             // Validation display
-            {move || if show_validation.get() && input_state_for_validation_display.get().has_error {
-                let error_msg = input_state_for_validation_display.get().validation_result.get_error_message("input").unwrap_or_default().to_string();
-                view! {
-                    <div class="validation-error text-sm text-destructive mt-1">
-                        {error_msg}
-                    </div>
-                }.into_any()
-            } else {
-                ().into_any()
+            // An externally supplied `validation_error` takes precedence over the validator's message
+            {move || {
+                let state = input_state_for_validation_display.get();
+                let error_msg = validation_error.get().filter(|e| !e.is_empty()).or_else(|| {
+                    state
+                        .has_error
+                        .then(|| state.validation_result.get_error_message("input").unwrap_or_default().to_string())
+                });
+                match (show_validation.get(), error_msg) {
+                    (true, Some(error_msg)) => view! {
+                        <div class="validation-error text-sm text-destructive mt-1">
+                            {error_msg}
+                        </div>
+                    }
+                    .into_any(),
+                    _ => ().into_any(),
+                }
             }}
             
             // Performance monitoring (only in development)

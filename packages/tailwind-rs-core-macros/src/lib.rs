@@ -9,92 +9,95 @@ use syn::{parse_macro_input, Expr, Token};
 /// 
 /// ```rust
 /// use tailwind_rs_core_macros::classes;
-/// 
-/// // Basic usage
+///
+/// // String literals are joined at compile time into a `&'static str`
 /// let classes = classes! {
 ///     base: "px-4 py-2 rounded-md font-medium",
 ///     variant: "bg-blue-600 text-white hover:bg-blue-700",
 ///     responsive: "sm:text-sm md:text-base lg:text-lg",
 /// };
-/// 
-/// // Dynamic styling
-/// let color = Color::Blue;
+/// assert_eq!(
+///     classes,
+///     "px-4 py-2 rounded-md font-medium bg-blue-600 text-white hover:bg-blue-700 sm:text-sm md:text-base lg:text-lg"
+/// );
+///
+/// // Any other expression is converted with `to_string` at runtime
+/// let shade = 600;
 /// let classes = classes! {
-///     background: color.background(600),
-///     text: color.text(),
-///     hover: color.hover(700),
+///     base: "rounded-md",
+///     background: format!("bg-blue-{shade}"),
 /// };
+/// assert_eq!(classes, "rounded-md bg-blue-600");
 /// ```
 #[proc_macro]
 pub fn classes(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as ClassesInput);
-    
-    let mut base_classes = String::new();
-    let mut variant_classes = Vec::new();
-    let mut responsive_classes = Vec::new();
-    let mut state_classes = Vec::new();
-    let mut custom_classes = Vec::new();
-    
-    for field in input.fields {
-        match field.name.as_str() {
-            "base" => {
-                if let Expr::Lit(lit) = &field.value {
-                    if let syn::Lit::Str(s) = &lit.lit {
-                        base_classes = s.value();
-                    }
-                }
-            }
-            "variant" | "variants" => {
-                if let Expr::Lit(lit) = &field.value {
-                    if let syn::Lit::Str(s) = &lit.lit {
-                        variant_classes.push(s.value());
-                    }
-                }
-            }
-            "responsive" | "responsive_classes" => {
-                if let Expr::Lit(lit) = &field.value {
-                    if let syn::Lit::Str(s) = &lit.lit {
-                        responsive_classes.push(s.value());
-                    }
-                }
-            }
-            "state" | "states" | "hover" | "focus" | "active" | "disabled" => {
-                if let Expr::Lit(lit) = &field.value {
-                    if let syn::Lit::Str(s) = &lit.lit {
-                        state_classes.push(s.value());
-                    }
-                }
-            }
-            "custom" | "additional" | "extra" => {
-                if let Expr::Lit(lit) = &field.value {
-                    if let syn::Lit::Str(s) = &lit.lit {
-                        custom_classes.push(s.value());
-                    }
-                }
-            }
-            _ => {
-                // Treat as custom class
-                if let Expr::Lit(lit) = &field.value {
-                    if let syn::Lit::Str(s) = &lit.lit {
-                        custom_classes.push(s.value());
-                    }
-                }
-            }
+
+    // Output order: base, variants, responsive, states, then everything else.
+    let mut fields: Vec<(u8, Expr)> = input
+        .fields
+        .into_iter()
+        .map(|field| {
+            let rank = match field.name.as_str() {
+                "base" => 0,
+                "variant" | "variants" => 1,
+                "responsive" | "responsive_classes" => 2,
+                "state" | "states" | "hover" | "focus" | "active" | "disabled" => 3,
+                _ => 4,
+            };
+            (rank, field.value)
+        })
+        .collect();
+    fields.sort_by_key(|(rank, _)| *rank);
+    let values: Vec<Expr> = fields.into_iter().map(|(_, value)| value).collect();
+
+    // All string literals: join at compile time into a `&'static str`.
+    if let Some(literals) = values.iter().map(string_literal).collect::<Option<Vec<_>>>() {
+        let joined = join_non_empty(literals);
+        return quote! { #joined }.into();
+    }
+
+    // Otherwise build a `String` at runtime from each value's `Display` output.
+    quote! {
+        {
+            let parts: ::std::vec::Vec<::std::string::String> =
+                ::std::vec![#(::std::string::ToString::to_string(&(#values))),*];
+            parts
+                .iter()
+                .map(|part| part.trim())
+                .filter(|part| !part.is_empty())
+                .collect::<::std::vec::Vec<_>>()
+                .join(" ")
         }
     }
-    
-    // Generate the final class string
-    let mut all_classes = vec![base_classes];
-    all_classes.extend(variant_classes);
-    all_classes.extend(responsive_classes);
-    all_classes.extend(state_classes);
-    all_classes.extend(custom_classes);
-    
-    let final_classes = all_classes.join(" ");
-    
-    quote! {
-        #final_classes
-    }.into()
+    .into()
+}
+
+/// Returns the value of a string literal expression.
+fn string_literal(expr: &Expr) -> Option<String> {
+    match expr {
+        Expr::Lit(syn::ExprLit { lit: syn::Lit::Str(s), .. }) => Some(s.value()),
+        _ => None,
+    }
+}
+
+/// Joins class strings with single spaces, skipping empty ones.
+fn join_non_empty(parts: impl IntoIterator<Item = String>) -> String {
+    parts
+        .into_iter()
+        .map(|part| part.trim().to_string())
+        .filter(|part| !part.is_empty())
+        .collect::<Vec<_>>()
+        .join(" ")
+}
+
+/// Prefixes every whitespace-separated class in `classes` with `breakpoint:`.
+fn prefix_classes(breakpoint: &str, classes: &str) -> String {
+    classes
+        .split_whitespace()
+        .map(|class| format!("{breakpoint}:{class}"))
+        .collect::<Vec<_>>()
+        .join(" ")
 }
 
 /// Macro for creating responsive Tailwind classes.
@@ -106,32 +109,43 @@ pub fn classes(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 /// 
 /// let responsive_classes = responsive! {
 ///     sm: "text-sm",
-///     md: "text-base",
+///     md: "text-base font-medium",
 ///     lg: "text-lg",
-///     xl: "text-xl",
 /// };
+/// assert_eq!(responsive_classes, "sm:text-sm md:text-base md:font-medium lg:text-lg");
 /// ```
 #[proc_macro]
 pub fn responsive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as ResponsiveInput);
-    
-    let mut classes = Vec::new();
-    
-    for field in input.fields {
-        let breakpoint = field.name.as_str();
-        if let Expr::Lit(lit) = &field.value {
-            if let syn::Lit::Str(s) = &lit.lit {
-                let class = format!("{}:{}", breakpoint, s.value());
-                classes.push(class);
-            }
+
+    let literals: Option<Vec<String>> = input
+        .fields
+        .iter()
+        .map(|field| string_literal(&field.value).map(|v| prefix_classes(&field.name, &v)))
+        .collect();
+    if let Some(literals) = literals {
+        let joined = join_non_empty(literals);
+        return quote! { #joined }.into();
+    }
+
+    let breakpoints: Vec<String> = input.fields.iter().map(|field| field.name.clone()).collect();
+    let values: Vec<&Expr> = input.fields.iter().map(|field| &field.value).collect();
+    quote! {
+        {
+            let parts: ::std::vec::Vec<(&str, ::std::string::String)> =
+                ::std::vec![#((#breakpoints, ::std::string::ToString::to_string(&(#values)))),*];
+            parts
+                .iter()
+                .flat_map(|(breakpoint, classes)| {
+                    classes
+                        .split_whitespace()
+                        .map(move |class| ::std::format!("{}:{}", breakpoint, class))
+                })
+                .collect::<::std::vec::Vec<_>>()
+                .join(" ")
         }
     }
-    
-    let final_classes = classes.join(" ");
-    
-    quote! {
-        #final_classes
-    }.into()
+    .into()
 }
 
 /// Macro for creating theme-based Tailwind classes.

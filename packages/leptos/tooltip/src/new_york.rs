@@ -135,8 +135,8 @@ pub struct TooltipTriggerChildProps {
 
 #[component]
 pub fn TooltipContent(
-    #[prop(into, optional)] _side: TooltipSide,
-    #[prop(into, optional)] _side_offset: i32,
+    #[prop(into, optional)] side: TooltipSide,
+    #[prop(into, optional)] side_offset: i32,
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: Signal<Style>,
@@ -144,7 +144,7 @@ pub fn TooltipContent(
     #[prop(into, optional)] as_child: Option<Callback<TooltipContentChildProps, AnyView>>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let (is_open, _, _, _) = 
+    let (is_open, _, _, _) =
         expect_context::<(ReadSignal<bool>, WriteSignal<bool>, Option<Callback<bool>>, Signal<u32>)>();
 
     let computed_class = Memo::new(move |_| {
@@ -154,20 +154,51 @@ pub fn TooltipContent(
         .with_class(class.get().unwrap_or_default())
     });
 
+    // The offset is the gap between trigger and content, on the side facing the trigger.
+    let offset_property = match side {
+        TooltipSide::Top => "margin-bottom",
+        TooltipSide::Right => "margin-left",
+        TooltipSide::Bottom => "margin-top",
+        TooltipSide::Left => "margin-right",
+    };
+    let content_style = Signal::derive(move || {
+        style
+            .get()
+            .with_defaults([(offset_property, format!("{side_offset}px"))])
+    });
+
     let child_props = TooltipContentChildProps {
         node_ref,
         class: computed_class.into(),
         id,
-        style,
+        style: content_style,
     };
-
-    if is_open.get() {
-        if let Some(as_child) = as_child.as_ref() {
-            as_child.run(child_props.clone())
-        } else {
-            child_props.render(children)
+    if let Some(as_child) = as_child {
+        return view! {
+            <Show when=move || is_open.get()>
+                {
+                    let child_props = child_props.clone();
+                    move || as_child.run(child_props.clone())
+                }
+            </Show>
         }
-    } else {
-        view! { <div></div> }.into_any()
+        .into_any();
     }
+
+    // Children can only be rendered once, so closed content is hidden rather than removed.
+    view! {
+        <div
+            node_ref=child_props.node_ref
+            class=child_props.class
+            id=move || child_props.id.get()
+            style=move || child_props.style.get().to_string()
+            style:display=move || (!is_open.get()).then_some("none")
+            role="tooltip"
+            data-state=move || if is_open.get() { "open" } else { "closed" }
+            data-side=side.as_str()
+        >
+            {children.map(|c| c())}
+        </div>
+    }
+    .into_any()
 }

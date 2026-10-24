@@ -179,16 +179,27 @@ pub fn Slider(
 }
 
 // Range Slider (for dual values)
+/// Snaps `raw` to the nearest `step` from `min` and clamps it to `[min, max]`.
+fn snap_to_step(raw: f64, min: f64, max: f64, step: f64) -> f64 {
+    let snapped = if step > 0.0 { min + ((raw - min) / step).round() * step } else { raw };
+    snapped.clamp(min, max)
+}
+
+/// Moves thumb `thumb` (0 = low, 1 = high) to `value`, never letting the thumbs cross.
+fn move_thumb((low, high): (f64, f64), thumb: usize, value: f64) -> (f64, f64) {
+    if thumb == 0 { (value.min(high), high) } else { (low, value.max(low)) }
+}
+
 #[component]
 pub fn RangeSlider(
     #[prop(into, optional)] values: Signal<(f64, f64)>,
     #[prop(into, optional)] min: MaybeProp<f64>,
     #[prop(into, optional)] max: MaybeProp<f64>,
     #[prop(into, optional)] step: MaybeProp<f64>,
-    #[prop(into, optional)] _on_change: Option<Callback<(f64, f64)>>,
+    #[prop(into, optional)] on_change: Option<Callback<(f64, f64)>>,
     #[prop(into, optional)] variant: MaybeProp<SliderVariant>,
     #[prop(into, optional)] size: MaybeProp<SliderSize>,
-    #[prop(into, optional)] _disabled: Signal<bool>,
+    #[prop(into, optional)] disabled: Signal<bool>,
     #[prop(into, optional)] show_values: Signal<bool>,
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
@@ -196,11 +207,10 @@ pub fn RangeSlider(
 ) -> impl IntoView {
     let min_value = min.get().unwrap_or(0.0);
     let max_value = max.get().unwrap_or(100.0);
-    let _step_value = step.get().unwrap_or(1.0);
+    let step_value = step.get().unwrap_or(1.0);
     let slider_variant = variant.get().unwrap_or_default();
     let slider_size = size.get().unwrap_or_default();
-    
-    let (_min_val, _max_val) = values.get();
+
     let range_percentage = Signal::derive(move || {
         let (min_v, max_v) = values.get();
         let range = max_value - min_value;
@@ -211,10 +221,69 @@ pub fn RangeSlider(
         }
     });
 
+    // Controlled like `Slider`: changes are reported through `on_change` and the
+    // parent feeds the new pair back through `values`.
+    let emit = move |thumb: usize, value: f64| {
+        let current = values.get_untracked();
+        let next = move_thumb(current, thumb, snap_to_step(value, min_value, max_value, step_value));
+        if next != current
+            && let Some(callback) = on_change
+        {
+            callback.run(next);
+        }
+    };
+
+    let track_ref = NodeRef::<leptos::html::Div>::new();
+    let active_thumb = RwSignal::new(None::<usize>);
+
+    let value_at = move |client_x: f64| -> Option<f64> {
+        let rect = track_ref.get_untracked()?.get_bounding_client_rect();
+        (rect.width() > 0.0).then(|| {
+            min_value + (client_x - rect.left()) / rect.width() * (max_value - min_value)
+        })
+    };
+
+    let on_pointer_down = move |ev: web_sys::PointerEvent| {
+        if disabled.get_untracked() {
+            return;
+        }
+        let Some(value) = value_at(ev.client_x() as f64) else { return };
+        // Grab whichever thumb is closer to the pointer.
+        let (low, high) = values.get_untracked();
+        let thumb = if (value - low).abs() <= (value - high).abs() { 0 } else { 1 };
+        if let Some(el) = track_ref.get_untracked() {
+            let _ = el.set_pointer_capture(ev.pointer_id());
+        }
+        active_thumb.set(Some(thumb));
+        emit(thumb, value);
+    };
+
+    let on_pointer_move = move |ev: web_sys::PointerEvent| {
+        if let (Some(thumb), Some(value)) = (active_thumb.get_untracked(), value_at(ev.client_x() as f64)) {
+            emit(thumb, value);
+        }
+    };
+
+    let on_key_down = move |thumb: usize, ev: web_sys::KeyboardEvent| {
+        if disabled.get_untracked() {
+            return;
+        }
+        let current = if thumb == 0 { values.get_untracked().0 } else { values.get_untracked().1 };
+        let value = match ev.key().as_str() {
+            "ArrowLeft" | "ArrowDown" => current - step_value,
+            "ArrowRight" | "ArrowUp" => current + step_value,
+            "Home" => min_value,
+            "End" => max_value,
+            _ => return,
+        };
+        ev.prevent_default();
+        emit(thumb, value);
+    };
+
     let track_class = slider_size.track_class();
     let thumb_class = slider_size.thumb_class();
     let variant_class = slider_variant.range_class();
-    
+
     let computed_class = Signal::derive(move || {
         format!("{} {} {}", SLIDER_CLASS, track_class, class.get().unwrap_or_default())
     });
@@ -224,15 +293,42 @@ pub fn RangeSlider(
     });
 
     let computed_thumb_class = Signal::derive(move || {
-        format!("{} {} {}", SLIDER_THUMB_CLASS, thumb_class, track_class)
+        format!("{} {} absolute -translate-x-1/2 {}", SLIDER_THUMB_CLASS, thumb_class, track_class)
     });
+
+    let thumb = move |index: usize, label: &'static str| {
+        let percent = move || if index == 0 { range_percentage.get().0 } else { range_percentage.get().1 };
+        let now = move || if index == 0 { values.get().0 } else { values.get().1 };
+        view! {
+            <div
+                class=move || computed_thumb_class.get()
+                style=move || format!("left: {}%", percent())
+                role="slider"
+                aria-label=label
+                aria-valuemin=min_value
+                aria-valuemax=max_value
+                aria-valuenow=now
+                aria-disabled=move || disabled.get().to_string()
+                tabindex=move || (!disabled.get()).then_some(0)
+                on:keydown=move |ev| on_key_down(index, ev)
+            />
+        }
+    };
 
     view! {
         <div class="w-full space-y-2">
             <div
+                node_ref=track_ref
                 class=move || computed_class.get()
                 id=id.get().unwrap_or_default()
                 style=move || style.get().to_string()
+                style:touch-action="none"
+                data-disabled=move || disabled.get().then_some("")
+                on:pointerdown=on_pointer_down
+                on:pointermove=on_pointer_move
+                on:pointerup=move |_| active_thumb.set(None)
+                on:pointercancel=move |_| active_thumb.set(None)
+                on:lostpointercapture=move |_| active_thumb.set(None)
             >
                 <div class={format!("{} {}", SLIDER_TRACK_CLASS, track_class)}>
                     <div
@@ -243,14 +339,8 @@ pub fn RangeSlider(
                         }}
                     />
                 </div>
-                <div
-                    class=move || computed_thumb_class.get()
-                    style={move || format!("left: {}%", range_percentage.get().0)}
-                />
-                <div
-                    class=move || computed_thumb_class.get()
-                    style={move || format!("left: {}%", range_percentage.get().1)}
-                />
+                {thumb(0, "Minimum")}
+                {thumb(1, "Maximum")}
             </div>
             <Show
                 when=move || show_values.get()

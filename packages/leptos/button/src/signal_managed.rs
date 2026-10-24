@@ -51,7 +51,7 @@ pub fn SignalManagedButton(
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: Signal<Style>,
     #[prop(into, optional)] as_child: Option<Callback<SignalManagedButtonChildProps, AnyView>>,
-    #[prop(optional)] _children: Option<Children>,
+    #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     // Create persistent button state using ArcRwSignal
     let button_state = ArcRwSignal::new(SignalManagedButtonState {
@@ -162,11 +162,17 @@ pub fn SignalManagedButton(
                     disabled=move || button_state_for_disabled.get().disabled
                     on:click=handle_click
                 >
-                    {move || if button_state_for_loading.get().loading {
-                        view! { "Loading..." }.into_any()
-                    } else {
-                        view! { "Button" }.into_any()
-                    }}
+                    // Children render once and stay mounted; the loading label swaps in while busy
+                    {
+                        let state = button_state_for_loading.clone();
+                        move || state.get().loading.then_some("Loading...")
+                    }
+                    <span style:display=move || button_state_for_loading.get().loading.then_some("none")>
+                        {match children {
+                            Some(children) => children().into_any(),
+                            None => "Button".into_any(),
+                        }}
+                    </span>
                 </button>
             }.into_any()
         }
@@ -182,7 +188,7 @@ pub fn EnhancedButton(
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: Signal<Style>,
-    #[prop(optional)] _children: Option<Children>,
+    #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     // Create persistent button state using ArcRwSignal
     let button_state = ArcRwSignal::new(SignalManagedButtonState {
@@ -280,11 +286,17 @@ pub fn EnhancedButton(
                 disabled=move || button_state_for_disabled.get().disabled
                 on:click=handle_click
             >
-                {move || if button_state_for_loading.get().loading {
-                    view! { "Loading..." }.into_any()
-                } else {
-                    view! { "Enhanced Button" }.into_any()
-                }}
+                // Children render once and stay mounted; the loading label swaps in while busy
+                {
+                    let state = button_state_for_loading.clone();
+                    move || state.get().loading.then_some("Loading...")
+                }
+                <span style:display=move || button_state_for_loading.get().loading.then_some("none")>
+                    {match children {
+                        Some(children) => children().into_any(),
+                        None => "Enhanced Button".into_any(),
+                    }}
+                </span>
             </button>
             
             // Performance monitoring (only in development)

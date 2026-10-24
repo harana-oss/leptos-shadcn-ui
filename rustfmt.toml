@@ -154,14 +154,11 @@ hex_literal_case = "Lower"
 condense_wildcard_suffixes = true
 
 # Control if and else formatting
-control_brace_style = "AlwaysSameCol"
+control_brace_style = "AlwaysSameLine"
 
 # Control brace formatting
 brace_style = "SameLineWhere"
 empty_item_single_line = true
 fn_empty_single_line = true
-struct_lit_single_line = true
 
 # Control whitespace formatting
-blank_lines_upper_bound = 1
-blank_lines_lower_bound = 0

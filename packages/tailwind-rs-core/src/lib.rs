@@ -15,32 +15,41 @@
 //! - 🔧 **Framework Agnostic**: Works with any Rust web framework
 //! 
 //! ## Quick Start
-//! 
+//!
 //! ```rust
 //! use tailwind_rs_core::*;
-//! 
-//! // Type-safe class generation
+//!
+//! // String literals are joined at compile time
 //! let classes = classes! {
 //!     base: "px-4 py-2 rounded-md font-medium",
 //!     variant: "bg-blue-600 text-white hover:bg-blue-700",
 //!     responsive: "sm:text-sm md:text-base lg:text-lg",
 //! };
-//! 
-//! // Dynamic styling with type safety
+//! assert!(classes.starts_with("px-4 py-2"));
+//!
+//! // Dynamic values are joined at runtime
 //! let color = Color::Blue;
 //! let dynamic_classes = classes! {
 //!     background: color.background(600),
-//!     text: color.text(),
+//!     text: color.text(50),
 //!     hover: color.hover(700),
 //! };
+//! // Output order is base, variants, responsive, states (`hover`, `focus`, ...), then others
+//! assert_eq!(dynamic_classes, "hover:bg-blue-700 bg-blue-600 text-blue-50");
 //! ```
-//! 
+//!
 //! ## Integration with Leptos
-//! 
+//!
 //! ```rust
-//! use leptos::*;
+//! use leptos::prelude::*;
 //! use tailwind_rs_core::*;
-//! 
+//!
+//! #[derive(Clone, Copy)]
+//! pub enum ButtonVariant {
+//!     Primary,
+//!     Secondary,
+//! }
+//!
 //! #[component]
 //! pub fn Button(variant: ButtonVariant) -> impl IntoView {
 //!     let classes = classes! {
@@ -50,7 +59,7 @@
 //!             ButtonVariant::Secondary => "bg-gray-200 text-gray-900 hover:bg-gray-300",
 //!         },
 //!     };
-//!     
+//!
 //!     view! { <button class=classes>"Click me"</button> }
 //! }
 //! ```
@@ -67,6 +76,9 @@ pub use colors::*;
 pub use responsive::*;
 pub use themes::*;
 pub use validation::*;
+
+#[cfg(feature = "macros")]
+pub use tailwind_rs_core_macros::{classes, color, responsive, theme};
 
 /// Utility functions for colors and responsive design.
 ///

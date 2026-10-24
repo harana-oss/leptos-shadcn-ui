@@ -222,7 +222,7 @@ mod tests {
     #[test]
     fn test_card_title_semantic_structure() {
         let title = view! {
-            <CardTitle _level=2>"Semantic Title"</CardTitle>
+            <CardTitle level=2>"Semantic Title"</CardTitle>
         };
         
         // Verify the view renders without errors
