@@ -162,8 +162,8 @@ jobs:
         with:
           name: cross-browser-results-${{ matrix.browser }}
           path: |
-            test-results/cross-browser/
-            playwright-report/
+            tests/e2e/test-results/cross-browser/
+            tests/e2e/playwright-report/
           retention-days: 30
 
       - name: Upload ${{ matrix.display-name }} screenshots
@@ -171,7 +171,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cross-browser-screenshots-${{ matrix.browser }}
-          path: test-results/cross-browser/
+          path: tests/e2e/test-results/cross-browser/
           retention-days: 30
 
       - name: Stop test server
@@ -272,8 +272,8 @@ jobs:
         with:
           name: cross-browser-results-edge
           path: |
-            test-results/cross-browser/
-            playwright-report/
+            tests/e2e/test-results/cross-browser/
+            tests/e2e/playwright-report/
           retention-days: 30
 
   mobile-tests:
@@ -373,8 +373,8 @@ jobs:
         with:
           name: cross-browser-results-${{ matrix.mobile-browser }}
           path: |
-            test-results/cross-browser/
-            playwright-report/
+            tests/e2e/test-results/cross-browser/
+            tests/e2e/playwright-report/
           retention-days: 30
 
       - name: Stop test server
