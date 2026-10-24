@@ -1,7 +1,7 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod integration_tests {
-    
+
     use crate::*;
     use leptos::prelude::*;
 
@@ -535,7 +535,7 @@ mod integration_tests {
             </ContextMenu>
         };
         let render_time = start_time.elapsed();
-        
+
         // Performance monitoring would go here
         assert!(render_time.as_millis() < 100);
     }
@@ -569,11 +569,7 @@ mod integration_tests {
         // Components use context; an owner must be active on native.
         let _owner = Owner::new();
         _owner.set();
-        let data = RwSignal::new(vec![
-            ("edit", "Edit"),
-            ("copy", "Copy"),
-            ("delete", "Delete"),
-        ]);
+        let data = RwSignal::new(vec![("edit", "Edit"), ("copy", "Copy"), ("delete", "Delete")]);
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>

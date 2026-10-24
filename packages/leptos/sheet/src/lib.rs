@@ -1,11 +1,11 @@
 //! Leptos port of shadcn/ui sheet
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
+pub mod signal_managed;
 
-pub use default::{Sheet};
-pub use new_york::{Sheet as SheetNewYork};
+pub use default::Sheet;
+pub use new_york::Sheet as SheetNewYork;
 
 mod tests;
 

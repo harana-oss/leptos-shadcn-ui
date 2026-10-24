@@ -1,7 +1,7 @@
+use crate::validation::{InputValidator, ValidationResult};
+use leptos::wasm_bindgen::JsCast;
 use leptos::{ev::Event, prelude::*};
 use leptos_style::Style;
-use leptos::wasm_bindgen::JsCast;
-use crate::validation::{InputValidator, ValidationResult};
 
 pub const INPUT_CLASS: &str = "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
 
@@ -26,14 +26,13 @@ pub fn Input(
     let (_is_validating, _set_is_validating) = signal(false);
 
     let handle_input = {
-        
         move |event: Event| {
             if let Some(callback) = &on_change {
                 let target = event.target().unwrap();
                 let input = target.unchecked_into::<web_sys::HtmlInputElement>();
                 let input_value = input.value();
                 callback.run(input_value.clone());
-                
+
                 // TDD Enhancement: Real-time validation
                 if let Some(validator) = &validator {
                     _set_is_validating.set(true);
@@ -48,20 +47,27 @@ pub fn Input(
     let computed_class = Signal::derive(move || {
         let base_class = INPUT_CLASS;
         let custom_class = class.get().unwrap_or_default();
-        let error_class = if validation_result.get().has_errors() || validation_error.get().is_some() {
-            INPUT_ERROR_CLASS
-        } else {
-            ""
-        };
-        
-        format!("{} {} {}", base_class, custom_class, error_class).trim().to_string()
+        let error_class =
+            if validation_result.get().has_errors() || validation_error.get().is_some() {
+                INPUT_ERROR_CLASS
+            } else {
+                ""
+            };
+
+        format!("{} {} {}", base_class, custom_class, error_class)
+            .trim()
+            .to_string()
     });
 
     let display_error = Signal::derive(move || {
         if let Some(error) = validation_error.get() {
             Some(error)
         } else if validation_result.get().has_errors() {
-            validation_result.get().errors.first().map(|e| e.message.clone())
+            validation_result
+                .get()
+                .errors
+                .first()
+                .map(|e| e.message.clone())
         } else {
             None
         }
@@ -88,7 +94,7 @@ pub fn Input(
                 }
             />
             <Show when=move || display_error.get().is_some() && show_validation.get()>
-                <p 
+                <p
                     id=move || format!("{}-error", id.get().unwrap_or_default())
                     class="text-sm text-destructive"
                     role="alert"

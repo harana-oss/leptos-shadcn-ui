@@ -1,19 +1,17 @@
 //! Signal-managed version of the checkbox component using leptos-shadcn-signal-management
 
 use leptos::prelude::*;
-use leptos_style::Style;
 use leptos_shadcn_signal_management::*;
+use leptos_style::Style;
 
 /// Signal-managed checkbox state
-#[derive(Debug, Clone, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub struct SignalManagedCheckboxState {
     pub is_active: bool,
     pub is_hovered: bool,
     pub is_focused: bool,
     pub click_count: u32,
 }
-
 
 /// Signal-managed checkbox component
 #[component]
@@ -34,11 +32,12 @@ pub fn SignalManagedCheckbox(
         let active_class = if state.is_active { "active" } else { "" };
         let hover_class = if state.is_hovered { "hover" } else { "" };
         let focus_class = if state.is_focused { "focus" } else { "" };
-        
-        format!("{} {} {} {} {}", 
-            base_class, 
-            active_class, 
-            hover_class, 
+
+        format!(
+            "{} {} {} {} {}",
+            base_class,
+            active_class,
+            hover_class,
             focus_class,
             class.get().unwrap_or_default()
         )
@@ -114,14 +113,27 @@ pub fn EnhancedCheckbox(
     let computed_class = ArcMemo::new(move |_| {
         let state = checkbox_state_for_class.get();
         let base_class = "component-base-class"; // TODO: Replace with actual base class
-        let active_class = if state.is_active { "active transition-all" } else { "" };
-        let hover_class = if state.is_hovered { "hover:shadow-md" } else { "" };
-        let focus_class = if state.is_focused { "focus:ring-2 focus:ring-ring" } else { "" };
-        
-        format!("{} {} {} {} {}", 
-            base_class, 
-            active_class, 
-            hover_class, 
+        let active_class = if state.is_active {
+            "active transition-all"
+        } else {
+            ""
+        };
+        let hover_class = if state.is_hovered {
+            "hover:shadow-md"
+        } else {
+            ""
+        };
+        let focus_class = if state.is_focused {
+            "focus:ring-2 focus:ring-ring"
+        } else {
+            ""
+        };
+
+        format!(
+            "{} {} {} {} {}",
+            base_class,
+            active_class,
+            hover_class,
             focus_class,
             class.get().unwrap_or_default()
         )
@@ -131,10 +143,9 @@ pub fn EnhancedCheckbox(
     let checkbox_state_for_metrics = checkbox_state.clone();
     let performance_metrics = ArcMemo::new(move |_| {
         let state = checkbox_state_for_metrics.get();
-        format!("Clicks: {}, Active: {}, Hovered: {}", 
-            state.click_count, 
-            state.is_active, 
-            state.is_hovered
+        format!(
+            "Clicks: {}, Active: {}, Hovered: {}",
+            state.click_count, state.is_active, state.is_hovered
         )
     });
 
@@ -191,7 +202,7 @@ pub fn EnhancedCheckbox(
             >
                 {children.map(|c| c())}
             </div>
-            
+
             // Performance monitoring (only in development)
             #[cfg(debug_assertions)]
             <div class="performance-monitor text-xs text-muted-foreground mt-1">

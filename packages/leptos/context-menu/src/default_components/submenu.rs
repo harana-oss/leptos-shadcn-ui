@@ -1,5 +1,5 @@
 //! ContextMenu submenu components
-//! 
+//!
 //! This module contains the ContextMenuSub, ContextMenuSubTrigger,
 //! and ContextMenuSubContent components for nested context menus.
 
@@ -12,9 +12,7 @@ use web_sys::MouseEvent;
 struct SubMenuOpen(RwSignal<bool>);
 
 #[component]
-pub fn ContextMenuSub(
-    #[prop(optional)] children: Option<Children>,
-) -> impl IntoView {
+pub fn ContextMenuSub(#[prop(optional)] children: Option<Children>) -> impl IntoView {
     let open = RwSignal::new(false);
     provide_context(SubMenuOpen(open));
 
@@ -45,7 +43,11 @@ pub fn ContextMenuSubTrigger(
 
     let trigger_class = move || {
         let base_class = "context-menu-sub-trigger";
-        let disabled_class = if disabled.get().unwrap_or(false) { " disabled" } else { "" };
+        let disabled_class = if disabled.get().unwrap_or(false) {
+            " disabled"
+        } else {
+            ""
+        };
         let custom_class = class.get().unwrap_or_default();
         format!("{}{} {}", base_class, disabled_class, custom_class)
     };

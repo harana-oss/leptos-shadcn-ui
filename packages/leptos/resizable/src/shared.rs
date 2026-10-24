@@ -34,7 +34,8 @@ pub(crate) struct GroupContext {
 
 impl GroupContext {
     fn sizes(&self) -> Vec<f64> {
-        self.panels.with_untracked(|p| p.iter().map(|l| l.size).collect())
+        self.panels
+            .with_untracked(|p| p.iter().map(|l| l.size).collect())
     }
 
     /// Fires the group callback and the callbacks of panels whose size changed.
@@ -56,7 +57,8 @@ impl GroupContext {
     pub fn resize(&self, before: usize, delta: f64) {
         let old = self.sizes();
         let mut changed = false;
-        self.panels.update(|panels| changed = apply_delta(panels, before, delta));
+        self.panels
+            .update(|panels| changed = apply_delta(panels, before, delta));
         if changed {
             self.notify(&old);
         }
@@ -75,7 +77,8 @@ impl GroupContext {
             self.resize(index - 1, -delta);
         } else {
             let old = self.sizes();
-            self.panels.update(|p| p[0].size = size.clamp(p[0].min, p[0].max));
+            self.panels
+                .update(|p| p[0].size = size.clamp(p[0].min, p[0].max));
             self.notify(&old);
         }
     }
@@ -240,9 +243,14 @@ pub(crate) fn render_panel(props: PanelProps) -> impl IntoView {
         let mut index = 0;
         ctx.panels.update(|p| {
             index = p.len();
-            p.push(PanelLayout { size: initial, min, max });
+            p.push(PanelLayout {
+                size: initial,
+                min,
+                max,
+            });
         });
-        ctx.panel_callbacks.update_value(|c| c.push(on_resize.get_untracked()));
+        ctx.panel_callbacks
+            .update_value(|c| c.push(on_resize.get_untracked()));
         index
     });
 
@@ -252,7 +260,9 @@ pub(crate) fn render_panel(props: PanelProps) -> impl IntoView {
     let size_before_collapse = StoredValue::new(initial);
 
     let current_size = Signal::derive(move || match (group, index) {
-        (Some(ctx), Some(i)) => ctx.panels.with(|p| p.get(i).map(|l| l.size).unwrap_or(initial)),
+        (Some(ctx), Some(i)) => ctx
+            .panels
+            .with(|p| p.get(i).map(|l| l.size).unwrap_or(initial)),
         _ => local_size.get(),
     });
 
@@ -460,7 +470,8 @@ pub(crate) fn render_handle(props: HandleProps) -> impl IntoView {
 
     let value_now = move || {
         let (ctx, before) = (group?, before?);
-        ctx.panels.with(|p| p.get(before).map(|l| format!("{:.0}", l.size)))
+        ctx.panels
+            .with(|p| p.get(before).map(|l| format!("{:.0}", l.size)))
     };
 
     let computed_class = Signal::derive(move || {
@@ -532,7 +543,11 @@ mod tests {
     fn layout(sizes: &[f64]) -> Vec<PanelLayout> {
         sizes
             .iter()
-            .map(|&size| PanelLayout { size, min: 10.0, max: 90.0 })
+            .map(|&size| PanelLayout {
+                size,
+                min: 10.0,
+                max: 90.0,
+            })
             .collect()
     }
 

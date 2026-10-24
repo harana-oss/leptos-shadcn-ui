@@ -1,7 +1,7 @@
 use anyhow::Result;
 use clap::{Args, Parser, Subcommand};
-use shadcn::commands::init::{InitOptions, init};
 use shadcn::commands::generate::{GenerateArgs, generate};
+use shadcn::commands::init::{InitOptions, init};
 
 #[derive(Parser)]
 #[command(version, propagate_version = true)]

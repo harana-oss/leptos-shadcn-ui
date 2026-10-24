@@ -117,16 +117,13 @@ pub mod loading;
 
 // Re-export init types for convenience
 pub use init::{
-    js_timestamp, log, log_error, log_warn, provide_wasm_init, provide_wasm_init_with_config,
-    init_wasm, init_wasm_with_config, WasmCallback, WasmError, WasmErrorCategory,
-    WasmInitConfig, WasmInitManager, WasmInitState, WasmInitStatus, WasmErrorCallback,
-    WasmProgressCallback,
+    init_wasm, init_wasm_with_config, js_timestamp, log, log_error, log_warn, provide_wasm_init,
+    provide_wasm_init_with_config, WasmCallback, WasmError, WasmErrorCallback, WasmErrorCategory,
+    WasmInitConfig, WasmInitManager, WasmInitState, WasmInitStatus, WasmProgressCallback,
 };
 
 // Re-export loading components
-pub use loading::{
-    WasmInlineLoader, WasmLoadingText, WasmProgressBar, WasmSpinner,
-};
+pub use loading::{WasmInlineLoader, WasmLoadingText, WasmProgressBar, WasmSpinner};
 
 #[cfg(feature = "accordion")]
 pub use leptos_shadcn_accordion::*;
@@ -275,28 +272,28 @@ pub mod prelude {
 /// WASM-specific utilities and helpers
 pub mod wasm_utils {
     use web_sys::*;
-    
+
     /// Initialize WASM-specific features
     pub fn init_wasm() {
         // Set up panic hook for better error reporting in browser
         console_error_panic_hook::set_once();
-        
+
         // Log that WASM version is being used
         web_sys::console::log_1(&"Leptos ShadCN UI WASM version initialized".into());
     }
-    
+
     /// Get current timestamp for WASM environments
     pub fn now() -> f64 {
         let window = window().unwrap();
         let performance = window.performance().unwrap();
         performance.now()
     }
-    
+
     /// Log to browser console
     pub fn log(message: &str) {
         web_sys::console::log_1(&message.into());
     }
-    
+
     /// Log error to browser console
     pub fn log_error(message: &str) {
         web_sys::console::error_1(&message.into());
@@ -306,7 +303,7 @@ pub mod wasm_utils {
 /// Bundle size optimization utilities
 pub mod bundle_utils {
     use super::BundleInfo;
-    
+
     /// Get bundle size information
     pub fn get_bundle_info() -> BundleInfo {
         BundleInfo {
@@ -315,7 +312,7 @@ pub mod bundle_utils {
             wasm_optimized: cfg!(feature = "wasm-optimized"),
         }
     }
-    
+
     /// Get list of enabled features
     pub fn get_enabled_features() -> Vec<&'static str> {
         macro_rules! collect_features {
@@ -390,9 +387,12 @@ pub struct BundleInfo {
 
 impl std::fmt::Display for BundleInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Leptos ShadCN UI WASM v{} (features: {})", 
-               self.version, 
-               self.features.join(", "))
+        write!(
+            f,
+            "Leptos ShadCN UI WASM v{} (features: {})",
+            self.version,
+            self.features.join(", ")
+        )
     }
 }
 
@@ -400,16 +400,16 @@ impl std::fmt::Display for BundleInfo {
 mod tests {
     use super::*;
     use wasm_bindgen_test::*;
-    
+
     wasm_bindgen_test_configure!(run_in_browser);
-    
+
     #[wasm_bindgen_test]
     fn test_bundle_info() {
         let info = bundle_utils::get_bundle_info();
         assert!(!info.version.is_empty());
         assert!(info.wasm_optimized || !cfg!(feature = "wasm-optimized"));
     }
-    
+
     #[wasm_bindgen_test]
     fn test_wasm_utils() {
         wasm_utils::init_wasm();

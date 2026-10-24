@@ -1,6 +1,6 @@
 use leptos::prelude::*;
-use leptos_shadcn_button::{Button, ButtonVariant, ButtonSize};
-use leptos_shadcn_card::{Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter};
+use leptos_shadcn_button::{Button, ButtonSize, ButtonVariant};
+use leptos_shadcn_card::{Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle};
 use leptos_shadcn_input::Input;
 
 #[component]
@@ -44,7 +44,7 @@ pub fn ComprehensiveDemo() -> impl IntoView {
                     <p class="text-lg text-muted-foreground mb-6">
                         "Interactive showcase using real Leptos WASM components with tailwind-rs-core"
                     </p>
-                    <Button 
+                    <Button
                         variant=ButtonVariant::Outline
                         size=ButtonSize::Default
                         on_click=toggle_theme
@@ -64,21 +64,21 @@ pub fn ComprehensiveDemo() -> impl IntoView {
                         <div class="text-center">
                             <div class="text-6xl font-bold mb-4">{count}</div>
                             <div class="flex gap-2 justify-center">
-                                <Button 
+                                <Button
                                     variant=ButtonVariant::Default
                                     size=ButtonSize::Default
                                     on_click=increment
                                 >
                                     "Increment"
                                 </Button>
-                                <Button 
+                                <Button
                                     variant=ButtonVariant::Secondary
                                     size=ButtonSize::Default
                                     on_click=decrement
                                 >
                                     "Decrement"
                                 </Button>
-                                <Button 
+                                <Button
                                     variant=ButtonVariant::Destructive
                                     size=ButtonSize::Default
                                     on_click=reset
@@ -129,7 +129,7 @@ pub fn ComprehensiveDemo() -> impl IntoView {
                     <CardContent class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium mb-2">"Enter some text:"</label>
-                            <Input 
+                            <Input
                                 value=input_value
                                 on_change=Callback::new(move |value| set_input_value.set(value))
                                 placeholder="Type something here..."

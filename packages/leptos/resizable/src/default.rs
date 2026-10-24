@@ -3,8 +3,10 @@
 use leptos::prelude::*;
 use leptos_style::Style;
 
-use crate::shared::{render_group, render_handle, render_panel, GroupProps, HandleProps, PanelProps};
 pub use crate::resizable::ResizeDirection;
+use crate::shared::{
+    GroupProps, HandleProps, PanelProps, render_group, render_handle, render_panel,
+};
 
 /// Resizable panel group component
 #[component]

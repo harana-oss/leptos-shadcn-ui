@@ -1,7 +1,7 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod variant_tests {
-    use crate::new_york::{ButtonVariant as ButtonVariantNewYork, ButtonSize as ButtonSizeNewYork};
+    use crate::new_york::{ButtonSize as ButtonSizeNewYork, ButtonVariant as ButtonVariantNewYork};
 
     // ===== NEW YORK VARIANT TESTS =====
     // These tests focus on the New York theme variant implementation
@@ -9,12 +9,24 @@ mod variant_tests {
     #[test]
     fn test_new_york_button_variant_enum_conversions() {
         // Test ButtonVariantNewYork From<String> implementation
-        assert_eq!(ButtonVariantNewYork::from("destructive".to_string()), ButtonVariantNewYork::Destructive);
-        assert_eq!(ButtonVariantNewYork::from("outline".to_string()), ButtonVariantNewYork::Outline);
-        assert_eq!(ButtonVariantNewYork::from("secondary".to_string()), ButtonVariantNewYork::Secondary);
+        assert_eq!(
+            ButtonVariantNewYork::from("destructive".to_string()),
+            ButtonVariantNewYork::Destructive
+        );
+        assert_eq!(
+            ButtonVariantNewYork::from("outline".to_string()),
+            ButtonVariantNewYork::Outline
+        );
+        assert_eq!(
+            ButtonVariantNewYork::from("secondary".to_string()),
+            ButtonVariantNewYork::Secondary
+        );
         assert_eq!(ButtonVariantNewYork::from("ghost".to_string()), ButtonVariantNewYork::Ghost);
         assert_eq!(ButtonVariantNewYork::from("link".to_string()), ButtonVariantNewYork::Link);
-        assert_eq!(ButtonVariantNewYork::from("invalid".to_string()), ButtonVariantNewYork::Default);
+        assert_eq!(
+            ButtonVariantNewYork::from("invalid".to_string()),
+            ButtonVariantNewYork::Default
+        );
         assert_eq!(ButtonVariantNewYork::from("".to_string()), ButtonVariantNewYork::Default);
     }
 
@@ -129,10 +141,22 @@ mod variant_tests {
     #[test]
     fn test_new_york_button_variant_from_str() {
         // Test ButtonVariantNewYork from string conversion
-        assert_eq!(ButtonVariantNewYork::from("default".to_string()), ButtonVariantNewYork::Default);
-        assert_eq!(ButtonVariantNewYork::from("destructive".to_string()), ButtonVariantNewYork::Destructive);
-        assert_eq!(ButtonVariantNewYork::from("outline".to_string()), ButtonVariantNewYork::Outline);
-        assert_eq!(ButtonVariantNewYork::from("secondary".to_string()), ButtonVariantNewYork::Secondary);
+        assert_eq!(
+            ButtonVariantNewYork::from("default".to_string()),
+            ButtonVariantNewYork::Default
+        );
+        assert_eq!(
+            ButtonVariantNewYork::from("destructive".to_string()),
+            ButtonVariantNewYork::Destructive
+        );
+        assert_eq!(
+            ButtonVariantNewYork::from("outline".to_string()),
+            ButtonVariantNewYork::Outline
+        );
+        assert_eq!(
+            ButtonVariantNewYork::from("secondary".to_string()),
+            ButtonVariantNewYork::Secondary
+        );
         assert_eq!(ButtonVariantNewYork::from("ghost".to_string()), ButtonVariantNewYork::Ghost);
         assert_eq!(ButtonVariantNewYork::from("link".to_string()), ButtonVariantNewYork::Link);
     }
@@ -150,8 +174,14 @@ mod variant_tests {
     fn test_new_york_button_variant_case_insensitive() {
         // Test case insensitive conversion (if implemented)
         // This test assumes case insensitive conversion is not implemented
-        assert_eq!(ButtonVariantNewYork::from("DESTRUCTIVE".to_string()), ButtonVariantNewYork::Default);
-        assert_eq!(ButtonVariantNewYork::from("OUTLINE".to_string()), ButtonVariantNewYork::Default);
+        assert_eq!(
+            ButtonVariantNewYork::from("DESTRUCTIVE".to_string()),
+            ButtonVariantNewYork::Default
+        );
+        assert_eq!(
+            ButtonVariantNewYork::from("OUTLINE".to_string()),
+            ButtonVariantNewYork::Default
+        );
     }
 
     #[test]
@@ -165,8 +195,14 @@ mod variant_tests {
     #[test]
     fn test_new_york_button_variant_whitespace_handling() {
         // Test whitespace handling in string conversion
-        assert_eq!(ButtonVariantNewYork::from(" destructive ".to_string()), ButtonVariantNewYork::Default);
-        assert_eq!(ButtonVariantNewYork::from(" outline ".to_string()), ButtonVariantNewYork::Default);
+        assert_eq!(
+            ButtonVariantNewYork::from(" destructive ".to_string()),
+            ButtonVariantNewYork::Default
+        );
+        assert_eq!(
+            ButtonVariantNewYork::from(" outline ".to_string()),
+            ButtonVariantNewYork::Default
+        );
     }
 
     #[test]
@@ -180,11 +216,11 @@ mod variant_tests {
     fn test_new_york_button_variant_hash() {
         // Test Hash implementation for ButtonVariantNewYork
         use std::collections::HashMap;
-        
+
         let mut map = HashMap::new();
         map.insert(ButtonVariantNewYork::Default, "default");
         map.insert(ButtonVariantNewYork::Destructive, "destructive");
-        
+
         assert_eq!(map.get(&ButtonVariantNewYork::Default), Some(&"default"));
         assert_eq!(map.get(&ButtonVariantNewYork::Destructive), Some(&"destructive"));
     }
@@ -193,11 +229,11 @@ mod variant_tests {
     fn test_new_york_button_size_hash() {
         // Test Hash implementation for ButtonSizeNewYork
         use std::collections::HashMap;
-        
+
         let mut map = HashMap::new();
         map.insert(ButtonSizeNewYork::Default, "default");
         map.insert(ButtonSizeNewYork::Sm, "small");
-        
+
         assert_eq!(map.get(&ButtonSizeNewYork::Default), Some(&"default"));
         assert_eq!(map.get(&ButtonSizeNewYork::Sm), Some(&"small"));
     }

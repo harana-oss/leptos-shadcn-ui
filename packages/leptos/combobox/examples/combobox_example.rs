@@ -4,7 +4,7 @@ use leptos_shadcn_combobox::{Combobox, ComboboxOption};
 #[component]
 pub fn ComboboxExample() -> impl IntoView {
     let (selected_value, set_selected_value) = signal(String::new());
-    
+
     // Sample options for the combobox
     let options = vec![
         ComboboxOption::new("react", "React"),
@@ -18,12 +18,12 @@ pub fn ComboboxExample() -> impl IntoView {
         ComboboxOption::new("preact", "Preact"),
         ComboboxOption::new("alpine", "Alpine.js"),
     ];
-    
+
     let handle_change = Callback::new(move |value: String| {
         set_selected_value.set(value.clone());
         leptos::logging::log!("Selected value: {}", value);
     });
-    
+
     view! {
         <div class="p-8 space-y-6">
             <div class="space-y-2">
@@ -32,7 +32,7 @@ pub fn ComboboxExample() -> impl IntoView {
                     "Select a framework from the dropdown or type to filter options."
                 </p>
             </div>
-            
+
             <div class="space-y-4">
                 <div class="space-y-2">
                     <label class="text-sm font-medium">"Framework"</label>
@@ -43,7 +43,7 @@ pub fn ComboboxExample() -> impl IntoView {
                         options=options
                     />
                 </div>
-                
+
                 <div class="p-4 bg-muted rounded-md">
                     <p class="text-sm">
                         <span class="font-medium">"Selected: "</span>
@@ -58,7 +58,7 @@ pub fn ComboboxExample() -> impl IntoView {
                     </p>
                 </div>
             </div>
-            
+
             <div class="space-y-4">
                 <h3 class="text-lg font-semibold">"Features Demonstrated:"</h3>
                 <ul class="list-disc list-inside space-y-1 text-sm text-muted-foreground">

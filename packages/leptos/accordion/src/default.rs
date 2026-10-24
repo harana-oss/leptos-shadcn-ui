@@ -1,24 +1,20 @@
 use leptos::prelude::*;
-use web_sys::MouseEvent;
 use web_sys::KeyboardEvent;
+use web_sys::MouseEvent;
 
-#[derive(Debug, Clone, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub enum AccordionType {
     #[default]
     Single,
     Multiple,
 }
 
-
-#[derive(Debug, Clone, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub enum AccordionOrientation {
     #[default]
     Vertical,
     Horizontal,
 }
-
 
 /// Context newtypes: each boolean signal gets its own type so that
 /// `provide_context` calls do not overwrite each other.
@@ -93,9 +89,8 @@ pub fn Accordion(
     provide_context(value);
     provide_context(on_value_change);
 
-    let computed_class = Signal::derive(move || {
-        format!("w-full {}", class.get().unwrap_or_default())
-    });
+    let computed_class =
+        Signal::derive(move || format!("w-full {}", class.get().unwrap_or_default()));
 
     view! {
         <div
@@ -119,7 +114,7 @@ pub fn AccordionItem(
 ) -> impl IntoView {
     let accordion_disabled = expect_context::<AccordionDisabled>().0;
     let accordion_value = expect_context::<RwSignal<Vec<String>>>();
-    
+
     let is_disabled = Signal::derive(move || disabled.get() || accordion_disabled.get());
     let value_clone = value.clone();
     let is_expanded = Signal::derive(move || accordion_value.get().contains(&value_clone));
@@ -128,9 +123,8 @@ pub fn AccordionItem(
     provide_context(AccordionItemDisabled(is_disabled));
     provide_context(AccordionItemExpanded(is_expanded));
 
-    let computed_class = Signal::derive(move || {
-        format!("border-b {}", class.get().unwrap_or_default())
-    });
+    let computed_class =
+        Signal::derive(move || format!("border-b {}", class.get().unwrap_or_default()));
 
     view! {
         <div
@@ -189,14 +183,12 @@ pub fn AccordionTrigger(
 
     let handle_keydown = {
         let toggle = toggle.clone();
-        move |e: KeyboardEvent| {
-            match e.key().as_str() {
-                "Enter" | " " => {
-                    e.prevent_default();
-                    toggle();
-                }
-                _ => {}
+        move |e: KeyboardEvent| match e.key().as_str() {
+            "Enter" | " " => {
+                e.prevent_default();
+                toggle();
             }
+            _ => {}
         }
     };
 
@@ -216,7 +208,7 @@ pub fn AccordionTrigger(
                 }
 
                 let mut current_value = accordion_value.get();
-                
+
                 match accordion_type.get() {
                     AccordionType::Single => {
                         if current_value.contains(&item_value) {
@@ -271,7 +263,8 @@ pub fn AccordionTrigger(
                     <path d="m6 9 6 6 6-6"/>
                 </svg>
             </button>
-        }.into_any()
+        }
+        .into_any()
     }
 }
 
@@ -349,6 +342,9 @@ mod context_type_regression_tests {
     fn single_and_multiple_open() {
         let cur = vec!["a".to_string()];
         assert_eq!(compute_toggle(&AccordionType::Single, false, false, &cur, "b"), vec!["b"]);
-        assert_eq!(compute_toggle(&AccordionType::Multiple, false, false, &cur, "b"), vec!["a", "b"]);
+        assert_eq!(
+            compute_toggle(&AccordionType::Multiple, false, false, &cur, "b"),
+            vec!["a", "b"]
+        );
     }
 }

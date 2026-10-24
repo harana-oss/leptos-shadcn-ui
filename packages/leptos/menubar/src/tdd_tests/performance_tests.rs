@@ -1,10 +1,10 @@
 //! Performance tests for the Menubar component
-//! 
+//!
 //! This module contains tests for performance, callbacks, disabled states,
 //! custom styles, and complex content for the Menubar component.
 
-use leptos::prelude::*;
 use crate::default::Menubar;
+use leptos::prelude::*;
 
 #[cfg(test)]
 mod tests {
@@ -18,7 +18,7 @@ mod tests {
                 "Performance menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -32,7 +32,7 @@ mod tests {
                 "Callback menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -48,7 +48,7 @@ mod tests {
                 <Menubar>"Multiple callbacks menu 2"</Menubar>
             </div>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -61,7 +61,7 @@ mod tests {
                 "Disabled menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -74,7 +74,7 @@ mod tests {
                 "Enabled menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -87,7 +87,7 @@ mod tests {
                 "Custom style menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -100,7 +100,7 @@ mod tests {
                 "Combined props menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -118,7 +118,7 @@ mod tests {
                 </div>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -135,7 +135,7 @@ mod tests {
                 </div>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -149,7 +149,7 @@ mod tests {
                 {move || content.get()}
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -167,7 +167,7 @@ mod tests {
                 }}
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -185,7 +185,7 @@ mod tests {
                 }).collect::<Vec<_>>()}
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -203,7 +203,7 @@ mod tests {
                 }).collect::<Vec<_>>()}
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -216,7 +216,7 @@ mod tests {
                 "Performance characteristics menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -229,7 +229,7 @@ mod tests {
                 "Memory management menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -242,7 +242,7 @@ mod tests {
                 "Rendering performance menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -256,7 +256,7 @@ mod tests {
                 format!("Update performance menu {count}")
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -270,7 +270,7 @@ mod tests {
                 "Event performance menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -284,7 +284,7 @@ mod tests {
                 {move || signal_value.get()}
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -297,7 +297,7 @@ mod tests {
                 "Component performance menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -314,7 +314,7 @@ mod tests {
                 }).collect::<Vec<_>>()}
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -337,7 +337,7 @@ mod tests {
                 </div>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -351,7 +351,7 @@ mod tests {
                 <Menubar>"Instance 2 menu"</Menubar>
             </div>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -367,7 +367,7 @@ mod tests {
                 <Menubar>"Complex interaction 2"</Menubar>
             </div>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -380,7 +380,7 @@ mod tests {
                 "Performance optimization menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -393,7 +393,7 @@ mod tests {
                 "Memory optimization menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -406,7 +406,7 @@ mod tests {
                 "Rendering optimization menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -420,7 +420,7 @@ mod tests {
                 {move || optimized_value.get()}
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -434,7 +434,7 @@ mod tests {
                 "Event optimization menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -448,7 +448,7 @@ mod tests {
                 {move || optimized_signal.get()}
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -461,7 +461,7 @@ mod tests {
                 "Component optimization menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }

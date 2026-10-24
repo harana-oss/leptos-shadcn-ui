@@ -1,10 +1,10 @@
 //! Basic rendering tests for the Hover-card component
-//! 
+//!
 //! This module contains tests for basic rendering, variants, sizes, and prop handling
 //! for the Hover-card component, focusing on fundamental functionality.
 
-use leptos::prelude::*;
 use crate::default::{HoverCard, HoverCardContent, HoverCardTrigger};
+use leptos::prelude::*;
 
 #[cfg(test)]
 mod tests {
@@ -19,7 +19,7 @@ mod tests {
                 <HoverCardContent>"Hover card content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -35,7 +35,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -49,7 +49,7 @@ mod tests {
                 <HoverCardContent>"Variant content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -63,7 +63,7 @@ mod tests {
                 <HoverCardContent>"Size content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -72,7 +72,7 @@ mod tests {
     fn test_hover_card_with_callback() {
         // Test hover card with callback
         let (callback_count, _set_callback_count) = signal(0);
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Callback trigger"</HoverCardTrigger>
@@ -81,7 +81,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -95,7 +95,7 @@ mod tests {
                 <HoverCardContent>"Disabled content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -109,7 +109,7 @@ mod tests {
                 <HoverCardContent class="custom-content">"Class content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -123,7 +123,7 @@ mod tests {
                 <HoverCardContent id="custom-content">"ID content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -137,7 +137,7 @@ mod tests {
                 <HoverCardContent style="background: blue;">"Style content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -157,7 +157,7 @@ mod tests {
                 </HoverCard>
             </div>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -171,7 +171,7 @@ mod tests {
                 <HoverCardContent>"Default content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -185,7 +185,7 @@ mod tests {
                 <HoverCardContent>"Destructive content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -199,7 +199,7 @@ mod tests {
                 <HoverCardContent>"Outline content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -213,7 +213,7 @@ mod tests {
                 <HoverCardContent>"Secondary content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -227,7 +227,7 @@ mod tests {
                 <HoverCardContent>"Ghost content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -241,7 +241,7 @@ mod tests {
                 <HoverCardContent>"Link content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -255,7 +255,7 @@ mod tests {
                 <HoverCardContent>"Default size content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -269,7 +269,7 @@ mod tests {
                 <HoverCardContent>"Small size content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -283,7 +283,7 @@ mod tests {
                 <HoverCardContent>"Large size content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -297,7 +297,7 @@ mod tests {
                 <HoverCardContent>"Icon size content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -311,7 +311,7 @@ mod tests {
                 <HoverCardContent>""</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -325,7 +325,7 @@ mod tests {
                 <HoverCardContent></HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -334,14 +334,14 @@ mod tests {
     fn test_hover_card_long_text() {
         // Test hover card long text
         let long_text = "This is a very long text that should test the hover card's ability to handle long content without breaking the layout or causing any issues with the component's functionality.";
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Long text trigger"</HoverCardTrigger>
                 <HoverCardContent>{long_text}</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -355,7 +355,7 @@ mod tests {
                 <HoverCardContent>"Label content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -371,7 +371,7 @@ mod tests {
                 </HoverCard>
             </form>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -391,7 +391,7 @@ mod tests {
                 </HoverCard>
             </div>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -409,7 +409,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -437,7 +437,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -451,7 +451,7 @@ mod tests {
                 <HoverCardContent style="background: blue; color: white;">"Custom style content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -461,7 +461,7 @@ mod tests {
         // Test hover card combined props
         let hover_card_view = view! {
             <HoverCard>
-                <HoverCardTrigger 
+                <HoverCardTrigger
                     class="custom-trigger"
                     id="combined-trigger"
                     style="color: green;"
@@ -469,7 +469,7 @@ mod tests {
                 >
                     "Combined props trigger"
                 </HoverCardTrigger>
-                <HoverCardContent 
+                <HoverCardContent
                     class="custom-content"
                     id="combined-content"
                     style="background: yellow;"
@@ -478,7 +478,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }

@@ -1,5 +1,5 @@
 //! ContextMenu checkbox and radio components
-//! 
+//!
 //! This module contains the ContextMenuCheckboxItem, ContextMenuRadioGroup,
 //! and ContextMenuRadioItem components for interactive menu items.
 
@@ -33,7 +33,11 @@ pub fn ContextMenuCheckboxItem(
     let item_class = move || {
         let base_class = "context-menu-checkbox-item";
         let checked_class = if checked.get() { " checked" } else { "" };
-        let disabled_class = if disabled.get().unwrap_or(false) { " disabled" } else { "" };
+        let disabled_class = if disabled.get().unwrap_or(false) {
+            " disabled"
+        } else {
+            ""
+        };
         let custom_class = class.get().unwrap_or_default();
         format!("{}{}{} {}", base_class, checked_class, disabled_class, custom_class)
     };
@@ -103,7 +107,11 @@ pub fn ContextMenuRadioItem(
     let item_class = move || {
         let base_class = "context-menu-radio-item";
         let selected_class = if is_selected.get() { " selected" } else { "" };
-        let disabled_class = if disabled.get().unwrap_or(false) { " disabled" } else { "" };
+        let disabled_class = if disabled.get().unwrap_or(false) {
+            " disabled"
+        } else {
+            ""
+        };
         let custom_class = class.get().unwrap_or_default();
         format!("{}{}{} {}", base_class, selected_class, disabled_class, custom_class)
     };

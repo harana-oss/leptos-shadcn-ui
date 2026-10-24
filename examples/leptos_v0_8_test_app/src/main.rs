@@ -3,25 +3,27 @@ use leptos_shadcn_ui::*;
 
 fn main() {
     console_error_panic_hook::set_once();
-    mount_to_body(|| view! {
-        <div class="min-h-screen bg-background p-8">
-            <div class="max-w-4xl mx-auto space-y-8">
-                <header class="text-center">
-                    <h1 class="text-4xl font-bold text-foreground mb-2">
-                        "🧪 Leptos v0.8 Compatibility Test"
-                    </h1>
-                    <p class="text-muted-foreground">
-                        "Comprehensive verification of all leptos-shadcn-ui components with Leptos v0.8"
-                    </p>
-                </header>
+    mount_to_body(|| {
+        view! {
+            <div class="min-h-screen bg-background p-8">
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <header class="text-center">
+                        <h1 class="text-4xl font-bold text-foreground mb-2">
+                            "🧪 Leptos v0.8 Compatibility Test"
+                        </h1>
+                        <p class="text-muted-foreground">
+                            "Comprehensive verification of all leptos-shadcn-ui components with Leptos v0.8"
+                        </p>
+                    </header>
 
-                <div class="grid gap-8">
-                    <SignalReactivityTest />
-                    <EventHandlingTest />
-                    <AttributeBindingTest />
+                    <div class="grid gap-8">
+                        <SignalReactivityTest />
+                        <EventHandlingTest />
+                        <AttributeBindingTest />
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     })
 }
 
@@ -30,7 +32,7 @@ fn SignalReactivityTest() -> impl IntoView {
     let (count, set_count) = signal(0);
     let (is_visible, set_is_visible) = signal(true);
     let (text, set_text) = signal("Hello, Leptos v0.8!".to_string());
-    
+
     view! {
         <Card class="p-6">
             <CardHeader>
@@ -44,31 +46,31 @@ fn SignalReactivityTest() -> impl IntoView {
                     <Button on_click=Callback::new(move |_| set_count.update(|c| *c += 1))>
                         "Count: " {move || count.get()}
                     </Button>
-                    <Button 
+                    <Button
                         variant=ButtonVariant::Secondary
                         on_click=Callback::new(move |_| set_count.set(0))
                     >
                         "Reset"
                     </Button>
                 </div>
-                
+
                 <div class="flex gap-4 items-center">
-                    <Button 
+                    <Button
                         variant=ButtonVariant::Outline
                         on_click=Callback::new(move |_| set_is_visible.update(|v| *v = !*v))
                     >
                         "Toggle Visibility"
                     </Button>
-                    <div 
+                    <div
                         class="p-2 bg-muted rounded"
                         style:display=move || if is_visible.get() { "block" } else { "none" }
                     >
                         "This should toggle visibility"
                     </div>
                 </div>
-                
+
                 <div class="space-y-2">
-                    <Input 
+                    <Input
                         value=text
                         on_change=Callback::new(move |value| set_text.set(value))
                         placeholder="Type something..."
@@ -87,7 +89,7 @@ fn EventHandlingTest() -> impl IntoView {
     let (button_clicks, set_button_clicks) = signal(0);
     let (input_value, set_input_value) = signal(String::new());
     let (checkbox_checked, set_checkbox_checked) = signal(false);
-    
+
     view! {
         <Card class="p-6">
             <CardHeader>
@@ -98,17 +100,17 @@ fn EventHandlingTest() -> impl IntoView {
             </CardHeader>
             <CardContent class="space-y-4">
                 <div class="space-y-2">
-                    <Button 
+                    <Button
                         variant=ButtonVariant::Destructive
                         on_click=Callback::new(move |_| set_button_clicks.update(|c| *c += 1))
                     >
                         "Button clicked: " {move || button_clicks.get()} " times"
                     </Button>
                 </div>
-                
+
                 <div class="space-y-2">
                     <Label>"Input Event Test"</Label>
-                    <Input 
+                    <Input
                         value=input_value
                         on_change=Callback::new(move |value| set_input_value.set(value))
                         placeholder="Type to test input events..."
@@ -117,9 +119,9 @@ fn EventHandlingTest() -> impl IntoView {
                         "Input value: " {move || input_value.get()}
                     </p>
                 </div>
-                
+
                 <div class="flex items-center space-x-2">
-                    <Checkbox 
+                    <Checkbox
                         checked=checkbox_checked
                         on_change=Callback::new(move |checked| set_checkbox_checked.set(checked))
                     />
@@ -135,7 +137,7 @@ fn AttributeBindingTest() -> impl IntoView {
     let (button_variant, set_button_variant) = signal(ButtonVariant::Default);
     let (input_disabled, set_input_disabled) = signal(false);
     let (custom_class, set_custom_class) = signal("bg-blue-500".to_string());
-    
+
     view! {
         <Card class="p-6">
             <CardHeader>
@@ -147,7 +149,7 @@ fn AttributeBindingTest() -> impl IntoView {
             <CardContent class="space-y-4">
                 <div class="space-y-2">
                     <Label>"Button Variant Test"</Label>
-                    <Button 
+                    <Button
                         variant=button_variant
                         on_click=Callback::new(move |_| {
                             let current = button_variant.get();
@@ -165,15 +167,15 @@ fn AttributeBindingTest() -> impl IntoView {
                         "Current: " {move || format!("{:?}", button_variant.get())}
                     </Button>
                 </div>
-                
+
                 <div class="space-y-2">
                     <Label>"Input Disabled State Test"</Label>
                     <div class="flex gap-2 items-center">
-                        <Input 
+                        <Input
                             disabled=input_disabled
                             placeholder="Disabled state test"
                         />
-                        <Button 
+                        <Button
                             variant=ButtonVariant::Outline
                             on_click=Callback::new(move |_| set_input_disabled.update(|d| *d = !*d))
                         >
@@ -181,16 +183,16 @@ fn AttributeBindingTest() -> impl IntoView {
                         </Button>
                     </div>
                 </div>
-                
+
                 <div class="space-y-2">
                     <Label>"Dynamic Class Test"</Label>
                     <div class="flex gap-2 items-center">
-                        <div 
+                        <div
                             class=move || format!("p-4 rounded {}", custom_class.get())
                         >
                             "Dynamic background color"
                         </div>
-                        <Button 
+                        <Button
                             variant=ButtonVariant::Secondary
                             on_click=Callback::new(move |_| {
                                 let current = custom_class.get();

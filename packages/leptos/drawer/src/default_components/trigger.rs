@@ -1,5 +1,5 @@
 //! Drawer trigger components
-//! 
+//!
 //! This module contains the DrawerTrigger component and related trigger functionality.
 
 use leptos::prelude::*;

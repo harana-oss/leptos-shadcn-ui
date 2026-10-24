@@ -78,7 +78,11 @@ pub fn ButtonGroupSeparator(
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: MaybeProp<String>,
 ) -> impl IntoView {
-    let o = move || orientation.get().unwrap_or(ButtonGroupOrientation::Vertical);
+    let o = move || {
+        orientation
+            .get()
+            .unwrap_or(ButtonGroupOrientation::Vertical)
+    };
     view! {
         <div
             role="separator"

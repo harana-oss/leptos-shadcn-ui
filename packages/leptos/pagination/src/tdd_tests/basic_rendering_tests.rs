@@ -20,7 +20,7 @@ mod basic_rendering_tests {
     #[test]
     fn test_pagination_with_current_page() {
         let _pagination_view = view! {
-            <Pagination 
+            <Pagination
                 current_page=MaybeProp::from(3)
                 total_pages=10
             />
@@ -33,7 +33,7 @@ mod basic_rendering_tests {
             // Callback logic
         });
         let _pagination_view = view! {
-            <Pagination 
+            <Pagination
                 total_pages=10
                 on_page_change=callback
             />
@@ -43,7 +43,7 @@ mod basic_rendering_tests {
     #[test]
     fn test_pagination_with_class() {
         let _pagination_view = view! {
-            <Pagination 
+            <Pagination
                 total_pages=10
                 class=MaybeProp::from("custom-pagination")
             />
@@ -53,7 +53,7 @@ mod basic_rendering_tests {
     #[test]
     fn test_pagination_show_previous_next() {
         let _pagination_view = view! {
-            <Pagination 
+            <Pagination
                 total_pages=10
                 show_previous_next=MaybeProp::from(true)
             />
@@ -63,7 +63,7 @@ mod basic_rendering_tests {
     #[test]
     fn test_pagination_show_first_last() {
         let _pagination_view = view! {
-            <Pagination 
+            <Pagination
                 total_pages=10
                 show_first_last=MaybeProp::from(true)
             />
@@ -101,7 +101,7 @@ mod basic_rendering_tests {
     #[test]
     fn test_pagination_custom_properties() {
         let _pagination_view = view! {
-            <Pagination 
+            <Pagination
                 total_pages=10
                 current_page=MaybeProp::from(5)
                 class=MaybeProp::from("custom-pagination")
@@ -116,7 +116,7 @@ mod basic_rendering_tests {
     fn test_pagination_nested_structure() {
         let _pagination_view = view! {
             <div class="pagination-container">
-                <Pagination 
+                <Pagination
                     total_pages=10
                     current_page=MaybeProp::from(3)
                 />
@@ -149,7 +149,7 @@ mod basic_rendering_tests {
     #[test]
     fn test_pagination_accessibility_attributes() {
         let _accessible_pagination_view = view! {
-            <Pagination 
+            <Pagination
                 total_pages=10
                 attr:aria-label="Pagination navigation"
                 attr:role="navigation"
@@ -160,21 +160,21 @@ mod basic_rendering_tests {
     #[test]
     fn test_pagination_multiple_instances() {
         let _pagination1 = view! {
-            <Pagination 
+            <Pagination
                 total_pages=10
                 class=MaybeProp::from("pagination-1")
             />
         };
-        
+
         let _pagination2 = view! {
-            <Pagination 
+            <Pagination
                 total_pages=20
                 class=MaybeProp::from("pagination-2")
             />
         };
-        
+
         let _pagination3 = view! {
-            <Pagination 
+            <Pagination
                 total_pages=30
                 class=MaybeProp::from("pagination-3")
             />
@@ -184,7 +184,7 @@ mod basic_rendering_tests {
     #[test]
     fn test_pagination_style_properties() {
         let _styled_pagination_view = view! {
-            <Pagination 
+            <Pagination
                 total_pages=10
                 attr:style="margin: 20px; padding: 10px;"
             />
@@ -194,10 +194,10 @@ mod basic_rendering_tests {
     #[test]
     fn test_pagination_variants() {
         let variants = vec!["default", "compact", "extended"];
-        
+
         for variant in variants {
             let _variant_pagination_view = view! {
-                <Pagination 
+                <Pagination
                     total_pages=10
                     class=MaybeProp::from(format!("pagination-{}", variant))
                 />
@@ -208,10 +208,10 @@ mod basic_rendering_tests {
     #[test]
     fn test_pagination_sizes() {
         let sizes = vec!["small", "default", "large"];
-        
+
         for size in sizes {
             let _size_pagination_view = view! {
-                <Pagination 
+                <Pagination
                     total_pages=10
                     class=MaybeProp::from(format!("pagination-{}", size))
                 />

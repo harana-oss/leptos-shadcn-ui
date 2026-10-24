@@ -7,24 +7,10 @@ pub use super::*;
 
 // Re-export the main components for easy access
 pub use super::{
-    ErrorBoundary,
-    RichErrorBoundary,
-    ErrorFallback,
-    RichErrorFallback,
-    ErrorInfo,
-    ErrorContext,
-    ErrorSeverity,
-    use_error_handler,
-    use_rich_error_handler,
-    create_user_error,
-    handle_error,
-    create_rich_error,
-    create_error_with_severity,
-    handle_error_with_context,
-    wrap_error_with_context,
-    ErrorContextBuilder,
-    ErrorSource,
-    RecoverySuggestion,
+    ErrorBoundary, ErrorContext, ErrorContextBuilder, ErrorFallback, ErrorInfo, ErrorSeverity,
+    ErrorSource, RecoverySuggestion, RichErrorBoundary, RichErrorFallback,
+    create_error_with_severity, create_rich_error, create_user_error, handle_error,
+    handle_error_with_context, use_error_handler, use_rich_error_handler, wrap_error_with_context,
 };
 
 // New York style classes for the error fallback
@@ -38,7 +24,8 @@ pub const ERROR_RETRY_CLASSES: &str = "ny-error-retry";
 
 // New York style error messages
 pub const DEFAULT_ERROR_TITLE: &str = "Something went wrong";
-pub const DEFAULT_ERROR_MESSAGE: &str = "An unexpected error occurred. Please try refreshing the page.";
+pub const DEFAULT_ERROR_MESSAGE: &str =
+    "An unexpected error occurred. Please try refreshing the page.";
 pub const DEFAULT_RETRY_TEXT: &str = "Try Again";
 
 // New York style error icons

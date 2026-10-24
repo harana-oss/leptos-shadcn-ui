@@ -3,17 +3,13 @@
 //! This module contains the SonnerToast component that renders
 //! individual toast notifications.
 
+use crate::sonner::types::ToastData;
 use leptos::prelude::*;
 use leptos::task::spawn_local;
-use crate::sonner::types::ToastData;
 
 /// Individual Sonner toast component
 #[component]
-pub fn SonnerToast(
-    id: String,
-    data: ToastData,
-    on_dismiss: Callback<()>,
-) -> impl IntoView {
+pub fn SonnerToast(id: String, data: ToastData, on_dismiss: Callback<()>) -> impl IntoView {
     let (is_visible, set_is_visible) = signal(true);
     let (progress, set_progress) = signal(data.progress.unwrap_or(0.0));
 
@@ -22,23 +18,24 @@ pub fn SonnerToast(
 
     // Auto-dismiss logic with proper cleanup
     if let Some(duration) = data.duration
-        && duration.as_millis() > 0 {
-            let _id = id.clone();
-            let is_mounted_dismiss = is_mounted;
+        && duration.as_millis() > 0
+    {
+        let _id = id.clone();
+        let is_mounted_dismiss = is_mounted;
 
-            spawn_local(async move {
-                gloo_timers::future::TimeoutFuture::new(duration.as_millis() as u32).await;
-                // Only update if component is still mounted
+        spawn_local(async move {
+            gloo_timers::future::TimeoutFuture::new(duration.as_millis() as u32).await;
+            // Only update if component is still mounted
+            if is_mounted_dismiss.get() {
+                set_is_visible.set(false);
+                // Small delay for animation
+                gloo_timers::future::TimeoutFuture::new(300).await;
                 if is_mounted_dismiss.get() {
-                    set_is_visible.set(false);
-                    // Small delay for animation
-                    gloo_timers::future::TimeoutFuture::new(300).await;
-                    if is_mounted_dismiss.get() {
-                        on_dismiss.run(());
-                    }
+                    on_dismiss.run(());
                 }
-            });
-        }
+            }
+        });
+    }
 
     // Progress animation with proper cleanup
     if data.progress.is_some() {
@@ -69,11 +66,21 @@ pub fn SonnerToast(
 
     let variant_class = match data.variant {
         crate::sonner::types::ToastVariant::Default => "bg-background text-foreground border",
-        crate::sonner::types::ToastVariant::Success => "bg-green-50 text-green-900 border-green-200 dark:bg-green-900 dark:text-green-100 dark:border-green-800",
-        crate::sonner::types::ToastVariant::Error => "bg-red-50 text-red-900 border-red-200 dark:bg-red-900 dark:text-red-100 dark:border-red-800",
-        crate::sonner::types::ToastVariant::Warning => "bg-yellow-50 text-yellow-900 border-yellow-200 dark:bg-yellow-900 dark:text-yellow-100 dark:border-yellow-800",
-        crate::sonner::types::ToastVariant::Info => "bg-blue-50 text-blue-900 border-blue-200 dark:bg-blue-900 dark:text-blue-100 dark:border-blue-800",
-        crate::sonner::types::ToastVariant::Loading => "bg-gray-50 text-gray-900 border-gray-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-800",
+        crate::sonner::types::ToastVariant::Success => {
+            "bg-green-50 text-green-900 border-green-200 dark:bg-green-900 dark:text-green-100 dark:border-green-800"
+        }
+        crate::sonner::types::ToastVariant::Error => {
+            "bg-red-50 text-red-900 border-red-200 dark:bg-red-900 dark:text-red-100 dark:border-red-800"
+        }
+        crate::sonner::types::ToastVariant::Warning => {
+            "bg-yellow-50 text-yellow-900 border-yellow-200 dark:bg-yellow-900 dark:text-yellow-100 dark:border-yellow-800"
+        }
+        crate::sonner::types::ToastVariant::Info => {
+            "bg-blue-50 text-blue-900 border-blue-200 dark:bg-blue-900 dark:text-blue-100 dark:border-blue-800"
+        }
+        crate::sonner::types::ToastVariant::Loading => {
+            "bg-gray-50 text-gray-900 border-gray-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-800"
+        }
     };
 
     let animation_class = if is_visible.get() {
@@ -84,8 +91,8 @@ pub fn SonnerToast(
 
     view! {
         <div
-            class=format!("{} {} {} p-4 rounded-lg shadow-lg max-w-sm w-full mb-2", 
-                variant_class, animation_class, 
+            class=format!("{} {} {} p-4 rounded-lg shadow-lg max-w-sm w-full mb-2",
+                variant_class, animation_class,
                 if data.actions.is_empty() { "" } else { "pb-2" }
             )
             role="alert"
@@ -117,11 +124,11 @@ pub fn SonnerToast(
                     "×"
                 </button>
             </div>
-            
+
             {if data.progress.is_some() {
                 view! {
                     <div class="w-full bg-gray-200 rounded-full h-1 mt-2">
-                        <div 
+                        <div
                             class="bg-blue-600 h-1 rounded-full transition-all duration-300"
                             style=move || format!("width: {}%", (progress.get() * 100.0) as u32)
                         ></div>
@@ -130,7 +137,7 @@ pub fn SonnerToast(
             } else {
                 view! { <div></div> }.into_any()
             }}
-            
+
             {if !data.actions.is_empty() {
                 let actions = data.actions.clone();
                 view! {

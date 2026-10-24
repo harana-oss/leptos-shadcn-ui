@@ -1,8 +1,8 @@
 #[cfg(test)]
 #[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod tdd_tests {
+    use crate::default::{Skeleton, SkeletonSize, SkeletonVariant};
     use leptos::prelude::*;
-    use crate::default::{Skeleton, SkeletonVariant, SkeletonSize};
 
     // ===== TDD ENHANCED TESTS - GREEN PHASE =====
     // These tests now implement real functionality and verify actual behavior
@@ -156,8 +156,8 @@ mod tdd_tests {
     #[test]
     fn test_skeleton_integration_scenarios() {
         let _skeleton_view = view! {
-            <Skeleton 
-                variant=SkeletonVariant::Text 
+            <Skeleton
+                variant=SkeletonVariant::Text
                 size=SkeletonSize::Lg
                 class="integration-skeleton"
                 id="integration-test"
@@ -168,8 +168,8 @@ mod tdd_tests {
     #[test]
     fn test_skeleton_complete_workflow() {
         let _skeleton_view = view! {
-            <Skeleton 
-                variant=SkeletonVariant::Default 
+            <Skeleton
+                variant=SkeletonVariant::Default
                 size=SkeletonSize::Md
                 class="workflow-skeleton"
                 id="workflow-test"
@@ -180,8 +180,8 @@ mod tdd_tests {
     #[test]
     fn test_skeleton_advanced_interactions() {
         let _skeleton_view = view! {
-            <Skeleton 
-                variant=SkeletonVariant::Avatar 
+            <Skeleton
+                variant=SkeletonVariant::Avatar
                 size=SkeletonSize::Lg
                 class="advanced-interactions"
                 id="advanced-skeleton"
@@ -192,7 +192,7 @@ mod tdd_tests {
     #[test]
     fn test_skeleton_accessibility_comprehensive() {
         let _skeleton_view = view! {
-            <Skeleton 
+            <Skeleton
                 id="comprehensive-accessible-skeleton"
                 class="sr-only"
             />
@@ -202,7 +202,7 @@ mod tdd_tests {
     #[test]
     fn test_skeleton_custom_properties() {
         let _skeleton_view = view! {
-            <Skeleton 
+            <Skeleton
                 class="custom-properties-skeleton"
                 id="custom-props-test"
             />
@@ -212,7 +212,7 @@ mod tdd_tests {
     #[test]
     fn test_skeleton_form_integration() {
         let _skeleton_view = view! {
-            <Skeleton 
+            <Skeleton
                 variant=SkeletonVariant::Default
                 size=SkeletonSize::Sm
                 class="form-integration-skeleton"

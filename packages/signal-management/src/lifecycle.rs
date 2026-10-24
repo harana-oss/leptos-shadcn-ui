@@ -7,8 +7,7 @@ use std::collections::HashMap;
 use crate::error::SignalManagementError;
 
 /// Theme configuration for components
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub enum Theme {
     /// Default theme
     #[default]
@@ -21,10 +20,8 @@ pub enum Theme {
     Custom(HashMap<String, String>),
 }
 
-
 /// Component variant configuration
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub enum Variant {
     /// Primary variant
     #[default]
@@ -41,10 +38,8 @@ pub enum Variant {
     Link,
 }
 
-
 /// Component size configuration
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub enum Size {
     /// Small size
     Small,
@@ -55,10 +50,8 @@ pub enum Size {
     Large,
 }
 
-
 /// Responsive configuration for components
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResponsiveConfig {
     /// Small breakpoint classes
     pub sm: Option<String>,
@@ -70,9 +63,8 @@ pub struct ResponsiveConfig {
     pub xl: Option<String>,
 }
 
-
 /// Manages signal lifecycle for tailwind-rs components
-/// 
+///
 /// This struct provides centralized management of signal lifecycles,
 /// ensuring proper disposal and memory management in Leptos 0.8.8+
 #[derive(Clone, Debug)]
@@ -103,32 +95,32 @@ impl TailwindSignalManager {
             tracked_memos: ArcRwSignal::new(Vec::new()),
         }
     }
-    
+
     /// Provide context that persists across component disposal
     pub fn provide_context(self) {
         provide_context(self);
     }
-    
+
     /// Get theme signal for dynamic theming
     pub fn theme(&self) -> ArcRwSignal<Theme> {
         self.theme_signal.clone()
     }
-    
+
     /// Get variant signal for component variants
     pub fn variant(&self) -> ArcRwSignal<Variant> {
         self.variant_signal.clone()
     }
-    
+
     /// Get size signal for responsive sizing
     pub fn size(&self) -> ArcRwSignal<Size> {
         self.size_signal.clone()
     }
-    
+
     /// Get responsive configuration signal
     pub fn responsive(&self) -> ArcRwSignal<ResponsiveConfig> {
         self.responsive_signal.clone()
     }
-    
+
     /// Track a signal for cleanup
     pub fn track_signal<T>(&self, signal: ArcRwSignal<T>) -> ArcRwSignal<T> {
         self.tracked_signals.update(|signals| {
@@ -136,7 +128,7 @@ impl TailwindSignalManager {
         });
         signal
     }
-    
+
     /// Track a memo for cleanup
     pub fn track_memo<T: Send + Sync + 'static>(&self, memo: ArcMemo<T>) -> ArcMemo<T> {
         self.tracked_memos.update(|memos| {
@@ -144,17 +136,17 @@ impl TailwindSignalManager {
         });
         memo
     }
-    
+
     /// Get the number of tracked signals
     pub fn tracked_signals_count(&self) -> usize {
         self.tracked_signals.get().len()
     }
-    
+
     /// Get the number of tracked memos
     pub fn tracked_memos_count(&self) -> usize {
         self.tracked_memos.get().len()
     }
-    
+
     /// Check if the manager is valid (not disposed)
     pub fn is_valid(&self) -> bool {
         // In Leptos 0.8.8+, we can check if signals are still valid
@@ -184,31 +176,31 @@ impl SignalCleanup {
             memos: Vec::new(),
         }
     }
-    
+
     /// Track a signal for cleanup
     pub fn track_signal<T>(&mut self, signal: ArcRwSignal<T>) -> ArcRwSignal<T> {
         // Track signal for cleanup
         self.signals.push(ArcRwSignal::new(()));
         signal
     }
-    
+
     /// Track a memo for cleanup
     pub fn track_memo<T: Send + Sync + 'static>(&mut self, memo: ArcMemo<T>) -> ArcMemo<T> {
         // Track memo for cleanup
         self.memos.push(ArcMemo::new(|_| ()));
         memo
     }
-    
+
     /// Get the number of tracked signals
     pub fn signals_count(&self) -> usize {
         self.signals.len()
     }
-    
+
     /// Get the number of tracked memos
     pub fn memos_count(&self) -> usize {
         self.memos.len()
     }
-    
+
     /// Cleanup all tracked signals and memos
     pub fn cleanup(&mut self) -> Result<(), SignalManagementError> {
         // Clear the tracked signals and memos - they will be automatically disposed

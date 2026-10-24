@@ -35,7 +35,12 @@ fn scanned_sources_contain_outline_button_classes() {
     for s in &sources {
         read_rs_files(&s.src_dir, &mut all);
     }
-    for class in ["border-input", "bg-background", "hover:bg-accent", "hover:text-accent-foreground"] {
+    for class in [
+        "border-input",
+        "bg-background",
+        "hover:bg-accent",
+        "hover:text-accent-foreground",
+    ] {
         assert!(all.contains(class), "class {class} must be visible to Tailwind");
     }
 }
@@ -44,8 +49,16 @@ fn scanned_sources_contain_outline_button_classes() {
 fn every_component_crate_is_covered() {
     let sources = discover_sources().unwrap();
     let css = render_sources_css(&sources);
-    for name in ["leptos-shadcn-button", "leptos-shadcn-input", "leptos-shadcn-card", "leptos-shadcn-context-menu"] {
-        let s = sources.iter().find(|s| s.name == name).unwrap_or_else(|| panic!("{name} missing"));
+    for name in [
+        "leptos-shadcn-button",
+        "leptos-shadcn-input",
+        "leptos-shadcn-card",
+        "leptos-shadcn-context-menu",
+    ] {
+        let s = sources
+            .iter()
+            .find(|s| s.name == name)
+            .unwrap_or_else(|| panic!("{name} missing"));
         let path = s.src_dir.to_string_lossy().replace('\\', "/");
         assert!(css.contains(&format!("@source \"{path}\";")), "{name} not in generated css");
     }

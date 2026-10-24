@@ -1,8 +1,6 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod tests {
-    
-    
 
     #[test]
     fn test_input_otp_component_exists() {

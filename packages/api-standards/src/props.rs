@@ -1,8 +1,8 @@
 //! Standard prop definitions and validation for leptos-shadcn-ui components
 
+use crate::{ApiIssue, StandardSize, StandardVariant, TestResult};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use crate::{StandardVariant, StandardSize, ApiIssue, TestResult};
 
 /// Core props that every component must support
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -45,8 +45,7 @@ impl Default for StylingProps {
 }
 
 /// Accessibility props for interactive components
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct AccessibilityProps {
     pub aria_label: Option<String>,
     pub aria_describedby: Option<String>,
@@ -54,7 +53,6 @@ pub struct AccessibilityProps {
     pub role: Option<String>,
     pub tabindex: Option<i32>,
 }
-
 
 /// Form-specific props
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -82,13 +80,13 @@ impl Default for FormProps {
 pub trait PropsValidation {
     /// Validate that props conform to standards
     fn validate_props(&self) -> Result<(), Vec<ApiIssue>>;
-    
+
     /// Get list of required props for this component
     fn required_props() -> Vec<&'static str>;
-    
+
     /// Get list of optional props for this component  
     fn optional_props() -> Vec<&'static str>;
-    
+
     /// Test prop handling compliance
     fn test_prop_compliance(&self) -> TestResult;
 }
@@ -149,10 +147,10 @@ impl PropsValidation for CoreProps {
     fn test_prop_compliance(&self) -> TestResult {
         match self.validate_props() {
             Ok(()) => TestResult::passed("Core props validation passed"),
-            Err(issues) => TestResult::failed(format!(
-                "Core props validation failed: {} issues", 
-                issues.len()
-            )).with_detail("issues", serde_json::to_value(issues).unwrap_or_default()),
+            Err(issues) => {
+                TestResult::failed(format!("Core props validation failed: {} issues", issues.len()))
+                    .with_detail("issues", serde_json::to_value(issues).unwrap_or_default())
+            }
         }
     }
 }
@@ -204,7 +202,8 @@ impl PropsValidation for StylingProps {
             Err(issues) => TestResult::failed(format!(
                 "Styling props validation failed: {} issues",
                 issues.len()
-            )).with_detail("issues", serde_json::to_value(issues).unwrap_or_default()),
+            ))
+            .with_detail("issues", serde_json::to_value(issues).unwrap_or_default()),
         }
     }
 }
@@ -239,7 +238,9 @@ impl PropsValidation for AccessibilityProps {
         if self.aria_label.is_none() && self.aria_labelledby.is_none() {
             issues.push(ApiIssue::AccessibilityViolation {
                 rule: "ARIA_LABELING".to_string(),
-                description: "Interactive components should have either aria-label or aria-labelledby".to_string(),
+                description:
+                    "Interactive components should have either aria-label or aria-labelledby"
+                        .to_string(),
             });
         }
 
@@ -255,7 +256,13 @@ impl PropsValidation for AccessibilityProps {
     }
 
     fn optional_props() -> Vec<&'static str> {
-        vec!["aria_label", "aria_describedby", "aria_labelledby", "role", "tabindex"]
+        vec![
+            "aria_label",
+            "aria_describedby",
+            "aria_labelledby",
+            "role",
+            "tabindex",
+        ]
     }
 
     fn test_prop_compliance(&self) -> TestResult {
@@ -264,7 +271,8 @@ impl PropsValidation for AccessibilityProps {
             Err(issues) => TestResult::failed(format!(
                 "Accessibility props validation failed: {} issues",
                 issues.len()
-            )).with_detail("issues", serde_json::to_value(issues).unwrap_or_default()),
+            ))
+            .with_detail("issues", serde_json::to_value(issues).unwrap_or_default()),
         }
     }
 }
@@ -307,16 +315,22 @@ impl PropsValidation for FormProps {
     }
 
     fn optional_props() -> Vec<&'static str> {
-        vec!["name", "placeholder", "required", "readonly", "autocomplete"]
+        vec![
+            "name",
+            "placeholder",
+            "required",
+            "readonly",
+            "autocomplete",
+        ]
     }
 
     fn test_prop_compliance(&self) -> TestResult {
         match self.validate_props() {
             Ok(()) => TestResult::passed("Form props validation passed"),
-            Err(issues) => TestResult::failed(format!(
-                "Form props validation failed: {} issues",
-                issues.len()
-            )).with_detail("issues", serde_json::to_value(issues).unwrap_or_default()),
+            Err(issues) => {
+                TestResult::failed(format!("Form props validation failed: {} issues", issues.len()))
+                    .with_detail("issues", serde_json::to_value(issues).unwrap_or_default())
+            }
         }
     }
 }
@@ -395,12 +409,12 @@ impl ComponentPropsValidator {
     /// Generate comprehensive compliance test result
     pub fn test_comprehensive_compliance(&self) -> TestResult {
         let start_time = std::time::Instant::now();
-        
+
         match self.validate_all() {
             Ok(()) => {
                 let mut details = HashMap::new();
                 details.insert("core_props".to_string(), serde_json::json!(true));
-                
+
                 if self.styling.is_some() {
                     details.insert("styling_props".to_string(), serde_json::json!(true));
                 }
@@ -413,15 +427,17 @@ impl ComponentPropsValidator {
 
                 TestResult::passed("Comprehensive props validation passed")
                     .with_timing(start_time.elapsed().as_millis() as u64)
-                    .with_detail("validated_sections", serde_json::to_value(details).unwrap_or_default())
+                    .with_detail(
+                        "validated_sections",
+                        serde_json::to_value(details).unwrap_or_default(),
+                    )
             }
-            Err(issues) => {
-                TestResult::failed(format!(
-                    "Comprehensive props validation failed: {} total issues",
-                    issues.len()
-                )).with_timing(start_time.elapsed().as_millis() as u64)
-                  .with_detail("all_issues", serde_json::to_value(issues).unwrap_or_default())
-            }
+            Err(issues) => TestResult::failed(format!(
+                "Comprehensive props validation failed: {} total issues",
+                issues.len()
+            ))
+            .with_timing(start_time.elapsed().as_millis() as u64)
+            .with_detail("all_issues", serde_json::to_value(issues).unwrap_or_default()),
         }
     }
 }
@@ -440,11 +456,10 @@ fn is_valid_html_id(id: &str) -> bool {
 
 fn is_valid_css_class(class: &str) -> bool {
     // Allow multiple classes separated by spaces
-    class.split_whitespace()
-        .all(|c| {
-            let regex = regex::Regex::new(r"^[a-zA-Z_-][a-zA-Z0-9_-]*$").unwrap();
-            regex.is_match(c)
-        })
+    class.split_whitespace().all(|c| {
+        let regex = regex::Regex::new(r"^[a-zA-Z_-][a-zA-Z0-9_-]*$").unwrap();
+        regex.is_match(c)
+    })
 }
 
 fn is_valid_css_style(style: &str) -> bool {
@@ -457,16 +472,16 @@ fn is_valid_color_value(color: &str) -> bool {
     // Support hex, rgb, rgba, hsl, hsla, and named colors
     let patterns = [
         r"^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$", // hex
-        r"^rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)$", // rgb
+        r"^rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)$",            // rgb
         r"^rgba\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*[0-1]?\.?\d*\s*\)$", // rgba
-        r"^hsl\(\s*\d+\s*,\s*\d+%?\s*,\s*\d+%?\s*\)$", // hsl
+        r"^hsl\(\s*\d+\s*,\s*\d+%?\s*,\s*\d+%?\s*\)$",        // hsl
         r"^hsla\(\s*\d+\s*,\s*\d+%?\s*,\s*\d+%?\s*,\s*[0-1]?\.?\d*\s*\)$", // hsla
-        r"^[a-zA-Z]+$", // named colors
+        r"^[a-zA-Z]+$",                                       // named colors
     ];
 
-    patterns.iter().any(|pattern| {
-        regex::Regex::new(pattern).unwrap().is_match(color)
-    })
+    patterns
+        .iter()
+        .any(|pattern| regex::Regex::new(pattern).unwrap().is_match(color))
 }
 
 fn is_valid_theme_name(theme: &str) -> bool {
@@ -480,18 +495,68 @@ fn is_valid_theme_name(theme: &str) -> bool {
 
 fn is_valid_aria_role(role: &str) -> bool {
     let valid_roles = [
-        "alert", "alertdialog", "application", "article", "banner", "button",
-        "checkbox", "columnheader", "combobox", "complementary", "contentinfo",
-        "dialog", "directory", "document", "form", "grid", "gridcell", "group",
-        "heading", "img", "link", "list", "listbox", "listitem", "log", "main",
-        "marquee", "math", "menu", "menubar", "menuitem", "menuitemcheckbox",
-        "menuitemradio", "navigation", "note", "option", "presentation",
-        "progressbar", "radio", "radiogroup", "region", "row", "rowgroup",
-        "rowheader", "scrollbar", "search", "separator", "slider", "spinbutton",
-        "status", "tab", "tablist", "tabpanel", "textbox", "timer", "toolbar",
-        "tooltip", "tree", "treegrid", "treeitem"
+        "alert",
+        "alertdialog",
+        "application",
+        "article",
+        "banner",
+        "button",
+        "checkbox",
+        "columnheader",
+        "combobox",
+        "complementary",
+        "contentinfo",
+        "dialog",
+        "directory",
+        "document",
+        "form",
+        "grid",
+        "gridcell",
+        "group",
+        "heading",
+        "img",
+        "link",
+        "list",
+        "listbox",
+        "listitem",
+        "log",
+        "main",
+        "marquee",
+        "math",
+        "menu",
+        "menubar",
+        "menuitem",
+        "menuitemcheckbox",
+        "menuitemradio",
+        "navigation",
+        "note",
+        "option",
+        "presentation",
+        "progressbar",
+        "radio",
+        "radiogroup",
+        "region",
+        "row",
+        "rowgroup",
+        "rowheader",
+        "scrollbar",
+        "search",
+        "separator",
+        "slider",
+        "spinbutton",
+        "status",
+        "tab",
+        "tablist",
+        "tabpanel",
+        "textbox",
+        "timer",
+        "toolbar",
+        "tooltip",
+        "tree",
+        "treegrid",
+        "treeitem",
     ];
-    
+
     valid_roles.contains(&role)
 }
 
@@ -502,20 +567,62 @@ fn is_valid_form_name(name: &str) -> bool {
 
 fn is_valid_autocomplete_value(autocomplete: &str) -> bool {
     let valid_values = [
-        "on", "off", "name", "honorific-prefix", "given-name", "additional-name",
-        "family-name", "honorific-suffix", "nickname", "email", "username",
-        "new-password", "current-password", "one-time-code", "organization-title",
-        "organization", "street-address", "address-line1", "address-line2",
-        "address-line3", "address-level4", "address-level3", "address-level2",
-        "address-level1", "country", "country-name", "postal-code", "cc-name",
-        "cc-given-name", "cc-additional-name", "cc-family-name", "cc-number",
-        "cc-exp", "cc-exp-month", "cc-exp-year", "cc-csc", "cc-type",
-        "transaction-currency", "transaction-amount", "language", "bday",
-        "bday-day", "bday-month", "bday-year", "sex", "tel", "tel-country-code",
-        "tel-national", "tel-area-code", "tel-local", "tel-extension", "impp",
-        "url", "photo"
+        "on",
+        "off",
+        "name",
+        "honorific-prefix",
+        "given-name",
+        "additional-name",
+        "family-name",
+        "honorific-suffix",
+        "nickname",
+        "email",
+        "username",
+        "new-password",
+        "current-password",
+        "one-time-code",
+        "organization-title",
+        "organization",
+        "street-address",
+        "address-line1",
+        "address-line2",
+        "address-line3",
+        "address-level4",
+        "address-level3",
+        "address-level2",
+        "address-level1",
+        "country",
+        "country-name",
+        "postal-code",
+        "cc-name",
+        "cc-given-name",
+        "cc-additional-name",
+        "cc-family-name",
+        "cc-number",
+        "cc-exp",
+        "cc-exp-month",
+        "cc-exp-year",
+        "cc-csc",
+        "cc-type",
+        "transaction-currency",
+        "transaction-amount",
+        "language",
+        "bday",
+        "bday-day",
+        "bday-month",
+        "bday-year",
+        "sex",
+        "tel",
+        "tel-country-code",
+        "tel-national",
+        "tel-area-code",
+        "tel-local",
+        "tel-extension",
+        "impp",
+        "url",
+        "photo",
     ];
-    
+
     valid_values.contains(&autocomplete)
 }
 
@@ -538,15 +645,15 @@ mod tests {
     #[test]
     fn test_invalid_core_props() {
         let invalid_props = CoreProps {
-            id: Some("123-invalid".to_string()), // starts with number
+            id: Some("123-invalid".to_string()),      // starts with number
             class: Some("invalid@class".to_string()), // invalid character
-            style: Some("invalid-css".to_string()), // missing colon and semicolon
+            style: Some("invalid-css".to_string()),   // missing colon and semicolon
             disabled: Some(false),
         };
 
         let result = invalid_props.validate_props();
         assert!(result.is_err());
-        
+
         let issues = result.unwrap_err();
         assert_eq!(issues.len(), 3); // id, class, and style issues
     }
@@ -606,7 +713,7 @@ mod tests {
         assert!(is_valid_color_value("rgb(255, 0, 0)"));
         assert!(is_valid_color_value("rgba(255, 0, 0, 0.5)"));
         assert!(is_valid_color_value("red"));
-        
+
         assert!(!is_valid_color_value("#gg0000"));
         assert!(!is_valid_color_value("invalid-color"));
     }
@@ -616,7 +723,7 @@ mod tests {
         assert!(is_valid_aria_role("button"));
         assert!(is_valid_aria_role("dialog"));
         assert!(is_valid_aria_role("navigation"));
-        
+
         assert!(!is_valid_aria_role("invalid-role"));
         assert!(!is_valid_aria_role("custom"));
     }

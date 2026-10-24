@@ -19,14 +19,27 @@ impl ChartConfig {
     }
 
     /// Builder: adds (or replaces) a series.
-    pub fn series(mut self, key: impl Into<String>, label: impl Into<String>, color: impl Into<String>) -> Self {
+    pub fn series(
+        mut self,
+        key: impl Into<String>,
+        label: impl Into<String>,
+        color: impl Into<String>,
+    ) -> Self {
         self.insert(key, label, color);
         self
     }
 
-    pub fn insert(&mut self, key: impl Into<String>, label: impl Into<String>, color: impl Into<String>) {
+    pub fn insert(
+        &mut self,
+        key: impl Into<String>,
+        label: impl Into<String>,
+        color: impl Into<String>,
+    ) {
         let key = key.into();
-        let cfg = ChartSeriesConfig { label: label.into(), color: color.into() };
+        let cfg = ChartSeriesConfig {
+            label: label.into(),
+            color: color.into(),
+        };
         if let Some(e) = self.entries.iter_mut().find(|(k, _)| *k == key) {
             e.1 = cfg;
         } else {
@@ -58,7 +71,9 @@ impl ChartConfig {
     pub fn css_vars(&self) -> String {
         self.entries
             .iter()
-            .map(|(k, v)| format!("--color-{}: {};", sanitize_key(k), v.color.replace([';', '{', '}'], "")))
+            .map(|(k, v)| {
+                format!("--color-{}: {};", sanitize_key(k), v.color.replace([';', '{', '}'], ""))
+            })
             .collect::<Vec<_>>()
             .join(" ")
     }
@@ -67,7 +82,13 @@ impl ChartConfig {
 /// Keeps only characters valid in a CSS custom property name.
 pub fn sanitize_key(key: &str) -> String {
     key.chars()
-        .map(|c| if c.is_ascii_alphanumeric() || c == '-' || c == '_' { c } else { '-' })
+        .map(|c| {
+            if c.is_ascii_alphanumeric() || c == '-' || c == '_' {
+                c
+            } else {
+                '-'
+            }
+        })
         .collect()
 }
 

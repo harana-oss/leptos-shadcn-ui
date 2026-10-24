@@ -22,9 +22,8 @@ pub fn Textarea(
         }
     };
 
-    let computed_class = Signal::derive(move || {
-        format!("{} {}", TEXTAREA_CLASS, class.get().unwrap_or_default())
-    });
+    let computed_class =
+        Signal::derive(move || format!("{} {}", TEXTAREA_CLASS, class.get().unwrap_or_default()));
 
     view! {
         <textarea

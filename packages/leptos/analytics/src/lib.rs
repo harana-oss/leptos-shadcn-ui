@@ -57,7 +57,7 @@ pub mod types;
 
 // Re-exports for convenience
 pub use context::{use_analytics, use_analytics_unsafe, AnalyticsContext, AnalyticsProvider};
-pub use dashboard::{AnalyticsBadge, AnalyticsDashboard, format_timestamp};
+pub use dashboard::{format_timestamp, AnalyticsBadge, AnalyticsDashboard};
 pub use hooks::{
     use_analytics_clear, use_analytics_enabled, use_analytics_export, use_analytics_summary,
     use_analytics_toggle, use_component_stats, use_most_used_components, use_track_component,
@@ -65,8 +65,8 @@ pub use hooks::{
 };
 pub use storage::AnalyticsStorage;
 pub use types::{
-    AnalyticsConfig, ComponentStats, ComponentUsageEntry, ComponentUsageEvent, StoredAnalytics,
-    StorageMode,
+    AnalyticsConfig, ComponentStats, ComponentUsageEntry, ComponentUsageEvent, StorageMode,
+    StoredAnalytics,
 };
 
 /// Version information

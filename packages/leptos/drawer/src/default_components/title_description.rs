@@ -1,5 +1,5 @@
 //! Drawer title and description components
-//! 
+//!
 //! This module contains the DrawerTitle and DrawerDescription components for
 //! providing accessible labels and descriptions for the drawer.
 

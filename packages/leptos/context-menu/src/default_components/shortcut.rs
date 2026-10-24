@@ -1,5 +1,5 @@
 //! ContextMenu shortcut component
-//! 
+//!
 //! This module contains the ContextMenuShortcut component for displaying
 //! keyboard shortcuts in context menu items.
 

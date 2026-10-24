@@ -55,17 +55,21 @@ pub enum ButtonSize {
 /// Create a reactive class signal for button styling.
 fn create_class_signal(variant: ButtonVariant, size: ButtonSize, disabled: bool) -> ClassSignal {
     let base_classes = "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
-    
+
     let variant_classes = match variant {
         ButtonVariant::Primary => "bg-primary text-primary-foreground hover:bg-primary/90",
         ButtonVariant::Secondary => "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ButtonVariant::Success => "bg-green-600 text-white hover:bg-green-700",
         ButtonVariant::Warning => "bg-yellow-600 text-white hover:bg-yellow-700",
         ButtonVariant::Error => "bg-red-600 text-white hover:bg-red-700",
-        ButtonVariant::Outline => "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        ButtonVariant::Outline => {
+            "border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+        }
         ButtonVariant::Ghost => "hover:bg-accent hover:text-accent-foreground",
         ButtonVariant::Link => "text-primary underline-offset-4 hover:underline",
-        ButtonVariant::Destructive => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        ButtonVariant::Destructive => {
+            "bg-destructive text-destructive-foreground hover:bg-destructive/90"
+        }
     };
 
     let size_classes = match size {
@@ -82,7 +86,8 @@ fn create_class_signal(variant: ButtonVariant, size: ButtonSize, disabled: bool)
         ""
     };
 
-    let all_classes = format!("{} {} {} {}", base_classes, variant_classes, size_classes, disabled_classes);
+    let all_classes =
+        format!("{} {} {} {}", base_classes, variant_classes, size_classes, disabled_classes);
     ClassSignal::new(all_classes)
 }
 
@@ -93,13 +98,12 @@ pub fn ResponsiveCard(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     // Create responsive classes using tailwind-rs-core
-    let responsive_classes = Responsive::new()
-        .sm("p-4")
-        .md("p-6")
-        .lg("p-8")
-        .xl("p-10");
+    let responsive_classes = Responsive::new().sm("p-4").md("p-6").lg("p-8").xl("p-10");
 
-    let card_classes = format!("rounded-lg border bg-card text-card-foreground shadow-sm {}", responsive_classes);
+    let card_classes = format!(
+        "rounded-lg border bg-card text-card-foreground shadow-sm {}",
+        responsive_classes
+    );
 
     view! {
         <div class=card_classes>
@@ -221,17 +225,17 @@ pub fn ValidatedForm() -> impl IntoView {
 
 /// Example responsive grid component using tailwind-rs-core.
 #[component]
-pub fn ResponsiveGrid(
-    #[prop(optional)] items: Option<Vec<String>>,
-) -> impl IntoView {
-    let items = items.unwrap_or_else(|| vec![
-        "Item 1".to_string(),
-        "Item 2".to_string(),
-        "Item 3".to_string(),
-        "Item 4".to_string(),
-        "Item 5".to_string(),
-        "Item 6".to_string(),
-    ]);
+pub fn ResponsiveGrid(#[prop(optional)] items: Option<Vec<String>>) -> impl IntoView {
+    let items = items.unwrap_or_else(|| {
+        vec![
+            "Item 1".to_string(),
+            "Item 2".to_string(),
+            "Item 3".to_string(),
+            "Item 4".to_string(),
+            "Item 5".to_string(),
+            "Item 6".to_string(),
+        ]
+    });
 
     // Create responsive grid classes
     let grid_classes = Responsive::new()
@@ -261,7 +265,7 @@ pub fn TailwindRsCoreDemo() -> impl IntoView {
             <h1 class="text-4xl font-bold text-center mb-8">
                 "Tailwind-RS-Core Integration Demo"
             </h1>
-            
+
             <section class="space-y-4">
                 <h2 class="text-2xl font-semibold">"Enhanced Button Component"</h2>
                 <div class="flex flex-wrap gap-4">

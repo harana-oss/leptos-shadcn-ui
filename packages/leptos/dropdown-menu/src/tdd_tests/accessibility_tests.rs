@@ -1,5 +1,5 @@
-use leptos::prelude::*;
 use crate::*;
+use leptos::prelude::*;
 
 #[cfg(test)]
 #[allow(clippy::module_inception)] // test module layout mirrors the file name
@@ -33,7 +33,7 @@ mod accessibility_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test that ARIA attributes are properly set
         // This is verified by the component structure
     }
@@ -64,7 +64,7 @@ mod accessibility_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test that keyboard navigation is properly implemented
         // This is verified by the component structure
     }
@@ -72,7 +72,7 @@ mod accessibility_tests {
     #[test]
     fn test_dropdown_menu_focus_management() {
         let focus_state = RwSignal::new(false);
-        
+
         let _focus_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger
@@ -88,14 +88,14 @@ mod accessibility_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test focus management
         assert!(!focus_state.get());
-        
+
         // Simulate focus
         focus_state.set(true);
         assert!(focus_state.get());
-        
+
         // Simulate blur
         focus_state.set(false);
         assert!(!focus_state.get());
@@ -130,7 +130,7 @@ mod accessibility_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test screen reader support
         // This is verified by the component structure
     }
@@ -155,7 +155,7 @@ mod accessibility_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test high contrast support
         // This is verified by the component structure
     }
@@ -176,7 +176,7 @@ mod accessibility_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test reduced motion support
         // This is verified by the component structure
     }
@@ -201,7 +201,7 @@ mod accessibility_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test color contrast
         // This is verified by the component structure
     }
@@ -224,7 +224,7 @@ mod accessibility_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test touch target size
         // This is verified by the component structure
     }
@@ -252,7 +252,7 @@ mod accessibility_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test voice control support
         // This is verified by the component structure
     }
@@ -280,7 +280,7 @@ mod accessibility_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test switch control support
         // This is verified by the component structure
     }
@@ -304,7 +304,7 @@ mod accessibility_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test alternative text
         // This is verified by the component structure
     }
@@ -334,7 +334,7 @@ mod accessibility_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test language support
         // This is verified by the component structure
     }
@@ -359,7 +359,7 @@ mod accessibility_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test RTL support
         // This is verified by the component structure
     }
@@ -367,7 +367,7 @@ mod accessibility_tests {
     #[test]
     fn test_dropdown_menu_accessibility_performance() {
         let start = std::time::Instant::now();
-        
+
         let _performance_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger
@@ -389,9 +389,12 @@ mod accessibility_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 10, "Accessibility features should not impact performance");
+        assert!(
+            duration.as_millis() < 10,
+            "Accessibility features should not impact performance"
+        );
     }
 
     #[test]
@@ -412,7 +415,7 @@ mod accessibility_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test memory usage
         let size = std::mem::size_of::<usize>();
         assert!(size < 1024, "Accessibility features should not cause excessive memory usage");

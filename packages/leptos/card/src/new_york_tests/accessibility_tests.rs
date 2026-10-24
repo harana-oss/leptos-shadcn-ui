@@ -2,7 +2,7 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod accessibility_tests {
-    
+
     use leptos::prelude::*;
     use leptos_style::Style;
 
@@ -16,7 +16,7 @@ mod accessibility_tests {
         let aria_label = Some("Test card".to_string());
         let aria_describedby = Some("card-description".to_string());
         let role = Some("region".to_string());
-        
+
         assert_eq!(id.unwrap_or_default(), "test-card-id");
         assert_eq!(aria_label.unwrap_or_default(), "Test card");
         assert_eq!(aria_describedby.unwrap_or_default(), "card-description");
@@ -30,7 +30,7 @@ mod accessibility_tests {
         let aria_label: Option<String> = None;
         let aria_describedby: Option<String> = None;
         let role: Option<String> = None;
-        
+
         assert_eq!(id.unwrap_or_default(), "");
         assert_eq!(aria_label.unwrap_or_default(), "");
         assert_eq!(aria_describedby.unwrap_or_default(), "");
@@ -44,7 +44,7 @@ mod accessibility_tests {
         let aria_label = Some("".to_string());
         let aria_describedby = Some("".to_string());
         let role = Some("".to_string());
-        
+
         assert_eq!(id.unwrap_or_default(), "");
         assert_eq!(aria_label.unwrap_or_default(), "");
         assert_eq!(aria_describedby.unwrap_or_default(), "");
@@ -58,7 +58,7 @@ mod accessibility_tests {
         let aria_label = Some("  ".to_string());
         let aria_describedby = Some("  ".to_string());
         let role = Some("  ".to_string());
-        
+
         assert_eq!(id.unwrap_or_default(), "  ");
         assert_eq!(aria_label.unwrap_or_default(), "  ");
         assert_eq!(aria_describedby.unwrap_or_default(), "  ");
@@ -72,10 +72,13 @@ mod accessibility_tests {
         let aria_label = Some("Test card with special chars!@#$%^&*()".to_string());
         let aria_describedby = Some("description-with-special-chars!@#$%^&*()".to_string());
         let role = Some("region-with-special-chars!@#$%^&*()".to_string());
-        
+
         assert_eq!(id.unwrap_or_default(), "test-id-with-special-chars!@#$%^&*()");
         assert_eq!(aria_label.unwrap_or_default(), "Test card with special chars!@#$%^&*()");
-        assert_eq!(aria_describedby.unwrap_or_default(), "description-with-special-chars!@#$%^&*()");
+        assert_eq!(
+            aria_describedby.unwrap_or_default(),
+            "description-with-special-chars!@#$%^&*()"
+        );
         assert_eq!(role.unwrap_or_default(), "region-with-special-chars!@#$%^&*()");
     }
 
@@ -86,7 +89,7 @@ mod accessibility_tests {
         let aria_label = Some("Test card 🎉".to_string());
         let aria_describedby = Some("description-🚀".to_string());
         let role = Some("region-🎉".to_string());
-        
+
         assert_eq!(id.unwrap_or_default(), "test-id-🚀");
         assert_eq!(aria_label.unwrap_or_default(), "Test card 🎉");
         assert_eq!(aria_describedby.unwrap_or_default(), "description-🚀");
@@ -101,7 +104,7 @@ mod accessibility_tests {
         let aria_label = Some(long_string.clone());
         let aria_describedby = Some(long_string.clone());
         let role = Some(long_string.clone());
-        
+
         assert_eq!(id.unwrap_or_default(), long_string);
         assert_eq!(aria_label.unwrap_or_default(), long_string);
         assert_eq!(aria_describedby.unwrap_or_default(), long_string);
@@ -115,7 +118,7 @@ mod accessibility_tests {
         let aria_label = Some("Test card 456".to_string());
         let aria_describedby = Some("description-789".to_string());
         let role = Some("region-012".to_string());
-        
+
         assert_eq!(id.unwrap_or_default(), "test-id-123");
         assert_eq!(aria_label.unwrap_or_default(), "Test card 456");
         assert_eq!(aria_describedby.unwrap_or_default(), "description-789");
@@ -128,7 +131,7 @@ mod accessibility_tests {
         let disabled = Some(true);
         let visible = Some(false);
         let hidden = Some(true);
-        
+
         assert!(disabled.unwrap_or_default());
         assert!(!visible.unwrap_or_default());
         assert!(hidden.unwrap_or_default());
@@ -140,7 +143,7 @@ mod accessibility_tests {
         let disabled: Option<bool> = None;
         let visible: Option<bool> = None;
         let hidden: Option<bool> = None;
-        
+
         assert!(!disabled.unwrap_or_default());
         assert!(!visible.unwrap_or_default());
         assert!(!hidden.unwrap_or_default());
@@ -150,7 +153,7 @@ mod accessibility_tests {
     fn test_new_york_card_accessibility_with_callback() {
         // Test accessibility attributes with callback
         let callback = Some(Callback::new(|_: ()| {}));
-        
+
         assert!(callback.is_some());
     }
 
@@ -158,7 +161,7 @@ mod accessibility_tests {
     fn test_new_york_card_accessibility_with_callback_none() {
         // Test accessibility attributes with callback None
         let callback: Option<Callback<()>> = None;
-        
+
         assert!(callback.is_none());
     }
 
@@ -166,7 +169,7 @@ mod accessibility_tests {
     fn test_new_york_card_accessibility_with_signal() {
         // Test accessibility attributes with signal
         let signal = Some(RwSignal::new("test-value".to_string()));
-        
+
         assert!(signal.is_some());
         assert_eq!(signal.unwrap().get(), "test-value");
     }
@@ -175,7 +178,7 @@ mod accessibility_tests {
     fn test_new_york_card_accessibility_with_signal_none() {
         // Test accessibility attributes with signal None
         let signal: Option<RwSignal<String>> = None;
-        
+
         assert!(signal.is_none());
     }
 
@@ -183,7 +186,7 @@ mod accessibility_tests {
     fn test_new_york_card_accessibility_with_style() {
         // Test accessibility attributes with style
         let style = Some(Style::new());
-        
+
         assert!(style.is_some());
         assert_eq!(style.clone().unwrap().to_string(), "");
     }
@@ -192,7 +195,7 @@ mod accessibility_tests {
     fn test_new_york_card_accessibility_with_style_none() {
         // Test accessibility attributes with style None
         let style: Option<Style> = None;
-        
+
         assert!(style.is_none());
     }
 
@@ -200,7 +203,7 @@ mod accessibility_tests {
     fn test_new_york_card_accessibility_with_children() {
         // Test accessibility attributes with children
         let children: Option<Children> = None;
-        
+
         assert!(children.is_none());
     }
 
@@ -213,7 +216,7 @@ mod accessibility_tests {
         let role = Some("region".to_string());
         let disabled = Some(false);
         let callback = Some(Callback::new(|_: ()| {}));
-        
+
         assert_eq!(id.unwrap_or_default(), "test-id");
         assert_eq!(aria_label.unwrap_or_default(), "Test card");
         assert_eq!(aria_describedby.unwrap_or_default(), "card-description");
@@ -232,7 +235,7 @@ mod accessibility_tests {
         let disabled = Some(false);
         let callback = Some(Callback::new(|_: ()| {}));
         let signal = Some(RwSignal::new("test-value".to_string()));
-        
+
         assert_eq!(id.unwrap_or_default(), "test-id");
         assert_eq!(aria_label.unwrap_or_default(), "Test card with complex props");
         assert_eq!(aria_describedby.unwrap_or_default(), "card-description with complex props");
@@ -246,7 +249,7 @@ mod accessibility_tests {
     fn test_new_york_card_accessibility_performance() {
         // Test accessibility attributes performance
         let start = std::time::Instant::now();
-        
+
         for _ in 0..1000 {
             let _id = Some("test-id".to_string());
             let _aria_label = Some("Test card".to_string());
@@ -255,9 +258,9 @@ mod accessibility_tests {
             let _disabled = Some(false);
             let _callback = Some(Callback::new(|_: ()| {}));
         }
-        
+
         let duration = start.elapsed();
-        
+
         // Should complete quickly (less than 10ms for 1000 iterations)
         assert!(duration.as_millis() < 10);
     }
@@ -271,14 +274,14 @@ mod accessibility_tests {
         let role = Some("region".to_string());
         let disabled = Some(false);
         let callback = Some(Callback::new(|_: ()| {}));
-        
-        let total_size = std::mem::size_of_val(&id) + 
-                        std::mem::size_of_val(&aria_label) + 
-                        std::mem::size_of_val(&aria_describedby) + 
-                        std::mem::size_of_val(&role) + 
-                        std::mem::size_of_val(&disabled) + 
-                        std::mem::size_of_val(&callback);
-        
+
+        let total_size = std::mem::size_of_val(&id)
+            + std::mem::size_of_val(&aria_label)
+            + std::mem::size_of_val(&aria_describedby)
+            + std::mem::size_of_val(&role)
+            + std::mem::size_of_val(&disabled)
+            + std::mem::size_of_val(&callback);
+
         // Should be reasonable size (less than 1KB)
         assert!(total_size < 1024);
     }
@@ -292,7 +295,7 @@ mod accessibility_tests {
         let role = Some("region".to_string());
         let disabled = Some(false);
         let callback = Some(Callback::new(|_: ()| {}));
-        
+
         // Test that props can be cloned
         let id_clone = id.clone();
         let aria_label_clone = aria_label.clone();
@@ -300,7 +303,7 @@ mod accessibility_tests {
         let role_clone = role.clone();
         let disabled_clone = disabled;
         let callback_clone = callback;
-        
+
         assert_eq!(id, id_clone);
         assert_eq!(aria_label, aria_label_clone);
         assert_eq!(aria_describedby, aria_describedby_clone);

@@ -14,7 +14,9 @@ pub fn InputOtp(
     let handle_input = {
         Callback::new(move |new_val: String| {
             value.set(new_val.clone());
-            if let Some(cb) = &on_change { cb.run(new_val); }
+            if let Some(cb) = &on_change {
+                cb.run(new_val);
+            }
         })
     };
 
@@ -36,7 +38,9 @@ pub fn InputOtp(
 }
 
 pub mod signal_managed;
-pub mod prelude { pub use super::InputOtp; }
+pub mod prelude {
+    pub use super::InputOtp;
+}
 
 mod tests;
 

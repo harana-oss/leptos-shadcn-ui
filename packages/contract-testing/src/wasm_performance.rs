@@ -45,7 +45,10 @@ impl WasmPerformanceTester {
             });
         }
 
-        println!("✅ Bundle size {} KB is within {} KB limit", actual_size_kb, self.bundle_size_limit_kb);
+        println!(
+            "✅ Bundle size {} KB is within {} KB limit",
+            actual_size_kb, self.bundle_size_limit_kb
+        );
         Ok(())
     }
 
@@ -60,7 +63,10 @@ impl WasmPerformanceTester {
             });
         }
 
-        println!("✅ Render time {} ms is within {} ms limit", render_time_ms, self.render_time_limit_ms);
+        println!(
+            "✅ Render time {} ms is within {} ms limit",
+            render_time_ms, self.render_time_limit_ms
+        );
         Ok(())
     }
 
@@ -81,7 +87,10 @@ impl WasmPerformanceTester {
     }
 
     /// Validate performance contract for component
-    pub fn validate_performance_contract(&self, contract: &PerformanceContract) -> Result<(), ContractError> {
+    pub fn validate_performance_contract(
+        &self,
+        contract: &PerformanceContract,
+    ) -> Result<(), ContractError> {
         // Test against contract requirements
         self.test_bundle_size(contract.max_bundle_size_kb)?;
         self.test_render_performance(contract.max_render_time_ms)?;

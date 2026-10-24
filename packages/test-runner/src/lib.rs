@@ -1,11 +1,11 @@
 //! Test Runner Package for Leptos ShadCN UI
-//! 
+//!
 //! This package provides Rust-based test execution, measurement, and reporting
 //! capabilities for the component test suite.
 
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::time::{Duration, Instant};
-use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TestResult {
@@ -67,11 +67,11 @@ impl TestRunner {
 
     pub fn run_component_tests(&mut self, component_name: &str) -> TestSuiteResult {
         let start_time = Instant::now();
-        
+
         // This would actually run the tests for the component
         // For now, we'll simulate the results
         let mut results = Vec::new();
-        
+
         // Simulate running real tests
         for i in 1..=5 {
             let test_result = TestResult {
@@ -84,7 +84,7 @@ impl TestRunner {
             };
             results.push(test_result);
         }
-        
+
         // Simulate running WASM tests
         for i in 1..=3 {
             let test_result = TestResult {
@@ -97,12 +97,21 @@ impl TestRunner {
             };
             results.push(test_result);
         }
-        
+
         let total_duration = start_time.elapsed();
-        let passed_tests = results.iter().filter(|r| matches!(r.status, TestStatus::Passed)).count();
-        let failed_tests = results.iter().filter(|r| matches!(r.status, TestStatus::Failed)).count();
-        let skipped_tests = results.iter().filter(|r| matches!(r.status, TestStatus::Skipped)).count();
-        
+        let passed_tests = results
+            .iter()
+            .filter(|r| matches!(r.status, TestStatus::Passed))
+            .count();
+        let failed_tests = results
+            .iter()
+            .filter(|r| matches!(r.status, TestStatus::Failed))
+            .count();
+        let skipped_tests = results
+            .iter()
+            .filter(|r| matches!(r.status, TestStatus::Skipped))
+            .count();
+
         let suite_result = TestSuiteResult {
             suite_name: format!("{}_tests", component_name),
             total_tests: results.len(),
@@ -112,61 +121,93 @@ impl TestRunner {
             total_duration,
             results,
         };
-        
+
         self.results.push(suite_result.clone());
         suite_result
     }
 
     pub fn run_all_tests(&mut self) -> Vec<TestSuiteResult> {
         let components = vec![
-            "button", "input", "card", "alert", "badge", "avatar",
-            "accordion", "calendar", "checkbox", "dialog", "dropdown-menu",
-            "form", "label", "menubar", "navigation-menu", "pagination",
-            "popover", "progress", "radio-group", "select", "separator",
-            "sheet", "skeleton", "slider", "switch", "table", "tabs",
-            "textarea", "toast", "toggle", "tooltip"
+            "button",
+            "input",
+            "card",
+            "alert",
+            "badge",
+            "avatar",
+            "accordion",
+            "calendar",
+            "checkbox",
+            "dialog",
+            "dropdown-menu",
+            "form",
+            "label",
+            "menubar",
+            "navigation-menu",
+            "pagination",
+            "popover",
+            "progress",
+            "radio-group",
+            "select",
+            "separator",
+            "sheet",
+            "skeleton",
+            "slider",
+            "switch",
+            "table",
+            "tabs",
+            "textarea",
+            "toast",
+            "toggle",
+            "tooltip",
         ];
-        
+
         let mut all_results = Vec::new();
-        
+
         for component in components {
             let result = self.run_component_tests(component);
             all_results.push(result);
         }
-        
+
         all_results
     }
 
     pub fn generate_coverage_report(&mut self) -> HashMap<String, CoverageReport> {
         let mut coverage = HashMap::new();
-        
+
         for result in &self.results {
             let component_name = result.suite_name.replace("_tests", "");
-            let real_tests = result.results.iter()
+            let real_tests = result
+                .results
+                .iter()
                 .filter(|r| r.test_name.contains("renders") || r.test_name.contains("props"))
                 .count();
-            let wasm_tests = result.results.iter()
+            let wasm_tests = result
+                .results
+                .iter()
                 .filter(|r| r.test_name.contains("wasm"))
                 .count();
             let placeholder_tests = 0; // We've eliminated all placeholder tests
-            
+
             let total_tests = real_tests + wasm_tests + placeholder_tests;
             let coverage_percentage = if total_tests > 0 {
                 (real_tests as f64 / total_tests as f64) * 100.0
             } else {
                 0.0
             };
-            
-            coverage.insert(component_name.clone(), CoverageReport {
-                component_name,
-                total_tests,
-                real_tests,
-                wasm_tests,
-                placeholder_tests,
-                coverage_percentage,
-            });
+
+            coverage.insert(
+                component_name.clone(),
+                CoverageReport {
+                    component_name,
+                    total_tests,
+                    real_tests,
+                    wasm_tests,
+                    placeholder_tests,
+                    coverage_percentage,
+                },
+            );
         }
-        
+
         self.coverage_data = coverage.clone();
         coverage
     }
@@ -177,13 +218,13 @@ impl TestRunner {
         let total_passed: usize = self.results.iter().map(|r| r.passed_tests).sum();
         let total_failed: usize = self.results.iter().map(|r| r.failed_tests).sum();
         let total_duration: Duration = self.results.iter().map(|r| r.total_duration).sum();
-        
+
         let success_rate = if total_tests > 0 {
             (total_passed as f64 / total_tests as f64) * 100.0
         } else {
             0.0
         };
-        
+
         format!(
             "🧪 Test Suite Summary\n\
             ====================\n\
@@ -242,7 +283,7 @@ mod tests {
     fn test_component_test_execution() {
         let mut runner = TestRunner::new();
         let result = runner.run_component_tests("button");
-        
+
         assert_eq!(result.suite_name, "button_tests");
         assert!(result.total_tests > 0);
         assert!(result.passed_tests > 0);
@@ -253,7 +294,7 @@ mod tests {
         let mut runner = TestRunner::new();
         runner.run_component_tests("button");
         runner.run_component_tests("input");
-        
+
         let coverage = runner.generate_coverage_report();
         assert_eq!(coverage.len(), 2);
         assert!(coverage.contains_key("button"));
@@ -264,7 +305,7 @@ mod tests {
     fn test_summary_report_generation() {
         let mut runner = TestRunner::new();
         runner.run_component_tests("button");
-        
+
         let summary = runner.generate_summary_report();
         assert!(summary.contains("Test Suite Summary"));
         // Just verify the summary is generated

@@ -1,12 +1,11 @@
 use leptos::prelude::*;
 use leptos_style::Style;
-use web_sys::{HtmlFormElement, HtmlInputElement, SubmitEvent};
-use wasm_bindgen::JsCast;
 use std::collections::HashMap;
+use wasm_bindgen::JsCast;
+use web_sys::{HtmlFormElement, HtmlInputElement, SubmitEvent};
 
 /// Severity level for form errors
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-#[derive(Default)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum FormErrorSeverity {
     /// Informational notice
     Info,
@@ -18,7 +17,6 @@ pub enum FormErrorSeverity {
     /// Critical error that blocks the entire form
     Critical,
 }
-
 
 /// Source location for form errors
 #[derive(Clone, Debug)]
@@ -210,7 +208,8 @@ impl FormValidation {
 
     pub fn add_error(&mut self, field: impl Into<String>, message: impl Into<String>) {
         self.is_valid = false;
-        self.errors.push(FormError::new(field.into(), message.into()));
+        self.errors
+            .push(FormError::new(field.into(), message.into()));
     }
 
     /// Add an error with enhanced context
@@ -233,7 +232,8 @@ impl FormValidation {
 
     /// Get errors by severity level
     pub fn errors_by_severity(&self, severity: FormErrorSeverity) -> Vec<&FormError> {
-        self.errors.iter()
+        self.errors
+            .iter()
             .filter(|error| error.severity == severity)
             .collect()
     }
@@ -245,7 +245,8 @@ impl FormValidation {
 
     /// Get all error messages for display
     pub fn all_error_messages(&self) -> Vec<String> {
-        self.errors.iter()
+        self.errors
+            .iter()
             .map(|error| error.display_message())
             .collect()
     }
@@ -425,20 +426,21 @@ pub fn Form(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let (_validation, _set_validation) = signal(FormValidation::new());
-    
+
     let handle_submit = move |event: SubmitEvent| {
         event.prevent_default();
-        
+
         if let Some(target) = event.target()
-            && let Ok(form) = target.dyn_into::<HtmlFormElement>() {
-                let form_data = FormData::from_form(&form);
-                
-                if let Some(callback) = on_submit.as_ref() {
-                    callback.run(form_data);
-                }
+            && let Ok(form) = target.dyn_into::<HtmlFormElement>()
+        {
+            let form_data = FormData::from_form(&form);
+
+            if let Some(callback) = on_submit.as_ref() {
+                callback.run(form_data);
             }
+        }
     };
-    
+
     let computed_class = Signal::derive(move || {
         let base_class = "space-y-6";
         if let Some(class) = class.get() {
@@ -447,7 +449,7 @@ pub fn Form(
             base_class.to_string()
         }
     });
-    
+
     view! {
         <form
             class=computed_class
@@ -477,7 +479,7 @@ pub fn FormField(
         let custom_class = class.get().unwrap_or_default();
         format!("{}{} {}", base_class, invalid_class, custom_class)
     });
-    
+
     view! {
         <div
             class=computed_class
@@ -506,7 +508,7 @@ pub fn FormItem(
             base_class.to_string()
         }
     });
-    
+
     view! {
         <div
             class=computed_class
@@ -533,7 +535,7 @@ pub fn FormLabel(
             base_class.to_string()
         }
     });
-    
+
     view! {
         <label
             for=for_field
@@ -560,7 +562,7 @@ pub fn FormControl(
             base_class.to_string()
         }
     });
-    
+
     view! {
         <div
             class=computed_class
@@ -586,7 +588,7 @@ pub fn FormMessage(
             base_class.to_string()
         }
     });
-    
+
     view! {
         <p
             class=move || {
@@ -620,7 +622,7 @@ pub fn FormDescription(
             base_class.to_string()
         }
     });
-    
+
     view! {
         <p
             class=computed_class
@@ -653,21 +655,22 @@ impl FormData {
 
     pub fn from_form(form: &HtmlFormElement) -> Self {
         let mut form_data = Self::new();
-        
+
         // Get all form elements
         let elements = form.elements();
         for i in 0..elements.length() {
             if let Some(element) = elements.get_with_index(i)
-                && let Ok(input) = element.dyn_into::<HtmlInputElement>() {
-                    let name = input.name();
-                    let value = input.value();
-                    
-                    if !name.is_empty() {
-                        form_data.fields.insert(name, value);
-                    }
+                && let Ok(input) = element.dyn_into::<HtmlInputElement>()
+            {
+                let name = input.name();
+                let value = input.value();
+
+                if !name.is_empty() {
+                    form_data.fields.insert(name, value);
                 }
+            }
         }
-        
+
         form_data
     }
 

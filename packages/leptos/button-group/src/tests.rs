@@ -4,8 +4,16 @@ use leptos::prelude::*;
 #[test]
 fn orientation_classes() {
     assert_eq!(ButtonGroupOrientation::default(), ButtonGroupOrientation::Horizontal);
-    assert!(ButtonGroupOrientation::Horizontal.class().contains("rounded-l-none"));
-    assert!(ButtonGroupOrientation::Vertical.class().contains("flex-col"));
+    assert!(
+        ButtonGroupOrientation::Horizontal
+            .class()
+            .contains("rounded-l-none")
+    );
+    assert!(
+        ButtonGroupOrientation::Vertical
+            .class()
+            .contains("flex-col")
+    );
     assert_eq!(ButtonGroupOrientation::Vertical.as_str(), "vertical");
 }
 

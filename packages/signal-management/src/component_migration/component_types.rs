@@ -1,12 +1,11 @@
 //! Component Migration Types Module
-//! 
+//!
 //! This module provides the supporting types for component migrations.
 
 use serde::{Deserialize, Serialize};
 
 // Button component types
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct ButtonState {
     pub variant: ButtonVariant,
     pub size: ButtonSize,
@@ -14,8 +13,7 @@ pub struct ButtonState {
     pub loading: bool,
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub enum ButtonVariant {
     #[default]
     Default,
@@ -26,9 +24,7 @@ pub enum ButtonVariant {
     Link,
 }
 
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub enum ButtonSize {
     #[default]
     Default,
@@ -37,10 +33,8 @@ pub enum ButtonSize {
     Icon,
 }
 
-
 // Input component types
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct InputState {
     pub value: String,
     pub placeholder: String,
@@ -49,8 +43,7 @@ pub struct InputState {
     pub focused: bool,
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct ValidationState {
     pub is_valid: bool,
     pub has_error: bool,
@@ -58,8 +51,7 @@ pub struct ValidationState {
 }
 
 // Card component types
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct CardState {
     pub title: String,
     pub description: String,
@@ -68,8 +60,7 @@ pub struct CardState {
 }
 
 // Form component types
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct FormState {
     pub fields: std::collections::HashMap<String, String>,
     pub is_submitting: bool,
@@ -77,8 +68,7 @@ pub struct FormState {
     pub errors: Vec<String>,
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct FormValidation {
     pub can_submit: bool,
     pub has_errors: bool,
@@ -96,14 +86,12 @@ pub struct TableState {
     pub page_size: usize,
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub enum SortDirection {
     #[default]
     Asc,
     Desc,
 }
-
 
 // Dialog component types
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -115,8 +103,7 @@ pub struct DialogState {
 }
 
 // Navigation component types
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct NavigationState {
     pub items: Vec<String>,
     pub active_item: Option<String>,
@@ -133,8 +120,7 @@ pub struct ToastState {
     pub is_visible: bool,
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub enum ToastVariant {
     #[default]
     Info,
@@ -142,7 +128,6 @@ pub enum ToastVariant {
     Warning,
     Error,
 }
-
 
 // Calendar component types
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -153,15 +138,13 @@ pub struct CalendarState {
     pub view_mode: CalendarView,
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub enum CalendarView {
     #[default]
     Month,
     Week,
     Day,
 }
-
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct CalendarData {
@@ -171,11 +154,6 @@ pub struct CalendarData {
 }
 
 // Default implementations for all state types
-
-
-
-
-
 
 impl Default for TableState {
     fn default() -> Self {
@@ -200,7 +178,6 @@ impl Default for DialogState {
         }
     }
 }
-
 
 impl Default for ToastState {
     fn default() -> Self {

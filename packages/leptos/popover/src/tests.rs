@@ -1,8 +1,6 @@
 #[cfg(test)]
 #[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod tests {
-    
-    
 
     #[test]
     fn test_popover_component_exists() {

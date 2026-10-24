@@ -1,8 +1,6 @@
 #[cfg(test)]
 #[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod class_constants {
-    
-    
 
     // ===== CLASS CONSTANTS TESTS =====
     // These tests focus on CSS class constants and styling
@@ -11,7 +9,7 @@ mod class_constants {
     fn test_textarea_class_constant() {
         // Test TEXTAREA_CLASS constant
         let textarea_class = "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
-        
+
         assert!(textarea_class.contains("flex"));
         assert!(textarea_class.contains("h-10"));
         assert!(textarea_class.contains("w-full"));
@@ -42,7 +40,7 @@ mod class_constants {
         let base_class = "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
         let custom_class = "custom-textarea";
         let computed = format!("{} {}", base_class, custom_class);
-        
+
         assert!(computed.contains("flex"));
         assert!(computed.contains("h-10"));
         assert!(computed.contains("w-full"));
@@ -54,7 +52,7 @@ mod class_constants {
         // Test style handling
         let custom_style = "color: red; background: blue;";
         let style_prop = Some(custom_style.to_string());
-        
+
         assert_eq!(style_prop.as_deref(), Some(custom_style));
     }
 
@@ -64,7 +62,7 @@ mod class_constants {
         let small_class = "h-8 text-xs";
         let default_class = "h-10 text-sm";
         let large_class = "h-12 text-base";
-        
+
         assert!(small_class.contains("h-8"));
         assert!(small_class.contains("text-xs"));
         assert!(default_class.contains("h-10"));
@@ -79,7 +77,7 @@ mod class_constants {
         let default_class = "border-input bg-background";
         let destructive_class = "border-destructive bg-destructive";
         let outline_class = "border-outline bg-outline";
-        
+
         assert!(default_class.contains("border-input"));
         assert!(default_class.contains("bg-background"));
         assert!(destructive_class.contains("border-destructive"));
@@ -92,10 +90,11 @@ mod class_constants {
     fn test_textarea_state_classes() {
         // Test state-specific classes
         let disabled_class = "disabled:cursor-not-allowed disabled:opacity-50";
-        let focused_class = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+        let focused_class =
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
         let error_class = "border-destructive text-destructive";
         let success_class = "border-green-500 text-green-500";
-        
+
         assert!(disabled_class.contains("disabled:"));
         assert!(disabled_class.contains("cursor-not-allowed"));
         assert!(disabled_class.contains("opacity-50"));
@@ -116,7 +115,7 @@ mod class_constants {
         let aria_required_class = "aria-required";
         let aria_describedby_class = "aria-describedby";
         let role_class = "role=\"textbox\"";
-        
+
         assert!(aria_invalid_class.contains("aria-invalid"));
         assert!(aria_required_class.contains("aria-required"));
         assert!(aria_describedby_class.contains("aria-describedby"));
@@ -130,7 +129,7 @@ mod class_constants {
         let transition_class = "transition-colors";
         let duration_class = "duration-200";
         let ease_class = "ease-in-out";
-        
+
         assert!(transition_class.contains("transition-colors"));
         assert!(duration_class.contains("duration-200"));
         assert!(ease_class.contains("ease-in-out"));
@@ -145,7 +144,7 @@ mod class_constants {
         let border_class = "border";
         let px_class = "px-3";
         let py_class = "py-2";
-        
+
         assert!(flex_class.contains("flex"));
         assert!(w_full_class.contains("w-full"));
         assert!(rounded_class.contains("rounded-md"));
@@ -160,7 +159,7 @@ mod class_constants {
         let placeholder_class = "placeholder:text-muted-foreground";
         let placeholder_opacity_class = "placeholder:opacity-50";
         let placeholder_italic_class = "placeholder:italic";
-        
+
         assert!(placeholder_class.contains("placeholder:"));
         assert!(placeholder_class.contains("text-muted-foreground"));
         assert!(placeholder_opacity_class.contains("placeholder:"));
@@ -176,7 +175,7 @@ mod class_constants {
         let ring_2_class = "focus-visible:ring-2";
         let ring_ring_class = "focus-visible:ring-ring";
         let ring_offset_2_class = "focus-visible:ring-offset-2";
-        
+
         assert!(ring_offset_class.contains("ring-offset-background"));
         assert!(ring_2_class.contains("focus-visible:ring-2"));
         assert!(ring_ring_class.contains("focus-visible:ring-ring"));

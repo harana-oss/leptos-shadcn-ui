@@ -1,10 +1,10 @@
 //! State management tests for the Hover-card component
-//! 
+//!
 //! This module contains tests for state management, context management, animations,
 //! and content placeholders for the Hover-card component.
 
-use leptos::prelude::*;
 use crate::default::{HoverCard, HoverCardContent, HoverCardTrigger};
+use leptos::prelude::*;
 
 #[cfg(test)]
 mod tests {
@@ -14,7 +14,7 @@ mod tests {
     fn test_hover_card_state_management() {
         // Test hover card state management
         let (is_open, _set_is_open) = signal(false);
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"State trigger"</HoverCardTrigger>
@@ -23,7 +23,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -37,7 +37,7 @@ mod tests {
                 <HoverCardContent>"Context content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -51,7 +51,7 @@ mod tests {
                 <HoverCardContent>"Animation content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -65,7 +65,7 @@ mod tests {
                 <HoverCardContent>"Placeholder content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -74,7 +74,7 @@ mod tests {
     fn test_hover_card_theme_switching() {
         // Test hover card theme switching
         let (theme, _set_theme) = signal("light");
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Theme trigger"</HoverCardTrigger>
@@ -83,7 +83,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -97,7 +97,7 @@ mod tests {
                 <HoverCardContent>"Responsive content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -106,7 +106,7 @@ mod tests {
     fn test_hover_card_advanced_interactions() {
         // Test hover card advanced interactions
         let (interaction_count, _set_interaction_count) = signal(0);
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Interaction trigger"</HoverCardTrigger>
@@ -115,7 +115,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -135,7 +135,7 @@ mod tests {
                 </HoverCard>
             </div>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -144,7 +144,7 @@ mod tests {
     fn test_hover_card_validation_comprehensive() {
         // Test hover card validation comprehensive
         let (is_valid, _set_is_valid) = signal(true);
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Validation trigger"</HoverCardTrigger>
@@ -153,7 +153,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -167,7 +167,7 @@ mod tests {
                 <HoverCardContent>"Accessibility content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -181,7 +181,7 @@ mod tests {
                 <HoverCardContent>"Performance content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -195,7 +195,7 @@ mod tests {
                 <HoverCardContent>"Integration content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -204,7 +204,7 @@ mod tests {
     fn test_hover_card_complete_workflow() {
         // Test hover card complete workflow
         let (workflow_step, _set_workflow_step) = signal(0);
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Workflow trigger"</HoverCardTrigger>
@@ -213,7 +213,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -227,7 +227,7 @@ mod tests {
                 <HoverCardContent>"Error content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -236,7 +236,7 @@ mod tests {
     fn test_hover_card_click_handling() {
         // Test hover card click handling
         let (click_count, _set_click_count) = signal(0);
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Click trigger"</HoverCardTrigger>
@@ -245,7 +245,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -254,7 +254,7 @@ mod tests {
     fn test_hover_card_checked_change_callback() {
         // Test hover card checked change callback
         let (checked, _set_checked) = signal(false);
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Callback trigger"</HoverCardTrigger>
@@ -263,7 +263,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -277,7 +277,7 @@ mod tests {
                 <HoverCardContent>"Variant content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -286,7 +286,7 @@ mod tests {
     fn test_hover_card_callback_execution() {
         // Test hover card callback execution
         let (callback_executed, _set_callback_executed) = signal(false);
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Callback execution trigger"</HoverCardTrigger>
@@ -295,7 +295,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -305,7 +305,7 @@ mod tests {
         // Test hover card multiple callbacks
         let (callback1_count, _set_callback1_count) = signal(0);
         let (callback2_count, _set_callback2_count) = signal(0);
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Multiple callbacks trigger"</HoverCardTrigger>
@@ -314,7 +314,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -323,7 +323,7 @@ mod tests {
     fn test_hover_card_disabled_state() {
         // Test hover card disabled state
         let (is_disabled, _set_is_disabled) = signal(false);
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger disabled=is_disabled>"Disabled state trigger"</HoverCardTrigger>
@@ -332,7 +332,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -341,7 +341,7 @@ mod tests {
     fn test_hover_card_enabled_state() {
         // Test hover card enabled state
         let (is_enabled, _set_is_enabled) = signal(true);
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Enabled state trigger"</HoverCardTrigger>
@@ -350,7 +350,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -359,7 +359,7 @@ mod tests {
     fn test_hover_card_dynamic_content() {
         // Test hover card dynamic content
         let (content_type, _set_content_type) = signal("text");
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Dynamic content trigger"</HoverCardTrigger>
@@ -368,7 +368,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -377,7 +377,7 @@ mod tests {
     fn test_hover_card_conditional_rendering() {
         // Test hover card conditional rendering
         let (show_content, _set_show_content) = signal(true);
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Conditional rendering trigger"</HoverCardTrigger>
@@ -386,7 +386,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -395,7 +395,7 @@ mod tests {
     fn test_hover_card_data_binding() {
         // Test hover card data binding
         let (bound_data, _set_bound_data) = signal("initial data".to_string());
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Data binding trigger"</HoverCardTrigger>
@@ -404,7 +404,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -413,7 +413,7 @@ mod tests {
     fn test_hover_card_event_propagation() {
         // Test hover card event propagation
         let (event_count, _set_event_count) = signal(0);
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Event propagation trigger"</HoverCardTrigger>
@@ -422,7 +422,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -436,7 +436,7 @@ mod tests {
                 <HoverCardContent>"Memory management content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -450,7 +450,7 @@ mod tests {
                 <HoverCardContent>"Resource cleanup content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -459,7 +459,7 @@ mod tests {
     fn test_hover_card_lifecycle_management() {
         // Test hover card lifecycle management
         let (lifecycle_stage, _set_lifecycle_stage) = signal("initialized".to_string());
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Lifecycle management trigger"</HoverCardTrigger>
@@ -468,7 +468,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -478,7 +478,7 @@ mod tests {
         // Test hover card state synchronization
         let (local_state, _set_local_state) = signal("local".to_string());
         let (remote_state, _set_remote_state) = signal("remote".to_string());
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"State synchronization trigger"</HoverCardTrigger>
@@ -487,7 +487,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -498,19 +498,19 @@ mod tests {
         let (state1, _set_state1) = signal(false);
         let (state2, _set_state2) = signal(false);
         let (state3, _set_state3) = signal(false);
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Comprehensive state trigger"</HoverCardTrigger>
                 <HoverCardContent>
-                    {move || format!("State1: {}, State2: {}, State3: {}", 
-                        state1.get(), 
-                        state2.get(), 
+                    {move || format!("State1: {}, State2: {}, State3: {}",
+                        state1.get(),
+                        state2.get(),
                         state3.get())}
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }

@@ -33,10 +33,10 @@ mod tests {
         // Test checked signal functionality
         let checked_signal = RwSignal::new(false);
         assert!(!checked_signal.get());
-        
+
         checked_signal.set(true);
         assert!(checked_signal.get());
-        
+
         // Test toggling
         checked_signal.set(false);
         assert!(!checked_signal.get());
@@ -47,10 +47,10 @@ mod tests {
         // Test disabled signal functionality
         let disabled_signal = RwSignal::new(false);
         assert!(!disabled_signal.get());
-        
+
         disabled_signal.set(true);
         assert!(disabled_signal.get());
-        
+
         // Test disabled state styling is included in base class
         assert!(CHECKBOX_CLASS.contains("disabled:cursor-not-allowed"));
         assert!(CHECKBOX_CLASS.contains("disabled:opacity-50"));
@@ -61,21 +61,21 @@ mod tests {
         // Test change callback structure
         let change_called = Arc::new(Mutex::new(false));
         let change_value = Arc::new(Mutex::new(false));
-        
+
         let change_called_clone = Arc::clone(&change_called);
         let change_value_clone = Arc::clone(&change_value);
-        
+
         let callback = Callback::new(move |checked: bool| {
             *change_called_clone.lock().unwrap() = true;
             *change_value_clone.lock().unwrap() = checked;
         });
-        
+
         // Simulate callback execution
         callback.run(true);
-        
+
         assert!(*change_called.lock().unwrap());
         assert!(*change_value.lock().unwrap());
-        
+
         // Test unchecked state
         callback.run(false);
         assert!(!*change_value.lock().unwrap());
@@ -86,9 +86,9 @@ mod tests {
         // Test custom class handling
         let base_class = CHECKBOX_CLASS;
         let custom_class = "my-custom-checkbox-class";
-        
+
         let expected = format!("{} {}", base_class, custom_class);
-        
+
         assert!(expected.contains(base_class));
         assert!(expected.contains(custom_class));
         assert!(expected.len() > base_class.len());
@@ -109,7 +109,7 @@ mod tests {
         // Test that checkbox creates proper input type
         let input_type = "checkbox";
         assert_eq!(input_type, "checkbox");
-        
+
         // Test boolean state management
         let checked_states = vec![true, false];
         for state in checked_states {
@@ -122,13 +122,21 @@ mod tests {
     fn test_checkbox_styling_consistency() {
         // Test that all required styling properties are present
         let required_properties = vec![
-            "h-4", "w-4", "shrink-0", "rounded-sm", "border",
-            "ring-offset-background", "focus-visible:outline-none"
+            "h-4",
+            "w-4",
+            "shrink-0",
+            "rounded-sm",
+            "border",
+            "ring-offset-background",
+            "focus-visible:outline-none",
         ];
-        
+
         for property in required_properties {
-            assert!(CHECKBOX_CLASS.contains(property), 
-                "CHECKBOX_CLASS should contain '{}' property", property);
+            assert!(
+                CHECKBOX_CLASS.contains(property),
+                "CHECKBOX_CLASS should contain '{}' property",
+                property
+            );
         }
     }
 
@@ -137,10 +145,10 @@ mod tests {
         // Test checkbox interaction patterns
         let initial_state = false;
         let toggled_state = !initial_state;
-        
+
         assert!(!initial_state);
         assert!(toggled_state);
-        
+
         // Test multiple toggles
         let mut current_state = false;
         for _ in 0..3 {

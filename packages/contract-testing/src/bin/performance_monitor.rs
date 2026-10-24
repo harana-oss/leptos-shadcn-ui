@@ -1,15 +1,13 @@
 #!/usr/bin/env rust-script
 //! Performance Contract Monitoring and Alerting System
-//! 
+//!
 //! This binary provides real-time monitoring of performance contracts
 //! and sends alerts when violations are detected.
 
 use anyhow::Result;
 use leptos_shadcn_contract_testing::{
-    PerformanceContract,
-    wasm_performance::WasmPerformanceTester,
-    dependency_contracts::DependencyContractTester,
-    ContractTestable,
+    dependency_contracts::DependencyContractTester, wasm_performance::WasmPerformanceTester,
+    ContractTestable, PerformanceContract,
 };
 use std::collections::HashMap;
 use std::time::{Duration, Instant};
@@ -79,21 +77,23 @@ impl PerformanceMonitor {
 
     pub async fn start_monitoring(&mut self, interval_seconds: u64) -> Result<()> {
         let mut interval = interval(Duration::from_secs(interval_seconds));
-        
+
         println!("🚀 Starting performance monitoring...");
         println!("📊 Monitoring {} components", self.contracts.len());
         println!("⏱️  Check interval: {} seconds", interval_seconds);
-        
+
         loop {
             interval.tick().await;
-            
+
             match self.check_performance_contracts().await {
                 Ok(violations) => {
                     if !violations.is_empty() {
                         self.handle_violations(violations).await?;
                     } else {
-                        println!("✅ All performance contracts satisfied at {}", 
-                                chrono::Utc::now().format("%Y-%m-%d %H:%M:%S UTC"));
+                        println!(
+                            "✅ All performance contracts satisfied at {}",
+                            chrono::Utc::now().format("%Y-%m-%d %H:%M:%S UTC")
+                        );
                     }
                 }
                 Err(e) => {
@@ -109,7 +109,10 @@ impl PerformanceMonitor {
 
         for (component, contract) in &self.contracts {
             // Check bundle size
-            if tester.test_bundle_size(contract.max_bundle_size_kb).is_err() {
+            if tester
+                .test_bundle_size(contract.max_bundle_size_kb)
+                .is_err()
+            {
                 violations.push(PerformanceAlert {
                     component: component.clone(),
                     violation_type: ViolationType::BundleSize,
@@ -121,7 +124,10 @@ impl PerformanceMonitor {
             }
 
             // Check render time
-            if tester.test_render_performance(contract.max_render_time_ms).is_err() {
+            if tester
+                .test_render_performance(contract.max_render_time_ms)
+                .is_err()
+            {
                 violations.push(PerformanceAlert {
                     component: component.clone(),
                     violation_type: ViolationType::RenderTime,
@@ -166,12 +172,18 @@ impl PerformanceMonitor {
         };
 
         let violation_desc = match alert.violation_type {
-            ViolationType::BundleSize => format!("Bundle size: {:.1}KB (limit: {:.1}KB)", 
-                                                alert.current_value, alert.threshold),
-            ViolationType::RenderTime => format!("Render time: {:.1}ms (limit: {:.1}ms)", 
-                                                alert.current_value, alert.threshold),
-            ViolationType::MemoryUsage => format!("Memory usage: {:.1}MB (limit: {:.1}MB)", 
-                                                 alert.current_value, alert.threshold),
+            ViolationType::BundleSize => format!(
+                "Bundle size: {:.1}KB (limit: {:.1}KB)",
+                alert.current_value, alert.threshold
+            ),
+            ViolationType::RenderTime => format!(
+                "Render time: {:.1}ms (limit: {:.1}ms)",
+                alert.current_value, alert.threshold
+            ),
+            ViolationType::MemoryUsage => format!(
+                "Memory usage: {:.1}MB (limit: {:.1}MB)",
+                alert.current_value, alert.threshold
+            ),
             ViolationType::DependencyConflict => "Dependency conflict detected".to_string(),
             ViolationType::VersionMismatch => "Version mismatch detected".to_string(),
         };
@@ -194,32 +206,46 @@ impl PerformanceMonitor {
     }
 
     pub fn get_alert_summary(&self) -> String {
-        let critical_count = self.alerts.iter()
+        let critical_count = self
+            .alerts
+            .iter()
             .filter(|a| matches!(a.severity, AlertSeverity::Critical))
             .count();
-        let high_count = self.alerts.iter()
+        let high_count = self
+            .alerts
+            .iter()
             .filter(|a| matches!(a.severity, AlertSeverity::High))
             .count();
-        let medium_count = self.alerts.iter()
+        let medium_count = self
+            .alerts
+            .iter()
             .filter(|a| matches!(a.severity, AlertSeverity::Medium))
             .count();
-        let low_count = self.alerts.iter()
+        let low_count = self
+            .alerts
+            .iter()
             .filter(|a| matches!(a.severity, AlertSeverity::Low))
             .count();
 
         format!(
             "Alert Summary: 🚨{} 🔴{} 🟠{} 🟡{} (Total: {})",
-            critical_count, high_count, medium_count, low_count, self.alerts.len()
+            critical_count,
+            high_count,
+            medium_count,
+            low_count,
+            self.alerts.len()
         )
     }
 
     pub fn generate_performance_report(&self) -> String {
         let mut report = String::new();
-        
+
         report.push_str("# Performance Contract Monitoring Report\n\n");
-        report.push_str(&format!("Generated: {}\n\n", 
-                                chrono::Utc::now().format("%Y-%m-%d %H:%M:%S UTC")));
-        
+        report.push_str(&format!(
+            "Generated: {}\n\n",
+            chrono::Utc::now().format("%Y-%m-%d %H:%M:%S UTC")
+        ));
+
         report.push_str(&self.get_alert_summary());
         report.push_str("\n\n");
 
@@ -227,7 +253,7 @@ impl PerformanceMonitor {
             report.push_str("✅ No performance contract violations detected.\n");
         } else {
             report.push_str("## Recent Violations\n\n");
-            
+
             for alert in &self.alerts {
                 let severity_emoji = match alert.severity {
                     AlertSeverity::Low => "🟡",
@@ -240,12 +266,14 @@ impl PerformanceMonitor {
                     "### {} {} - {}\n",
                     severity_emoji, alert.component, alert.violation_type
                 ));
-                
+
                 report.push_str(&format!("- **Severity**: {:?}\n", alert.severity));
                 report.push_str(&format!("- **Current Value**: {:.2}\n", alert.current_value));
                 report.push_str(&format!("- **Threshold**: {:.2}\n", alert.threshold));
-                report.push_str(&format!("- **Timestamp**: {}\n\n", 
-                                        chrono::Utc::now().format("%Y-%m-%d %H:%M:%S UTC")));
+                report.push_str(&format!(
+                    "- **Timestamp**: {}\n\n",
+                    chrono::Utc::now().format("%Y-%m-%d %H:%M:%S UTC")
+                ));
             }
         }
 
@@ -256,18 +284,27 @@ impl PerformanceMonitor {
 #[tokio::main]
 async fn main() -> Result<()> {
     env_logger::init();
-    
+
     let args: Vec<String> = std::env::args().collect();
     let command = args.get(1).map(|s| s.as_str()).unwrap_or("monitor");
 
     match command {
         "monitor" => {
             let mut monitor = PerformanceMonitor::new();
-            
+
             // Add contracts for all components
             let components = vec![
-                "button", "input", "card", "dialog", "form", "table",
-                "calendar", "date-picker", "pagination", "tooltip", "popover"
+                "button",
+                "input",
+                "card",
+                "dialog",
+                "form",
+                "table",
+                "calendar",
+                "date-picker",
+                "pagination",
+                "tooltip",
+                "popover",
             ];
 
             for component in components {
@@ -281,20 +318,19 @@ async fn main() -> Result<()> {
                 monitor.add_contract(component.to_string(), contract);
             }
 
-            let interval = args.get(2)
+            let interval = args
+                .get(2)
                 .and_then(|s| s.parse::<u64>().ok())
                 .unwrap_or(30);
 
             monitor.start_monitoring(interval).await?;
         }
-        
+
         "check" => {
             let mut monitor = PerformanceMonitor::new();
-            
+
             // Add contracts
-            let components = vec![
-                "button", "input", "card", "dialog", "form", "table"
-            ];
+            let components = vec!["button", "input", "card", "dialog", "form", "table"];
 
             for component in components {
                 let contract = PerformanceContract {
@@ -308,23 +344,25 @@ async fn main() -> Result<()> {
             }
 
             let violations = monitor.check_performance_contracts().await?;
-            
+
             if violations.is_empty() {
                 println!("✅ All performance contracts satisfied");
                 std::process::exit(0);
             } else {
                 println!("❌ {} performance contract violations detected", violations.len());
                 for violation in violations {
-                    println!("- {}: {:?} (severity: {:?})", 
-                            violation.component, violation.violation_type, violation.severity);
+                    println!(
+                        "- {}: {:?} (severity: {:?})",
+                        violation.component, violation.violation_type, violation.severity
+                    );
                 }
                 std::process::exit(1);
             }
         }
-        
+
         "report" => {
             let mut monitor = PerformanceMonitor::new();
-            
+
             // Simulate some alerts for demonstration
             monitor.alerts.push(PerformanceAlert {
                 component: "button".to_string(),
@@ -338,7 +376,7 @@ async fn main() -> Result<()> {
             let report = monitor.generate_performance_report();
             println!("{}", report);
         }
-        
+
         _ => {
             eprintln!("Usage: {} [monitor|check|report] [interval_seconds]", args[0]);
             eprintln!("  monitor: Start continuous monitoring");

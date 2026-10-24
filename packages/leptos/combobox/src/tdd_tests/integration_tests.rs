@@ -1,7 +1,7 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod integration_tests {
-    
+
     use crate::*;
     use leptos::prelude::*;
 
@@ -10,592 +10,594 @@ mod integration_tests {
 
     #[test]
     fn test_combobox_integration_with_form() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let _combobox_view = view! {
-            <form>
-                <Combobox options=options/>
-            </form>
-        };
-        // Test integration with forms
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let _combobox_view = view! {
+                <form>
+                    <Combobox options=options/>
+                </form>
+            };
+            // Test integration with forms
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_validation() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let value = RwSignal::new("".to_string());
-        let is_valid = Signal::derive(move || !value.get().is_empty());
-        let _combobox_view = view! {
-            <Combobox 
-                options=options
-                value=MaybeProp::from(value)
-                attr:aria-invalid=Signal::derive(move || !is_valid.get())
-            />
-        };
-        // Test integration with validation
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let value = RwSignal::new("".to_string());
+            let is_valid = Signal::derive(move || !value.get().is_empty());
+            let _combobox_view = view! {
+                <Combobox
+                    options=options
+                    value=MaybeProp::from(value)
+                    attr:aria-invalid=Signal::derive(move || !is_valid.get())
+                />
+            };
+            // Test integration with validation
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_async_data() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = RwSignal::new(vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ]);
-        let _combobox_view = view! {
-            <Combobox options=options.get_untracked()/>
-        };
-        // Test integration with async data loading
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = RwSignal::new(vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ]);
+            let _combobox_view = view! {
+                <Combobox options=options.get_untracked()/>
+            };
+            // Test integration with async data loading
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_search() {
-    leptos::prelude::Owner::new().with(|| {
-        let all_options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-            ComboboxOption::new("option3", "Option 3"),
-        ];
-        let search_term = RwSignal::new("".to_string());
-        let filtered_options = Signal::derive(move || {
-            let term = search_term.get();
-            if term.is_empty() {
-                all_options.clone()
-            } else {
-                all_options.clone().into_iter()
-                    .filter(|opt| opt.label.to_lowercase().contains(&term.to_lowercase()))
-                    .collect()
-            }
+        leptos::prelude::Owner::new().with(|| {
+            let all_options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+                ComboboxOption::new("option3", "Option 3"),
+            ];
+            let search_term = RwSignal::new("".to_string());
+            let filtered_options = Signal::derive(move || {
+                let term = search_term.get();
+                if term.is_empty() {
+                    all_options.clone()
+                } else {
+                    all_options
+                        .clone()
+                        .into_iter()
+                        .filter(|opt| opt.label.to_lowercase().contains(&term.to_lowercase()))
+                        .collect()
+                }
+            });
+            let _combobox_view = view! {
+                <Combobox options=filtered_options.get_untracked()/>
+            };
+            // Test integration with search functionality
         });
-        let _combobox_view = view! {
-            <Combobox options=filtered_options.get_untracked()/>
-        };
-        // Test integration with search functionality
-    });
-}
+    }
 
     #[test]
     fn test_combobox_integration_with_multiple_comboboxes() {
-    leptos::prelude::Owner::new().with(|| {
-        let options1 = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let options2 = vec![
-            ComboboxOption::new("option3", "Option 3"),
-            ComboboxOption::new("option4", "Option 4"),
-        ];
-        let _combobox_view = view! {
-            <div>
-                <Combobox options=options1/>
-                <Combobox options=options2/>
-            </div>
-        };
-        // Test integration with multiple comboboxes
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options1 = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let options2 = vec![
+                ComboboxOption::new("option3", "Option 3"),
+                ComboboxOption::new("option4", "Option 4"),
+            ];
+            let _combobox_view = view! {
+                <div>
+                    <Combobox options=options1/>
+                    <Combobox options=options2/>
+                </div>
+            };
+            // Test integration with multiple comboboxes
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_nested_comboboxes() {
-    leptos::prelude::Owner::new().with(|| {
-        let parent_options = vec![
-            ComboboxOption::new("parent1", "Parent 1"),
-            ComboboxOption::new("parent2", "Parent 2"),
-        ];
-        let child_options = vec![
-            ComboboxOption::new("child1", "Child 1"),
-            ComboboxOption::new("child2", "Child 2"),
-        ];
-        let _combobox_view = view! {
-            <div>
-                <Combobox options=parent_options/>
+        leptos::prelude::Owner::new().with(|| {
+            let parent_options = vec![
+                ComboboxOption::new("parent1", "Parent 1"),
+                ComboboxOption::new("parent2", "Parent 2"),
+            ];
+            let child_options = vec![
+                ComboboxOption::new("child1", "Child 1"),
+                ComboboxOption::new("child2", "Child 2"),
+            ];
+            let _combobox_view = view! {
                 <div>
-                    <Combobox options=child_options/>
+                    <Combobox options=parent_options/>
+                    <div>
+                        <Combobox options=child_options/>
+                    </div>
                 </div>
-            </div>
-        };
-        // Test integration with nested comboboxes
-    });
-}
+            };
+            // Test integration with nested comboboxes
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_conditional_rendering() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let show_combobox = RwSignal::new(true);
-        let _combobox_view = view! {
-            <Show when=move || show_combobox.get()>
-                <Combobox options=options.clone()/>
-            </Show>
-        };
-        // Test integration with conditional rendering
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let show_combobox = RwSignal::new(true);
+            let _combobox_view = view! {
+                <Show when=move || show_combobox.get()>
+                    <Combobox options=options.clone()/>
+                </Show>
+            };
+            // Test integration with conditional rendering
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_dynamic_options() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = RwSignal::new(vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ]);
-        let _combobox_view = view! {
-            <Combobox options=options.get_untracked()/>
-        };
-        // Test integration with dynamic options
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = RwSignal::new(vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ]);
+            let _combobox_view = view! {
+                <Combobox options=options.get_untracked()/>
+            };
+            // Test integration with dynamic options
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_context_providers() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let context_value = RwSignal::new("context-value".to_string());
-        provide_context(context_value);
-        let _combobox_view = view! {
-            <Combobox options=options/>
-        };
-        // Test integration with context providers
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let context_value = RwSignal::new("context-value".to_string());
+            provide_context(context_value);
+            let _combobox_view = view! {
+                <Combobox options=options/>
+            };
+            // Test integration with context providers
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_error_boundaries() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let _combobox_view = view! {
-            <ErrorBoundary fallback=|_| view! { <div>"Error occurred"</div> }>
-                <Combobox options=options/>
-            </ErrorBoundary>
-        };
-        // Test integration with error boundaries
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let _combobox_view = view! {
+                <ErrorBoundary fallback=|_| view! { <div>"Error occurred"</div> }>
+                    <Combobox options=options/>
+                </ErrorBoundary>
+            };
+            // Test integration with error boundaries
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_suspense() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let _combobox_view = view! {
-            <Suspense fallback=|| view! { <div>"Loading..."</div> }>
-                <Combobox options=options/>
-            </Suspense>
-        };
-        // Test integration with suspense
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let _combobox_view = view! {
+                <Suspense fallback=|| view! { <div>"Loading..."</div> }>
+                    <Combobox options=options/>
+                </Suspense>
+            };
+            // Test integration with suspense
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_router() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let _combobox_view = view! {
-            <Combobox options=options/>
-        };
-        // Test integration with router
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let _combobox_view = view! {
+                <Combobox options=options/>
+            };
+            // Test integration with router
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_state_management() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let global_state = RwSignal::new("global-value".to_string());
-        let _combobox_view = view! {
-            <Combobox 
-                options=options
-                value=MaybeProp::from(global_state)
-            />
-        };
-        // Test integration with global state management
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let global_state = RwSignal::new("global-value".to_string());
+            let _combobox_view = view! {
+                <Combobox
+                    options=options
+                    value=MaybeProp::from(global_state)
+                />
+            };
+            // Test integration with global state management
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_persistence() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let persisted_value = RwSignal::new("option1".to_string());
-        let _combobox_view = view! {
-            <Combobox 
-                options=options
-                value=MaybeProp::from(persisted_value)
-            />
-        };
-        // Test integration with data persistence
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let persisted_value = RwSignal::new("option1".to_string());
+            let _combobox_view = view! {
+                <Combobox
+                    options=options
+                    value=MaybeProp::from(persisted_value)
+                />
+            };
+            // Test integration with data persistence
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_undo_redo() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let value = RwSignal::new("option1".to_string());
-        let _history = RwSignal::new(vec!["option1".to_string()]);
-        let _combobox_view = view! {
-            <Combobox 
-                options=options
-                value=MaybeProp::from(value)
-            />
-        };
-        // Test integration with undo/redo functionality
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let value = RwSignal::new("option1".to_string());
+            let _history = RwSignal::new(vec!["option1".to_string()]);
+            let _combobox_view = view! {
+                <Combobox
+                    options=options
+                    value=MaybeProp::from(value)
+                />
+            };
+            // Test integration with undo/redo functionality
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_keyboard_navigation() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-            ComboboxOption::new("option3", "Option 3"),
-        ];
-        let _combobox_view = view! {
-            <Combobox options=options/>
-        };
-        // Test integration with keyboard navigation
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+                ComboboxOption::new("option3", "Option 3"),
+            ];
+            let _combobox_view = view! {
+                <Combobox options=options/>
+            };
+            // Test integration with keyboard navigation
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_mouse_interaction() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let _combobox_view = view! {
-            <Combobox options=options/>
-        };
-        // Test integration with mouse interactions
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let _combobox_view = view! {
+                <Combobox options=options/>
+            };
+            // Test integration with mouse interactions
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_touch_interaction() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let _combobox_view = view! {
-            <Combobox options=options/>
-        };
-        // Test integration with touch interactions
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let _combobox_view = view! {
+                <Combobox options=options/>
+            };
+            // Test integration with touch interactions
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_focus_management() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let _combobox_view = view! {
-            <Combobox options=options/>
-        };
-        // Test integration with focus management
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let _combobox_view = view! {
+                <Combobox options=options/>
+            };
+            // Test integration with focus management
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_tabindex() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let _combobox_view = view! {
-            <Combobox 
-                options=options
-                attr:tabindex=0
-            />
-        };
-        // Test integration with tabindex
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let _combobox_view = view! {
+                <Combobox
+                    options=options
+                    attr:tabindex=0
+                />
+            };
+            // Test integration with tabindex
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_autofocus() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let _combobox_view = view! {
-            <Combobox 
-                options=options
-                attr:autofocus=true
-            />
-        };
-        // Test integration with autofocus
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let _combobox_view = view! {
+                <Combobox
+                    options=options
+                    attr:autofocus=true
+                />
+            };
+            // Test integration with autofocus
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_event_handling() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let on_change = Callback::new(|_: String| {});
-        let _combobox_view = view! {
-            <Combobox 
-                options=options
-                on_change=on_change
-            />
-        };
-        // Test integration with event handling
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let on_change = Callback::new(|_: String| {});
+            let _combobox_view = view! {
+                <Combobox
+                    options=options
+                    on_change=on_change
+                />
+            };
+            // Test integration with event handling
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_debouncing() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let value = RwSignal::new("".to_string());
-        let _combobox_view = view! {
-            <Combobox 
-                options=options
-                value=MaybeProp::from(value)
-            />
-        };
-        // Test integration with debounced input
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let value = RwSignal::new("".to_string());
+            let _combobox_view = view! {
+                <Combobox
+                    options=options
+                    value=MaybeProp::from(value)
+                />
+            };
+            // Test integration with debounced input
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_throttling() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let value = RwSignal::new("".to_string());
-        let _combobox_view = view! {
-            <Combobox 
-                options=options
-                value=MaybeProp::from(value)
-            />
-        };
-        // Test integration with throttled updates
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let value = RwSignal::new("".to_string());
+            let _combobox_view = view! {
+                <Combobox
+                    options=options
+                    value=MaybeProp::from(value)
+                />
+            };
+            // Test integration with throttled updates
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_animation() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let _combobox_view = view! {
-            <Combobox 
-                options=options
-                class=MaybeProp::from("animated-combobox")
-            />
-        };
-        // Test integration with animations
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let _combobox_view = view! {
+                <Combobox
+                    options=options
+                    class=MaybeProp::from("animated-combobox")
+                />
+            };
+            // Test integration with animations
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_transitions() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let _combobox_view = view! {
-            <Combobox 
-                options=options
-                class=MaybeProp::from("transition-combobox")
-            />
-        };
-        // Test integration with CSS transitions
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let _combobox_view = view! {
+                <Combobox
+                    options=options
+                    class=MaybeProp::from("transition-combobox")
+                />
+            };
+            // Test integration with CSS transitions
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_theming() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let theme = RwSignal::new("dark".to_string());
-        let _combobox_view = view! {
-            <Combobox 
-                options=options
-                class=MaybeProp::from(Signal::derive(move || format!("theme-{}", theme.get())))
-            />
-        };
-        // Test integration with theming
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let theme = RwSignal::new("dark".to_string());
+            let _combobox_view = view! {
+                <Combobox
+                    options=options
+                    class=MaybeProp::from(Signal::derive(move || format!("theme-{}", theme.get())))
+                />
+            };
+            // Test integration with theming
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_internationalization() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let locale = RwSignal::new("en".to_string());
-        let _combobox_view = view! {
-            <Combobox 
-                options=options
-                placeholder=MaybeProp::from(Signal::derive(move || {
-                    match locale.get().as_str() {
-                        "en" => "Select an option",
-                        "es" => "Selecciona una opción",
-                        "fr" => "Sélectionnez une option",
-                        _ => "Select an option"
-                    }.to_string()
-                }))
-            />
-        };
-        // Test integration with internationalization
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let locale = RwSignal::new("en".to_string());
+            let _combobox_view = view! {
+                <Combobox
+                    options=options
+                    placeholder=MaybeProp::from(Signal::derive(move || {
+                        match locale.get().as_str() {
+                            "en" => "Select an option",
+                            "es" => "Selecciona una opción",
+                            "fr" => "Sélectionnez une option",
+                            _ => "Select an option"
+                        }.to_string()
+                    }))
+                />
+            };
+            // Test integration with internationalization
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_responsive_design() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let screen_size = RwSignal::new("desktop".to_string());
-        let _combobox_view = view! {
-            <Combobox 
-                options=options
-                class=MaybeProp::from(Signal::derive(move || {
-                    match screen_size.get().as_str() {
-                        "mobile" => "combobox-mobile",
-                        "tablet" => "combobox-tablet",
-                        "desktop" => "combobox-desktop",
-                        _ => "combobox-default"
-                    }.to_string()
-                }))
-            />
-        };
-        // Test integration with responsive design
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let screen_size = RwSignal::new("desktop".to_string());
+            let _combobox_view = view! {
+                <Combobox
+                    options=options
+                    class=MaybeProp::from(Signal::derive(move || {
+                        match screen_size.get().as_str() {
+                            "mobile" => "combobox-mobile",
+                            "tablet" => "combobox-tablet",
+                            "desktop" => "combobox-desktop",
+                            _ => "combobox-default"
+                        }.to_string()
+                    }))
+                />
+            };
+            // Test integration with responsive design
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_testing_utilities() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let _combobox_view = view! {
-            <Combobox 
-                options=options
-                attr:data-testid="test-combobox"
-            />
-        };
-        // Test integration with testing utilities
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let _combobox_view = view! {
+                <Combobox
+                    options=options
+                    attr:data-testid="test-combobox"
+                />
+            };
+            // Test integration with testing utilities
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_analytics() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let on_change = Callback::new(|value| {
-            // Analytics tracking would go here
-            leptos::logging::log!("Combobox changed to: {}", value);
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let on_change = Callback::new(|value| {
+                // Analytics tracking would go here
+                leptos::logging::log!("Combobox changed to: {}", value);
+            });
+            let _combobox_view = view! {
+                <Combobox
+                    options=options
+                    on_change=on_change
+                />
+            };
+            // Test integration with analytics
         });
-        let _combobox_view = view! {
-            <Combobox 
-                options=options
-                on_change=on_change
-            />
-        };
-        // Test integration with analytics
-    });
-}
+    }
 
     #[test]
     fn test_combobox_integration_with_performance_monitoring() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let start_time = std::time::Instant::now();
-        let _combobox_view = view! {
-            <Combobox options=options/>
-        };
-        let render_time = start_time.elapsed();
-        
-        // Performance monitoring would go here
-        assert!(render_time.as_millis() < 100);
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let start_time = std::time::Instant::now();
+            let _combobox_view = view! {
+                <Combobox options=options/>
+            };
+            let render_time = start_time.elapsed();
+
+            // Performance monitoring would go here
+            assert!(render_time.as_millis() < 100);
+        });
+    }
 
     #[test]
     fn test_combobox_integration_with_error_reporting() {
-    leptos::prelude::Owner::new().with(|| {
-        let options = vec![
-            ComboboxOption::new("option1", "Option 1"),
-            ComboboxOption::new("option2", "Option 2"),
-        ];
-        let _combobox_view = view! {
-            <ErrorBoundary fallback=|error| {
-                // Error reporting would go here
-                leptos::logging::error!("Combobox error: {:?}", error);
-                view! { <div>"Error occurred"</div> }
-            }>
-                <Combobox options=options/>
-            </ErrorBoundary>
-        };
-        // Test integration with error reporting
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            let options = vec![
+                ComboboxOption::new("option1", "Option 1"),
+                ComboboxOption::new("option2", "Option 2"),
+            ];
+            let _combobox_view = view! {
+                <ErrorBoundary fallback=|error| {
+                    // Error reporting would go here
+                    leptos::logging::error!("Combobox error: {:?}", error);
+                    view! { <div>"Error occurred"</div> }
+                }>
+                    <Combobox options=options/>
+                </ErrorBoundary>
+            };
+            // Test integration with error reporting
+        });
+    }
 }

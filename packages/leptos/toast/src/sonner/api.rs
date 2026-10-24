@@ -1,12 +1,12 @@
 //! Toast API functions
-//! 
+//!
 //! This module contains the public API functions for creating
 //! and managing toast notifications.
 
-use leptos::prelude::*;
 use crate::sonner::builder::ToastBuilder;
-use crate::sonner::types::ToastVariant;
 use crate::sonner::context::SonnerContextValue;
+use crate::sonner::types::ToastVariant;
+use leptos::prelude::*;
 
 /// Toast API functions
 pub mod toast {

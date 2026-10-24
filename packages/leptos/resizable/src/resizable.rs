@@ -1,14 +1,12 @@
 use leptos::prelude::*;
 
 /// Resize direction for panels
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum ResizeDirection {
     #[default]
     Horizontal,
     Vertical,
 }
-
 
 /// Resizable state management
 #[derive(Debug, Clone)]
@@ -141,7 +139,7 @@ pub mod utils {
         max_sizes: &[f64],
     ) -> Vec<f64> {
         let mut new_sizes = current_sizes.to_vec();
-        
+
         if panel_index >= new_sizes.len() {
             return new_sizes;
         }
@@ -179,19 +177,12 @@ pub mod utils {
     }
 
     /// Check if a panel can be resized
-    pub fn can_resize(
-        panel_index: usize,
-        _direction: ResizeDirection,
-        is_collapsed: bool,
-    ) -> bool {
+    pub fn can_resize(panel_index: usize, _direction: ResizeDirection, is_collapsed: bool) -> bool {
         !is_collapsed && panel_index > 0
     }
 
     /// Get the resize handle position
-    pub fn get_handle_position(
-        _panel_index: usize,
-        direction: ResizeDirection,
-    ) -> String {
+    pub fn get_handle_position(_panel_index: usize, direction: ResizeDirection) -> String {
         match direction {
             ResizeDirection::Horizontal => "right".to_string(),
             ResizeDirection::Vertical => "bottom".to_string(),

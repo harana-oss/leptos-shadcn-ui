@@ -6,9 +6,16 @@ pub mod signal_managed;
 // TODO: Enable when API standards crate is ready for v1.0
 // pub mod standardized;
 
-pub use default::{Button, ButtonVariant, ButtonSize, ButtonResponsiveSize, ButtonChildProps, BUTTON_TOUCH_CLASS};
-pub use new_york::{Button as ButtonNewYork, ButtonVariant as ButtonVariantNewYork, ButtonSize as ButtonSizeNewYork, ButtonChildProps as ButtonChildPropsNewYork};
-pub use signal_managed::{SignalManagedButton, EnhancedButton, SignalManagedButtonState, SignalManagedButtonChildProps};
+pub use default::{
+    BUTTON_TOUCH_CLASS, Button, ButtonChildProps, ButtonResponsiveSize, ButtonSize, ButtonVariant,
+};
+pub use new_york::{
+    Button as ButtonNewYork, ButtonChildProps as ButtonChildPropsNewYork,
+    ButtonSize as ButtonSizeNewYork, ButtonVariant as ButtonVariantNewYork,
+};
+pub use signal_managed::{
+    EnhancedButton, SignalManagedButton, SignalManagedButtonChildProps, SignalManagedButtonState,
+};
 // TODO: Enable when API standards crate is ready for v1.0
 // pub use standardized::{StandardizedButton, StandardizedButtonProps};
 

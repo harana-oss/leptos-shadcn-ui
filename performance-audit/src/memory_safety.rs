@@ -4,9 +4,9 @@
 //! This module provides comprehensive memory safety testing for leptos-shadcn-ui components
 //! using TDD principles to ensure no memory leaks and proper resource cleanup.
 
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::time::{Duration, Instant};
-use serde::{Deserialize, Serialize};
 
 /// Memory safety test result
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -87,7 +87,7 @@ pub struct MemorySafetyConfig {
 impl Default for MemorySafetyConfig {
     fn default() -> Self {
         Self {
-            max_leak_percentage: 5.0,  // 5% max leak
+            max_leak_percentage: 5.0, // 5% max leak
             test_iterations: 100,
             test_duration: Duration::from_millis(100),
             sampling_interval: Duration::from_millis(10),
@@ -214,7 +214,8 @@ impl MemorySafetyTester {
         // Calculate memory leak
         if final_memory > initial_memory {
             result.memory_leak_bytes = final_memory - initial_memory;
-            result.memory_leak_percentage = (result.memory_leak_bytes as f64 / initial_memory as f64) * 100.0;
+            result.memory_leak_percentage =
+                (result.memory_leak_bytes as f64 / initial_memory as f64) * 100.0;
         }
 
         result.test_duration = start_time.elapsed();
@@ -264,7 +265,8 @@ impl MemorySafetyTester {
 
         if final_memory > initial_memory {
             result.memory_leak_bytes = final_memory - initial_memory;
-            result.memory_leak_percentage = (result.memory_leak_bytes as f64 / initial_memory as f64) * 100.0;
+            result.memory_leak_percentage =
+                (result.memory_leak_bytes as f64 / initial_memory as f64) * 100.0;
         }
 
         result.test_duration = start_time.elapsed();
@@ -313,7 +315,8 @@ impl MemorySafetyTester {
 
         if final_memory > initial_memory {
             result.memory_leak_bytes = final_memory - initial_memory;
-            result.memory_leak_percentage = (result.memory_leak_bytes as f64 / initial_memory as f64) * 100.0;
+            result.memory_leak_percentage =
+                (result.memory_leak_bytes as f64 / initial_memory as f64) * 100.0;
         }
 
         result.test_duration = start_time.elapsed();
@@ -362,7 +365,8 @@ impl MemorySafetyTester {
 
         if final_memory > initial_memory {
             result.memory_leak_bytes = final_memory - initial_memory;
-            result.memory_leak_percentage = (result.memory_leak_bytes as f64 / initial_memory as f64) * 100.0;
+            result.memory_leak_percentage =
+                (result.memory_leak_bytes as f64 / initial_memory as f64) * 100.0;
         }
 
         result.test_duration = start_time.elapsed();
@@ -416,7 +420,8 @@ impl MemorySafetyTester {
 
         if final_memory > initial_memory {
             result.memory_leak_bytes = final_memory - initial_memory;
-            result.memory_leak_percentage = (result.memory_leak_bytes as f64 / initial_memory as f64) * 100.0;
+            result.memory_leak_percentage =
+                (result.memory_leak_bytes as f64 / initial_memory as f64) * 100.0;
         }
 
         result.test_duration = start_time.elapsed();
@@ -469,18 +474,20 @@ impl MemorySafetyTester {
     /// Simulate memory usage for different component operations
     fn simulate_memory_usage(&self, component_name: &str, operation: &str) -> u64 {
         let base_memory = match component_name {
-            "button" | "input" | "label" => 64 * 1024,        // 64KB
+            "button" | "input" | "label" => 64 * 1024, // 64KB
             "checkbox" | "switch" | "radio_group" => 128 * 1024, // 128KB
-            "textarea" | "card" => 256 * 1024,                // 256KB
-            "dialog" | "form" | "select" => 512 * 1024,       // 512KB
+            "textarea" | "card" => 256 * 1024,         // 256KB
+            "dialog" | "form" | "select" => 512 * 1024, // 512KB
             "table" | "calendar" | "date_picker" => 1024 * 1024, // 1MB
-            _ => 256 * 1024,                                  // 256KB default
+            _ => 256 * 1024,                           // 256KB default
         };
 
         let operation_multiplier = match operation {
             "initial" | "final" => 1.0,
             "creation" | "add_listeners" | "create_signals" | "provide_context" => 1.5,
-            "usage" | "listener_usage" | "signal_updates" | "consume_context" | "long_running" => 1.2,
+            "usage" | "listener_usage" | "signal_updates" | "consume_context" | "long_running" => {
+                1.2
+            }
             "destruction" | "remove_listeners" | "signal_cleanup" | "context_cleanup" => 0.8,
             "periodic_ops" => 1.1,
             _ => 1.0,
@@ -535,7 +542,8 @@ mod tests {
 
         // Calculate memory leak manually
         result.memory_leak_bytes = result.final_memory_bytes - result.initial_memory_bytes;
-        result.memory_leak_percentage = (result.memory_leak_bytes as f64 / result.initial_memory_bytes as f64) * 100.0;
+        result.memory_leak_percentage =
+            (result.memory_leak_bytes as f64 / result.initial_memory_bytes as f64) * 100.0;
 
         result.calculate_safety_score();
 

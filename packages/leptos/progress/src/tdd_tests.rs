@@ -1,8 +1,8 @@
 #[cfg(test)]
 #[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod tdd_tests {
-    use leptos::prelude::*;
     use crate::default::{Progress, ProgressVariant};
+    use leptos::prelude::*;
 
     // ===== TDD ENHANCED TESTS - GREEN PHASE =====
     // These tests now implement real functionality and verify actual behavior
@@ -182,9 +182,9 @@ mod tdd_tests {
     #[test]
     fn test_progress_integration_scenarios() {
         let _progress_view = view! {
-            <Progress 
+            <Progress
                 value=Signal::derive(|| 75.0)
-                variant=ProgressVariant::Success 
+                variant=ProgressVariant::Success
                 size="lg"
                 class="integration-progress"
                 id="integration-test"
@@ -195,9 +195,9 @@ mod tdd_tests {
     #[test]
     fn test_progress_complete_workflow() {
         let _progress_view = view! {
-            <Progress 
+            <Progress
                 value=Signal::derive(|| 100.0)
-                variant=ProgressVariant::Success 
+                variant=ProgressVariant::Success
                 size="md"
                 class="workflow-progress"
                 id="workflow-test"
@@ -208,9 +208,9 @@ mod tdd_tests {
     #[test]
     fn test_progress_advanced_interactions() {
         let _progress_view = view! {
-            <Progress 
+            <Progress
                 value=Signal::derive(|| 60.0)
-                variant=ProgressVariant::Info 
+                variant=ProgressVariant::Info
                 size="lg"
                 class="advanced-interactions"
                 id="advanced-progress"
@@ -221,7 +221,7 @@ mod tdd_tests {
     #[test]
     fn test_progress_accessibility_comprehensive() {
         let _progress_view = view! {
-            <Progress 
+            <Progress
                 value=Signal::derive(|| 50.0)
                 id="comprehensive-accessible-progress"
                 class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
@@ -232,7 +232,7 @@ mod tdd_tests {
     #[test]
     fn test_progress_custom_properties() {
         let _progress_view = view! {
-            <Progress 
+            <Progress
                 value=Signal::derive(|| 50.0)
                 class="custom-properties-progress"
                 id="custom-props-test"
@@ -243,7 +243,7 @@ mod tdd_tests {
     #[test]
     fn test_progress_form_integration() {
         let _progress_view = view! {
-            <Progress 
+            <Progress
                 value=Signal::derive(|| 30.0)
                 variant=ProgressVariant::Warning
                 size="sm"

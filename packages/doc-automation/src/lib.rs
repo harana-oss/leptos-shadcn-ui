@@ -3,8 +3,8 @@
 //! Automated documentation generation system for leptos-shadcn-ui components.
 //! Provides comprehensive API documentation, interactive galleries, and test reports.
 
-use std::path::PathBuf;
 use serde::{Deserialize, Serialize};
+use std::path::PathBuf;
 
 pub mod parser;
 // pub mod generator;  // TODO: Implement
@@ -133,24 +133,24 @@ impl DocGenerator {
     /// Generate complete documentation
     pub async fn generate(&self) -> Result<GeneratedDocs, DocError> {
         log::info!("Starting documentation generation...");
-        
+
         // Parse components
         let components = self.parse_components().await?;
         log::info!("Parsed {} components", components.len());
-        
+
         // Generate different documentation types
         let gallery_html = if self.config.generate_gallery {
             self.generate_gallery(&components).await?
         } else {
             String::new()
         };
-        
+
         let api_docs_html = if self.config.generate_api_docs {
             self.generate_api_docs(&components).await?
         } else {
             String::new()
         };
-        
+
         let test_reports_html = if self.config.generate_test_reports {
             self.generate_test_reports(&components).await?
         } else {
@@ -167,7 +167,7 @@ impl DocGenerator {
 
         // Write output files
         self.write_documentation(&docs).await?;
-        
+
         log::info!("Documentation generation completed successfully");
         Ok(docs)
     }
@@ -175,10 +175,10 @@ impl DocGenerator {
     /// Parse components from source directory
     async fn parse_components(&self) -> Result<Vec<ComponentMetadata>, DocError> {
         let mut components = Vec::new();
-        
+
         for entry in walkdir::WalkDir::new(&self.config.components_dir) {
             let entry = entry.map_err(|e| DocError::FileSystem(std::io::Error::other(e)))?;
-            
+
             if entry.file_type().is_file() {
                 let path = entry.path();
                 if path.extension().and_then(|s| s.to_str()) == Some("rs") {
@@ -188,24 +188,33 @@ impl DocGenerator {
                 }
             }
         }
-        
+
         Ok(components)
     }
 
     /// Generate interactive component gallery
-    async fn generate_gallery(&self, _components: &[ComponentMetadata]) -> Result<String, DocError> {
+    async fn generate_gallery(
+        &self,
+        _components: &[ComponentMetadata],
+    ) -> Result<String, DocError> {
         // TODO: Implement gallery generation
         Ok("<html><body>Gallery placeholder</body></html>".to_string())
     }
 
     /// Generate API documentation
-    async fn generate_api_docs(&self, _components: &[ComponentMetadata]) -> Result<String, DocError> {
+    async fn generate_api_docs(
+        &self,
+        _components: &[ComponentMetadata],
+    ) -> Result<String, DocError> {
         // TODO: Implement API docs generation
         Ok("<html><body>API docs placeholder</body></html>".to_string())
     }
 
     /// Generate test reports
-    async fn generate_test_reports(&self, _components: &[ComponentMetadata]) -> Result<String, DocError> {
+    async fn generate_test_reports(
+        &self,
+        _components: &[ComponentMetadata],
+    ) -> Result<String, DocError> {
         // TODO: Implement test reports generation
         Ok("<html><body>Test reports placeholder</body></html>".to_string())
     }
@@ -239,8 +248,7 @@ impl DocGenerator {
 
         // Write metadata JSON
         let metadata_path = self.config.output_dir.join("metadata.json");
-        let metadata_json = serde_json::to_string_pretty(docs)
-            .map_err(DocError::Serialization)?;
+        let metadata_json = serde_json::to_string_pretty(docs).map_err(DocError::Serialization)?;
         tokio::fs::write(&metadata_path, metadata_json)
             .await
             .map_err(DocError::FileSystem)?;
@@ -254,16 +262,16 @@ impl DocGenerator {
 pub enum DocError {
     #[error("File system error: {0}")]
     FileSystem(#[from] std::io::Error),
-    
+
     #[error("Template error: {0}")]
     Template(#[from] handlebars::RenderError),
-    
+
     #[error("Parse error: {0}")]
     Parse(String),
-    
+
     #[error("Serialization error: {0}")]
     Serialization(#[from] serde_json::Error),
-    
+
     #[error("Walk directory error: {0}")]
     WalkDir(#[from] walkdir::Error),
 }
@@ -290,16 +298,14 @@ mod tests {
         let component = ComponentMetadata {
             name: "TestComponent".to_string(),
             description: Some("A test component".to_string()),
-            props: vec![
-                PropMetadata {
-                    name: "variant".to_string(),
-                    prop_type: "String".to_string(),
-                    description: Some("Component variant".to_string()),
-                    default_value: Some("default".to_string()),
-                    required: false,
-                    examples: vec!["primary".to_string(), "secondary".to_string()],
-                }
-            ],
+            props: vec![PropMetadata {
+                name: "variant".to_string(),
+                prop_type: "String".to_string(),
+                description: Some("Component variant".to_string()),
+                default_value: Some("default".to_string()),
+                required: false,
+                examples: vec!["primary".to_string(), "secondary".to_string()],
+            }],
             events: vec![],
             examples: vec![],
             file_path: PathBuf::from("test.rs"),
@@ -319,7 +325,7 @@ mod tests {
 
         let json = serde_json::to_string(&component).unwrap();
         let deserialized: ComponentMetadata = serde_json::from_str(&json).unwrap();
-        
+
         assert_eq!(component.name, deserialized.name);
         assert_eq!(component.props.len(), deserialized.props.len());
     }
@@ -327,7 +333,7 @@ mod tests {
     #[test]
     fn test_doc_config_default() {
         let config = DocConfig::default();
-        
+
         assert!(config.generate_gallery);
         assert!(config.generate_api_docs);
         assert!(config.generate_test_reports);
@@ -344,11 +350,11 @@ mod tests {
         };
 
         let generator = DocGenerator::new(config).unwrap();
-        
+
         // Should handle empty directory gracefully
         let result = generator.generate().await;
         assert!(result.is_ok());
-        
+
         let docs = result.unwrap();
         assert!(docs.components.is_empty());
     }

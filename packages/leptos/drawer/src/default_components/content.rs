@@ -1,10 +1,10 @@
 //! Drawer content components
-//! 
+//!
 //! This module contains the DrawerContent component for the main drawer content area.
 
+use super::types::DrawerDirection;
 use leptos::prelude::*;
 use web_sys::MouseEvent;
-use super::types::DrawerDirection;
 
 #[component]
 pub fn DrawerContent(

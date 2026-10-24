@@ -86,7 +86,7 @@ fn ensure_document_listener() {
 
 #[cfg(target_arch = "wasm32")]
 fn install_document_listener() {
-    use wasm_bindgen::{closure::Closure, JsCast};
+    use wasm_bindgen::{JsCast, closure::Closure};
 
     let Some(document) = web_sys::window().and_then(|w| w.document()) else {
         return;
@@ -103,7 +103,8 @@ fn install_document_listener() {
         }
     });
     let _ = document.add_event_listener_with_callback("click", on_click.as_ref().unchecked_ref());
-    let _ = document.add_event_listener_with_callback("keydown", on_keydown.as_ref().unchecked_ref());
+    let _ =
+        document.add_event_listener_with_callback("keydown", on_keydown.as_ref().unchecked_ref());
     on_click.forget();
     on_keydown.forget();
 }

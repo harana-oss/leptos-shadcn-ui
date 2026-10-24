@@ -43,7 +43,9 @@ fn bar_rects_grouped() {
     let rects = bar_rects(&[vec![50.0, 100.0], vec![25.0, 0.0]], 200.0, 100.0, 100.0, 0.0);
     assert_eq!(rects.len(), 4);
     let r = &rects[0];
-    assert!(approx(r.x, 0.0) && approx(r.width, 50.0) && approx(r.height, 50.0) && approx(r.y, 50.0));
+    assert!(
+        approx(r.x, 0.0) && approx(r.width, 50.0) && approx(r.height, 50.0) && approx(r.y, 50.0)
+    );
     let r = &rects[1];
     assert!(approx(r.x, 100.0) && approx(r.height, 100.0));
     let r = &rects[2];
@@ -81,7 +83,9 @@ fn css_var_sanitizes_and_replaces() {
 
 #[test]
 fn matrix_and_ymax() {
-    let cfg = ChartConfig::new().series("d", "D", "red").series("m", "M", "blue");
+    let cfg = ChartConfig::new()
+        .series("d", "D", "red")
+        .series("m", "M", "blue");
     let data = vec![
         ChartRow::new("Jan").value("d", 186.0).value("m", 80.0),
         ChartRow::new("Feb").value("d", 305.0),

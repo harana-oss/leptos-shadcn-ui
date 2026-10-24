@@ -1,5 +1,5 @@
 //! ContextMenu content component
-//! 
+//!
 //! This module contains the ContextMenuContent component for the main
 //! context menu content area.
 
@@ -22,7 +22,12 @@ pub fn ContextMenuContent(
 
     let content_style = move || {
         let (x, y) = position.get();
-        format!("position: fixed; left: {}px; top: {}px; z-index: 50; {}", x, y, style.get().unwrap_or_default())
+        format!(
+            "position: fixed; left: {}px; top: {}px; z-index: 50; {}",
+            x,
+            y,
+            style.get().unwrap_or_default()
+        )
     };
 
     view! {

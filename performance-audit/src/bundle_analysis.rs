@@ -1,5 +1,5 @@
 //! Bundle Size Analysis Module
-//! 
+//!
 //! This module provides comprehensive bundle size analysis for leptos-shadcn-ui components
 //! using TDD principles to ensure optimal performance.
 
@@ -33,7 +33,7 @@ impl ComponentBundleAnalysis {
         let bundle_size_kb = bundle_size_bytes as f64 / 1024.0;
         let gzipped_size_bytes = (bundle_size_bytes as f64 * 0.3) as u64; // Estimate 30% compression
         let gzipped_size_kb = gzipped_size_bytes as f64 / 1024.0;
-        
+
         Self {
             component_name,
             bundle_size_bytes,
@@ -45,14 +45,16 @@ impl ComponentBundleAnalysis {
             meets_size_target: bundle_size_kb <= 5.0, // Target: < 5KB
         }
     }
-    
+
     /// Calculate performance score for this component
     pub fn performance_score(&self) -> f64 {
-        let size_score = if self.meets_size_target { 100.0 } else { 
-            (5.0 / self.bundle_size_kb * 100.0).min(100.0) 
+        let size_score = if self.meets_size_target {
+            100.0
+        } else {
+            (5.0 / self.bundle_size_kb * 100.0).min(100.0)
         };
         let efficiency_score = self.tree_shaking_efficiency;
-        
+
         (size_score + efficiency_score) / 2.0
     }
 }
@@ -81,66 +83,78 @@ impl BundleAnalysisResults {
     pub fn new() -> Self {
         Self::default()
     }
-    
+
     /// Add a component analysis to the results
     pub fn add_component_analysis(&mut self, analysis: ComponentBundleAnalysis) {
-        self.component_analyses.insert(analysis.component_name.clone(), analysis);
+        self.component_analyses
+            .insert(analysis.component_name.clone(), analysis);
         self.recalculate_totals();
     }
-    
+
     /// Recalculate totals after adding components
     fn recalculate_totals(&mut self) {
-        self.total_bundle_size_bytes = self.component_analyses.values()
+        self.total_bundle_size_bytes = self
+            .component_analyses
+            .values()
             .map(|analysis| analysis.bundle_size_bytes)
             .sum();
-        
+
         self.total_bundle_size_kb = self.total_bundle_size_bytes as f64 / 1024.0;
-        
+
         if !self.component_analyses.is_empty() {
-            self.average_component_size_kb = self.total_bundle_size_kb / self.component_analyses.len() as f64;
-            
-            self.largest_component_size_kb = self.component_analyses.values()
+            self.average_component_size_kb =
+                self.total_bundle_size_kb / self.component_analyses.len() as f64;
+
+            self.largest_component_size_kb = self
+                .component_analyses
+                .values()
                 .map(|analysis| analysis.bundle_size_kb)
                 .fold(0.0, f64::max);
-            
-            self.oversized_components = self.component_analyses.values()
+
+            self.oversized_components = self
+                .component_analyses
+                .values()
                 .filter(|analysis| !analysis.meets_size_target)
                 .map(|analysis| analysis.component_name.clone())
                 .collect();
-            
+
             // Calculate overall efficiency score
-            let efficient_components = self.component_analyses.values()
+            let efficient_components = self
+                .component_analyses
+                .values()
                 .filter(|analysis| analysis.meets_size_target)
                 .count();
-            
-            self.overall_efficiency_score = (efficient_components as f64 / self.component_analyses.len() as f64) * 100.0;
+
+            self.overall_efficiency_score =
+                (efficient_components as f64 / self.component_analyses.len() as f64) * 100.0;
         }
     }
-    
+
     /// Check if bundle analysis meets targets
     pub fn meets_targets(&self) -> bool {
         self.overall_efficiency_score >= 80.0 && self.oversized_components.is_empty()
     }
-    
+
     /// Get optimization recommendations
     pub fn get_optimization_recommendations(&self) -> Vec<String> {
         let mut recommendations = Vec::new();
-        
+
         if !self.oversized_components.is_empty() {
             recommendations.push(format!(
-                "Optimize oversized components: {}", 
+                "Optimize oversized components: {}",
                 self.oversized_components.join(", ")
             ));
         }
-        
+
         if self.average_component_size_kb > 3.0 {
-            recommendations.push("Reduce average component size through code splitting".to_string());
+            recommendations
+                .push("Reduce average component size through code splitting".to_string());
         }
-        
+
         if self.overall_efficiency_score < 70.0 {
             recommendations.push("Improve tree-shaking efficiency across components".to_string());
         }
-        
+
         recommendations
     }
 }
@@ -159,7 +173,6 @@ impl Default for BundleAnalysisResults {
     }
 }
 
-
 /// Bundle analyzer for leptos-shadcn-ui components
 pub struct BundleAnalyzer {
     /// Components directory path
@@ -176,41 +189,49 @@ impl BundleAnalyzer {
             target_size_kb: 5.0,
         }
     }
-    
+
     /// Analyze all components
     pub async fn analyze_all_components(&self) -> BundleAnalysisResults {
         let mut results = BundleAnalysisResults::new();
-        
+
         // Simulate analysis of all components
         let components = vec![
-            "button", "input", "card", "form", "table", "dialog", "navigation", "toast", "calendar"
+            "button",
+            "input",
+            "card",
+            "form",
+            "table",
+            "dialog",
+            "navigation",
+            "toast",
+            "calendar",
         ];
-        
+
         for component in components {
             let analysis = self.analyze_component(component).await;
             results.add_component_analysis(analysis);
         }
-        
+
         results
     }
-    
+
     /// Analyze single component
     pub async fn analyze_component(&self, component_name: &str) -> ComponentBundleAnalysis {
         let bundle_size = self.get_component_bundle_size(component_name).await;
         let gzipped_size = (bundle_size as f64 * 0.3) as u64; // Simulate 70% compression
-        
+
         ComponentBundleAnalysis {
             component_name: component_name.to_string(),
             bundle_size_bytes: bundle_size,
             bundle_size_kb: bundle_size as f64 / 1024.0,
             gzipped_size_bytes: gzipped_size,
             gzipped_size_kb: gzipped_size as f64 / 1024.0,
-            dependencies_count: 3, // Simulate 3 dependencies
+            dependencies_count: 3,         // Simulate 3 dependencies
             tree_shaking_efficiency: 85.0, // Simulate 85% efficiency
             meets_size_target: bundle_size <= (self.target_size_kb * 1024.0) as u64,
         }
     }
-    
+
     /// Get component bundle size from build artifacts
     pub async fn get_component_bundle_size(&self, component_name: &str) -> u64 {
         // Simulate bundle size based on component complexity
@@ -236,7 +257,7 @@ mod tests {
     #[test]
     fn test_component_bundle_analysis_creation() {
         let analysis = ComponentBundleAnalysis::new("button".to_string(), 2048); // 2KB
-        
+
         assert_eq!(analysis.component_name, "button");
         assert_eq!(analysis.bundle_size_bytes, 2048);
         assert_eq!(analysis.bundle_size_kb, 2.0);
@@ -246,7 +267,7 @@ mod tests {
     #[test]
     fn test_component_bundle_analysis_oversized() {
         let analysis = ComponentBundleAnalysis::new("large-component".to_string(), 8192); // 8KB
-        
+
         assert_eq!(analysis.bundle_size_kb, 8.0);
         assert!(!analysis.meets_size_target);
     }
@@ -255,14 +276,14 @@ mod tests {
     fn test_component_performance_score() {
         let small_analysis = ComponentBundleAnalysis::new("small".to_string(), 1024); // 1KB
         let large_analysis = ComponentBundleAnalysis::new("large".to_string(), 10240); // 10KB
-        
+
         assert!(small_analysis.performance_score() > large_analysis.performance_score());
     }
 
     #[test]
     fn test_bundle_analysis_results_default() {
         let results = BundleAnalysisResults::default();
-        
+
         assert_eq!(results.total_bundle_size_bytes, 0);
         assert_eq!(results.total_bundle_size_kb, 0.0);
         assert_eq!(results.average_component_size_kb, 0.0);
@@ -274,9 +295,9 @@ mod tests {
     fn test_bundle_analysis_results_add_component() {
         let mut results = BundleAnalysisResults::default();
         let analysis = ComponentBundleAnalysis::new("button".to_string(), 2048);
-        
+
         results.add_component_analysis(analysis);
-        
+
         assert_eq!(results.component_analyses.len(), 1);
         assert_eq!(results.total_bundle_size_bytes, 2048);
         assert_eq!(results.total_bundle_size_kb, 2.0);
@@ -288,12 +309,12 @@ mod tests {
     #[test]
     fn test_bundle_analysis_results_multiple_components() {
         let mut results = BundleAnalysisResults::default();
-        
+
         // Add small component
         results.add_component_analysis(ComponentBundleAnalysis::new("button".to_string(), 2048));
         // Add large component
         results.add_component_analysis(ComponentBundleAnalysis::new("large".to_string(), 8192));
-        
+
         assert_eq!(results.component_analyses.len(), 2);
         assert_eq!(results.total_bundle_size_bytes, 10240);
         assert_eq!(results.total_bundle_size_kb, 10.0);
@@ -306,11 +327,11 @@ mod tests {
     #[test]
     fn test_bundle_analysis_meets_targets() {
         let mut results = BundleAnalysisResults::default();
-        
+
         // Add components that meet targets
         results.add_component_analysis(ComponentBundleAnalysis::new("button".to_string(), 2048));
         results.add_component_analysis(ComponentBundleAnalysis::new("input".to_string(), 1536));
-        
+
         // Should meet targets if efficiency score is high enough
         // (This test will need to be updated when we implement the actual scoring)
         assert!(results.oversized_components.is_empty());
@@ -319,10 +340,10 @@ mod tests {
     #[test]
     fn test_bundle_analysis_optimization_recommendations() {
         let mut results = BundleAnalysisResults::default();
-        
+
         // Add oversized component
         results.add_component_analysis(ComponentBundleAnalysis::new("large".to_string(), 8192));
-        
+
         let recommendations = results.get_optimization_recommendations();
         assert!(!recommendations.is_empty());
         assert!(recommendations[0].contains("large"));
@@ -331,7 +352,7 @@ mod tests {
     #[test]
     fn test_bundle_analyzer_creation() {
         let analyzer = BundleAnalyzer::new(PathBuf::from("packages/leptos"));
-        
+
         assert_eq!(analyzer.target_size_kb, 5.0);
         assert_eq!(analyzer.components_path, PathBuf::from("packages/leptos"));
     }

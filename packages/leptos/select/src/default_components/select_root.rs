@@ -15,7 +15,7 @@ pub fn Select(
 ) -> impl IntoView {
     let internal_open = RwSignal::new(false);
     let internal_value = RwSignal::new(default_value.get().unwrap_or_default());
-    
+
     let open_state = Signal::derive(move || {
         if open.get() != internal_open.get() {
             open.get()
@@ -23,7 +23,7 @@ pub fn Select(
             internal_open.get()
         }
     });
-    
+
     let value_state = Signal::derive(move || {
         if !value.get().is_empty() && value.get() != internal_value.get() {
             value.get()
@@ -68,7 +68,7 @@ pub fn SelectTrigger(
     let open_state = expect_context::<Signal<bool>>();
     let set_open = expect_context::<Callback<bool>>();
     let disabled = expect_context::<Signal<bool>>();
-    
+
     let trigger_class = format!(
         "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 {}",
         class.get().unwrap_or_default()
@@ -105,11 +105,9 @@ pub fn SelectValue(
     #[prop(into, optional)] style: MaybeProp<String>,
 ) -> impl IntoView {
     let value_state = expect_context::<Signal<String>>();
-    
-    let value_class = format!(
-        "placeholder:text-muted-foreground {}",
-        class.get().unwrap_or_default()
-    );
+
+    let value_class =
+        format!("placeholder:text-muted-foreground {}", class.get().unwrap_or_default());
 
     view! {
         <span

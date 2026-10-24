@@ -1,6 +1,6 @@
 use crate::storage::AnalyticsStorage;
 use crate::types::{
-    AnalyticsConfig, ComponentStats, ComponentUsageEvent, StoredAnalytics, StorageMode,
+    AnalyticsConfig, ComponentStats, ComponentUsageEvent, StorageMode, StoredAnalytics,
 };
 use leptos::prelude::*;
 
@@ -129,7 +129,8 @@ impl AnalyticsContext {
 #[component]
 pub fn AnalyticsProvider(
     /// Configuration for analytics
-    #[prop(optional)] config: Option<AnalyticsConfig>,
+    #[prop(optional)]
+    config: Option<AnalyticsConfig>,
     /// Children components
     children: Children,
 ) -> impl IntoView {

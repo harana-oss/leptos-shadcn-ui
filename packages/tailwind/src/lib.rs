@@ -152,10 +152,19 @@ mod tests {
     fn parses_metadata_fixture() {
         let sources = sources_from_metadata(FIXTURE).unwrap();
         let names: Vec<_> = sources.iter().map(|s| s.name.as_str()).collect();
-        assert_eq!(names, ["leptos-shadcn-button", "leptos-shadcn-card", "leptos-shadcn-ui"]);
+        assert_eq!(
+            names,
+            [
+                "leptos-shadcn-button",
+                "leptos-shadcn-card",
+                "leptos-shadcn-ui"
+            ]
+        );
         assert_eq!(
             sources[0].src_dir,
-            PathBuf::from("/home/u/.cargo/registry/src/index.crates.io-1/leptos-shadcn-button-0.9.0/src")
+            PathBuf::from(
+                "/home/u/.cargo/registry/src/index.crates.io-1/leptos-shadcn-button-0.9.0/src"
+            )
         );
     }
 
@@ -174,7 +183,9 @@ mod tests {
             name: "leptos-shadcn-button".into(),
             src_dir: PathBuf::from(r"C:\Users\u\.cargo\registry\leptos-shadcn-button-0.9.0\src"),
         }]);
-        assert!(css.contains("@source \"C:/Users/u/.cargo/registry/leptos-shadcn-button-0.9.0/src\";"));
+        assert!(
+            css.contains("@source \"C:/Users/u/.cargo/registry/leptos-shadcn-button-0.9.0/src\";")
+        );
     }
 
     #[test]

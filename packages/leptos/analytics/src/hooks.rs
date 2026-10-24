@@ -163,9 +163,7 @@ pub fn use_analytics_toggle() -> (Signal<bool>, impl Fn() + Clone) {
 pub fn use_analytics_export() -> Callback<(), Result<String, String>> {
     let analytics = use_analytics_unsafe();
 
-    Callback::new(move |_| {
-        analytics.export_json()
-    })
+    Callback::new(move |_| analytics.export_json())
 }
 
 /// Hook to clear analytics data

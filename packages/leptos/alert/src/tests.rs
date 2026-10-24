@@ -1,8 +1,7 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod tests {
-    use crate::default::{AlertVariant, ALERT_CLASS, ALERT_TITLE_CLASS, ALERT_DESCRIPTION_CLASS};
-    
+    use crate::default::{ALERT_CLASS, ALERT_DESCRIPTION_CLASS, ALERT_TITLE_CLASS, AlertVariant};
 
     #[test]
     fn test_alert_variant_enum_creation() {
@@ -66,13 +65,15 @@ mod tests {
         assert!(!ALERT_CLASS.is_empty());
         assert!(!ALERT_TITLE_CLASS.is_empty());
         assert!(!ALERT_DESCRIPTION_CLASS.is_empty());
-        
+
         // Test that all variants are accessible
-        let variants = [AlertVariant::Default,
+        let variants = [
+            AlertVariant::Default,
             AlertVariant::Destructive,
             AlertVariant::Success,
-            AlertVariant::Warning];
-        
+            AlertVariant::Warning,
+        ];
+
         assert_eq!(variants.len(), 4);
     }
 
@@ -105,7 +106,7 @@ mod tests {
     fn test_alert_styling_consistency() {
         // Test that all CSS classes follow consistent patterns
         let classes = [ALERT_CLASS, ALERT_TITLE_CLASS, ALERT_DESCRIPTION_CLASS];
-        
+
         for class in classes.iter() {
             assert!(!class.is_empty());
             assert!(class.contains(" "));
@@ -132,7 +133,7 @@ mod tests {
         assert!(ALERT_CLASS.contains("relative"));
         assert!(ALERT_TITLE_CLASS.contains("font-medium"));
         assert!(ALERT_DESCRIPTION_CLASS.contains("text-sm"));
-        
+
         // Test that all CSS classes are non-empty
         assert!(!ALERT_CLASS.is_empty());
         assert!(!ALERT_TITLE_CLASS.is_empty());

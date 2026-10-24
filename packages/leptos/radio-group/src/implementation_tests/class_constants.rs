@@ -1,8 +1,6 @@
 #[cfg(test)]
 #[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod class_constants {
-    
-    
 
     // ===== CLASS CONSTANTS TESTS =====
     // These tests focus on CSS class constants and styling
@@ -51,7 +49,7 @@ mod class_constants {
         let base_class = "grid gap-2";
         let custom_class = "custom-radio-group";
         let combined_class = format!("{} {}", base_class, custom_class);
-        
+
         assert!(combined_class.contains("grid"));
         assert!(combined_class.contains("gap-2"));
         assert!(combined_class.contains("custom-radio-group"));
@@ -63,7 +61,7 @@ mod class_constants {
         let base_class = "aspect-square h-4 w-4 rounded-full border border-primary text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
         let custom_class = "custom-radio-item";
         let combined_class = format!("{} {}", base_class, custom_class);
-        
+
         assert!(combined_class.contains("aspect-square"));
         assert!(combined_class.contains("h-4"));
         assert!(combined_class.contains("w-4"));
@@ -86,7 +84,7 @@ mod class_constants {
         // Test style handling
         let custom_style = "color: red; background: blue;";
         let style_prop = Some(custom_style.to_string());
-        
+
         assert_eq!(style_prop.as_deref(), Some(custom_style));
     }
 
@@ -96,7 +94,7 @@ mod class_constants {
         let default_class = "border-primary text-primary";
         let destructive_class = "border-destructive text-destructive";
         let outline_class = "border-outline text-outline";
-        
+
         assert!(default_class.contains("border-primary"));
         assert!(default_class.contains("text-primary"));
         assert!(destructive_class.contains("border-destructive"));
@@ -111,7 +109,7 @@ mod class_constants {
         let small_class = "h-3 w-3";
         let default_class = "h-4 w-4";
         let large_class = "h-5 w-5";
-        
+
         assert!(small_class.contains("h-3"));
         assert!(small_class.contains("w-3"));
         assert!(default_class.contains("h-4"));
@@ -123,11 +121,13 @@ mod class_constants {
     #[test]
     fn test_radio_group_state_classes() {
         // Test state-specific classes
-        let checked_class = "data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground";
-        let unchecked_class = "data-[state=unchecked]:bg-background data-[state=unchecked]:text-foreground";
+        let checked_class =
+            "data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground";
+        let unchecked_class =
+            "data-[state=unchecked]:bg-background data-[state=unchecked]:text-foreground";
         let disabled_class = "disabled:cursor-not-allowed disabled:opacity-50";
         let focused_class = "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring";
-        
+
         assert!(checked_class.contains("data-[state=checked]"));
         assert!(checked_class.contains("bg-primary"));
         assert!(checked_class.contains("text-primary-foreground"));
@@ -150,7 +150,7 @@ mod class_constants {
         let aria_disabled_class = "aria-disabled";
         let aria_required_class = "aria-required";
         let role_class = "role=\"radio\"";
-        
+
         assert!(aria_checked_class.contains("aria-checked"));
         assert!(aria_disabled_class.contains("aria-disabled"));
         assert!(aria_required_class.contains("aria-required"));
@@ -164,7 +164,7 @@ mod class_constants {
         let transition_class = "transition-colors";
         let duration_class = "duration-200";
         let ease_class = "ease-in-out";
-        
+
         assert!(transition_class.contains("transition-colors"));
         assert!(duration_class.contains("duration-200"));
         assert!(ease_class.contains("ease-in-out"));
@@ -178,7 +178,7 @@ mod class_constants {
         let flex_class = "flex";
         let items_center_class = "items-center";
         let justify_center_class = "justify-center";
-        
+
         assert!(grid_class.contains("grid"));
         assert!(gap_class.contains("gap-2"));
         assert!(flex_class.contains("flex"));

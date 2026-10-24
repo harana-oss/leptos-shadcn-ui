@@ -2,9 +2,8 @@
 #[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod accessibility_tests {
     use leptos::prelude::*;
-    
+
     use crate::default::Popover;
-    
 
     // ===== ACCESSIBILITY TESTS =====
     // These tests focus on accessibility features and ARIA attributes
@@ -30,7 +29,7 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         // Test that ARIA attributes are properly set
         // This is verified by the component structure
     }
@@ -59,7 +58,7 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         // Test that keyboard navigation is properly implemented
         // This is verified by the component structure
     }
@@ -67,7 +66,7 @@ mod accessibility_tests {
     #[test]
     fn test_popover_focus_management() {
         let focus_state = RwSignal::new(false);
-        
+
         let _focus_view = view! {
             <Popover>
                 <button
@@ -81,14 +80,14 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         // Test focus management
         assert!(!focus_state.get());
-        
+
         // Simulate focus
         focus_state.set(true);
         assert!(focus_state.get());
-        
+
         // Simulate blur
         focus_state.set(false);
         assert!(!focus_state.get());
@@ -123,7 +122,7 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         // Test screen reader support
         // This is verified by the component structure
     }
@@ -144,7 +143,7 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         // Test high contrast support
         // This is verified by the component structure
     }
@@ -161,7 +160,7 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         // Test reduced motion support
         // This is verified by the component structure
     }
@@ -182,7 +181,7 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         // Test color contrast
         // This is verified by the component structure
     }
@@ -205,7 +204,7 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         // Test touch target size
         // This is verified by the component structure
     }
@@ -233,7 +232,7 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         // Test voice control support
         // This is verified by the component structure
     }
@@ -261,7 +260,7 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         // Test switch control support
         // This is verified by the component structure
     }
@@ -283,7 +282,7 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         // Test alternative text
         // This is verified by the component structure
     }
@@ -313,7 +312,7 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         // Test language support
         // This is verified by the component structure
     }
@@ -338,7 +337,7 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         // Test RTL support
         // This is verified by the component structure
     }
@@ -346,7 +345,7 @@ mod accessibility_tests {
     #[test]
     fn test_popover_accessibility_performance() {
         let start = std::time::Instant::now();
-        
+
         let _performance_view = view! {
             <Popover>
                 <button
@@ -368,9 +367,12 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         let duration = start.elapsed();
-        assert!(duration.as_millis() < 10, "Accessibility features should not impact performance");
+        assert!(
+            duration.as_millis() < 10,
+            "Accessibility features should not impact performance"
+        );
     }
 
     #[test]
@@ -391,7 +393,7 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         // Test memory usage
         let size = std::mem::size_of::<usize>();
         assert!(size < 1024, "Accessibility features should not cause excessive memory usage");
@@ -421,7 +423,7 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         // Test accessibility validation
         // This is verified by the component structure
     }
@@ -445,7 +447,7 @@ mod accessibility_tests {
                 </div>
             </Popover>
         };
-        
+
         // Test accessibility consistency
         // This is verified by the component structure
     }

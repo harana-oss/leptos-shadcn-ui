@@ -4,14 +4,14 @@
 //! This module provides automated performance monitoring with real-time metrics collection,
 //! alerting, and optimization recommendations for leptos-shadcn-ui components.
 
+use crate::PerformanceAuditError;
+use rand::RngExt;
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::sync::Arc;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
-use rand::RngExt;
 use tokio::sync::RwLock;
 use tokio::time::interval;
-use serde::{Deserialize, Serialize};
-use crate::PerformanceAuditError;
 
 /// Performance monitoring configuration
 #[derive(Debug, Clone)]
@@ -215,7 +215,7 @@ impl AutomatedMonitor {
         let mut is_monitoring = self.is_monitoring.write().await;
         if *is_monitoring {
             return Err(PerformanceAuditError::ConfigurationError(
-                "Monitoring is already running".to_string()
+                "Monitoring is already running".to_string(),
             ));
         }
         *is_monitoring = true;
@@ -269,8 +269,10 @@ impl AutomatedMonitor {
                     // Analyze trends
                     if let Ok(trends) = self.analyze_trends().await {
                         for trend in trends {
-                            println!("📈 Trend detected for {}: {:?} (strength: {:.2})",
-                                trend.component_name, trend.trend_direction, trend.trend_strength);
+                            println!(
+                                "📈 Trend detected for {}: {:?} (strength: {:.2})",
+                                trend.component_name, trend.trend_direction, trend.trend_strength
+                            );
                         }
                     }
 
@@ -295,8 +297,10 @@ impl AutomatedMonitor {
 
     /// Collect current performance metrics
     async fn collect_metrics(&self) -> Result<PerformanceSnapshot, PerformanceAuditError> {
-        let timestamp = SystemTime::now().duration_since(UNIX_EPOCH)
-            .unwrap_or_default().as_secs();
+        let timestamp = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap_or_default()
+            .as_secs();
 
         // Collect component metrics
         let mut component_metrics = HashMap::new();
@@ -387,8 +391,11 @@ impl AutomatedMonitor {
         let n = render_times.len() as f64;
         let sum_x: f64 = (0..render_times.len()).map(|i| i as f64).sum();
         let sum_y: f64 = render_times.iter().sum();
-        let sum_xy: f64 = render_times.iter().enumerate()
-            .map(|(i, &y)| i as f64 * y).sum();
+        let sum_xy: f64 = render_times
+            .iter()
+            .enumerate()
+            .map(|(i, &y)| i as f64 * y)
+            .sum();
         let sum_x2: f64 = (0..render_times.len()).map(|i| (i as f64).powi(2)).sum();
 
         let slope = (n * sum_xy - sum_x * sum_y) / (n * sum_x2 - sum_x * sum_x);
@@ -430,10 +437,17 @@ impl AutomatedMonitor {
             // Performance degradation alert
             if let Some(baseline) = self.baseline_metrics.read().await.as_ref() {
                 if let Some(baseline_metrics) = baseline.component_metrics.get(component_name) {
-                    let performance_change = (metrics.render_time_ms - baseline_metrics.render_time_ms)
-                        / baseline_metrics.render_time_ms * 100.0;
+                    let performance_change = (metrics.render_time_ms
+                        - baseline_metrics.render_time_ms)
+                        / baseline_metrics.render_time_ms
+                        * 100.0;
 
-                    if performance_change > self.config.alert_thresholds.performance_degradation_threshold {
+                    if performance_change
+                        > self
+                            .config
+                            .alert_thresholds
+                            .performance_degradation_threshold
+                    {
                         alerts.push(PerformanceAlert {
                             alert_id: format!("perf-deg-{}-{}", component_name, snapshot.timestamp),
                             alert_type: AlertType::PerformanceDegradation,
@@ -446,11 +460,17 @@ impl AutomatedMonitor {
                             triggered_metrics: {
                                 let mut map = HashMap::new();
                                 map.insert("render_time_ms".to_string(), metrics.render_time_ms);
-                                map.insert("performance_change_percent".to_string(), performance_change);
+                                map.insert(
+                                    "performance_change_percent".to_string(),
+                                    performance_change,
+                                );
                                 map
                             },
                             timestamp: snapshot.timestamp,
-                            recommendations: self.generate_performance_recommendations(component_name, performance_change),
+                            recommendations: self.generate_performance_recommendations(
+                                component_name,
+                                performance_change,
+                            ),
                         });
                     }
                 }
@@ -459,8 +479,10 @@ impl AutomatedMonitor {
             // Memory usage alert
             if let Some(baseline) = self.baseline_metrics.read().await.as_ref() {
                 if let Some(baseline_metrics) = baseline.component_metrics.get(component_name) {
-                    let memory_change = (metrics.memory_usage_bytes as f64 - baseline_metrics.memory_usage_bytes as f64)
-                        / baseline_metrics.memory_usage_bytes as f64 * 100.0;
+                    let memory_change = (metrics.memory_usage_bytes as f64
+                        - baseline_metrics.memory_usage_bytes as f64)
+                        / baseline_metrics.memory_usage_bytes as f64
+                        * 100.0;
 
                     if memory_change > self.config.alert_thresholds.memory_usage_threshold {
                         alerts.push(PerformanceAlert {
@@ -474,12 +496,16 @@ impl AutomatedMonitor {
                             ),
                             triggered_metrics: {
                                 let mut map = HashMap::new();
-                                map.insert("memory_usage_bytes".to_string(), metrics.memory_usage_bytes as f64);
+                                map.insert(
+                                    "memory_usage_bytes".to_string(),
+                                    metrics.memory_usage_bytes as f64,
+                                );
                                 map.insert("memory_change_percent".to_string(), memory_change);
                                 map
                             },
                             timestamp: snapshot.timestamp,
-                            recommendations: self.generate_memory_recommendations(component_name, memory_change),
+                            recommendations: self
+                                .generate_memory_recommendations(component_name, memory_change),
                         });
                     }
                 }
@@ -537,7 +563,11 @@ impl AutomatedMonitor {
     }
 
     /// Generate performance recommendations
-    fn generate_performance_recommendations(&self, component_name: &str, degradation_percent: f64) -> Vec<String> {
+    fn generate_performance_recommendations(
+        &self,
+        component_name: &str,
+        degradation_percent: f64,
+    ) -> Vec<String> {
         let mut recommendations = Vec::new();
 
         recommendations.push(format!(
@@ -552,7 +582,8 @@ impl AutomatedMonitor {
         }
 
         if degradation_percent > 10.0 {
-            recommendations.push("Profile component performance with browser dev tools".to_string());
+            recommendations
+                .push("Profile component performance with browser dev tools".to_string());
             recommendations.push("Consider implementing memoization".to_string());
         }
 
@@ -560,7 +591,11 @@ impl AutomatedMonitor {
     }
 
     /// Generate memory recommendations
-    fn generate_memory_recommendations(&self, component_name: &str, memory_increase_percent: f64) -> Vec<String> {
+    fn generate_memory_recommendations(
+        &self,
+        component_name: &str,
+        memory_increase_percent: f64,
+    ) -> Vec<String> {
         let mut recommendations = Vec::new();
 
         recommendations.push(format!(
@@ -590,8 +625,10 @@ impl AutomatedMonitor {
 
     /// Cleanup old metrics based on retention period
     async fn cleanup_old_metrics(&self, history: &mut Vec<PerformanceSnapshot>) {
-        let cutoff_time = SystemTime::now().duration_since(UNIX_EPOCH)
-            .unwrap_or_default() - self.config.retention_period;
+        let cutoff_time = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap_or_default()
+            - self.config.retention_period;
 
         history.retain(|snapshot| snapshot.timestamp > cutoff_time.as_secs());
     }
@@ -624,12 +661,16 @@ impl AutomatedMonitor {
     }
 
     /// Calculate overall performance score
-    fn calculate_overall_score(&self, component_metrics: &HashMap<String, ComponentMetrics>) -> f64 {
+    fn calculate_overall_score(
+        &self,
+        component_metrics: &HashMap<String, ComponentMetrics>,
+    ) -> f64 {
         if component_metrics.is_empty() {
             return 0.0;
         }
 
-        let total_score: f64 = component_metrics.values()
+        let total_score: f64 = component_metrics
+            .values()
             .map(|metrics| metrics.performance_score)
             .sum();
 
@@ -640,31 +681,27 @@ impl AutomatedMonitor {
 
     async fn simulate_render_time(&self, _component: &str) -> f64 {
         // Simulate render time with some variation
-        
+
         let mut rng = rand::rng();
         rng.random_range(10.0..50.0)
     }
 
     async fn simulate_memory_usage(&self, _component: &str) -> u64 {
-        
         let mut rng = rand::rng();
         rng.random_range(1024..10240) // 1KB to 10KB
     }
 
     async fn simulate_bundle_size(&self, _component: &str) -> u64 {
-        
         let mut rng = rand::rng();
         rng.random_range(1024..5120) // 1KB to 5KB
     }
 
     async fn simulate_error_count(&self, _component: &str) -> u32 {
-        
         let mut rng = rand::rng();
         rng.random_range(0..5)
     }
 
     async fn simulate_success_rate(&self, _component: &str) -> f64 {
-        
         let mut rng = rand::rng();
         rng.random_range(0.95..1.0)
     }
@@ -694,18 +731,23 @@ impl AutomatedMonitor {
         0.1 // 0.1 errors/second
     }
 
-    async fn write_alert_to_file(&self, alert: &PerformanceAlert, path: &str) -> Result<(), std::io::Error> {
+    async fn write_alert_to_file(
+        &self,
+        alert: &PerformanceAlert,
+        path: &str,
+    ) -> Result<(), std::io::Error> {
         let alert_json = serde_json::to_string_pretty(alert)?;
         std::fs::write(path, alert_json)?;
         Ok(())
     }
 
-    async fn send_webhook_alert(&self, alert: &PerformanceAlert, url: &str) -> Result<(), Box<dyn std::error::Error>> {
+    async fn send_webhook_alert(
+        &self,
+        alert: &PerformanceAlert,
+        url: &str,
+    ) -> Result<(), Box<dyn std::error::Error>> {
         let client = reqwest::Client::new();
-        let response = client.post(url)
-            .json(alert)
-            .send()
-            .await?;
+        let response = client.post(url).json(alert).send().await?;
 
         if !response.status().is_success() {
             return Err(format!("Webhook request failed with status: {}", response.status()).into());
@@ -714,7 +756,11 @@ impl AutomatedMonitor {
         Ok(())
     }
 
-    async fn send_email_alert(&self, _alert: &PerformanceAlert, _recipients: &[String]) -> Result<(), Box<dyn std::error::Error>> {
+    async fn send_email_alert(
+        &self,
+        _alert: &PerformanceAlert,
+        _recipients: &[String],
+    ) -> Result<(), Box<dyn std::error::Error>> {
         // Would integrate with email service
         println!("📧 Email alert would be sent to: {:?}", _recipients);
         Ok(())

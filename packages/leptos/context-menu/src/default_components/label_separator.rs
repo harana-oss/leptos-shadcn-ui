@@ -1,5 +1,5 @@
 //! ContextMenu label and separator components
-//! 
+//!
 //! This module contains the ContextMenuLabel and ContextMenuSeparator
 //! components for organizing context menu content.
 

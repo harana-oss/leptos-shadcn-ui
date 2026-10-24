@@ -19,12 +19,12 @@ mod accessibility_tests {
                 "Accessible Label"
             </Label>
         };
-        
+
         // Test accessibility features
         let for_attr = "input-field";
         let aria_label = "Form field label";
         let role = "label";
-        
+
         assert_eq!(for_attr, "input-field");
         assert_eq!(aria_label, "Form field label");
         assert_eq!(role, "label");
@@ -42,12 +42,12 @@ mod accessibility_tests {
                 "Username"
             </Label>
         };
-        
+
         // Test form association
         let for_attr = "username-input";
         let aria_required = "true";
         let aria_describedby = "username-help";
-        
+
         assert_eq!(for_attr, "username-input");
         assert_eq!(aria_required, "true");
         assert_eq!(aria_describedby, "username-help");
@@ -65,14 +65,14 @@ mod accessibility_tests {
                 "Required Field"
             </Label>
         };
-        
+
         // Test required indicator
         let for_attr = "required-field";
         let aria_required = "true";
         let aria_hidden = "true";
         let required_symbol = "*";
         let label_text = "Required Field";
-        
+
         assert_eq!(for_attr, "required-field");
         assert_eq!(aria_required, "true");
         assert_eq!(aria_hidden, "true");
@@ -92,14 +92,14 @@ mod accessibility_tests {
                 <span aria-hidden="true">" (optional)"</span>
             </Label>
         };
-        
+
         // Test optional indicator
         let for_attr = "optional-field";
         let aria_required = "false";
         let aria_hidden = "true";
         let optional_text = " (optional)";
         let label_text = "Optional Field";
-        
+
         assert_eq!(for_attr, "optional-field");
         assert_eq!(aria_required, "false");
         assert_eq!(aria_hidden, "true");
@@ -120,13 +120,13 @@ mod accessibility_tests {
                 "Field with Error"
             </Label>
         };
-        
+
         // Test error state
         let for_attr = "error-field";
         let aria_invalid = "true";
         let aria_describedby = "error-message";
         let error_class = "error-label";
-        
+
         assert_eq!(for_attr, "error-field");
         assert_eq!(aria_invalid, "true");
         assert_eq!(aria_describedby, "error-message");
@@ -145,12 +145,12 @@ mod accessibility_tests {
                 "Valid Field"
             </Label>
         };
-        
+
         // Test success state
         let for_attr = "success-field";
         let aria_invalid = "false";
         let success_class = "success-label";
-        
+
         assert_eq!(for_attr, "success-field");
         assert_eq!(aria_invalid, "false");
         assert_eq!(success_class, "success-label");
@@ -167,11 +167,11 @@ mod accessibility_tests {
                 "Field with Help"
             </Label>
         };
-        
+
         // Test help text
         let for_attr = "help-field";
         let aria_describedby = "help-text";
-        
+
         assert_eq!(for_attr, "help-field");
         assert_eq!(aria_describedby, "help-text");
     }
@@ -188,12 +188,12 @@ mod accessibility_tests {
                 "Screen Reader Label"
             </Label>
         };
-        
+
         // Test screen reader support
         let for_attr = "sr-field";
         let aria_label = "Screen reader accessible label";
         let aria_live = "polite";
-        
+
         assert_eq!(for_attr, "sr-field");
         assert_eq!(aria_label, "Screen reader accessible label");
         assert_eq!(aria_live, "polite");
@@ -211,11 +211,11 @@ mod accessibility_tests {
                 "Keyboard Accessible Label"
             </Label>
         };
-        
+
         // Test keyboard navigation
         let for_attr = "keyboard-field";
         let tabindex = "0";
-        
+
         assert_eq!(for_attr, "keyboard-field");
         assert_eq!(tabindex, "0");
     }
@@ -232,10 +232,10 @@ mod accessibility_tests {
                 "Focusable Label"
             </Label>
         };
-        
+
         // Test focus management
         let for_attr = "focus-field";
-        
+
         assert_eq!(for_attr, "focus-field");
     }
 
@@ -258,7 +258,7 @@ mod accessibility_tests {
                 "ARIA Label"
             </Label>
         };
-        
+
         // Test ARIA attributes
         let for_attr = "aria-field";
         let aria_label = "ARIA label";
@@ -270,7 +270,7 @@ mod accessibility_tests {
         let aria_selected = "false";
         let aria_disabled = "false";
         let aria_readonly = "false";
-        
+
         assert_eq!(for_attr, "aria-field");
         assert_eq!(aria_label, "ARIA label");
         assert_eq!(aria_labelledby, "aria-labelledby");
@@ -295,12 +295,12 @@ mod accessibility_tests {
                 "High Contrast Label"
             </Label>
         };
-        
+
         // Test high contrast support
         let for_attr = "hc-field";
         let hc_class = "high-contrast";
         let aria_label = "High contrast label";
-        
+
         assert_eq!(for_attr, "hc-field");
         assert_eq!(hc_class, "high-contrast");
         assert_eq!(aria_label, "High contrast label");
@@ -318,12 +318,12 @@ mod accessibility_tests {
                 "Reduced Motion Label"
             </Label>
         };
-        
+
         // Test reduced motion support
         let for_attr = "rm-field";
         let rm_class = "reduce-motion";
         let aria_label = "Reduced motion label";
-        
+
         assert_eq!(for_attr, "rm-field");
         assert_eq!(rm_class, "reduce-motion");
         assert_eq!(aria_label, "Reduced motion label");

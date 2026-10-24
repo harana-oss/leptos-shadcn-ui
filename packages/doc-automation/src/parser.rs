@@ -1,8 +1,11 @@
 //! Component source code parsing for documentation extraction
 
-use crate::{ComponentMetadata, PropMetadata, ExampleMetadata, TestMetadata, AccessibilityInfo, PerformanceInfo, DocError};
+use crate::{
+    AccessibilityInfo, ComponentMetadata, DocError, ExampleMetadata, PerformanceInfo, PropMetadata,
+    TestMetadata,
+};
 use std::path::Path;
-use syn::{Item, ItemStruct, ItemFn, Attribute};
+use syn::{Attribute, Item, ItemFn, ItemStruct};
 
 /// Parse a Rust component file to extract documentation metadata
 pub async fn parse_component_file(file_path: &Path) -> Result<Option<ComponentMetadata>, DocError> {
@@ -30,7 +33,7 @@ pub async fn parse_component_file(file_path: &Path) -> Result<Option<ComponentMe
                     component_description = extract_doc_comment(&func.attrs);
                     examples.extend(extract_examples_from_docs(&func.attrs));
                 }
-                
+
                 // Check if this is a test function
                 if is_test_function(func) {
                     tests.push(extract_test_metadata(func));
@@ -71,22 +74,20 @@ pub async fn parse_component_file(file_path: &Path) -> Result<Option<ComponentMe
 /// Check if a function is a Leptos component
 fn is_component_function(func: &ItemFn) -> bool {
     // Look for #[component] attribute
-    func.attrs.iter().any(|attr| {
-        attr.path().is_ident("component")
-    })
+    func.attrs
+        .iter()
+        .any(|attr| attr.path().is_ident("component"))
 }
 
 /// Check if a function is a test
 fn is_test_function(func: &ItemFn) -> bool {
-    func.attrs.iter().any(|attr| {
-        attr.path().is_ident("test")
-    })
+    func.attrs.iter().any(|attr| attr.path().is_ident("test"))
 }
 
 /// Extract documentation comment from attributes
 fn extract_doc_comment(attrs: &[Attribute]) -> Option<String> {
     let mut doc_lines = Vec::new();
-    
+
     for attr in attrs {
         if attr.path().is_ident("doc") {
             if let syn::Meta::NameValue(meta) = &attr.meta {
@@ -101,7 +102,7 @@ fn extract_doc_comment(attrs: &[Attribute]) -> Option<String> {
             }
         }
     }
-    
+
     if doc_lines.is_empty() {
         None
     } else {
@@ -128,12 +129,12 @@ fn collect_test_functions(items: &[Item], tests: &mut Vec<TestMetadata>) {
 fn extract_examples_from_docs(attrs: &[Attribute]) -> Vec<ExampleMetadata> {
     let mut examples = Vec::new();
     let doc_comment = extract_doc_comment(attrs).unwrap_or_default();
-    
+
     // Look for code blocks in documentation
     let mut in_code_block = false;
     let mut current_code = Vec::new();
     let mut current_title = "Example".to_string();
-    
+
     for line in doc_comment.lines() {
         if line.trim().starts_with("```rust") {
             in_code_block = true;
@@ -154,14 +155,14 @@ fn extract_examples_from_docs(attrs: &[Attribute]) -> Vec<ExampleMetadata> {
             current_title = line.trim().trim_start_matches("# ").to_string();
         }
     }
-    
+
     examples
 }
 
 /// Extract props from a struct definition
 fn extract_props_from_struct(struct_item: &ItemStruct) -> Vec<PropMetadata> {
     let mut props = Vec::new();
-    
+
     if let syn::Fields::Named(fields) = &struct_item.fields {
         for field in &fields.named {
             if let Some(ident) = &field.ident {
@@ -169,7 +170,7 @@ fn extract_props_from_struct(struct_item: &ItemStruct) -> Vec<PropMetadata> {
                 let prop_type = quote::quote!(#(&field.ty)).to_string();
                 let description = extract_doc_comment(&field.attrs);
                 let required = !is_option_type(&field.ty);
-                
+
                 props.push(PropMetadata {
                     name: prop_name,
                     prop_type,
@@ -181,7 +182,7 @@ fn extract_props_from_struct(struct_item: &ItemStruct) -> Vec<PropMetadata> {
             }
         }
     }
-    
+
     props
 }
 
@@ -199,7 +200,7 @@ fn is_option_type(ty: &syn::Type) -> bool {
 fn extract_test_metadata(func: &ItemFn) -> TestMetadata {
     let name = func.sig.ident.to_string();
     let description = extract_doc_comment(&func.attrs);
-    
+
     // Determine test type based on name patterns
     let test_type = if name.contains("integration") {
         "integration"
@@ -209,8 +210,9 @@ fn extract_test_metadata(func: &ItemFn) -> TestMetadata {
         "performance"
     } else {
         "unit"
-    }.to_string();
-    
+    }
+    .to_string();
+
     TestMetadata {
         name,
         test_type,
@@ -221,34 +223,39 @@ fn extract_test_metadata(func: &ItemFn) -> TestMetadata {
 
 /// Extract accessibility information from source code
 fn extract_accessibility_info(content: &str) -> AccessibilityInfo {
-    let keyboard_support = content.contains("onkeydown") || 
-                          content.contains("onkeyup") || 
-                          content.contains("onkeypress") ||
-                          content.contains("tabindex");
-    
-    let screen_reader_support = content.contains("aria-") || 
-                               content.contains("role=");
-    
+    let keyboard_support = content.contains("onkeydown")
+        || content.contains("onkeyup")
+        || content.contains("onkeypress")
+        || content.contains("tabindex");
+
+    let screen_reader_support = content.contains("aria-") || content.contains("role=");
+
     let mut aria_attributes = Vec::new();
-    
+
     // Extract ARIA attributes (simple pattern matching)
     let aria_patterns = [
-        "aria-label", "aria-labelledby", "aria-describedby", 
-        "aria-expanded", "aria-selected", "aria-disabled",
-        "aria-hidden", "aria-live", "aria-atomic"
+        "aria-label",
+        "aria-labelledby",
+        "aria-describedby",
+        "aria-expanded",
+        "aria-selected",
+        "aria-disabled",
+        "aria-hidden",
+        "aria-live",
+        "aria-atomic",
     ];
-    
+
     for pattern in &aria_patterns {
         if content.contains(pattern) {
             aria_attributes.push(pattern.to_string());
         }
     }
-    
+
     AccessibilityInfo {
-        wcag_level: if screen_reader_support && keyboard_support { 
-            "AA".to_string() 
-        } else { 
-            "A".to_string() 
+        wcag_level: if screen_reader_support && keyboard_support {
+            "AA".to_string()
+        } else {
+            "A".to_string()
         },
         keyboard_support,
         screen_reader_support,
@@ -259,13 +266,13 @@ fn extract_accessibility_info(content: &str) -> AccessibilityInfo {
 /// Extract performance information from source code and tests
 fn extract_performance_info(content: &str) -> PerformanceInfo {
     // Look for performance-related comments or benchmarks
-    let has_benchmarks = content.contains("criterion") || 
-                        content.contains("benchmark") ||
-                        content.contains("#[bench]");
-    
+    let has_benchmarks = content.contains("criterion")
+        || content.contains("benchmark")
+        || content.contains("#[bench]");
+
     PerformanceInfo {
         render_time_ms: if has_benchmarks { Some(15.0) } else { None }, // Placeholder
-        bundle_size_kb: None, // TODO: Extract from build analysis
+        bundle_size_kb: None,  // TODO: Extract from build analysis
         memory_usage_mb: None, // TODO: Extract from profiling
     }
 }
@@ -273,19 +280,19 @@ fn extract_performance_info(content: &str) -> PerformanceInfo {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use tempfile::NamedTempFile;
     use std::io::Write;
+    use tempfile::NamedTempFile;
 
     #[tokio::test]
     async fn test_parse_simple_component() {
         let component_code = r#"
 /// A simple button component
-/// 
+///
 /// # Example
-/// 
+///
 /// ```rust
 /// use leptos::*;
-/// 
+///
 /// view! {
 ///     <Button variant="primary">"Click me"</Button>
 /// }
@@ -308,7 +315,7 @@ pub struct ButtonProps {
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn test_button_renders() {
         // Test implementation
@@ -325,7 +332,10 @@ mod tests {
         let component = result.unwrap();
         assert_eq!(component.name, "Button");
         assert!(component.description.is_some());
-        assert!(component.description.unwrap().contains("simple button component"));
+        assert!(component
+            .description
+            .unwrap()
+            .contains("simple button component"));
         assert_eq!(component.props.len(), 2);
         assert_eq!(component.tests.len(), 1);
         assert_eq!(component.examples.len(), 1);
@@ -353,7 +363,7 @@ pub fn some_function() {
     #[test]
     fn test_extract_doc_comment() {
         use syn::parse_quote;
-        
+
         let attrs: Vec<Attribute> = vec![
             parse_quote!(#[doc = " First line"]),
             parse_quote!(#[doc = " Second line"]),
@@ -368,23 +378,23 @@ pub fn some_function() {
     #[test]
     fn test_extract_props_from_struct() {
         use syn::parse_quote;
-        
+
         let struct_item: ItemStruct = parse_quote! {
             pub struct TestProps {
                 /// Required property
                 pub required_prop: String,
-                /// Optional property  
+                /// Optional property
                 pub optional_prop: Option<i32>,
             }
         };
 
         let props = extract_props_from_struct(&struct_item);
         assert_eq!(props.len(), 2);
-        
+
         assert_eq!(props[0].name, "required_prop");
         assert!(props[0].required);
         assert!(props[0].description.is_some());
-        
+
         assert_eq!(props[1].name, "optional_prop");
         assert!(!props[1].required);
     }
@@ -392,10 +402,10 @@ pub fn some_function() {
     #[test]
     fn test_is_option_type() {
         use syn::parse_quote;
-        
+
         let option_type: syn::Type = parse_quote!(Option<String>);
         let regular_type: syn::Type = parse_quote!(String);
-        
+
         assert!(is_option_type(&option_type));
         assert!(!is_option_type(&regular_type));
     }
@@ -404,7 +414,7 @@ pub fn some_function() {
     fn test_extract_accessibility_info() {
         let content_with_aria = r#"
             view! {
-                <button 
+                <button
                     aria-label="Close dialog"
                     onclick=handle_click
                     onkeydown=handle_keydown
@@ -425,7 +435,7 @@ pub fn some_function() {
     fn test_extract_performance_info() {
         let content_with_benchmarks = r#"
             use criterion::Criterion;
-            
+
             fn benchmark_component_render(c: &mut Criterion) {
                 c.bench_function("render", |b| {
                     b.iter(|| render_component())

@@ -5,9 +5,8 @@
 
 #[cfg(test)]
 mod tests {
-    use leptos::prelude::*;
     use crate::default::Input;
-    
+    use leptos::prelude::*;
 
     /// Test that verifies Leptos v0.8 attribute system compatibility
     /// This test will fail with current implementation but pass after fixing attr: syntax

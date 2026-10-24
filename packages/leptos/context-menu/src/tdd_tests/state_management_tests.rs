@@ -1,7 +1,7 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod state_management_tests {
-    
+
     use crate::*;
     use leptos::prelude::*;
 
@@ -112,9 +112,7 @@ mod state_management_tests {
         let _owner = Owner::new();
         _owner.set();
         let open = RwSignal::new(false);
-        let derived_signal = Signal::derive(move || {
-            open.get().to_string()
-        });
+        let derived_signal = Signal::derive(move || open.get().to_string());
         let _context_menu_view = view! {
             <ContextMenu attr:aria-expanded=derived_signal>
                 <ContextMenuTrigger>
@@ -327,7 +325,9 @@ mod state_management_tests {
             if f.is_empty() {
                 all_items.clone()
             } else {
-                all_items.clone().into_iter()
+                all_items
+                    .clone()
+                    .into_iter()
                     .filter(|item| item.contains(&f))
                     .collect()
             }
@@ -483,9 +483,7 @@ mod state_management_tests {
         _owner.set();
         let items = RwSignal::new(vec!["Item 1", "Item 2"]);
         let selected_item = RwSignal::new("".to_string());
-        let _is_valid = Signal::derive(move || {
-            !selected_item.get().is_empty()
-        });
+        let _is_valid = Signal::derive(move || !selected_item.get().is_empty());
         let _context_menu_view = view! {
             <ContextMenu>
                 <ContextMenuTrigger>

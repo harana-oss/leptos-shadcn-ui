@@ -1,10 +1,10 @@
 //! Main Drawer component
-//! 
+//!
 //! This module contains the main Drawer component that provides context and handles
 //! keyboard events for the drawer system.
 
-use leptos::prelude::*;
 use super::types::DrawerDirection;
+use leptos::prelude::*;
 
 #[component]
 pub fn Drawer(

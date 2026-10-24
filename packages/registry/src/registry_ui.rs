@@ -1,6 +1,9 @@
 use std::{collections::HashMap, sync::LazyLock};
 
-use crate::schema::{FrameworkName, Mode, Registry, RegistryEntry, RegistryItemType, RegistryItemFile, RegistryItemTailwind, RegistryItemTailwindConfig};
+use crate::schema::{
+    FrameworkName, Mode, Registry, RegistryEntry, RegistryItemFile, RegistryItemTailwind,
+    RegistryItemTailwindConfig, RegistryItemType,
+};
 
 /// Creates a complete registry entry for a UI component with full metadata control
 fn create_ui_component_with_metadata(
@@ -13,11 +16,11 @@ fn create_ui_component_with_metadata(
     tailwind_plugins: Option<Vec<&str>>,
 ) -> RegistryEntry {
     let tailwind = tailwind_plugins.map(|plugins| RegistryItemTailwind {
-            config: RegistryItemTailwindConfig {
-                content: None,
-                plugins: Some(plugins.into_iter().map(|s| s.into()).collect()),
-            },
-        });
+        config: RegistryItemTailwindConfig {
+            content: None,
+            plugins: Some(plugins.into_iter().map(|s| s.into()).collect()),
+        },
+    });
 
     RegistryEntry {
         name: name.into(),
@@ -25,22 +28,34 @@ fn create_ui_component_with_metadata(
         description: Some(description.into()),
         dependencies: Some(dependencies.into_iter().map(|s| s.into()).collect()),
         dev_dependencies: Some(vec!["wasm-bindgen-test".into()]),
-        registry_dependencies: registry_dependencies.map(|deps| deps.into_iter().map(|s| s.into()).collect()),
-        files: Some(vec![
-            RegistryItemFile {
-                path: format!("ui/{}.rs", name),
-                content: None,
-                r#type: RegistryItemType::Ui,
-                target: None,
-            }
-        ]),
+        registry_dependencies: registry_dependencies
+            .map(|deps| deps.into_iter().map(|s| s.into()).collect()),
+        files: Some(vec![RegistryItemFile {
+            path: format!("ui/{}.rs", name),
+            content: None,
+            r#type: RegistryItemType::Ui,
+            target: None,
+        }]),
         tailwind,
         css_vars,
-        source: Some(format!("https://ui.shadcn.com/docs/components/{}", name.replace("-", "").replace("navigationmenu", "navigation-menu").replace("inputotp", "input-otp").replace("datepicker", "date-picker").replace("hovercard", "hover-card").replace("radiogroup", "radio-group").replace("scrollarea", "scroll-area").replace("aspectratio", "aspect-ratio"))),
+        source: Some(format!(
+            "https://ui.shadcn.com/docs/components/{}",
+            name.replace("-", "")
+                .replace("navigationmenu", "navigation-menu")
+                .replace("inputotp", "input-otp")
+                .replace("datepicker", "date-picker")
+                .replace("hovercard", "hover-card")
+                .replace("radiogroup", "radio-group")
+                .replace("scrollarea", "scroll-area")
+                .replace("aspectratio", "aspect-ratio")
+        )),
         category: Some(category.into()),
         subcategory: subcategory.map(|s| s.into()),
         chunks: None,
-        docs: Some(format!("https://shadcn-ui.rustforweb.org/components/{}.html", name.replace("-", ""))),
+        docs: Some(format!(
+            "https://shadcn-ui.rustforweb.org/components/{}.html",
+            name.replace("-", "")
+        )),
     }
 }
 
@@ -201,7 +216,6 @@ fn create_complete_registry() -> Registry {
             None,
             None,
         ),
-
         // ========================================================================
         // NAVIGATION COMPONENTS (7 total)
         // ========================================================================
@@ -271,7 +285,6 @@ fn create_complete_registry() -> Registry {
             None,
             None,
         ),
-
         // ========================================================================
         // OVERLAY COMPONENTS (8 total)
         // ========================================================================
@@ -360,7 +373,6 @@ fn create_complete_registry() -> Registry {
             ])),
             None,
         ),
-
         // ========================================================================
         // LAYOUT COMPONENTS (7 total)
         // ========================================================================
@@ -427,7 +439,6 @@ fn create_complete_registry() -> Registry {
             None,
             None,
         ),
-
         // ========================================================================
         // DISPLAY COMPONENTS (8 total)
         // ========================================================================
@@ -526,7 +537,6 @@ fn create_complete_registry() -> Registry {
             ])),
             None,
         ),
-
         // ========================================================================
         // ADVANCED COMPONENTS (7 total)
         // ========================================================================
@@ -575,7 +585,6 @@ fn create_complete_registry() -> Registry {
             None,
             None,
         ),
-
         // ========================================================================
         // NOT YET IMPLEMENTED (4 total) - Available in Dioxus/Planned
         // ========================================================================
@@ -770,7 +779,6 @@ fn create_leptos_registry() -> Registry {
             None,
             None,
         ),
-
         // ========================================================================
         // NAVIGATION COMPONENTS (7 total)
         // ========================================================================
@@ -840,7 +848,6 @@ fn create_leptos_registry() -> Registry {
             None,
             None,
         ),
-
         // ========================================================================
         // OVERLAY COMPONENTS (8 total)
         // ========================================================================
@@ -929,7 +936,6 @@ fn create_leptos_registry() -> Registry {
             ])),
             None,
         ),
-
         // ========================================================================
         // LAYOUT COMPONENTS (7 total)
         // ========================================================================
@@ -996,7 +1002,6 @@ fn create_leptos_registry() -> Registry {
             None,
             None,
         ),
-
         // ========================================================================
         // DISPLAY COMPONENTS (8 total)
         // ========================================================================
@@ -1095,7 +1100,6 @@ fn create_leptos_registry() -> Registry {
             ])),
             None,
         ),
-
         // ========================================================================
         // ADVANCED COMPONENTS (6 total)
         // ========================================================================
@@ -1153,7 +1157,6 @@ fn create_leptos_registry() -> Registry {
             None,
             None,
         ),
-
         // ========================================================================
         // NOT YET IMPLEMENTED IN LEPTOS (4 total) - Available in Dioxus/Planned
         // ========================================================================
@@ -1204,7 +1207,7 @@ fn create_leptos_registry() -> Registry {
 pub static UI: LazyLock<HashMap<FrameworkName, Registry>> = LazyLock::new(|| {
     let complete_registry = create_complete_registry();
     let leptos_registry = create_leptos_registry();
-    
+
     HashMap::from([
         (FrameworkName::Dioxus, complete_registry.clone()),
         (FrameworkName::Leptos, leptos_registry),

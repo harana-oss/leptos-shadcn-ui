@@ -1,8 +1,8 @@
 #[cfg(test)]
 #[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod tdd_tests {
-    use leptos::prelude::*;
     use crate::default::Toast;
+    use leptos::prelude::*;
 
     // ===== TDD ENHANCED TESTS - GREEN PHASE =====
     // These tests now implement real functionality and verify actual behavior
@@ -200,8 +200,8 @@ mod tdd_tests {
     #[test]
     fn test_toast_integration_scenarios() {
         let _toast_view = view! {
-            <Toast 
-                variant="success" 
+            <Toast
+                variant="success"
                 class="integration-toast"
                 id="integration-test"
             >
@@ -213,8 +213,8 @@ mod tdd_tests {
     #[test]
     fn test_toast_complete_workflow() {
         let _toast_view = view! {
-            <Toast 
-                variant="info" 
+            <Toast
+                variant="info"
                 class="workflow-toast"
                 id="workflow-test"
             >
@@ -226,8 +226,8 @@ mod tdd_tests {
     #[test]
     fn test_toast_advanced_interactions() {
         let _toast_view = view! {
-            <Toast 
-                variant="warning" 
+            <Toast
+                variant="warning"
                 class="advanced-interactions"
                 id="advanced-toast"
             >
@@ -239,7 +239,7 @@ mod tdd_tests {
     #[test]
     fn test_toast_accessibility_comprehensive() {
         let _toast_view = view! {
-            <Toast 
+            <Toast
                 id="comprehensive-accessible-toast"
                 class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
@@ -251,7 +251,7 @@ mod tdd_tests {
     #[test]
     fn test_toast_custom_properties() {
         let _toast_view = view! {
-            <Toast 
+            <Toast
                 class="custom-properties-toast"
                 id="custom-props-test"
             >
@@ -263,7 +263,7 @@ mod tdd_tests {
     #[test]
     fn test_toast_form_integration() {
         let _toast_view = view! {
-            <Toast 
+            <Toast
                 variant="success"
                 class="form-integration-toast"
                 id="form-toast"

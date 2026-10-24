@@ -1,11 +1,11 @@
 //! Leptos port of shadcn/ui separator
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
+pub mod signal_managed;
 
-pub use default::{Separator};
-pub use new_york::{Separator as SeparatorNewYork};
+pub use default::Separator;
+pub use new_york::Separator as SeparatorNewYork;
 
 mod tests;
 

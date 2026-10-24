@@ -1,5 +1,5 @@
+use leptos::ev::{KeyboardEvent, MouseEvent};
 use leptos::prelude::*;
-use leptos::ev::{MouseEvent, KeyboardEvent};
 use leptos_style::Style;
 
 pub const CARD_CLASS: &str = "rounded-lg border bg-card text-card-foreground shadow-sm";
@@ -35,7 +35,11 @@ pub fn Card(
             Some(CardVariant::Success) => " border-success bg-success/5",
             _ => "",
         };
-        let interactive_class = if interactive.get() { " cursor-pointer hover:shadow-md transition-shadow" } else { "" };
+        let interactive_class = if interactive.get() {
+            " cursor-pointer hover:shadow-md transition-shadow"
+        } else {
+            ""
+        };
         let custom_class = class.get().unwrap_or_default();
         format!("{}{}{} {}", base_class, variant_class, interactive_class, custom_class)
     });
@@ -83,9 +87,8 @@ pub fn CardTitle(
     #[prop(into, optional)] level: MaybeProp<u8>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let computed_class = Signal::derive(move || {
-        format!("{} {}", CARD_TITLE_CLASS, class.get().unwrap_or_default())
-    });
+    let computed_class =
+        Signal::derive(move || format!("{} {}", CARD_TITLE_CLASS, class.get().unwrap_or_default()));
     let id = move || id.get().unwrap_or_default();
     let style = move || style.get().to_string();
     let children = children.map(|c| c());
@@ -179,7 +182,7 @@ pub fn InteractiveCard(
 ) -> impl IntoView {
     let (_is_hovered, set_is_hovered) = signal(false);
     let (_is_focused, set_is_focused) = signal(false);
-    
+
     let computed_class = Signal::derive(move || {
         let base_class = CARD_CLASS;
         let variant_class = match variant.get() {

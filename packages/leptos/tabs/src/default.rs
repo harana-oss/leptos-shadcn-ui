@@ -1,7 +1,7 @@
 use leptos::{ev::MouseEvent, prelude::*};
 use leptos_node_ref::AnyNodeRef;
- use leptos_struct_component::StructComponent;
- 
+use leptos_struct_component::StructComponent;
+
 use leptos_style::Style;
 
 // Tabs Root Provider
@@ -35,9 +35,7 @@ pub fn Tabs(
         set_value,
     });
 
-    let tabs_class = Signal::derive(move || {
-        class.get().unwrap_or_default().to_string()
-    });
+    let tabs_class = Signal::derive(move || class.get().unwrap_or_default().to_string());
 
     view! {
         <div class={tabs_class}>
@@ -59,7 +57,10 @@ pub fn TabsList(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let list_class = Signal::derive(move || {
-        format!("inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground {}", class.get().unwrap_or_default())
+        format!(
+            "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground {}",
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {
@@ -96,9 +97,7 @@ pub fn TabsTrigger(
 ) -> impl IntoView {
     let ctx = expect_context::<TabsContextValue>();
 
-    let is_selected = Signal::derive(move || {
-        ctx.value.get() == value.get().unwrap_or_default()
-    });
+    let is_selected = Signal::derive(move || ctx.value.get() == value.get().unwrap_or_default());
 
     let trigger_class = Signal::derive(move || {
         let base_class = "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
@@ -143,12 +142,13 @@ pub fn TabsContent(
 ) -> impl IntoView {
     let ctx = expect_context::<TabsContextValue>();
 
-    let is_selected = Signal::derive(move || {
-        ctx.value.get() == value.get().unwrap_or_default()
-    });
+    let is_selected = Signal::derive(move || ctx.value.get() == value.get().unwrap_or_default());
 
     let content_class = Signal::derive(move || {
-        format!("mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 {}", class.get().unwrap_or_default())
+        format!(
+            "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 {}",
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {

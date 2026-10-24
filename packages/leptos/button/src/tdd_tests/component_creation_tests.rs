@@ -1,11 +1,11 @@
 //! Component Creation & Props Tests for Button Component
-//! 
+//!
 //! This module tests the basic creation and configuration of Button components.
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 
 #[cfg(test)]
 mod component_creation_tests {
-    use crate::default::{Button, ButtonVariant, ButtonSize};
+    use crate::default::{Button, ButtonSize, ButtonVariant};
     use leptos::prelude::*;
 
     #[test]
@@ -14,12 +14,12 @@ mod component_creation_tests {
         let button_view = view! {
             <Button>"Default Button"</Button>
         };
-        
+
         // Component creation should not panic
         let _view = button_view.into_view();
     }
 
-    #[test] 
+    #[test]
     fn test_button_component_with_all_variants() {
         // TDD: Test that Button can be created with each variant
         let variants = vec![
@@ -30,12 +30,12 @@ mod component_creation_tests {
             ButtonVariant::Ghost,
             ButtonVariant::Link,
         ];
-        
+
         for variant in variants {
             let button_view = view! {
                 <Button variant=variant.clone()>"Test Button"</Button>
             };
-            
+
             // Each variant should create a valid component
             let _view = button_view.into_view();
         }
@@ -50,12 +50,12 @@ mod component_creation_tests {
             ButtonSize::Lg,
             ButtonSize::Icon,
         ];
-        
+
         for size in sizes {
             let button_view = view! {
                 <Button size=size.clone()>"Test Button"</Button>
             };
-            
+
             // Each size should create a valid component
             let _view = button_view.into_view();
         }

@@ -1,7 +1,7 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod accessibility_tests {
-    
+
     use crate::*;
     use leptos::prelude::*;
 
@@ -322,7 +322,7 @@ mod accessibility_tests {
         let _owner = Owner::new();
         _owner.set();
         let start = std::time::Instant::now();
-        
+
         for _ in 0..100 {
             let _context_menu_view = view! {
                 <ContextMenu>
@@ -335,7 +335,7 @@ mod accessibility_tests {
                 </ContextMenu>
             };
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 100);
     }
@@ -355,7 +355,7 @@ mod accessibility_tests {
                 </ContextMenuContent>
             </ContextMenu>
         };
-        
+
         let size = std::mem::size_of::<usize>();
         assert!(size < 1024);
     }

@@ -9,9 +9,9 @@ pub mod default;
 pub mod new_york;
 
 #[cfg(test)]
-mod test_helpers;
-#[cfg(test)]
 mod placeholder_tests;
+#[cfg(test)]
+mod test_helpers;
 
 pub use context::{
     ErrorContext, ErrorContextBuilder, ErrorSeverity, ErrorSource, RecoverySuggestion,
@@ -31,9 +31,7 @@ pub struct ErrorInfo {
 
 /// Simple error fallback component
 #[component]
-pub fn ErrorFallback(
-    #[prop(into)] error_info: ErrorInfo,
-) -> impl IntoView {
+pub fn ErrorFallback(#[prop(into)] error_info: ErrorInfo) -> impl IntoView {
     view! {
         <div class="error-fallback">
             <div class="error-content">
@@ -62,9 +60,7 @@ pub fn ErrorFallback(
 
 /// Simple error boundary wrapper
 #[component]
-pub fn ErrorBoundary(
-    #[prop(into)] children: Children,
-) -> impl IntoView {
+pub fn ErrorBoundary(#[prop(into)] children: Children) -> impl IntoView {
     let (has_error, set_has_error) = signal(false);
     let (_error_info, set_error_info) = signal(None::<ErrorInfo>);
 
@@ -298,9 +294,8 @@ pub fn RichErrorBoundary(
                 view! { <RichErrorFallback error_context=context /> }.into_any()
             }
         } else {
-            let default_context = ErrorContext::new(
-                "An error occurred".to_string()
-            ).with_severity(ErrorSeverity::Error);
+            let default_context = ErrorContext::new("An error occurred".to_string())
+                .with_severity(ErrorSeverity::Error);
             view! { <RichErrorFallback error_context=default_context /> }.into_any()
         }
     } else {
@@ -309,7 +304,8 @@ pub fn RichErrorBoundary(
 }
 
 /// Hook for manual error handling
-pub fn use_error_handler() -> (ReadSignal<bool>, WriteSignal<bool>, WriteSignal<Option<ErrorInfo>>) {
+pub fn use_error_handler() -> (ReadSignal<bool>, WriteSignal<bool>, WriteSignal<Option<ErrorInfo>>)
+{
     let (has_error, set_has_error) = signal(false);
     let (_error_info, set_error_info) = signal(None::<ErrorInfo>);
 
@@ -337,7 +333,7 @@ pub fn use_rich_error_handler() -> RichErrorHandler {
 #[track_caller]
 pub fn create_rich_error(message: String, technical: Option<String>) -> ErrorContext {
     ErrorContext::new(message).with_technical_details(
-        technical.unwrap_or_else(|| "No technical details available".to_string())
+        technical.unwrap_or_else(|| "No technical details available".to_string()),
     )
 }
 

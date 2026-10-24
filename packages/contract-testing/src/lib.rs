@@ -2,8 +2,8 @@
 //!
 //! Test-driven development framework ensuring API compatibility across components.
 
-use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use thiserror::Error;
 
 #[derive(Error, Debug)]
@@ -80,7 +80,11 @@ impl ContractTester {
         }
     }
 
-    pub fn register_component<T: ContractTestable + 'static>(&mut self, name: String, component: T) {
+    pub fn register_component<T: ContractTestable + 'static>(
+        &mut self,
+        name: String,
+        component: T,
+    ) {
         self.components.insert(name, Box::new(component));
     }
 
@@ -155,12 +159,12 @@ mod tests {
 // Sub-modules
 pub mod dependency_contracts;
 pub mod dependency_fixer;
-pub mod wasm_performance;
 pub mod tdd_expansion;
+pub mod wasm_performance;
 
 // Re-export commonly used items
-pub use semver;
 pub use dependency_contracts::DependencyContractTester;
 pub use dependency_fixer::DependencyFixer;
+pub use semver;
 pub use tdd_expansion::TddExpansionManager;
 pub use wasm_performance::WasmPerformanceTester;

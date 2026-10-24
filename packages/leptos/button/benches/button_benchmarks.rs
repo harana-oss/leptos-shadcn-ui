@@ -5,7 +5,7 @@
 
 use std::hint::black_box;
 
-use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
+use criterion::{BenchmarkId, Criterion, criterion_group, criterion_main};
 use leptos::prelude::*;
 use leptos_shadcn_button::default::{Button, ButtonSize, ButtonVariant};
 
@@ -57,7 +57,12 @@ fn benchmark_button_creation(c: &mut Criterion) {
 fn benchmark_button_rendering(c: &mut Criterion) {
     let mut group = c.benchmark_group("button_rendering");
 
-    let sizes = [ButtonSize::Sm, ButtonSize::Default, ButtonSize::Lg, ButtonSize::Icon];
+    let sizes = [
+        ButtonSize::Sm,
+        ButtonSize::Default,
+        ButtonSize::Lg,
+        ButtonSize::Icon,
+    ];
 
     for size in sizes {
         group.bench_with_input(
@@ -224,7 +229,9 @@ fn benchmark_button_accessibility(c: &mut Criterion) {
 
     group.bench_function("keyboard_navigation", |b| {
         with_owner(|| {
-            let ids = (0..100).map(|i| format!("benchmark-button-{}", i)).collect::<Vec<_>>();
+            let ids = (0..100)
+                .map(|i| format!("benchmark-button-{}", i))
+                .collect::<Vec<_>>();
             let _buttons = ids
                 .iter()
                 .cloned()

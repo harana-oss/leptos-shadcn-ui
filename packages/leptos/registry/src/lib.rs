@@ -1,5 +1,5 @@
 //! Feature-based component registry for shadcn/ui Leptos
-//! 
+//!
 //! This module provides conditional compilation of components based on features,
 //! enabling code splitting and reducing bundle size by only including used components.
 
@@ -11,7 +11,7 @@ impl ComponentRegistry {
     pub fn available_features() -> Vec<&'static str> {
         vec![
             "alert",
-            "badge", 
+            "badge",
             "button",
             "card",
             "checkbox",
@@ -76,11 +76,11 @@ impl ComponentRegistry {
     pub fn bundle_size_estimate() -> usize {
         let enabled = Self::enabled_features();
         let mut total_size = 0;
-        
+
         for feature in enabled {
             total_size += Self::feature_size_estimate(feature);
         }
-        
+
         total_size
     }
 
@@ -118,12 +118,19 @@ impl ComponentRegistry {
         let total_size = Self::bundle_size_estimate();
         let mut recommendations = Vec::new();
 
-        if total_size > 2_000_000 { // 2MB
-            recommendations.push("Bundle size is large (>2MB). Consider enabling only essential components.".to_string());
+        if total_size > 2_000_000 {
+            // 2MB
+            recommendations.push(
+                "Bundle size is large (>2MB). Consider enabling only essential components."
+                    .to_string(),
+            );
         }
 
         if enabled.len() > 15 {
-            recommendations.push("Many components enabled. Consider lazy loading non-critical components.".to_string());
+            recommendations.push(
+                "Many components enabled. Consider lazy loading non-critical components."
+                    .to_string(),
+            );
         }
 
         if enabled.contains(&"combobox") && enabled.contains(&"select") {
@@ -131,7 +138,10 @@ impl ComponentRegistry {
         }
 
         if enabled.contains(&"dialog") && enabled.contains(&"sheet") {
-            recommendations.push("Both dialog and sheet enabled. Consider using only one modal component.".to_string());
+            recommendations.push(
+                "Both dialog and sheet enabled. Consider using only one modal component."
+                    .to_string(),
+            );
         }
 
         recommendations
@@ -144,7 +154,7 @@ macro_rules! include_component {
     ($feature:expr, $component:expr) => {
         #[cfg(feature = $feature)]
         pub use $component;
-        
+
         #[cfg(not(feature = $feature))]
         pub const $component: () = ();
     };
@@ -156,7 +166,7 @@ macro_rules! include_component_module {
     ($feature:expr, $module:expr) => {
         #[cfg(feature = $feature)]
         pub mod $module;
-        
+
         #[cfg(not(feature = $feature))]
         pub mod $module {
             // Empty module when feature is disabled
@@ -179,7 +189,10 @@ mod tests {
     #[test]
     fn test_feature_size_estimates() {
         assert!(ComponentRegistry::feature_size_estimate("button") > 0);
-        assert!(ComponentRegistry::feature_size_estimate("dialog") > ComponentRegistry::feature_size_estimate("badge"));
+        assert!(
+            ComponentRegistry::feature_size_estimate("dialog")
+                > ComponentRegistry::feature_size_estimate("badge")
+        );
     }
 
     #[test]
@@ -189,10 +202,13 @@ mod tests {
         // and returns a vector (which may be empty in test context)
         let recommendations = ComponentRegistry::optimization_recommendations();
         assert!(recommendations.is_empty() || !recommendations.is_empty());
-        
+
         // Test that recommendations would work with different scenarios
         // by testing the underlying size estimation logic
         assert!(ComponentRegistry::feature_size_estimate("button") > 0);
-        assert!(ComponentRegistry::feature_size_estimate("dialog") > ComponentRegistry::feature_size_estimate("badge"));
+        assert!(
+            ComponentRegistry::feature_size_estimate("dialog")
+                > ComponentRegistry::feature_size_estimate("badge")
+        );
     }
 }

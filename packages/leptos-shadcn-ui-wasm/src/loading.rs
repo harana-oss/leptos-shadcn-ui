@@ -63,7 +63,8 @@ pub fn WasmSpinner(
 #[component]
 pub fn WasmProgressBar(
     /// Progress percentage (0-100)
-    #[prop(into)] progress: Signal<i32>,
+    #[prop(into)]
+    progress: Signal<i32>,
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] show_label: MaybeProp<bool>,
@@ -195,12 +196,16 @@ pub fn WasmInlineLoader(
 
 #[cfg(test)]
 mod tests {
-    
 
     #[test]
     fn test_wasm_spinner_size_classes() {
         // Test that size mapping works correctly
-        let sizes = vec![("sm", "h-4 w-4"), ("md", "h-6 w-6"), ("lg", "h-8 w-8"), ("xl", "h-12 w-12")];
+        let sizes = vec![
+            ("sm", "h-4 w-4"),
+            ("md", "h-6 w-6"),
+            ("lg", "h-8 w-8"),
+            ("xl", "h-12 w-12"),
+        ];
         for (input, expected) in sizes {
             let result = match input {
                 "sm" => "h-4 w-4",

@@ -1,7 +1,10 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod accessibility_tests {
-    use crate::new_york::{ButtonVariant as ButtonVariantNewYork, ButtonSize as ButtonSizeNewYork, ButtonChildProps as ButtonChildPropsNewYork};
+    use crate::new_york::{
+        ButtonChildProps as ButtonChildPropsNewYork, ButtonSize as ButtonSizeNewYork,
+        ButtonVariant as ButtonVariantNewYork,
+    };
     use leptos::prelude::*;
 
     // ===== NEW YORK ACCESSIBILITY TESTS =====
@@ -21,10 +24,10 @@ mod accessibility_tests {
 
         // Test that disabled state is properly tracked
         assert!(!props.disabled);
-        
+
         // Test that type is properly set
         assert_eq!(props.r#type, "button");
-        
+
         // Test that id is properly set
         assert_eq!(props.id, "test-id");
     }
@@ -43,7 +46,7 @@ mod accessibility_tests {
 
         // Test that disabled state is properly tracked
         assert!(props.disabled);
-        
+
         // Test that onclick is None for disabled buttons
         assert!(props.onclick.is_none());
     }
@@ -96,7 +99,7 @@ mod accessibility_tests {
 
         // Test that id is available for aria-labelledby
         assert_eq!(props.id, "test-id");
-        
+
         // Test that type is properly set for screen readers
         assert_eq!(props.r#type, "button");
     }
@@ -115,7 +118,7 @@ mod accessibility_tests {
 
         // Test that button type is properly set for screen readers
         assert_eq!(props.r#type, "button");
-        
+
         // Test that id is available for screen reader navigation
         assert_eq!(props.id, "test-id");
     }
@@ -142,7 +145,7 @@ mod accessibility_tests {
                 ButtonVariantNewYork::Ghost => "hover:bg-accent hover:text-accent-foreground",
                 ButtonVariantNewYork::Link => "text-primary",
             };
-            
+
             // Test that color classes are present
             assert!(!variant_class.is_empty());
         }
@@ -166,12 +169,16 @@ mod accessibility_tests {
                 ButtonSizeNewYork::Lg => "h-11 rounded-md px-8",
                 ButtonSizeNewYork::Icon => "h-10 w-10",
             };
-            
+
             // Test that size classes are present
             assert!(!size_class.is_empty());
-            
+
             // Test that minimum touch target size is met (44px minimum)
-            assert!(size_class.contains("h-9") || size_class.contains("h-10") || size_class.contains("h-11"));
+            assert!(
+                size_class.contains("h-9")
+                    || size_class.contains("h-10")
+                    || size_class.contains("h-11")
+            );
         }
     }
 
@@ -189,10 +196,10 @@ mod accessibility_tests {
 
         // Test that hover state is present
         assert!(props.class.contains("hover:bg-blue-600"));
-        
+
         // Test that focus state is present
         assert!(props.class.contains("focus:ring-2"));
-        
+
         // Test that active state is present
         assert!(props.class.contains("active:bg-blue-700"));
     }
@@ -211,11 +218,11 @@ mod accessibility_tests {
 
         // Test that disabled state is properly tracked
         assert!(props.disabled);
-        
+
         // Test that disabled styles are present
         assert!(props.class.contains("disabled:opacity-50"));
         assert!(props.class.contains("disabled:cursor-not-allowed"));
-        
+
         // Test that onclick is None for disabled buttons
         assert!(props.onclick.is_none());
     }
@@ -266,7 +273,7 @@ mod accessibility_tests {
 
         // Test that button type is properly set for ARIA
         assert_eq!(props.r#type, "button");
-        
+
         // Test that id is available for ARIA attributes
         assert_eq!(props.id, "test-id");
     }
@@ -285,7 +292,7 @@ mod accessibility_tests {
 
         // Test that button type is properly set for ARIA
         assert_eq!(props.r#type, "button");
-        
+
         // Test that id is available for ARIA attributes
         assert_eq!(props.id, "test-id");
     }
@@ -304,7 +311,7 @@ mod accessibility_tests {
 
         // Test that button type is properly set for ARIA
         assert_eq!(props.r#type, "button");
-        
+
         // Test that id is available for ARIA attributes
         assert_eq!(props.id, "test-id");
     }

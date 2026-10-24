@@ -16,7 +16,11 @@ fn orientation_parse() {
 
 #[test]
 fn orientation_roundtrip() {
-    for o in [FieldOrientation::Vertical, FieldOrientation::Horizontal, FieldOrientation::Responsive] {
+    for o in [
+        FieldOrientation::Vertical,
+        FieldOrientation::Horizontal,
+        FieldOrientation::Responsive,
+    ] {
         assert_eq!(FieldOrientation::parse(o.as_str()), o);
     }
 }
@@ -55,7 +59,10 @@ fn error_content_none() {
 
 #[test]
 fn error_content_single_and_dedupe() {
-    assert_eq!(field_error_content(&s(&["Required"])), FieldErrorContent::Single("Required".into()));
+    assert_eq!(
+        field_error_content(&s(&["Required"])),
+        FieldErrorContent::Single("Required".into())
+    );
     assert_eq!(
         field_error_content(&s(&["Required", "Required", ""])),
         FieldErrorContent::Single("Required".into())

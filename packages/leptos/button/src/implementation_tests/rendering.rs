@@ -2,8 +2,7 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod rendering {
-    use crate::default::{ButtonVariant, ButtonSize, BUTTON_CLASS};
-    
+    use crate::default::{BUTTON_CLASS, ButtonSize, ButtonVariant};
 
     // ===== RENDERING TESTS =====
     // These tests focus on rendering logic, CSS class generation, and visual output
@@ -20,16 +19,17 @@ mod rendering {
             ButtonVariant::Default => "bg-primary text-primary-foreground hover:bg-primary/90",
             _ => "",
         };
-        
+
         let size_class = match size.unwrap_or_default() {
             ButtonSize::Default => "h-10 px-4 py-2",
             _ => "",
         };
 
-        let computed_class = format!("{} {} {} {}", 
-            BUTTON_CLASS, 
-            variant_class, 
-            size_class, 
+        let computed_class = format!(
+            "{} {} {} {}",
+            BUTTON_CLASS,
+            variant_class,
+            size_class,
             class.unwrap_or_default()
         );
 
@@ -43,9 +43,18 @@ mod rendering {
         // Test computed class generation for all variants
         let variants = vec![
             (ButtonVariant::Default, "bg-primary text-primary-foreground hover:bg-primary/90"),
-            (ButtonVariant::Destructive, "bg-destructive text-destructive-foreground hover:bg-destructive/90"),
-            (ButtonVariant::Outline, "border border-input bg-background hover:bg-accent hover:text-accent-foreground"),
-            (ButtonVariant::Secondary, "bg-secondary text-secondary-foreground hover:bg-secondary/80"),
+            (
+                ButtonVariant::Destructive,
+                "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+            ),
+            (
+                ButtonVariant::Outline,
+                "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+            ),
+            (
+                ButtonVariant::Secondary,
+                "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+            ),
             (ButtonVariant::Ghost, "hover:bg-accent hover:text-accent-foreground"),
             (ButtonVariant::Link, "text-primary underline-offset-4 hover:underline"),
         ];
@@ -53,14 +62,24 @@ mod rendering {
         for (variant, expected_class) in variants {
             let variant_class = match variant {
                 ButtonVariant::Default => "bg-primary text-primary-foreground hover:bg-primary/90",
-                ButtonVariant::Destructive => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-                ButtonVariant::Outline => "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-                ButtonVariant::Secondary => "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+                ButtonVariant::Destructive => {
+                    "bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                }
+                ButtonVariant::Outline => {
+                    "border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+                }
+                ButtonVariant::Secondary => {
+                    "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                }
                 ButtonVariant::Ghost => "hover:bg-accent hover:text-accent-foreground",
                 ButtonVariant::Link => "text-primary underline-offset-4 hover:underline",
             };
-            
-            assert_eq!(variant_class, expected_class, "Variant {:?} should have correct class", variant);
+
+            assert_eq!(
+                variant_class, expected_class,
+                "Variant {:?} should have correct class",
+                variant
+            );
         }
     }
 
@@ -81,7 +100,7 @@ mod rendering {
                 ButtonSize::Lg => "h-11 rounded-md px-8",
                 ButtonSize::Icon => "h-10 w-10",
             };
-            
+
             assert_eq!(size_class, expected_class, "Size {:?} should have correct class", size);
         }
     }
@@ -98,16 +117,17 @@ mod rendering {
             ButtonVariant::Default => "bg-primary text-primary-foreground hover:bg-primary/90",
             _ => "",
         };
-        
+
         let size_class = match size.unwrap_or_default() {
             ButtonSize::Default => "h-10 px-4 py-2",
             _ => "",
         };
 
-        let computed_class = format!("{} {} {} {}", 
-            BUTTON_CLASS, 
-            variant_class, 
-            size_class, 
+        let computed_class = format!(
+            "{} {} {} {}",
+            BUTTON_CLASS,
+            variant_class,
+            size_class,
             class.unwrap_or_default()
         );
 
@@ -124,19 +144,22 @@ mod rendering {
         let class = Some("my-custom-class".to_string());
 
         let variant_class = match variant.unwrap_or_default() {
-            ButtonVariant::Outline => "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+            ButtonVariant::Outline => {
+                "border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+            }
             _ => "",
         };
-        
+
         let size_class = match size.unwrap_or_default() {
             ButtonSize::Lg => "h-11 rounded-md px-8",
             _ => "",
         };
 
-        let computed_class = format!("{} {} {} {}", 
-            BUTTON_CLASS, 
-            variant_class, 
-            size_class, 
+        let computed_class = format!(
+            "{} {} {} {}",
+            BUTTON_CLASS,
+            variant_class,
+            size_class,
             class.unwrap_or_default()
         );
 
@@ -152,10 +175,12 @@ mod rendering {
         let size = ButtonSize::Sm;
 
         let variant_class = match variant {
-            ButtonVariant::Destructive => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+            ButtonVariant::Destructive => {
+                "bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            }
             _ => "",
         };
-        
+
         let size_class = match size {
             ButtonSize::Sm => "h-9 rounded-md px-3",
             _ => "",
@@ -179,7 +204,7 @@ mod rendering {
             ButtonVariant::Ghost => "hover:bg-accent hover:text-accent-foreground",
             _ => "",
         };
-        
+
         let size_class = match size {
             ButtonSize::Icon => "h-10 w-10",
             _ => "",
@@ -199,10 +224,12 @@ mod rendering {
         let size = ButtonSize::Lg;
 
         let variant_class = match variant {
-            ButtonVariant::Secondary => "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+            ButtonVariant::Secondary => {
+                "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+            }
             _ => "",
         };
-        
+
         let size_class = match size {
             ButtonSize::Lg => "h-11 rounded-md px-8",
             _ => "",
@@ -240,16 +267,17 @@ mod rendering {
             ButtonVariant::Default => "bg-primary text-primary-foreground hover:bg-primary/90",
             _ => "",
         };
-        
+
         let size_class = match size.unwrap_or_default() {
             ButtonSize::Default => "h-10 px-4 py-2",
             _ => "",
         };
 
-        let computed_class = format!("{} {} {} {}", 
-            BUTTON_CLASS, 
-            variant_class, 
-            size_class, 
+        let computed_class = format!(
+            "{} {} {} {}",
+            BUTTON_CLASS,
+            variant_class,
+            size_class,
             class.unwrap_or_default()
         );
 
@@ -270,16 +298,17 @@ mod rendering {
             ButtonVariant::Default => "bg-primary text-primary-foreground hover:bg-primary/90",
             _ => "",
         };
-        
+
         let size_class = match size.unwrap_or_default() {
             ButtonSize::Default => "h-10 px-4 py-2",
             _ => "",
         };
 
-        let computed_class = format!("{} {} {} {}", 
-            BUTTON_CLASS, 
-            variant_class, 
-            size_class, 
+        let computed_class = format!(
+            "{} {} {} {}",
+            BUTTON_CLASS,
+            variant_class,
+            size_class,
             class.unwrap_or_default()
         );
 

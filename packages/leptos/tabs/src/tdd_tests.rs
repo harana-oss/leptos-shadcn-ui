@@ -1,7 +1,7 @@
 #[cfg(test)]
 #[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod tdd_tests {
-    
+
     use leptos::prelude::*;
 
     // ===== TDD ENHANCED TESTS - GREEN PHASE =====
@@ -25,10 +25,10 @@ mod tdd_tests {
     fn test_tabs_value_management() {
         // Test tabs value management
         let tab_value = RwSignal::new("tab1".to_string());
-        
+
         // Test initial value
         assert_eq!(tab_value.get(), "tab1", "Initial value should be 'tab1'");
-        
+
         // Simulate value change
         tab_value.set("tab2".to_string());
         assert_eq!(tab_value.get(), "tab2", "Value should change to 'tab2'");
@@ -72,13 +72,8 @@ mod tdd_tests {
     #[test]
     fn test_tabs_variants() {
         // Test different tabs variants
-        let tabs_variants = vec![
-            "default",
-            "pills",
-            "underline",
-            "cards",
-        ];
-        
+        let tabs_variants = vec!["default", "pills", "underline", "cards"];
+
         for _variant in tabs_variants {
             // Each variant should be supported
         }
@@ -87,13 +82,8 @@ mod tdd_tests {
     #[test]
     fn test_tabs_sizes() {
         // Test different tabs sizes
-        let tabs_sizes = vec![
-            "sm",
-            "md", 
-            "lg",
-            "xl",
-        ];
-        
+        let tabs_sizes = vec!["sm", "md", "lg", "xl"];
+
         for _size in tabs_sizes {
             // Each size should be supported
         }
@@ -159,13 +149,13 @@ mod tdd_tests {
     fn test_tabs_advanced_interactions() {
         // Test tabs advanced interactions
         let interaction_count = RwSignal::new(0);
-        
+
         // Test multiple interactions
         for i in 0..5 {
             interaction_count.update(|count| *count += 1);
             assert_eq!(interaction_count.get(), i + 1, "Interaction count should be {}", i + 1);
         }
-        
+
         // Should handle rapid interactions
         assert_eq!(interaction_count.get(), 5, "Should handle multiple interactions");
     }
@@ -174,13 +164,13 @@ mod tdd_tests {
     fn test_tabs_state_management() {
         // Test tabs state management
         let tabs_state = RwSignal::new("idle");
-        
+
         // Test state transitions
         assert_eq!(tabs_state.get(), "idle", "Initial state should be idle");
-        
+
         tabs_state.set("active");
         assert_eq!(tabs_state.get(), "active", "State should change to active");
-        
+
         tabs_state.set("inactive");
         assert_eq!(tabs_state.get(), "inactive", "State should change to inactive");
     }
@@ -196,14 +186,9 @@ mod tdd_tests {
     fn test_tabs_validation_comprehensive() {
         // Test comprehensive validation features
         let validation_features = vec![
-            "required",
-            "optional",
-            "error",
-            "success",
-            "warning",
-            "info",
+            "required", "optional", "error", "success", "warning", "info",
         ];
-        
+
         for _feature in validation_features {
             // Each validation feature should be supported
         }
@@ -220,7 +205,7 @@ mod tdd_tests {
             "color-contrast",
             "touch-targets",
         ];
-        
+
         for _feature in a11y_features {
             // Each accessibility feature should be supported
         }
@@ -235,7 +220,7 @@ mod tdd_tests {
             "optimized-rendering",
             "bundle-optimization",
         ];
-        
+
         for _feature in perf_features {
             // Each performance feature should be implemented
         }
@@ -252,7 +237,7 @@ mod tdd_tests {
             "content-sections",
             "navigation",
         ];
-        
+
         for _scenario in integration_scenarios {
             // Each integration scenario should work
         }
@@ -269,13 +254,13 @@ mod tdd_tests {
     fn test_tabs_click_handling() {
         // Test tabs click handling
         let click_count = RwSignal::new(0);
-        
+
         // Test click handling
         for i in 0..3 {
             click_count.update(|count| *count += 1);
             assert_eq!(click_count.get(), i + 1, "Click count should be {}", i + 1);
         }
-        
+
         // Should handle multiple clicks
         assert_eq!(click_count.get(), 3, "Should handle multiple clicks");
     }
@@ -285,15 +270,15 @@ mod tdd_tests {
         // Test tabs value change callback
         let selected_value = RwSignal::new("tab1".to_string());
         let callback_count = RwSignal::new(0);
-        
+
         // Test callback functionality
         assert_eq!(selected_value.get(), "tab1", "Initial value should be 'tab1'");
         assert_eq!(callback_count.get(), 0, "Initial callback count should be 0");
-        
+
         // Simulate value change
         selected_value.set("tab2".to_string());
         callback_count.update(|count| *count += 1);
-        
+
         assert_eq!(selected_value.get(), "tab2", "Value should change to 'tab2'");
         assert_eq!(callback_count.get(), 1, "Callback count should be 1");
     }
@@ -302,7 +287,7 @@ mod tdd_tests {
     fn test_tabs_orientation() {
         // Test tabs orientation
         let orientations = vec!["horizontal", "vertical"];
-        
+
         for _orientation in orientations {
             // Each orientation should be supported
         }
@@ -312,10 +297,10 @@ mod tdd_tests {
     fn test_tabs_theme_switching() {
         // Test theme switching support
         let theme_signal = RwSignal::new("light");
-        
+
         // Should support theme switching
         assert_eq!(theme_signal.get(), "light", "Initial theme should be light");
-        
+
         // Switch theme
         theme_signal.set("dark");
         assert_eq!(theme_signal.get(), "dark", "Theme should switch to dark");

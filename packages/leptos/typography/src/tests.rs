@@ -22,7 +22,16 @@ fn renders_html() {
             <TypographySmall>"k"</TypographySmall><TypographyMuted class="extra">"l"</TypographyMuted>
         </div>
     }.to_html();
-    for t in ["<h1", "<h2", "<h3", "<h4", "<blockquote", "<ul", "<code", "<small"] {
+    for t in [
+        "<h1",
+        "<h2",
+        "<h3",
+        "<h4",
+        "<blockquote",
+        "<ul",
+        "<code",
+        "<small",
+    ] {
         assert!(html.contains(t), "{t}");
     }
     assert!(html.contains(r#"data-slot="typography-inline-code""#));

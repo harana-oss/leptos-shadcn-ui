@@ -41,11 +41,7 @@ fn next_content_id() -> String {
 }
 
 fn data_state(open: bool) -> &'static str {
-    if open {
-        "open"
-    } else {
-        "closed"
-    }
+    if open { "open" } else { "closed" }
 }
 
 /// Hover card root. Provides shared open state (via context) to

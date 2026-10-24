@@ -1,7 +1,5 @@
-
 /// Sort direction for columns
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum SortDirection {
     Ascending,
     Descending,
@@ -9,10 +7,8 @@ pub enum SortDirection {
     None,
 }
 
-
 /// Filter type for columns
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum FilterType {
     #[default]
     Text,
@@ -22,10 +18,8 @@ pub enum FilterType {
     Boolean,
 }
 
-
 /// Filter operator for column filters
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum FilterOperator {
     Equals,
     NotEquals,
@@ -40,17 +34,14 @@ pub enum FilterOperator {
     LessThanOrEqual,
 }
 
-
 /// Selection mode for rows
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum SelectionMode {
     #[default]
     None,
     Single,
     Multiple,
 }
-
 
 /// Export format for data
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -184,8 +175,7 @@ impl Default for SelectionConfig {
 }
 
 /// Data table state
-#[derive(Debug, Clone)]
-#[derive(Default)]
+#[derive(Debug, Clone, Default)]
 pub struct DataTableState {
     pub data: Vec<DataRow>,
     pub columns: Vec<DataColumn>,
@@ -196,4 +186,3 @@ pub struct DataTableState {
     pub loading: bool,
     pub error: Option<String>,
 }
-

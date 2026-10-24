@@ -1,11 +1,11 @@
 //! Toast builder for fluent API
-//! 
+//!
 //! This module contains the ToastBuilder struct and its implementation
 //! for creating toasts with a fluent API.
 
-use leptos::prelude::*;
-use crate::sonner::types::{ToastData, ToastVariant, ToastPosition, ToastTheme, ToastAction};
 use crate::sonner::context::SonnerContextValue;
+use crate::sonner::types::{ToastAction, ToastData, ToastPosition, ToastTheme, ToastVariant};
+use leptos::prelude::*;
 
 /// Toast builder for fluent API
 #[derive(Debug, Clone)]

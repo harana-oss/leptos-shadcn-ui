@@ -11,8 +11,7 @@ use std::collections::HashMap;
 use std::panic::PanicHookInfo;
 
 /// Severity level of an error
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
-#[derive(Default)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Default)]
 pub enum ErrorSeverity {
     /// Informational message, not an error
     Info,
@@ -24,7 +23,6 @@ pub enum ErrorSeverity {
     /// Critical error that requires immediate attention
     Critical,
 }
-
 
 impl std::fmt::Display for ErrorSeverity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -70,7 +68,12 @@ impl ErrorSource {
         module: Option<String>,
         function: Option<String>,
     ) -> Self {
-        Self { file, line, module, function }
+        Self {
+            file,
+            line,
+            module,
+            function,
+        }
     }
 
     /// Set the module path
@@ -202,7 +205,10 @@ impl ErrorContext {
             source: location.unwrap_or_default(),
             recovery_suggestions: vec![
                 RecoverySuggestion::new("Refresh the page".to_string())
-                    .with_explanation("This will reload the application and clear any temporary errors.".to_string())
+                    .with_explanation(
+                        "This will reload the application and clear any temporary errors."
+                            .to_string(),
+                    )
                     .automatic(),
             ],
             metadata: HashMap::new(),
@@ -364,15 +370,17 @@ impl ErrorContextBuilder {
 
     /// Add a recovery suggestion
     pub fn suggestion(mut self, action: String) -> Self {
-        self.context.recovery_suggestions.push(RecoverySuggestion::new(action));
+        self.context
+            .recovery_suggestions
+            .push(RecoverySuggestion::new(action));
         self
     }
 
     /// Add a recovery suggestion with explanation
     pub fn suggestion_with_explanation(mut self, action: String, explanation: String) -> Self {
-        self.context.recovery_suggestions.push(
-            RecoverySuggestion::new(action).with_explanation(explanation)
-        );
+        self.context
+            .recovery_suggestions
+            .push(RecoverySuggestion::new(action).with_explanation(explanation));
         self
     }
 
@@ -466,7 +474,11 @@ mod tests {
         }));
         let _ = std::panic::catch_unwind(|| std::panic::panic_any(message.to_string()));
         std::panic::set_hook(previous);
-        let context = captured.lock().unwrap().take().expect("hook captured panic");
+        let context = captured
+            .lock()
+            .unwrap()
+            .take()
+            .expect("hook captured panic");
 
         assert_eq!(context.severity, ErrorSeverity::Critical);
         assert_eq!(context.technical_details, Some(format!("Panic: {}", message)));

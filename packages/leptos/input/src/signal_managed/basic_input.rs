@@ -1,13 +1,13 @@
 //! Basic Signal-Managed Input Component
-//! 
+//!
 //! This module contains the basic signal-managed input component with core functionality.
 
-use leptos::{ev::Event, prelude::*};
-use leptos_style::Style;
-use leptos::wasm_bindgen::JsCast;
-use leptos_shadcn_signal_management::*;
+use super::types::{INPUT_CLASS, INPUT_ERROR_CLASS, SignalManagedInputState};
 use crate::validation::{InputValidator, ValidationResult};
-use super::types::{SignalManagedInputState, INPUT_CLASS, INPUT_ERROR_CLASS};
+use leptos::wasm_bindgen::JsCast;
+use leptos::{ev::Event, prelude::*};
+use leptos_shadcn_signal_management::*;
+use leptos_style::Style;
 
 /// Signal-managed Input component
 #[component]
@@ -82,30 +82,32 @@ pub fn SignalManagedInput(
                 let input = target.unchecked_into::<web_sys::HtmlInputElement>();
                 let input_value = input.value();
                 callback.run(input_value.clone());
-                
+
                 // Update state atomically
                 input_state.update(|state| {
                     state.value = input_value.clone();
                     state.focus_count += 1;
                 });
-                
+
                 // Real-time validation
                 if let Some(validator) = &validator {
                     input_state.update(|state| {
                         state.is_validating = true;
                     });
-                    
+
                     let result = validator.validate(&input_value);
-                    
+
                     input_state.update(|state| {
                         state.validation_result = result.clone();
                         state.is_validating = false;
                         state.has_error = !result.is_valid;
                     });
                 }
-                
+
                 // Check memory pressure and perform cleanup if needed
-                if let Some(MemoryPressureLevel::High | MemoryPressureLevel::Critical) = memory_manager.detect_memory_pressure() {
+                if let Some(MemoryPressureLevel::High | MemoryPressureLevel::Critical) =
+                    memory_manager.detect_memory_pressure()
+                {
                     memory_manager.perform_automatic_cleanup();
                 }
             }
@@ -131,7 +133,7 @@ pub fn SignalManagedInput(
     let input_state_for_disabled = input_state.clone();
     let input_state_for_validation_display = input_state.clone();
     let input_state_for_performance = input_state.clone();
-    
+
     view! {
         <div class="signal-managed-input-container">
             <input
@@ -145,7 +147,7 @@ pub fn SignalManagedInput(
                 on:input=handle_input
                 on:focus=handle_focus
             />
-            
+
             // Validation display
             // An externally supplied `validation_error` takes precedence over the validator's message
             {move || {
@@ -165,12 +167,12 @@ pub fn SignalManagedInput(
                     _ => ().into_any(),
                 }
             }}
-            
+
             // Performance monitoring (only in development)
             #[cfg(debug_assertions)]
             <div class="performance-monitor text-xs text-muted-foreground mt-1">
-                {move || format!("Focus count: {}, Status: {}", 
-                    input_state_for_performance.get().focus_count, 
+                {move || format!("Focus count: {}, Status: {}",
+                    input_state_for_performance.get().focus_count,
                     validation_status.get()
                 )}
             </div>

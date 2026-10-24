@@ -1,10 +1,8 @@
 #[cfg(test)]
 #[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod tests {
+    use crate::default::{ResizableHandle, ResizablePanel, ResizablePanelGroup, ResizeDirection};
     use leptos::prelude::*;
-    use crate::default::{
-        ResizablePanelGroup, ResizablePanel, ResizableHandle, ResizeDirection
-    };
 
     #[test]
     fn test_resizable_panel_group_creation() {

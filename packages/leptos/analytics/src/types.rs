@@ -88,8 +88,7 @@ impl ComponentStats {
 }
 
 /// Analytics storage configuration
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum StorageMode {
     /// Store data in memory only (lost on page refresh)
     #[default]
@@ -99,7 +98,6 @@ pub enum StorageMode {
     /// Store in both memory and localStorage
     Hybrid,
 }
-
 
 /// Analytics configuration options
 #[derive(Debug, Clone, PartialEq)]

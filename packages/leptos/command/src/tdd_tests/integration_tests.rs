@@ -1,8 +1,8 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod integration_tests {
-    use leptos::prelude::*;
     use crate::*;
+    use leptos::prelude::*;
 
     #[test]
     fn test_command_form_integration() {
@@ -96,8 +96,8 @@ mod integration_tests {
         _owner.set();
         let _command_view = view! {
             <Command>
-                <CommandInput 
-                    placeholder=MaybeProp::from("Search...") 
+                <CommandInput
+                    placeholder=MaybeProp::from("Search...")
                 />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
@@ -140,11 +140,11 @@ mod integration_tests {
         _owner.set();
         let value_signal = RwSignal::new("".to_string());
         let disabled_signal = RwSignal::new(false);
-        
+
         let _command_view = view! {
             <Command value=MaybeProp::from(value_signal)>
-                <CommandInput 
-                    placeholder=MaybeProp::from("Search...") 
+                <CommandInput
+                    placeholder=MaybeProp::from("Search...")
                 />
                 <CommandList>
                     <CommandEmpty>"No results found."</CommandEmpty>
@@ -156,11 +156,11 @@ mod integration_tests {
                 </CommandList>
             </Command>
         };
-        
+
         // Test signal integration
         value_signal.set("test".to_string());
         assert_eq!(value_signal.get(), "test");
-        
+
         disabled_signal.set(true);
         assert!(disabled_signal.get());
     }
@@ -174,7 +174,7 @@ mod integration_tests {
         let callback = Callback::new(move |_value: String| {
             // Test callback integration
         });
-        
+
         let _command_view = view! {
             <Command on_value_change=callback>
                 <CommandInput placeholder=MaybeProp::from("Search...")/>
@@ -671,9 +671,8 @@ mod integration_tests {
         let _owner = Owner::new();
         _owner.set();
         // Test: Multiple commands don't cause memory leaks
-        let commands: Vec<RwSignal<String>> = (0..10)
-            .map(|_| RwSignal::new("".to_string()))
-            .collect();
+        let commands: Vec<RwSignal<String>> =
+            (0..10).map(|_| RwSignal::new("".to_string())).collect();
 
         let _view = view! {
             <div>

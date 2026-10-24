@@ -78,7 +78,10 @@ fn context_api_returns_ids_and_dismisses() {
         let sticky = ctx.toast(
             ToastKind::Info,
             "sticky",
-            ToastOptions { description: None, duration_ms: Some(0) },
+            ToastOptions {
+                description: None,
+                duration_ms: Some(0),
+            },
         );
         assert_eq!(ctx.queue.get_untracked().get(sticky).unwrap().duration_ms, None);
         let _ = (e, i, m);
@@ -129,13 +132,19 @@ fn context_tick_auto_dismisses_with_mock_clock() {
         let quick = ctx.toast(
             ToastKind::Success,
             "quick",
-            ToastOptions { description: None, duration_ms: Some(100) },
+            ToastOptions {
+                description: None,
+                duration_ms: Some(100),
+            },
         );
         let default = ctx.info("default");
         let sticky = ctx.toast(
             ToastKind::Info,
             "sticky",
-            ToastOptions { description: None, duration_ms: Some(0) },
+            ToastOptions {
+                description: None,
+                duration_ms: Some(0),
+            },
         );
         let t1 = real_now_ms();
         // expires_at is measured from real now, not from the epoch-0 logical clock.

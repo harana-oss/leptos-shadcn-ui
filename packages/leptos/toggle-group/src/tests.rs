@@ -23,7 +23,12 @@ fn single_toggle_off_clears() {
 #[test]
 fn single_sequence() {
     let mut v = Vec::new();
-    for (item, expect) in [("a", vec!["a"]), ("b", vec!["b"]), ("b", vec![]), ("c", vec!["c"])] {
+    for (item, expect) in [
+        ("a", vec!["a"]),
+        ("b", vec!["b"]),
+        ("b", vec![]),
+        ("c", vec!["c"]),
+    ] {
         v = toggle_value(Single, &v, item);
         assert_eq!(v, s(&expect));
     }
@@ -86,7 +91,11 @@ fn enum_parsing() {
     for t in [Single, Multiple] {
         assert_eq!(ToggleGroupType::parse(t.as_str()), t);
     }
-    for sz in [ToggleGroupSize::Default, ToggleGroupSize::Sm, ToggleGroupSize::Lg] {
+    for sz in [
+        ToggleGroupSize::Default,
+        ToggleGroupSize::Sm,
+        ToggleGroupSize::Lg,
+    ] {
         assert_eq!(ToggleGroupSize::parse(sz.as_str()), sz);
     }
 }

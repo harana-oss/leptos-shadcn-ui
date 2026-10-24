@@ -1,19 +1,19 @@
 //! # tailwind-rs-core
-//! 
+//!
 //! Type-safe Tailwind CSS class generation for Rust web frameworks.
-//! 
+//!
 //! This crate provides compile-time validation and type-safe generation of Tailwind CSS classes,
 //! with support for dynamic styling, responsive design, and theme systems.
-//! 
+//!
 //! ## Features
-//! 
+//!
 //! - 🛡️ **Type Safety**: Compile-time validation of Tailwind classes
 //! - ⚡ **Performance**: Optimized class generation and merging
 //! - 🎨 **Dynamic Styling**: Runtime class generation with type safety
 //! - 📱 **Responsive**: Type-safe responsive design utilities
 //! - 🎭 **Theming**: Built-in theme and variant system
 //! - 🔧 **Framework Agnostic**: Works with any Rust web framework
-//! 
+//!
 //! ## Quick Start
 //!
 //! ```rust
@@ -91,9 +91,9 @@ pub mod utils {
 
 // Re-export specific items to avoid conflicts
 pub use colors::utils as color_utils;
-pub use responsive::utils as responsive_utils;
 pub use responsive::media_queries;
 pub use responsive::patterns;
+pub use responsive::utils as responsive_utils;
 
 // Re-export macros (when available)
 // #[cfg(feature = "macros")]

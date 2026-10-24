@@ -1,7 +1,7 @@
 #[cfg(test)]
 #[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod state_management_tests {
-    
+
     use leptos::prelude::*;
 
     // ===== STATE MANAGEMENT TESTS =====
@@ -11,10 +11,10 @@ mod state_management_tests {
     fn test_radio_group_item_selection() {
         // Test radio group item selection
         let selected_value = RwSignal::new("option1".to_string());
-        
+
         // Test initial selection
         assert_eq!(selected_value.get(), "option1", "Initial value should be option1");
-        
+
         // Simulate selection change
         selected_value.set("option2".to_string());
         assert_eq!(selected_value.get(), "option2", "Value should change to option2");
@@ -24,10 +24,10 @@ mod state_management_tests {
     fn test_radio_group_disabled_state() {
         // Test disabled radio group
         let disabled_signal = RwSignal::new(true);
-        
+
         // Test disabled state
         assert!(disabled_signal.get(), "RadioGroup should be disabled");
-        
+
         disabled_signal.set(false);
         assert!(!disabled_signal.get(), "RadioGroup should be enabled");
     }
@@ -36,10 +36,10 @@ mod state_management_tests {
     fn test_radio_group_item_disabled() {
         // Test individual radio group item disabled
         let item_disabled = RwSignal::new(true);
-        
+
         // Test item disabled state
         assert!(item_disabled.get(), "RadioGroupItem should be disabled");
-        
+
         item_disabled.set(false);
         assert!(!item_disabled.get(), "RadioGroupItem should be enabled");
     }
@@ -48,14 +48,14 @@ mod state_management_tests {
     fn test_radio_group_value_management() {
         // Test value management
         let value_signal = RwSignal::new("initial-value".to_string());
-        
+
         // Test initial value
         assert_eq!(value_signal.get(), "initial-value");
-        
+
         // Test value change
         value_signal.set("updated-value".to_string());
         assert_eq!(value_signal.get(), "updated-value");
-        
+
         // Test value reset
         value_signal.set("".to_string());
         assert_eq!(value_signal.get(), "");
@@ -66,19 +66,19 @@ mod state_management_tests {
         // Test callback handling
         let callback_called = RwSignal::new(false);
         let callback_value = RwSignal::new("".to_string());
-        
+
         let callback = Callback::new(move |value: String| {
             callback_called.set(true);
             callback_value.set(value);
         });
-        
+
         // Test initial callback state
         assert!(!callback_called.get());
         assert_eq!(callback_value.get(), "");
-        
+
         // Test callback execution
         callback.run("callback-value".to_string());
-        
+
         assert!(callback_called.get());
         assert_eq!(callback_value.get(), "callback-value");
     }
@@ -89,17 +89,17 @@ mod state_management_tests {
         let context_value = RwSignal::new("context-value".to_string());
         let context_disabled = RwSignal::new(false);
         let context_required = RwSignal::new(true);
-        
+
         // Test initial context state
         assert_eq!(context_value.get(), "context-value");
         assert!(!context_disabled.get());
         assert!(context_required.get());
-        
+
         // Test context updates
         context_value.set("updated-context".to_string());
         context_disabled.set(true);
         context_required.set(false);
-        
+
         assert_eq!(context_value.get(), "updated-context");
         assert!(context_disabled.get());
         assert!(!context_required.get());
@@ -112,19 +112,19 @@ mod state_management_tests {
         let form_disabled = RwSignal::new(false);
         let form_required = RwSignal::new(true);
         let form_valid = RwSignal::new(true);
-        
+
         // Test initial form state
         assert_eq!(form_value.get(), "form-value");
         assert!(!form_disabled.get());
         assert!(form_required.get());
         assert!(form_valid.get());
-        
+
         // Test form state changes
         form_value.set("updated-form-value".to_string());
         form_disabled.set(true);
         form_required.set(false);
         form_valid.set(false);
-        
+
         assert_eq!(form_value.get(), "updated-form-value");
         assert!(form_disabled.get());
         assert!(!form_required.get());
@@ -137,21 +137,21 @@ mod state_management_tests {
         let value = RwSignal::new("".to_string());
         let required = RwSignal::new(true);
         let valid = RwSignal::new(false);
-        
+
         // Test initial validation state
         assert_eq!(value.get(), "");
         assert!(required.get());
         assert!(!valid.get());
-        
+
         // Test validation with empty value
         let is_valid = !value.get().is_empty() || !required.get();
         assert!(!is_valid);
-        
+
         // Test validation with value
         value.set("valid-value".to_string());
         let is_valid = !value.get().is_empty() || !required.get();
         assert!(is_valid);
-        
+
         // Test validation without required
         required.set(false);
         let is_valid = !value.get().is_empty() || !required.get();
@@ -163,22 +163,26 @@ mod state_management_tests {
         // Test keyboard navigation
         let focused_item = RwSignal::new(0);
         let items_count = 3;
-        
+
         // Test initial focus
         assert_eq!(focused_item.get(), 0);
-        
+
         // Test focus next
         focused_item.update(|index| {
             *index = (*index + 1) % items_count;
         });
         assert_eq!(focused_item.get(), 1);
-        
+
         // Test focus previous
         focused_item.update(|index| {
-            *index = if *index == 0 { items_count - 1 } else { *index - 1 };
+            *index = if *index == 0 {
+                items_count - 1
+            } else {
+                *index - 1
+            };
         });
         assert_eq!(focused_item.get(), 0);
-        
+
         // Test focus wrap around
         focused_item.set(items_count - 1);
         focused_item.update(|index| {
@@ -193,17 +197,17 @@ mod state_management_tests {
         let value = RwSignal::new("option1".to_string());
         let disabled = RwSignal::new(false);
         let required = RwSignal::new(true);
-        
+
         // Test initial state consistency
         assert_eq!(value.get(), "option1");
         assert!(!disabled.get());
         assert!(required.get());
-        
+
         // Test state consistency after changes
         value.set("option2".to_string());
         disabled.set(true);
         required.set(false);
-        
+
         assert_eq!(value.get(), "option2");
         assert!(disabled.get());
         assert!(!required.get());
@@ -214,15 +218,15 @@ mod state_management_tests {
         // Test multiple radio group instances
         let group1_value = RwSignal::new("group1-option1".to_string());
         let group2_value = RwSignal::new("group2-option1".to_string());
-        
+
         // Test independent state management
         assert_eq!(group1_value.get(), "group1-option1");
         assert_eq!(group2_value.get(), "group2-option1");
-        
+
         // Test independent updates
         group1_value.set("group1-option2".to_string());
         group2_value.set("group2-option2".to_string());
-        
+
         assert_eq!(group1_value.get(), "group1-option2");
         assert_eq!(group2_value.get(), "group2-option2");
     }
@@ -234,19 +238,19 @@ mod state_management_tests {
         let keydown_handled = RwSignal::new(false);
         let focus_handled = RwSignal::new(false);
         let blur_handled = RwSignal::new(false);
-        
+
         // Test initial event state
         assert!(!click_handled.get());
         assert!(!keydown_handled.get());
         assert!(!focus_handled.get());
         assert!(!blur_handled.get());
-        
+
         // Test event handling
         click_handled.set(true);
         keydown_handled.set(true);
         focus_handled.set(true);
         blur_handled.set(true);
-        
+
         assert!(click_handled.get());
         assert!(keydown_handled.get());
         assert!(focus_handled.get());
@@ -263,7 +267,7 @@ mod state_management_tests {
         let has_aria_invalid = false;
         let has_role = true;
         let has_tabindex = true;
-        
+
         // Test accessibility attributes
         assert!(has_aria_label);
         assert!(has_aria_describedby);

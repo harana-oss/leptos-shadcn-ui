@@ -1,13 +1,12 @@
 //! System requirements tests for the Resizable component
-//! 
+//!
 //! This module contains tests for system requirements and basic functionality
 //! for the Resizable component.
 
-
 #[cfg(test)]
 mod tests {
-    use leptos::prelude::*;
     use crate::default::{ResizableHandle, ResizablePanel, ResizablePanelGroup};
+    use leptos::prelude::*;
 
     #[test]
     fn test_resizable_panel_system_requirements() {
@@ -23,7 +22,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -38,7 +37,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -53,7 +52,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -68,7 +67,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -83,7 +82,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -98,7 +97,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -113,7 +112,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -128,7 +127,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -143,7 +142,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -152,7 +151,7 @@ mod tests {
     fn test_resizable_state_management() {
         // Test resizable state management
         let (panel_size, _set_panel_size) = signal(50.0);
-        
+
         let resizable_view = view! {
             <ResizablePanelGroup>
                 <ResizablePanel>
@@ -160,7 +159,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -169,7 +168,7 @@ mod tests {
     fn test_resizable_event_handling() {
         // Test resizable event handling
         let (event_count, _set_event_count) = signal(0);
-        
+
         let resizable_view = view! {
             <ResizablePanelGroup>
                 <ResizablePanel>
@@ -177,7 +176,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -192,7 +191,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -207,7 +206,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -222,7 +221,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -237,7 +236,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -252,7 +251,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -267,7 +266,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -282,7 +281,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -297,7 +296,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -312,7 +311,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -327,7 +326,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -342,7 +341,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -357,7 +356,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -372,7 +371,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -387,7 +386,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -402,7 +401,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -417,7 +416,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -432,7 +431,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -447,7 +446,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -462,7 +461,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -477,7 +476,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -492,7 +491,7 @@ mod tests {
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }
@@ -502,17 +501,17 @@ mod tests {
         // Test resizable comprehensive system requirements
         let (system_ready, _set_system_ready) = signal(false);
         let (requirements_met, _set_requirements_met) = signal(false);
-        
+
         let resizable_view = view! {
             <ResizablePanelGroup>
                 <ResizablePanel>
-                    {move || format!("System ready: {}, Requirements met: {}", 
-                        system_ready.get(), 
+                    {move || format!("System ready: {}, Requirements met: {}",
+                        system_ready.get(),
                         requirements_met.get())}
                 </ResizablePanel>
             </ResizablePanelGroup>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = resizable_view.into_view();
     }

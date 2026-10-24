@@ -19,7 +19,8 @@ impl DependencyContractTester {
 
     /// Test that main package uses workspace paths instead of published versions
     pub fn test_main_package_uses_workspace_paths(&self) -> Result<(), ContractError> {
-        let main_cargo_path = format!("{}/packages/leptos-shadcn-ui/Cargo.toml", self.workspace_root);
+        let main_cargo_path =
+            format!("{}/packages/leptos-shadcn-ui/Cargo.toml", self.workspace_root);
 
         if !Path::new(&main_cargo_path).exists() {
             return Err(ContractError::ValidationError {
@@ -45,7 +46,8 @@ impl DependencyContractTester {
 
     /// Test that no published dependencies conflict with workspace
     pub fn test_no_published_version_conflicts(&self) -> Result<(), ContractError> {
-        let main_cargo_path = format!("{}/packages/leptos-shadcn-ui/Cargo.toml", self.workspace_root);
+        let main_cargo_path =
+            format!("{}/packages/leptos-shadcn-ui/Cargo.toml", self.workspace_root);
         let manifest = std::fs::read_to_string(&main_cargo_path).map_err(|err| {
             ContractError::ValidationError {
                 message: format!("Failed to read {}: {}", main_cargo_path, err),
@@ -57,7 +59,9 @@ impl DependencyContractTester {
             .lines()
             .map(str::trim)
             .filter(|line| line.starts_with("leptos-shadcn-"))
-            .filter(|line| line.contains("version") && !line.contains("path") && !line.contains("workspace"))
+            .filter(|line| {
+                line.contains("version") && !line.contains("path") && !line.contains("workspace")
+            })
             .collect();
 
         if !problematic_deps.is_empty() {

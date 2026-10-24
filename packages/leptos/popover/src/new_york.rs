@@ -25,20 +25,18 @@ pub fn Popover(
     #[prop(into, optional)] style: Signal<Style>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    crate::default::Popover(
-        crate::default::PopoverProps {
-            variant,
-            size,
-            on_click,
-            disabled,
-            open,
-            on_open_change,
-            class,
-            id,
-            style,
-            children,
-        },
-    )
+    crate::default::Popover(crate::default::PopoverProps {
+        variant,
+        size,
+        on_click,
+        disabled,
+        open,
+        on_open_change,
+        class,
+        id,
+        style,
+        children,
+    })
 }
 
 #[component]

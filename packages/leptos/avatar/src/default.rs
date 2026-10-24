@@ -3,7 +3,8 @@ use leptos_style::Style;
 
 const AVATAR_CLASS: &str = "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full";
 const AVATAR_IMAGE_CLASS: &str = "aspect-square h-full w-full";
-const AVATAR_FALLBACK_CLASS: &str = "flex h-full w-full items-center justify-center rounded-full bg-muted";
+const AVATAR_FALLBACK_CLASS: &str =
+    "flex h-full w-full items-center justify-center rounded-full bg-muted";
 const AVATAR_GROUP_CLASS: &str = "flex -space-x-2";
 
 #[component]
@@ -13,9 +14,8 @@ pub fn Avatar(
     #[prop(into, optional)] style: Signal<Style>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let computed_class = Signal::derive(move || {
-        format!("{} {}", AVATAR_CLASS, class.get().unwrap_or_default())
-    });
+    let computed_class =
+        Signal::derive(move || format!("{} {}", AVATAR_CLASS, class.get().unwrap_or_default()));
 
     view! {
         <div

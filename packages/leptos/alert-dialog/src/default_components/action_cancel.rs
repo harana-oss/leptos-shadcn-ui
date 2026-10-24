@@ -1,5 +1,5 @@
 //! AlertDialog action and cancel components
-//! 
+//!
 //! This module contains the AlertDialogAction and AlertDialogCancel
 //! components for dialog actions.
 

@@ -1,5 +1,5 @@
-use leptos::prelude::*;
 use crate::*;
+use leptos::prelude::*;
 
 #[cfg(test)]
 #[allow(clippy::module_inception)] // test module layout mirrors the file name
@@ -12,7 +12,7 @@ mod state_management_tests {
     #[test]
     fn test_dropdown_menu_open_state() {
         let open_state = RwSignal::new(false);
-        
+
         let _dropdown_view = view! {
             <DropdownMenu open=open_state>
                 <DropdownMenuTrigger>
@@ -25,10 +25,10 @@ mod state_management_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test initial state
         assert!(!open_state.get());
-        
+
         // Test state change
         open_state.set(true);
         assert!(open_state.get());
@@ -37,7 +37,7 @@ mod state_management_tests {
     #[test]
     fn test_dropdown_menu_value_state() {
         let value_state = RwSignal::new("".to_string());
-        
+
         let _dropdown_view = view! {
             <DropdownMenu value=value_state>
                 <DropdownMenuTrigger>
@@ -53,10 +53,10 @@ mod state_management_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test initial state
         assert_eq!(value_state.get(), "");
-        
+
         // Test state change
         value_state.set("option1".to_string());
         assert_eq!(value_state.get(), "option1");
@@ -65,7 +65,7 @@ mod state_management_tests {
     #[test]
     fn test_dropdown_menu_disabled_state() {
         let disabled_state = RwSignal::new(false);
-        
+
         let _dropdown_view = view! {
             <DropdownMenu disabled=disabled_state>
                 <DropdownMenuTrigger>
@@ -78,10 +78,10 @@ mod state_management_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test initial state
         assert!(!disabled_state.get());
-        
+
         // Test disabled state
         disabled_state.set(true);
         assert!(disabled_state.get());
@@ -91,12 +91,12 @@ mod state_management_tests {
     fn test_dropdown_menu_callback_handling() {
         let callback_called = RwSignal::new(false);
         let callback_value = RwSignal::new("".to_string());
-        
+
         let callback = Callback::new(move |value: String| {
             callback_called.set(true);
             callback_value.set(value);
         });
-        
+
         let _dropdown_view = view! {
             <DropdownMenu on_select=Some(callback)>
                 <DropdownMenuTrigger>
@@ -109,11 +109,11 @@ mod state_management_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test initial state
         assert!(!callback_called.get());
         assert_eq!(callback_value.get(), "");
-        
+
         // Simulate callback execution
         callback.run("test-value".to_string());
         assert!(callback_called.get());
@@ -123,7 +123,7 @@ mod state_management_tests {
     #[test]
     fn test_dropdown_menu_context_management() {
         let context_value = RwSignal::new("context-value".to_string());
-        
+
         let _dropdown_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -136,10 +136,10 @@ mod state_management_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test context value
         assert_eq!(context_value.get(), "context-value");
-        
+
         // Test context value change
         context_value.set("new-context-value".to_string());
         assert_eq!(context_value.get(), "new-context-value");
@@ -148,7 +148,7 @@ mod state_management_tests {
     #[test]
     fn test_dropdown_menu_animation_state() {
         let animation_state = RwSignal::new(false);
-        
+
         let _dropdown_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -163,10 +163,10 @@ mod state_management_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test initial animation state
         assert!(!animation_state.get());
-        
+
         // Test animation state change
         animation_state.set(true);
         assert!(animation_state.get());
@@ -175,7 +175,7 @@ mod state_management_tests {
     #[test]
     fn test_dropdown_menu_focus_state() {
         let focus_state = RwSignal::new(false);
-        
+
         let _dropdown_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger
@@ -191,14 +191,14 @@ mod state_management_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test initial focus state
         assert!(!focus_state.get());
-        
+
         // Test focus state change
         focus_state.set(true);
         assert!(focus_state.get());
-        
+
         focus_state.set(false);
         assert!(!focus_state.get());
     }
@@ -206,7 +206,7 @@ mod state_management_tests {
     #[test]
     fn test_dropdown_menu_hover_state() {
         let hover_state = RwSignal::new(false);
-        
+
         let _dropdown_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger
@@ -222,14 +222,14 @@ mod state_management_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test initial hover state
         assert!(!hover_state.get());
-        
+
         // Test hover state change
         hover_state.set(true);
         assert!(hover_state.get());
-        
+
         hover_state.set(false);
         assert!(!hover_state.get());
     }
@@ -237,7 +237,7 @@ mod state_management_tests {
     #[test]
     fn test_dropdown_menu_selection_state() {
         let selection_state = RwSignal::new("".to_string());
-        
+
         let _dropdown_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -259,14 +259,14 @@ mod state_management_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test initial selection state
         assert_eq!(selection_state.get(), "");
-        
+
         // Test selection state change
         selection_state.set("item1".to_string());
         assert_eq!(selection_state.get(), "item1");
-        
+
         selection_state.set("item2".to_string());
         assert_eq!(selection_state.get(), "item2");
     }
@@ -276,7 +276,7 @@ mod state_management_tests {
         let open_state = RwSignal::new(false);
         let value_state = RwSignal::new("".to_string());
         let disabled_state = RwSignal::new(false);
-        
+
         let _dropdown_view = view! {
             <DropdownMenu
                 open=open_state
@@ -296,17 +296,17 @@ mod state_management_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test initial states
         assert!(!open_state.get());
         assert_eq!(value_state.get(), "");
         assert!(!disabled_state.get());
-        
+
         // Test state changes
         open_state.set(true);
         value_state.set("option1".to_string());
         disabled_state.set(true);
-        
+
         assert!(open_state.get());
         assert_eq!(value_state.get(), "option1");
         assert!(disabled_state.get());
@@ -315,7 +315,7 @@ mod state_management_tests {
     #[test]
     fn test_dropdown_menu_state_persistence() {
         let persistent_state = RwSignal::new("persistent".to_string());
-        
+
         let _dropdown_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -328,10 +328,10 @@ mod state_management_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test state persistence
         assert_eq!(persistent_state.get(), "persistent");
-        
+
         // Test state change persistence
         persistent_state.set("new-persistent".to_string());
         assert_eq!(persistent_state.get(), "new-persistent");
@@ -341,7 +341,7 @@ mod state_management_tests {
     fn test_dropdown_menu_state_validation() {
         let valid_state = RwSignal::new(true);
         let error_state = RwSignal::new("".to_string());
-        
+
         let _dropdown_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -356,15 +356,15 @@ mod state_management_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test initial validation state
         assert!(valid_state.get());
         assert_eq!(error_state.get(), "");
-        
+
         // Test validation state change
         valid_state.set(false);
         error_state.set("Validation Error".to_string());
-        
+
         assert!(!valid_state.get());
         assert_eq!(error_state.get(), "Validation Error");
     }
@@ -372,13 +372,13 @@ mod state_management_tests {
     #[test]
     fn test_dropdown_menu_state_performance() {
         let performance_state = RwSignal::new(0);
-        
+
         let start = std::time::Instant::now();
-        
+
         for _ in 0..1000 {
             performance_state.set(performance_state.get() + 1);
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 10, "State updates should be performant");
         assert_eq!(performance_state.get(), 1000);
@@ -387,11 +387,11 @@ mod state_management_tests {
     #[test]
     fn test_dropdown_menu_state_memory() {
         let memory_state = RwSignal::new("memory-test".to_string());
-        
+
         // Test memory usage
         let size = std::mem::size_of_val(&memory_state);
         assert!(size < 1024, "State should not cause excessive memory usage");
-        
+
         // Test state value
         assert_eq!(memory_state.get(), "memory-test");
     }

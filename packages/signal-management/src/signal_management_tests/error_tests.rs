@@ -8,28 +8,28 @@ fn test_signal_management_error_types() {
     let cleanup_error = SignalManagementError::CleanupError("Test cleanup error".to_string(), None);
     let memory_error = SignalManagementError::MemoryError("Test memory error".to_string(), None);
     let batch_error = SignalManagementError::BatchError("Test batch error".to_string(), None);
-    
+
     // Test error type matching
     match signal_error {
         SignalManagementError::SignalError(_, _) => {}
         _ => panic!("Expected SignalError"),
     }
-    
+
     match memo_error {
         SignalManagementError::MemoError(_, _) => {}
         _ => panic!("Expected MemoError"),
     }
-    
+
     match cleanup_error {
         SignalManagementError::CleanupError(_, _) => {}
         _ => panic!("Expected CleanupError"),
     }
-    
+
     match memory_error {
         SignalManagementError::MemoryError(_, _) => {}
         _ => panic!("Expected MemoryError"),
     }
-    
+
     match batch_error {
         SignalManagementError::BatchError(_, _) => {}
         _ => panic!("Expected BatchError"),
@@ -45,28 +45,28 @@ fn test_signal_management_error_messages() {
     let cleanup_error = SignalManagementError::CleanupError(error_message.to_string(), None);
     let memory_error = SignalManagementError::MemoryError(error_message.to_string(), None);
     let batch_error = SignalManagementError::BatchError(error_message.to_string(), None);
-    
+
     // Test error message extraction
     match signal_error {
         SignalManagementError::SignalError(msg, _) => assert_eq!(msg, error_message),
         _ => panic!("Expected SignalError"),
     }
-    
+
     match memo_error {
         SignalManagementError::MemoError(msg, _) => assert_eq!(msg, error_message),
         _ => panic!("Expected MemoError"),
     }
-    
+
     match cleanup_error {
         SignalManagementError::CleanupError(msg, _) => assert_eq!(msg, error_message),
         _ => panic!("Expected CleanupError"),
     }
-    
+
     match memory_error {
         SignalManagementError::MemoryError(msg, _) => assert_eq!(msg, error_message),
         _ => panic!("Expected MemoryError"),
     }
-    
+
     match batch_error {
         SignalManagementError::BatchError(msg, _) => assert_eq!(msg, error_message),
         _ => panic!("Expected BatchError"),
@@ -78,13 +78,16 @@ fn test_signal_management_error_clone() {
     // Test error cloning
     let original_error = SignalManagementError::SignalError("Test error".to_string(), None);
     let cloned_error = original_error.clone();
-    
+
     // Test cloning
     assert_eq!(original_error, cloned_error);
-    
+
     // Test that cloned error has same message
     match (original_error, cloned_error) {
-        (SignalManagementError::SignalError(msg1, _), SignalManagementError::SignalError(msg2, _)) => {
+        (
+            SignalManagementError::SignalError(msg1, _),
+            SignalManagementError::SignalError(msg2, _),
+        ) => {
             assert_eq!(msg1, msg2);
         }
         _ => panic!("Expected SignalError for both"),
@@ -96,7 +99,7 @@ fn test_signal_management_error_debug() {
     // Test error debug formatting
     let error = SignalManagementError::SignalError("Test error".to_string(), None);
     let debug_str = format!("{:?}", error);
-    
+
     // Test debug string contains error type and message
     assert!(debug_str.contains("SignalError"));
     assert!(debug_str.contains("Test error"));
@@ -109,13 +112,13 @@ fn test_signal_management_error_partial_eq() {
     let error2 = SignalManagementError::SignalError("Test error".to_string(), None);
     let error3 = SignalManagementError::SignalError("Different error".to_string(), None);
     let error4 = SignalManagementError::MemoError("Test error".to_string(), None);
-    
+
     // Test equal errors
     assert_eq!(error1, error2);
-    
+
     // Test different messages
     assert_ne!(error1, error3);
-    
+
     // Test different types
     assert_ne!(error1, error4);
 }
@@ -125,7 +128,7 @@ fn test_signal_management_error_display() {
     // Test error display formatting
     let error = SignalManagementError::SignalError("Test error".to_string(), None);
     let display_str = format!("{}", error);
-    
+
     // Test display string contains error message
     assert!(display_str.contains("Test error"));
 }
@@ -133,12 +136,14 @@ fn test_signal_management_error_display() {
 #[test]
 fn test_signal_management_error_all_types() {
     // Test all error types
-    let error_types = [SignalManagementError::SignalError("signal error".to_string(), None),
+    let error_types = [
+        SignalManagementError::SignalError("signal error".to_string(), None),
         SignalManagementError::MemoError("memo error".to_string(), None),
         SignalManagementError::CleanupError("cleanup error".to_string(), None),
         SignalManagementError::MemoryError("memory error".to_string(), None),
-        SignalManagementError::BatchError("batch error".to_string(), None)];
-    
+        SignalManagementError::BatchError("batch error".to_string(), None),
+    ];
+
     // Test that all error types are unique
     for (i, error1) in error_types.iter().enumerate() {
         for (j, error2) in error_types.iter().enumerate() {
@@ -156,17 +161,17 @@ fn test_signal_management_error_long_messages() {
     // Test error with long message
     let long_message = "This is a very long error message that contains multiple words and should be handled properly by the error system without any issues or truncation";
     let error = SignalManagementError::SignalError(long_message.to_string(), None);
-    
+
     // Test error message is preserved
     match &error {
         SignalManagementError::SignalError(msg, _) => assert_eq!(msg, long_message),
         _ => panic!("Expected SignalError"),
     }
-    
+
     // Test debug formatting with long message
     let debug_str = format!("{:?}", error);
     assert!(debug_str.contains(long_message));
-    
+
     // Test display formatting with long message
     let display_str = format!("{}", error);
     assert!(display_str.contains(long_message));
@@ -177,17 +182,17 @@ fn test_signal_management_error_special_characters() {
     // Test error with special characters
     let special_message = "Error with special chars: !@#$%^&*()_+-=[]{}|;':\",./<>?";
     let error = SignalManagementError::SignalError(special_message.to_string(), None);
-    
+
     // Test error message is preserved
     match &error {
         SignalManagementError::SignalError(msg, _) => assert_eq!(msg, special_message),
         _ => panic!("Expected SignalError"),
     }
-    
+
     // Test debug formatting with special characters
     let debug_str = format!("{:?}", error);
     assert!(debug_str.contains(&format!("{:?}", special_message)));
-    
+
     // Test display formatting with special characters
     let display_str = format!("{}", error);
     assert!(display_str.contains(special_message));
@@ -198,17 +203,17 @@ fn test_signal_management_error_unicode() {
     // Test error with unicode characters
     let unicode_message = "Error with unicode: Hello 世界 🌍";
     let error = SignalManagementError::SignalError(unicode_message.to_string(), None);
-    
+
     // Test error message is preserved
     match &error {
         SignalManagementError::SignalError(msg, _) => assert_eq!(msg, unicode_message),
         _ => panic!("Expected SignalError"),
     }
-    
+
     // Test debug formatting with unicode
     let debug_str = format!("{:?}", error);
     assert!(debug_str.contains(unicode_message));
-    
+
     // Test display formatting with unicode
     let display_str = format!("{}", error);
     assert!(display_str.contains(unicode_message));
@@ -219,17 +224,17 @@ fn test_signal_management_error_empty_message() {
     // Test error with empty message
     let empty_message = "";
     let error = SignalManagementError::SignalError(empty_message.to_string(), None);
-    
+
     // Test error message is preserved
     match &error {
         SignalManagementError::SignalError(msg, _) => assert_eq!(msg, empty_message),
         _ => panic!("Expected SignalError"),
     }
-    
+
     // Test debug formatting with empty message
     let debug_str = format!("{:?}", error);
     assert!(debug_str.contains("SignalError"));
-    
+
     // Test display formatting with empty message
     let display_str = format!("{}", error);
     assert!(display_str.contains(""));

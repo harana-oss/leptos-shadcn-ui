@@ -159,7 +159,10 @@ impl SnapshotTester {
                         .iter()
                         .zip(b.children.iter())
                         .all(|(child_a, child_b)| {
-                            self.accessibility_trees_match(&Some(child_a.clone()), &Some(child_b.clone()))
+                            self.accessibility_trees_match(
+                                &Some(child_a.clone()),
+                                &Some(child_b.clone()),
+                            )
                         })
             }
             _ => false,
@@ -167,7 +170,11 @@ impl SnapshotTester {
     }
 
     /// Compute differences between snapshots
-    fn compute_differences(&self, actual: &Snapshot, expected: &Snapshot) -> Vec<SnapshotDifference> {
+    fn compute_differences(
+        &self,
+        actual: &Snapshot,
+        expected: &Snapshot,
+    ) -> Vec<SnapshotDifference> {
         let mut differences = Vec::new();
 
         if actual.html_output != expected.html_output {
@@ -208,27 +215,25 @@ impl SnapshotTester {
 
     /// Save a snapshot to disk
     fn save_snapshot(&self, snapshot: &Snapshot, path: &Path) {
-        let json = serde_json::to_string_pretty(snapshot)
-            .expect("Failed to serialize snapshot");
-        
+        let json = serde_json::to_string_pretty(snapshot).expect("Failed to serialize snapshot");
+
         fs::write(path, json)
             .unwrap_or_else(|e| panic!("Failed to write snapshot to {:?}: {}", path, e));
     }
 
     /// Load a snapshot from disk
     fn load_snapshot(&self, path: &Path) -> Result<Snapshot, String> {
-        let contents = fs::read_to_string(path)
-            .map_err(|e| format!("Failed to read snapshot file: {}", e))?;
-        
-        serde_json::from_str(&contents)
-            .map_err(|e| format!("Failed to parse snapshot JSON: {}", e))
+        let contents =
+            fs::read_to_string(path).map_err(|e| format!("Failed to read snapshot file: {}", e))?;
+
+        serde_json::from_str(&contents).map_err(|e| format!("Failed to parse snapshot JSON: {}", e))
     }
 
     /// Hash a string for comparison
     fn hash_string(&self, s: &str) -> String {
         use std::collections::hash_map::DefaultHasher;
         use std::hash::{Hash, Hasher};
-        
+
         let mut hasher = DefaultHasher::new();
         s.hash(&mut hasher);
         format!("{:x}", hasher.finish())
@@ -251,10 +256,22 @@ pub enum SnapshotTestResult {
 /// Types of differences that can occur between snapshots
 #[derive(Debug, Clone)]
 pub enum SnapshotDifference {
-    HtmlOutput { actual: String, expected: String },
-    CssClasses { actual: Vec<String>, expected: Vec<String> },
-    Attributes { actual: HashMap<String, String>, expected: HashMap<String, String> },
-    ChildrenCount { actual: usize, expected: usize },
+    HtmlOutput {
+        actual: String,
+        expected: String,
+    },
+    CssClasses {
+        actual: Vec<String>,
+        expected: Vec<String>,
+    },
+    Attributes {
+        actual: HashMap<String, String>,
+        expected: HashMap<String, String>,
+    },
+    ChildrenCount {
+        actual: usize,
+        expected: usize,
+    },
 }
 
 /// Macro for creating snapshot tests
@@ -264,25 +281,22 @@ macro_rules! snapshot_test {
         #[test]
         fn $test_name() {
             use $crate::snapshot_testing::SnapshotTester;
-            
+
             let tester = SnapshotTester::new("tests/snapshots");
-            let result = tester.test_component_snapshot(
-                stringify!($test_name),
-                $component,
-                $props_desc,
-            );
+            let result =
+                tester.test_component_snapshot(stringify!($test_name), $component, $props_desc);
 
             match result {
-                SnapshotTestResult::Passed => {},
+                SnapshotTestResult::Passed => {}
                 SnapshotTestResult::Updated => {
                     println!("Snapshot updated: {}", stringify!($test_name));
-                },
+                }
                 SnapshotTestResult::Failed { differences, .. } => {
                     panic!("Snapshot test failed: {:?}", differences);
-                },
+                }
                 SnapshotTestResult::Error(err) => {
                     panic!("Snapshot test error: {}", err);
-                },
+                }
             }
         }
     };
@@ -363,7 +377,7 @@ pub mod visual_regression {
             // 4. Return the snapshot metadata
 
             let screenshot_path = self.screenshots_dir.join(format!("{}.png", component_name));
-            
+
             // Mock screenshot creation
             std::fs::write(&screenshot_path, b"mock screenshot data")
                 .map_err(|e| format!("Failed to write screenshot: {}", e))?;
@@ -405,7 +419,7 @@ pub mod visual_regression {
 
             // Mock comparison - in reality, this would use image comparison libraries
             let difference_percentage = 0.0; // Mock: no difference
-            
+
             Ok(difference_percentage <= tolerance)
         }
     }
@@ -549,7 +563,7 @@ mod tests {
     fn test_snapshot_tester_creation() {
         let temp_dir = tempdir().unwrap();
         let tester = SnapshotTester::new(temp_dir.path());
-        
+
         assert_eq!(tester.snapshots_dir, temp_dir.path());
         assert!(temp_dir.path().exists());
     }
@@ -558,11 +572,11 @@ mod tests {
     fn test_hash_string() {
         let temp_dir = tempdir().unwrap();
         let tester = SnapshotTester::new(temp_dir.path());
-        
+
         let hash1 = tester.hash_string("test");
         let hash2 = tester.hash_string("test");
         let hash3 = tester.hash_string("different");
-        
+
         assert_eq!(hash1, hash2);
         assert_ne!(hash1, hash3);
     }

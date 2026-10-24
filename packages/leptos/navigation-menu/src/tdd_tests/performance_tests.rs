@@ -1,11 +1,13 @@
 //! Performance tests for the Navigation-menu component
-//! 
+//!
 //! This module contains tests for performance, callbacks, disabled states,
 //! custom styles, and complex content for the Navigation-menu component.
 
-use leptos::prelude::*;
 use crate::default::NavigationMenu;
-use crate::default::{NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger};
+use crate::default::{
+    NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger,
+};
+use leptos::prelude::*;
 
 #[cfg(test)]
 mod tests {
@@ -24,7 +26,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -45,7 +47,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -68,7 +70,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -86,7 +88,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -104,7 +106,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -116,12 +118,12 @@ mod tests {
             <NavigationMenu>
                 <NavigationMenuList>
                     <NavigationMenuItem>
-                        <NavigationMenuTrigger 
+                        <NavigationMenuTrigger
                             style="background-color: red; color: white;"
                         >
                             "Custom style menu"
                         </NavigationMenuTrigger>
-                        <NavigationMenuContent 
+                        <NavigationMenuContent
                             style="background-color: blue; color: white;"
                         >
                             "Custom style content"
@@ -130,7 +132,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -142,7 +144,7 @@ mod tests {
             <NavigationMenu>
                 <NavigationMenuList>
                     <NavigationMenuItem>
-                        <NavigationMenuTrigger 
+                        <NavigationMenuTrigger
                             class="custom-class"
                             id="custom-id"
                             style="background-color: red;"
@@ -150,7 +152,7 @@ mod tests {
                         >
                             "Combined props menu"
                         </NavigationMenuTrigger>
-                        <NavigationMenuContent 
+                        <NavigationMenuContent
                             class="custom-content-class"
                             id="custom-content-id"
                             style="background-color: blue;"
@@ -161,7 +163,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -186,7 +188,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -210,7 +212,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -231,7 +233,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -258,7 +260,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -283,7 +285,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -308,7 +310,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -326,7 +328,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -344,7 +346,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -362,7 +364,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -383,7 +385,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -404,7 +406,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -425,7 +427,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -443,7 +445,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -467,7 +469,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -497,7 +499,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -525,7 +527,7 @@ mod tests {
                 </NavigationMenu>
             </div>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -548,7 +550,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -566,7 +568,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -584,7 +586,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -602,7 +604,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -623,7 +625,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -644,7 +646,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -665,7 +667,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }
@@ -683,7 +685,7 @@ mod tests {
                 </NavigationMenuList>
             </NavigationMenu>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = navigation_menu_view.into_view();
     }

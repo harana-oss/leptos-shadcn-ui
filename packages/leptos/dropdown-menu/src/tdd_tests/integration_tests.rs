@@ -1,5 +1,5 @@
-use leptos::prelude::*;
 use crate::*;
+use leptos::prelude::*;
 
 #[cfg(test)]
 #[allow(clippy::module_inception)] // test module layout mirrors the file name
@@ -13,7 +13,7 @@ mod integration_tests {
     fn test_dropdown_menu_complete_workflow() {
         let open_state = RwSignal::new(false);
         let selected_value = RwSignal::new("".to_string());
-        
+
         let _workflow_view = view! {
             <DropdownMenu
                 open=open_state
@@ -50,18 +50,18 @@ mod integration_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test initial state
         assert!(!open_state.get());
         assert_eq!(selected_value.get(), "");
-        
+
         // Test workflow
         open_state.set(true);
         assert!(open_state.get());
-        
+
         selected_value.set("option1".to_string());
         assert_eq!(selected_value.get(), "option1");
-        
+
         open_state.set(false);
         assert!(!open_state.get());
     }
@@ -103,7 +103,7 @@ mod integration_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         // Test nested menu structure
         // This is verified by the component structure
     }
@@ -111,7 +111,7 @@ mod integration_tests {
     #[test]
     fn test_dropdown_menu_with_forms() {
         let form_data = RwSignal::new("".to_string());
-        
+
         let _form_view = view! {
             <form>
                 <DropdownMenu>
@@ -143,10 +143,10 @@ mod integration_tests {
                 />
             </form>
         };
-        
+
         // Test form integration
         assert_eq!(form_data.get(), "");
-        
+
         form_data.set("form-option1".to_string());
         assert_eq!(form_data.get(), "form-option1");
     }
@@ -154,7 +154,7 @@ mod integration_tests {
     #[test]
     fn test_dropdown_menu_with_tables() {
         let table_data = RwSignal::new(vec!["Row 1".to_string(), "Row 2".to_string()]);
-        
+
         let _table_view = view! {
             <table>
                 <tbody>
@@ -189,10 +189,10 @@ mod integration_tests {
                 </tbody>
             </table>
         };
-        
+
         // Test table integration
         assert_eq!(table_data.get().len(), 2);
-        
+
         // Simulate delete action
         table_data.update(|data| {
             data.pop();
@@ -203,7 +203,7 @@ mod integration_tests {
     #[test]
     fn test_dropdown_menu_with_cards() {
         let card_data = RwSignal::new("Card Content".to_string());
-        
+
         let _card_view = view! {
             <div class="card">
                 <div class="card-header">
@@ -231,10 +231,10 @@ mod integration_tests {
                 </div>
             </div>
         };
-        
+
         // Test card integration
         assert_eq!(card_data.get(), "Card Content");
-        
+
         card_data.set("Updated Card Content".to_string());
         assert_eq!(card_data.get(), "Updated Card Content");
     }
@@ -242,7 +242,7 @@ mod integration_tests {
     #[test]
     fn test_dropdown_menu_with_navigation() {
         let current_page = RwSignal::new("home".to_string());
-        
+
         let _navigation_view = view! {
             <nav>
                 <DropdownMenu>
@@ -278,10 +278,10 @@ mod integration_tests {
                 </DropdownMenu>
             </nav>
         };
-        
+
         // Test navigation integration
         assert_eq!(current_page.get(), "home");
-        
+
         current_page.set("about".to_string());
         assert_eq!(current_page.get(), "about");
     }
@@ -290,7 +290,7 @@ mod integration_tests {
     fn test_dropdown_menu_with_modals() {
         let modal_open = RwSignal::new(false);
         let modal_content = RwSignal::new("".to_string());
-        
+
         let _modal_view = view! {
             <div>
                 <DropdownMenu>
@@ -316,7 +316,7 @@ mod integration_tests {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                
+
                 {move || (modal_open.get()).then(|| {
                     view! {
                         <div class="modal">
@@ -333,14 +333,14 @@ mod integration_tests {
                 })}
             </div>
         };
-        
+
         // Test modal integration
         assert!(!modal_open.get());
         assert_eq!(modal_content.get(), "");
-        
+
         modal_content.set("Modal Content 1".to_string());
         modal_open.set(true);
-        
+
         assert!(modal_open.get());
         assert_eq!(modal_content.get(), "Modal Content 1");
     }
@@ -348,7 +348,7 @@ mod integration_tests {
     #[test]
     fn test_dropdown_menu_with_tabs() {
         let active_tab = RwSignal::new("tab1".to_string());
-        
+
         let _tabs_view = view! {
             <div class="tabs">
                 <div class="tab-list">
@@ -399,10 +399,10 @@ mod integration_tests {
                 </div>
             </div>
         };
-        
+
         // Test tabs integration
         assert_eq!(active_tab.get(), "tab1");
-        
+
         active_tab.set("tab3".to_string());
         assert_eq!(active_tab.get(), "tab3");
     }
@@ -411,7 +411,7 @@ mod integration_tests {
     fn test_dropdown_menu_with_accordions() {
         let accordion_open = RwSignal::new(false);
         let accordion_content = RwSignal::new("".to_string());
-        
+
         let _accordion_view = view! {
             <div class="accordion">
                 <div class="accordion-header">
@@ -451,14 +451,14 @@ mod integration_tests {
                 })}
             </div>
         };
-        
+
         // Test accordion integration
         assert!(!accordion_open.get());
         assert_eq!(accordion_content.get(), "");
-        
+
         accordion_open.set(true);
         accordion_content.set("Accordion Content 1".to_string());
-        
+
         assert!(accordion_open.get());
         assert_eq!(accordion_content.get(), "Accordion Content 1");
     }
@@ -466,7 +466,7 @@ mod integration_tests {
     #[test]
     fn test_dropdown_menu_with_tooltips() {
         let tooltip_visible = RwSignal::new(false);
-        
+
         let _tooltip_view = view! {
             <div>
                 <DropdownMenu>
@@ -486,7 +486,7 @@ mod integration_tests {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                
+
                 {move || (tooltip_visible.get()).then(|| {
                     view! {
                         <div class="tooltip">
@@ -496,10 +496,10 @@ mod integration_tests {
                 })}
             </div>
         };
-        
+
         // Test tooltip integration
         assert!(!tooltip_visible.get());
-        
+
         tooltip_visible.set(true);
         assert!(tooltip_visible.get());
     }
@@ -507,7 +507,7 @@ mod integration_tests {
     #[test]
     fn test_dropdown_menu_integration_performance() {
         let start = std::time::Instant::now();
-        
+
         let _performance_view = view! {
             <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -526,7 +526,7 @@ mod integration_tests {
                 </DropdownMenuContent>
             </DropdownMenu>
         };
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 10, "Integration should be performant");
     }
@@ -841,9 +841,7 @@ mod integration_tests {
     #[test]
     fn test_dropdown_menu_memory_management_multiple_instances() {
         // Test: Multiple menus don't cause memory leaks
-        let menus: Vec<RwSignal<bool>> = (0..10)
-            .map(|_| RwSignal::new(false))
-            .collect();
+        let menus: Vec<RwSignal<bool>> = (0..10).map(|_| RwSignal::new(false)).collect();
 
         let _view = view! {
             <div>

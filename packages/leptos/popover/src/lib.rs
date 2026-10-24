@@ -1,8 +1,8 @@
 //! Leptos port of shadcn/ui popover
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
+pub mod signal_managed;
 
 pub use default::{Popover, PopoverContent, PopoverContext, PopoverTrigger};
 pub use new_york::{

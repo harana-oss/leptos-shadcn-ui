@@ -1,10 +1,10 @@
 //! Basic rendering tests for the Menubar component
-//! 
+//!
 //! This module contains tests for basic rendering, variants, sizes, and prop handling
 //! for the Menubar component, focusing on fundamental functionality.
 
-use leptos::prelude::*;
 use crate::default::{Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger};
+use leptos::prelude::*;
 
 #[cfg(test)]
 mod tests {
@@ -23,7 +23,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -43,7 +43,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -61,7 +61,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -79,7 +79,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -88,7 +88,7 @@ mod tests {
     fn test_menubar_with_callback() {
         // Test menubar with callback
         let (callback_count, _set_callback_count) = signal(0);
-        
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -101,7 +101,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -119,7 +119,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -137,7 +137,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -155,7 +155,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -173,7 +173,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -201,7 +201,7 @@ mod tests {
                 </Menubar>
             </div>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -219,7 +219,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -237,7 +237,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -255,7 +255,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -273,7 +273,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -291,7 +291,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -309,7 +309,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -327,7 +327,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -345,7 +345,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -363,7 +363,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -381,7 +381,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -399,7 +399,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -417,7 +417,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -426,7 +426,7 @@ mod tests {
     fn test_menubar_long_text() {
         // Test menubar long text
         let long_text = "This is a very long text that should test the menubar's ability to handle long content without breaking the layout or causing any issues with the component's functionality.";
-        
+
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
@@ -437,7 +437,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -455,7 +455,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -475,7 +475,7 @@ mod tests {
                 </Menubar>
             </form>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -501,7 +501,7 @@ mod tests {
                 </Menubar>
             </div>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -523,7 +523,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -555,7 +555,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -573,7 +573,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -584,7 +584,7 @@ mod tests {
         let menubar_view = view! {
             <Menubar>
                 <MenubarMenu>
-                    <MenubarTrigger 
+                    <MenubarTrigger
                         class="custom-trigger"
                         id="combined-trigger"
                         style="color: green;"
@@ -592,12 +592,12 @@ mod tests {
                     >
                         "Combined props menu"
                     </MenubarTrigger>
-                    <MenubarContent 
+                    <MenubarContent
                         class="custom-content"
                         id="combined-content"
                         style="background: yellow;"
                     >
-                        <MenubarItem 
+                        <MenubarItem
                             class="custom-item"
                             id="combined-item"
                             style="color: black;"
@@ -608,7 +608,7 @@ mod tests {
                 </MenubarMenu>
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }

@@ -1,7 +1,7 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod enum_conversions {
-    use crate::default::{ButtonVariant, ButtonSize};
+    use crate::default::{ButtonSize, ButtonVariant};
 
     // ===== ENUM CONVERSION TESTS =====
     // These tests focus on enum conversions, defaults, and basic trait implementations
@@ -180,11 +180,11 @@ mod enum_conversions {
     fn test_button_variant_hash() {
         // Test Hash implementation for ButtonVariant
         use std::collections::HashMap;
-        
+
         let mut map = HashMap::new();
         map.insert(ButtonVariant::Default, "default");
         map.insert(ButtonVariant::Destructive, "destructive");
-        
+
         assert_eq!(map.get(&ButtonVariant::Default), Some(&"default"));
         assert_eq!(map.get(&ButtonVariant::Destructive), Some(&"destructive"));
     }
@@ -193,11 +193,11 @@ mod enum_conversions {
     fn test_button_size_hash() {
         // Test Hash implementation for ButtonSize
         use std::collections::HashMap;
-        
+
         let mut map = HashMap::new();
         map.insert(ButtonSize::Default, "default");
         map.insert(ButtonSize::Sm, "small");
-        
+
         assert_eq!(map.get(&ButtonSize::Default), Some(&"default"));
         assert_eq!(map.get(&ButtonSize::Sm), Some(&"small"));
     }

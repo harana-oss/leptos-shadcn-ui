@@ -1,5 +1,5 @@
 //! Optimization Roadmap Module
-//! 
+//!
 //! This module provides optimization recommendations and roadmap generation
 //! for leptos-shadcn-ui components using TDD principles.
 
@@ -73,31 +73,31 @@ impl OptimizationRecommendation {
             success_criteria: Vec::new(),
         }
     }
-    
+
     /// Set expected impact
     pub fn with_impact(mut self, impact: f64) -> Self {
         self.expected_impact = impact;
         self
     }
-    
+
     /// Set estimated effort
     pub fn with_effort(mut self, hours: f64) -> Self {
         self.estimated_effort_hours = hours;
         self
     }
-    
+
     /// Add implementation step
     pub fn add_implementation_step(mut self, step: String) -> Self {
         self.implementation_steps.push(step);
         self
     }
-    
+
     /// Add success criteria
     pub fn add_success_criteria(mut self, criteria: String) -> Self {
         self.success_criteria.push(criteria);
         self
     }
-    
+
     /// Calculate ROI (Return on Investment)
     pub fn calculate_roi(&self) -> f64 {
         if self.estimated_effort_hours == 0.0 {
@@ -105,7 +105,7 @@ impl OptimizationRecommendation {
         }
         self.expected_impact / self.estimated_effort_hours
     }
-    
+
     /// Check if recommendation is high priority
     pub fn is_high_priority(&self) -> bool {
         matches!(self.priority, OptimizationPriority::High | OptimizationPriority::Critical)
@@ -148,57 +148,73 @@ impl OptimizationRoadmap {
         let id = recommendation.id.clone();
         let priority = recommendation.priority.clone();
         let category = recommendation.category.clone();
-        
+
         // Add to main recommendations
         self.recommendations.insert(id.clone(), recommendation);
-        
+
         // Add to priority groups
         self.recommendations_by_priority
             .entry(priority)
             .or_default()
             .push(id.clone());
-        
+
         // Add to category groups
         self.recommendations_by_category
             .entry(category)
             .or_default()
             .push(id);
-        
+
         self.recalculate_totals();
     }
-    
+
     /// Recalculate totals and statistics
     fn recalculate_totals(&mut self) {
-        self.total_estimated_effort_hours = self.recommendations
+        self.total_estimated_effort_hours = self
+            .recommendations
             .values()
             .map(|r| r.estimated_effort_hours)
             .sum();
-        
-        self.overall_expected_impact = self.recommendations
+
+        self.overall_expected_impact = self
+            .recommendations
             .values()
             .map(|r| r.expected_impact)
             .sum();
-        
+
         // Calculate completion percentage (placeholder - would need actual completion tracking)
         self.completion_percentage = 0.0;
     }
-    
+
     /// Get recommendations by priority
-    pub fn get_recommendations_by_priority(&self, priority: OptimizationPriority) -> Vec<&OptimizationRecommendation> {
+    pub fn get_recommendations_by_priority(
+        &self,
+        priority: OptimizationPriority,
+    ) -> Vec<&OptimizationRecommendation> {
         self.recommendations_by_priority
             .get(&priority)
-            .map(|ids| ids.iter().filter_map(|id| self.recommendations.get(id)).collect())
+            .map(|ids| {
+                ids.iter()
+                    .filter_map(|id| self.recommendations.get(id))
+                    .collect()
+            })
             .unwrap_or_default()
     }
-    
+
     /// Get recommendations by category
-    pub fn get_recommendations_by_category(&self, category: &OptimizationCategory) -> Vec<&OptimizationRecommendation> {
+    pub fn get_recommendations_by_category(
+        &self,
+        category: &OptimizationCategory,
+    ) -> Vec<&OptimizationRecommendation> {
         self.recommendations_by_category
             .get(category)
-            .map(|ids| ids.iter().filter_map(|id| self.recommendations.get(id)).collect())
+            .map(|ids| {
+                ids.iter()
+                    .filter_map(|id| self.recommendations.get(id))
+                    .collect()
+            })
             .unwrap_or_default()
     }
-    
+
     /// Get high priority recommendations
     pub fn get_high_priority_recommendations(&self) -> Vec<&OptimizationRecommendation> {
         let mut high_priority = Vec::new();
@@ -206,45 +222,46 @@ impl OptimizationRoadmap {
         high_priority.extend(self.get_recommendations_by_priority(OptimizationPriority::High));
         high_priority
     }
-    
+
     /// Get recommendations sorted by ROI
     pub fn get_recommendations_by_roi(&self) -> Vec<&OptimizationRecommendation> {
-        let mut recommendations: Vec<&OptimizationRecommendation> = self.recommendations.values().collect();
+        let mut recommendations: Vec<&OptimizationRecommendation> =
+            self.recommendations.values().collect();
         recommendations.sort_by(|a, b| b.calculate_roi().partial_cmp(&a.calculate_roi()).unwrap());
         recommendations
     }
-    
+
     /// Get next recommended action
     pub fn get_next_recommended_action(&self) -> Option<&OptimizationRecommendation> {
         self.get_recommendations_by_roi()
             .into_iter()
             .find(|r| r.is_high_priority())
     }
-    
+
     /// Generate implementation plan
     pub fn generate_implementation_plan(&self) -> ImplementationPlan {
         let mut plan = ImplementationPlan::new();
-        
+
         // Add critical recommendations first
         for rec in self.get_recommendations_by_priority(OptimizationPriority::Critical) {
             plan.add_phase("Critical Fixes", rec.clone());
         }
-        
+
         // Add high priority recommendations
         for rec in self.get_recommendations_by_priority(OptimizationPriority::High) {
             plan.add_phase("High Priority", rec.clone());
         }
-        
+
         // Add medium priority recommendations
         for rec in self.get_recommendations_by_priority(OptimizationPriority::Medium) {
             plan.add_phase("Medium Priority", rec.clone());
         }
-        
+
         // Add low priority recommendations
         for rec in self.get_recommendations_by_priority(OptimizationPriority::Low) {
             plan.add_phase("Low Priority", rec.clone());
         }
-        
+
         plan
     }
 }
@@ -288,14 +305,12 @@ impl ImplementationPlan {
             total_expected_impact: 0.0,
         }
     }
-    
+
     /// Add recommendation to a phase
     pub fn add_phase(&mut self, phase_name: &str, recommendation: OptimizationRecommendation) {
         // Find existing phase or create new one
-        let phase_index = self.phases
-            .iter()
-            .position(|p| p.name == phase_name);
-        
+        let phase_index = self.phases.iter().position(|p| p.name == phase_name);
+
         if let Some(index) = phase_index {
             self.phases[index].recommendations.push(recommendation);
         } else {
@@ -306,31 +321,27 @@ impl ImplementationPlan {
                 expected_impact: 0.0,
             });
         }
-        
+
         self.recalculate_totals();
     }
-    
+
     /// Recalculate totals
     fn recalculate_totals(&mut self) {
         for phase in &mut self.phases {
-            phase.effort_hours = phase.recommendations
+            phase.effort_hours = phase
+                .recommendations
                 .iter()
                 .map(|r| r.estimated_effort_hours)
                 .sum();
-            phase.expected_impact = phase.recommendations
+            phase.expected_impact = phase
+                .recommendations
                 .iter()
                 .map(|r| r.expected_impact)
                 .sum();
         }
-        
-        self.total_effort_hours = self.phases
-            .iter()
-            .map(|p| p.effort_hours)
-            .sum();
-        self.total_expected_impact = self.phases
-            .iter()
-            .map(|p| p.expected_impact)
-            .sum();
+
+        self.total_effort_hours = self.phases.iter().map(|p| p.effort_hours).sum();
+        self.total_expected_impact = self.phases.iter().map(|p| p.expected_impact).sum();
     }
 }
 
@@ -344,24 +355,26 @@ impl OptimizationRoadmapGenerator {
         performance_results: &crate::performance_monitoring::PerformanceMonitoringResults,
     ) -> OptimizationRoadmap {
         let mut roadmap = OptimizationRoadmap::default();
-        
+
         // Handle empty data case - return empty roadmap
-        if bundle_results.component_analyses.is_empty() && performance_results.component_metrics.is_empty() {
+        if bundle_results.component_analyses.is_empty()
+            && performance_results.component_metrics.is_empty()
+        {
             return roadmap;
         }
-        
+
         // Generate bundle size optimizations
         Self::add_bundle_size_optimizations(&mut roadmap, bundle_results);
-        
+
         // Generate performance optimizations
         Self::add_performance_optimizations(&mut roadmap, performance_results);
-        
+
         // Generate general optimizations
         Self::add_general_optimizations(&mut roadmap);
-        
+
         roadmap
     }
-    
+
     /// Add bundle size optimization recommendations
     fn add_bundle_size_optimizations(
         roadmap: &mut OptimizationRoadmap,
@@ -375,9 +388,11 @@ impl OptimizationRoadmapGenerator {
                 OptimizationCategory::BundleSize,
                 OptimizationPriority::High,
                 format!("Optimize bundle size for {}", component_name),
-                format!("Component {} exceeds 5KB target with {:.1}KB bundle size", 
-                    component_name, 
-                    bundle_results.component_analyses[component_name].bundle_size_kb),
+                format!(
+                    "Component {} exceeds 5KB target with {:.1}KB bundle size",
+                    component_name,
+                    bundle_results.component_analyses[component_name].bundle_size_kb
+                ),
             )
             .with_impact(80.0)
             .with_effort(4.0)
@@ -386,11 +401,11 @@ impl OptimizationRoadmapGenerator {
             .add_implementation_step("Optimize imports and exports".to_string())
             .add_success_criteria("Bundle size < 5KB".to_string())
             .add_success_criteria("No performance regression".to_string());
-            
+
             roadmap.add_recommendation(recommendation);
         }
     }
-    
+
     /// Add performance optimization recommendations
     fn add_performance_optimizations(
         roadmap: &mut OptimizationRoadmap,
@@ -404,9 +419,11 @@ impl OptimizationRoadmapGenerator {
                 OptimizationCategory::RenderPerformance,
                 OptimizationPriority::High,
                 format!("Optimize render performance for {}", component_name),
-                format!("Component {} fails performance targets with {:.1}ms render time", 
-                    component_name, 
-                    performance_results.component_metrics[component_name].average_render_time_ms),
+                format!(
+                    "Component {} fails performance targets with {:.1}ms render time",
+                    component_name,
+                    performance_results.component_metrics[component_name].average_render_time_ms
+                ),
             )
             .with_impact(90.0)
             .with_effort(6.0)
@@ -415,11 +432,11 @@ impl OptimizationRoadmapGenerator {
             .add_implementation_step("Implement memoization".to_string())
             .add_success_criteria("Render time < 16ms".to_string())
             .add_success_criteria("No memory leaks".to_string());
-            
+
             roadmap.add_recommendation(recommendation);
         }
     }
-    
+
     /// Add general optimization recommendations
     fn add_general_optimizations(roadmap: &mut OptimizationRoadmap) {
         // Add general recommendations
@@ -437,7 +454,6 @@ impl OptimizationRoadmapGenerator {
             .add_implementation_step("Audit current accessibility".to_string())
             .add_implementation_step("Implement ARIA improvements".to_string())
             .add_success_criteria("WCAG 2.1 AAA compliance".to_string()),
-            
             OptimizationRecommendation::new(
                 "general-documentation".to_string(),
                 "".to_string(),
@@ -452,7 +468,7 @@ impl OptimizationRoadmapGenerator {
             .add_implementation_step("Add performance best practices".to_string())
             .add_success_criteria("Comprehensive documentation".to_string()),
         ];
-        
+
         for recommendation in general_recommendations {
             roadmap.add_recommendation(recommendation);
         }
@@ -473,7 +489,7 @@ mod tests {
             "Test optimization".to_string(),
             "Test description".to_string(),
         );
-        
+
         assert_eq!(rec.id, "test-1");
         assert_eq!(rec.component_name, "button");
         assert_eq!(rec.priority, OptimizationPriority::High);
@@ -495,7 +511,7 @@ mod tests {
         .with_effort(2.0)
         .add_implementation_step("Step 1".to_string())
         .add_success_criteria("Success 1".to_string());
-        
+
         assert_eq!(rec.expected_impact, 95.0);
         assert_eq!(rec.estimated_effort_hours, 2.0);
         assert_eq!(rec.implementation_steps.len(), 1);
@@ -515,14 +531,14 @@ mod tests {
         )
         .with_impact(80.0)
         .with_effort(4.0);
-        
+
         assert_eq!(rec.calculate_roi(), 20.0); // 80.0 / 4.0
     }
 
     #[test]
     fn test_optimization_roadmap_default() {
         let roadmap = OptimizationRoadmap::default();
-        
+
         assert!(roadmap.recommendations.is_empty());
         assert_eq!(roadmap.total_estimated_effort_hours, 0.0);
         assert_eq!(roadmap.overall_expected_impact, 0.0);
@@ -542,19 +558,24 @@ mod tests {
         )
         .with_impact(80.0)
         .with_effort(4.0);
-        
+
         roadmap.add_recommendation(rec);
-        
+
         assert_eq!(roadmap.recommendations.len(), 1);
         assert_eq!(roadmap.total_estimated_effort_hours, 4.0);
         assert_eq!(roadmap.overall_expected_impact, 80.0);
-        assert_eq!(roadmap.get_recommendations_by_priority(OptimizationPriority::High).len(), 1);
+        assert_eq!(
+            roadmap
+                .get_recommendations_by_priority(OptimizationPriority::High)
+                .len(),
+            1
+        );
     }
 
     #[test]
     fn test_optimization_roadmap_high_priority() {
         let mut roadmap = OptimizationRoadmap::default();
-        
+
         // Add high priority recommendation
         roadmap.add_recommendation(OptimizationRecommendation::new(
             "high-1".to_string(),
@@ -564,7 +585,7 @@ mod tests {
             "High priority".to_string(),
             "High description".to_string(),
         ));
-        
+
         // Add low priority recommendation
         roadmap.add_recommendation(OptimizationRecommendation::new(
             "low-1".to_string(),
@@ -574,7 +595,7 @@ mod tests {
             "Low priority".to_string(),
             "Low description".to_string(),
         ));
-        
+
         let high_priority = roadmap.get_high_priority_recommendations();
         assert_eq!(high_priority.len(), 1);
         assert_eq!(high_priority[0].id, "high-1");
@@ -583,31 +604,35 @@ mod tests {
     #[test]
     fn test_optimization_roadmap_by_roi() {
         let mut roadmap = OptimizationRoadmap::default();
-        
+
         // Add recommendation with high ROI
-        roadmap.add_recommendation(OptimizationRecommendation::new(
-            "high-roi".to_string(),
-            "button".to_string(),
-            OptimizationCategory::BundleSize,
-            OptimizationPriority::High,
-            "High ROI".to_string(),
-            "High ROI description".to_string(),
-        )
-        .with_impact(80.0)
-        .with_effort(2.0)); // ROI = 40.0
-        
+        roadmap.add_recommendation(
+            OptimizationRecommendation::new(
+                "high-roi".to_string(),
+                "button".to_string(),
+                OptimizationCategory::BundleSize,
+                OptimizationPriority::High,
+                "High ROI".to_string(),
+                "High ROI description".to_string(),
+            )
+            .with_impact(80.0)
+            .with_effort(2.0),
+        ); // ROI = 40.0
+
         // Add recommendation with low ROI
-        roadmap.add_recommendation(OptimizationRecommendation::new(
-            "low-roi".to_string(),
-            "input".to_string(),
-            OptimizationCategory::RenderPerformance,
-            OptimizationPriority::Medium,
-            "Low ROI".to_string(),
-            "Low ROI description".to_string(),
-        )
-        .with_impact(40.0)
-        .with_effort(4.0)); // ROI = 10.0
-        
+        roadmap.add_recommendation(
+            OptimizationRecommendation::new(
+                "low-roi".to_string(),
+                "input".to_string(),
+                OptimizationCategory::RenderPerformance,
+                OptimizationPriority::Medium,
+                "Low ROI".to_string(),
+                "Low ROI description".to_string(),
+            )
+            .with_impact(40.0)
+            .with_effort(4.0),
+        ); // ROI = 10.0
+
         let by_roi = roadmap.get_recommendations_by_roi();
         assert_eq!(by_roi.len(), 2);
         assert_eq!(by_roi[0].id, "high-roi"); // Higher ROI first
@@ -617,7 +642,7 @@ mod tests {
     #[test]
     fn test_implementation_plan_creation() {
         let plan = ImplementationPlan::new();
-        
+
         assert!(plan.phases.is_empty());
         assert_eq!(plan.total_effort_hours, 0.0);
         assert_eq!(plan.total_expected_impact, 0.0);
@@ -636,9 +661,9 @@ mod tests {
         )
         .with_impact(80.0)
         .with_effort(4.0);
-        
+
         plan.add_phase("Phase 1", rec);
-        
+
         assert_eq!(plan.phases.len(), 1);
         assert_eq!(plan.phases[0].name, "Phase 1");
         assert_eq!(plan.phases[0].recommendations.len(), 1);

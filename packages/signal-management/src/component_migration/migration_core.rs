@@ -1,5 +1,5 @@
 //! Component Migration Core Module
-//! 
+//!
 //! This module provides the core migration utilities for tracking component migration progress.
 
 use leptos::prelude::*;
@@ -59,7 +59,7 @@ impl ComponentMigrator {
         if !components.contains(&component_name.to_string()) {
             components.push(component_name.to_string());
             self.migrated_components.set(components);
-            
+
             // Update status
             let mut status = self.status.get();
             status.migrated_count += 1;
@@ -71,7 +71,9 @@ impl ComponentMigrator {
 
     /// Check if a component has been migrated
     pub fn is_migrated(&self, component_name: &str) -> bool {
-        self.migrated_components.get().contains(&component_name.to_string())
+        self.migrated_components
+            .get()
+            .contains(&component_name.to_string())
     }
 
     /// Get migration progress percentage
@@ -90,34 +92,63 @@ impl ComponentMigrator {
     pub fn remaining_components(&self) -> Vec<String> {
         let all_components = vec![
             // Core Form Components (12)
-            "button", "input", "label", "checkbox", "switch", "radio-group",
-            "select", "textarea", "form", "combobox", "command", "input-otp",
-            
+            "button",
+            "input",
+            "label",
+            "checkbox",
+            "switch",
+            "radio-group",
+            "select",
+            "textarea",
+            "form",
+            "combobox",
+            "command",
+            "input-otp",
             // Layout Components (8)
-            "card", "separator", "tabs", "accordion", "collapsible", 
-            "scroll-area", "aspect-ratio", "resizable",
-            
+            "card",
+            "separator",
+            "tabs",
+            "accordion",
+            "collapsible",
+            "scroll-area",
+            "aspect-ratio",
+            "resizable",
             // Overlay Components (7)
-            "dialog", "popover", "tooltip", "alert-dialog", "sheet", 
-            "drawer", "hover-card",
-            
+            "dialog",
+            "popover",
+            "tooltip",
+            "alert-dialog",
+            "sheet",
+            "drawer",
+            "hover-card",
             // Navigation Components (5)
-            "breadcrumb", "navigation-menu", "context-menu", 
-            "dropdown-menu", "menubar",
-            
+            "breadcrumb",
+            "navigation-menu",
+            "context-menu",
+            "dropdown-menu",
+            "menubar",
             // Feedback & Status (9)
-            "alert", "badge", "skeleton", "progress", "toast", 
-            "table", "calendar", "date-picker", "pagination",
-            
+            "alert",
+            "badge",
+            "skeleton",
+            "progress",
+            "toast",
+            "table",
+            "calendar",
+            "date-picker",
+            "pagination",
             // Interactive Components (4)
-            "slider", "toggle", "carousel", "avatar",
-            
+            "slider",
+            "toggle",
+            "carousel",
+            "avatar",
             // Development & Utilities (1)
             "error-boundary",
         ];
-        
+
         let migrated = self.migrated_components.get();
-        all_components.into_iter()
+        all_components
+            .into_iter()
             .filter(|component| !migrated.contains(&component.to_string()))
             .map(|s| s.to_string())
             .collect()
@@ -127,7 +158,7 @@ impl ComponentMigrator {
     pub fn get_statistics(&self) -> MigrationStatistics {
         let status = self.status.get();
         let migrated = self.migrated_components.get();
-        
+
         MigrationStatistics {
             total_components: 46,
             migrated_count: status.migrated_count,
@@ -163,9 +194,7 @@ impl MigrationStatistics {
     pub fn summary(&self) -> String {
         format!(
             "Migration Progress: {}/{} components migrated ({:.1}%)",
-            self.migrated_count,
-            self.total_components,
-            self.progress_percentage
+            self.migrated_count, self.total_components, self.progress_percentage
         )
     }
 

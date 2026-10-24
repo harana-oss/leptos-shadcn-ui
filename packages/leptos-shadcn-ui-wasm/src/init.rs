@@ -108,8 +108,7 @@ impl From<JsValue> for WasmError {
 }
 
 /// Configuration for WASM initialization
-#[derive(Clone)]
-#[derive(Default)]
+#[derive(Clone, Default)]
 pub struct WasmInitConfig {
     /// Enable verbose logging during initialization
     pub verbose: bool,
@@ -124,7 +123,6 @@ pub struct WasmInitConfig {
     /// Callback invoked on progress updates
     pub on_progress: Option<WasmProgressCallback>,
 }
-
 
 /// Callback type for WASM initialization events
 pub type WasmCallback = Arc<dyn Fn() + Send + Sync + 'static>;
@@ -274,24 +272,22 @@ impl WasmInitManager {
     fn detect_features(&self, config: &WasmInitConfig) -> Result<(), WasmError> {
         self.update_progress(30, "Detecting browser features...");
 
-        let window = web_sys::window()
-            .ok_or_else(|| WasmError {
-                category: WasmErrorCategory::FeatureDetection,
-                message: "Could not access window object".to_string(),
-                details: None,
-                stack: None,
-                context: std::collections::HashMap::new(),
-            })?;
+        let window = web_sys::window().ok_or_else(|| WasmError {
+            category: WasmErrorCategory::FeatureDetection,
+            message: "Could not access window object".to_string(),
+            details: None,
+            stack: None,
+            context: std::collections::HashMap::new(),
+        })?;
 
         // Check for required APIs
-        let _performance = window.performance()
-            .ok_or_else(|| WasmError {
-                category: WasmErrorCategory::FeatureDetection,
-                message: "Performance API not available".to_string(),
-                details: None,
-                stack: None,
-                context: std::collections::HashMap::new(),
-            })?;
+        let _performance = window.performance().ok_or_else(|| WasmError {
+            category: WasmErrorCategory::FeatureDetection,
+            message: "Performance API not available".to_string(),
+            details: None,
+            stack: None,
+            context: std::collections::HashMap::new(),
+        })?;
 
         // Log window availability if verbose
         if config.verbose {

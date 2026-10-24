@@ -3,36 +3,36 @@
 mod tests {
     #[test]
     fn test_accordion_component_exists() {
-    leptos::prelude::Owner::new().with(|| {
-        // Basic test to ensure the component can be imported
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            // Basic test to ensure the component can be imported
+        });
+    }
 
     #[test]
     fn test_accordion_layout_functionality() {
-    leptos::prelude::Owner::new().with(|| {
-        // Test layout-specific functionality
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            // Test layout-specific functionality
+        });
+    }
 
     #[test]
     fn test_accordion_responsive_behavior() {
-    leptos::prelude::Owner::new().with(|| {
-        // Test responsive behavior if applicable
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            // Test responsive behavior if applicable
+        });
+    }
 
     #[test]
     fn test_accordion_children_handling() {
-    leptos::prelude::Owner::new().with(|| {
-        // Test that layout components can handle children
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            // Test that layout components can handle children
+        });
+    }
 
     #[test]
     fn test_accordion_theme_variants() {
-    leptos::prelude::Owner::new().with(|| {
-        // Test both theme variants
-    });
-}
+        leptos::prelude::Owner::new().with(|| {
+            // Test both theme variants
+        });
+    }
 }

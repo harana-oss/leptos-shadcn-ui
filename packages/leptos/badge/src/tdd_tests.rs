@@ -1,8 +1,8 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod tdd_tests {
-    use leptos::prelude::*;
     use crate::default::{Badge, BadgeVariant};
+    use leptos::prelude::*;
 
     // ===== TDD ENHANCED TESTS - GREEN PHASE =====
     // These tests now implement real functionality and verify actual behavior
@@ -16,7 +16,12 @@ mod tdd_tests {
 
     #[test]
     fn test_badge_variants() {
-        let _variants = [BadgeVariant::Default, BadgeVariant::Secondary, BadgeVariant::Destructive, BadgeVariant::Outline];
+        let _variants = [
+            BadgeVariant::Default,
+            BadgeVariant::Secondary,
+            BadgeVariant::Destructive,
+            BadgeVariant::Outline,
+        ];
         let _badge_view = view! {
             <Badge variant=BadgeVariant::Default>"Default variant"</Badge>
         };
@@ -207,8 +212,8 @@ mod tdd_tests {
     #[test]
     fn test_badge_integration_scenarios() {
         let _badge_view = view! {
-            <Badge 
-                variant=BadgeVariant::Default 
+            <Badge
+                variant=BadgeVariant::Default
                 class="integration-badge"
                 id="integration-test"
                 // role attribute not supported
@@ -221,8 +226,8 @@ mod tdd_tests {
     #[test]
     fn test_badge_complete_workflow() {
         let _badge_view = view! {
-            <Badge 
-                variant=BadgeVariant::Default 
+            <Badge
+                variant=BadgeVariant::Default
                 class="workflow-badge"
                 id="workflow-test"
                 // role attribute not supported
@@ -236,8 +241,8 @@ mod tdd_tests {
     #[test]
     fn test_badge_advanced_interactions() {
         let _badge_view = view! {
-            <Badge 
-                variant=BadgeVariant::Default 
+            <Badge
+                variant=BadgeVariant::Default
                 class="advanced-interactions"
                 id="advanced-badge"
             >
@@ -249,7 +254,7 @@ mod tdd_tests {
     #[test]
     fn test_badge_accessibility_comprehensive() {
         let _badge_view = view! {
-            <Badge 
+            <Badge
                 id="comprehensive-accessible-badge"
                 class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 // role attribute not supported
@@ -263,7 +268,7 @@ mod tdd_tests {
     #[test]
     fn test_badge_custom_properties() {
         let _badge_view = view! {
-            <Badge 
+            <Badge
                 class="custom-properties-badge"
                 id="custom-props-test"
                 // role attribute not supported
@@ -276,7 +281,7 @@ mod tdd_tests {
     #[test]
     fn test_badge_form_integration() {
         let _badge_view = view! {
-            <Badge 
+            <Badge
                 variant=BadgeVariant::Outline
                 class="form-integration-badge"
                 id="form-badge"

@@ -1,9 +1,9 @@
 //! Input validator implementation for the Input component
-//! 
+//!
 //! This module provides the main InputValidator struct and its functionality.
 
-use super::types::{ValidationRule, ValidationResult, ValidationContext};
 use super::rules::validate_rules;
+use super::types::{ValidationContext, ValidationResult, ValidationRule};
 
 /// A custom validation predicate; returns `true` when the value is valid.
 pub type CustomValidator = Box<dyn Fn(&str) -> bool + Send + Sync>;
@@ -44,7 +44,7 @@ impl InputValidator {
 
     pub fn validate(&self, value: &str) -> ValidationResult {
         let mut result = validate_rules(value, &self.rules, &self.field_name);
-        
+
         // Apply custom validators
         for validator in &self.custom_validators {
             if !validator(value) {
@@ -55,7 +55,7 @@ impl InputValidator {
                 );
             }
         }
-        
+
         result
     }
 
@@ -97,13 +97,11 @@ pub mod validation_builders {
     }
 
     pub fn required_validator(field_name: impl Into<String>) -> InputValidator {
-        InputValidator::new(field_name)
-            .with_rule(ValidationRule::Required)
+        InputValidator::new(field_name).with_rule(ValidationRule::Required)
     }
 
     pub fn optional_email_validator(field_name: impl Into<String>) -> InputValidator {
-        InputValidator::new(field_name)
-            .with_rule(ValidationRule::Email)
+        InputValidator::new(field_name).with_rule(ValidationRule::Email)
     }
 }
 
@@ -123,7 +121,7 @@ mod tests {
         let validator = InputValidator::new("test_field")
             .with_rule(ValidationRule::Required)
             .with_rule(ValidationRule::MinLength(3));
-        
+
         assert_eq!(validator.rules.len(), 2);
     }
 
@@ -132,11 +130,11 @@ mod tests {
         let validator = InputValidator::new("test_field")
             .with_rule(ValidationRule::Required)
             .with_rule(ValidationRule::MinLength(3));
-        
+
         let result = validator.validate("");
         assert!(!result.is_valid);
         assert!(result.has_field_error("test_field"));
-        
+
         let result = validator.validate("valid");
         assert!(result.is_valid);
     }
@@ -146,7 +144,7 @@ mod tests {
         let email_validator = validation_builders::email_validator("email");
         let result = email_validator.validate("invalid-email");
         assert!(!result.is_valid);
-        
+
         let result = email_validator.validate("test@example.com");
         assert!(result.is_valid);
     }
@@ -155,10 +153,10 @@ mod tests {
     fn test_custom_validator() {
         let validator = InputValidator::new("test_field")
             .with_custom_validator(|value| value.starts_with("prefix"));
-        
+
         let result = validator.validate("prefix_valid");
         assert!(result.is_valid);
-        
+
         let result = validator.validate("invalid");
         assert!(!result.is_valid);
     }

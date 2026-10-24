@@ -19,7 +19,7 @@ pub fn Toast(
             "warning" => "border-yellow-500/50 text-yellow-600 dark:text-yellow-400",
             _ => "bg-background text-foreground",
         };
-        
+
         format!("{} {} {}", TOAST_CLASS, variant_class, class.get().unwrap_or_default())
     });
 

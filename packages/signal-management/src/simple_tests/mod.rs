@@ -2,9 +2,9 @@
 // Split from original 753-line file into focused modules
 
 pub mod basic_types_tests;
-pub mod signal_manager_tests;
-pub mod cleanup_tests;
-pub mod memory_tests;
 pub mod batched_updates_tests;
+pub mod cleanup_tests;
 pub mod error_tests;
+pub mod memory_tests;
 pub mod performance_tests;
+pub mod signal_manager_tests;

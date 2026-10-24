@@ -1,9 +1,10 @@
-use leptos::prelude::*;
 use js_sys::Date;
+use leptos::prelude::*;
 
 const CALENDAR_GRID_CLASS: &str = "grid w-full grid-cols-7 gap-px";
 const CALENDAR_HEADER_CLASS: &str = "grid w-full grid-cols-7 gap-px";
-const CALENDAR_HEADER_CELL_CLASS: &str = "flex h-9 w-full items-center justify-center text-xs font-medium";
+const CALENDAR_HEADER_CELL_CLASS: &str =
+    "flex h-9 w-full items-center justify-center text-xs font-medium";
 const CALENDAR_ROW_CLASS: &str = "grid w-full grid-cols-7 gap-px";
 const CALENDAR_CELL_CLASS: &str = "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md";
 const CALENDAR_DAY_CLASS: &str = "h-9 w-9 p-0 font-normal aria-selected:opacity-100";
@@ -98,21 +99,20 @@ pub fn Calendar(
     // single-date selection is implemented.
     let _ = (mode, initial_focus);
     let today = today();
-    
+
     let current_month = RwSignal::new((today.year, today.month));
     let disabled_dates = disabled;
-    
+
     let handle_day_click = move |date: CalendarDate| {
         selected.set(Some(date.clone()));
         if let Some(callback) = &on_select {
             callback.run(date);
         }
     };
-    
-    let computed_class = Signal::derive(move || {
-        format!("w-full {}", class.get().unwrap_or_default())
-    });
-    
+
+    let computed_class =
+        Signal::derive(move || format!("w-full {}", class.get().unwrap_or_default()));
+
     view! {
         <div class=move || computed_class.get()>
             <div class="space-y-4">
@@ -170,10 +170,10 @@ pub fn Calendar(
                             let days_in_month = get_days_in_month(year, month);
                             let first_day = get_first_day_of_month(year, month);
                             let selected = selected.get();
-                            
+
                             let mut weeks: Vec<AnyView> = Vec::new();
                             let mut current_week: Vec<AnyView> = Vec::new();
-                            
+
                             // Add empty cells for days before the first day of month
                             for _ in 0..first_day {
                                 current_week.push(view! {
@@ -183,14 +183,14 @@ pub fn Calendar(
                                     </div>
                                 }.into_any());
                             }
-                            
+
                             // Add days of the month
                             for day in 1..=days_in_month {
                                 let date = CalendarDate::new(year, month, day);
                                 let is_today = date == today;
                                 let is_selected = selected.as_ref().map(|s| *s == date).unwrap_or(false);
                                 let is_disabled = disabled_dates.get().contains(&date);
-                                
+
                                 let day_classes = if is_selected {
                                     format!("{} {}", CALENDAR_DAY_CLASS, CALENDAR_DAY_SELECTED_CLASS)
                                 } else if is_today {
@@ -200,11 +200,11 @@ pub fn Calendar(
                                 } else {
                                     CALENDAR_DAY_CLASS.to_string()
                                 };
-                                
+
                                 let date_for_click = date.clone();
                                 current_week.push(view! {
                                     <div class=CALENDAR_CELL_CLASS>
-                                        <div 
+                                        <div
                                             class={day_classes}
                                             aria-selected={is_selected}
                                             data-today={is_today}
@@ -221,7 +221,7 @@ pub fn Calendar(
                                         </div>
                                     </div>
                                 }.into_any());
-                                
+
                                 if current_week.len() == 7 {
                                     let row_items = std::mem::take(&mut current_week);
                                     weeks.push(view! {
@@ -231,7 +231,7 @@ pub fn Calendar(
                                     }.into_any());
                                 }
                             }
-                            
+
                             // Fill the last week if needed
                             while current_week.len() < 7 && !current_week.is_empty() {
                                 current_week.push(view! {
@@ -241,7 +241,7 @@ pub fn Calendar(
                                     </div>
                                 }.into_any());
                             }
-                            
+
                             if !current_week.is_empty() {
                                 let row_items = current_week;
                                 weeks.push(view! {
@@ -250,7 +250,7 @@ pub fn Calendar(
                                     </div>
                                 }.into_any());
                             }
-                            
+
                             weeks
                         }}
                     </div>

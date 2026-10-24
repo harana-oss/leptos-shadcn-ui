@@ -1,10 +1,10 @@
 //! Performance tests for the Hover-card component
-//! 
+//!
 //! This module contains tests for performance, callbacks, disabled states,
 //! custom styles, and complex content for the Hover-card component.
 
-use leptos::prelude::*;
 use crate::default::{HoverCard, HoverCardContent, HoverCardTrigger};
+use leptos::prelude::*;
 
 #[cfg(test)]
 mod tests {
@@ -19,7 +19,7 @@ mod tests {
                 <HoverCardContent>"Performance content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -33,7 +33,7 @@ mod tests {
                 <HoverCardContent>"Rendering performance content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -42,7 +42,7 @@ mod tests {
     fn test_hover_card_update_performance() {
         // Test hover card update performance
         let (update_count, _set_update_count) = signal(0);
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Update performance trigger"</HoverCardTrigger>
@@ -51,7 +51,7 @@ mod tests {
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -65,7 +65,7 @@ mod tests {
                 <HoverCardContent>"Memory usage content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -79,7 +79,7 @@ mod tests {
                 <HoverCardContent>"CPU usage content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -93,7 +93,7 @@ mod tests {
                 <HoverCardContent>"GPU usage content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -107,7 +107,7 @@ mod tests {
                 <HoverCardContent>"Network usage content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -121,7 +121,7 @@ mod tests {
                 <HoverCardContent>"Storage usage content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -135,7 +135,7 @@ mod tests {
                 <HoverCardContent>"Battery usage content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -149,7 +149,7 @@ mod tests {
                 <HoverCardContent>"Thermal management content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -163,7 +163,7 @@ mod tests {
                 <HoverCardContent>"Power management content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -177,7 +177,7 @@ mod tests {
                 <HoverCardContent>"Resource optimization content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -191,7 +191,7 @@ mod tests {
                 <HoverCardContent>"Caching strategy content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -205,7 +205,7 @@ mod tests {
                 <HoverCardContent>"Lazy loading content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -219,7 +219,7 @@ mod tests {
                 <HoverCardContent>"Preloading content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -233,7 +233,7 @@ mod tests {
                 <HoverCardContent>"Compression content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -247,7 +247,7 @@ mod tests {
                 <HoverCardContent>"Decompression content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -261,7 +261,7 @@ mod tests {
                 <HoverCardContent>"Serialization content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -275,7 +275,7 @@ mod tests {
                 <HoverCardContent>"Deserialization content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -289,7 +289,7 @@ mod tests {
                 <HoverCardContent>"Encryption content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -303,7 +303,7 @@ mod tests {
                 <HoverCardContent>"Decryption content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -317,7 +317,7 @@ mod tests {
                 <HoverCardContent>"Hashing content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -331,7 +331,7 @@ mod tests {
                 <HoverCardContent>"Validation content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -345,7 +345,7 @@ mod tests {
                 <HoverCardContent>"Verification content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -359,7 +359,7 @@ mod tests {
                 <HoverCardContent>"Authentication content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -373,7 +373,7 @@ mod tests {
                 <HoverCardContent>"Authorization content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -387,7 +387,7 @@ mod tests {
                 <HoverCardContent>"Auditing content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -401,7 +401,7 @@ mod tests {
                 <HoverCardContent>"Logging content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -415,7 +415,7 @@ mod tests {
                 <HoverCardContent>"Monitoring content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -429,7 +429,7 @@ mod tests {
                 <HoverCardContent>"Alerting content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -443,7 +443,7 @@ mod tests {
                 <HoverCardContent>"Metrics content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -457,7 +457,7 @@ mod tests {
                 <HoverCardContent>"Analytics content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -471,7 +471,7 @@ mod tests {
                 <HoverCardContent>"Reporting content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -485,7 +485,7 @@ mod tests {
                 <HoverCardContent>"Dashboard content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -499,7 +499,7 @@ mod tests {
                 <HoverCardContent>"Visualization content"</HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }
@@ -510,19 +510,19 @@ mod tests {
         let (performance_metric, _set_performance_metric) = signal(0.0);
         let (memory_usage, _set_memory_usage) = signal(0);
         let (cpu_usage, _set_cpu_usage) = signal(0.0);
-        
+
         let hover_card_view = view! {
             <HoverCard>
                 <HoverCardTrigger>"Comprehensive performance trigger"</HoverCardTrigger>
                 <HoverCardContent>
-                    {move || format!("Performance: {:.2}, Memory: {}, CPU: {:.2}", 
-                        performance_metric.get(), 
-                        memory_usage.get(), 
+                    {move || format!("Performance: {:.2}, Memory: {}, CPU: {:.2}",
+                        performance_metric.get(),
+                        memory_usage.get(),
                         cpu_usage.get())}
                 </HoverCardContent>
             </HoverCard>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = hover_card_view.into_view();
     }

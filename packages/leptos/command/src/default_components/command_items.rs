@@ -14,13 +14,11 @@ pub fn CommandGroup(
     #[prop(optional)] style: MaybeProp<String>,
     children: Children,
 ) -> impl IntoView {
-    let merged_class = tw_merge!(&format!("{} {}", 
-        COMMAND_GROUP_CLASS,
-        class.get().unwrap_or_default()
-    ));
-    
+    let merged_class =
+        tw_merge!(&format!("{} {}", COMMAND_GROUP_CLASS, class.get().unwrap_or_default()));
+
     view! {
-        <div 
+        <div
             class={merged_class}
             id=id.get()
             style=style.get()
@@ -38,13 +36,11 @@ pub fn CommandGroupHeading(
     #[prop(optional)] style: MaybeProp<String>,
     children: Children,
 ) -> impl IntoView {
-    let merged_class = tw_merge!(&format!("{} {}", 
-        COMMAND_GROUP_HEADING_CLASS,
-        class.get().unwrap_or_default()
-    ));
-    
+    let merged_class =
+        tw_merge!(&format!("{} {}", COMMAND_GROUP_HEADING_CLASS, class.get().unwrap_or_default()));
+
     view! {
-        <div 
+        <div
             class={merged_class}
             id=id.get()
             style=style.get()
@@ -66,24 +62,21 @@ pub fn CommandItem(
 ) -> impl IntoView {
     let context = expect_context::<crate::default_components::command_root::CommandContext>();
     let is_disabled = disabled.get().unwrap_or(false);
-    
-    let merged_class = tw_merge!(&format!("{} {}", 
-        COMMAND_ITEM_CLASS,
-        class.get().unwrap_or_default()
-    ));
-    
+
+    let merged_class =
+        tw_merge!(&format!("{} {}", COMMAND_ITEM_CLASS, class.get().unwrap_or_default()));
+
     let handle_click = move |_| {
-        if !is_disabled
-            && let Some(value) = value.get() {
-                context.selected_value.set(value.clone());
-                if let Some(callback) = &context.on_value_change {
-                    callback.run(value);
-                }
+        if !is_disabled && let Some(value) = value.get() {
+            context.selected_value.set(value.clone());
+            if let Some(callback) = &context.on_value_change {
+                callback.run(value);
             }
+        }
     };
-    
+
     view! {
-        <div 
+        <div
             class={merged_class}
             id=id.get()
             style=style.get()
@@ -104,13 +97,11 @@ pub fn CommandShortcut(
     #[prop(optional)] style: MaybeProp<String>,
     children: Children,
 ) -> impl IntoView {
-    let merged_class = tw_merge!(&format!("{} {}", 
-        COMMAND_SHORTCUT_CLASS,
-        class.get().unwrap_or_default()
-    ));
-    
+    let merged_class =
+        tw_merge!(&format!("{} {}", COMMAND_SHORTCUT_CLASS, class.get().unwrap_or_default()));
+
     view! {
-        <span 
+        <span
             class={merged_class}
             id=id.get()
             style=style.get()
@@ -126,13 +117,11 @@ pub fn CommandSeparator(
     #[prop(optional)] id: MaybeProp<String>,
     #[prop(optional)] style: MaybeProp<String>,
 ) -> impl IntoView {
-    let merged_class = tw_merge!(&format!("{} {}", 
-        COMMAND_SEPARATOR_CLASS,
-        class.get().unwrap_or_default()
-    ));
-    
+    let merged_class =
+        tw_merge!(&format!("{} {}", COMMAND_SEPARATOR_CLASS, class.get().unwrap_or_default()));
+
     view! {
-        <div 
+        <div
             class={merged_class}
             id=id.get()
             style=style.get()

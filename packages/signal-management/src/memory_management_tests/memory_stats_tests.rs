@@ -1,11 +1,10 @@
 use crate::*;
 
-
 #[test]
 fn test_memory_stats_creation() {
     // Test MemoryStats creation
     let stats = MemoryStats::default();
-    
+
     // Test initial state
     assert_eq!(stats.active_signals, 0);
     assert_eq!(stats.active_memos, 0);
@@ -22,7 +21,7 @@ fn test_memory_stats_custom_values() {
         estimated_memory_bytes: 1024,
         tracked_groups: 3,
     };
-    
+
     // Test custom values
     assert_eq!(stats.active_signals, 10);
     assert_eq!(stats.active_memos, 5);
@@ -39,7 +38,7 @@ fn test_memory_stats_clone() {
         estimated_memory_bytes: 1024,
         tracked_groups: 3,
     };
-    
+
     let cloned_stats = stats.clone();
     assert_eq!(stats, cloned_stats);
 }
@@ -53,7 +52,7 @@ fn test_memory_stats_debug() {
         estimated_memory_bytes: 1024,
         tracked_groups: 3,
     };
-    
+
     let debug_str = format!("{:?}", stats);
     assert!(debug_str.contains("active_signals"));
     assert!(debug_str.contains("active_memos"));
@@ -70,21 +69,21 @@ fn test_memory_stats_equality() {
         estimated_memory_bytes: 1024,
         tracked_groups: 3,
     };
-    
+
     let stats2 = MemoryStats {
         active_signals: 10,
         active_memos: 5,
         estimated_memory_bytes: 1024,
         tracked_groups: 3,
     };
-    
+
     let stats3 = MemoryStats {
         active_signals: 20,
         active_memos: 5,
         estimated_memory_bytes: 1024,
         tracked_groups: 3,
     };
-    
+
     assert_eq!(stats1, stats2);
     assert_ne!(stats1, stats3);
 }
@@ -98,21 +97,21 @@ fn test_memory_stats_partial_equality() {
         estimated_memory_bytes: 1024,
         tracked_groups: 3,
     };
-    
+
     let stats2 = MemoryStats {
         active_signals: 10,
         active_memos: 5,
         estimated_memory_bytes: 1024,
         tracked_groups: 3,
     };
-    
+
     let stats3 = MemoryStats {
         active_signals: 10,
         active_memos: 5,
         estimated_memory_bytes: 2048,
         tracked_groups: 3,
     };
-    
+
     assert_eq!(stats1, stats2);
     assert_ne!(stats1, stats3);
 }
@@ -126,7 +125,7 @@ fn test_memory_stats_zero_values() {
         estimated_memory_bytes: 0,
         tracked_groups: 0,
     };
-    
+
     assert_eq!(stats.active_signals, 0);
     assert_eq!(stats.active_memos, 0);
     assert_eq!(stats.estimated_memory_bytes, 0);
@@ -142,7 +141,7 @@ fn test_memory_stats_large_values() {
         estimated_memory_bytes: 1024 * 1024 * 1024, // 1GB
         tracked_groups: 1000,
     };
-    
+
     assert_eq!(stats.active_signals, 1000000);
     assert_eq!(stats.active_memos, 500000);
     assert_eq!(stats.estimated_memory_bytes, 1024 * 1024 * 1024);
@@ -158,7 +157,7 @@ fn test_memory_stats_memory_calculation() {
         estimated_memory_bytes: 1024 * 1024, // 1MB
         tracked_groups: 10,
     };
-    
+
     // Test memory calculation
     let estimated_kb = stats.estimated_memory_bytes / 1024;
     assert_eq!(estimated_kb, 1024); // 1MB in KB
@@ -173,7 +172,7 @@ fn test_memory_stats_group_ratio() {
         estimated_memory_bytes: 1024,
         tracked_groups: 10,
     };
-    
+
     // Test group ratio calculation
     let total_items = stats.active_signals + stats.active_memos;
     let items_per_group = total_items / stats.tracked_groups;
@@ -189,7 +188,7 @@ fn test_memory_stats_memory_efficiency() {
         estimated_memory_bytes: 1024,
         tracked_groups: 10,
     };
-    
+
     // Test memory efficiency calculation
     let total_items = stats.active_signals + stats.active_memos;
     let bytes_per_item = stats.estimated_memory_bytes / total_items;
@@ -205,7 +204,7 @@ fn test_memory_stats_serialization() {
         estimated_memory_bytes: 1024,
         tracked_groups: 3,
     };
-    
+
     // Test that stats can be serialized (basic test)
     let debug_str = format!("{:?}", stats);
     assert!(!debug_str.is_empty());
@@ -220,7 +219,7 @@ fn test_memory_stats_deserialization() {
         estimated_memory_bytes: 1024,
         tracked_groups: 3,
     };
-    
+
     // Test that stats can be cloned (basic deserialization test)
     let cloned_stats = stats.clone();
     assert_eq!(stats, cloned_stats);
@@ -235,7 +234,7 @@ fn test_memory_stats_edge_cases() {
         estimated_memory_bytes: 1,
         tracked_groups: 1,
     };
-    
+
     assert_eq!(stats.active_signals, 1);
     assert_eq!(stats.active_memos, 1);
     assert_eq!(stats.estimated_memory_bytes, 1);
@@ -251,7 +250,7 @@ fn test_memory_stats_overflow_protection() {
         estimated_memory_bytes: usize::MAX,
         tracked_groups: usize::MAX,
     };
-    
+
     assert_eq!(stats.active_signals, usize::MAX);
     assert_eq!(stats.active_memos, usize::MAX);
     assert_eq!(stats.estimated_memory_bytes, usize::MAX);

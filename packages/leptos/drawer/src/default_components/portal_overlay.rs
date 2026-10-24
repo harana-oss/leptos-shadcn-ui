@@ -1,5 +1,5 @@
 //! Drawer portal and overlay components
-//! 
+//!
 //! This module contains the DrawerPortal and DrawerOverlay components for
 //! rendering the drawer outside the normal DOM hierarchy.
 
@@ -7,9 +7,7 @@ use leptos::prelude::*;
 use web_sys::MouseEvent;
 
 #[component]
-pub fn DrawerPortal(
-    #[prop(optional)] children: Option<Children>,
-) -> impl IntoView {
+pub fn DrawerPortal(#[prop(optional)] children: Option<Children>) -> impl IntoView {
     view! {
         <div class="fixed inset-0 z-50">
             {children.map(|c| c())}
@@ -37,7 +35,11 @@ pub fn DrawerOverlay(
 
     let overlay_class = move || {
         let base_class = "fixed inset-0 z-50 bg-background/80 backdrop-blur-sm";
-        let scale_class = if should_scale_background.get() { " data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" } else { "" };
+        let scale_class = if should_scale_background.get() {
+            " data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+        } else {
+            ""
+        };
         let custom_class = class.get().unwrap_or_default();
         format!("{}{} {}", base_class, scale_class, custom_class)
     };

@@ -14,8 +14,6 @@ pub fn AnalyticsDashboard(
 ) -> impl IntoView {
     let analytics = use_analytics();
 
-    
-
     if analytics.is_some() {
         let most_used = use_most_used_components(limit);
         let summary = use_analytics_summary();
@@ -58,7 +56,8 @@ pub fn AnalyticsDashboard(
                     }
                 })}
             </div>
-        }.into_any()
+        }
+        .into_any()
     } else {
         view! {
             <div class="analytics-error">"AnalyticsDashboard must be used inside an AnalyticsProvider"</div>
@@ -85,7 +84,8 @@ pub fn AnalyticsBadge(
                     format!("{} mounts, {} components", total, unique)
                 }}</div>
             </div>
-        }.into_any()
+        }
+        .into_any()
     } else {
         view! { <div class="analytics-badge-hidden"></div> }.into_any()
     }

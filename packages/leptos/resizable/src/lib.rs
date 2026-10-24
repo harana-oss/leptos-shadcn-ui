@@ -1,16 +1,17 @@
 //! Leptos port of shadcn/ui resizable
 
-pub mod signal_managed;
 pub mod default;
 pub mod new_york;
 pub mod resizable;
 mod shared;
+pub mod signal_managed;
 
-pub use default::{ResizablePanelGroup, ResizablePanel, ResizableHandle};
-pub use new_york::{ResizablePanelGroup as ResizablePanelGroupNewYork, ResizablePanel as ResizablePanelNewYork, ResizableHandle as ResizableHandleNewYork};
-pub use resizable::{
-    ResizeDirection, ResizableState, ResizableConfig
+pub use default::{ResizableHandle, ResizablePanel, ResizablePanelGroup};
+pub use new_york::{
+    ResizableHandle as ResizableHandleNewYork, ResizablePanel as ResizablePanelNewYork,
+    ResizablePanelGroup as ResizablePanelGroupNewYork,
 };
+pub use resizable::{ResizableConfig, ResizableState, ResizeDirection};
 
 mod tests;
 

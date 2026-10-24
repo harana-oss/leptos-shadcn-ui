@@ -1,10 +1,10 @@
 //! Integration tests for the Menubar component
-//! 
+//!
 //! This module contains tests for integration scenarios, complete workflows,
 //! and edge cases for the Menubar component.
 
-use leptos::prelude::*;
 use crate::default::Menubar;
+use leptos::prelude::*;
 
 #[cfg(test)]
 mod tests {
@@ -18,7 +18,7 @@ mod tests {
                 "Integration menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -31,7 +31,7 @@ mod tests {
                 "Workflow menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -44,7 +44,7 @@ mod tests {
                 "Edge case menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -57,7 +57,7 @@ mod tests {
                 "Error handling menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -70,7 +70,7 @@ mod tests {
                 "Validation menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -83,7 +83,7 @@ mod tests {
                 "Performance menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -96,7 +96,7 @@ mod tests {
                 "Consistency menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -110,7 +110,7 @@ mod tests {
                 <Menubar>"Second menu"</Menubar>
             </div>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -124,7 +124,7 @@ mod tests {
                 format!("Dynamic menu {count}")
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -144,7 +144,7 @@ mod tests {
                 }}
             </div>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -158,7 +158,7 @@ mod tests {
                 "Event menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -172,7 +172,7 @@ mod tests {
                 "State menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -185,7 +185,7 @@ mod tests {
                 "Context menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -199,7 +199,7 @@ mod tests {
                 "Theme menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -212,7 +212,7 @@ mod tests {
                 "Responsive menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -225,7 +225,7 @@ mod tests {
                 "Advanced menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -238,7 +238,7 @@ mod tests {
                 "Group menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -252,7 +252,7 @@ mod tests {
                 "Click menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -265,7 +265,7 @@ mod tests {
                 "Variant menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -278,7 +278,7 @@ mod tests {
                 "Complex menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -291,7 +291,7 @@ mod tests {
                 "Edge case menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -304,7 +304,7 @@ mod tests {
                 "Error recovery menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -317,7 +317,7 @@ mod tests {
                 "Performance menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -330,7 +330,7 @@ mod tests {
                 "Memory menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -343,7 +343,7 @@ mod tests {
                 "Validation menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -356,7 +356,7 @@ mod tests {
                 "State combinations menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }
@@ -369,7 +369,7 @@ mod tests {
                 "Callback combinations menu"
             </Menubar>
         };
-        
+
         // Verify component creation doesn't panic
         let _ = menubar_view.into_view();
     }

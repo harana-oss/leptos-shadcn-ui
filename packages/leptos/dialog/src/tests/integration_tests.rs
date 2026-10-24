@@ -8,8 +8,8 @@
 //! - Component lifecycle management under concurrent operations
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 
-use leptos::prelude::*;
 use crate::*;
+use leptos::prelude::*;
 
 #[cfg(test)]
 mod integration_tests {
@@ -380,9 +380,7 @@ mod integration_tests {
         let _owner = Owner::new();
         _owner.set();
         // Test: Multiple dialogs don't cause memory leaks
-        let dialogs: Vec<RwSignal<bool>> = (0..10)
-            .map(|_| RwSignal::new(false))
-            .collect();
+        let dialogs: Vec<RwSignal<bool>> = (0..10).map(|_| RwSignal::new(false)).collect();
 
         let _view = view! {
             <div>

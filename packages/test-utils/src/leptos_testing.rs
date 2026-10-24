@@ -43,21 +43,21 @@ impl LeptosTestUtils {
         TestResult::success("Component renders successfully")
             .with_detail("framework", "Leptos".to_string())
     }
-    
+
     /// Test component with props
     pub fn test_component_with_props(props: HashMap<String, String>) -> TestResult {
         TestResult::success("Component renders with props successfully")
             .with_detail("framework", "Leptos".to_string())
             .with_detail("props_count", props.len().to_string())
     }
-    
+
     /// Test component accessibility
     pub fn test_component_accessibility() -> TestResult {
         TestResult::success("Component accessibility test passed")
             .with_detail("framework", "Leptos".to_string())
             .with_detail("accessibility_checks", "basic".to_string())
     }
-    
+
     /// Test component styling
     pub fn test_component_styling() -> TestResult {
         TestResult::success("Component styling test passed")
@@ -68,23 +68,23 @@ impl LeptosTestUtils {
     /// Test component with configuration
     pub fn test_component_with_config(config: LeptosTestConfig) -> TestResult {
         let mut result = TestResult::success("Component test with config passed");
-        
+
         if config.enable_dom_tests {
             result = result.with_detail("dom_tests", "enabled".to_string());
         }
-        
+
         if config.enable_accessibility_tests {
             result = result.with_detail("accessibility_tests", "enabled".to_string());
         }
-        
+
         if config.enable_styling_tests {
             result = result.with_detail("styling_tests", "enabled".to_string());
         }
-        
+
         if !config.expected_classes.is_empty() {
             result = result.with_detail("expected_classes", config.expected_classes.join(", "));
         }
-        
+
         result.with_detail("framework", "Leptos".to_string())
     }
 
@@ -138,14 +138,16 @@ impl DomTestUtils {
     /// Check if an element has specific CSS classes
     pub fn has_classes(element: &Element, expected_classes: &[String]) -> bool {
         let class_list = element.class_list();
-        expected_classes.iter().all(|class| class_list.contains(class))
+        expected_classes
+            .iter()
+            .all(|class| class_list.contains(class))
     }
 
     /// Check if an element has specific attributes
     pub fn has_attributes(element: &Element, expected_attrs: &HashMap<String, String>) -> bool {
-        expected_attrs.iter().all(|(key, value)| {
-            element.get_attribute(key) == Some(value.clone())
-        })
+        expected_attrs
+            .iter()
+            .all(|(key, value)| element.get_attribute(key) == Some(value.clone()))
     }
 
     /// Check if an element is accessible (has proper ARIA attributes)
@@ -154,7 +156,7 @@ impl DomTestUtils {
         let has_role = element.has_attribute("role");
         let has_aria_label = element.has_attribute("aria-label");
         let has_aria_labelledby = element.has_attribute("aria-labelledby");
-        
+
         has_role || has_aria_label || has_aria_labelledby
     }
 
@@ -162,21 +164,43 @@ impl DomTestUtils {
     pub fn is_focusable(element: &Element) -> bool {
         let tag_name = element.tag_name().to_lowercase();
         let tab_index = element.get_attribute("tabindex");
-        
-        matches!(tag_name.as_str(), "button" | "input" | "select" | "textarea" | "a") ||
-        tab_index.is_some()
+
+        matches!(tag_name.as_str(), "button" | "input" | "select" | "textarea" | "a")
+            || tab_index.is_some()
     }
 
     /// Check if an element has proper semantic structure
     pub fn has_semantic_structure(element: &Element) -> bool {
         let tag_name = element.tag_name().to_lowercase();
-        
+
         // Check for semantic HTML elements
-        matches!(tag_name.as_str(), 
-            "header" | "nav" | "main" | "article" | "section" | "aside" | "footer" |
-            "button" | "input" | "label" | "form" | "fieldset" | "legend" |
-            "table" | "thead" | "tbody" | "tr" | "th" | "td" |
-            "ul" | "ol" | "li" | "dl" | "dt" | "dd"
+        matches!(
+            tag_name.as_str(),
+            "header"
+                | "nav"
+                | "main"
+                | "article"
+                | "section"
+                | "aside"
+                | "footer"
+                | "button"
+                | "input"
+                | "label"
+                | "form"
+                | "fieldset"
+                | "legend"
+                | "table"
+                | "thead"
+                | "tbody"
+                | "tr"
+                | "th"
+                | "td"
+                | "ul"
+                | "ol"
+                | "li"
+                | "dl"
+                | "dt"
+                | "dd"
         )
     }
 }
@@ -229,34 +253,37 @@ impl ComponentTestBuilder {
     /// Build and run the test
     pub fn run(self) -> TestResult {
         let mut result = TestResult::success(format!("{} test passed", self.test_name));
-        
+
         result = result.with_detail("test_name", self.test_name);
         result = result.with_detail("framework", "Leptos".to_string());
-        
+
         if self.config.enable_dom_tests {
             result = result.with_detail("dom_tests", "enabled".to_string());
         }
-        
+
         if self.config.enable_accessibility_tests {
             result = result.with_detail("accessibility_tests", "enabled".to_string());
         }
-        
+
         if self.config.enable_styling_tests {
             result = result.with_detail("styling_tests", "enabled".to_string());
         }
-        
+
         if !self.config.expected_classes.is_empty() {
-            result = result.with_detail("expected_classes", self.config.expected_classes.join(", "));
+            result =
+                result.with_detail("expected_classes", self.config.expected_classes.join(", "));
         }
-        
+
         if !self.config.expected_attributes.is_empty() {
-            let attrs: Vec<String> = self.config.expected_attributes
+            let attrs: Vec<String> = self
+                .config
+                .expected_attributes
                 .iter()
                 .map(|(k, v)| format!("{}={}", k, v))
                 .collect();
             result = result.with_detail("expected_attributes", attrs.join(", "));
         }
-        
+
         result
     }
 }

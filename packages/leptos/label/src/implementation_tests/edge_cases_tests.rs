@@ -1,8 +1,7 @@
 //! Edge cases and performance tests for the Label component
-//! 
+//!
 //! This module contains tests for edge cases, performance characteristics,
 //! memory management, and validation logic for the Label component.
-
 
 #[cfg(test)]
 mod tests {
@@ -14,10 +13,10 @@ mod tests {
         // Test edge cases for Label
         let empty_class = "";
         assert_eq!(empty_class, "");
-        
+
         let long_class = "a".repeat(1000);
         assert_eq!(long_class.len(), 1000);
-        
+
         let special_chars = "!@#$%^&*()";
         assert_eq!(special_chars, "!@#$%^&*()");
     }
@@ -26,10 +25,10 @@ mod tests {
     fn test_label_performance_characteristics() {
         // Test performance characteristics for Label
         let base_class = LABEL_CLASS;
-        
+
         // Test that the class is not excessively long (performance consideration)
         assert!(base_class.len() < 200, "Class should not be excessively long");
-        
+
         // Test that essential classes are present
         assert!(base_class.contains("text-sm"), "Should have text size");
         assert!(base_class.contains("font-medium"), "Should have font weight");
@@ -39,14 +38,14 @@ mod tests {
     fn test_label_memory_management() {
         // Test memory management for Label
         let (value, set_value) = signal("initial".to_string());
-        
+
         // Test multiple updates
         for i in 0..100 {
             set_value.set(format!("value-{}", i));
         }
-        
+
         assert_eq!(value.get(), "value-99");
-        
+
         // Test memory cleanup by setting to empty
         set_value.set("".to_string());
         assert_eq!(value.get(), "");
@@ -58,7 +57,7 @@ mod tests {
         let valid_class = "text-sm font-medium";
         assert!(valid_class.contains("text-sm"));
         assert!(valid_class.contains("font-medium"));
-        
+
         let invalid_class = "invalid-class";
         assert!(!invalid_class.contains("text-sm"));
         assert!(!invalid_class.contains("font-medium"));
@@ -69,15 +68,15 @@ mod tests {
         // Test state management for Label
         let (is_visible, set_is_visible) = signal(true);
         let (text, set_text) = signal("Label text".to_string());
-        
+
         // Test initial state
         assert!(is_visible.get());
         assert_eq!(text.get(), "Label text");
-        
+
         // Test state updates
         set_is_visible.set(false);
         set_text.set("Updated text".to_string());
-        
+
         assert!(!is_visible.get());
         assert_eq!(text.get(), "Updated text");
     }

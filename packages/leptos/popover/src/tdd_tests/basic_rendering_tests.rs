@@ -2,9 +2,8 @@
 #[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod basic_rendering_tests {
     use leptos::prelude::*;
-    
+
     use crate::default::Popover;
-    
 
     // ===== BASIC RENDERING TESTS =====
     // These tests focus on basic rendering and component creation
@@ -56,7 +55,7 @@ mod basic_rendering_tests {
         let callback = Callback::new(move |_| {
             // Test callback functionality
         });
-        
+
         let _popover_view = view! {
             <Popover on_click=callback>"Popover with callback"</Popover>
         };
@@ -86,7 +85,7 @@ mod basic_rendering_tests {
     #[test]
     fn test_popover_with_all_props() {
         let callback = Callback::new(move |_| {});
-        
+
         let _popover_view = view! {
             <Popover
                 variant="default"
@@ -413,7 +412,7 @@ mod basic_rendering_tests {
     #[test]
     fn test_popover_rendering_performance() {
         let start = std::time::Instant::now();
-        
+
         for _ in 0..100 {
             let _view = view! {
                 <Popover>
@@ -424,7 +423,7 @@ mod basic_rendering_tests {
                 </Popover>
             };
         }
-        
+
         let duration = start.elapsed();
         assert!(duration.as_millis() < 100, "Rendering should be performant");
     }
@@ -439,7 +438,7 @@ mod basic_rendering_tests {
                 </div>
             </Popover>
         };
-        
+
         // Memory usage should be reasonable
         assert!(std::mem::size_of::<usize>() < 1024, "Memory usage should be reasonable");
     }

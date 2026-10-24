@@ -1,8 +1,8 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod component_tests {
-    use leptos::prelude::*;
     use crate::*;
+    use leptos::prelude::*;
 
     #[test]
     fn test_command_input_basic() {

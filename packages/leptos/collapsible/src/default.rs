@@ -1,6 +1,6 @@
 use leptos::prelude::*;
-use web_sys::MouseEvent;
 use web_sys::KeyboardEvent;
+use web_sys::MouseEvent;
 
 #[component]
 pub fn Collapsible(
@@ -22,9 +22,8 @@ pub fn Collapsible(
     provide_context(disabled);
     provide_context(on_open_change);
 
-    let computed_class = Signal::derive(move || {
-        format!("w-full {}", class.get().unwrap_or_default())
-    });
+    let computed_class =
+        Signal::derive(move || format!("w-full {}", class.get().unwrap_or_default()));
 
     view! {
         <div class=computed_class>
@@ -60,14 +59,12 @@ pub fn CollapsibleTrigger(
     };
 
     let handle_keydown = {
-        move |e: KeyboardEvent| {
-            match e.key().as_str() {
-                "Enter" | " " => {
-                    e.prevent_default();
-                    toggle();
-                }
-                _ => {}
+        move |e: KeyboardEvent| match e.key().as_str() {
+            "Enter" | " " => {
+                e.prevent_default();
+                toggle();
             }
+            _ => {}
         }
     };
 
@@ -111,7 +108,8 @@ pub fn CollapsibleTrigger(
                     <path d="m6 9 6 6 6-6"/>
                 </svg>
             </button>
-        }.into_any()
+        }
+        .into_any()
     }
 }
 

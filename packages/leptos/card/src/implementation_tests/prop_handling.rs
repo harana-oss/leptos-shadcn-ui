@@ -2,7 +2,7 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod prop_handling {
-    
+
     use leptos::prelude::*;
     use leptos_style::Style;
 
@@ -15,7 +15,7 @@ mod prop_handling {
         let id = Some("test-card-id".to_string());
         let class = Some("test-card-class".to_string());
         let style = Some("color: red".to_string());
-        
+
         assert_eq!(id.unwrap_or_default(), "test-card-id");
         assert_eq!(class.unwrap_or_default(), "test-card-class");
         assert_eq!(style.unwrap_or_default(), "color: red");
@@ -27,7 +27,7 @@ mod prop_handling {
         let id: Option<String> = None;
         let class: Option<String> = None;
         let style: Option<String> = None;
-        
+
         assert_eq!(id.unwrap_or_default(), "");
         assert_eq!(class.unwrap_or_default(), "");
         assert_eq!(style.unwrap_or_default(), "");
@@ -39,7 +39,7 @@ mod prop_handling {
         let id = Some("".to_string());
         let class = Some("".to_string());
         let style = Some("".to_string());
-        
+
         assert_eq!(id.unwrap_or_default(), "");
         assert_eq!(class.unwrap_or_default(), "");
         assert_eq!(style.unwrap_or_default(), "");
@@ -51,7 +51,7 @@ mod prop_handling {
         let id = Some("  ".to_string());
         let class = Some("  ".to_string());
         let style = Some("  ".to_string());
-        
+
         assert_eq!(id.unwrap_or_default(), "  ");
         assert_eq!(class.unwrap_or_default(), "  ");
         assert_eq!(style.unwrap_or_default(), "  ");
@@ -63,7 +63,7 @@ mod prop_handling {
         let id = Some("test-id-with-special-chars!@#$%^&*()".to_string());
         let class = Some("test-class-with-special-chars!@#$%^&*()".to_string());
         let style = Some("color: red; background: blue; font-size: 16px;".to_string());
-        
+
         assert_eq!(id.unwrap_or_default(), "test-id-with-special-chars!@#$%^&*()");
         assert_eq!(class.unwrap_or_default(), "test-class-with-special-chars!@#$%^&*()");
         assert_eq!(style.unwrap_or_default(), "color: red; background: blue; font-size: 16px;");
@@ -75,7 +75,7 @@ mod prop_handling {
         let id = Some("test-id-🚀".to_string());
         let class = Some("test-class-🎉".to_string());
         let style = Some("color: red; content: '🚀';".to_string());
-        
+
         assert_eq!(id.unwrap_or_default(), "test-id-🚀");
         assert_eq!(class.unwrap_or_default(), "test-class-🎉");
         assert_eq!(style.unwrap_or_default(), "color: red; content: '🚀';");
@@ -88,7 +88,7 @@ mod prop_handling {
         let id = Some(long_string.clone());
         let class = Some(long_string.clone());
         let style = Some(long_string.clone());
-        
+
         assert_eq!(id.unwrap_or_default(), long_string);
         assert_eq!(class.unwrap_or_default(), long_string);
         assert_eq!(style.unwrap_or_default(), long_string);
@@ -100,7 +100,7 @@ mod prop_handling {
         let id = Some("test-id-123".to_string());
         let class = Some("test-class-456".to_string());
         let style = Some("width: 100px; height: 200px;".to_string());
-        
+
         assert_eq!(id.unwrap_or_default(), "test-id-123");
         assert_eq!(class.unwrap_or_default(), "test-class-456");
         assert_eq!(style.unwrap_or_default(), "width: 100px; height: 200px;");
@@ -111,7 +111,7 @@ mod prop_handling {
         // Test card prop handling with boolean values
         let disabled = Some(true);
         let visible = Some(false);
-        
+
         assert!(disabled.unwrap_or_default());
         assert!(!visible.unwrap_or_default());
     }
@@ -121,7 +121,7 @@ mod prop_handling {
         // Test card prop handling with boolean None values
         let disabled: Option<bool> = None;
         let visible: Option<bool> = None;
-        
+
         assert!(!disabled.unwrap_or_default());
         assert!(!visible.unwrap_or_default());
     }
@@ -130,7 +130,7 @@ mod prop_handling {
     fn test_card_prop_handling_with_callback() {
         // Test card prop handling with callback
         let callback = Some(Callback::new(|_: ()| {}));
-        
+
         assert!(callback.is_some());
     }
 
@@ -138,7 +138,7 @@ mod prop_handling {
     fn test_card_prop_handling_with_callback_none() {
         // Test card prop handling with callback None
         let callback: Option<Callback<()>> = None;
-        
+
         assert!(callback.is_none());
     }
 
@@ -146,7 +146,7 @@ mod prop_handling {
     fn test_card_prop_handling_with_signal() {
         // Test card prop handling with signal
         let signal = Some(RwSignal::new("test-value".to_string()));
-        
+
         assert!(signal.is_some());
         assert_eq!(signal.unwrap().get(), "test-value");
     }
@@ -155,7 +155,7 @@ mod prop_handling {
     fn test_card_prop_handling_with_signal_none() {
         // Test card prop handling with signal None
         let signal: Option<RwSignal<String>> = None;
-        
+
         assert!(signal.is_none());
     }
 
@@ -163,7 +163,7 @@ mod prop_handling {
     fn test_card_prop_handling_with_style() {
         // Test card prop handling with style
         let style = Some(Style::new());
-        
+
         assert!(style.is_some());
         assert_eq!(style.unwrap().to_string(), "");
     }
@@ -172,7 +172,7 @@ mod prop_handling {
     fn test_card_prop_handling_with_style_none() {
         // Test card prop handling with style None
         let style: Option<Style> = None;
-        
+
         assert!(style.is_none());
     }
 
@@ -180,7 +180,7 @@ mod prop_handling {
     fn test_card_prop_handling_with_children() {
         // Test card prop handling with children
         let children: Option<Children> = None;
-        
+
         assert!(children.is_none());
     }
 
@@ -192,7 +192,7 @@ mod prop_handling {
         let style = Some("color: red".to_string());
         let disabled = Some(false);
         let callback = Some(Callback::new(|_: ()| {}));
-        
+
         assert_eq!(id.unwrap_or_default(), "test-id");
         assert_eq!(class.unwrap_or_default(), "test-class");
         assert_eq!(style.unwrap_or_default(), "color: red");
@@ -209,7 +209,7 @@ mod prop_handling {
         let disabled = Some(false);
         let callback = Some(Callback::new(|_: ()| {}));
         let signal = Some(RwSignal::new("test-value".to_string()));
-        
+
         assert_eq!(id.unwrap_or_default(), "test-id");
         assert_eq!(class.unwrap_or_default(), "test-class custom-class");
         assert_eq!(style.unwrap_or_default(), "color: red; background: blue; font-size: 16px;");
@@ -222,7 +222,7 @@ mod prop_handling {
     fn test_card_prop_handling_performance() {
         // Test card prop handling performance
         let start = std::time::Instant::now();
-        
+
         for _ in 0..1000 {
             let _id = Some("test-id".to_string());
             let _class = Some("test-class".to_string());
@@ -230,9 +230,9 @@ mod prop_handling {
             let _disabled = Some(false);
             let _callback = Some(Callback::new(|_: ()| {}));
         }
-        
+
         let duration = start.elapsed();
-        
+
         // Should complete quickly (less than 10ms for 1000 iterations)
         assert!(duration.as_millis() < 10);
     }
@@ -245,13 +245,13 @@ mod prop_handling {
         let style = Some("color: red".to_string());
         let disabled = Some(false);
         let callback = Some(Callback::new(|_: ()| {}));
-        
-        let total_size = std::mem::size_of_val(&id) + 
-                        std::mem::size_of_val(&class) + 
-                        std::mem::size_of_val(&style) + 
-                        std::mem::size_of_val(&disabled) + 
-                        std::mem::size_of_val(&callback);
-        
+
+        let total_size = std::mem::size_of_val(&id)
+            + std::mem::size_of_val(&class)
+            + std::mem::size_of_val(&style)
+            + std::mem::size_of_val(&disabled)
+            + std::mem::size_of_val(&callback);
+
         // Should be reasonable size (less than 1KB)
         assert!(total_size < 1024);
     }
@@ -264,14 +264,14 @@ mod prop_handling {
         let style = Some("color: red".to_string());
         let disabled = Some(false);
         let callback = Some(Callback::new(|_: ()| {}));
-        
+
         // Test that props can be cloned
         let id_clone = id.clone();
         let class_clone = class.clone();
         let style_clone = style.clone();
         let disabled_clone = disabled;
         let callback_clone = callback;
-        
+
         assert_eq!(id, id_clone);
         assert_eq!(class, class_clone);
         assert_eq!(style, style_clone);

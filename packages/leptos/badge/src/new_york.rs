@@ -4,8 +4,7 @@ use leptos_style::Style;
 const BADGE_CLASS: &str = "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2";
 
 /// Badge variant types
-#[derive(Debug, Clone, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub enum BadgeVariant {
     #[default]
     Default,
@@ -13,7 +12,6 @@ pub enum BadgeVariant {
     Destructive,
     Outline,
 }
-
 
 impl From<BadgeVariant> for String {
     fn from(variant: BadgeVariant) -> Self {
@@ -36,12 +34,18 @@ pub fn Badge(
 ) -> impl IntoView {
     let computed_class = Signal::derive(move || {
         let variant_class = match variant.get().unwrap_or_default() {
-            BadgeVariant::Default => "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
-            BadgeVariant::Secondary => "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
-            BadgeVariant::Destructive => "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
+            BadgeVariant::Default => {
+                "border-transparent bg-primary text-primary-foreground hover:bg-primary/80"
+            }
+            BadgeVariant::Secondary => {
+                "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80"
+            }
+            BadgeVariant::Destructive => {
+                "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80"
+            }
             BadgeVariant::Outline => "text-foreground",
         };
-        
+
         format!("{} {} {}", BADGE_CLASS, variant_class, class.get().unwrap_or_default())
     });
 

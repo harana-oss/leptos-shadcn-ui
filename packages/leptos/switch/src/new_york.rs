@@ -4,8 +4,7 @@ use leptos_style::Style;
 const SWITCH_CLASS: &str = "peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input";
 const SWITCH_THUMB_CLASS: &str = "pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0";
 
-#[derive(Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Clone, Copy, PartialEq, Default)]
 pub enum SwitchVariant {
     #[default]
     Default,
@@ -14,7 +13,6 @@ pub enum SwitchVariant {
     Destructive,
     Info,
 }
-
 
 impl From<String> for SwitchVariant {
     fn from(s: String) -> Self {
@@ -40,15 +38,13 @@ impl SwitchVariant {
     }
 }
 
-#[derive(Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Clone, Copy, PartialEq, Default)]
 pub enum SwitchSize {
     Sm,
     #[default]
     Md,
     Lg,
 }
-
 
 impl From<String> for SwitchSize {
     fn from(s: String) -> Self {
@@ -68,7 +64,7 @@ impl SwitchSize {
             SwitchSize::Lg => "h-8 w-14",
         }
     }
-    
+
     fn thumb_class(&self) -> &'static str {
         match self {
             SwitchSize::Sm => "h-3 w-3 data-[state=checked]:translate-x-3",
@@ -92,7 +88,7 @@ pub fn Switch(
 ) -> impl IntoView {
     let switch_variant = variant.get().unwrap_or_default();
     let switch_size = size.get().unwrap_or_default();
-    
+
     let handle_change = {
         move |_event: MouseEvent| {
             if let Some(callback) = &on_change {
@@ -105,10 +101,21 @@ pub fn Switch(
     let switch_class = switch_size.switch_class();
     let thumb_class = switch_size.thumb_class();
     let variant_class = switch_variant.checked_class();
-    let animation_class = if animated.get() { "transition-all duration-200" } else { "transition-colors" };
-    
+    let animation_class = if animated.get() {
+        "transition-all duration-200"
+    } else {
+        "transition-colors"
+    };
+
     let computed_class = Signal::derive(move || {
-        format!("{} {} {} {} {}", SWITCH_CLASS, switch_class, variant_class, animation_class, class.get().unwrap_or_default())
+        format!(
+            "{} {} {} {} {}",
+            SWITCH_CLASS,
+            switch_class,
+            variant_class,
+            animation_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     let computed_thumb_class = Signal::derive(move || {
@@ -116,7 +123,11 @@ pub fn Switch(
     });
 
     let state_attr = Signal::derive(move || {
-        if checked.get() { "checked" } else { "unchecked" }
+        if checked.get() {
+            "checked"
+        } else {
+            "unchecked"
+        }
     });
 
     view! {
@@ -203,15 +214,29 @@ pub fn SwitchThumb(
     #[prop(into, optional)] style: Signal<Style>,
 ) -> impl IntoView {
     let ctx = expect_context::<SwitchContextValue>();
-    
+
     let thumb_class = ctx.size.get().thumb_class();
-    let animation_class = if ctx.animated.get() { "transition-all duration-200" } else { "transition-transform" };
+    let animation_class = if ctx.animated.get() {
+        "transition-all duration-200"
+    } else {
+        "transition-transform"
+    };
     let state_attr = Signal::derive(move || {
-        if ctx.checked.get() { "checked" } else { "unchecked" }
+        if ctx.checked.get() {
+            "checked"
+        } else {
+            "unchecked"
+        }
     });
-    
+
     let computed_class = Signal::derive(move || {
-        format!("{} {} {} {}", SWITCH_THUMB_CLASS, thumb_class, animation_class, class.get().unwrap_or_default())
+        format!(
+            "{} {} {} {}",
+            SWITCH_THUMB_CLASS,
+            thumb_class,
+            animation_class,
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {
@@ -233,7 +258,10 @@ pub fn SwitchLabel(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let computed_class = Signal::derive(move || {
-        format!("text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 {}", class.get().unwrap_or_default())
+        format!(
+            "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 {}",
+            class.get().unwrap_or_default()
+        )
     });
 
     view! {

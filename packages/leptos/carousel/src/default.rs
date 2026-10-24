@@ -1,14 +1,12 @@
 use leptos::prelude::*;
 use web_sys::MouseEvent;
 
-#[derive(Debug, Clone, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, PartialEq, Default)]
 pub enum CarouselOrientation {
     #[default]
     Horizontal,
     Vertical,
 }
-
 
 #[derive(Debug, Clone)]
 pub struct CarouselApi {
@@ -27,21 +25,22 @@ pub fn Carousel(
 ) -> impl IntoView {
     let selected_index: RwSignal<usize> = RwSignal::new(0);
     let total_items: RwSignal<usize> = RwSignal::new(0);
-    
+
     let can_scroll_prev = Signal::derive(move || selected_index.get() > 0);
-    let can_scroll_next = Signal::derive(move || selected_index.get() < total_items.get().saturating_sub(1_usize));
-    
+    let can_scroll_next =
+        Signal::derive(move || selected_index.get() < total_items.get().saturating_sub(1_usize));
+
     let scroll_to = Callback::new(move |index: usize| {
         selected_index.set(index);
     });
-    
+
     let scroll_prev = Callback::new(move |_| {
         let current = selected_index.get();
         if current > 0 {
             selected_index.set(current - 1);
         }
     });
-    
+
     let scroll_next = Callback::new(move |_| {
         let current = selected_index.get();
         let total = total_items.get();
@@ -49,7 +48,7 @@ pub fn Carousel(
             selected_index.set(current + 1);
         }
     });
-    
+
     let api = CarouselApi {
         scroll_to,
         scroll_prev,
@@ -57,18 +56,19 @@ pub fn Carousel(
         can_scroll_prev,
         can_scroll_next,
     };
-    
+
     // Provide default orientation if none is provided
-    let orientation_signal = orientation.get().unwrap_or_else(|| Signal::derive(CarouselOrientation::default));
+    let orientation_signal = orientation
+        .get()
+        .unwrap_or_else(|| Signal::derive(CarouselOrientation::default));
     provide_context(orientation_signal);
     provide_context(api);
     provide_context(selected_index);
     provide_context(total_items);
-    
-    let computed_class = Signal::derive(move || {
-        format!("relative w-full {}", class.get().unwrap_or_default())
-    });
-    
+
+    let computed_class =
+        Signal::derive(move || format!("relative w-full {}", class.get().unwrap_or_default()));
+
     view! {
         <div class=computed_class>
             {children.map(|c| c())}
@@ -83,7 +83,7 @@ pub fn CarouselContent(
 ) -> impl IntoView {
     let orientation = expect_context::<Signal<CarouselOrientation>>();
     let total_items = expect_context::<RwSignal<usize>>();
-    
+
     // Update total items count when children change without moving children into the Effect
     let has_any_children = children.is_some();
     Effect::new(move |_| {
@@ -92,16 +92,16 @@ pub fn CarouselContent(
             total_items.set(1);
         }
     });
-    
+
     let computed_class = Signal::derive(move || {
         let position_class = match orientation.get() {
             CarouselOrientation::Horizontal => "flex",
             CarouselOrientation::Vertical => "flex flex-col",
         };
-        
+
         format!("{} w-full {}", position_class, class.get().unwrap_or_default())
     });
-    
+
     let rendered_children = children.map(|c| c());
     view! {
         <div class=computed_class>
@@ -116,16 +116,16 @@ pub fn CarouselItem(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let orientation = expect_context::<Signal<CarouselOrientation>>();
-    
+
     let computed_class = Signal::derive(move || {
         let position_class = match orientation.get() {
             CarouselOrientation::Horizontal => "min-w-0 shrink-0 grow-0 basis-full",
             CarouselOrientation::Vertical => "min-h-0 shrink-0 grow-0 basis-full",
         };
-        
+
         format!("{} {}", position_class, class.get().unwrap_or_default())
     });
-    
+
     view! {
         <div class=computed_class>
             {children.map(|c| c())}
@@ -155,10 +155,14 @@ pub fn CarouselPrevious(
 
     let computed_class = Signal::derive(move || {
         let position_class = match orientation.get() {
-            CarouselOrientation::Horizontal => "absolute h-8 w-8 rounded-full left-12 top-1/2 -translate-y-1/2",
-            CarouselOrientation::Vertical => "absolute h-8 w-8 rounded-full left-1/2 top-12 -translate-x-1/2 -rotate-90",
+            CarouselOrientation::Horizontal => {
+                "absolute h-8 w-8 rounded-full left-12 top-1/2 -translate-y-1/2"
+            }
+            CarouselOrientation::Vertical => {
+                "absolute h-8 w-8 rounded-full left-1/2 top-12 -translate-x-1/2 -rotate-90"
+            }
         };
-        
+
         format!(
             "{} inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground {}",
             position_class,
@@ -212,10 +216,14 @@ pub fn CarouselNext(
 
     let computed_class = Signal::derive(move || {
         let position_class = match orientation.get() {
-            CarouselOrientation::Horizontal => "absolute h-8 w-8 rounded-full right-12 top-1/2 -translate-y-1/2",
-            CarouselOrientation::Vertical => "absolute h-8 w-8 rounded-full left-1/2 bottom-12 -translate-x-1/2 rotate-90",
+            CarouselOrientation::Horizontal => {
+                "absolute h-8 w-8 rounded-full right-12 top-1/2 -translate-y-1/2"
+            }
+            CarouselOrientation::Vertical => {
+                "absolute h-8 w-8 rounded-full left-1/2 bottom-12 -translate-x-1/2 rotate-90"
+            }
         };
-        
+
         format!(
             "{} inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground {}",
             position_class,

@@ -1,7 +1,7 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod prop_handling {
-    use crate::default::{ButtonChildProps, BUTTON_CLASS};
+    use crate::default::{BUTTON_CLASS, ButtonChildProps};
     use leptos::prelude::*;
 
     // ===== PROP HANDLING TESTS =====
@@ -171,7 +171,7 @@ mod prop_handling {
         if let Some(cb) = &props.onclick {
             cb.run(());
             assert_eq!(click_count.get(), 1);
-            
+
             cb.run(());
             assert_eq!(click_count.get(), 2);
         }
@@ -259,8 +259,11 @@ mod prop_handling {
         ];
 
         for expected_class in expected_classes {
-            assert!(BUTTON_CLASS.contains(expected_class), 
-                "BUTTON_CLASS should contain '{}'", expected_class);
+            assert!(
+                BUTTON_CLASS.contains(expected_class),
+                "BUTTON_CLASS should contain '{}'",
+                expected_class
+            );
         }
     }
 

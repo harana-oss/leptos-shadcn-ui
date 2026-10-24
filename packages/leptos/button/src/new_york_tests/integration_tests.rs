@@ -2,7 +2,10 @@
 #![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod integration_tests {
-    use crate::new_york::{ButtonVariant as ButtonVariantNewYork, ButtonSize as ButtonSizeNewYork, ButtonChildProps as ButtonChildPropsNewYork};
+    use crate::new_york::{
+        ButtonChildProps as ButtonChildPropsNewYork, ButtonSize as ButtonSizeNewYork,
+        ButtonVariant as ButtonVariantNewYork,
+    };
     use leptos::prelude::*;
 
     // ===== NEW YORK INTEGRATION TESTS =====
@@ -86,12 +89,12 @@ mod integration_tests {
     fn test_new_york_button_click_handler_without_callback() {
         // Test click handler without callback (should not panic)
         let callback: Option<Callback<()>> = None;
-        
+
         // This should not panic
         if let Some(cb) = &callback {
             cb.run(());
         }
-        
+
         // Test passes if no panic occurs
     }
 
@@ -104,19 +107,22 @@ mod integration_tests {
 
         // Simulate the computed class logic
         let variant_class = match variant.unwrap_or_default() {
-            ButtonVariantNewYork::Default => "bg-primary text-primary-foreground hover:bg-primary/90",
+            ButtonVariantNewYork::Default => {
+                "bg-primary text-primary-foreground hover:bg-primary/90"
+            }
             _ => "",
         };
-        
+
         let size_class = match size.unwrap_or_default() {
             ButtonSizeNewYork::Default => "h-10 px-4 py-2",
             _ => "",
         };
 
-        let computed_class = format!("{} {} {} {}", 
-            "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors", 
-            variant_class, 
-            size_class, 
+        let computed_class = format!(
+            "{} {} {} {}",
+            "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors",
+            variant_class,
+            size_class,
             class.unwrap_or_default()
         );
 
@@ -129,25 +135,49 @@ mod integration_tests {
     fn test_new_york_button_computed_class_all_variants() {
         // Test computed class generation for all variants
         let variants = vec![
-            (ButtonVariantNewYork::Default, "bg-primary text-primary-foreground hover:bg-primary/90"),
-            (ButtonVariantNewYork::Destructive, "bg-destructive text-destructive-foreground hover:bg-destructive/90"),
-            (ButtonVariantNewYork::Outline, "border border-input bg-background hover:bg-accent hover:text-accent-foreground"),
-            (ButtonVariantNewYork::Secondary, "bg-secondary text-secondary-foreground hover:bg-secondary/80"),
+            (
+                ButtonVariantNewYork::Default,
+                "bg-primary text-primary-foreground hover:bg-primary/90",
+            ),
+            (
+                ButtonVariantNewYork::Destructive,
+                "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+            ),
+            (
+                ButtonVariantNewYork::Outline,
+                "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+            ),
+            (
+                ButtonVariantNewYork::Secondary,
+                "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+            ),
             (ButtonVariantNewYork::Ghost, "hover:bg-accent hover:text-accent-foreground"),
             (ButtonVariantNewYork::Link, "text-primary underline-offset-4 hover:underline"),
         ];
 
         for (variant, expected_class) in variants {
             let variant_class = match variant {
-                ButtonVariantNewYork::Default => "bg-primary text-primary-foreground hover:bg-primary/90",
-                ButtonVariantNewYork::Destructive => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-                ButtonVariantNewYork::Outline => "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-                ButtonVariantNewYork::Secondary => "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+                ButtonVariantNewYork::Default => {
+                    "bg-primary text-primary-foreground hover:bg-primary/90"
+                }
+                ButtonVariantNewYork::Destructive => {
+                    "bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                }
+                ButtonVariantNewYork::Outline => {
+                    "border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+                }
+                ButtonVariantNewYork::Secondary => {
+                    "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                }
                 ButtonVariantNewYork::Ghost => "hover:bg-accent hover:text-accent-foreground",
                 ButtonVariantNewYork::Link => "text-primary underline-offset-4 hover:underline",
             };
-            
-            assert_eq!(variant_class, expected_class, "Variant {:?} should have correct class", variant);
+
+            assert_eq!(
+                variant_class, expected_class,
+                "Variant {:?} should have correct class",
+                variant
+            );
         }
     }
 
@@ -168,7 +198,7 @@ mod integration_tests {
                 ButtonSizeNewYork::Lg => "h-11 rounded-md px-8",
                 ButtonSizeNewYork::Icon => "h-10 w-10",
             };
-            
+
             assert_eq!(size_class, expected_class, "Size {:?} should have correct class", size);
         }
     }
@@ -182,19 +212,22 @@ mod integration_tests {
 
         // Simulate the computed class logic with None props
         let variant_class = match variant.unwrap_or_default() {
-            ButtonVariantNewYork::Default => "bg-primary text-primary-foreground hover:bg-primary/90",
+            ButtonVariantNewYork::Default => {
+                "bg-primary text-primary-foreground hover:bg-primary/90"
+            }
             _ => "",
         };
-        
+
         let size_class = match size.unwrap_or_default() {
             ButtonSizeNewYork::Default => "h-10 px-4 py-2",
             _ => "",
         };
 
-        let computed_class = format!("{} {} {} {}", 
-            "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors", 
-            variant_class, 
-            size_class, 
+        let computed_class = format!(
+            "{} {} {} {}",
+            "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors",
+            variant_class,
+            size_class,
             class.unwrap_or_default()
         );
 
@@ -211,19 +244,22 @@ mod integration_tests {
         let class = Some("my-custom-class".to_string());
 
         let variant_class = match variant.unwrap_or_default() {
-            ButtonVariantNewYork::Outline => "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+            ButtonVariantNewYork::Outline => {
+                "border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+            }
             _ => "",
         };
-        
+
         let size_class = match size.unwrap_or_default() {
             ButtonSizeNewYork::Lg => "h-11 rounded-md px-8",
             _ => "",
         };
 
-        let computed_class = format!("{} {} {} {}", 
-            "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors", 
-            variant_class, 
-            size_class, 
+        let computed_class = format!(
+            "{} {} {} {}",
+            "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors",
+            variant_class,
+            size_class,
             class.unwrap_or_default()
         );
 
@@ -239,18 +275,21 @@ mod integration_tests {
         let size = ButtonSizeNewYork::Sm;
 
         let variant_class = match variant {
-            ButtonVariantNewYork::Destructive => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+            ButtonVariantNewYork::Destructive => {
+                "bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            }
             _ => "",
         };
-        
+
         let size_class = match size {
             ButtonSizeNewYork::Sm => "h-9 rounded-md px-3",
             _ => "",
         };
 
-        let computed_class = format!("{} {} {}", 
-            "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors", 
-            variant_class, 
+        let computed_class = format!(
+            "{} {} {}",
+            "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors",
+            variant_class,
             size_class
         );
 
@@ -270,15 +309,16 @@ mod integration_tests {
             ButtonVariantNewYork::Ghost => "hover:bg-accent hover:text-accent-foreground",
             _ => "",
         };
-        
+
         let size_class = match size {
             ButtonSizeNewYork::Icon => "h-10 w-10",
             _ => "",
         };
 
-        let computed_class = format!("{} {} {}", 
-            "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors", 
-            variant_class, 
+        let computed_class = format!(
+            "{} {} {}",
+            "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors",
+            variant_class,
             size_class
         );
 
@@ -294,18 +334,21 @@ mod integration_tests {
         let size = ButtonSizeNewYork::Lg;
 
         let variant_class = match variant {
-            ButtonVariantNewYork::Secondary => "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+            ButtonVariantNewYork::Secondary => {
+                "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+            }
             _ => "",
         };
-        
+
         let size_class = match size {
             ButtonSizeNewYork::Lg => "h-11 rounded-md px-8",
             _ => "",
         };
 
-        let computed_class = format!("{} {} {}", 
-            "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors", 
-            variant_class, 
+        let computed_class = format!(
+            "{} {} {}",
+            "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors",
+            variant_class,
             size_class
         );
 
@@ -318,7 +361,8 @@ mod integration_tests {
     #[test]
     fn test_new_york_button_computed_class_base_classes() {
         // Test that base button classes are always present
-        let computed_class = format!("{} variant-class size-class", 
+        let computed_class = format!(
+            "{} variant-class size-class",
             "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors"
         );
 
@@ -338,19 +382,22 @@ mod integration_tests {
         let class = Some("".to_string());
 
         let variant_class = match variant.unwrap_or_default() {
-            ButtonVariantNewYork::Default => "bg-primary text-primary-foreground hover:bg-primary/90",
+            ButtonVariantNewYork::Default => {
+                "bg-primary text-primary-foreground hover:bg-primary/90"
+            }
             _ => "",
         };
-        
+
         let size_class = match size.unwrap_or_default() {
             ButtonSizeNewYork::Default => "h-10 px-4 py-2",
             _ => "",
         };
 
-        let computed_class = format!("{} {} {} {}", 
-            "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors", 
-            variant_class, 
-            size_class, 
+        let computed_class = format!(
+            "{} {} {} {}",
+            "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors",
+            variant_class,
+            size_class,
             class.unwrap_or_default()
         );
 
@@ -368,19 +415,22 @@ mod integration_tests {
         let class = Some("  custom-class  ".to_string());
 
         let variant_class = match variant.unwrap_or_default() {
-            ButtonVariantNewYork::Default => "bg-primary text-primary-foreground hover:bg-primary/90",
+            ButtonVariantNewYork::Default => {
+                "bg-primary text-primary-foreground hover:bg-primary/90"
+            }
             _ => "",
         };
-        
+
         let size_class = match size.unwrap_or_default() {
             ButtonSizeNewYork::Default => "h-10 px-4 py-2",
             _ => "",
         };
 
-        let computed_class = format!("{} {} {} {}", 
-            "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors", 
-            variant_class, 
-            size_class, 
+        let computed_class = format!(
+            "{} {} {} {}",
+            "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors",
+            variant_class,
+            size_class,
             class.unwrap_or_default()
         );
 

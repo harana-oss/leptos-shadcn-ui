@@ -1,7 +1,7 @@
 //! Lazy loading system for shadcn/ui Leptos components
 
-use leptos::prelude::*;
 use leptos::html::ElementChild;
+use leptos::prelude::*;
 use leptos::task::spawn_local;
 use leptos_shadcn_error_boundary::{ErrorContext, ErrorSeverity};
 use std::collections::HashMap;
@@ -68,8 +68,8 @@ pub fn LazyComponent(
     #[prop(optional)] fallback: Option<Box<dyn Fn() -> AnyView + Send + Sync>>,
     #[prop(optional)] error_fallback: Option<Box<dyn Fn(String) -> AnyView + Send + Sync>>,
 ) -> impl IntoView {
-    let loader = use_context::<LazyComponentLoader>()
-        .expect("LazyComponentLoader not found in context");
+    let loader =
+        use_context::<LazyComponentLoader>().expect("LazyComponentLoader not found in context");
 
     let (component, set_component) = signal(None::<Result<View<()>, String>>);
     let (loading, set_loading) = signal(true);
@@ -109,7 +109,8 @@ pub fn LazyComponent(
                         <div class="loading-spinner"></div>
                         <p>"Loading component..."</p>
                     </div>
-                }.into_any()
+                }
+                .into_any()
             }
         } else if let Some(Ok(comp)) = component.get() {
             comp.into_any()
@@ -130,7 +131,8 @@ pub fn LazyComponent(
                         <p class="error-message">{error_context.message}</p>
                         <button class="error-retry" on:click=retry_loading>"Retry"</button>
                     </div>
-                }.into_any()
+                }
+                .into_any()
             }
         } else {
             view! { <div></div> }.into_any()
@@ -142,13 +144,15 @@ pub fn LazyComponent(
 pub type LazyComponentResult = Option<Result<View<()>, String>>;
 
 /// Hook for lazy loading components with proper cleanup
-pub fn use_lazy_component(name: &str) -> (ReadSignal<bool>, ReadSignal<LazyComponentResult>, WriteSignal<bool>) {
+pub fn use_lazy_component(
+    name: &str,
+) -> (ReadSignal<bool>, ReadSignal<LazyComponentResult>, WriteSignal<bool>) {
     let (loading, set_loading) = signal(false);
     let (component, set_component) = signal(None::<Result<View<()>, String>>);
     let (is_mounted, set_is_mounted) = signal(true);
 
-    let loader = use_context::<LazyComponentLoader>()
-        .expect("LazyComponentLoader not found in context");
+    let loader =
+        use_context::<LazyComponentLoader>().expect("LazyComponentLoader not found in context");
 
     let name = name.to_string();
     let is_mounted_for_load = is_mounted;
@@ -177,13 +181,37 @@ pub struct BundleAnalyzer;
 impl BundleAnalyzer {
     pub fn analyze_usage(components: &[String]) -> BundleAnalysis {
         let mut analysis = BundleAnalysis::new();
-        let form_components = ["input", "label", "checkbox", "radio-group", "select", "textarea", "form"];
+        let form_components = [
+            "input",
+            "label",
+            "checkbox",
+            "radio-group",
+            "select",
+            "textarea",
+            "form",
+        ];
         let layout_components = ["card", "separator", "skeleton", "tabs"];
-        let interactive_components = ["button", "checkbox", "radio-group", "select", "switch", "tabs"];
+        let interactive_components = [
+            "button",
+            "checkbox",
+            "radio-group",
+            "select",
+            "switch",
+            "tabs",
+        ];
 
-        let form_count = components.iter().filter(|c| form_components.contains(&c.as_str())).count();
-        let layout_count = components.iter().filter(|c| layout_components.contains(&c.as_str())).count();
-        let interactive_count = components.iter().filter(|c| interactive_components.contains(&c.as_str())).count();
+        let form_count = components
+            .iter()
+            .filter(|c| form_components.contains(&c.as_str()))
+            .count();
+        let layout_count = components
+            .iter()
+            .filter(|c| layout_components.contains(&c.as_str()))
+            .count();
+        let interactive_count = components
+            .iter()
+            .filter(|c| interactive_components.contains(&c.as_str()))
+            .count();
 
         analysis.form_components = form_count;
         analysis.layout_components = layout_count;
@@ -191,13 +219,19 @@ impl BundleAnalyzer {
         analysis.total_components = components.len();
 
         if form_count > 4 {
-            analysis.recommendations.push("Consider lazy loading form components to reduce initial bundle size".to_string());
+            analysis.recommendations.push(
+                "Consider lazy loading form components to reduce initial bundle size".to_string(),
+            );
         }
         if layout_count > 3 {
-            analysis.recommendations.push("Layout components can be loaded on demand for better performance".to_string());
+            analysis.recommendations.push(
+                "Layout components can be loaded on demand for better performance".to_string(),
+            );
         }
         if interactive_count > 5 {
-            analysis.recommendations.push("Interactive components benefit from lazy loading for better UX".to_string());
+            analysis
+                .recommendations
+                .push("Interactive components benefit from lazy loading for better UX".to_string());
         }
         analysis
     }
@@ -230,7 +264,7 @@ mod tests {
     #[test]
     fn test_lazy_component_loader() {
         let loader = LazyComponentLoader::new();
-        loader.register_component("test", || { Ok(View::new(())) });
+        loader.register_component("test", || Ok(View::new(())));
         assert!(loader.has_component("test"));
         assert!(!loader.has_component("nonexistent"));
         let components = loader.registered_components();
@@ -238,7 +272,11 @@ mod tests {
     }
     #[test]
     fn test_bundle_analyzer() {
-        let components = vec!["button".to_string(), "input".to_string(), "card".to_string()];
+        let components = vec![
+            "button".to_string(),
+            "input".to_string(),
+            "card".to_string(),
+        ];
         let analysis = BundleAnalyzer::analyze_usage(&components);
         assert_eq!(analysis.total_components, 3);
         assert_eq!(analysis.form_components, 1);
