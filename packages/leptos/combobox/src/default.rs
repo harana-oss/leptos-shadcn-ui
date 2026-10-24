@@ -145,7 +145,7 @@ pub fn Combobox(
         // Delay closing to allow for option clicks
         let is_mounted = is_mounted;
         let set_is_open = set_is_open_for_timeout;
-        set_timeout(
+        let scheduled = set_timeout(
             move || {
                 // Only execute if component is still mounted
                 if is_mounted.get() {
@@ -154,6 +154,10 @@ pub fn Combobox(
             },
             std::time::Duration::from_millis(150)
         );
+        // Close immediately if the timer could not be scheduled
+        if scheduled.is_err() {
+            set_is_open.set(false);
+        }
     };
 
     // Set flag to false on cleanup to prevent timeout execution

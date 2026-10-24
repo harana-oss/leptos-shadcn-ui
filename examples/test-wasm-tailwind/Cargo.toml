@@ -6,6 +6,6 @@ edition = "2021"
 [workspace]
 
 [dependencies]
-leptos = "0.8"
+leptos = "0.9.0-rc0"
 leptos-shadcn-ui-wasm = "0.2"
 tailwind-rs-wasm = "0.8.1"

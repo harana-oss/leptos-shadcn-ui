@@ -12,7 +12,7 @@ test.describe('Demo Page E2E Tests', () => {
 
   test.beforeEach(async ({ page: testPage }) => {
     page = testPage;
-    await page.goto('/demo/index.html');
+    await page.goto('/examples/demo-pages/index.html');
     await page.waitForLoadState('networkidle');
   });
 
@@ -305,7 +305,7 @@ test.describe('Demo Page E2E Tests', () => {
   test('should load within performance budget', async () => {
     const startTime = Date.now();
     
-    await page.goto('/demo/index.html');
+    await page.goto('/examples/demo-pages/index.html');
     await page.waitForLoadState('networkidle');
     
     const loadTime = Date.now() - startTime;

@@ -1,6 +1,6 @@
 # leptos-shadcn-ui
 
-shadcn/ui components for [Leptos](https://leptos.dev) 0.8, styled with Tailwind CSS.
+shadcn/ui components for [Leptos](https://leptos.dev) 0.9, styled with Tailwind CSS.
 
 ## Install
 
@@ -88,29 +88,11 @@ Supporting crates: `analytics`, `error-boundary`, `lazy-loading`, `registry`, `u
 ## Development
 
 ```sh
-cargo build --workspace                    # or: make build
-cargo test --workspace --lib               # or: make test-rust
+cargo build --workspace                    # or: just build
+cargo test --workspace --lib               # or: just test-rust
 cargo test -p leptos-shadcn-button         # single component
-cargo clippy --workspace -- -D warnings    # or: make lint
-cargo fmt --all                            # or: make fmt
-cargo check --workspace                    # or: make check
-make test-e2e                              # Playwright E2E tests
+cargo clippy --workspace -- -D warnings    # or: just lint
+cargo fmt --all                            # or: just fmt
+cargo check --workspace                    # or: just check
+just test-e2e                              # Playwright E2E tests
 ```
-
-See [AGENTS.md](AGENTS.md) for code style and project layout.
-
-## Repository layout
-
-| Path | Contents |
-|---|---|
-| `packages/` | Component crates and supporting libraries |
-| `examples/` | Example applications |
-| `demo/` | Standalone demos and WASM test apps |
-| `build/` | Build, publish and maintenance scripts (`build/scripts/`) |
-| `docs/` | Documentation, release notes and reports |
-| `tests/` | End-to-end tests |
-| `performance-audit/` | Performance audit system |
-
-## License
-
-MIT. See [LICENSE](LICENSE).

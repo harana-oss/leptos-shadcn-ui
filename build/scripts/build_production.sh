@@ -145,6 +145,6 @@ cd ../..
 echo ""
 echo "=== 🎯 NEXT STEPS ==="
 echo "1. Test the production build: cd book-examples/leptos && trunk serve"
-echo "2. Analyze bundle sizes: make analyze-bundle"
-echo "3. Run E2E tests: make test-e2e"
+echo "2. Analyze bundle sizes: just analyze-bundle"
+echo "3. Run E2E tests: just test-e2e"
 echo "4. Move to Phase 2: Error Boundaries & Resilience"

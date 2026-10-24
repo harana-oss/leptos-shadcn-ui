@@ -109,46 +109,46 @@
 ### Quick Start
 ```bash
 # Run all infrastructure tests
-make test
+just test-full
 
 # Run WASM browser tests
-make test-wasm
+just test-wasm-browser
 
 # Run E2E tests
-make test-e2e-enhanced
+just test-e2e-enhanced
 
 # Run performance benchmarks
-make benchmark
+just benchmark
 
 # Run accessibility audit
-make accessibility-audit
+just accessibility-audit
 ```
 
 ### Advanced Usage
 ```bash
 # Run tests on specific browsers
-make test-wasm-browsers BROWSERS=chromium,firefox
+just test-wasm-browsers chromium,firefox
 
 # Run with specific WCAG level
-make accessibility-audit-wcag LEVEL=AAA
+just accessibility-audit-wcag AAA
 
 # Run performance regression tests
-make regression-test
+just regression-test
 
 # Start automated monitoring
-make performance-monitor
+just performance-monitor
 ```
 
 ### CI/CD Integration
 ```bash
 # Run in CI mode
-CI=true make test-e2e-ci
+CI=true just test-e2e-ci
 
 # Run with performance monitoring
-CI=true make performance-monitor-alerts
+CI=true just performance-monitor-alerts
 
 # Run comprehensive audit
-CI=true make accessibility-audit
+CI=true just accessibility-audit
 ```
 
 ## 📊 Infrastructure Metrics
