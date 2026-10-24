@@ -1,3 +1,4 @@
+{% raw %}
 # ADR-009: Leptos Ecosystem Maintainership and "Drink Our Own Champagne" Philosophy
 
 ## Status
@@ -506,3 +507,5 @@ impl CommunityEngagement {
 - ADR-006: Leptos Versioning and Latest Support Strategy
 - ADR-007: Rust Coding Standards and Latest Practices
 - ADR-008: Competitive Analysis and Capability Matching Strategy
+
+{% endraw %}

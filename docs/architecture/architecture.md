@@ -1,3 +1,4 @@
+{% raw %}
 # Architecture Documentation
 
 This document provides a comprehensive overview of the Rust shadcn/ui architecture, design patterns, and implementation strategies.
@@ -762,3 +763,4 @@ pub fn Button(/* ... */) -> impl IntoView {
 - Performance profiling integration
 
 This architecture provides a solid foundation for scalable, maintainable, and performant UI component development across multiple Rust web frameworks.
+{% endraw %}

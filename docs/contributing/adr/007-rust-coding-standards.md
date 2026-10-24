@@ -1,3 +1,4 @@
+{% raw %}
 # ADR-007: Rust Coding Standards and Latest Practices
 
 ## Status
@@ -418,3 +419,5 @@ jobs:
 - ADR-003: Playwright Testing for Demos
 - ADR-004: API Contracts and Testing
 - ADR-006: Leptos Versioning and Latest Support Strategy
+
+{% endraw %}

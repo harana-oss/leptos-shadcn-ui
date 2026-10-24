@@ -1,3 +1,4 @@
+{% raw %}
 # Interactive Tutorial Guide - New York Theme Components
 
 ## 🎯 Overview
@@ -1114,3 +1115,5 @@ This tutorial has covered the essential patterns for building interactive applic
 Continue experimenting with these patterns and building more complex applications. The New York theme provides a solid foundation for creating beautiful, interactive user interfaces with Leptos and Rust.
 
 Happy coding! 🚀
+
+{% endraw %}

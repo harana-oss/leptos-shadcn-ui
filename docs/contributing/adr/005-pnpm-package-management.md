@@ -1,3 +1,4 @@
+{% raw %}
 # ADR-005: PNPM Package Management Strategy
 
 ## Status
@@ -153,3 +154,5 @@ jobs:
 - ADR-001: Test-Driven Development (TDD) First Approach
 - ADR-002: Testing Pyramid Strategy
 - ADR-003: Playwright Testing for Demos
+
+{% endraw %}

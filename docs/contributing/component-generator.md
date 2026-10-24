@@ -1,3 +1,4 @@
+{% raw %}
 # Component Generator Documentation
 
 The Rust shadcn/ui component generator is a powerful tool for creating consistent, framework-specific UI components with full theme variant support.
@@ -429,3 +430,4 @@ RUST_LOG=debug cargo run -p shadcn -- generate --name "test" --framework "leptos
 - Maintain consistent styling approach
 
 For more information, see the [Contributing Guide](../README.md#contributing).
+{% endraw %}
