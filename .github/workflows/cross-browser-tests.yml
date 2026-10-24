@@ -367,6 +367,11 @@ jobs:
           CI: true
           HEADLESS: true
 
+      - name: Print failure context
+        if: failure()
+        run: |
+          find tests/e2e/test-results -name error-context.md -print -exec cat {} \; 2>/dev/null | head -400 || true
+
       - name: Upload ${{ matrix.display-name }} test results
         if: always()
         uses: actions/upload-artifact@v4
