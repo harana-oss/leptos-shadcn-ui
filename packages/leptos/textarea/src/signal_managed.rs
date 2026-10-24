@@ -83,7 +83,6 @@ pub fn SignalManagedTextarea(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _textarea_state_for_disabled = textarea_state.clone();
     view! {
         <div
             class=move || computed_class.get()

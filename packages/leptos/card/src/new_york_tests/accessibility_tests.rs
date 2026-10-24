@@ -1,3 +1,5 @@
+#![allow(clippy::unnecessary_literal_unwrap)] // tests exercise Option default handling on fixed inputs
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod accessibility_tests {
 
@@ -139,9 +141,9 @@ mod accessibility_tests {
         let visible = Some(false);
         let hidden = Some(true);
 
-        assert_eq!(disabled.unwrap_or_default(), true);
-        assert_eq!(visible.unwrap_or_default(), false);
-        assert_eq!(hidden.unwrap_or_default(), true);
+        assert!(disabled.unwrap_or_default());
+        assert!(!visible.unwrap_or_default());
+        assert!(hidden.unwrap_or_default());
     }
 
     #[test]
@@ -151,9 +153,9 @@ mod accessibility_tests {
         let visible: Option<bool> = None;
         let hidden: Option<bool> = None;
 
-        assert_eq!(disabled.unwrap_or_default(), false);
-        assert_eq!(visible.unwrap_or_default(), false);
-        assert_eq!(hidden.unwrap_or_default(), false);
+        assert!(!disabled.unwrap_or_default());
+        assert!(!visible.unwrap_or_default());
+        assert!(!hidden.unwrap_or_default());
     }
 
     #[test]
@@ -228,7 +230,7 @@ mod accessibility_tests {
         assert_eq!(aria_label.unwrap_or_default(), "Test card");
         assert_eq!(aria_describedby.unwrap_or_default(), "card-description");
         assert_eq!(role.unwrap_or_default(), "region");
-        assert_eq!(disabled.unwrap_or_default(), false);
+        assert!(!disabled.unwrap_or_default());
         assert!(callback.is_some());
     }
 
@@ -253,7 +255,7 @@ mod accessibility_tests {
             "card-description with complex props"
         );
         assert_eq!(role.unwrap_or_default(), "region with complex props");
-        assert_eq!(disabled.unwrap_or_default(), false);
+        assert!(!disabled.unwrap_or_default());
         assert!(callback.is_some());
         assert_eq!(signal.unwrap().get(), "test-value");
     }
@@ -314,8 +316,8 @@ mod accessibility_tests {
         let aria_label_clone = aria_label.clone();
         let aria_describedby_clone = aria_describedby.clone();
         let role_clone = role.clone();
-        let disabled_clone = disabled.clone();
-        let callback_clone = callback.clone();
+        let disabled_clone = disabled;
+        let callback_clone = callback;
 
         assert_eq!(id, id_clone);
         assert_eq!(aria_label, aria_label_clone);

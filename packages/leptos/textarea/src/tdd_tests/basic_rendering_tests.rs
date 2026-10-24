@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod basic_rendering_tests {
     use crate::default::Textarea;
     use leptos::prelude::*;
@@ -178,7 +179,7 @@ mod basic_rendering_tests {
                     />
                 }.into_any()
             } else {
-                view! {}.into_any()
+                ().into_any()
             }}
         };
 

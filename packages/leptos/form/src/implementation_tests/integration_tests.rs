@@ -1,3 +1,4 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod integration_tests {
     use leptos::prelude::*;
@@ -239,11 +240,11 @@ mod integration_tests {
         let is_email_valid = form_data
             .fields
             .get("email")
-            .map_or(false, |email| email.contains("@"));
+            .is_some_and(|email| email.contains("@"));
         let is_password_valid = form_data
             .fields
             .get("password")
-            .map_or(false, |password| password.len() >= 8);
+            .is_some_and(|password| password.len() >= 8);
 
         assert!(is_email_valid);
         assert!(is_password_valid);
@@ -259,11 +260,11 @@ mod integration_tests {
         let is_invalid_email_valid = form_data
             .fields
             .get("invalid_email")
-            .map_or(false, |email| email.contains("@"));
+            .is_some_and(|email| email.contains("@"));
         let is_short_password_valid = form_data
             .fields
             .get("short_password")
-            .map_or(false, |password| password.len() >= 8);
+            .is_some_and(|password| password.len() >= 8);
 
         assert!(!is_invalid_email_valid);
         assert!(!is_short_password_valid);

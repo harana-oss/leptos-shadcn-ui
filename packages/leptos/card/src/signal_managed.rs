@@ -103,7 +103,6 @@ pub fn SignalManagedCard(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _card_state_for_disabled = card_state.clone();
     view! {
         <div
             class=move || computed_class.get()

@@ -1,6 +1,7 @@
 //! Accessibility Tests for Dialog Component
 //!
 //! This module contains tests for accessibility features, ARIA attributes, and keyboard navigation.
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 
 #[cfg(test)]
 mod accessibility_tests {
@@ -51,7 +52,7 @@ mod accessibility_tests {
         );
 
         // Test tab navigation
-        let focusable_elements = vec!["trigger", "content", "close-button"];
+        let focusable_elements = ["trigger", "content", "close-button"];
         let current_focus_index = RwSignal::new(0);
 
         current_focus_index.update(|index| *index = (*index + 1) % focusable_elements.len());

@@ -1,3 +1,4 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod performance_tests {
 
@@ -568,7 +569,7 @@ mod performance_tests {
                 let callback = Callback::new(move |value| {
                     leptos::logging::log!("Combobox {} changed to: {}", i, value);
                 });
-                callbacks.push(callback.clone());
+                callbacks.push(callback);
 
                 let _combobox_view = view! {
                     <Combobox

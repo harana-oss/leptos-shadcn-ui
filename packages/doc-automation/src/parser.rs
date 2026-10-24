@@ -287,12 +287,12 @@ mod tests {
     async fn test_parse_simple_component() {
         let component_code = r#"
 /// A simple button component
-/// 
+///
 /// # Example
-/// 
+///
 /// ```rust
 /// use leptos::*;
-/// 
+///
 /// view! {
 ///     <Button variant="primary">"Click me"</Button>
 /// }
@@ -315,7 +315,7 @@ pub struct ButtonProps {
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn test_button_renders() {
         // Test implementation
@@ -417,7 +417,7 @@ pub fn some_function() {
     fn test_extract_accessibility_info() {
         let content_with_aria = r#"
             view! {
-                <button 
+                <button
                     aria-label="Close dialog"
                     onclick=handle_click
                     onkeydown=handle_keydown
@@ -438,7 +438,7 @@ pub fn some_function() {
     fn test_extract_performance_info() {
         let content_with_benchmarks = r#"
             use criterion::Criterion;
-            
+
             fn benchmark_component_render(c: &mut Criterion) {
                 c.bench_function("render", |b| {
                     b.iter(|| render_component())

@@ -1,3 +1,4 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod basic_rendering_tests {
     use crate::default::Label;
@@ -169,7 +170,7 @@ mod basic_rendering_tests {
                     </Label>
                 }.into_any()
             } else {
-                view! {}.into_any()
+                ().into_any()
             }}
         };
 

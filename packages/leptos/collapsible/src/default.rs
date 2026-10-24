@@ -42,24 +42,20 @@ pub fn CollapsibleTrigger(
     let disabled = expect_context::<Signal<bool>>();
     let on_open_change = expect_context::<Option<Callback<bool>>>();
 
-    let toggle = {
-        move || {
-            if disabled.get() {
-                return;
-            }
+    let toggle = move || {
+        if disabled.get() {
+            return;
+        }
 
-            let new_open = !open.get();
-            open.set(new_open);
-            if let Some(callback) = &on_open_change {
-                callback.run(new_open);
-            }
+        let new_open = !open.get();
+        open.set(new_open);
+        if let Some(callback) = &on_open_change {
+            callback.run(new_open);
         }
     };
 
-    let handle_click = {
-        move |_: MouseEvent| {
-            toggle();
-        }
+    let handle_click = move |_: MouseEvent| {
+        toggle();
     };
 
     let handle_keydown = {
@@ -82,18 +78,8 @@ pub fn CollapsibleTrigger(
     if let Some(as_child) = as_child {
         let child_props = CollapsibleTriggerChildProps {
             class: class.get().unwrap_or_default(),
-            onclick: Some(Callback::new(move |_| {
-                if disabled.get() {
-                    return;
-                }
-
-                let new_open = !open.get();
-                open.set(new_open);
-                if let Some(callback) = &on_open_change {
-                    callback.run(new_open);
-                }
-            })),
-            onkeydown: Some(Callback::new(move |e| handle_keydown(e))),
+            onclick: Some(Callback::new(move |_| toggle())),
+            onkeydown: Some(Callback::new(handle_keydown)),
             disabled: disabled.get(),
             open: open.get(),
         };

@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod memory_tests {
     use crate::*;
     use leptos::prelude::*;
@@ -37,10 +38,10 @@ mod memory_tests {
         let signal1 = ArcRwSignal::new("value1".to_string());
         let signal2 = ArcRwSignal::new("value2".to_string());
 
-        let _ = manager.add_signal(signal1.clone());
+        manager.add_signal(signal1.clone()).unwrap();
         assert_eq!(manager.total_signals(), 1);
 
-        let _ = manager.add_signal(signal2.clone());
+        manager.add_signal(signal2.clone()).unwrap();
         assert_eq!(manager.total_signals(), 2);
 
         // Test signals still work
@@ -63,10 +64,10 @@ mod memory_tests {
         let memo1 = ArcMemo::new(move |_| signal_clone1.get() * 2);
         let memo2 = ArcMemo::new(move |_| signal_clone2.get() * 3);
 
-        let _ = manager.add_memo(memo1.clone());
+        manager.add_memo(memo1.clone()).unwrap();
         assert_eq!(manager.total_memos(), 1);
 
-        let _ = manager.add_memo(memo2.clone());
+        manager.add_memo(memo2.clone()).unwrap();
         assert_eq!(manager.total_memos(), 2);
 
         // Test memos still work
@@ -84,9 +85,15 @@ mod memory_tests {
         let signal2 = ArcRwSignal::new("group1_signal2".to_string());
         let signal3 = ArcRwSignal::new("group2_signal1".to_string());
 
-        let _ = manager.add_signal_to_group("group1", signal1.clone());
-        let _ = manager.add_signal_to_group("group1", signal2.clone());
-        let _ = manager.add_signal_to_group("group2", signal3.clone());
+        manager
+            .add_signal_to_group("group1", signal1.clone())
+            .unwrap();
+        manager
+            .add_signal_to_group("group1", signal2.clone())
+            .unwrap();
+        manager
+            .add_signal_to_group("group2", signal3.clone())
+            .unwrap();
 
         // Test total signals
         assert_eq!(manager.total_signals(), 3);
@@ -111,9 +118,9 @@ mod memory_tests {
         let memo2 = ArcMemo::new(move |_| signal2.get() * 3);
         let memo3 = ArcMemo::new(move |_| signal3.get() * 4);
 
-        let _ = manager.add_memo_to_group("group1", memo1.clone());
-        let _ = manager.add_memo_to_group("group1", memo2.clone());
-        let _ = manager.add_memo_to_group("group2", memo3.clone());
+        manager.add_memo_to_group("group1", memo1.clone()).unwrap();
+        manager.add_memo_to_group("group1", memo2.clone()).unwrap();
+        manager.add_memo_to_group("group2", memo3.clone()).unwrap();
 
         // Test total memos
         assert_eq!(manager.total_memos(), 3);
@@ -135,7 +142,7 @@ mod memory_tests {
         // Add signals and test memory usage
         for i in 0..100 {
             let signal = ArcRwSignal::new(format!("value_{}", i));
-            let _ = manager.add_signal(signal);
+            manager.add_signal(signal).unwrap();
         }
 
         // Test memory usage increased
@@ -155,15 +162,21 @@ mod memory_tests {
         let signal2 = ArcRwSignal::new("group1_signal2".to_string());
         let signal3 = ArcRwSignal::new("group2_signal1".to_string());
 
-        let _ = manager.add_signal_to_group("group1", signal1.clone());
-        let _ = manager.add_signal_to_group("group1", signal2.clone());
-        let _ = manager.add_signal_to_group("group2", signal3.clone());
+        manager
+            .add_signal_to_group("group1", signal1.clone())
+            .unwrap();
+        manager
+            .add_signal_to_group("group1", signal2.clone())
+            .unwrap();
+        manager
+            .add_signal_to_group("group2", signal3.clone())
+            .unwrap();
 
         // Test initial state
         assert_eq!(manager.total_signals(), 3);
 
         // Cleanup group1
-        let _ = manager.cleanup_group("group1");
+        manager.cleanup_group("group1").unwrap();
 
         // Test group1 signals are cleaned up
         assert_eq!(manager.total_signals(), 1);
@@ -182,16 +195,16 @@ mod memory_tests {
         let signal2 = ArcRwSignal::new("value2".to_string());
         let memo = ArcMemo::new(move |_| 42);
 
-        let _ = manager.add_signal(signal1.clone());
-        let _ = manager.add_signal(signal2.clone());
-        let _ = manager.add_memo(memo.clone());
+        manager.add_signal(signal1.clone()).unwrap();
+        manager.add_signal(signal2.clone()).unwrap();
+        manager.add_memo(memo.clone()).unwrap();
 
         // Test initial state
         assert_eq!(manager.total_signals(), 2);
         assert_eq!(manager.total_memos(), 1);
 
         // Cleanup all
-        let _ = manager.cleanup_all();
+        manager.cleanup_all().unwrap();
 
         // Test all are cleaned up
         assert_eq!(manager.total_signals(), 0);
@@ -203,7 +216,7 @@ mod memory_tests {
         // Test memory manager cloning behavior
         let manager1 = SignalMemoryManager::new();
         let signal = ArcRwSignal::new("test".to_string());
-        let _ = manager1.add_signal(signal);
+        manager1.add_signal(signal).unwrap();
 
         // Test cloning
         let manager2 = manager1.clone();
@@ -232,7 +245,7 @@ mod memory_tests {
 
         for i in 0..1000 {
             let signal = ArcRwSignal::new(format!("value_{}", i));
-            let _ = manager.add_signal(signal);
+            manager.add_signal(signal).unwrap();
         }
 
         let duration = start.elapsed();
@@ -258,7 +271,7 @@ mod memory_tests {
 
         for i in 0..100 {
             let signal = ArcRwSignal::new(format!("value_{}", i));
-            let _ = manager.add_signal(signal);
+            manager.add_signal(signal).unwrap();
             memory_usage.push(manager.memory_usage_kb());
         }
 

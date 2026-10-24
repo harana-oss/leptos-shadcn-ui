@@ -2,15 +2,12 @@
 //!
 //! This module contains tests for CSS class constants, computed class generation,
 //! and basic styling functionality for the Label component.
-
-#![cfg(test)]
-
-use crate::default::LABEL_CLASS;
-use leptos_style::Style;
+#![allow(clippy::unnecessary_literal_unwrap)] // tests exercise Option default handling on fixed inputs
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::default::LABEL_CLASS;
+    use leptos_style::Style;
 
     #[test]
     fn test_label_class_constant() {

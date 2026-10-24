@@ -83,7 +83,6 @@ pub fn SignalManagedScrollarea(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _scroll_area_state_for_disabled = scroll_area_state.clone();
     view! {
         <div
             class=move || computed_class.get()

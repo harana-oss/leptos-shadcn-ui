@@ -83,7 +83,6 @@ pub fn SignalManagedTabs(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _tabs_state_for_disabled = tabs_state.clone();
     view! {
         <div
             class=move || computed_class.get()

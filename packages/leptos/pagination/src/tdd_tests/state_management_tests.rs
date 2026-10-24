@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod state_management_tests {
     #[allow(unused_imports)]
     use super::*;

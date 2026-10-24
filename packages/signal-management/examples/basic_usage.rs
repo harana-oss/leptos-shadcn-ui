@@ -84,14 +84,16 @@ fn main() {
     println!("Memory stats: {:?}", stats);
 
     // Test memory leak detection
-    let detector = MemoryLeakDetector::new();
-    let _baseline = MemoryStats::default();
-    let _current = MemoryStats {
+    let mut detector = MemoryLeakDetector::new();
+    let baseline = MemoryStats::default();
+    let current = MemoryStats {
         active_signals: 2,
         active_memos: 0,
         estimated_memory_bytes: 1024,
         tracked_groups: 1,
     };
+    detector.set_baseline(baseline);
+    detector.update_current(current);
 
     let leak_detected = detector.check_for_leaks().unwrap_or(false);
     println!("Memory leak detected: {}", leak_detected);

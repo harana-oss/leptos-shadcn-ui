@@ -1,7 +1,9 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod basic_rendering_tests {
-    use crate::default::Popover;
     use leptos::prelude::*;
+
+    use crate::default::Popover;
 
     // ===== BASIC RENDERING TESTS =====
     // These tests focus on basic rendering and component creation

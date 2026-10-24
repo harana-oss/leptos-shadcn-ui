@@ -1,6 +1,7 @@
 //! Click Handler Logic Tests for Button Component
 //!
 //! This module tests the click handler functionality and callback execution.
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 
 #[cfg(test)]
 mod click_handler_tests {

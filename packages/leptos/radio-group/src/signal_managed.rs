@@ -83,7 +83,6 @@ pub fn SignalManagedRadiogroup(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _radio_group_state_for_disabled = radio_group_state.clone();
     view! {
         <div
             class=move || computed_class.get()

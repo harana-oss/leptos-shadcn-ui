@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod sonner_advanced_tests {
     use crate::sonner::{SonnerProvider, ToastAction, ToastPosition, ToastTheme, toast};
     use leptos::prelude::*;

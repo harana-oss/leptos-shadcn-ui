@@ -56,8 +56,7 @@ impl TailwindClasses {
     }
 
     /// Generate the final class string.
-    #[allow(clippy::inherent_to_string)]
-    pub fn to_string(&self) -> String {
+    fn class_string(&self) -> String {
         let mut classes = vec![self.base.clone()];
 
         // Add variants
@@ -175,6 +174,12 @@ impl ClassBuilder {
 /// Utility function to create a ClassBuilder.
 pub fn classes() -> ClassBuilder {
     ClassBuilder::new()
+}
+
+impl std::fmt::Display for TailwindClasses {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(&self.class_string())
+    }
 }
 
 #[cfg(test)]

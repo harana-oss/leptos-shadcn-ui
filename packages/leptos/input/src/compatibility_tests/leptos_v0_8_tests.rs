@@ -5,7 +5,6 @@
 
 #[cfg(test)]
 mod tests {
-
     use crate::default::Input;
     use leptos::prelude::*;
 
@@ -93,7 +92,7 @@ mod tests {
 
             // Verify the signals were updated correctly
             assert_eq!(value.get(), "updated");
-            assert_eq!(disabled.get(), true);
+            assert!(disabled.get());
             assert_eq!(class.get(), "updated-class");
 
             // Test rendering with updated signals

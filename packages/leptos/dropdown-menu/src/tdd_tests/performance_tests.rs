@@ -2,6 +2,7 @@ use crate::*;
 use leptos::prelude::*;
 
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod performance_tests {
     use super::*;
 

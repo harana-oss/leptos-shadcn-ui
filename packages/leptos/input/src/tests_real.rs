@@ -123,7 +123,7 @@ mod input_tests {
     #[test]
     fn validation_rule_enum_variants() {
         // Test that all ValidationRule variants can be created
-        let rules = vec![
+        let rules = [
             ValidationRule::Required,
             ValidationRule::MinLength(5),
             ValidationRule::MaxLength(100),

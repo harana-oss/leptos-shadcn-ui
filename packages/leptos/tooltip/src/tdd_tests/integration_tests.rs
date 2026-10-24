@@ -498,7 +498,7 @@ mod tests {
     fn test_tooltip_multi_step_process() {
         // Test tooltip multi-step process
         let (current_step, _set_current_step) = signal(0);
-        let steps = vec!["Step 1", "Step 2", "Step 3", "Step 4", "Step 5"];
+        let steps = ["Step 1", "Step 2", "Step 3", "Step 4", "Step 5"];
 
         let tooltip_view = Owner::new().with(|| {
             view! {

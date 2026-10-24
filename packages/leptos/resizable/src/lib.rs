@@ -3,6 +3,7 @@
 pub mod default;
 pub mod new_york;
 pub mod resizable;
+mod shared;
 pub mod signal_managed;
 
 pub use default::{ResizableHandle, ResizablePanel, ResizablePanelGroup};

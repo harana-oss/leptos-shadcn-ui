@@ -83,7 +83,6 @@ pub fn SignalManagedCollapsible(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _collapsible_state_for_disabled = collapsible_state.clone();
     view! {
         <div
             class=move || computed_class.get()

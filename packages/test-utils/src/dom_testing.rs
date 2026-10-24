@@ -208,6 +208,37 @@ macro_rules! dom_test {
     };
 }
 
+/// Integration with existing TDD framework
+impl crate::TestResult {
+    /// Create a DOM test result
+    pub fn dom_test(
+        passed: bool,
+        component: &str,
+        test_type: &str,
+        details: Option<String>,
+    ) -> Self {
+        let message = if passed {
+            format!("✅ DOM test passed: {} {}", component, test_type)
+        } else {
+            format!("❌ DOM test failed: {} {}", component, test_type)
+        };
+
+        let mut result = if passed {
+            Self::success(message)
+        } else {
+            Self::failure(message)
+        };
+
+        if let Some(details) = details {
+            result = result.with_detail("details", details);
+        }
+
+        result
+            .with_detail("test_type", "dom")
+            .with_detail("component", component)
+    }
+}
+
 /// Example usage and integration tests
 #[cfg(test)]
 mod tests {
@@ -269,36 +300,5 @@ mod tests {
             render_time < 1000.0,
             "Render time should be reasonable (< 1 second)"
         );
-    }
-}
-
-/// Integration with existing TDD framework
-impl crate::TestResult {
-    /// Create a DOM test result
-    pub fn dom_test(
-        passed: bool,
-        component: &str,
-        test_type: &str,
-        details: Option<String>,
-    ) -> Self {
-        let message = if passed {
-            format!("✅ DOM test passed: {} {}", component, test_type)
-        } else {
-            format!("❌ DOM test failed: {} {}", component, test_type)
-        };
-
-        let mut result = if passed {
-            Self::success(message)
-        } else {
-            Self::failure(message)
-        };
-
-        if let Some(details) = details {
-            result = result.with_detail("details", details);
-        }
-
-        result
-            .with_detail("test_type", "dom")
-            .with_detail("component", component)
     }
 }

@@ -130,8 +130,8 @@ impl AdvancedMemoryManagement for SignalMemoryManager {
                 }
                 MemoryPressureLevel::Medium => {
                     // Perform moderate cleanup
-                    let _ = self.cleanup_old_groups(3600); // Cleanup groups older than 1 hour
-                    true
+                    // Cleanup groups older than 1 hour
+                    self.cleanup_old_groups(3600).is_ok()
                 }
                 _ => false,
             }

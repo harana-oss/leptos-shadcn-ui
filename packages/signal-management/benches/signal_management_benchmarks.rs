@@ -1,6 +1,13 @@
-use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
+use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
 use leptos::prelude::*;
+use leptos_shadcn_signal_management::component_migration::component_helpers::{
+    create_migrated_button_component, create_migrated_card_component,
+    create_migrated_input_component,
+};
+use leptos_shadcn_signal_management::component_migration::migration_core::ComponentMigrator;
+use leptos_shadcn_signal_management::component_migration::validation::validate_all_component_migrations;
 use leptos_shadcn_signal_management::*;
+use std::hint::black_box;
 use std::time::Duration;
 
 /// Benchmark signal creation performance

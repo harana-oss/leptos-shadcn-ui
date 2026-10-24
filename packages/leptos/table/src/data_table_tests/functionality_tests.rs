@@ -1,11 +1,12 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod functionality_tests {
     use crate::data_table::{DataColumn, DataRow, ExportFormat, FilterType};
 
     #[test]
     fn test_column_sorting() {
         // Test column sorting functionality
-        let mut data = vec![
+        let mut data = [
             DataRow {
                 id: 1,
                 name: "Charlie".to_string(),
@@ -27,13 +28,13 @@ mod functionality_tests {
         ];
 
         // Test sorting by name (ascending)
-        data.sort_by(|a, b| a.name.cmp(&b.name));
+        data.sort_by_key(|row| row.name.clone());
         assert_eq!(data[0].name, "Alice");
         assert_eq!(data[1].name, "Bob");
         assert_eq!(data[2].name, "Charlie");
 
         // Test sorting by age (descending)
-        data.sort_by(|a, b| b.age.cmp(&a.age));
+        data.sort_by_key(|row| std::cmp::Reverse(row.age));
         assert_eq!(data[0].age, 35);
         assert_eq!(data[1].age, 30);
         assert_eq!(data[2].age, 25);
@@ -42,7 +43,7 @@ mod functionality_tests {
     #[test]
     fn test_column_filtering() {
         // Test column filtering functionality
-        let data = vec![
+        let data = [
             DataRow {
                 id: 1,
                 name: "John Doe".to_string(),
@@ -82,7 +83,7 @@ mod functionality_tests {
     #[test]
     fn test_pagination() {
         // Test pagination functionality
-        let data = vec![
+        let data = [
             DataRow {
                 id: 1,
                 name: "User 1".to_string(),
@@ -148,7 +149,7 @@ mod functionality_tests {
     fn test_row_selection() {
         // Test row selection functionality
         let mut selected_rows = Vec::new();
-        let _data = vec![
+        let _data = [
             DataRow {
                 id: 1,
                 name: "User 1".to_string(),
@@ -193,7 +194,7 @@ mod functionality_tests {
     #[test]
     fn test_global_search() {
         // Test global search functionality
-        let data = vec![
+        let data = [
             DataRow {
                 id: 1,
                 name: "John Doe".to_string(),
@@ -269,7 +270,7 @@ mod functionality_tests {
     #[test]
     fn test_column_reordering() {
         // Test column reordering functionality
-        let mut columns = vec![
+        let mut columns = [
             DataColumn {
                 key: "name".to_string(),
                 title: "Name".to_string(),
@@ -314,7 +315,7 @@ mod functionality_tests {
     #[test]
     fn test_export_functionality() {
         // Test export functionality
-        let data = vec![
+        let data = [
             DataRow {
                 id: 1,
                 name: "John Doe".to_string(),

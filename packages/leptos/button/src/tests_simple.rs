@@ -129,7 +129,7 @@ mod button_tests {
     #[test]
     fn all_button_variants_exist() {
         // Ensure all expected variants can be created
-        let variants = vec![
+        let variants = [
             ButtonVariant::Default,
             ButtonVariant::Destructive,
             ButtonVariant::Outline,
@@ -157,7 +157,7 @@ mod button_tests {
     #[test]
     fn all_button_sizes_exist() {
         // Ensure all expected sizes can be created
-        let sizes = vec![
+        let sizes = [
             ButtonSize::Default,
             ButtonSize::Sm,
             ButtonSize::Lg,

@@ -87,26 +87,26 @@ fn civil_from_days(z: i64) -> CalendarDate {
 
 #[component]
 pub fn Calendar(
-    #[prop(into, optional)] _mode: Signal<String>,
+    #[prop(into, optional)] mode: Signal<String>,
     #[prop(into, optional)] selected: RwSignal<Option<CalendarDate>>,
     #[prop(into, optional)] on_select: Option<Callback<CalendarDate>>,
     #[prop(into, optional)] disabled: Signal<Vec<CalendarDate>>,
-    #[prop(into, optional)] _initial_focus: Signal<bool>,
+    #[prop(into, optional)] initial_focus: Signal<bool>,
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let _ = children;
+    // `mode` and `initial_focus` are accepted for API compatibility; only
+    // single-date selection is implemented.
+    let _ = (mode, initial_focus);
     let today = today();
 
     let current_month = RwSignal::new((today.year, today.month));
     let disabled_dates = disabled;
 
-    let handle_day_click = {
-        move |date: CalendarDate| {
-            selected.set(Some(date.clone()));
-            if let Some(callback) = &on_select {
-                callback.run(date);
-            }
+    let handle_day_click = move |date: CalendarDate| {
+        selected.set(Some(date.clone()));
+        if let Some(callback) = &on_select {
+            callback.run(date);
         }
     };
 
@@ -256,6 +256,7 @@ pub fn Calendar(
                     </div>
                 </div>
             </div>
+            {children.map(|c| c())}
         </div>
     }
 }

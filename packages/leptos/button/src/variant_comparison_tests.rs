@@ -1,3 +1,4 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod variant_comparison_tests {
     use crate::default::{ButtonSize as DefaultButtonSize, ButtonVariant as DefaultButtonVariant};
@@ -9,7 +10,7 @@ mod variant_comparison_tests {
     #[test]
     fn test_button_variant_enum_equivalence() {
         // Test that both themes have equivalent enum variants
-        let default_variants = vec![
+        let default_variants = [
             DefaultButtonVariant::Default,
             DefaultButtonVariant::Destructive,
             DefaultButtonVariant::Outline,
@@ -18,7 +19,7 @@ mod variant_comparison_tests {
             DefaultButtonVariant::Link,
         ];
 
-        let new_york_variants = vec![
+        let new_york_variants = [
             NewYorkButtonVariant::Default,
             NewYorkButtonVariant::Destructive,
             NewYorkButtonVariant::Outline,
@@ -38,14 +39,14 @@ mod variant_comparison_tests {
     #[test]
     fn test_button_size_enum_equivalence() {
         // Test that both themes have equivalent size variants
-        let default_sizes = vec![
+        let default_sizes = [
             DefaultButtonSize::Default,
             DefaultButtonSize::Sm,
             DefaultButtonSize::Lg,
             DefaultButtonSize::Icon,
         ];
 
-        let new_york_sizes = vec![
+        let new_york_sizes = [
             NewYorkButtonSize::Default,
             NewYorkButtonSize::Sm,
             NewYorkButtonSize::Lg,
@@ -340,7 +341,7 @@ mod variant_comparison_tests {
         // This test ensures that the New York theme doesn't break the expected API
 
         // Test that all expected variants exist
-        let _default_variants = vec![
+        let _default_variants = [
             DefaultButtonVariant::Default,
             DefaultButtonVariant::Destructive,
             DefaultButtonVariant::Outline,
@@ -349,7 +350,7 @@ mod variant_comparison_tests {
             DefaultButtonVariant::Link,
         ];
 
-        let _new_york_variants = vec![
+        let _new_york_variants = [
             NewYorkButtonVariant::Default,
             NewYorkButtonVariant::Destructive,
             NewYorkButtonVariant::Outline,
@@ -359,14 +360,14 @@ mod variant_comparison_tests {
         ];
 
         // Test that all expected sizes exist
-        let _default_sizes = vec![
+        let _default_sizes = [
             DefaultButtonSize::Default,
             DefaultButtonSize::Sm,
             DefaultButtonSize::Lg,
             DefaultButtonSize::Icon,
         ];
 
-        let _new_york_sizes = vec![
+        let _new_york_sizes = [
             NewYorkButtonSize::Default,
             NewYorkButtonSize::Sm,
             NewYorkButtonSize::Lg,

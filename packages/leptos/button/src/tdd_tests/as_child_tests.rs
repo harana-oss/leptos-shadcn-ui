@@ -1,6 +1,7 @@
 //! as_child Functionality Tests for Button Component
 //!
 //! This module tests the as_child functionality and ButtonChildProps behavior.
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 
 #[cfg(test)]
 mod as_child_tests {

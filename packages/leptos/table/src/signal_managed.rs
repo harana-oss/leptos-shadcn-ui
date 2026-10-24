@@ -83,7 +83,6 @@ pub fn SignalManagedTable(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _table_state_for_disabled = table_state.clone();
     view! {
         <div
             class=move || computed_class.get()

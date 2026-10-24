@@ -1,3 +1,4 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod tests {
     use crate::default::{
@@ -80,7 +81,7 @@ mod tests {
         assert!(has_content);
 
         // Test content structure
-        let content_types = vec!["text", "html", "children"];
+        let content_types = ["text", "html", "children"];
         assert!(!content_types.is_empty());
     }
 
@@ -245,7 +246,7 @@ mod tests {
     #[test]
     fn test_card_title_semantic_structure() {
         let title = view! {
-            <CardTitle _level=2>"Semantic Title"</CardTitle>
+            <CardTitle level=2>"Semantic Title"</CardTitle>
         };
 
         // Verify the view renders without errors

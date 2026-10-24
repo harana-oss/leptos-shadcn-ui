@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod basic_rendering_tests {
     use crate::default::{RadioGroup, RadioGroupItem};
     use leptos::prelude::*;
@@ -110,7 +111,7 @@ mod basic_rendering_tests {
         };
 
         // Test multiple items
-        let items = vec!["option1", "option2", "option3", "option4"];
+        let items = ["option1", "option2", "option3", "option4"];
         assert_eq!(items.len(), 4);
     }
 
@@ -207,7 +208,7 @@ mod basic_rendering_tests {
                     </RadioGroup>
                 }.into_any()
             } else {
-                view! {}.into_any()
+                ().into_any()
             }}
         };
 

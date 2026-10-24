@@ -1,7 +1,8 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod memory_manager_tests {
-
     use crate::*;
+
     use leptos::prelude::*;
 
     #[test]
@@ -27,7 +28,7 @@ mod memory_manager_tests {
         // Test custom limits
         assert_eq!(manager.max_memory_bytes, max_memory);
         assert_eq!(manager.memory_limit, memory_limit);
-        assert_eq!(manager.adaptive_management, false);
+        assert!(!manager.adaptive_management);
     }
 
     #[test]
@@ -71,7 +72,7 @@ mod memory_manager_tests {
         let _group = manager.create_group(group_name.clone());
         assert_eq!(manager.tracked_groups.get().len(), 1);
 
-        let _ = manager.remove_group(&group_name);
+        manager.remove_group(&group_name).unwrap();
         assert_eq!(manager.tracked_groups.get().len(), 0);
     }
 
@@ -126,10 +127,10 @@ mod memory_manager_tests {
         let memo = ArcMemo::new(move |_| 42);
 
         // Add signal and memo to manager instead
-        let _ = manager.add_signal(signal);
-        let _ = manager.add_memo(memo);
+        manager.add_signal(signal).unwrap();
+        manager.add_memo(memo).unwrap();
 
-        let _ = manager.update_memory_stats();
+        manager.update_memory_stats().unwrap();
         let stats = manager.get_memory_stats();
 
         // Test stats were updated
@@ -173,7 +174,7 @@ mod memory_manager_tests {
             }
         });
 
-        let _ = manager.cleanup_old_groups(1000); // Cleanup groups older than 1000 seconds
+        manager.cleanup_old_groups(1000).unwrap(); // Cleanup groups older than 1000 seconds
         assert_eq!(manager.tracked_groups.get().len(), 0);
     }
 
@@ -193,7 +194,7 @@ mod memory_manager_tests {
             }
         });
 
-        let _ = manager.cleanup_low_priority_groups();
+        manager.cleanup_low_priority_groups().unwrap();
         assert_eq!(manager.tracked_groups.get().len(), 0);
     }
 
@@ -211,7 +212,7 @@ mod memory_manager_tests {
             stats.estimated_memory_bytes = manager.memory_limit + 1;
         });
 
-        let _ = manager.adaptive_cleanup();
+        manager.adaptive_cleanup().unwrap();
 
         // Test adaptive cleanup worked
         assert!(manager.tracked_groups.get().len() <= 1);
@@ -257,7 +258,7 @@ mod memory_manager_tests {
         assert_eq!(empty_group.unwrap().name, "");
 
         // Test removing nonexistent group
-        let _ = manager.remove_group("nonexistent");
+        manager.remove_group("nonexistent").unwrap();
         assert_eq!(manager.tracked_groups.get().len(), 1); // Still has empty group
     }
 
@@ -276,7 +277,7 @@ mod memory_manager_tests {
         assert!(manager.tracked_groups.get().contains_key("group3"));
 
         // Test removing one group
-        let _ = manager.remove_group("group2");
+        manager.remove_group("group2").unwrap();
         assert_eq!(manager.tracked_groups.get().len(), 2);
         assert!(!manager.tracked_groups.get().contains_key("group2"));
     }

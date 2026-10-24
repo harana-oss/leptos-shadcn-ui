@@ -87,21 +87,23 @@ pub fn CardTitle(
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: Signal<Style>,
-    #[prop(into, optional)] _level: MaybeProp<u8>,
+    #[prop(into, optional)] level: MaybeProp<u8>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     let computed_class =
         Signal::derive(move || format!("{} {}", CARD_TITLE_CLASS, class.get().unwrap_or_default()));
+    let id = move || id.get().unwrap_or_default();
+    let style = move || style.get().to_string();
+    let children = children.map(|c| c());
 
-    // Default to h2 for semantic structure
-    view! {
-        <h2
-            class=computed_class
-            id=move || id.get().unwrap_or_default()
-            style=move || style.get().to_string()
-        >
-            {children.map(|c| c())}
-        </h2>
+    // Heading level 1-6, defaulting to h2 for semantic structure
+    match level.get_untracked().unwrap_or(2).clamp(1, 6) {
+        1 => view! { <h1 class=computed_class id=id style=style>{children}</h1> }.into_any(),
+        3 => view! { <h3 class=computed_class id=id style=style>{children}</h3> }.into_any(),
+        4 => view! { <h4 class=computed_class id=id style=style>{children}</h4> }.into_any(),
+        5 => view! { <h5 class=computed_class id=id style=style>{children}</h5> }.into_any(),
+        6 => view! { <h6 class=computed_class id=id style=style>{children}</h6> }.into_any(),
+        _ => view! { <h2 class=computed_class id=id style=style>{children}</h2> }.into_any(),
     }
 }
 

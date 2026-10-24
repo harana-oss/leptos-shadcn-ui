@@ -196,6 +196,7 @@ pub fn WasmInlineLoader(
 
 #[cfg(test)]
 mod tests {
+
     #[test]
     fn test_wasm_spinner_size_classes() {
         // Test that size mapping works correctly

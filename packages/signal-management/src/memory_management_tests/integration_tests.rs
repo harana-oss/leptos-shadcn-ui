@@ -1,7 +1,8 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod integration_tests {
-
     use crate::*;
+
     use leptos::prelude::*;
 
     #[test]
@@ -27,19 +28,19 @@ mod integration_tests {
         let _group2_id = group2;
         let _group3_id = group3;
 
-        let _ = manager.add_signal(signal1);
-        let _ = manager.add_memo(memo1);
+        manager.add_signal(signal1).unwrap();
+        manager.add_memo(memo1).unwrap();
 
-        let _ = manager.add_signal(signal2);
-        let _ = manager.add_memo(memo2);
+        manager.add_signal(signal2).unwrap();
+        manager.add_memo(memo2).unwrap();
 
-        let _ = manager.add_signal(signal3);
-        let _ = manager.add_memo(memo3);
+        manager.add_signal(signal3).unwrap();
+        manager.add_memo(memo3).unwrap();
 
         // Test integration
         assert_eq!(manager.tracked_groups.get().len(), 3);
 
-        let _ = manager.update_memory_stats();
+        manager.update_memory_stats().unwrap();
         let stats = manager.get_memory_stats();
         assert_eq!(stats.active_signals, 3);
         assert_eq!(stats.active_memos, 3);
@@ -59,14 +60,14 @@ mod integration_tests {
             // Add content to each group
             let signal = ArcRwSignal::new(format!("value_{}", i));
             let memo = ArcMemo::new(move |_| i);
-            let _ = manager.add_signal(signal);
-            let _ = manager.add_memo(memo);
+            manager.add_signal(signal).unwrap();
+            manager.add_memo(memo).unwrap();
         }
 
         // Test large scale state
         assert_eq!(manager.tracked_groups.get().len(), 100);
 
-        let _ = manager.update_memory_stats();
+        manager.update_memory_stats().unwrap();
         let stats = manager.get_memory_stats();
         assert_eq!(stats.active_signals, 100);
         assert_eq!(stats.active_memos, 100);
@@ -75,12 +76,12 @@ mod integration_tests {
         // Test cleanup
         for i in 0..50 {
             let group_name = format!("group_{}", i);
-            let _ = manager.remove_group(&group_name);
+            manager.remove_group(&group_name).unwrap();
         }
 
         assert_eq!(manager.tracked_groups.get().len(), 50);
 
-        let _ = manager.update_memory_stats();
+        manager.update_memory_stats().unwrap();
         let stats_after_cleanup = manager.get_memory_stats();
         assert_eq!(stats_after_cleanup.active_signals, 50);
         assert_eq!(stats_after_cleanup.active_memos, 50);
@@ -110,19 +111,19 @@ mod integration_tests {
         assert_eq!(manager.tracked_groups.get().len(), 10);
 
         // Cleanup old groups
-        let _ = manager.cleanup_old_groups(1000); // Cleanup groups older than 1000 seconds
+        manager.cleanup_old_groups(1000).unwrap(); // Cleanup groups older than 1000 seconds
 
         // Should have removed 5 old groups
         assert_eq!(manager.tracked_groups.get().len(), 5);
 
         // Test low priority cleanup
         manager.tracked_groups.update(|groups| {
-            for (_, group) in groups.iter_mut() {
+            for group in groups.values_mut() {
                 group.clear(); // Make all groups low priority
             }
         });
 
-        let _ = manager.cleanup_low_priority_groups();
+        manager.cleanup_low_priority_groups().unwrap();
         assert_eq!(manager.tracked_groups.get().len(), 0);
     }
 
@@ -142,11 +143,11 @@ mod integration_tests {
             // Add content to increase memory usage
             let signal = ArcRwSignal::new(format!("value_{}", i));
             let memo = ArcMemo::new(move |_| i);
-            let _ = manager.add_signal(signal);
-            let _ = manager.add_memo(memo);
+            manager.add_signal(signal).unwrap();
+            manager.add_memo(memo).unwrap();
 
             // Update stats
-            let _ = manager.update_memory_stats();
+            manager.update_memory_stats().unwrap();
 
             // Simulate memory usage
             manager.stats.update(|stats| {
@@ -162,7 +163,7 @@ mod integration_tests {
         }
 
         // Test adaptive cleanup
-        let _ = manager.adaptive_cleanup();
+        manager.adaptive_cleanup().unwrap();
 
         // Should have cleaned up some groups
         assert!(manager.tracked_groups.get().len() < 100);
@@ -182,8 +183,8 @@ mod integration_tests {
             if i % 2 == 0 {
                 let signal = ArcRwSignal::new(format!("value_{}", i));
                 let memo = ArcMemo::new(move |_| i);
-                let _ = manager.add_signal(signal);
-                let _ = manager.add_memo(memo);
+                manager.add_signal(signal).unwrap();
+                manager.add_memo(memo).unwrap();
             }
         }
 
@@ -195,7 +196,7 @@ mod integration_tests {
         });
 
         // Run adaptive cleanup
-        let _ = manager.adaptive_cleanup();
+        manager.adaptive_cleanup().unwrap();
 
         // Should have cleaned up low priority groups
         assert!(manager.tracked_groups.get().len() < 20);
@@ -215,13 +216,13 @@ mod integration_tests {
             for j in 0..i {
                 let signal = ArcRwSignal::new(format!("value_{}_{}", i, j));
                 let memo = ArcMemo::new(move |_| i * j);
-                let _ = manager.add_signal(signal);
-                let _ = manager.add_memo(memo);
+                manager.add_signal(signal).unwrap();
+                manager.add_memo(memo).unwrap();
             }
         }
 
         // Update stats
-        let _ = manager.update_memory_stats();
+        manager.update_memory_stats().unwrap();
         let stats = manager.get_memory_stats();
 
         // Calculate expected values
@@ -246,33 +247,33 @@ mod integration_tests {
         // Add content
         let signal = ArcRwSignal::new("test_value".to_string());
         let memo = ArcMemo::new(move |_| 42);
-        let _ = manager.add_signal(signal.clone());
-        let _ = manager.add_memo(memo.clone());
+        manager.add_signal(signal.clone()).unwrap();
+        manager.add_memo(memo.clone()).unwrap();
 
         // Verify group exists
         assert!(manager.get_group(&group_name).is_some());
         assert_eq!(manager.tracked_groups.get().len(), 1);
 
         // Update stats
-        let _ = manager.update_memory_stats();
+        manager.update_memory_stats().unwrap();
         let stats = manager.get_memory_stats();
         assert_eq!(stats.active_signals, 1);
         assert_eq!(stats.active_memos, 1);
         assert_eq!(stats.tracked_groups, 1);
 
         // Remove content
-        let _ = manager.remove_signal(&signal);
-        let _ = manager.remove_memo(&memo);
+        manager.remove_signal(&signal).unwrap();
+        manager.remove_memo(&memo).unwrap();
 
         // Update stats
-        let _ = manager.update_memory_stats();
+        manager.update_memory_stats().unwrap();
         let stats_after_removal = manager.get_memory_stats();
         assert_eq!(stats_after_removal.active_signals, 0);
         assert_eq!(stats_after_removal.active_memos, 0);
         assert_eq!(stats_after_removal.tracked_groups, 1);
 
         // Remove group
-        let _ = manager.remove_group(&group_name);
+        manager.remove_group(&group_name).unwrap();
         assert!(manager.get_group(&group_name).is_none());
         assert_eq!(manager.tracked_groups.get().len(), 0);
     }
@@ -287,7 +288,7 @@ mod integration_tests {
         let _empty_group_id = manager.create_group("".to_string());
 
         // Test removing nonexistent group
-        let _ = manager.remove_group("nonexistent");
+        manager.remove_group("nonexistent").unwrap();
         assert_eq!(manager.tracked_groups.get().len(), 1); // Still has empty group
 
         // Test getting nonexistent group
@@ -297,8 +298,8 @@ mod integration_tests {
         assert!(manager.detect_memory_pressure().is_none());
 
         // Test cleanup with no groups
-        let _ = manager.cleanup_old_groups(1000);
-        let _ = manager.cleanup_low_priority_groups();
+        manager.cleanup_old_groups(1000).unwrap();
+        manager.cleanup_low_priority_groups().unwrap();
         assert_eq!(manager.tracked_groups.get().len(), 1); // Still has empty group
     }
 
@@ -316,8 +317,8 @@ mod integration_tests {
 
             let signal = ArcRwSignal::new(format!("value_{}", i));
             let memo = ArcMemo::new(move |_| i);
-            let _ = manager.add_signal(signal);
-            let _ = manager.add_memo(memo);
+            manager.add_signal(signal).unwrap();
+            manager.add_memo(memo).unwrap();
         }
 
         let duration = start.elapsed();
@@ -328,7 +329,7 @@ mod integration_tests {
 
         // Test stats update performance
         let stats_start = std::time::Instant::now();
-        let _ = manager.update_memory_stats();
+        manager.update_memory_stats().unwrap();
         let stats_duration = stats_start.elapsed();
 
         assert!(
@@ -340,7 +341,7 @@ mod integration_tests {
         let cleanup_start = std::time::Instant::now();
         for i in 0..1000 {
             let group_name = format!("group_{}", i);
-            let _ = manager.remove_group(&group_name);
+            manager.remove_group(&group_name).unwrap();
         }
         let cleanup_duration = cleanup_start.elapsed();
 

@@ -3,6 +3,7 @@ use leptos::prelude::*;
 use leptos_style::Style;
 
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod tdd_tests {
     use super::*;
 

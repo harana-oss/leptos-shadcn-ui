@@ -2,6 +2,7 @@
 //!
 //! This module contains the initial failing tests that define the desired behavior
 //! before implementing the actual functionality.
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 
 #[cfg(test)]
 mod tdd_red_tests {

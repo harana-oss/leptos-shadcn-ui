@@ -103,6 +103,9 @@
 //! }
 //! ```
 #![allow(clippy::result_large_err)]
+// Component crates each export `default`, `new_york` and `signal_managed` modules;
+// their items are re-exported here, and narrowing the globs would drop public items.
+#![allow(ambiguous_glob_reexports)]
 
 // Re-export all available components for easy access
 // Note: We re-export the main component from each package
@@ -312,19 +315,15 @@ pub mod bundle_utils {
     }
 
     /// Get list of enabled features
-    #[allow(unused_mut)]
-    #[allow(clippy::vec_init_then_push)]
     pub fn get_enabled_features() -> Vec<&'static str> {
         macro_rules! collect_features {
             ($($feat:literal),*) => {
-                {
-                    let mut features = Vec::new();
+                vec![
                     $(
                         #[cfg(feature = $feat)]
-                        features.push($feat);
+                        $feat,
                     )*
-                    features
-                }
+                ]
             };
         }
 

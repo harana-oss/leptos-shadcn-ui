@@ -3,6 +3,7 @@
 //! This module contains tests for state management, context handling, and animations.
 
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod state_management_tests {
     use crate::Toggle;
     use leptos::prelude::*;

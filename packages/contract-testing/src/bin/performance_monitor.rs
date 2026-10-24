@@ -55,31 +55,6 @@ pub enum AlertSeverity {
 pub struct PerformanceMonitor {
     contracts: HashMap<String, PerformanceContract>,
     alerts: Vec<PerformanceAlert>,
-    #[allow(dead_code)]
-    alert_thresholds: AlertThresholds,
-}
-
-#[derive(Debug, Clone)]
-pub struct AlertThresholds {
-    pub bundle_size_warning: f64,  // KB
-    pub bundle_size_critical: f64, // KB
-    pub render_time_warning: f64,  // ms
-    pub render_time_critical: f64, // ms
-    pub memory_warning: f64,       // MB
-    pub memory_critical: f64,      // MB
-}
-
-impl Default for AlertThresholds {
-    fn default() -> Self {
-        Self {
-            bundle_size_warning: 400.0,  // 400KB warning
-            bundle_size_critical: 500.0, // 500KB critical
-            render_time_warning: 12.0,   // 12ms warning
-            render_time_critical: 16.0,  // 16ms critical
-            memory_warning: 50.0,        // 50MB warning
-            memory_critical: 100.0,      // 100MB critical
-        }
-    }
 }
 
 impl Default for PerformanceMonitor {
@@ -93,7 +68,6 @@ impl PerformanceMonitor {
         Self {
             contracts: HashMap::new(),
             alerts: Vec::new(),
-            alert_thresholds: AlertThresholds::default(),
         }
     }
 
@@ -167,7 +141,7 @@ impl PerformanceMonitor {
 
         // Check dependency contracts
         let dep_tester = DependencyContractTester::new(".");
-        if let Err(_e) = dep_tester.run_validation_tests() {
+        if dep_tester.run_validation_tests().is_err() {
             violations.push(PerformanceAlert {
                 component: "workspace".to_string(),
                 violation_type: ViolationType::DependencyConflict,

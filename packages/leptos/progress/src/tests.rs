@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod tests {
     use crate::default::{PROGRESS_CLASS, PROGRESS_INDICATOR_CLASS, ProgressVariant};
 

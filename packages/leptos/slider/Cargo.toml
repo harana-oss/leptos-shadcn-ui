@@ -15,7 +15,7 @@ leptos-node-ref.workspace = true
 leptos-struct-component.workspace = true
 leptos-style.workspace = true
 tailwind_fuse.workspace = true
-web-sys.workspace = true
+web-sys = { workspace = true, features = ["DomRect", "Element", "HtmlInputElement", "KeyboardEvent", "PointerEvent"] }
 leptos-shadcn-signal-management.workspace = true
 
 [features]

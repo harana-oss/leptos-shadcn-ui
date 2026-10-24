@@ -1,3 +1,4 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod performance_tests {
 
@@ -520,7 +521,7 @@ mod performance_tests {
             let callback = Callback::new(move |open: bool| {
                 leptos::logging::log!("Menu {} open state changed: {}", i, open);
             });
-            callbacks.push(callback.clone());
+            callbacks.push(callback);
 
             let _context_menu_view = view! {
                 <ContextMenu>

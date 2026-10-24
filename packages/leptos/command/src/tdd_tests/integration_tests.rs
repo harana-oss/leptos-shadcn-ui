@@ -1,3 +1,4 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod integration_tests {
     use crate::*;
@@ -170,9 +171,8 @@ mod integration_tests {
         let _ = any_spawner::Executor::init_futures_executor();
         let _owner = Owner::new();
         _owner.set();
-        let callback = Callback::new(move |value: String| {
+        let callback = Callback::new(move |_value: String| {
             // Test callback integration
-            let _ = value;
         });
 
         let _command_view = view! {
@@ -725,7 +725,7 @@ mod integration_tests {
                             </div>
                         }.into_any()
                     } else {
-                        view! {}.into_any()
+                        ().into_any()
                     }}
                 </div>
             </div>

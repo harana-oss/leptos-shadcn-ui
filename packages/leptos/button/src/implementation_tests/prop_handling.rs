@@ -1,3 +1,4 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod prop_handling {
     use crate::default::{BUTTON_CLASS, ButtonChildProps};
@@ -246,7 +247,7 @@ mod prop_handling {
     fn test_button_class_constant_not_empty() {
         // Test that BUTTON_CLASS constant is not empty
         assert!(!BUTTON_CLASS.is_empty());
-        assert!(BUTTON_CLASS.len() > 0);
+        assert!(!BUTTON_CLASS.is_empty());
     }
 
     #[test]

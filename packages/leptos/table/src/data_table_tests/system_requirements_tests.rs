@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod system_requirements_tests {
     use crate::data_table::{
         DataColumn, DataRow, DataTable, ExportFormat, FilterOperator, FilterType, SelectionMode,
@@ -52,7 +53,7 @@ mod system_requirements_tests {
     #[test]
     fn test_data_table_basic_functionality() {
         // Test basic data table functionality
-        let test_data = vec![
+        let test_data = [
             DataRow {
                 id: 1,
                 name: "John Doe".to_string(),
@@ -67,7 +68,7 @@ mod system_requirements_tests {
             },
         ];
 
-        let test_columns = vec![
+        let test_columns = [
             DataColumn {
                 sortable: true,
                 filterable: true,

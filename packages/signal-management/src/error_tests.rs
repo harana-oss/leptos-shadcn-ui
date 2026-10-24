@@ -279,7 +279,6 @@ mod error_tests {
         drop(errors);
         
         // Test passes if no memory leaks or panics occur
-        assert!(true);
     }
 
     #[test]

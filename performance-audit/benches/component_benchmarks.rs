@@ -1,5 +1,6 @@
-use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
+use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
 use leptos_shadcn_performance_audit::benchmarks::ComponentBenchmarker;
+use std::hint::black_box;
 use std::time::Duration;
 
 /// Comprehensive component performance benchmarks
@@ -9,7 +10,6 @@ use std::time::Duration;
 /// - Render time: < 16ms (60fps)
 /// - Memory usage: < 1MB per component
 /// - Bundle size: < 5KB per component
-
 fn benchmark_component_rendering(c: &mut Criterion) {
     let mut group = c.benchmark_group("component_rendering");
 

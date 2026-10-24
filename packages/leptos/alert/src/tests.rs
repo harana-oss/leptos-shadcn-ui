@@ -1,3 +1,4 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod tests {
     use crate::default::{ALERT_CLASS, ALERT_DESCRIPTION_CLASS, ALERT_TITLE_CLASS, AlertVariant};
@@ -61,12 +62,12 @@ mod tests {
     fn test_alert_component_structure() {
         // Test that the component types exist and can be referenced
         // We can't instantiate the components directly in tests, but we can test the enums and constants
-        assert!(ALERT_CLASS.len() > 0);
-        assert!(ALERT_TITLE_CLASS.len() > 0);
-        assert!(ALERT_DESCRIPTION_CLASS.len() > 0);
+        assert!(!ALERT_CLASS.is_empty());
+        assert!(!ALERT_TITLE_CLASS.is_empty());
+        assert!(!ALERT_DESCRIPTION_CLASS.is_empty());
 
         // Test that all variants are accessible
-        let variants = vec![
+        let variants = [
             AlertVariant::Default,
             AlertVariant::Destructive,
             AlertVariant::Success,
@@ -89,7 +90,7 @@ mod tests {
         for variant in variants {
             let variant_str: String = variant.into();
             assert!(!variant_str.is_empty());
-            assert!(variant_str.len() > 0);
+            assert!(!variant_str.is_empty());
         }
     }
 
@@ -134,8 +135,8 @@ mod tests {
         assert!(ALERT_DESCRIPTION_CLASS.contains("text-sm"));
 
         // Test that all CSS classes are non-empty
-        assert!(ALERT_CLASS.len() > 0);
-        assert!(ALERT_TITLE_CLASS.len() > 0);
-        assert!(ALERT_DESCRIPTION_CLASS.len() > 0);
+        assert!(!ALERT_CLASS.is_empty());
+        assert!(!ALERT_TITLE_CLASS.is_empty());
+        assert!(!ALERT_DESCRIPTION_CLASS.is_empty());
     }
 }

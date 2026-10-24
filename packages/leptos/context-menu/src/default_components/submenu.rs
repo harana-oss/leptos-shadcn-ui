@@ -6,13 +6,20 @@
 use leptos::prelude::*;
 use web_sys::MouseEvent;
 
+/// Open state of a submenu. A newtype so it does not shadow the root menu's
+/// `RwSignal<bool>`, which items use to close the whole menu.
+#[derive(Clone, Copy)]
+struct SubMenuOpen(RwSignal<bool>);
+
 #[component]
 pub fn ContextMenuSub(#[prop(optional)] children: Option<Children>) -> impl IntoView {
     let open = RwSignal::new(false);
-    provide_context(open);
+    provide_context(SubMenuOpen(open));
 
+    // Closing on leaving the whole submenu (trigger and content) lets the
+    // pointer travel from the trigger into the content without it closing.
     view! {
-        <div class="context-menu-sub">
+        <div class="context-menu-sub" on:mouseleave=move |_| open.set(false)>
             {children.map(|c| c())}
         </div>
     }
@@ -26,16 +33,12 @@ pub fn ContextMenuSubTrigger(
     #[prop(into, optional)] disabled: MaybeProp<bool>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let open = expect_context::<RwSignal<bool>>();
+    let SubMenuOpen(open) = expect_context::<SubMenuOpen>();
 
     let handle_mouse_enter = move |_| {
         if !disabled.get().unwrap_or(false) {
             open.set(true);
         }
-    };
-
-    let handle_mouse_leave = move |_| {
-        open.set(false);
     };
 
     let trigger_class = move || {
@@ -55,10 +58,9 @@ pub fn ContextMenuSubTrigger(
             id=move || id.get().unwrap_or_default()
             style=move || style.get().unwrap_or_default()
             on:mouseenter=handle_mouse_enter
-            on:mouseleave=handle_mouse_leave
             role="menuitem"
             aria-haspopup="menu"
-            aria-expanded=open.get()
+            aria-expanded=move || open.get().to_string()
             aria-disabled=disabled.get().unwrap_or(false)
         >
             {children.map(|c| c())}
@@ -73,7 +75,7 @@ pub fn ContextMenuSubContent(
     #[prop(into, optional)] style: MaybeProp<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let _open = expect_context::<RwSignal<bool>>();
+    let SubMenuOpen(open) = expect_context::<SubMenuOpen>();
 
     let handle_click = move |e: MouseEvent| {
         e.stop_propagation();
@@ -84,6 +86,8 @@ pub fn ContextMenuSubContent(
             class=move || format!("context-menu-sub-content {}", class.get().unwrap_or_default())
             id=move || id.get().unwrap_or_default()
             style=move || style.get().unwrap_or_default()
+            style:display=move || (!open.get()).then_some("none")
+            data-state=move || if open.get() { "open" } else { "closed" }
             on:click=handle_click
             role="menu"
             aria-orientation="vertical"

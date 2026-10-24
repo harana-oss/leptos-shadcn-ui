@@ -1,4 +1,3 @@
-use leptos::wasm_bindgen::JsCast;
 use leptos::{ev::Event, prelude::*};
 use leptos_style::Style;
 
@@ -10,18 +9,16 @@ pub fn Textarea(
     #[prop(into, optional)] on_change: Option<Callback<String>>,
     #[prop(into, optional)] placeholder: MaybeProp<String>,
     #[prop(into, optional)] disabled: Signal<bool>,
-    #[prop(into, optional)] _input_type: MaybeProp<String>,
+    #[prop(into, optional)] input_type: MaybeProp<String>,
     #[prop(into, optional)] class: MaybeProp<String>,
     #[prop(into, optional)] id: MaybeProp<String>,
     #[prop(into, optional)] style: Signal<Style>,
 ) -> impl IntoView {
-    let handle_input = {
-        move |event: Event| {
-            if let Some(callback) = &on_change {
-                let target = event.target().unwrap();
-                let input = target.unchecked_into::<web_sys::HtmlInputElement>();
-                callback.run(input.value());
-            }
+    // <textarea> has no `type` attribute; prop kept for API compatibility with Input.
+    let _ = input_type;
+    let handle_input = move |event: Event| {
+        if let Some(callback) = &on_change {
+            callback.run(event_target_value(&event));
         }
     };
 
@@ -35,9 +32,8 @@ pub fn Textarea(
             class=move || computed_class.get()
             id=move || id.get().unwrap_or_default()
             style=move || style.get().to_string()
+            prop:value=move || value.get().unwrap_or_default()
             on:input=handle_input
-        >
-            {value.get().unwrap_or_default()}
-        </textarea>
+        ></textarea>
     }
 }

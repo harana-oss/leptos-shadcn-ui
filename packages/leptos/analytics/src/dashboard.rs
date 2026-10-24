@@ -70,14 +70,14 @@ pub fn AnalyticsDashboard(
 pub fn AnalyticsBadge(
     /// Position of the badge
     #[prop(default = "bottom-right".to_string())]
-    _position: String,
+    position: String,
 ) -> impl IntoView {
     let analytics = use_analytics();
 
-    let content = if analytics.is_some() {
+    if analytics.is_some() {
         let summary = use_analytics_summary();
         view! {
-            <div class="analytics-badge">
+            <div class=format!("analytics-badge analytics-badge-{}", position)>
                 <div>"Analytics"</div>
                 <div>{move || {
                     let (total, unique, _) = summary.get();
@@ -88,9 +88,7 @@ pub fn AnalyticsBadge(
         .into_any()
     } else {
         view! { <div class="analytics-badge-hidden"></div> }.into_any()
-    };
-
-    content
+    }
 }
 
 /// Format a timestamp for display

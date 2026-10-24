@@ -3,13 +3,14 @@
 //! This module contains tests for integration scenarios, complete workflows, and edge cases.
 
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod integration_tests {
     use leptos::prelude::*;
 
     #[test]
     fn test_table_integration_with_data() {
         // Test table integration with data
-        let table_data = vec!["row1", "row2", "row3"];
+        let table_data = ["row1", "row2", "row3"];
         let data_loaded = RwSignal::new(true);
 
         assert_eq!(table_data.len(), 3, "Should have 3 data rows");
@@ -19,7 +20,7 @@ mod integration_tests {
     #[test]
     fn test_table_integration_with_sorting() {
         // Test table integration with sorting
-        let sortable_columns = vec!["name", "age", "email"];
+        let sortable_columns = ["name", "age", "email"];
         let current_sort = RwSignal::new("name");
         let sort_direction = RwSignal::new("asc");
 
@@ -66,7 +67,7 @@ mod integration_tests {
     #[test]
     fn test_table_integration_with_actions() {
         // Test table integration with actions
-        let available_actions = vec!["edit", "delete", "view"];
+        let available_actions = ["edit", "delete", "view"];
         let action_called = RwSignal::new(false);
 
         assert_eq!(available_actions.len(), 3, "Should have 3 actions");
@@ -79,7 +80,7 @@ mod integration_tests {
     #[test]
     fn test_table_integration_with_export() {
         // Test table integration with export
-        let export_formats = vec!["csv", "json", "xml"];
+        let export_formats = ["csv", "json", "xml"];
         let export_data = RwSignal::new("exported");
 
         assert_eq!(export_formats.len(), 3, "Should support 3 export formats");
@@ -114,7 +115,7 @@ mod integration_tests {
     fn test_table_integration_with_theme() {
         // Test table integration with theme
         let current_theme = "default";
-        let theme_variants = vec!["default", "new_york"];
+        let theme_variants = ["default", "new_york"];
 
         assert_eq!(current_theme, "default", "Should use default theme");
         assert_eq!(theme_variants.len(), 2, "Should support 2 theme variants");

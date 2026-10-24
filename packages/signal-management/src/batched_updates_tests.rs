@@ -268,7 +268,6 @@ mod batched_updates_tests {
         drop(updaters);
         
         // Test passes if no memory leaks or panics occur
-        assert!(true);
     }
 
     #[test]

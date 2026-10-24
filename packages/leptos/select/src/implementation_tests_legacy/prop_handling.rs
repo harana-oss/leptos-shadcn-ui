@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod prop_handling {
 
     // ===== PROP HANDLING TESTS =====
@@ -165,9 +166,7 @@ mod prop_handling {
         let content_class = "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2";
         let item_class = "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50";
 
-        let total_size = std::mem::size_of_val(&trigger_class)
-            + std::mem::size_of_val(&content_class)
-            + std::mem::size_of_val(&item_class);
+        let total_size = trigger_class.len() + content_class.len() + item_class.len();
 
         assert!(
             total_size < 1024,

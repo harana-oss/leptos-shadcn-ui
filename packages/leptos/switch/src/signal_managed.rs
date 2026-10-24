@@ -83,7 +83,6 @@ pub fn SignalManagedSwitch(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _switch_state_for_disabled = switch_state.clone();
     view! {
         <div
             class=move || computed_class.get()

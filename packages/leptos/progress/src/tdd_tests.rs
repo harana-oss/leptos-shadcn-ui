@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod tdd_tests {
     use crate::default::{Progress, ProgressVariant};
     use leptos::prelude::*;

@@ -234,7 +234,7 @@ pub fn AccordionTrigger(
                     callback.run(current_value);
                 }
             })),
-            onkeydown: Some(Callback::new(move |e| handle_keydown(e))),
+            onkeydown: Some(Callback::new(handle_keydown)),
             disabled: is_disabled.get(),
             expanded: is_expanded.get(),
         };

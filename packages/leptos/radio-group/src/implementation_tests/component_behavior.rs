@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod component_behavior {
     use leptos::prelude::*;
 
@@ -105,7 +106,7 @@ mod component_behavior {
     fn test_radio_group_item_selection_logic() {
         // Test item selection logic
         let selected_item = RwSignal::new("item1".to_string());
-        let items = vec!["item1", "item2", "item3"];
+        let items = ["item1", "item2", "item3"];
 
         // Test initial selection
         assert_eq!(selected_item.get(), "item1");

@@ -1,7 +1,8 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod signal_group_tests {
-
     use crate::*;
+
     use leptos::prelude::*;
 
     #[test]

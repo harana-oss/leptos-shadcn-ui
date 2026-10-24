@@ -5,11 +5,14 @@
 use super::rules::validate_rules;
 use super::types::{ValidationContext, ValidationResult, ValidationRule};
 
+/// A custom validation predicate; returns `true` when the value is valid.
+pub type CustomValidator = Box<dyn Fn(&str) -> bool + Send + Sync>;
+
 /// Input validator that applies multiple validation rules
 pub struct InputValidator {
     pub field_name: String,
     pub rules: Vec<ValidationRule>,
-    pub custom_validators: Vec<Box<dyn Fn(&str) -> bool + Send + Sync>>,
+    pub custom_validators: Vec<CustomValidator>,
 }
 
 impl InputValidator {

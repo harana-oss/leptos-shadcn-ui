@@ -16,7 +16,7 @@ use tailwind_fuse::tw_merge;
 /// # Example
 ///
 /// ```rust
-/// use shadcn_ui_leptos_utils::cn;
+/// use leptos_shadcn_utils::cn;
 ///
 /// let result = cn(&["bg-blue-500", "text-white", "p-4"]);
 /// assert_eq!(result, "bg-blue-500 text-white p-4");
@@ -43,7 +43,7 @@ pub fn cn(classes: &[&str]) -> String {
 /// # Example
 ///
 /// ```rust
-/// use shadcn_ui_leptos_utils::cn_flexible;
+/// use leptos_shadcn_utils::cn_flexible;
 ///
 /// let result = cn_flexible(&["bg-blue-500", "text-white", "p-4"]);
 /// assert_eq!(result, "bg-blue-500 text-white p-4");

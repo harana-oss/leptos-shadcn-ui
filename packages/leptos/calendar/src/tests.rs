@@ -1,6 +1,6 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod tests {
-
     #[test]
     fn test_calendar_component_exists() {
         leptos::prelude::Owner::new().with(|| {

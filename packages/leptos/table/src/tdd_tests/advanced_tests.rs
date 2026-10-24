@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod advanced_tests {
     use crate::default::Table;
     use leptos::prelude::*;
@@ -27,7 +28,7 @@ mod advanced_tests {
                                     <th>{header_row.2}</th>
                                 }.into_any()
                             } else {
-                                view! {}.into_any()
+                                ().into_any()
                             }
                         }}
                     </tr>
@@ -135,9 +136,9 @@ mod advanced_tests {
                         let mut data = table_data.get();
                         if sort_column.get() == "name" {
                             if sort_direction.get() == "asc" {
-                                data.sort_by(|a, b| a.0.cmp(&b.0));
+                                data.sort_by(|a, b| a.0.cmp(b.0));
                             } else {
-                                data.sort_by(|a, b| b.0.cmp(&a.0));
+                                data.sort_by(|a, b| b.0.cmp(a.0));
                             }
                         }
                         data.iter().map(|row| {

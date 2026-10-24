@@ -83,7 +83,6 @@ pub fn SignalManagedSlider(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _slider_state_for_disabled = slider_state.clone();
     view! {
         <div
             class=move || computed_class.get()

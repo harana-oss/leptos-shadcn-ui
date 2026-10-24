@@ -1,3 +1,5 @@
+#![allow(clippy::unnecessary_literal_unwrap)] // tests exercise Option default handling on fixed inputs
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod prop_handling_tests {
     use leptos::prelude::*;
@@ -92,7 +94,7 @@ mod prop_handling_tests {
 
         // Test callback absence
         let no_callback: Option<Callback<FormData>> = None;
-        if let None = no_callback {}
+        if no_callback.is_none() {}
     }
 
     #[test]

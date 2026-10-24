@@ -2,6 +2,7 @@ use crate::*;
 use leptos::prelude::*;
 
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod state_management_tests {
     use super::*;
 
@@ -13,7 +14,7 @@ mod state_management_tests {
         let open_state = RwSignal::new(false);
 
         let _dropdown_view = view! {
-            <DropdownMenu open=open_state.into()>
+            <DropdownMenu open=open_state>
                 <DropdownMenuTrigger>
                     "Toggle Menu"
                 </DropdownMenuTrigger>
@@ -38,7 +39,7 @@ mod state_management_tests {
         let value_state = RwSignal::new("".to_string());
 
         let _dropdown_view = view! {
-            <DropdownMenu value=value_state.into()>
+            <DropdownMenu value=value_state>
                 <DropdownMenuTrigger>
                     "Select Value"
                 </DropdownMenuTrigger>
@@ -278,8 +279,8 @@ mod state_management_tests {
 
         let _dropdown_view = view! {
             <DropdownMenu
-                open=open_state.into()
-                value=value_state.into()
+                open=open_state
+                value=value_state
                 disabled=disabled_state
             >
                 <DropdownMenuTrigger>

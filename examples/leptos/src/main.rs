@@ -25,5 +25,6 @@ pub fn App() -> impl IntoView {
         <Link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
 
         <comprehensive_demo::ComprehensiveDemo />
+        <component_browser::ComponentBrowser />
     }
 }

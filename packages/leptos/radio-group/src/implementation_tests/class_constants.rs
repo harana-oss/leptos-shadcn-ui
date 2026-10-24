@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod class_constants {
 
     // ===== CLASS CONSTANTS TESTS =====
@@ -84,8 +85,7 @@ mod class_constants {
         let custom_style = "color: red; background: blue;";
         let style_prop = Some(custom_style.to_string());
 
-        assert!(style_prop.is_some());
-        assert_eq!(style_prop.unwrap(), custom_style);
+        assert_eq!(style_prop.as_deref(), Some(custom_style));
     }
 
     #[test]

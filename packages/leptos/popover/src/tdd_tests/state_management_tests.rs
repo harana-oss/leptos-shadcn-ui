@@ -1,7 +1,9 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod state_management_tests {
-    use crate::default::Popover;
     use leptos::prelude::*;
+
+    use crate::default::Popover;
 
     // ===== STATE MANAGEMENT TESTS =====
     // These tests focus on state management and interaction logic

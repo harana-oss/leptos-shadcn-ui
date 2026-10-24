@@ -46,6 +46,10 @@
 //!
 //! MIT License - see the [LICENSE](../LICENSE) file for details.
 
+// Several component crates export a `signal_managed` module; their items are re-exported
+// here, and narrowing the globs would drop public items.
+#![allow(ambiguous_glob_reexports)]
+
 // Re-export all components (conditionally based on features)
 
 // Components added to track current shadcn/ui
@@ -85,27 +89,18 @@ pub use leptos_shadcn_alert::default::*;
 pub use leptos_shadcn_badge::default::*;
 #[cfg(feature = "button")]
 pub use leptos_shadcn_button::default::*;
-#[allow(ambiguous_glob_reexports)]
-#[cfg(feature = "calendar")]
-pub use leptos_shadcn_calendar::*;
 #[cfg(feature = "card")]
 pub use leptos_shadcn_card::default::*;
 #[cfg(feature = "checkbox")]
 pub use leptos_shadcn_checkbox::default::*;
-#[cfg(feature = "date-picker")]
-pub use leptos_shadcn_date_picker::*;
 #[cfg(feature = "dialog")]
 pub use leptos_shadcn_dialog::default::*;
 #[cfg(feature = "input")]
 pub use leptos_shadcn_input::default::*;
 #[cfg(feature = "label")]
 pub use leptos_shadcn_label::default::*;
-#[cfg(feature = "pagination")]
-pub use leptos_shadcn_pagination::*;
 #[cfg(feature = "popover")]
 pub use leptos_shadcn_popover::default::*;
-#[cfg(feature = "progress")]
-pub use leptos_shadcn_progress::default::*;
 #[cfg(feature = "radio-group")]
 pub use leptos_shadcn_radio_group::default::*;
 #[cfg(feature = "select")]
@@ -114,22 +109,33 @@ pub use leptos_shadcn_select::default::*;
 pub use leptos_shadcn_separator::default::*;
 #[cfg(feature = "skeleton")]
 pub use leptos_shadcn_skeleton::default::*;
-#[cfg(feature = "slider")]
-pub use leptos_shadcn_slider::default::*;
 #[cfg(feature = "switch")]
 pub use leptos_shadcn_switch::default::*;
-#[cfg(feature = "table")]
-pub use leptos_shadcn_table::default::*;
 #[cfg(feature = "tabs")]
 pub use leptos_shadcn_tabs::default::*;
 #[cfg(feature = "textarea")]
 pub use leptos_shadcn_textarea::default::*;
+#[cfg(feature = "tooltip")]
+pub use leptos_shadcn_tooltip::default::*;
+// Sidebar also exports a SKELETON_CLASS; the Skeleton component's constant takes precedence.
+#[cfg(feature = "calendar")]
+pub use leptos_shadcn_calendar::*;
+#[cfg(feature = "date-picker")]
+pub use leptos_shadcn_date_picker::*;
+#[cfg(feature = "pagination")]
+pub use leptos_shadcn_pagination::*;
+#[cfg(feature = "progress")]
+pub use leptos_shadcn_progress::default::*;
+#[cfg(feature = "skeleton")]
+pub use leptos_shadcn_skeleton::default::SKELETON_CLASS;
+#[cfg(feature = "slider")]
+pub use leptos_shadcn_slider::default::*;
+#[cfg(feature = "table")]
+pub use leptos_shadcn_table::default::*;
 #[cfg(feature = "toast")]
 pub use leptos_shadcn_toast::default::*;
 #[cfg(feature = "toggle")]
 pub use leptos_shadcn_toggle::default::*;
-#[cfg(feature = "tooltip")]
-pub use leptos_shadcn_tooltip::default::*;
 
 // Advanced components (newly fixed)
 #[cfg(feature = "analytics")]

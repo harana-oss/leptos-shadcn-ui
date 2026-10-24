@@ -5,6 +5,7 @@
 use super::types::{ValidationError, ValidationResult, ValidationRule};
 
 /// Validates a value against a specific validation rule
+#[allow(clippy::result_large_err)] // public API returns ValidationError by value; boxing would break callers
 pub fn validate_rule(value: &str, rule: &ValidationRule) -> Result<(), ValidationError> {
     match rule {
         ValidationRule::Required => {

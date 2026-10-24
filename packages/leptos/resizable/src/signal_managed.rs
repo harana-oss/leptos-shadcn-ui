@@ -83,7 +83,6 @@ pub fn SignalManagedResizable(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _resizable_state_for_disabled = resizable_state.clone();
     view! {
         <div
             class=move || computed_class.get()

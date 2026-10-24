@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod item_logic_tests {
     use leptos::prelude::*;
 
@@ -6,7 +7,7 @@ mod item_logic_tests {
     fn test_select_item_selection_logic() {
         // Test item selection state
         let selected_item = RwSignal::new(None::<String>);
-        let available_items = vec!["item1", "item2", "item3"];
+        let available_items = ["item1", "item2", "item3"];
 
         // Test initial state
         assert!(
@@ -38,7 +39,7 @@ mod item_logic_tests {
             "disabled_item1".to_string(),
             "disabled_item2".to_string(),
         ]);
-        let all_items = vec![
+        let all_items = [
             "item1",
             "item2",
             "disabled_item1",

@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod tests {
     use crate::default::SEPARATOR_CLASS;
 
@@ -91,7 +92,7 @@ mod tests {
         assert!(has_content);
 
         // Test content structure
-        let content_types = vec!["text", "html", "children"];
+        let content_types = ["text", "html", "children"];
         assert!(!content_types.is_empty());
     }
 

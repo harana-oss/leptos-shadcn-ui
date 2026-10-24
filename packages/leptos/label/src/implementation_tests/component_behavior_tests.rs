@@ -3,13 +3,9 @@
 //! This module contains tests for component behavior, children handling,
 //! semantic structure, and accessibility features for the Label component.
 
-#![cfg(test)]
-
-use crate::default::LABEL_CLASS;
-
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::default::LABEL_CLASS;
 
     #[test]
     fn test_label_children_handling() {

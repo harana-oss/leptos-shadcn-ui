@@ -3,6 +3,7 @@
 //! This module contains tests for accessibility features, ARIA attributes, and keyboard navigation.
 
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod accessibility_tests {
     use leptos::prelude::*;
 
@@ -54,7 +55,7 @@ mod accessibility_tests {
     #[test]
     fn test_table_keyboard_navigation() {
         // Test keyboard navigation support
-        let focusable_elements = vec!["header", "cell1", "cell2", "cell3"];
+        let focusable_elements = ["header", "cell1", "cell2", "cell3"];
         let current_focus_index = RwSignal::new(0);
 
         // Test tab navigation

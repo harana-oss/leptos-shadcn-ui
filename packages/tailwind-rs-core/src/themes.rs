@@ -199,11 +199,13 @@ impl Theme {
                 self.primary.text(600),
                 self.primary.background(50)
             ),
-            Variant::Ghost => format!(
-                "{} hover:{}",
-                self.primary.ghost(100),
-                self.primary.background(100)
-            ),
+            Variant::Ghost => {
+                format!(
+                    "{} hover:{}",
+                    self.primary.ghost(100),
+                    self.primary.background(100)
+                )
+            }
             Variant::Link => format!(
                 "{} hover:{}",
                 self.primary.link(600),
@@ -245,9 +247,10 @@ impl Default for Theme {
     }
 }
 
+pub use presets as themes;
+
 /// Predefined themes for common use cases.
-#[allow(clippy::module_inception)]
-pub mod themes {
+pub mod presets {
     use super::*;
 
     /// Default theme with blue primary color.

@@ -2,6 +2,10 @@ use leptos::prelude::*;
 use leptos_meta::*;
 use wasm_bindgen::prelude::*;
 
+// For production: use leptos-shadcn-ui-wasm for proper WASM initialization
+#[cfg(feature = "wasm")]
+use leptos_shadcn_ui_wasm::init::{init_wasm_with_config, WasmInitConfig};
+
 // Import all the refactored components
 use leptos_shadcn_button::{Button, ButtonSize, ButtonVariant};
 use leptos_shadcn_card::*;
@@ -9,6 +13,18 @@ use leptos_shadcn_input::*;
 
 #[wasm_bindgen(start)]
 pub fn main() {
+    // Initialize WASM with proper state management
+    #[cfg(feature = "wasm")]
+    {
+        let config = WasmInitConfig {
+            verbose: true,
+            ..Default::default()
+        };
+        if let Err(err) = init_wasm_with_config(config) {
+            leptos::logging::error!("WASM initialization failed: {err}");
+        }
+    }
+
     mount_to_body(|| view! { <App /> })
 }
 

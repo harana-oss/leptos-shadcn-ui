@@ -143,8 +143,7 @@ impl Responsive {
     }
 
     /// Generate the final responsive class string.
-    #[allow(clippy::inherent_to_string)]
-    pub fn to_string(&self) -> String {
+    fn class_string(&self) -> String {
         let mut classes = Vec::new();
 
         // Sort breakpoints by min-width to ensure proper order
@@ -627,6 +626,12 @@ pub mod media_queries {
     /// High contrast media query.
     pub fn prefers_high_contrast() -> MediaQuery {
         MediaQuery::new("(prefers-contrast: high)")
+    }
+}
+
+impl std::fmt::Display for Responsive {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(&self.class_string())
     }
 }
 

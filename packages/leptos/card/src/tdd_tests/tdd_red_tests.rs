@@ -1,3 +1,5 @@
+#![allow(clippy::unnecessary_literal_unwrap)] // tests exercise Option default handling on fixed inputs
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod tdd_red_tests {
     use crate::default::{
@@ -218,8 +220,8 @@ mod tdd_red_tests {
         let disabled = Some(true);
         let visible = Some(false);
 
-        assert_eq!(disabled.unwrap_or_default(), true);
-        assert_eq!(visible.unwrap_or_default(), false);
+        assert!(disabled.unwrap_or_default());
+        assert!(!visible.unwrap_or_default());
     }
 
     #[test]
@@ -229,8 +231,8 @@ mod tdd_red_tests {
         let disabled: Option<bool> = None;
         let visible: Option<bool> = None;
 
-        assert_eq!(disabled.unwrap_or_default(), false);
-        assert_eq!(visible.unwrap_or_default(), false);
+        assert!(!disabled.unwrap_or_default());
+        assert!(!visible.unwrap_or_default());
     }
 
     #[test]
@@ -311,7 +313,7 @@ mod tdd_red_tests {
         assert_eq!(id.unwrap_or_default(), "test-id");
         assert_eq!(class.clone().unwrap_or_default(), "test-class");
         assert_eq!(style.clone().unwrap_or_default(), "color: red");
-        assert_eq!(disabled.unwrap_or_default(), false);
+        assert!(!disabled.unwrap_or_default());
         assert!(callback.is_some());
     }
 
@@ -332,7 +334,7 @@ mod tdd_red_tests {
             style.clone().unwrap_or_default(),
             "color: red; background: blue; font-size: 16px;"
         );
-        assert_eq!(disabled.unwrap_or_default(), false);
+        assert!(!disabled.unwrap_or_default());
         assert!(callback.is_some());
         assert_eq!(signal.unwrap().get(), "test-value");
     }
@@ -391,8 +393,8 @@ mod tdd_red_tests {
         let id_clone = id.clone();
         let class_clone = class.clone();
         let style_clone = style.clone();
-        let disabled_clone = disabled.clone();
-        let callback_clone = callback.clone();
+        let disabled_clone = disabled;
+        let callback_clone = callback;
 
         assert_eq!(id, id_clone);
         assert_eq!(class, class_clone);

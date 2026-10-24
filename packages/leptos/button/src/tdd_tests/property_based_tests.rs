@@ -2,6 +2,7 @@
 //!
 //! This module contains property-based tests that validate component behavior
 //! across a wide range of inputs and scenarios.
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 
 #[cfg(test)]
 mod property_based_tests {

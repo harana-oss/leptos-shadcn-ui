@@ -290,7 +290,7 @@ pub fn RichErrorBoundary(
     if has_error.get() {
         if let Some(context) = error_context.get() {
             if let Some(fallback_callback) = &fallback {
-                fallback_callback.run(context);
+                let _: () = fallback_callback.run(context);
                 ().into_any()
             } else {
                 view! { <RichErrorFallback error_context=context /> }.into_any()
@@ -317,13 +317,17 @@ pub fn use_error_handler() -> (
     (has_error, set_has_error, set_error_info)
 }
 
-/// Hook for enhanced error handling with rich context
-pub fn use_rich_error_handler() -> (
+/// Signals returned by [`use_rich_error_handler`]:
+/// `(has_error, set_has_error, error_context, set_error_context)`.
+pub type RichErrorHandler = (
     ReadSignal<bool>,
     WriteSignal<bool>,
     ReadSignal<Option<ErrorContext>>,
     WriteSignal<Option<ErrorContext>>,
-) {
+);
+
+/// Hook for enhanced error handling with rich context
+pub fn use_rich_error_handler() -> RichErrorHandler {
     let (has_error, set_has_error) = signal(false);
     let (error_context, set_error_context) = signal(None::<ErrorContext>);
 
@@ -351,6 +355,7 @@ pub fn create_error_with_severity(
 }
 
 /// Utility function to handle errors with rich context
+#[allow(clippy::result_large_err)] // public API returns ErrorContext by value; boxing would break callers
 pub fn handle_error_with_context<T, E>(
     result: Result<T, E>,
     user_message: &str,

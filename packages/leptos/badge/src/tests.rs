@@ -1,3 +1,4 @@
+#![allow(clippy::module_inception)] // test layout: one inner module per test file
 #[cfg(test)]
 mod tests {
     use crate::default::BADGE_CLASS;
@@ -5,7 +6,7 @@ mod tests {
     #[test]
     fn test_badge_base_css_classes() {
         // Test that base BADGE_CLASS contains required styling and accessibility classes
-        assert!(BADGE_CLASS.len() > 0, "BADGE_CLASS should not be empty");
+        assert!(!BADGE_CLASS.is_empty(), "BADGE_CLASS should not be empty");
 
         // Test that BADGE_CLASS contains the expected styling classes
         assert!(
@@ -140,7 +141,7 @@ mod tests {
         assert!(has_content);
 
         // Test content structure
-        let content_types = vec!["text", "html", "children"];
+        let content_types = ["text", "html", "children"];
         assert!(!content_types.is_empty());
     }
 

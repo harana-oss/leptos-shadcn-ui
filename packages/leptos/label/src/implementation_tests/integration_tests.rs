@@ -3,13 +3,9 @@
 //! This module contains tests for theme integration, responsive behavior,
 //! accessibility compliance, and integration scenarios for the Label component.
 
-#![cfg(test)]
-
-use crate::default::LABEL_CLASS;
-
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::default::LABEL_CLASS;
 
     #[test]
     fn test_label_theme_integration() {

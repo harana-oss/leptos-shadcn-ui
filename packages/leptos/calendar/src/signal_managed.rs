@@ -83,7 +83,6 @@ pub fn SignalManagedCalendar(
     // Apply lifecycle optimization
     theme_manager.apply_lifecycle_optimization();
 
-    let _calendar_state_for_disabled = calendar_state.clone();
     view! {
         <div
             class=move || computed_class.get()

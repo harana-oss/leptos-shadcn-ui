@@ -1,7 +1,9 @@
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod accessibility_tests {
-    use crate::default::Popover;
     use leptos::prelude::*;
+
+    use crate::default::Popover;
 
     // ===== ACCESSIBILITY TESTS =====
     // These tests focus on accessibility features and ARIA attributes

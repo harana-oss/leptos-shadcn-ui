@@ -11,6 +11,7 @@ use crate::*;
 use leptos::prelude::*;
 
 #[cfg(test)]
+#[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod integration_tests {
     use super::*;
 
@@ -24,21 +25,21 @@ mod integration_tests {
 
         let _view = view! {
             <div>
-                <Popover open=popover1_open.into()>
+                <Popover open=popover1_open>
                     <PopoverTrigger>"Popover 1"</PopoverTrigger>
                     <PopoverContent>
                         <div>"Popover 1 Content"</div>
                     </PopoverContent>
                 </Popover>
 
-                <Popover open=popover2_open.into()>
+                <Popover open=popover2_open>
                     <PopoverTrigger>"Popover 2"</PopoverTrigger>
                     <PopoverContent>
                         <div>"Popover 2 Content"</div>
                     </PopoverContent>
                 </Popover>
 
-                <Popover open=popover3_open.into()>
+                <Popover open=popover3_open>
                     <PopoverTrigger>"Popover 3"</PopoverTrigger>
                     <PopoverContent>
                         <div>"Popover 3 Content"</div>
@@ -79,7 +80,7 @@ mod integration_tests {
 
                 // Popover component (should have z-50)
                 <div class="relative z-10">
-                    <Popover open=popover_open.into()>
+                    <Popover open=popover_open>
                         <PopoverTrigger>"Open Popover"</PopoverTrigger>
                         <PopoverContent>
                             <div>
@@ -97,7 +98,7 @@ mod integration_tests {
                         </div>
                     }.into_any()
                 } else {
-                    view! {}.into_any()
+                    ().into_any()
                 }}
             </div>
         };
@@ -122,7 +123,7 @@ mod integration_tests {
 
         let _view = view! {
             <div>
-                <Popover open=popover1_open.into()>
+                <Popover open=popover1_open>
                     <PopoverTrigger
                         on:click=move |_| {
                             click_count.update(|n| *n += 1);
@@ -142,7 +143,7 @@ mod integration_tests {
                     </PopoverContent>
                 </Popover>
 
-                <Popover open=popover2_open.into()>
+                <Popover open=popover2_open>
                     <PopoverTrigger
                         on:click=move |_| {
                             click_count.update(|n| *n += 1);
@@ -189,14 +190,14 @@ mod integration_tests {
 
         let _view = view! {
             <div>
-                <Popover open=popover1_open.into()>
+                <Popover open=popover1_open>
                     <PopoverTrigger class="custom-trigger-1">"Popover 1"</PopoverTrigger>
                     <PopoverContent class=custom_class1.to_string()>
                         <div class="popover-title">"Popover 1 Content"</div>
                     </PopoverContent>
                 </Popover>
 
-                <Popover open=popover2_open.into()>
+                <Popover open=popover2_open>
                     <PopoverTrigger class="custom-trigger-2">"Popover 2"</PopoverTrigger>
                     <PopoverContent class=custom_class2.to_string()>
                         <div class="popover-title">"Popover 2 Content"</div>
@@ -223,7 +224,7 @@ mod integration_tests {
 
         let _view = view! {
             <div>
-                <Popover open=popover1_open.into()>
+                <Popover open=popover1_open>
                     <PopoverTrigger>"Popover 1"</PopoverTrigger>
                     <PopoverContent>
                         <div>
@@ -232,7 +233,7 @@ mod integration_tests {
                     </PopoverContent>
                 </Popover>
 
-                <Popover open=popover2_open.into()>
+                <Popover open=popover2_open>
                     <PopoverTrigger>"Popover 2"</PopoverTrigger>
                     <PopoverContent>
                         <div>
@@ -271,7 +272,7 @@ mod integration_tests {
 
         let _view = view! {
             <div>
-                <Popover open=popover1_open.into()>
+                <Popover open=popover1_open>
                     <PopoverTrigger
                         on:click=move |_| {
                             lifecycle_tracker.update(|v| v.push("popover1_opened".to_string()));
@@ -290,7 +291,7 @@ mod integration_tests {
                     </PopoverContent>
                 </Popover>
 
-                <Popover open=popover2_open.into()>
+                <Popover open=popover2_open>
                     <PopoverTrigger
                         on:click=move |_| {
                             lifecycle_tracker.update(|v| v.push("popover2_opened".to_string()));
@@ -309,7 +310,7 @@ mod integration_tests {
                     </PopoverContent>
                 </Popover>
 
-                <Popover open=popover3_open.into()>
+                <Popover open=popover3_open>
                     <PopoverTrigger
                         on:click=move |_| {
                             lifecycle_tracker.update(|v| v.push("popover3_opened".to_string()));
@@ -359,7 +360,7 @@ mod integration_tests {
             <div>
                 {popovers.into_iter().enumerate().map(|(i, open)| {
                     view! {
-                        <Popover open=open.into()>
+                        <Popover open=open>
                             <PopoverTrigger>{format!("Popover {}", i)}</PopoverTrigger>
                             <PopoverContent>
                                 <div>{format!("Popover {} Content", i)}</div>
@@ -380,7 +381,7 @@ mod integration_tests {
         let popover_open = RwSignal::new(false);
 
         let _view = view! {
-            <Popover open=popover_open.into()>
+            <Popover open=popover_open>
                 <PopoverTrigger>"Toggle Popover"</PopoverTrigger>
                 <PopoverContent>
                     <div>"Popover Content"</div>
@@ -405,13 +406,13 @@ mod integration_tests {
         let inner_popover_open = RwSignal::new(false);
 
         let _view = view! {
-            <Popover open=outer_popover_open.into()>
+            <Popover open=outer_popover_open>
                 <PopoverTrigger>"Outer Popover"</PopoverTrigger>
                 <PopoverContent>
                     <div>"This popover contains another popover"</div>
 
                     <div>
-                        <Popover open=inner_popover_open.into()>
+                        <Popover open=inner_popover_open>
                             <PopoverTrigger>"Inner Popover"</PopoverTrigger>
                             <PopoverContent>
                                 <div>"This is a nested popover"</div>
@@ -463,7 +464,7 @@ mod integration_tests {
                     }
                 />
 
-                <Popover open=popover_open.into()>
+                <Popover open=popover_open>
                     <PopoverTrigger>"Open Popover"</PopoverTrigger>
                     <PopoverContent>
                         <div>"Popover alongside other UI elements"</div>
@@ -494,14 +495,14 @@ mod integration_tests {
 
         let _view = view! {
             <div>
-                <Popover open=default_open.into()>
+                <Popover open=default_open>
                     <PopoverTrigger>"Default Popover"</PopoverTrigger>
                     <PopoverContent>
                         <div>"Default Theme Content"</div>
                     </PopoverContent>
                 </Popover>
 
-                <Popover open=newyork_open.into()>
+                <Popover open=newyork_open>
                     <PopoverTrigger>"New York Popover"</PopoverTrigger>
                     <PopoverContent>
                         <div>"New York Theme Content"</div>
