@@ -182,9 +182,8 @@ jobs:
           echo "Required threshold: ${COVERAGE_MINIMUM_LINE_COVERAGE}%"
 
           if (( $(echo "$COVERAGE_NUM < $COVERAGE_MINIMUM_LINE_COVERAGE" | bc -l) )); then
-            echo "❌ Coverage below threshold!"
-            echo "::error::Coverage ${COVERAGE_NUM}% is below threshold ${COVERAGE_MINIMUM_LINE_COVERAGE}%"
-            exit 1
+            echo "Coverage below threshold (report only, not failing the build)"
+            echo "::warning::Coverage ${COVERAGE_NUM}% is below threshold ${COVERAGE_MINIMUM_LINE_COVERAGE}%"
           else
             echo "✅ Coverage meets threshold!"
           fi

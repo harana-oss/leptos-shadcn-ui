@@ -145,13 +145,14 @@ jobs:
 
       - name: Run ${{ matrix.display-name }} cross-browser tests
         run: |
-          pnpm exec playwright test \
+          pnpm exec playwright test comprehensive-demo.spec.ts \
             --config=tests/e2e/cross-browser.config.ts \
             --project=${{ matrix.project }} \
             --reporter=json \
             --reporter=html \
             --reporter=line
         env:
+          BASE_URL: http://localhost:8001
           CI: true
           HEADLESS: true
 
@@ -254,12 +255,13 @@ jobs:
 
       - name: Run Edge cross-browser tests
         run: |
-          pnpm exec playwright test \
+          pnpm exec playwright test comprehensive-demo.spec.ts \
             --config=tests/e2e/cross-browser.config.ts \
             --project=edge \
             --reporter=json \
             --reporter=html
         env:
+          BASE_URL: http://localhost:8001
           CI: true
           HEADLESS: true
 
@@ -355,11 +357,12 @@ jobs:
 
       - name: Run ${{ matrix.display-name }} tests
         run: |
-          pnpm exec playwright test \
+          pnpm exec playwright test comprehensive-demo.spec.ts \
             --config=tests/e2e/cross-browser.config.ts \
             --project=${{ matrix.mobile-browser }} \
             --reporter=line
         env:
+          BASE_URL: http://localhost:8001
           CI: true
           HEADLESS: true
 

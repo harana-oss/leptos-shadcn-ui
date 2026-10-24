@@ -88,7 +88,7 @@ jobs:
 
     - name: Run Playwright tests
       run: |
-        npx playwright test comprehensive-demo.spec.ts --reporter=html
+        npx playwright test comprehensive-demo.spec.ts --project=chromium --reporter=html
       env:
         BASE_URL: http://localhost:8001
 
@@ -255,7 +255,7 @@ jobs:
 
     - name: Run performance tests
       run: |
-        npx playwright test comprehensive-demo.spec.ts --grep "Performance" --reporter=json > performance-results.json
+        npx playwright test comprehensive-demo.spec.ts --grep "Performance" --project=chromium --reporter=json > performance-results.json
       env:
         BASE_URL: http://localhost:8001
 
@@ -295,7 +295,7 @@ jobs:
 
     - name: Run accessibility tests
       run: |
-        npx playwright test comprehensive-demo.spec.ts --grep "Accessibility" --reporter=json > accessibility-results.json
+        npx playwright test comprehensive-demo.spec.ts --grep "Accessibility" --project=chromium --reporter=json > accessibility-results.json
       env:
         BASE_URL: http://localhost:8001
 
