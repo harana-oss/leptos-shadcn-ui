@@ -6,6 +6,7 @@
 
 pub mod default;
 pub mod default_components;
+pub mod keyboard;
 pub mod new_york;
 pub mod new_york_components;
 pub mod signal_managed;
