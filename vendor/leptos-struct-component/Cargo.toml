@@ -35,7 +35,7 @@ name = "struct_component"
 path = "tests/struct_component.rs"
 
 [dependencies.leptos]
-version = "0.9.0-rc0"
+version = "0.9.0-rc1"
 
 [dependencies.leptos-struct-component-macro]
 version = "0.2.0"
