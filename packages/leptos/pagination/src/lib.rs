@@ -8,7 +8,7 @@ pub use default::*;
 mod new_york;
 
 #[cfg(not(feature = "new_york"))]
-mod default;
+pub mod default;
 
 pub mod signal_managed;
 

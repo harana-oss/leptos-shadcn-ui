@@ -183,6 +183,21 @@ leptos-shadcn-registry = { path = "packages/leptos/registry" }
 
 # Additional components
 leptos-shadcn-drawer = { path = "packages/leptos/drawer" }
+leptos-shadcn-performance-audit = { path = "performance-audit" }
+leptos-shadcn-analytics = { path = "packages/leptos/analytics" }
+leptos-shadcn-chart = { path = "packages/leptos/chart" }
+leptos-shadcn-sonner = { path = "packages/leptos/sonner" }
+leptos-shadcn-sidebar = { path = "packages/leptos/sidebar" }
+leptos-shadcn-toggle-group = { path = "packages/leptos/toggle-group" }
+leptos-shadcn-native-select = { path = "packages/leptos/native-select" }
+leptos-shadcn-input-group = { path = "packages/leptos/input-group" }
+leptos-shadcn-field = { path = "packages/leptos/field" }
+leptos-shadcn-typography = { path = "packages/leptos/typography" }
+leptos-shadcn-item = { path = "packages/leptos/item" }
+leptos-shadcn-empty = { path = "packages/leptos/empty" }
+leptos-shadcn-spinner = { path = "packages/leptos/spinner" }
+leptos-shadcn-kbd = { path = "packages/leptos/kbd" }
+leptos-shadcn-button-group = { path = "packages/leptos/button-group" }
 leptos-shadcn-context-menu = { path = "packages/leptos/context-menu" }
 leptos-shadcn-alert-dialog = { path = "packages/leptos/alert-dialog" }
 leptos-shadcn-navigation-menu = { path = "packages/leptos/navigation-menu" }
