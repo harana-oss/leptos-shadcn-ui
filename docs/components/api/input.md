@@ -9,11 +9,13 @@ A flexible text input component with built-in validation support and accessibili
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-input = "0.7"
+leptos-shadcn-input = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_input::Input;
+use leptos_shadcn_input::Input;
 ```
 
 ---
@@ -22,13 +24,13 @@ use shadcn_ui_leptos_input::Input;
 
 ```rust
 // Default theme
-use shadcn_ui_leptos_input::Input;
+use leptos_shadcn_input::Input;
 
 // New York theme
-use shadcn_ui_leptos_input::InputNewYork;
+use leptos_shadcn_input::InputNewYork;
 
 // Validation utilities
-use shadcn_ui_leptos_input::{
+use leptos_shadcn_input::{
     ValidationRule,
     ValidationError,
     ValidationResult,
@@ -38,7 +40,7 @@ use shadcn_ui_leptos_input::{
 };
 
 // Signal-managed variant
-use shadcn_ui_leptos_input::{
+use leptos_shadcn_input::{
     SignalManagedInput,
     SignalManagedInputState
 };
@@ -143,7 +145,7 @@ impl ValidationBuilders {
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_input::Input;
+use leptos_shadcn_input::Input;
 
 #[component]
 pub fn MyForm() -> impl IntoView {
@@ -194,7 +196,7 @@ view! {
 ### With Validation
 
 ```rust
-use shadcn_ui_leptos_input::validation_builders;
+use leptos_shadcn_input::validation_builders;
 
 #[component]
 pub fn EmailInput() -> impl IntoView {
@@ -226,7 +228,7 @@ pub fn EmailInput() -> impl IntoView {
 ### Custom Validation Rules
 
 ```rust
-use shadcn_ui_leptos_input::{ValidationRule, ValidationError};
+use leptos_shadcn_input::{ValidationRule, ValidationError};
 
 let custom_validator = InputValidator::new().add_rule(
     ValidationRule {
@@ -346,7 +348,7 @@ The component automatically manages:
 
 ```rust
 // Good: Label with proper association
-<Label for="email">"Email"</Label>
+<Label attr:for="email">"Email"</Label>
 <Input id="email" />
 
 // Good: Descriptive placeholder
@@ -364,7 +366,7 @@ The component automatically manages:
 ## Signal-Managed Variant
 
 ```rust
-use shadcn_ui_leptos_input::SignalManagedInput;
+use leptos_shadcn_input::SignalManagedInput;
 
 #[component]
 pub fn FormInput() -> impl IntoView {
@@ -478,4 +480,4 @@ export const validationBuilders: {
 
 ---
 
-*Source: [packages/leptos/input/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/input/src/default.rs)*
+*Source: [packages/leptos/input/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/input/src/default.rs)*

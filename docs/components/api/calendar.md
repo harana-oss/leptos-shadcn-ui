@@ -9,11 +9,13 @@ A calendar component for date selection and display.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-calendar = "0.7"
+leptos-shadcn-calendar = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_calendar::Calendar;
+use leptos_shadcn_calendar::Calendar;
 ```
 
 ---
@@ -37,7 +39,7 @@ use shadcn_ui_leptos_calendar::Calendar;
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_calendar::Calendar;
+use leptos_shadcn_calendar::Calendar;
 use chrono::NaiveDate;
 
 #[component]
@@ -104,4 +106,4 @@ export const Calendar: React.FC<CalendarProps>;
 
 ---
 
-*Source: [packages/leptos/calendar/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/calendar/src/default.rs)*
+*Source: [packages/leptos/calendar/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/calendar/src/default.rs)*

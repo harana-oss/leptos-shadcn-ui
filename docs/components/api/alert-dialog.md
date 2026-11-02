@@ -9,11 +9,13 @@ A modal dialog for critical confirmations and destructive actions.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-alert-dialog = "0.7"
+leptos-shadcn-alert-dialog = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_alert_dialog::AlertDialog;
+use leptos_shadcn_alert_dialog::AlertDialog;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_alert_dialog::AlertDialog;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_alert_dialog::{
+use leptos_shadcn_alert_dialog::{
     AlertDialog,
     AlertDialogTrigger,
     AlertDialogContent,
@@ -71,7 +73,7 @@ Cancel button that closes dialog.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_alert_dialog::*;
+use leptos_shadcn_alert_dialog::*;
 
 #[component]
 pub fn DeleteConfirmation() -> impl IntoView {
@@ -156,4 +158,4 @@ export const AlertDialogCancel: React.FC<ButtonProps>;
 
 ---
 
-*Source: [packages/leptos/alert-dialog/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/alert-dialog/src/default.rs)*
+*Source: [packages/leptos/alert-dialog/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/alert-dialog/src/default.rs)*

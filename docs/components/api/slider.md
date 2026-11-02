@@ -9,11 +9,13 @@ A slider control for selecting values within a range.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-slider = "0.7"
+leptos-shadcn-slider = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_slider::Slider;
+use leptos_shadcn_slider::Slider;
 ```
 
 ---
@@ -40,7 +42,7 @@ use shadcn_ui_leptos_slider::Slider;
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_slider::Slider;
+use leptos_shadcn_slider::Slider;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -120,4 +122,4 @@ export const Slider: React.FC<SliderProps>;
 
 ---
 
-*Source: [packages/leptos/slider/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/slider/src/default.rs)*
+*Source: [packages/leptos/slider/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/slider/src/default.rs)*

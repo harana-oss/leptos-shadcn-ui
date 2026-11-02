@@ -9,11 +9,13 @@ A component that can show/hide content with animation.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-collapsible = "0.7"
+leptos-shadcn-collapsible = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_collapsible::Collapsible;
+use leptos_shadcn_collapsible::Collapsible;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_collapsible::Collapsible;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_collapsible::{
+use leptos_shadcn_collapsible::{
     Collapsible,
     CollapsibleTrigger,
     CollapsibleContent
@@ -66,7 +68,7 @@ Collapsible content container.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_collapsible::*;
+use leptos_shadcn_collapsible::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -137,4 +139,4 @@ export const CollapsibleContent: React.FC<ComponentProps>;
 
 ---
 
-*Source: [packages/leptos/collapsible/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/collapsible/src/default.rs)*
+*Source: [packages/leptos/collapsible/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/collapsible/src/default.rs)*

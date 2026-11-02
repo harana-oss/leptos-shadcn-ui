@@ -9,11 +9,13 @@ A right-click context menu for performing actions on elements.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-context-menu = "0.7"
+leptos-shadcn-context-menu = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_context_menu::ContextMenu;
+use leptos_shadcn_context_menu::ContextMenu;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_context_menu::ContextMenu;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_context_menu::{
+use leptos_shadcn_context_menu::{
     ContextMenu,
     ContextMenuTrigger,
     ContextMenuContent,
@@ -68,7 +70,7 @@ Individual menu item.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_context_menu::*;
+use leptos_shadcn_context_menu::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -146,4 +148,4 @@ export const ContextMenuItem: React.FC<ComponentProps>;
 
 ---
 
-*Source: [packages/leptos/context-menu/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/context-menu/src/default.rs)*
+*Source: [packages/leptos/context-menu/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/context-menu/src/default.rs)*

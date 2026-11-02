@@ -9,11 +9,13 @@ A component registry for managing and accessing components.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-registry = "0.7"
+leptos-shadcn-registry = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_registry::Registry;
+use leptos_shadcn_registry::Registry;
 ```
 
 ---
@@ -31,7 +33,7 @@ The registry provides component discovery and metadata.
 ### Using the Registry
 
 ```rust
-use shadcn_ui_leptos_registry::Registry;
+use leptos_shadcn_registry::Registry;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -66,4 +68,4 @@ export const Registry: {
 
 ---
 
-*Source: [packages/leptos/registry/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/registry/src/default.rs)*
+*Source: [packages/leptos/registry/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/registry/src/default.rs)*

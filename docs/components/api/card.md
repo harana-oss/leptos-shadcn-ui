@@ -9,11 +9,13 @@ A versatile card component for organizing and displaying content with optional h
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-card = "0.7"
+leptos-shadcn-card = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_card::Card;
+use leptos_shadcn_card::Card;
 ```
 
 ---
@@ -22,7 +24,7 @@ use shadcn_ui_leptos_card::Card;
 
 ```rust
 // Default theme
-use shadcn_ui_leptos_card::{
+use leptos_shadcn_card::{
     Card,
     CardHeader,
     CardTitle,
@@ -34,14 +36,14 @@ use shadcn_ui_leptos_card::{
 };
 
 // New York theme
-use shadcn_ui_leptos_card::{
+use leptos_shadcn_card::{
     Card as CardNewYork,
     CardHeader as CardHeaderNewYork,
     // ... other components
 };
 
 // Signal-managed variant
-use shadcn_ui_leptos_card::{
+use leptos_shadcn_card::{
     SignalManagedCard,
     SignalManagedCardState
 };
@@ -141,7 +143,7 @@ pub enum CardVariant {
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_card::*;
+use leptos_shadcn_card::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -496,4 +498,4 @@ export const CardFooter: React.FC<CardFooterProps>;
 
 ---
 
-*Source: [packages/leptos/card/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/card/src/default.rs)*
+*Source: [packages/leptos/card/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/card/src/default.rs)*

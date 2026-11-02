@@ -9,11 +9,13 @@ A loading placeholder component for content that is still loading.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-skeleton = "0.7"
+leptos-shadcn-skeleton = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_skeleton::Skeleton;
+use leptos_shadcn_skeleton::Skeleton;
 ```
 
 ---
@@ -36,7 +38,7 @@ use shadcn_ui_leptos_skeleton::Skeleton;
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_skeleton::Skeleton;
+use leptos_shadcn_skeleton::Skeleton;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -102,4 +104,4 @@ export const Skeleton: React.FC<SkeletonProps>;
 
 ---
 
-*Source: [packages/leptos/skeleton/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/skeleton/src/default.rs)*
+*Source: [packages/leptos/skeleton/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/skeleton/src/default.rs)*
