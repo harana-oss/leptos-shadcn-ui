@@ -1,446 +1,235 @@
-use crate::*;
-use leptos::prelude::*;
-use leptos_style::Style;
+//! Behavior tests for the Sheet compound component.
+//!
+//! These exercise the pure functions and `SheetContext` state logic directly,
+//! so they run under plain `cargo test` without a browser.
 
 #[cfg(test)]
 #[allow(clippy::module_inception)] // test module layout mirrors the file name
 mod tdd_tests {
-    use super::*;
+    use crate::sheet_core::*;
+    use leptos::prelude::*;
+    use std::sync::{Arc, Mutex};
 
-    // ===== TDD ENHANCED TESTS - GREEN PHASE =====
-    // These tests now implement real functionality and verify actual behavior
+    fn with_owner<T>(f: impl FnOnce() -> T) -> T {
+        Owner::new().with(f)
+    }
 
-    // Basic Rendering Tests
+    // ===== Side mapping =====
+
     #[test]
-    fn test_sheet_basic_rendering() {
-        let _sheet_view = view! {
-            <Sheet>
-                "Basic Sheet Content"
-            </Sheet>
-        };
-        // GREEN PHASE: Verify actual rendering behavior
+    fn side_defaults_to_right() {
+        assert_eq!(SheetSide::default(), SheetSide::Right);
     }
 
     #[test]
-    fn test_sheet_with_children() {
-        let _sheet_view = view! {
-            <Sheet>
-                <div>
-                    <h2>"Sheet Title"</h2>
-                    <p>"Sheet content goes here"</p>
-                </div>
-            </Sheet>
-        };
+    fn side_maps_to_shadcn_variant_classes() {
+        let cases = [
+            (SheetSide::Top, "top", "top-0", "border-b"),
+            (SheetSide::Right, "right", "right-0", "border-l"),
+            (SheetSide::Bottom, "bottom", "bottom-0", "border-t"),
+            (SheetSide::Left, "left", "left-0", "border-r"),
+        ];
+        for (side, name, pos, border) in cases {
+            assert_eq!(side.as_str(), name);
+            let class = side.class();
+            assert!(class.contains(pos), "{name}: {class}");
+            assert!(class.contains(border), "{name}: {class}");
+            assert!(
+                class.contains(&format!("data-[state=open]:slide-in-from-{name}")),
+                "{name}: {class}"
+            );
+            assert!(
+                class.contains(&format!("data-[state=closed]:slide-out-to-{name}")),
+                "{name}: {class}"
+            );
+        }
+        assert!(SheetSide::Left.class().contains("sm:max-w-sm"));
+        assert!(!SheetSide::Top.class().contains("w-3/4"));
     }
 
     #[test]
-    fn test_sheet_with_class() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("custom-sheet")>
-                "Custom Sheet"
-            </Sheet>
-        };
+    fn content_class_combines_theme_side_and_user_class() {
+        for styles in [&crate::default::STYLES, &crate::new_york::STYLES] {
+            let c = content_class(styles, SheetSide::Left, Some("my-sheet".into()));
+            assert!(c.starts_with(styles.content));
+            assert!(c.contains(SheetSide::Left.class()));
+            assert!(c.ends_with("my-sheet"));
+            assert_eq!(
+                content_class(styles, SheetSide::Top, None),
+                format!("{} {}", styles.content, SheetSide::Top.class())
+            );
+        }
     }
 
     #[test]
-    fn test_sheet_with_id() {
-        let _sheet_view = view! {
-            <Sheet id=MaybeProp::from("sheet-id")>
-                "Sheet with ID"
-            </Sheet>
-        };
+    fn merge_class_ignores_blank_extra() {
+        assert_eq!(merge_class("a", None), "a");
+        assert_eq!(merge_class("a", Some("  ".into())), "a");
+        assert_eq!(merge_class("a", Some(" b ".into())), "a b");
     }
 
     #[test]
-    fn test_sheet_with_style() {
-        let style = RwSignal::new(Style::default());
-        let _sheet_view = view! {
-            <Sheet style=style>
-                "Styled Sheet"
-            </Sheet>
-        };
+    fn themes_differ_but_share_structure() {
+        assert_ne!(crate::default::STYLES, crate::new_york::STYLES);
+        assert!(crate::new_york::STYLES.content.contains("fixed z-50"));
+    }
+
+    // ===== Pure state helpers =====
+
+    #[test]
+    fn resolve_open_prefers_controlled_value() {
+        assert!(resolve_open(Some(true), false));
+        assert!(!resolve_open(Some(false), true));
+        assert!(resolve_open(None, true));
+        assert!(!resolve_open(None, false));
     }
 
     #[test]
-    fn test_sheet_multiple_instances() {
-        let _sheet_view = view! {
-            <div>
-                <Sheet class=MaybeProp::from("sheet-1")>"Sheet 1"</Sheet>
-                <Sheet class=MaybeProp::from("sheet-2")>"Sheet 2"</Sheet>
-                <Sheet class=MaybeProp::from("sheet-3")>"Sheet 3"</Sheet>
-            </div>
-        };
-    }
-
-    // Complex Content Tests
-    #[test]
-    fn test_sheet_complex_content() {
-        let _sheet_view = view! {
-            <Sheet>
-                <div class="sheet-header">
-                    <h1>"Complex Sheet"</h1>
-                    <p>"This is a complex sheet with multiple sections"</p>
-                </div>
-                <div class="sheet-body">
-                    <section>
-                        <h2>"Section 1"</h2>
-                        <p>"Content for section 1"</p>
-                    </section>
-                    <section>
-                        <h2>"Section 2"</h2>
-                        <p>"Content for section 2"</p>
-                    </section>
-                </div>
-                <div class="sheet-footer">
-                    <button>"Action Button"</button>
-                </div>
-            </Sheet>
-        };
+    fn only_escape_is_a_close_key() {
+        assert!(is_close_key("Escape"));
+        assert!(is_close_key("Esc"));
+        assert!(!is_close_key("Enter"));
+        assert!(!is_close_key(" "));
     }
 
     #[test]
-    fn test_sheet_with_forms() {
-        let _sheet_view = view! {
-            <Sheet>
-                <form>
-                    <div class="form-group">
-                        <label>"Name"</label>
-                        <input type="text" placeholder="Enter name"/>
-                    </div>
-                    <div class="form-group">
-                        <label>"Email"</label>
-                        <input type="email" placeholder="Enter email"/>
-                    </div>
-                    <button type="submit">"Submit"</button>
-                </form>
-            </Sheet>
-        };
+    fn data_state_values() {
+        assert_eq!(data_state(true), "open");
+        assert_eq!(data_state(false), "closed");
     }
 
     #[test]
-    fn test_sheet_with_tables() {
-        let _sheet_view = view! {
-            <Sheet>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>"Name"</th>
-                            <th>"Email"</th>
-                            <th>"Role"</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>"John Doe"</td>
-                            <td>"john@example.com"</td>
-                            <td>"Admin"</td>
-                        </tr>
-                        <tr>
-                            <td>"Jane Smith"</td>
-                            <td>"jane@example.com"</td>
-                            <td>"User"</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </Sheet>
-        };
+    fn generated_ids_are_unique() {
+        let a = next_sheet_id();
+        let b = next_sheet_id();
+        assert_ne!(a, b);
+        assert!(a.starts_with("sheet-"));
     }
 
-    // State Management Tests
+    // ===== SheetContext =====
+
     #[test]
-    fn test_sheet_state_management() {
-        let _sheet_view = view! {
-            <Sheet>
-                "State Managed Sheet"
-            </Sheet>
-        };
+    fn uncontrolled_open_and_close() {
+        with_owner(|| {
+            let ctx = SheetContext::new(None, false, None);
+            assert!(!ctx.open.get_untracked());
+            ctx.open();
+            assert!(ctx.open.get_untracked());
+            ctx.close();
+            assert!(!ctx.open.get_untracked());
+        });
     }
 
     #[test]
-    fn test_sheet_context_management() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("context-managed-sheet")>
-                "Context Managed Sheet"
-            </Sheet>
-        };
-    }
-
-    // Animation and Transitions Tests
-    #[test]
-    fn test_sheet_animations() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("animate-in fade-in-0")>
-                "Animated Sheet"
-            </Sheet>
-        };
+    fn default_open_seeds_uncontrolled_state() {
+        with_owner(|| {
+            let ctx = SheetContext::new(None, true, None);
+            assert!(ctx.open.get_untracked());
+        });
     }
 
     #[test]
-    fn test_sheet_content_placeholder() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("content-placeholder")>
-                "Placeholder Sheet"
-            </Sheet>
-        };
-    }
+    fn controlled_state_follows_signal_and_reports_changes() {
+        with_owner(|| {
+            let (open, set_open) = signal(false);
+            let calls = Arc::new(Mutex::new(Vec::new()));
+            let calls_cb = calls.clone();
+            let ctx = SheetContext::new(
+                Some(open.into()),
+                true, // ignored when controlled
+                Some(Callback::new(move |v| calls_cb.lock().unwrap().push(v))),
+            );
+            assert!(!ctx.open.get_untracked());
 
-    // Accessibility Tests
-    #[test]
-    fn test_sheet_accessibility() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("focus-visible:ring-2")>
-                "Accessible Sheet"
-            </Sheet>
-        };
-    }
+            // Requesting open notifies the parent but does not override it.
+            ctx.open();
+            assert_eq!(*calls.lock().unwrap(), vec![true]);
+            assert!(!ctx.open.get_untracked());
 
-    #[test]
-    fn test_sheet_accessibility_comprehensive() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("focus-visible:outline-none focus-visible:ring-2")>
-                "Comprehensive Accessible Sheet"
-            </Sheet>
-        };
-    }
-
-    // Keyboard Navigation Tests
-    #[test]
-    fn test_sheet_keyboard_navigation() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("keyboard-navigable")>
-                "Keyboard Navigable Sheet"
-            </Sheet>
-        };
+            set_open.set(true);
+            assert!(ctx.open.get_untracked());
+        });
     }
 
     #[test]
-    fn test_sheet_focus_management() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("focus-managed")>
-                "Focus Managed Sheet"
-            </Sheet>
-        };
-    }
-
-    // Advanced Interactions Tests
-    #[test]
-    fn test_sheet_advanced_interactions() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("advanced-interactions")>
-                "Advanced Interactions Sheet"
-            </Sheet>
-        };
-    }
-
-    // Form Integration Tests
-    #[test]
-    fn test_sheet_form_integration() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("form-integration-sheet")>
-                "Form Integration Sheet"
-            </Sheet>
-        };
+    fn escape_closes_open_sheet() {
+        with_owner(|| {
+            let ctx = SheetContext::new(None, true, None);
+            assert!(!ctx.handle_key("Enter"));
+            assert!(ctx.open.get_untracked());
+            assert!(ctx.handle_key("Escape"));
+            assert!(!ctx.open.get_untracked());
+            // Already closed: no-op.
+            assert!(!ctx.handle_key("Escape"));
+        });
     }
 
     #[test]
-    fn test_sheet_error_handling() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("error-handling")>
-                "Error Handling Sheet"
-            </Sheet>
-        };
+    fn overlay_click_closes_and_notifies() {
+        with_owner(|| {
+            let calls = Arc::new(Mutex::new(Vec::new()));
+            let calls_cb = calls.clone();
+            let ctx = SheetContext::new(
+                None,
+                true,
+                Some(Callback::new(move |v| calls_cb.lock().unwrap().push(v))),
+            );
+            ctx.handle_overlay_click();
+            assert!(!ctx.open.get_untracked());
+            assert_eq!(*calls.lock().unwrap(), vec![false]);
+        });
     }
 
     #[test]
-    fn test_sheet_validation_comprehensive() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("validated-sheet")>
-                "Validated Sheet"
-            </Sheet>
-        };
+    fn each_instance_gets_distinct_aria_ids() {
+        with_owner(|| {
+            let a = SheetContext::new(None, false, None);
+            let b = SheetContext::new(None, false, None);
+            let at = a.title_id.get_untracked();
+            let ad = a.description_id.get_untracked();
+            assert!(at.ends_with("-title"));
+            assert!(ad.ends_with("-description"));
+            assert_eq!(
+                at.trim_end_matches("-title"),
+                ad.trim_end_matches("-description")
+            );
+            assert_ne!(at, b.title_id.get_untracked());
+            assert_ne!(ad, b.description_id.get_untracked());
+        });
     }
 
-    // Integration Tests
-    #[test]
-    fn test_sheet_integration_scenarios() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("integration-sheet")>
-                "Integration Sheet"
-            </Sheet>
-        };
-    }
+    // ===== Views construct with the compound API =====
 
     #[test]
-    fn test_sheet_complete_workflow() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("workflow-sheet")>
-                "Workflow Sheet"
-            </Sheet>
-        };
-    }
-
-    // Edge Cases and Error Handling
-    #[test]
-    fn test_sheet_edge_cases() {
-        let _sheet_view = view! {
-            <Sheet>
-                ""
-            </Sheet>
-        };
-    }
-
-    #[test]
-    fn test_sheet_empty_children() {
-        let _sheet_view = view! {
-            <Sheet/>
-        };
-    }
-
-    #[test]
-    fn test_sheet_long_text() {
-        let _sheet_view = view! {
-            <Sheet>
-                "This is a very long sheet text that should be handled properly and should not cause any issues with rendering or layout"
-            </Sheet>
-        };
-    }
-
-    // Performance Tests
-    #[test]
-    fn test_sheet_performance() {
-        let _sheet_view = view! {
-            <Sheet>
-                "Performance Sheet"
-            </Sheet>
-        };
-    }
-
-    // Integration with other components
-    #[test]
-    fn test_sheet_with_label() {
-        let _sheet_view = view! {
-            <div>
-                <label>"Sheet Label"</label>
-                <Sheet>"Labeled Sheet"</Sheet>
-            </div>
-        };
-    }
-
-    #[test]
-    fn test_sheet_with_form() {
-        let _sheet_view = view! {
-            <form>
-                <Sheet>"Form Sheet"</Sheet>
-            </form>
-        };
-    }
-
-    #[test]
-    fn test_sheet_group() {
-        let _sheet_view = view! {
-            <div class="sheet-group">
-                <Sheet class=MaybeProp::from("sheet-1")>"Sheet 1"</Sheet>
-                <Sheet class=MaybeProp::from("sheet-2")>"Sheet 2"</Sheet>
-                <Sheet class=MaybeProp::from("sheet-3")>"Sheet 3"</Sheet>
-            </div>
-        };
-    }
-
-    // Layout Tests
-    #[test]
-    fn test_sheet_layout_flex() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("flex flex-col")>
-                <div class="flex-1">"Flex Content"</div>
-                <div class="flex-shrink-0">"Fixed Footer"</div>
-            </Sheet>
-        };
-    }
-
-    #[test]
-    fn test_sheet_layout_grid() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("grid grid-cols-2 gap-4")>
-                <div>"Grid Item 1"</div>
-                <div>"Grid Item 2"</div>
-                <div>"Grid Item 3"</div>
-                <div>"Grid Item 4"</div>
-            </Sheet>
-        };
-    }
-
-    // Responsive Tests
-    #[test]
-    fn test_sheet_responsive() {
-        let _sheet_view = view! {
-            <Sheet class=MaybeProp::from("w-full md:w-1/2 lg:w-1/3")>
-                "Responsive Sheet"
-            </Sheet>
-        };
-    }
-
-    // Style Tests
-    #[test]
-    fn test_sheet_custom_styles() {
-        let style = RwSignal::new(Style::default());
-        let _sheet_view = view! {
-            <Sheet
-                class=MaybeProp::from("custom-sheet-style")
-                style=style
-            >
-                "Custom Styled Sheet"
-            </Sheet>
-        };
-    }
-
-    #[test]
-    fn test_sheet_combined_props() {
-        let style = RwSignal::new(Style::default());
-        let _sheet_view = view! {
-            <Sheet
-                class=MaybeProp::from("combined-props-sheet")
-                id=MaybeProp::from("combined-sheet")
-                style=style
-            >
-                "Combined Props Sheet"
-            </Sheet>
-        };
-    }
-
-    // Content Types Tests
-    #[test]
-    fn test_sheet_with_images() {
-        let _sheet_view = view! {
-            <Sheet>
-                <img src="image.jpg" alt="Sheet Image"/>
-                <p>"Sheet with image content"</p>
-            </Sheet>
-        };
-    }
-
-    #[test]
-    fn test_sheet_with_buttons() {
-        let _sheet_view = view! {
-            <Sheet>
-                <div class="button-group">
-                    <button>"Button 1"</button>
-                    <button>"Button 2"</button>
-                    <button>"Button 3"</button>
-                </div>
-            </Sheet>
-        };
-    }
-
-    #[test]
-    fn test_sheet_with_inputs() {
-        let _sheet_view = view! {
-            <Sheet>
-                <div class="input-group">
-                    <input type="text" placeholder="Text input"/>
-                    <input type="email" placeholder="Email input"/>
-                    <input type="password" placeholder="Password input"/>
-                </div>
-            </Sheet>
-        };
+    fn compound_api_builds_for_both_themes() {
+        with_owner(|| {
+            use crate::*;
+            let (open, set_open) = signal(false);
+            let _ = view! {
+                <Sheet
+                    open=open.into()
+                    on_open_change=Some(Callback::new(move |v| set_open.set(v)))
+                >
+                    <SheetTrigger>"Open"</SheetTrigger>
+                    <SheetContent side=SheetSide::Left class="x">
+                        <SheetHeader>
+                            <SheetTitle>"Title"</SheetTitle>
+                            <SheetDescription>"Desc"</SheetDescription>
+                        </SheetHeader>
+                        <SheetFooter>
+                            <SheetClose>"Close"</SheetClose>
+                        </SheetFooter>
+                    </SheetContent>
+                </Sheet>
+            };
+            let _ = view! {
+                <SheetNewYork default_open=true>
+                    <SheetTriggerNewYork>"Open"</SheetTriggerNewYork>
+                    <SheetContentNewYork>
+                        <SheetTitleNewYork>"T"</SheetTitleNewYork>
+                    </SheetContentNewYork>
+                </SheetNewYork>
+            };
+        });
     }
 }
