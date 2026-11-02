@@ -28,7 +28,7 @@ pub fn SignalManagedTextarea(
     let textarea_state_for_class = textarea_state.clone();
     let computed_class = ArcMemo::new(move |_| {
         let state = textarea_state_for_class.get();
-        let base_class = "component-base-class"; // TODO: Replace with actual base class
+        let base_class = "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
         let active_class = if state.is_active { "active" } else { "" };
         let hover_class = if state.is_hovered { "hover" } else { "" };
         let focus_class = if state.is_focused { "focus" } else { "" };
@@ -112,7 +112,7 @@ pub fn EnhancedTextarea(
     let textarea_state_for_class = textarea_state.clone();
     let computed_class = ArcMemo::new(move |_| {
         let state = textarea_state_for_class.get();
-        let base_class = "component-base-class"; // TODO: Replace with actual base class
+        let base_class = "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
         let active_class = if state.is_active {
             "active transition-all"
         } else {

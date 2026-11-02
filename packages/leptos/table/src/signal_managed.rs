@@ -28,7 +28,7 @@ pub fn SignalManagedTable(
     let table_state_for_class = table_state.clone();
     let computed_class = ArcMemo::new(move |_| {
         let state = table_state_for_class.get();
-        let base_class = "component-base-class"; // TODO: Replace with actual base class
+        let base_class = "rounded-lg border bg-card text-card-foreground shadow-sm";
         let active_class = if state.is_active { "active" } else { "" };
         let hover_class = if state.is_hovered { "hover" } else { "" };
         let focus_class = if state.is_focused { "focus" } else { "" };
@@ -112,7 +112,7 @@ pub fn EnhancedTable(
     let table_state_for_class = table_state.clone();
     let computed_class = ArcMemo::new(move |_| {
         let state = table_state_for_class.get();
-        let base_class = "component-base-class"; // TODO: Replace with actual base class
+        let base_class = "rounded-lg border bg-card text-card-foreground shadow-sm";
         let active_class = if state.is_active {
             "active transition-all"
         } else {

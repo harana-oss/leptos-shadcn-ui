@@ -4,7 +4,7 @@ version = "0.8.0"
 edition = "2021"
 description = "Contract testing framework for leptos-shadcn-ui components"
 license = "MIT"
-authors = ["CloudShuttle <info@cloudshuttle.com>"]
+authors = ["leptos-shadcn-ui contributors"]
 
 [dependencies]
 leptos = "0.9.0-rc0"

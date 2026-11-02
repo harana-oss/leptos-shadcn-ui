@@ -3,10 +3,10 @@ name = "leptos-shadcn-performance-audit"
 version = "0.1.0"
 edition = "2021"
 description = "Performance audit and monitoring system for leptos-shadcn-ui components"
-homepage = "https://github.com/cloud-shuttle/leptos-shadcn-ui"
-repository = "https://github.com/cloud-shuttle/leptos-shadcn-ui"
+homepage = "https://github.com/harana-oss/leptos-shadcn-ui"
+repository = "https://github.com/harana-oss/leptos-shadcn-ui"
 license = "MIT"
-authors = ["CloudShuttle <info@cloudshuttle.com>"]
+authors = ["leptos-shadcn-ui contributors"]
 keywords = ["leptos", "performance", "audit", "monitoring", "benchmark"]
 categories = ["development-tools", "web-programming"]
 

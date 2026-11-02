@@ -28,7 +28,7 @@ pub fn SignalManagedBadge(
     let badge_state_for_class = badge_state.clone();
     let computed_class = ArcMemo::new(move |_| {
         let state = badge_state_for_class.get();
-        let base_class = "component-base-class"; // TODO: Replace with actual base class
+        let base_class = "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2";
         let active_class = if state.is_active { "active" } else { "" };
         let hover_class = if state.is_hovered { "hover" } else { "" };
         let focus_class = if state.is_focused { "focus" } else { "" };
@@ -112,7 +112,7 @@ pub fn EnhancedBadge(
     let badge_state_for_class = badge_state.clone();
     let computed_class = ArcMemo::new(move |_| {
         let state = badge_state_for_class.get();
-        let base_class = "component-base-class"; // TODO: Replace with actual base class
+        let base_class = "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2";
         let active_class = if state.is_active {
             "active transition-all"
         } else {

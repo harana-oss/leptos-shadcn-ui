@@ -3,9 +3,9 @@ name = "leptos-shadcn-performance-testing"
 version = "0.1.0"
 edition = "2021"
 description = "Performance regression testing suite for leptos-shadcn-ui components"
-repository = "https://github.com/cloud-shuttle/leptos-shadcn-ui"
+repository = "https://github.com/harana-oss/leptos-shadcn-ui"
 license = "MIT"
-authors = ["CloudShuttle <info@cloudshuttle.com>"]
+authors = ["leptos-shadcn-ui contributors"]
 keywords = ["leptos", "performance", "testing", "benchmarks", "regression"]
 categories = ["development-tools", "web-programming"]
 

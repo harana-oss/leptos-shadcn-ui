@@ -3,9 +3,9 @@ name = "leptos-shadcn-api-standards"
 version = "0.1.0"
 edition = "2021"
 description = "API standardization framework and validation tools for leptos-shadcn-ui"
-repository = "https://github.com/cloud-shuttle/leptos-shadcn-ui"
+repository = "https://github.com/harana-oss/leptos-shadcn-ui"
 license = "MIT"
-authors = ["CloudShuttle <info@cloudshuttle.com>"]
+authors = ["leptos-shadcn-ui contributors"]
 keywords = ["leptos", "ui", "components", "standards", "validation"]
 categories = ["web-programming", "gui", "development-tools"]
 

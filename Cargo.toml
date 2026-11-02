@@ -109,10 +109,10 @@ members = [
 ]
 
 [workspace.package]
-authors = ["CloudShuttle <info@cloudshuttle.com>"]
+authors = ["leptos-shadcn-ui contributors"]
 edition = "2024"
 license = "MIT"
-repository = "https://github.com/cloud-shuttle/leptos-shadcn-ui"
+repository = "https://github.com/harana-oss/leptos-shadcn-ui"
 version = "0.9.1"
 
 [workspace.dependencies]

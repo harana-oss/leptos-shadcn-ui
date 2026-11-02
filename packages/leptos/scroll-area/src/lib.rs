@@ -7,7 +7,5 @@ pub mod signal_managed;
 pub use default::ScrollArea;
 pub use new_york::ScrollArea as ScrollAreaNewYork;
 
-mod tests;
-
 // Signal-managed exports
 pub use signal_managed::*;

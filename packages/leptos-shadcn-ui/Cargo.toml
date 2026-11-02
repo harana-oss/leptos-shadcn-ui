@@ -3,10 +3,10 @@ name = "leptos-shadcn-ui"
 version.workspace = true
 edition = "2024"
 description = "A comprehensive collection of beautiful, accessible UI components built for Leptos 0.9, inspired by shadcn/ui. Features production-ready infrastructure with automated WASM testing, E2E integration, performance benchmarking, and accessibility automation. Core components with 100% test coverage, cross-browser compatibility, and WCAG compliance."
-homepage = "https://github.com/cloud-shuttle/leptos-shadcn-ui"
-repository = "https://github.com/cloud-shuttle/leptos-shadcn-ui"
+homepage = "https://github.com/harana-oss/leptos-shadcn-ui"
+repository = "https://github.com/harana-oss/leptos-shadcn-ui"
 license = "MIT"
-authors = ["CloudShuttle <info@cloudshuttle.com>"]
+authors = ["leptos-shadcn-ui contributors"]
 keywords = ["leptos", "ui", "components", "shadcn", "web"]
 categories = ["wasm", "gui", "web-programming"]
 readme = "../../README.md"
@@ -81,13 +81,13 @@ leptos-shadcn-drawer = { workspace = true, optional = true }
 leptos-shadcn-alert-dialog = { workspace = true, optional = true }
 leptos-shadcn-avatar = { workspace = true, optional = true }
 leptos-shadcn-resizable = { workspace = true, optional = true }
-leptos-shadcn-performance-audit = { version = "0.1.0", path = "../../performance-audit", optional = true }
+leptos-shadcn-performance-audit = { workspace = true, optional = true }
 
 # Additional packages (published dependencies for v0.9.0 release)
 leptos-shadcn-error-boundary = { workspace = true, optional = true }
 leptos-shadcn-lazy-loading = { workspace = true, optional = true }
 leptos-shadcn-registry = { workspace = true, optional = true }
-leptos-shadcn-analytics = { version = "0.1.0", path = "../leptos/analytics", optional = true }
+leptos-shadcn-analytics = { workspace = true, optional = true }
 
 # Additional dependencies
 tailwind_fuse = "0.3"

@@ -1,11 +1,11 @@
 [package]
 name = "leptos-shadcn-ui-wasm"
-version = "0.2.1"
+version.workspace = true
 edition = "2021"
-authors = ["CloudShuttle <info@cloudshuttle.com>"]
+authors = ["leptos-shadcn-ui contributors"]
 license = "MIT"
-repository = "https://github.com/cloud-shuttle/leptos-shadcn-ui"
-homepage = "https://github.com/cloud-shuttle/leptos-shadcn-ui"
+repository = "https://github.com/harana-oss/leptos-shadcn-ui"
+homepage = "https://github.com/harana-oss/leptos-shadcn-ui"
 documentation = "https://docs.rs/leptos-shadcn-ui-wasm"
 description = "🚀 WASM-optimized ShadCN UI components for Leptos 0.8+ with minimal dependencies. 50+ components, 70% fewer deps, feature flags for optimal bundle size. Perfect for WebAssembly applications!"
 keywords = ["leptos", "shadcn", "ui", "wasm", "components"]

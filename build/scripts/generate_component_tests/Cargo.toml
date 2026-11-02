@@ -3,7 +3,7 @@ name = "generate-component-tests"
 version = "0.2.0"
 edition = "2021"
 description = "Automated test generation script for all Leptos shadcn/ui components"
-authors = ["CloudShuttle <info@cloudshuttle.com>"]
+authors = ["leptos-shadcn-ui contributors"]
 license = "MIT"
 
 [dependencies]

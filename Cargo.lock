@@ -2123,7 +2123,7 @@ dependencies = [
 
 [[package]]
 name = "leptos-shadcn-analytics"
-version = "0.1.0"
+version = "0.9.1"
 dependencies = [
  "getrandom 0.4.3",
  "gloo-storage",
@@ -2227,7 +2227,7 @@ dependencies = [
 
 [[package]]
 name = "leptos-shadcn-button-group"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "leptos",
 ]
@@ -2282,7 +2282,7 @@ dependencies = [
 
 [[package]]
 name = "leptos-shadcn-chart"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "leptos",
 ]
@@ -2540,7 +2540,7 @@ dependencies = [
 
 [[package]]
 name = "leptos-shadcn-empty"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "leptos",
 ]
@@ -2559,7 +2559,7 @@ dependencies = [
 
 [[package]]
 name = "leptos-shadcn-field"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "leptos",
 ]
@@ -2617,7 +2617,7 @@ dependencies = [
 
 [[package]]
 name = "leptos-shadcn-input-group"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "leptos",
  "wasm-bindgen",
@@ -2641,14 +2641,14 @@ dependencies = [
 
 [[package]]
 name = "leptos-shadcn-item"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "leptos",
 ]
 
 [[package]]
 name = "leptos-shadcn-kbd"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "leptos",
 ]
@@ -2693,7 +2693,7 @@ dependencies = [
 
 [[package]]
 name = "leptos-shadcn-native-select"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "leptos",
 ]
@@ -2907,7 +2907,7 @@ dependencies = [
 
 [[package]]
 name = "leptos-shadcn-sidebar"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "leptos",
  "send_wrapper",
@@ -2962,7 +2962,7 @@ dependencies = [
 
 [[package]]
 name = "leptos-shadcn-sonner"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "js-sys",
  "leptos",
@@ -2970,7 +2970,7 @@ dependencies = [
 
 [[package]]
 name = "leptos-shadcn-spinner"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "leptos",
 ]
@@ -3086,7 +3086,7 @@ dependencies = [
 
 [[package]]
 name = "leptos-shadcn-toggle-group"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "leptos",
 ]
@@ -3110,7 +3110,7 @@ dependencies = [
 
 [[package]]
 name = "leptos-shadcn-typography"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "leptos",
 ]
@@ -3195,7 +3195,7 @@ dependencies = [
 
 [[package]]
 name = "leptos-shadcn-ui-wasm"
-version = "0.2.1"
+version = "0.9.1"
 dependencies = [
  "console_error_panic_hook",
  "getrandom 0.4.3",

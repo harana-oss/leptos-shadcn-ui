@@ -28,7 +28,7 @@ pub fn SignalManagedHovercard(
     let hover_card_state_for_class = hover_card_state.clone();
     let computed_class = ArcMemo::new(move |_| {
         let state = hover_card_state_for_class.get();
-        let base_class = "component-base-class"; // TODO: Replace with actual base class
+        let base_class = "relative inline-block";
         let active_class = if state.is_active { "active" } else { "" };
         let hover_class = if state.is_hovered { "hover" } else { "" };
         let focus_class = if state.is_focused { "focus" } else { "" };
@@ -112,7 +112,7 @@ pub fn EnhancedHovercard(
     let hover_card_state_for_class = hover_card_state.clone();
     let computed_class = ArcMemo::new(move |_| {
         let state = hover_card_state_for_class.get();
-        let base_class = "component-base-class"; // TODO: Replace with actual base class
+        let base_class = "relative inline-block";
         let active_class = if state.is_active {
             "active transition-all"
         } else {

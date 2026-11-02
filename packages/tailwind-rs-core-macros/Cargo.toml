@@ -3,10 +3,10 @@ name = "tailwind-rs-core-macros"
 version = "0.1.0"
 edition = "2021"
 description = "Procedural macros for tailwind-rs-core"
-homepage = "https://github.com/cloud-shuttle/leptos-shadcn-ui"
-repository = "https://github.com/cloud-shuttle/leptos-shadcn-ui"
+homepage = "https://github.com/harana-oss/leptos-shadcn-ui"
+repository = "https://github.com/harana-oss/leptos-shadcn-ui"
 license = "MIT"
-authors = ["CloudShuttle <info@cloudshuttle.com>"]
+authors = ["leptos-shadcn-ui contributors"]
 keywords = ["tailwind", "css", "rust", "web", "styling", "macros"]
 categories = ["web-programming", "development-tools"]
 

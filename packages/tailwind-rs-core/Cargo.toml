@@ -3,10 +3,10 @@ name = "tailwind-rs-core"
 version = "0.1.0"
 edition = "2021"
 description = "Type-safe Tailwind CSS class generation for Rust web frameworks"
-homepage = "https://github.com/cloud-shuttle/leptos-shadcn-ui"
-repository = "https://github.com/cloud-shuttle/leptos-shadcn-ui"
+homepage = "https://github.com/harana-oss/leptos-shadcn-ui"
+repository = "https://github.com/harana-oss/leptos-shadcn-ui"
 license = "MIT"
-authors = ["CloudShuttle <info@cloudshuttle.com>"]
+authors = ["leptos-shadcn-ui contributors"]
 keywords = ["tailwind", "css", "rust", "web", "styling", "type-safe"]
 categories = ["web-programming", "development-tools"]
 

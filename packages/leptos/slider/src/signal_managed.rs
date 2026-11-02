@@ -28,7 +28,7 @@ pub fn SignalManagedSlider(
     let slider_state_for_class = slider_state.clone();
     let computed_class = ArcMemo::new(move |_| {
         let state = slider_state_for_class.get();
-        let base_class = "component-base-class"; // TODO: Replace with actual base class
+        let base_class = "relative flex w-full touch-none select-none items-center";
         let active_class = if state.is_active { "active" } else { "" };
         let hover_class = if state.is_hovered { "hover" } else { "" };
         let focus_class = if state.is_focused { "focus" } else { "" };
@@ -112,7 +112,7 @@ pub fn EnhancedSlider(
     let slider_state_for_class = slider_state.clone();
     let computed_class = ArcMemo::new(move |_| {
         let state = slider_state_for_class.get();
-        let base_class = "component-base-class"; // TODO: Replace with actual base class
+        let base_class = "relative flex w-full touch-none select-none items-center";
         let active_class = if state.is_active {
             "active transition-all"
         } else {

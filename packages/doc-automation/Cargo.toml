@@ -3,9 +3,9 @@ name = "leptos-shadcn-doc-automation"
 version = "0.1.0"
 edition = "2021"
 description = "Automated documentation generation system for leptos-shadcn-ui components"
-repository = "https://github.com/cloud-shuttle/leptos-shadcn-ui"
+repository = "https://github.com/harana-oss/leptos-shadcn-ui"
 license = "MIT"
-authors = ["CloudShuttle <info@cloudshuttle.com>"]
+authors = ["leptos-shadcn-ui contributors"]
 keywords = ["leptos", "documentation", "automation", "components"]
 categories = ["development-tools", "web-programming"]
 
