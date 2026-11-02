@@ -9,11 +9,13 @@ A context menu triggered by a button or other element.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-dropdown-menu = "0.7"
+leptos-shadcn-dropdown-menu = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_dropdown_menu::DropdownMenu;
+use leptos_shadcn_dropdown_menu::DropdownMenu;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_dropdown_menu::DropdownMenu;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_dropdown_menu::{
+use leptos_shadcn_dropdown_menu::{
     DropdownMenu,
     DropdownMenuTrigger,
     DropdownMenuContent,
@@ -62,7 +64,7 @@ Individual menu item.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_dropdown_menu::*;
+use leptos_shadcn_dropdown_menu::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -141,4 +143,4 @@ export const DropdownMenuItem: React.FC<ComponentProps>;
 
 ---
 
-*Source: [packages/leptos/dropdown-menu/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/dropdown-menu/src/default.rs)*
+*Source: [packages/leptos/dropdown-menu/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/dropdown-menu/src/default.rs)*

@@ -9,11 +9,13 @@ A persistent application menu bar at the top of the screen.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-menubar = "0.7"
+leptos-shadcn-menubar = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_menubar::Menubar;
+use leptos_shadcn_menubar::Menubar;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_menubar::Menubar;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_menubar::{
+use leptos_shadcn_menubar::{
     Menubar,
     MenubarMenu,
     MenubarTrigger,
@@ -69,7 +71,7 @@ Clickable menu trigger.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_menubar::*;
+use leptos_shadcn_menubar::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -144,4 +146,4 @@ export const MenubarContent: React.FC<ComponentProps>;
 
 ---
 
-*Source: [packages/leptos/menubar/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/menubar/src/default.rs)*
+*Source: [packages/leptos/menubar/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/menubar/src/default.rs)*

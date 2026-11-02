@@ -28,7 +28,7 @@ pub fn SignalManagedLabel(
     let label_state_for_class = label_state.clone();
     let computed_class = ArcMemo::new(move |_| {
         let state = label_state_for_class.get();
-        let base_class = "component-base-class"; // TODO: Replace with actual base class
+        let base_class = "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70";
         let active_class = if state.is_active { "active" } else { "" };
         let hover_class = if state.is_hovered { "hover" } else { "" };
         let focus_class = if state.is_focused { "focus" } else { "" };
@@ -112,7 +112,7 @@ pub fn EnhancedLabel(
     let label_state_for_class = label_state.clone();
     let computed_class = ArcMemo::new(move |_| {
         let state = label_state_for_class.get();
-        let base_class = "component-base-class"; // TODO: Replace with actual base class
+        let base_class = "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70";
         let active_class = if state.is_active {
             "active transition-all"
         } else {

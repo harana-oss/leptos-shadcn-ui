@@ -9,11 +9,13 @@ A versatile button component with multiple variants, sizes, and states for all i
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-button = "0.7"
+leptos-shadcn-button = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_button::Button;
+use leptos_shadcn_button::Button;
 ```
 
 ---
@@ -22,7 +24,7 @@ use shadcn_ui_leptos_button::Button;
 
 ```rust
 // Default theme
-use shadcn_ui_leptos_button::{
+use leptos_shadcn_button::{
     Button,
     ButtonVariant,
     ButtonSize,
@@ -30,14 +32,14 @@ use shadcn_ui_leptos_button::{
 };
 
 // New York theme
-use shadcn_ui_leptos_button::{
+use leptos_shadcn_button::{
     ButtonNewYork,
     ButtonVariantNewYork,
     ButtonSizeNewYork
 };
 
 // Signal-managed variant
-use shadcn_ui_leptos_button::{
+use leptos_shadcn_button::{
     SignalManagedButton,
     SignalManagedButtonState
 };
@@ -65,6 +67,8 @@ use shadcn_ui_leptos_button::{
 | `aria_describedby` | `MaybeProp<String>` | `None` | Description reference |
 | `as_child` | `Option<Callback<ButtonChildProps, AnyView>>` | `None` | Render as custom element |
 | `children` | `Option<Children>` | `None` | Button content |
+| `responsive_size` | `MaybeProp<ButtonResponsiveSize>` | `None` | Breakpoint-based size (`SmMd`, `MdLg`, `XsSm`); overrides `size` classes when set |
+| `touch_friendly` | `Signal<bool>` | `false` | Enlarges the hit area (min 44px) for touch devices |
 
 #### ButtonVariant
 
@@ -76,6 +80,16 @@ pub enum ButtonVariant {
     Secondary,    // Secondary color
     Ghost,        // No background, hover effect
     Link,         // Text link style
+}
+```
+
+#### ButtonResponsiveSize
+
+```rust
+pub enum ButtonResponsiveSize {
+    SmMd, // small on mobile, medium on desktop
+    MdLg, // medium on mobile, large on desktop
+    XsSm, // extra small on mobile, small on desktop
 }
 ```
 
@@ -113,7 +127,7 @@ pub struct ButtonChildProps {
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_button::Button;
+use leptos_shadcn_button::Button;
 
 #[component]
 pub fn MyApp() -> impl IntoView {
@@ -196,7 +210,7 @@ view! {
 ```rust
 view! {
     <Button
-        variant=ButtonVariant::Primary
+        variant=ButtonVariant::Default
         class="w-full shadow-lg"
         id="submit-button"
         style=Style::new("margin-top: 1rem")
@@ -283,7 +297,7 @@ The component automatically manages ARIA attributes:
 The `SignalManagedButton` provides built-in state management:
 
 ```rust
-use shadcn_ui_leptos_button::SignalManagedButton;
+use leptos_shadcn_button::SignalManagedButton;
 
 #[component]
 pub fn MyForm() -> impl IntoView {
@@ -380,4 +394,4 @@ export const Button: React.FC<ButtonProps>;
 
 ---
 
-*Source: [packages/leptos/button/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/button/src/default.rs)*
+*Source: [packages/leptos/button/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/button/src/default.rs)*

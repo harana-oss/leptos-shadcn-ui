@@ -9,11 +9,13 @@ A component that defers loading of its children until needed.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-lazy-loading = "0.7"
+leptos-shadcn-lazy-loading = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_lazy_loading::LazyLoading;
+use leptos_shadcn_lazy_loading::LazyLoading;
 ```
 
 ---
@@ -36,7 +38,7 @@ use shadcn_ui_leptos_lazy_loading::LazyLoading;
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_lazy_loading::LazyLoading;
+use leptos_shadcn_lazy_loading::LazyLoading;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -80,4 +82,4 @@ export const LazyLoading: React.FC<LazyLoadingProps>;
 
 ---
 
-*Source: [packages/leptos/lazy-loading/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/lazy-loading/src/default.rs)*
+*Source: [packages/leptos/lazy-loading/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/lazy-loading/src/default.rs)*

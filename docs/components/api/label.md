@@ -9,25 +9,31 @@ A form label component for associating text with form controls.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-label = "0.7"
+leptos-shadcn-label = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_label::Label;
+use leptos_shadcn_label::Label;
 ```
 
 ---
 
 ## Component API
 
+> Prop tables are verified against `packages/leptos/label/src`.
+
+`Label` has no `for` prop; wrap the control in the label or set the attribute via `attr:for="..."`.
+
 ### Label
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `for` | `MaybeProp<String>` | `None` | ID of associated element |
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `id` | `MaybeProp<String>` | `None` | Unique identifier |
-| `children` | `Option<Children>` | `None` | Label text |
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `Signal<Style>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ---
 
@@ -37,14 +43,14 @@ use shadcn_ui_leptos_label::Label;
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_label::Label;
-use shadcn_ui_leptos_input::Input;
+use leptos_shadcn_label::Label;
+use leptos_shadcn_input::Input;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
     view! {
         <div class="space-y-2">
-            <Label for="email">"Email"</Label>
+            <Label attr:for="email">"Email"</Label>
             <Input id="email" input_type="email" />
         </div>
     }
@@ -85,4 +91,4 @@ export const Label: React.FC<LabelProps>;
 
 ---
 
-*Source: [packages/leptos/label/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/label/src/default.rs)*
+*Source: [packages/leptos/label/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/label/src/default.rs)*

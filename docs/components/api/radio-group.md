@@ -9,11 +9,13 @@ A set of radio buttons for single selection from multiple options.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-radio-group = "0.7"
+leptos-shadcn-radio-group = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_radio_group::RadioGroup;
+use leptos_shadcn_radio_group::RadioGroup;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_radio_group::RadioGroup;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_radio_group::{
+use leptos_shadcn_radio_group::{
     RadioGroup,
     RadioGroupItem
 };
@@ -60,7 +62,7 @@ Individual radio option.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_radio_group::*;
+use leptos_shadcn_radio_group::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -139,4 +141,4 @@ export const RadioGroupItem: React.FC<RadioGroupItemProps>;
 
 ---
 
-*Source: [packages/leptos/radio-group/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/radio-group/src/default.rs)*
+*Source: [packages/leptos/radio-group/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/radio-group/src/default.rs)*

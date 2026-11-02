@@ -28,7 +28,7 @@ pub fn SignalManagedCommand(
     let command_state_for_class = command_state.clone();
     let computed_class = ArcMemo::new(move |_| {
         let state = command_state_for_class.get();
-        let base_class = "component-base-class"; // TODO: Replace with actual base class
+        let base_class = "flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground";
         let active_class = if state.is_active { "active" } else { "" };
         let hover_class = if state.is_hovered { "hover" } else { "" };
         let focus_class = if state.is_focused { "focus" } else { "" };
@@ -112,7 +112,7 @@ pub fn EnhancedCommand(
     let command_state_for_class = command_state.clone();
     let computed_class = ArcMemo::new(move |_| {
         let state = command_state_for_class.get();
-        let base_class = "component-base-class"; // TODO: Replace with actual base class
+        let base_class = "flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground";
         let active_class = if state.is_active {
             "active transition-all"
         } else {

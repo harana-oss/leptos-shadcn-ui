@@ -6,7 +6,7 @@ default:
 
 # Run all tests (native target – fast, default)
 test:
-    cargo nextest run --workspace --target aarch64-apple-darwin
+    cargo nextest run --workspace
 
 # Run only native tests (explicitly)
 test-native: test
@@ -36,11 +36,11 @@ test-all: test-native test-wasm
 
 # Run tests with coverage (native only)
 coverage:
-    cargo llvm-cov nextest --workspace --target aarch64-apple-darwin --html
+    cargo llvm-cov nextest --workspace --html
 
 # Quick check native compilation
 check-native:
-    cargo check --workspace --target aarch64-apple-darwin
+    cargo check --workspace
 
 # Quick check WASM compilation (for relevant crates)
 check-wasm:
@@ -52,11 +52,8 @@ fmt:
 
 # Run clippy lints
 clippy:
-    cargo clippy --workspace --target aarch64-apple-darwin -- -D warnings
+    cargo clippy --workspace -- -D warnings
 
-# File watching (your original recipe)
-wr:
-    watchexec -w ./wr.sh --clear -r "sh ./wr.sh"
 
 # ---------------------------------------------------------------------------
 # Development
@@ -68,7 +65,7 @@ dev:
 
 # Run example applications
 dev-examples:
-    cd book-examples/leptos && trunk serve --open
+    cd examples/leptos && trunk serve --open
 
 # ---------------------------------------------------------------------------
 # Building
@@ -86,8 +83,7 @@ build-release:
 
 # Build example applications
 build-examples:
-    cd book-examples/leptos && trunk build --release
-    cd book-examples/yew && trunk build --release
+    cd examples/leptos && trunk build --release
 
 # ---------------------------------------------------------------------------
 # Testing
@@ -400,10 +396,6 @@ setup-playwright: install-deps install-playwright
 docs:
     cargo doc --workspace --open
 
-# Build and serve the documentation book
-docs-book:
-    cd book && mdbook serve --open
-
 # ---------------------------------------------------------------------------
 # Maintenance
 # ---------------------------------------------------------------------------
@@ -411,7 +403,7 @@ docs-book:
 # Clean build artifacts
 clean:
     cargo clean
-    rm -rf book-examples/*/dist
+    rm -rf examples/*/dist
     rm -rf node_modules
     rm -rf .playwright-browsers
 
@@ -442,7 +434,7 @@ nix-build:
 fix-permissions:
     find . -name "*.rs" -type f -exec chmod 644 {} \;
     find . -name "*.toml" -type f -exec chmod 644 {} \;
-    find scripts -name "*.sh" -type f -exec chmod +x {} \;
+    find build/scripts -name "*.sh" -type f -exec chmod +x {} \;
 
 # Install git pre-commit hook
 install-git-hooks:

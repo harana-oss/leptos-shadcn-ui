@@ -9,11 +9,13 @@ A small status indicator component for displaying labels and counts.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-badge = "0.7"
+leptos-shadcn-badge = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_badge::Badge;
+use leptos_shadcn_badge::Badge;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_badge::Badge;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_badge::{
+use leptos_shadcn_badge::{
     Badge,
     BadgeVariant
 };
@@ -31,24 +33,26 @@ use shadcn_ui_leptos_badge::{
 
 ## Component API
 
+> Prop tables are verified against `packages/leptos/badge/src`.
+
 ### Badge
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `MaybeProp<BadgeVariant>` | `Default` | Badge style |
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `children` | `Option<Children>` | `None` | Badge content |
+| Prop | Type | Default |
+|------|------|---------|
+| `variant` | `MaybeProp<BadgeVariant>` | optional |
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `Signal<Style>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ### BadgeVariant
 
 ```rust
 pub enum BadgeVariant {
-    Default,     // Neutral gray
-    Primary,     // Brand primary color
-    Secondary,   // Secondary color
-    Destructive, // Red for errors
-    Outline,     // Bordered outline
-    Success,     // Green for success
+    Default,
+    Secondary,
+    Destructive,
+    Outline,
 }
 ```
 
@@ -60,7 +64,7 @@ pub enum BadgeVariant {
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_badge::*;
+use leptos_shadcn_badge::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -78,11 +82,9 @@ pub fn MyComponent() -> impl IntoView {
 view! {
     <div class="flex gap-2">
         <Badge variant=BadgeVariant::Default>"Default"</Badge>
-        <Badge variant=BadgeVariant::Primary>"Primary"</Badge>
         <Badge variant=BadgeVariant::Secondary>"Secondary"</Badge>
         <Badge variant=BadgeVariant::Destructive>"Error"</Badge>
         <Badge variant=BadgeVariant::Outline>"Outline"</Badge>
-        <Badge variant=BadgeVariant::Success>"Success"</Badge>
     </div>
 }
 ```
@@ -162,4 +164,4 @@ export const Badge: React.FC<BadgeProps>;
 
 ---
 
-*Source: [packages/leptos/badge/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/badge/src/default.rs)*
+*Source: [packages/leptos/badge/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/badge/src/default.rs)*

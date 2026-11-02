@@ -9,11 +9,13 @@ A vertically collapsible component for organizing content into expandable sectio
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-accordion = "0.7"
+leptos-shadcn-accordion = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_accordion::Accordion;
+use leptos_shadcn_accordion::Accordion;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_accordion::Accordion;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_accordion::{
+use leptos_shadcn_accordion::{
     Accordion,
     AccordionItem,
     AccordionTrigger,
@@ -33,42 +35,66 @@ use shadcn_ui_leptos_accordion::{
 
 ## Component API
 
+> Prop tables are verified against `packages/leptos/accordion/src`.
+
+Open items are a `Vec<String>`; set `type=AccordionType::Multiple` to allow several open items (there is no `multiple` prop). The callback is `on_value_change`.
+
 ### Accordion
 
-Root container managing accordion state.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `Signal<String>` | **Required** | Currently open item |
-| `on_change` | `Option<Callback<String>>` | `None` | Change handler |
-| `multiple` | `Signal<bool>` | `false` | Allow multiple open |
-| `collapsible` | `Signal<bool>` | `true` | Allow collapsing all |
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
+| Prop | Type | Default |
+|------|------|---------|
+| `type` | `Signal<AccordionType>` | optional |
+| `orientation` | `Signal<AccordionOrientation>` | optional |
+| `collapsible` | `Signal<bool>` | optional |
+| `disabled` | `Signal<bool>` | optional |
+| `value` | `RwSignal<Vec<String>>` | optional |
+| `default_value` | `Vec<String>` | optional |
+| `on_value_change` | `Option<Callback<Vec<String>>>` | optional |
+| `class` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ### AccordionItem
 
-Individual accordion section.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `String` | **Required** | Item identifier |
-| `disabled` | `Signal<bool>` | `false` | Disable item |
+| Prop | Type | Default |
+|------|------|---------|
+| `value` | `String` | **required** |
+| `disabled` | `Signal<bool>` | optional |
+| `class` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ### AccordionTrigger
 
-Clickable header for accordion item.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `as_child` | `Option<Callback<AccordionTriggerChildProps>>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ### AccordionContent
 
-Collapsible content area.
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `force_mount` | `Signal<bool>` | optional |
+| `children` | `Option<Children>` | optional |
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
+### AccordionType
+
+```rust
+pub enum AccordionType {
+    Single,
+    Multiple,
+}
+```
+
+### AccordionOrientation
+
+```rust
+pub enum AccordionOrientation {
+    Vertical,
+    Horizontal,
+}
+```
 
 ---
 
@@ -78,16 +104,17 @@ Collapsible content area.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_accordion::*;
+use leptos_shadcn_accordion::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
-    let (value, set_value) = signal("item-1".to_string());
+    let value = RwSignal::new(vec!["item-1".to_string()]);
 
     view! {
         <Accordion
-            value=value.into()
-            on_change=Some(Callback::new(move |v| set_value.set(v)))
+            r#type=AccordionType::Single
+            collapsible=true
+            value=value
         >
             <AccordionItem value="item-1">
                 <AccordionTrigger>"Is it accessible?"</AccordionTrigger>
@@ -161,8 +188,8 @@ pub fn MyComponent() -> impl IntoView {
 ```typescript
 interface AccordionProps {
   value: string;
-  onChange?: (value: string) => void;
-  multiple?: boolean;
+  onValueChange?: (value: string[]) => void;
+  type?: "single" | "multiple";
   collapsible?: boolean;
   className?: string;
   children?: React.ReactNode;
@@ -176,4 +203,4 @@ export const AccordionContent: React.FC<ComponentProps>;
 
 ---
 
-*Source: [packages/leptos/accordion/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/accordion/src/default.rs)*
+*Source: [packages/leptos/accordion/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/accordion/src/default.rs)*

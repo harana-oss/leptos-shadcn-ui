@@ -28,7 +28,7 @@ pub fn SignalManagedAvatar(
     let avatar_state_for_class = avatar_state.clone();
     let computed_class = ArcMemo::new(move |_| {
         let state = avatar_state_for_class.get();
-        let base_class = "component-base-class"; // TODO: Replace with actual base class
+        let base_class = "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full";
         let active_class = if state.is_active { "active" } else { "" };
         let hover_class = if state.is_hovered { "hover" } else { "" };
         let focus_class = if state.is_focused { "focus" } else { "" };
@@ -112,7 +112,7 @@ pub fn EnhancedAvatar(
     let avatar_state_for_class = avatar_state.clone();
     let computed_class = ArcMemo::new(move |_| {
         let state = avatar_state_for_class.get();
-        let base_class = "component-base-class"; // TODO: Replace with actual base class
+        let base_class = "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full";
         let active_class = if state.is_active {
             "active transition-all"
         } else {

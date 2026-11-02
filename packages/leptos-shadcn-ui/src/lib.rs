@@ -1,239 +1,166 @@
 //! # Leptos ShadCN UI
 //!
-//! A comprehensive collection of beautiful, accessible UI components built for [Leptos](https://leptos.dev/) v0.8+,
-//! inspired by [shadcn/ui](https://ui.shadcn.com/).
+//! A comprehensive collection of beautiful, accessible UI components built for
+//! [Leptos](https://leptos.dev/) 0.9, inspired by [shadcn/ui](https://ui.shadcn.com/).
 //!
 //! ## Features
 //!
-//! - **25+ Components**: Button, Input, Card, Alert, and many more
-//! - **Leptos 0.8+**: Built specifically for Leptos v0.8+ compatibility
-//! - **Accessibility First**: All components follow accessibility best practices
-//! - **Tailwind CSS**: Seamless integration with Tailwind CSS
-//! - **Type Safety**: Full Rust type safety with proper error handling
+//! - **60 component crates**: every component crate in the workspace is re-exported here
+//! - **Leptos 0.9**: built against Leptos `0.9.0-rc0`
+//! - **Accessibility First**: components follow WAI-ARIA authoring practices
+//! - **Tailwind CSS**: seamless integration with Tailwind CSS
 //!
 //! ## Usage
 //!
-//! See the [README.md](../README.md) for complete installation and usage instructions.
-//!
-//! **Note**: Make sure to enable the features for the components you want to use:
-//!
 //! ```toml
 //! [dependencies]
-//! leptos-shadcn-ui = { path = "path/to/leptos-shadcn-ui/packages/leptos-shadcn-ui", features = ["button", "input", "card"] }
+//! leptos-shadcn-ui = { git = "https://github.com/harana-oss/leptos-shadcn-ui", features = ["button", "input", "card"] }
 //! ```
 //!
-//! ## Components
-//!
-//! ### Form Components
-//! - Button, Input, Label, Checkbox, Switch, Radio Group, Select, Textarea
-//!
-//! ### Layout Components
-//! - Card, Separator, Tabs, Accordion, Dialog, Popover, Tooltip
-//!
-//! ### Feedback & Status
-//! - Alert, Badge, Skeleton, Progress, Toast, Table, Calendar, Date Picker, Pagination
-//!
-//! ### Interactive Components
-//! - Slider, Toggle
-//!
-//! ### Performance Monitoring
-//! - Performance Audit System - Comprehensive performance monitoring and optimization
-//! - Bundle Size Analysis - Component size tracking and optimization recommendations
-//! - Real-time Monitoring - Performance metrics collection and analysis
-//! - CLI Tool - Command-line interface for running audits and generating reports
+//! Every component whose feature is enabled is available at the crate root
+//! (`use leptos_shadcn_ui::Button;`) and through the prelude
+//! (`use leptos_shadcn_ui::prelude::*;`). The `all-components` feature (on by default)
+//! enables all of them.
 //!
 //! ## License
 //!
 //! MIT License - see the [LICENSE](../LICENSE) file for details.
 
-// Several component crates export a `signal_managed` module; their items are re-exported
-// here, and narrowing the globs would drop public items.
+// Several component crates export overlapping helper names (e.g. `signal_managed` items);
+// the component names themselves are unique and are checked by `tests/reexports.rs`.
 #![allow(ambiguous_glob_reexports)]
 
-// Re-export all components (conditionally based on features)
-
-// Components added to track current shadcn/ui
-#[cfg(feature = "button-group")]
-pub use leptos_shadcn_button_group::default::*;
-#[cfg(feature = "chart")]
-pub use leptos_shadcn_chart::*;
-#[cfg(feature = "empty")]
-pub use leptos_shadcn_empty::default::*;
-#[cfg(feature = "field")]
-pub use leptos_shadcn_field::default::*;
-#[cfg(feature = "input-group")]
-pub use leptos_shadcn_input_group::default::*;
-#[cfg(feature = "item")]
-pub use leptos_shadcn_item::default::*;
-#[cfg(feature = "kbd")]
-pub use leptos_shadcn_kbd::default::*;
-#[cfg(feature = "native-select")]
-pub use leptos_shadcn_native_select::default::*;
-#[allow(ambiguous_glob_reexports)]
-#[cfg(feature = "sidebar")]
-pub use leptos_shadcn_sidebar::*;
-#[cfg(feature = "sonner")]
-pub use leptos_shadcn_sonner::*;
-#[cfg(feature = "spinner")]
-pub use leptos_shadcn_spinner::default::*;
-#[cfg(feature = "toggle-group")]
-pub use leptos_shadcn_toggle_group::default::*;
-#[cfg(feature = "typography")]
-pub use leptos_shadcn_typography::default::*;
-
+// Component re-exports, one per feature. Keep in sync with `all-components` in Cargo.toml.
 #[cfg(feature = "accordion")]
 pub use leptos_shadcn_accordion::default::*;
 #[cfg(feature = "alert")]
 pub use leptos_shadcn_alert::default::*;
+#[cfg(feature = "alert-dialog")]
+pub use leptos_shadcn_alert_dialog::default::*;
+#[cfg(feature = "aspect-ratio")]
+pub use leptos_shadcn_aspect_ratio::default::*;
+#[cfg(feature = "avatar")]
+pub use leptos_shadcn_avatar::default::*;
 #[cfg(feature = "badge")]
 pub use leptos_shadcn_badge::default::*;
+#[cfg(feature = "breadcrumb")]
+pub use leptos_shadcn_breadcrumb::default::*;
 #[cfg(feature = "button")]
 pub use leptos_shadcn_button::default::*;
+#[cfg(feature = "button-group")]
+pub use leptos_shadcn_button_group::default::*;
+#[cfg(feature = "calendar")]
+pub use leptos_shadcn_calendar::default::*;
 #[cfg(feature = "card")]
 pub use leptos_shadcn_card::default::*;
+#[cfg(feature = "carousel")]
+pub use leptos_shadcn_carousel::default::*;
+#[cfg(feature = "chart")]
+pub use leptos_shadcn_chart::*;
 #[cfg(feature = "checkbox")]
 pub use leptos_shadcn_checkbox::default::*;
+#[cfg(feature = "collapsible")]
+pub use leptos_shadcn_collapsible::default::*;
+#[cfg(feature = "combobox")]
+pub use leptos_shadcn_combobox::default::*;
+#[cfg(feature = "command")]
+pub use leptos_shadcn_command::default::*;
+#[cfg(feature = "context-menu")]
+pub use leptos_shadcn_context_menu::default::*;
+#[cfg(feature = "date-picker")]
+pub use leptos_shadcn_date_picker::default::*;
 #[cfg(feature = "dialog")]
 pub use leptos_shadcn_dialog::default::*;
+#[cfg(feature = "drawer")]
+pub use leptos_shadcn_drawer::default::*;
+#[cfg(feature = "dropdown-menu")]
+pub use leptos_shadcn_dropdown_menu::default::*;
+#[cfg(feature = "empty")]
+pub use leptos_shadcn_empty::default::*;
+#[cfg(feature = "error-boundary")]
+pub use leptos_shadcn_error_boundary::default::*;
+#[cfg(feature = "field")]
+pub use leptos_shadcn_field::default::*;
+#[cfg(feature = "form")]
+pub use leptos_shadcn_form::default::*;
+#[cfg(feature = "hover-card")]
+pub use leptos_shadcn_hover_card::default::*;
 #[cfg(feature = "input")]
 pub use leptos_shadcn_input::default::*;
+#[cfg(feature = "input-group")]
+pub use leptos_shadcn_input_group::default::*;
+#[cfg(feature = "input-otp")]
+pub use leptos_shadcn_input_otp::*;
+#[cfg(feature = "item")]
+pub use leptos_shadcn_item::default::*;
+#[cfg(feature = "kbd")]
+pub use leptos_shadcn_kbd::default::*;
 #[cfg(feature = "label")]
 pub use leptos_shadcn_label::default::*;
+#[cfg(feature = "menubar")]
+pub use leptos_shadcn_menubar::default::*;
+#[cfg(feature = "native-select")]
+pub use leptos_shadcn_native_select::default::*;
+#[cfg(feature = "navigation-menu")]
+pub use leptos_shadcn_navigation_menu::default::*;
+#[cfg(feature = "pagination")]
+pub use leptos_shadcn_pagination::default::*;
 #[cfg(feature = "popover")]
 pub use leptos_shadcn_popover::default::*;
+#[cfg(feature = "progress")]
+pub use leptos_shadcn_progress::default::*;
 #[cfg(feature = "radio-group")]
 pub use leptos_shadcn_radio_group::default::*;
+#[cfg(feature = "resizable")]
+pub use leptos_shadcn_resizable::default::*;
+#[cfg(feature = "scroll-area")]
+pub use leptos_shadcn_scroll_area::default::*;
 #[cfg(feature = "select")]
 pub use leptos_shadcn_select::default::*;
 #[cfg(feature = "separator")]
 pub use leptos_shadcn_separator::default::*;
+#[cfg(feature = "sheet")]
+pub use leptos_shadcn_sheet::default::*;
+#[cfg(feature = "sidebar")]
+pub use leptos_shadcn_sidebar::*;
 #[cfg(feature = "skeleton")]
 pub use leptos_shadcn_skeleton::default::*;
+#[cfg(feature = "slider")]
+pub use leptos_shadcn_slider::default::*;
+#[cfg(feature = "sonner")]
+pub use leptos_shadcn_sonner::*;
+#[cfg(feature = "spinner")]
+pub use leptos_shadcn_spinner::default::*;
 #[cfg(feature = "switch")]
 pub use leptos_shadcn_switch::default::*;
+#[cfg(feature = "table")]
+pub use leptos_shadcn_table::default::*;
 #[cfg(feature = "tabs")]
 pub use leptos_shadcn_tabs::default::*;
 #[cfg(feature = "textarea")]
 pub use leptos_shadcn_textarea::default::*;
-#[cfg(feature = "tooltip")]
-pub use leptos_shadcn_tooltip::default::*;
-// Sidebar also exports a SKELETON_CLASS; the Skeleton component's constant takes precedence.
-#[cfg(feature = "calendar")]
-pub use leptos_shadcn_calendar::*;
-#[cfg(feature = "date-picker")]
-pub use leptos_shadcn_date_picker::*;
-#[cfg(feature = "pagination")]
-pub use leptos_shadcn_pagination::*;
-#[cfg(feature = "progress")]
-pub use leptos_shadcn_progress::default::*;
-#[cfg(feature = "skeleton")]
-pub use leptos_shadcn_skeleton::default::SKELETON_CLASS;
-#[cfg(feature = "slider")]
-pub use leptos_shadcn_slider::default::*;
-#[cfg(feature = "table")]
-pub use leptos_shadcn_table::default::*;
 #[cfg(feature = "toast")]
 pub use leptos_shadcn_toast::default::*;
 #[cfg(feature = "toggle")]
 pub use leptos_shadcn_toggle::default::*;
+#[cfg(feature = "toggle-group")]
+pub use leptos_shadcn_toggle_group::default::*;
+#[cfg(feature = "tooltip")]
+pub use leptos_shadcn_tooltip::default::*;
+#[cfg(feature = "typography")]
+pub use leptos_shadcn_typography::default::*;
 
-// Advanced components (newly fixed)
+// Non-visual / infrastructure crates
 #[cfg(feature = "analytics")]
 pub use leptos_shadcn_analytics::*;
-#[cfg(feature = "breadcrumb")]
-pub use leptos_shadcn_breadcrumb::*;
-#[cfg(feature = "combobox")]
-pub use leptos_shadcn_combobox::default::*;
-#[cfg(feature = "command")]
-pub use leptos_shadcn_command::*;
-#[cfg(feature = "error-boundary")]
-pub use leptos_shadcn_error_boundary::*;
-#[cfg(feature = "form")]
-pub use leptos_shadcn_form::default::*;
-#[cfg(feature = "input-otp")]
-pub use leptos_shadcn_input_otp::*;
 #[cfg(feature = "lazy-loading")]
 pub use leptos_shadcn_lazy_loading::*;
+#[cfg(feature = "performance-audit")]
+pub use leptos_shadcn_performance_audit as performance_audit;
 #[cfg(feature = "registry")]
 pub use leptos_shadcn_registry::*;
 
 // Re-export common types and utilities
 pub use tailwind_fuse::tw_merge;
 
-// Module documentation
-#[cfg(feature = "all-components")]
-pub mod prelude {
-    //! # Leptos ShadCN UI Prelude
-    //!
-    //! This module re-exports the most commonly used components and types.
-    //!
-    //! ```rust
-    //! use leptos_shadcn_ui::prelude::*;
-    //! ```
-
-    // Form components
-    #[cfg(feature = "button")]
-    pub use super::{Button, ButtonSize, ButtonVariant};
-    #[cfg(feature = "checkbox")]
-    pub use super::{Checkbox, CheckboxProps};
-    #[cfg(feature = "input")]
-    pub use super::{Input, InputProps};
-    #[cfg(feature = "label")]
-    pub use super::{Label, LabelProps};
-    #[cfg(feature = "radio-group")]
-    pub use super::{RadioGroup, RadioGroupProps};
-    #[cfg(feature = "switch")]
-    pub use super::{Switch, SwitchProps};
-    #[cfg(feature = "select")]
-    // pub use super::{Select, SelectProps}; // FIXME: use correct path from select crate
-    #[cfg(feature = "textarea")]
-    pub use super::{Textarea, TextareaProps};
-
-    // Layout components
-    #[cfg(feature = "popover")]
-    pub use super::Popover;
-    #[cfg(feature = "accordion")]
-    pub use super::{Accordion, AccordionContent, AccordionItem, AccordionTrigger};
-    #[cfg(feature = "card")]
-    pub use super::{Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle};
-    #[cfg(feature = "dialog")]
-    pub use super::{
-        Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
-        DialogTrigger,
-    };
-    #[cfg(feature = "separator")]
-    pub use super::{Separator, SeparatorProps};
-    #[cfg(feature = "tabs")]
-    pub use super::{Tabs, TabsContent, TabsList, TabsTrigger};
-    #[cfg(feature = "tooltip")]
-    pub use super::{Tooltip, TooltipContent, TooltipProvider, TooltipTrigger};
-
-    // Feedback components
-    #[cfg(feature = "calendar")]
-    pub use super::Calendar;
-    #[cfg(feature = "date-picker")]
-    pub use super::DatePicker;
-    #[cfg(feature = "pagination")]
-    pub use super::Pagination;
-    #[cfg(feature = "table")]
-    pub use super::Table;
-    #[cfg(feature = "alert")]
-    pub use super::{Alert, AlertDescription, AlertTitle, AlertVariant};
-    #[cfg(feature = "badge")]
-    pub use super::{Badge, BadgeProps, BadgeVariant};
-    #[cfg(feature = "progress")]
-    pub use super::{Progress, ProgressProps};
-    #[cfg(feature = "skeleton")]
-    pub use super::{Skeleton, SkeletonProps};
-    #[cfg(feature = "toast")]
-    pub use super::{Toast, ToastProps};
-
-    // Interactive components
-    #[cfg(feature = "slider")]
-    pub use super::{Slider, SliderProps};
-    #[cfg(feature = "toggle")]
-    pub use super::{Toggle, ToggleProps};
-
-    // Utilities
-    pub use super::tw_merge;
-}
+pub mod prelude;

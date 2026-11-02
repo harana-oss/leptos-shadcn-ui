@@ -3,15 +3,15 @@ name = "leptos-shadcn-api-standards"
 version = "0.1.0"
 edition = "2021"
 description = "API standardization framework and validation tools for leptos-shadcn-ui"
-repository = "https://github.com/cloud-shuttle/leptos-shadcn-ui"
+repository = "https://github.com/harana-oss/leptos-shadcn-ui"
 license = "MIT"
-authors = ["CloudShuttle <info@cloudshuttle.com>"]
+authors = ["leptos-shadcn-ui contributors"]
 keywords = ["leptos", "ui", "components", "standards", "validation"]
 categories = ["web-programming", "gui", "development-tools"]
 
 [dependencies]
 # Core dependencies
-leptos = { version = "0.9.0-rc0", features = ["csr", "hydrate"] }
+leptos = { version = "0.9.0-rc1", features = ["csr", "hydrate"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 thiserror = "2.0"

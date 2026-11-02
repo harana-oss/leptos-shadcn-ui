@@ -9,11 +9,13 @@ A container that maintains a consistent aspect ratio for its content.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-aspect-ratio = "0.7"
+leptos-shadcn-aspect-ratio = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_aspect_ratio::AspectRatio;
+use leptos_shadcn_aspect_ratio::AspectRatio;
 ```
 
 ---
@@ -35,7 +37,7 @@ use shadcn_ui_leptos_aspect_ratio::AspectRatio;
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_aspect_ratio::AspectRatio;
+use leptos_shadcn_aspect_ratio::AspectRatio;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -100,4 +102,4 @@ export const AspectRatio: React.FC<AspectRatioProps>;
 
 ---
 
-*Source: [packages/leptos/aspect-ratio/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/aspect-ratio/src/default.rs)*
+*Source: [packages/leptos/aspect-ratio/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/aspect-ratio/src/default.rs)*

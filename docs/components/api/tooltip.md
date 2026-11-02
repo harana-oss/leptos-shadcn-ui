@@ -9,11 +9,13 @@ A floating label that displays information when hovering over an element.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-tooltip = "0.7"
+leptos-shadcn-tooltip = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_tooltip::Tooltip;
+use leptos_shadcn_tooltip::Tooltip;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_tooltip::Tooltip;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_tooltip::{
+use leptos_shadcn_tooltip::{
     Tooltip,
     TooltipTrigger,
     TooltipContent
@@ -32,31 +34,59 @@ use shadcn_ui_leptos_tooltip::{
 
 ## Component API
 
+> Prop tables are verified against `packages/leptos/tooltip/src`.
+
+Wrap tooltips in `TooltipProvider`. `side` on `TooltipContent` is a `TooltipSide`.
+
+### TooltipProvider
+
+| Prop | Type | Default |
+|------|------|---------|
+| `children` | `Option<Children>` | optional |
+
 ### Tooltip
 
-Root component managing tooltip state.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `open` | `Signal<bool>` | **Required** | Open state |
-| `delay_duration` | `MaybeProp<u64>` | `400` | Show delay (ms) |
+| Prop | Type | Default |
+|------|------|---------|
+| `open` | `Signal<bool>` | optional |
+| `on_open_change` | `Option<Callback<bool>>` | optional |
+| `delay_duration` | `Signal<u32>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ### TooltipTrigger
 
-Element that triggers the tooltip on hover.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `as_child` | `Option<Callback<...>>` | `None` | Render as custom element |
+| Prop | Type | Default |
+|------|------|---------|
+| `as_child` | `Option<Callback<TooltipTriggerChildProps, AnyView>>` | optional |
+| `node_ref` | `AnyNodeRef` | optional |
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `Signal<Style>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ### TooltipContent
 
-The floating tooltip container.
+| Prop | Type | Default |
+|------|------|---------|
+| `side` | `TooltipSide` | optional |
+| `side_offset` | `i32` | optional |
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `Signal<Style>` | optional |
+| `node_ref` | `AnyNodeRef` | optional |
+| `as_child` | `Option<Callback<TooltipContentChildProps, AnyView>>` | optional |
+| `children` | `Option<Children>` | optional |
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `side` | `MaybeProp<Side>` | `Top` | Placement side |
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
+### TooltipSide
+
+```rust
+pub enum TooltipSide {
+    Top,
+    Right,
+    Bottom,
+    Left,
+}
+```
 
 ---
 
@@ -66,14 +96,13 @@ The floating tooltip container.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_tooltip::*;
+use leptos_shadcn_tooltip::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
-    let (open, set_open) = signal(false);
-
     view! {
-        <Tooltip open=open.into()>
+        <TooltipProvider>
+        <Tooltip>
             <TooltipTrigger>
                 <button>"Hover me"</button>
             </TooltipTrigger>
@@ -81,6 +110,7 @@ pub fn MyComponent() -> impl IntoView {
                 <p>"Tooltip content"</p>
             </TooltipContent>
         </Tooltip>
+        </TooltipProvider>
     }
 }
 ```
@@ -124,4 +154,4 @@ export const TooltipContent: React.FC<ComponentProps>;
 
 ---
 
-*Source: [packages/leptos/tooltip/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/tooltip/src/default.rs)*
+*Source: [packages/leptos/tooltip/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/tooltip/src/default.rs)*

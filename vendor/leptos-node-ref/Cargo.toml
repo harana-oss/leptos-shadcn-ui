@@ -31,7 +31,7 @@ name = "leptos_node_ref"
 path = "src/lib.rs"
 
 [dependencies.leptos]
-version = "0.9.0-rc0"
+version = "0.9.0-rc1"
 
 [dependencies.send_wrapper]
 version = "0.6.0"

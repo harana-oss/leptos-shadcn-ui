@@ -9,29 +9,35 @@ A multi-line text input component for longer content.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-textarea = "0.7"
+leptos-shadcn-textarea = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_textarea::Textarea;
+use leptos_shadcn_textarea::Textarea;
 ```
 
 ---
 
 ## Component API
 
+> Prop tables are verified against `packages/leptos/textarea/src`.
+
+There is no `rows` prop; use `attr:rows=...` or a height class.
+
 ### Textarea
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `MaybeProp<String>` | `None` | Current value |
-| `on_change` | `Option<Callback<String>>` | `None` | Change handler |
-| `placeholder` | `MaybeProp<String>` | `None` | Placeholder text |
-| `disabled` | `Signal<bool>` | `false` | Disable textarea |
-| `rows` | `MaybeProp<usize>` | `3` | Number of rows |
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `id` | `MaybeProp<String>` | `None` | Unique identifier |
-| `style` | `Signal<Style>` | `None` | Inline styles |
+| Prop | Type | Default |
+|------|------|---------|
+| `value` | `MaybeProp<String>` | optional |
+| `on_change` | `Option<Callback<String>>` | optional |
+| `placeholder` | `MaybeProp<String>` | optional |
+| `disabled` | `Signal<bool>` | optional |
+| `input_type` | `MaybeProp<String>` | optional |
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `Signal<Style>` | optional |
 
 ---
 
@@ -41,7 +47,7 @@ use shadcn_ui_leptos_textarea::Textarea;
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_textarea::Textarea;
+use leptos_shadcn_textarea::Textarea;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -54,7 +60,7 @@ pub fn MyComponent() -> impl IntoView {
                 set_text.set(value);
             }))
             placeholder="Enter your message"
-            rows=MaybeProp::Derived(5.into())
+            attr:rows="5"
         />
     }
 }
@@ -105,4 +111,4 @@ export const Textarea: React.FC<TextareaProps>;
 
 ---
 
-*Source: [packages/leptos/textarea/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/textarea/src/default.rs)*
+*Source: [packages/leptos/textarea/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/textarea/src/default.rs)*

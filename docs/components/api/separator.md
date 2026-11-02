@@ -9,11 +9,13 @@ A visual separator/divider component for organizing content.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-separator = "0.7"
+leptos-shadcn-separator = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_separator::Separator;
+use leptos_shadcn_separator::Separator;
 ```
 
 ---
@@ -45,7 +47,7 @@ pub enum Orientation {
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_separator::*;
+use leptos_shadcn_separator::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -114,4 +116,4 @@ export const Separator: React.FC<SeparatorProps>;
 
 ---
 
-*Source: [packages/leptos/separator/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/separator/src/default.rs)*
+*Source: [packages/leptos/separator/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/separator/src/default.rs)*

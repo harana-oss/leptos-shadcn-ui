@@ -9,11 +9,13 @@ A checkbox component for binary selection states.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-checkbox = "0.7"
+leptos-shadcn-checkbox = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_checkbox::Checkbox;
+use leptos_shadcn_checkbox::Checkbox;
 ```
 
 ---
@@ -39,7 +41,7 @@ use shadcn_ui_leptos_checkbox::Checkbox;
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_checkbox::Checkbox;
+use leptos_shadcn_checkbox::Checkbox;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -117,4 +119,4 @@ export const Checkbox: React.FC<CheckboxProps>;
 
 ---
 
-*Source: [packages/leptos/checkbox/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/checkbox/src/default.rs)*
+*Source: [packages/leptos/checkbox/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/checkbox/src/default.rs)*
