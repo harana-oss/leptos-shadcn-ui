@@ -24,8 +24,6 @@ pub use super::Label;
 pub use super::ScrollArea;
 #[cfg(feature = "separator")]
 pub use super::Separator;
-#[cfg(feature = "sheet")]
-pub use super::Sheet;
 #[cfg(feature = "spinner")]
 pub use super::Spinner;
 #[cfg(feature = "table")]
@@ -156,6 +154,11 @@ pub use super::{ResizableHandle, ResizablePanel, ResizablePanelGroup};
 pub use super::{
     Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton,
     SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue,
+};
+#[cfg(feature = "sheet")]
+pub use super::{
+    Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetSide,
+    SheetTitle, SheetTrigger,
 };
 #[cfg(feature = "sidebar")]
 pub use super::{

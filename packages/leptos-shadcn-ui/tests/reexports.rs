@@ -1087,6 +1087,38 @@ fn sheet_symbols_resolve() {
         use leptos_shadcn_ui::Sheet as _Root;
         use leptos_shadcn_ui::prelude::Sheet as _Pre;
     }
+    {
+        use leptos_shadcn_ui::SheetClose as _Root;
+        use leptos_shadcn_ui::prelude::SheetClose as _Pre;
+    }
+    {
+        use leptos_shadcn_ui::SheetContent as _Root;
+        use leptos_shadcn_ui::prelude::SheetContent as _Pre;
+    }
+    {
+        use leptos_shadcn_ui::SheetDescription as _Root;
+        use leptos_shadcn_ui::prelude::SheetDescription as _Pre;
+    }
+    {
+        use leptos_shadcn_ui::SheetFooter as _Root;
+        use leptos_shadcn_ui::prelude::SheetFooter as _Pre;
+    }
+    {
+        use leptos_shadcn_ui::SheetHeader as _Root;
+        use leptos_shadcn_ui::prelude::SheetHeader as _Pre;
+    }
+    {
+        use leptos_shadcn_ui::SheetSide as _Root;
+        use leptos_shadcn_ui::prelude::SheetSide as _Pre;
+    }
+    {
+        use leptos_shadcn_ui::SheetTitle as _Root;
+        use leptos_shadcn_ui::prelude::SheetTitle as _Pre;
+    }
+    {
+        use leptos_shadcn_ui::SheetTrigger as _Root;
+        use leptos_shadcn_ui::prelude::SheetTrigger as _Pre;
+    }
 }
 
 #[cfg(feature = "sidebar")]
