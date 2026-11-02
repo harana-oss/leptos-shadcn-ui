@@ -9,11 +9,13 @@ A dropdown select component for choosing from a list of options.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-select = "0.7"
+leptos-shadcn-select = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_select::Select;
+use leptos_shadcn_select::Select;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_select::Select;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_select::{
+use leptos_shadcn_select::{
     Select,
     SelectTrigger,
     SelectContent,
@@ -37,52 +39,102 @@ use shadcn_ui_leptos_select::{
 
 ## Component API
 
-### Select
+> Prop tables are verified against `packages/leptos/select/src`.
 
-Root component for the select dropdown.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `Signal<String>` | **Required** | Selected value |
-| `on_change` | `Option<Callback<String>>` | `None` | Change handler |
-| `disabled` | `Signal<bool>` | `false` | Disable select |
-| `placeholder` | `MaybeProp<String>` | `"Select..."` | Placeholder text |
-| `children` | `Option<Children>` | `None` | Select content |
-
-### SelectTrigger
-
-Button that opens the dropdown.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `disabled` | `Signal<bool>` | `false` | Disable trigger |
+`Select` is the root (state) component; `SelectTrigger`, `SelectValue`, `SelectContent`, `SelectItem`, `SelectGroup`, `SelectLabel`, `SelectSeparator` and the scroll buttons compose the UI. The change callback is `on_value_change`.
 
 ### SelectContent
 
-Dropdown content container.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `position` | `MaybeProp<SelectPosition>` | `Bottom` | Dropdown position |
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ### SelectItem
 
-Individual selectable option.
+| Prop | Type | Default |
+|------|------|---------|
+| `value` | `String` | **required** |
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `String` | **Required** | Option value |
-| `disabled` | `Signal<bool>` | `false` | Disable option |
+### SelectSeparator
+
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+
+### SelectLabel
+
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
+
+### SelectGroup
+
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
+
+### Select
+
+| Prop | Type | Default |
+|------|------|---------|
+| `open` | `Signal<bool>` | optional |
+| `on_open_change` | `Option<Callback<bool>>` | optional |
+| `value` | `Signal<String>` | optional |
+| `on_value_change` | `Option<Callback<String>>` | optional |
+| `default_value` | `MaybeProp<String>` | optional |
+| `disabled` | `Signal<bool>` | optional |
+| `required` | `Signal<bool>` | optional |
+| `name` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
+
+### SelectTrigger
+
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ### SelectValue
 
-Display area for selected value.
+| Prop | Type | Default |
+|------|------|---------|
+| `placeholder` | `MaybeProp<String>` | optional |
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `placeholder` | `MaybeProp<String>` | `None` | Placeholder text |
+### SelectScrollUpButton
+
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+
+### SelectScrollDownButton
+
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
 
 ---
 
@@ -92,7 +144,7 @@ Display area for selected value.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_select::*;
+use leptos_shadcn_select::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -101,7 +153,7 @@ pub fn MyComponent() -> impl IntoView {
     view! {
         <Select
             value=selected.into()
-            on_change=Some(Callback::new(move |value| {
+            on_value_change=Some(Callback::new(move |value| {
                 set_selected.set(value);
             }))
         >
@@ -163,7 +215,7 @@ pub fn MyComponent() -> impl IntoView {
 ```typescript
 interface SelectProps {
   value: string;
-  onChange?: (value: string) => void;
+  onValueChange?: (value: string) => void;
   disabled?: boolean;
   placeholder?: string;
   children?: React.ReactNode;
@@ -178,4 +230,4 @@ export const SelectValue: React.FC<{ placeholder?: string }>;
 
 ---
 
-*Source: [packages/leptos/select/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/select/src/default.rs)*
+*Source: [packages/leptos/select/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/select/src/default.rs)*

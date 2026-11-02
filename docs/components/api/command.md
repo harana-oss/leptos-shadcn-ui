@@ -9,11 +9,13 @@ A command palette component for quick actions and navigation.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-command = "0.7"
+leptos-shadcn-command = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_command::Command;
+use leptos_shadcn_command::Command;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_command::Command;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_command::{
+use leptos_shadcn_command::{
     Command,
     CommandInput,
     CommandList,
@@ -70,7 +72,7 @@ Individual command item.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_command::*;
+use leptos_shadcn_command::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -158,4 +160,4 @@ export const CommandItem: React.FC<{ value: string; onSelect?: () => void }>;
 
 ---
 
-*Source: [packages/leptos/command/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/command/src/default.rs)*
+*Source: [packages/leptos/command/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/command/src/default.rs)*

@@ -9,11 +9,13 @@ A temporary notification component for displaying brief messages.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-toast = "0.7"
+leptos-shadcn-toast = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_toast::Toast;
+use leptos_shadcn_toast::Toast;
 ```
 
 ---
@@ -21,14 +23,14 @@ use shadcn_ui_leptos_toast::Toast;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_toast::{
+use leptos_shadcn_toast::{
     Toast,
-    ToastProvider,
-    ToastTitle,
-    ToastDescription,
-    ToastAction,
-    ToastClose,
-    ToastVariant
+    SonnerProvider,
+    SonnerViewport,
+    ToastBuilder,
+    ToastVariant,
+    ToastPosition,
+    toast,
 };
 ```
 
@@ -36,33 +38,65 @@ use shadcn_ui_leptos_toast::{
 
 ## Component API
 
-### ToastProvider
+> Prop tables are verified against `packages/leptos/toast/src`.
 
-Context provider for toast notifications.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `Option<Children>` | `None` | App content |
+The default `Toast` is a styled container whose `variant` is a `String` (`"default"`, `"destructive"`). For a full notification system use the Sonner API exported by this crate: wrap the app in `SonnerProvider` and call `toast(...)` / `ToastBuilder`. There is no `ToastProvider`.
 
 ### Toast
 
-Individual toast notification.
+| Prop | Type | Default |
+|------|------|---------|
+| `variant` | `MaybeProp<String>` | optional |
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `Signal<Style>` | optional |
+| `children` | `Option<Children>` | optional |
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `MaybeProp<ToastVariant>` | `Default` | Toast style |
-| `title` | `MaybeProp<String>` | `None` | Toast title |
-| `description` | `MaybeProp<String>` | `None` | Toast description |
-| `duration` | `MaybeProp<u64>` | `5000` | Auto-close duration (ms) |
-| `on_close` | `Option<Callback<()>>` | `None` | Close callback |
+### SonnerProvider
+
+| Prop | Type | Default |
+|------|------|---------|
+| `position` | `MaybeProp<ToastPosition>` | optional |
+| `theme` | `MaybeProp<ToastTheme>` | optional |
+| `max_toasts` | `MaybeProp<usize>` | optional |
+| `children` | `Option<Children>` | optional |
+
+### SonnerViewport
+
+| Prop | Type | Default |
+|------|------|---------|
+
+### SonnerToast
+
+| Prop | Type | Default |
+|------|------|---------|
+| `id` | `String` | **required** |
+| `data` | `ToastData` | **required** |
+| `on_dismiss` | `Callback<()>` | **required** |
 
 ### ToastVariant
 
 ```rust
 pub enum ToastVariant {
-    Default,     // Neutral styling
-    Destructive, // Red for errors
-    Success,     // Green for success
+    Default,
+    Success,
+    Error,
+    Warning,
+    Info,
+    Loading,
+}
+```
+
+### ToastPosition
+
+```rust
+pub enum ToastPosition {
+    TopLeft,
+    TopRight,
+    BottomLeft,
+    BottomRight,
+    TopCenter,
+    BottomCenter,
 }
 ```
 
@@ -74,18 +108,17 @@ pub enum ToastVariant {
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_toast::*;
+use leptos_shadcn_toast::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
     view! {
-        <ToastProvider>
-            <div>
-                <button on:click=move |_| {
-                    // Show toast
-                }>"Show Toast"</button>
-            </div>
-        </ToastProvider>
+        <SonnerProvider position=ToastPosition::BottomRight>
+            <button on:click=move |_| {
+                toast::success("Saved").description("Your changes were saved.".into()).show();
+            }>"Show Toast"</button>
+            <SonnerViewport />
+        </SonnerProvider>
     }
 }
 ```
@@ -138,13 +171,9 @@ interface ToastProps {
 }
 
 export const Toast: React.FC<ToastProps>;
-export const ToastProvider: React.FC<{ children: React.ReactNode }>;
-export const ToastTitle: React.FC<ComponentProps>;
-export const ToastDescription: React.FC<ComponentProps>;
 export const ToastAction: React.FC<ButtonProps>;
-export const ToastClose: React.FC<ButtonProps>;
 ```
 
 ---
 
-*Source: [packages/leptos/toast/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/toast/src/default.rs)*
+*Source: [packages/leptos/toast/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/toast/src/default.rs)*

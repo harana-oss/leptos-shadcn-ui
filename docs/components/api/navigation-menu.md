@@ -9,11 +9,13 @@ A navigation menu component with support for dropdowns and keyboard navigation.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-navigation-menu = "0.7"
+leptos-shadcn-navigation-menu = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_navigation_menu::NavigationMenu;
+use leptos_shadcn_navigation_menu::NavigationMenu;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_navigation_menu::NavigationMenu;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_navigation_menu::{
+use leptos_shadcn_navigation_menu::{
     NavigationMenu,
     NavigationMenuList,
     NavigationMenuItem,
@@ -68,7 +70,7 @@ Dropdown content container.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_navigation_menu::*;
+use leptos_shadcn_navigation_menu::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -145,4 +147,4 @@ export const NavigationMenuContent: React.FC<ComponentProps>;
 
 ---
 
-*Source: [packages/leptos/navigation-menu/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/navigation-menu/src/default.rs)*
+*Source: [packages/leptos/navigation-menu/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/navigation-menu/src/default.rs)*

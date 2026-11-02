@@ -9,11 +9,13 @@ A component for displaying alert messages with different severity levels.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-alert = "0.7"
+leptos-shadcn-alert = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_alert::Alert;
+use leptos_shadcn_alert::Alert;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_alert::Alert;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_alert::{
+use leptos_shadcn_alert::{
     Alert,
     AlertTitle,
     AlertDescription,
@@ -33,43 +35,46 @@ use shadcn_ui_leptos_alert::{
 
 ## Component API
 
+> Prop tables are verified against `packages/leptos/alert/src`.
+
 ### Alert
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `MaybeProp<AlertVariant>` | `Default` | Alert style variant |
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `children` | `Option<Children>` | `None` | Alert content |
+| Prop | Type | Default |
+|------|------|---------|
+| `variant` | `MaybeProp<AlertVariant>` | optional |
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `Signal<Style>` | optional |
+| `children` | `Option<Children>` | optional |
+
+### AlertTitle
+
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `Signal<Style>` | optional |
+| `children` | `Option<Children>` | optional |
+
+### AlertDescription
+
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `Signal<Style>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ### AlertVariant
 
 ```rust
 pub enum AlertVariant {
-    Default,     // Neutral styling
-    Destructive, // Red for errors
-    Warning,     // Yellow for warnings
-    Info,        // Blue for information
-    Success,     // Green for success
+    Default,
+    Destructive,
+    Success,
+    Warning,
 }
 ```
-
-### AlertTitle
-
-Title text for the alert.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `children` | `Option<Children>` | `None` | Title text |
-
-### AlertDescription
-
-Detailed description text.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `children` | `Option<Children>` | `None` | Description text |
 
 ---
 
@@ -79,7 +84,7 @@ Detailed description text.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_alert::*;
+use leptos_shadcn_alert::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -103,9 +108,6 @@ view! {
             <AlertDescription>"Default alert"</AlertDescription>
         </Alert>
 
-        <Alert variant=AlertVariant::Info>
-            <AlertDescription>"Information message"</AlertDescription>
-        </Alert>
 
         <Alert variant=AlertVariant::Success>
             <AlertDescription>"Success! Operation completed."</AlertDescription>
@@ -192,4 +194,4 @@ export const AlertDescription: React.FC<ComponentProps>;
 
 ---
 
-*Source: [packages/leptos/alert/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/alert/src/default.rs)*
+*Source: [packages/leptos/alert/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/alert/src/default.rs)*

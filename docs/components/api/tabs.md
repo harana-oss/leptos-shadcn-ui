@@ -9,11 +9,13 @@ A tabbed interface component for organizing content into separate panels.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-tabs = "0.7"
+leptos-shadcn-tabs = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_tabs::Tabs;
+use leptos_shadcn_tabs::Tabs;
 ```
 
 ---
@@ -22,7 +24,7 @@ use shadcn_ui_leptos_tabs::Tabs;
 
 ```rust
 // Default theme
-use shadcn_ui_leptos_tabs::{
+use leptos_shadcn_tabs::{
     Tabs,
     TabsList,
     TabsTrigger,
@@ -30,7 +32,7 @@ use shadcn_ui_leptos_tabs::{
 };
 
 // New York theme
-use shadcn_ui_leptos_tabs::{
+use leptos_shadcn_tabs::{
     Tabs as TabsNewYork,
     TabsList as TabsListNewYork,
     TabsTrigger as TabsTriggerNewYork,
@@ -38,7 +40,7 @@ use shadcn_ui_leptos_tabs::{
 };
 
 // Signal-managed variant
-use shadcn_ui_leptos_tabs::{
+use leptos_shadcn_tabs::{
     SignalManagedTabs,
     SignalManagedTabsState
 };
@@ -48,47 +50,47 @@ use shadcn_ui_leptos_tabs::{
 
 ## Component API
 
+> Prop tables are verified against `packages/leptos/tabs/src`.
+
+`Tabs` has no `id` prop. Use `value` + `on_value_change` for controlled tabs, or `default_value` for uncontrolled.
+
 ### Tabs
 
-Root container that manages tab state.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `Signal<String>` | **Required** | Currently active tab value |
-| `on_change` | `Option<Callback<String>>` | `None` | Called when tab changes |
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `id` | `MaybeProp<String>` | `None` | Unique identifier |
-| `children` | `Option<Children>` | `None` | Tab content |
+| Prop | Type | Default |
+|------|------|---------|
+| `value` | `Signal<String>` | optional |
+| `on_value_change` | `Option<Callback<String>>` | optional |
+| `default_value` | `MaybeProp<String>` | optional |
+| `class` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ### TabsList
 
-Container for tab triggers.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `children` | `Option<Children>` | `None` | Tab triggers |
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ### TabsTrigger
 
-Individual tab button.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `String` | **Required** | Unique identifier for tab |
-| `disabled` | `Signal<bool>` | `false` | Disable tab |
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `children` | `Option<Children>` | `None` | Tab label |
+| Prop | Type | Default |
+|------|------|---------|
+| `value` | `MaybeProp<String>` | **required** |
+| `disabled` | `Signal<bool>` | optional |
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `Signal<Style>` | optional |
+| `node_ref` | `AnyNodeRef` | optional |
+| `as_child` | `Option<Callback<TabsTriggerChildProps, AnyView>>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ### TabsContent
 
-Content panel for a tab.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `String` | **Required** | Matches trigger value |
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `children` | `Option<Children>` | `None` | Panel content |
+| Prop | Type | Default |
+|------|------|---------|
+| `value` | `MaybeProp<String>` | **required** |
+| `class` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ---
 
@@ -98,7 +100,7 @@ Content panel for a tab.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_tabs::*;
+use leptos_shadcn_tabs::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -107,7 +109,7 @@ pub fn MyComponent() -> impl IntoView {
     view! {
         <Tabs
             value=active_tab.into()
-            on_change=Some(Callback::new(move |value| {
+            on_value_change=Some(Callback::new(move |value| {
                 set_active_tab.set(value);
             }))
         >
@@ -259,7 +261,7 @@ The component automatically manages:
 ```typescript
 interface TabsProps {
   value: string;
-  onChange?: (value: string) => void;
+  onValueChange?: (value: string) => void;
   className?: string;
   children?: React.ReactNode;
 }
@@ -302,4 +304,4 @@ export const TabsContent: React.FC<TabsContentProps>;
 
 ---
 
-*Source: [packages/leptos/tabs/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/tabs/src/default.rs)*
+*Source: [packages/leptos/tabs/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/tabs/src/default.rs)*

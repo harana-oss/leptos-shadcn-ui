@@ -9,11 +9,13 @@ A modal dialog component for displaying important information or capturing user 
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-dialog = "0.7"
+leptos-shadcn-dialog = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_dialog::Dialog;
+use leptos_shadcn_dialog::Dialog;
 ```
 
 ---
@@ -22,7 +24,7 @@ use shadcn_ui_leptos_dialog::Dialog;
 
 ```rust
 // Default theme
-use shadcn_ui_leptos_dialog::{
+use leptos_shadcn_dialog::{
     Dialog,
     DialogTrigger,
     DialogContent,
@@ -34,14 +36,14 @@ use shadcn_ui_leptos_dialog::{
 };
 
 // New York theme
-use shadcn_ui_leptos_dialog::{
+use leptos_shadcn_dialog::{
     Dialog as DialogNewYork,
     DialogTrigger as DialogTriggerNewYork,
     // ... other components
 };
 
 // Signal-managed variant
-use shadcn_ui_leptos_dialog::{
+use leptos_shadcn_dialog::{
     SignalManagedDialog,
     SignalManagedDialogState
 };
@@ -137,7 +139,7 @@ Button that closes the dialog.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_dialog::*;
+use leptos_shadcn_dialog::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -485,4 +487,4 @@ export const DialogClose: React.FC<ButtonProps>;
 
 ---
 
-*Source: [packages/leptos/dialog/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/dialog/src/default.rs)*
+*Source: [packages/leptos/dialog/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/dialog/src/default.rs)*

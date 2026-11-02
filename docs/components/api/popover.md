@@ -9,11 +9,13 @@ A floating content container positioned relative to a trigger element.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-popover = "0.7"
+leptos-shadcn-popover = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_popover::Popover;
+use leptos_shadcn_popover::Popover;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_popover::Popover;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_popover::{
+use leptos_shadcn_popover::{
     Popover,
     PopoverTrigger,
     PopoverContent
@@ -32,32 +34,43 @@ use shadcn_ui_leptos_popover::{
 
 ## Component API
 
+> Prop tables are verified against `packages/leptos/popover/src`.
+
+`open` takes an `RwSignal<bool>` (optional; uncontrolled when omitted). `PopoverContent` has no `side`/`align` props.
+
 ### Popover
 
-Root component managing popover state.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `open` | `Signal<bool>` | **Required** | Open state |
-| `on_open_change` | `Option<Callback<bool>>` | `None` | Change handler |
+| Prop | Type | Default |
+|------|------|---------|
+| `variant` | `MaybeProp<String>` | optional |
+| `size` | `MaybeProp<String>` | optional |
+| `on_click` | `Option<Callback<()>>` | optional |
+| `disabled` | `Signal<bool>` | optional |
+| `open` | `Option<RwSignal<bool>>` | optional |
+| `on_open_change` | `Option<Callback<bool>>` | optional |
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `Signal<Style>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ### PopoverTrigger
 
-Element that triggers the popover.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `as_child` | `Option<Callback<...>>` | `None` | Render as custom element |
+| Prop | Type | Default |
+|------|------|---------|
+| `disabled` | `Signal<bool>` | optional |
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ### PopoverContent
 
-The floating popover container.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `align` | `MaybeProp<Alignment>` | `Center` | Horizontal alignment |
-| `side` | `MaybeProp<Side>` | `Bottom` | Placement side |
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ---
 
@@ -67,16 +80,16 @@ The floating popover container.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_popover::*;
+use leptos_shadcn_popover::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
-    let (open, set_open) = signal(false);
+    let open = RwSignal::new(false);
 
     view! {
         <Popover
-            open=open.into()
-            on_open_change=Some(Callback::new(move |v| set_open.set(v)))
+            open=open
+            on_open_change=Callback::new(move |v| open.set(v))
         >
             <PopoverTrigger>
                 <button>"Open popover"</button>
@@ -131,4 +144,4 @@ export const PopoverContent: React.FC<ComponentProps>;
 
 ---
 
-*Source: [packages/leptos/popover/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/popover/src/default.rs)*
+*Source: [packages/leptos/popover/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/popover/src/default.rs)*

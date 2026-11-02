@@ -15,7 +15,7 @@ Welcome to the Leptos ShadCN UI project! This guide will help you get started as
 
 ```bash
 # Clone the repository
-git clone https://github.com/cloud-shuttle/leptos-shadcn-ui.git
+git clone https://github.com/harana-oss/leptos-shadcn-ui.git
 cd leptos-shadcn-ui
 
 # Install dependencies
@@ -149,7 +149,7 @@ cargo run --package leptos-shadcn-contract-testing --bin fix_dependencies
 ```
 
 #### Version Consistency
-All packages must use version `0.8.0` and workspace dependencies.
+Package versions are inherited from `[workspace.package]` in the root `Cargo.toml` (`version.workspace = true`); never hard-code a version in a component crate. Use workspace dependencies (`leptos.workspace = true`, etc.).
 
 ### 9. Pull Request Process
 

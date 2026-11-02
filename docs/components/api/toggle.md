@@ -9,11 +9,13 @@ A two-state button that can be on or off.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-toggle = "0.7"
+leptos-shadcn-toggle = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_toggle::Toggle;
+use leptos_shadcn_toggle::Toggle;
 ```
 
 ---
@@ -47,7 +49,7 @@ pub enum ToggleVariant {
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_toggle::Toggle;
+use leptos_shadcn_toggle::Toggle;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -112,4 +114,4 @@ export const Toggle: React.FC<ToggleProps>;
 
 ---
 
-*Source: [packages/leptos/toggle/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/toggle/src/default.rs)*
+*Source: [packages/leptos/toggle/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/toggle/src/default.rs)*

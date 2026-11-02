@@ -9,11 +9,13 @@ A slide-out panel from any edge of the screen, similar to Sheet but with differe
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-drawer = "0.7"
+leptos-shadcn-drawer = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_drawer::Drawer;
+use leptos_shadcn_drawer::Drawer;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_drawer::Drawer;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_drawer::{
+use leptos_shadcn_drawer::{
     Drawer,
     DrawerTrigger,
     DrawerContent,
@@ -37,24 +39,116 @@ use shadcn_ui_leptos_drawer::{
 
 ## Component API
 
+> Prop tables are verified against `packages/leptos/drawer/src`.
+
+`open` is an `RwSignal<bool>`; `direction` is a `DrawerDirection` (default `Bottom`).
+
+### DrawerClose
+
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
+
+### DrawerContent
+
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+| `children` | `Option<ChildrenFn>` | optional |
+
 ### Drawer
 
-Root component managing drawer state.
+| Prop | Type | Default |
+|------|------|---------|
+| `open` | `RwSignal<bool>` | **required** |
+| `on_open_change` | `Option<Callback<bool>>` | optional |
+| `direction` | `Signal<DrawerDirection>` | optional |
+| `should_scale_background` | `Signal<bool>` | optional |
+| `children` | `Option<ChildrenFn>` | optional |
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `open` | `Signal<bool>` | **Required** | Open state |
-| `on_open_change` | `Option<Callback<bool>>` | `None` | Change handler |
-| `direction` | `MaybeProp<Direction>` | `Right` | Slide direction |
+### DrawerHeader
 
-### Direction
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
+
+### DrawerFooter
+
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
+
+### DrawerNestedRoot
+
+| Prop | Type | Default |
+|------|------|---------|
+| `open` | `RwSignal<bool>` | **required** |
+| `on_open_change` | `Option<Callback<bool>>` | optional |
+| `direction` | `Signal<DrawerDirection>` | optional |
+| `should_scale_background` | `Signal<bool>` | optional |
+| `children` | `Option<Children>` | optional |
+
+### DrawerPortal
+
+| Prop | Type | Default |
+|------|------|---------|
+| `children` | `Option<Children>` | optional |
+
+### DrawerOverlay
+
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+| `children` | `Option<ChildrenFn>` | optional |
+
+### DrawerTitle
+
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
+
+### DrawerDescription
+
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
+
+### DrawerTrigger
+
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `MaybeProp<String>` | optional |
+| `children` | `Option<Children>` | optional |
+
+### DrawerDirection
 
 ```rust
-pub enum Direction {
+pub enum DrawerDirection {
     Top,
-    Right,
     Bottom,
     Left,
+    Right,
 }
 ```
 
@@ -66,16 +160,16 @@ pub enum Direction {
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_drawer::*;
+use leptos_shadcn_drawer::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
-    let (open, set_open) = signal(false);
+    let open = RwSignal::new(false);
 
     view! {
         <Drawer
-            open=open.into()
-            on_open_change=Some(Callback::new(move |v| set_open.set(v)))
+            open=open
+            on_open_change=Callback::new(move |v| open.set(v))
         >
             <DrawerTrigger>
                 <button>"Open Drawer"</button>
@@ -136,4 +230,4 @@ export const DrawerContent: React.FC<ComponentProps>;
 
 ---
 
-*Source: [packages/leptos/drawer/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/drawer/src/default.rs)*
+*Source: [packages/leptos/drawer/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/drawer/src/default.rs)*

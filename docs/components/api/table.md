@@ -9,11 +9,13 @@ A table component for displaying structured data in rows and columns.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-table = "0.7"
+leptos-shadcn-table = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_table::Table;
+use leptos_shadcn_table::Table;
 ```
 
 ---
@@ -21,93 +23,27 @@ use shadcn_ui_leptos_table::Table;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_table::{
-    Table,
-    TableHeader,
-    TableBody,
-    TableFooter,
-    TableRow,
-    TableHead,
-    TableCell,
-    TableCaption
-};
+use leptos_shadcn_table::Table;
+// Data-table API:
+use leptos_shadcn_table::{DataTable, DataColumn, DataRow, SortDirection};
 ```
 
 ---
 
 ## Component API
 
+> Prop tables are verified against `packages/leptos/table/src`.
+
+The crate exports a single `Table` component (a styled `<table>` wrapper) plus the `DataTable` API (`DataTable`, `DataColumn`, `DataRow`, `DataTableState`, `SortDirection`, `FilterType`, `FilterOperator`, `SelectionMode`, `ExportFormat`). `TableHeader`/`TableBody`/`TableRow`/`TableHead`/`TableCell`/`TableCaption`/`TableFooter` are **not** exported; use plain `<thead>`, `<tbody>`, `<tr>`, `<th>`, `<td>`, `<caption>` elements inside `Table`.
+
 ### Table
 
-Root table container.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `children` | `Option<Children>` | `None` | Table content |
-
-### TableHeader
-
-Header section containing column headings.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `children` | `Option<Children>` | `None` | Header content |
-
-### TableBody
-
-Main body containing data rows.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `children` | `Option<Children>` | `None` | Body content |
-
-### TableFooter
-
-Footer section for summaries or pagination.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `children` | `Option<Children>` | `None` | Footer content |
-
-### TableRow
-
-Single row in the table.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `children` | `Option<Children>` | `None` | Row content |
-
-### TableHead
-
-Column header cell.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `children` | `Option<Children>` | `None` | Header text |
-
-### TableCell
-
-Data cell.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `children` | `Option<Children>` | `None` | Cell content |
-
-### TableCaption
-
-Table caption/title.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `class` | `MaybeProp<String>` | `None` | Additional CSS classes |
-| `children` | `Option<Children>` | `None` | Caption text |
+| Prop | Type | Default |
+|------|------|---------|
+| `class` | `MaybeProp<String>` | optional |
+| `id` | `MaybeProp<String>` | optional |
+| `style` | `Signal<Style>` | optional |
+| `children` | `Option<Children>` | optional |
 
 ---
 
@@ -117,32 +53,32 @@ Table caption/title.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_table::*;
+use leptos_shadcn_table::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
     view! {
         <Table>
-            <TableCaption>"A list of your recent invoices."</TableCaption>
-            <TableHeader>
-                <TableRow>
-                    <TableHead>"Invoice"</TableHead>
-                    <TableHead>"Status"</TableHead>
-                    <TableHead>"Amount"</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                <TableRow>
-                    <TableCell>"INV001"</TableCell>
-                    <TableCell>"Paid"</TableCell>
-                    <TableCell>"$250.00"</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>"INV002"</TableCell>
-                    <TableCell>"Pending"</TableCell>
-                    <TableCell>"$150.00"</TableCell>
-                </TableRow>
-            </TableBody>
+            <caption class="mt-4 text-sm text-muted-foreground">"A list of your recent invoices."</caption>
+            <thead>
+                <tr class="border-b">
+                    <th class="h-12 px-4 text-left font-medium">"Invoice"</th>
+                    <th class="h-12 px-4 text-left font-medium">"Status"</th>
+                    <th class="h-12 px-4 text-left font-medium">"Amount"</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b">
+                    <td class="p-4">"INV001"</td>
+                    <td class="p-4">"Paid"</td>
+                    <td class="p-4">"$250.00"</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="p-4">"INV002"</td>
+                    <td class="p-4">"Pending"</td>
+                    <td class="p-4">"$150.00"</td>
+                </tr>
+            </tbody>
         </Table>
     }
 }
@@ -212,15 +148,8 @@ interface TableProps {
 }
 
 export const Table: React.FC<TableProps>;
-export const TableHeader: React.FC<ComponentProps>;
-export const TableBody: React.FC<ComponentProps>;
-export const TableFooter: React.FC<ComponentProps>;
-export const TableRow: React.FC<ComponentProps>;
-export const TableHead: React.FC<ComponentProps>;
-export const TableCell: React.FC<ComponentProps>;
-export const TableCaption: React.FC<ComponentProps>;
 ```
 
 ---
 
-*Source: [packages/leptos/table/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/table/src/default.rs)*
+*Source: [packages/leptos/table/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/table/src/default.rs)*

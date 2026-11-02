@@ -9,11 +9,13 @@ A container with custom styled scrollbars.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-scroll-area = "0.7"
+leptos-shadcn-scroll-area = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_scroll_area::ScrollArea;
+use leptos_shadcn_scroll_area::ScrollArea;
 ```
 
 ---
@@ -35,7 +37,7 @@ use shadcn_ui_leptos_scroll_area::ScrollArea;
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_scroll_area::ScrollArea;
+use leptos_shadcn_scroll_area::ScrollArea;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -94,4 +96,4 @@ export const ScrollArea: React.FC<ScrollAreaProps>;
 
 ---
 
-*Source: [packages/leptos/scroll-area/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/scroll-area/src/default.rs)*
+*Source: [packages/leptos/scroll-area/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/scroll-area/src/default.rs)*

@@ -9,11 +9,13 @@ A rotating content display with navigation controls.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-carousel = "0.7"
+leptos-shadcn-carousel = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_carousel::Carousel;
+use leptos_shadcn_carousel::Carousel;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_carousel::Carousel;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_carousel::{
+use leptos_shadcn_carousel::{
     Carousel,
     CarouselContent,
     CarouselItem,
@@ -54,7 +56,7 @@ Root container managing carousel state.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_carousel::*;
+use leptos_shadcn_carousel::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -154,4 +156,4 @@ export const CarouselNext: React.FC<ButtonProps>;
 
 ---
 
-*Source: [packages/leptos/carousel/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/carousel/src/default.rs)*
+*Source: [packages/leptos/carousel/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/carousel/src/default.rs)*

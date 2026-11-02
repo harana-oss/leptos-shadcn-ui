@@ -9,11 +9,13 @@ A navigation component showing the user's location in a hierarchy.
 ```toml
 # Cargo.toml
 [dependencies]
-shadcn-ui-leptos-breadcrumb = "0.7"
+leptos-shadcn-breadcrumb = { git = "https://github.com/harana-oss/leptos-shadcn-ui", tag = "v0.9.1" }
 ```
 
+> **Note:** the `0.9.0` crates on crates.io are the legacy cloud-shuttle line. The git dependency above (harana-oss, tag `v0.9.1`) is the current, maintained source.
+
 ```rust
-use shadcn_ui_leptos_breadcrumb::Breadcrumb;
+use leptos_shadcn_breadcrumb::Breadcrumb;
 ```
 
 ---
@@ -21,7 +23,7 @@ use shadcn_ui_leptos_breadcrumb::Breadcrumb;
 ## Import
 
 ```rust
-use shadcn_ui_leptos_breadcrumb::{
+use leptos_shadcn_breadcrumb::{
     Breadcrumb,
     BreadcrumbList,
     BreadcrumbItem,
@@ -93,7 +95,7 @@ Visual separator between items.
 
 ```rust
 use leptos::prelude::*;
-use shadcn_ui_leptos_breadcrumb::*;
+use leptos_shadcn_breadcrumb::*;
 
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -172,4 +174,4 @@ export const BreadcrumbSeparator: React.FC<ComponentProps>;
 
 ---
 
-*Source: [packages/leptos/breadcrumb/src/default.rs](https://github.com/yourusername/leptos-shadcn-ui/blob/main/packages/leptos/breadcrumb/src/default.rs)*
+*Source: [packages/leptos/breadcrumb/src/default.rs](https://github.com/harana-oss/leptos-shadcn-ui/blob/main/packages/leptos/breadcrumb/src/default.rs)*
